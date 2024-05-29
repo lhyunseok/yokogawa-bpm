@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="46e073003b26ca10ec3cbf2a85e45ac3" extends="x_yergb_bpm_process" label="Project" max_length="40" name="x_yergb_bpm_project" type="collection">
+        <element label="Name" max_length="40" name="name" type="string"/>
+        <element label="Sales Order" max_length="40" name="sales_order" type="string"/>
+        <element label="PM" max_length="32" name="pm" reference="sys_user" type="reference"/>
+        <index name="index">
+            <element name="pm"/>
+        </index>
+    </element>
+</database>
