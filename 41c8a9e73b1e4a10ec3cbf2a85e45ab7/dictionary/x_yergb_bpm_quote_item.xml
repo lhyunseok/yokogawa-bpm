@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="d1296bc83be2ca10ec3cbf2a85e45a31" extends="x_yergb_bpm_quotation" label="Quote Item" max_length="40" name="x_yergb_bpm_quote_item" type="collection">
+        <element label="GP Amount" max_length="40" name="item_gp_amount" type="integer"/>
+        <element label="GP %" max_length="40" name="item_gp" type="decimal"/>
+        <element label="Vendor" max_length="32" name="vendor" reference="core_company" type="reference"/>
+        <element label="MP Gap %" max_length="40" name="item_mp_gap" type="decimal"/>
+        <element label="MS Code" max_length="40" name="ms_code" type="string"/>
+        <element label="Quantity" max_length="40" name="item_quantity" type="integer"/>
+        <element label="Quotation" max_length="32" name="quotation" reference="x_yergb_bpm_quotation" type="reference"/>
+        <element label="Total Amount" max_length="40" name="item_total_amount" type="integer"/>
+        <element label="Total MP" max_length="40" name="total_mp" type="integer"/>
+        <element label="Total Cost" max_length="40" name="item_total_cost" type="integer"/>
+        <element label="Unit MP" max_length="40" name="unit_mp" type="integer"/>
+        <index name="index">
+            <element name="vendor"/>
+        </index>
+        <index name="index2">
+            <element name="quotation"/>
+        </index>
+    </element>
+</database>

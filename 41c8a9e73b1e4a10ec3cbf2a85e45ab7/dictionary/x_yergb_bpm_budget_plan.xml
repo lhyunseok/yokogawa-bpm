@@ -7,5 +7,9 @@
         <element label="PRF Change reason" max_length="40" name="prf_change_reason" type="string"/>
         <element label="Base Month" max_length="40" name="base_month" type="string"/>
         <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="Project" max_length="32" name="project" reference="x_yergb_bpm_project" type="reference"/>
+        <index name="index">
+            <element name="project"/>
+        </index>
     </element>
 </database>
