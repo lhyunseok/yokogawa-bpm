@@ -2,6 +2,7 @@
     <element db_object_id="bb0d8f403b224e1046a3934a85e45aac" label="WBS Budget" max_length="40" name="x_yergb_bpm_wbs_budget" type="collection">
         <element label="Month8" max_length="40" name="month8" type="integer"/>
         <element label="Month7" max_length="40" name="month7" type="integer"/>
+        <element label="Project" max_length="32" name="project" reference="x_yergb_bpm_project" type="reference"/>
         <element label="Month15" max_length="40" name="month15" type="integer"/>
         <element label="Plan Amount" max_length="40" name="plan_amount" type="integer"/>
         <element label="Variance" max_length="40" name="variance" type="integer"/>
@@ -31,5 +32,8 @@
         <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
         <element label="CTD Last" max_length="40" name="ctd_last" type="integer"/>
         <element label="Month10" max_length="40" name="month10" type="integer"/>
+        <index name="index">
+            <element name="project"/>
+        </index>
     </element>
 </database>
