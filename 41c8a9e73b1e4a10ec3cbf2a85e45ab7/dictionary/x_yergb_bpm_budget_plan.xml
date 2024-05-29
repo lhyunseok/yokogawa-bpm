@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="1a37474c3bee0e1046a3934a85e45aea" label="Budget Plan" max_length="40" name="x_yergb_bpm_budget_plan" type="collection">
+        <element label="GP" max_length="40" name="gp" type="integer"/>
+        <element label="GPA" max_length="40" name="gpa" type="integer"/>
+        <element label="Is changed" max_length="40" name="is_changed" type="boolean"/>
+        <element label="Total Cost" max_length="40" name="total_cost" type="integer"/>
+        <element label="PRF Change reason" max_length="40" name="prf_change_reason" type="string"/>
+        <element label="Base Month" max_length="40" name="base_month" type="string"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+    </element>
+</database>
