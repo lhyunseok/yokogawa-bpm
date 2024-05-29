@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="49b1af843be2ca10ec3cbf2a85e45a43" extends="x_yergb_bpm_process" label="RFQ Entry" max_length="40" name="x_yergb_bpm_rfq_entry" type="collection">
-        <element label="Quotation" max_length="40" name="quotation" type="string"/>
         <element label="Quotation Due Date" max_length="40" name="quotation_due_date" type="glide_date"/>
         <element label="Final Company" max_length="32" name="final_company" reference="core_company" type="reference"/>
-        <element label="Caution" max_length="40" name="caution" type="string"/>
+        <element label="Cautions" max_length="40" name="caution" type="string"/>
         <element label="Request Date" max_length="40" name="request_date" type="glide_date"/>
         <element label="Estimated Order Intake Amount" max_length="40" name="estimated_order_intake_amount" type="integer"/>
         <element label="Contract Company" max_length="32" name="contract_company" reference="core_company" type="reference"/>
@@ -20,6 +19,7 @@
         <element label="Quotation type" max_length="40" name="quotation_type" type="string"/>
         <element label="Project" max_length="40" name="project" type="string"/>
         <element label="Project Detail" max_length="40" name="project_detail" type="string"/>
+        <element label="Quotation" max_length="40" name="quotation" type="string"/>
         <index name="index">
             <element name="final_company"/>
         </index>
