@@ -126,7 +126,7 @@
                                                     "value": {
                                                         "code": null,
                                                         "comment": "",
-                                                        "message": "Button"
+                                                        "message": "Copy Quotation"
                                                     }
                                                 },
                                                 "size": {
@@ -182,7 +182,7 @@
                                                     "value": {
                                                         "code": null,
                                                         "comment": "",
-                                                        "message": "Button"
+                                                        "message": "Governance Check"
                                                     }
                                                 },
                                                 "size": {
@@ -238,7 +238,7 @@
                                                     "value": {
                                                         "code": null,
                                                         "comment": "",
-                                                        "message": "Button"
+                                                        "message": "Request for Quotation"
                                                     }
                                                 },
                                                 "size": {
@@ -294,7 +294,7 @@
                                                     "value": {
                                                         "code": null,
                                                         "comment": "",
-                                                        "message": "Button"
+                                                        "message": "Add Quotation"
                                                     }
                                                 },
                                                 "size": {
@@ -350,7 +350,7 @@
                                                     "value": {
                                                         "code": null,
                                                         "comment": "",
-                                                        "message": "Button"
+                                                        "message": "Final  Quotation Save"
                                                     }
                                                 },
                                                 "size": {
@@ -761,7 +761,7 @@
                             "value": {
                                 "code": null,
                                 "comment": "",
-                                "message": "Label"
+                                "message": "Request No"
                             }
                         },
                         "max": {
@@ -827,8 +827,14 @@
                             "value": "text"
                         },
                         "value": {
-                            "type": "JSON_LITERAL",
-                            "value": null
+                            "script": {
+                                "apiVersion": "2.0.0",
+                                "controllerElementId": null,
+                                "inlineScript": "/**\n  * @param {params} params\n  * @param {api} params.api\n  * @param {TransformApiHelpers} params.helpers\n  */\nfunction evaluateProperty({api, helpers}) {\n    \n  console.log(\"api.data.glide_form_1.nowRecordFormBlob.sysId\")\n  //console.log(api.data.glide_form_1.nowRecordFormBlob.sysId)  \n  //api.setState(\"current_sysid\",api.data.glide_form_1.nowRecordFormBlob.sysId);\n\n\treturn api.data.glide_form_1.nowRecordFormBlob.recordValues[3].value;\n}",
+                                "scriptSysId": "6ba2ad98936e02104d95f55a7bba1080",
+                                "target": null
+                            },
+                            "type": "CLIENT_TRANSFORM_SCRIPT"
                         }
                     },
                     "slot": null,
@@ -891,7 +897,7 @@
                             "value": {
                                 "code": null,
                                 "comment": "",
-                                "message": "Label"
+                                "message": "Requestor"
                             }
                         },
                         "max": {
@@ -957,8 +963,14 @@
                             "value": "text"
                         },
                         "value": {
-                            "type": "JSON_LITERAL",
-                            "value": null
+                            "binding": {
+                                "address": [
+                                    "look_up_user_1",
+                                    "user",
+                                    "userName"
+                                ]
+                            },
+                            "type": "DATA_OUTPUT_BINDING"
                         }
                     },
                     "slot": null,
@@ -1021,7 +1033,7 @@
                             "value": {
                                 "code": null,
                                 "comment": "",
-                                "message": "Label"
+                                "message": "Req Date"
                             }
                         },
                         "max": {
@@ -1151,7 +1163,7 @@
                             "value": {
                                 "code": null,
                                 "comment": "",
-                                "message": "Label"
+                                "message": "Status"
                             }
                         },
                         "max": {
@@ -1361,7 +1373,7 @@
                             "value": {
                                 "code": null,
                                 "comment": "",
-                                "message": "Label"
+                                "message": "Comp Date"
                             }
                         },
                         "max": {
@@ -1646,7 +1658,7 @@
                                         "value": {
                                             "code": null,
                                             "comment": "",
-                                            "message": "Label"
+                                            "message": "Quotation Type"
                                         }
                                     },
                                     "messages": {
@@ -1740,7 +1752,7 @@
                                         "value": {
                                             "code": null,
                                             "comment": "",
-                                            "message": "Label"
+                                            "message": "Project Type"
                                         }
                                     },
                                     "max": {
@@ -1869,7 +1881,7 @@
                                                 },
                                                 "icon": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": "magnifying-glass-outline"
+                                                    "value": "accessibility-fill"
                                                 },
                                                 "size": {
                                                     "type": "JSON_LITERAL",
@@ -1997,7 +2009,7 @@
                                         "value": {
                                             "code": null,
                                             "comment": "",
-                                            "message": "Label"
+                                            "message": "End User"
                                         }
                                     },
                                     "max": {
@@ -2127,7 +2139,7 @@
                                         "value": {
                                             "code": null,
                                             "comment": "",
-                                            "message": "Label"
+                                            "message": "End User Country"
                                         }
                                     },
                                     "max": {
@@ -2256,7 +2268,7 @@
                                                 },
                                                 "icon": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": "magnifying-glass-outline"
+                                                    "value": "accessibility-fill"
                                                 },
                                                 "size": {
                                                     "type": "JSON_LITERAL",
@@ -2384,7 +2396,7 @@
                                         "value": {
                                             "code": null,
                                             "comment": "",
-                                            "message": "Label"
+                                            "message": "Contractor"
                                         }
                                     },
                                     "max": {
@@ -2514,7 +2526,7 @@
                                         "value": {
                                             "code": null,
                                             "comment": "",
-                                            "message": "Label"
+                                            "message": "Est Order Data"
                                         }
                                     },
                                     "max": {
@@ -2644,7 +2656,7 @@
                                         "value": {
                                             "code": null,
                                             "comment": "",
-                                            "message": "Label"
+                                            "message": "Est Delivery Date"
                                         }
                                     },
                                     "max": {
@@ -2808,7 +2820,7 @@
                                         "value": {
                                             "code": null,
                                             "comment": "",
-                                            "message": "Label"
+                                            "message": "Project Status"
                                         }
                                     },
                                     "messages": {
@@ -2902,7 +2914,7 @@
                                         "value": {
                                             "code": null,
                                             "comment": "",
-                                            "message": "Label"
+                                            "message": "Quotation Due Date"
                                         }
                                     },
                                     "max": {
@@ -3032,7 +3044,7 @@
                                         "value": {
                                             "code": null,
                                             "comment": "",
-                                            "message": "Label"
+                                            "message": "YODA Opportunity No"
                                         }
                                     },
                                     "max": {
@@ -3196,7 +3208,7 @@
                                         "value": {
                                             "code": null,
                                             "comment": "",
-                                            "message": "Label"
+                                            "message": "Currency"
                                         }
                                     },
                                     "messages": {
@@ -3290,7 +3302,7 @@
                                         "value": {
                                             "code": null,
                                             "comment": "",
-                                            "message": "Label"
+                                            "message": "Est OI Amount"
                                         }
                                     },
                                     "max": {
@@ -3579,7 +3591,7 @@
                                         "value": {
                                             "code": null,
                                             "comment": "",
-                                            "message": "Textarea"
+                                            "message": "Project Detail"
                                         }
                                     },
                                     "maxlength": {
@@ -3711,7 +3723,7 @@
                                         "value": {
                                             "code": null,
                                             "comment": "",
-                                            "message": "Textarea"
+                                            "message": "Caution"
                                         }
                                     },
                                     "maxlength": {
@@ -6903,7 +6915,193 @@
 ]</composition>
         <da_relay_models/>
         <data>[
-    
+    {
+        "definition": {
+            "id": "dc6e87a5232200100e4bc50947bf654b",
+            "type": "CLIENT_STATE"
+        },
+        "dependencies": {},
+        "elementId": "glide_form_1",
+        "elementLabel": "Glide Form 1",
+        "eventMappings": [
+            {
+                "eventMappingId": "clwrufqccffaaccgxddffhhryonevqvz",
+                "isConfiguration": false,
+                "offRowStorageId": null,
+                "sourceEventApiName": "sn_now_record_form.SN_FORM_DATA_CONNECTED#FETCH_STARTED",
+                "sourceEventCorrelationId": null,
+                "sourceEventDefinition": {
+                    "apiName": "sn_now_record_form.SN_FORM_DATA_CONNECTED#FETCH_STARTED",
+                    "id": null,
+                    "type": "UXEVENT"
+                },
+                "sourceEventSysId": null,
+                "targets": [
+                    {
+                        "broker": null,
+                        "clientScript": {
+                            "payload": {
+                                "type": "JSON_LITERAL",
+                                "value": {}
+                            },
+                            "sysId": "a3a2ad98936e02104d95f55a7bba1080"
+                        },
+                        "conditional": null,
+                        "declarativeAction": null,
+                        "event": null,
+                        "operation": null,
+                        "targetId": "clwrufqccffaaccgyddffhhriibcoghvf",
+                        "type": "CLIENT_SCRIPT"
+                    }
+                ]
+            }
+        ],
+        "inputValues": {
+            "actionConfigId": {
+                "type": "JSON_LITERAL",
+                "value": ""
+            },
+            "actionLayoutId": {
+                "type": "JSON_LITERAL",
+                "value": ""
+            },
+            "detailsContext": null,
+            "forcedViewName": {
+                "type": "JSON_LITERAL",
+                "value": ""
+            },
+            "formParams": {
+                "type": "JSON_LITERAL",
+                "value": "{}"
+            },
+            "headerConfigId": {
+                "type": "JSON_LITERAL",
+                "value": ""
+            },
+            "highlightedValueConfigId": {
+                "type": "JSON_LITERAL",
+                "value": ""
+            },
+            "oneExtendConfig": {
+                "type": "JSON_LITERAL",
+                "value": ""
+            },
+            "query": {
+                "type": "JSON_LITERAL",
+                "value": ""
+            },
+            "ribbonConfigId": {
+                "type": "JSON_LITERAL",
+                "value": ""
+            },
+            "shouldDisplayFormErrorsAsPageAlerts": {
+                "type": "JSON_LITERAL",
+                "value": false
+            },
+            "shouldSuppressGlobalEvents": {
+                "type": "JSON_LITERAL",
+                "value": false
+            },
+            "showActivityStreamInDetails": {
+                "type": "JSON_LITERAL",
+                "value": false
+            },
+            "sysId": {
+                "type": "JSON_LITERAL",
+                "value": "-1"
+            },
+            "table": {
+                "type": "JSON_LITERAL",
+                "value": "x_yergb_bpm_rfq_entry"
+            },
+            "view": {
+                "type": "JSON_LITERAL",
+                "value": "Default view"
+            },
+            "viewRuleConfigId": {
+                "type": "JSON_LITERAL",
+                "value": ""
+            }
+        },
+        "readEvaluationMode": "EAGER"
+    },
+    {
+        "definition": {
+            "id": "84ac0df353211010cbc2ddeeff7b12a6",
+            "type": "COMPOSITE"
+        },
+        "dependencies": {},
+        "elementId": "look_up_user_1",
+        "elementLabel": "Look Up User 1",
+        "eventMappings": [
+            
+        ],
+        "inputValues": {
+            "userSysId": {
+                "type": "JSON_LITERAL",
+                "value": ""
+            }
+        },
+        "readEvaluationMode": "EAGER"
+    },
+    {
+        "definition": {
+            "id": "beda4252770300108d070d74c810618f",
+            "type": "GRAPHQL"
+        },
+        "dependencies": {},
+        "elementId": "create_record_1",
+        "elementLabel": "Create Record 1",
+        "eventMappings": [
+            
+        ],
+        "inputValues": {
+            "table": {
+                "type": "JSON_LITERAL",
+                "value": ""
+            },
+            "templateFields": {
+                "type": "JSON_LITERAL",
+                "value": ""
+            },
+            "useSetDisplayValue": {
+                "type": "JSON_LITERAL",
+                "value": null
+            }
+        },
+        "readEvaluationMode": "EXPLICIT"
+    },
+    {
+        "definition": {
+            "id": "9b4b978353211010cbc2ddeeff7b1245",
+            "type": "GRAPHQL"
+        },
+        "dependencies": {},
+        "elementId": "update_record_1",
+        "elementLabel": "Update Record 1",
+        "eventMappings": [
+            
+        ],
+        "inputValues": {
+            "recordId": {
+                "type": "JSON_LITERAL",
+                "value": ""
+            },
+            "table": {
+                "type": "JSON_LITERAL",
+                "value": ""
+            },
+            "templateFields": {
+                "type": "JSON_LITERAL",
+                "value": ""
+            },
+            "useSetDisplayValue": {
+                "type": "JSON_LITERAL",
+                "value": null
+            }
+        },
+        "readEvaluationMode": "EXPLICIT"
+    }
 ]</data>
         <description/>
         <dispatched_events/>
@@ -6965,6 +7163,9 @@
   "message" : "Action Required",
   "comment" : ""
 }, {
+  "message" : "Add Quotation",
+  "comment" : ""
+}, {
   "message" : "Breadcrumbs1",
   "comment" : ""
 }, {
@@ -6977,10 +7178,43 @@
   "message" : "Button",
   "comment" : ""
 }, {
+  "message" : "Caution",
+  "comment" : ""
+}, {
+  "message" : "Comp Date",
+  "comment" : ""
+}, {
+  "message" : "Contractor",
+  "comment" : ""
+}, {
+  "message" : "Copy Quotation",
+  "comment" : ""
+}, {
   "message" : "Credit Assessment",
   "comment" : ""
 }, {
+  "message" : "Currency",
+  "comment" : ""
+}, {
+  "message" : "End User",
+  "comment" : ""
+}, {
+  "message" : "End User Country",
+  "comment" : ""
+}, {
   "message" : "Enter a label",
+  "comment" : ""
+}, {
+  "message" : "Est Delivery Date",
+  "comment" : ""
+}, {
+  "message" : "Est OI Amount",
+  "comment" : ""
+}, {
+  "message" : "Est Order Data",
+  "comment" : ""
+}, {
+  "message" : "Final  Quotation Save",
   "comment" : ""
 }, {
   "message" : "First Item",
@@ -6989,7 +7223,7 @@
   "message" : "Governance",
   "comment" : ""
 }, {
-  "message" : "Label",
+  "message" : "Governance Check",
   "comment" : ""
 }, {
   "message" : "N/A",
@@ -6998,13 +7232,40 @@
   "message" : "Next",
   "comment" : ""
 }, {
+  "message" : "Project Detail",
+  "comment" : ""
+}, {
+  "message" : "Project Status",
+  "comment" : ""
+}, {
+  "message" : "Project Type",
+  "comment" : ""
+}, {
   "message" : "Quotation",
+  "comment" : ""
+}, {
+  "message" : "Quotation Due Date",
   "comment" : ""
 }, {
   "message" : "Quotation Header",
   "comment" : ""
 }, {
+  "message" : "Quotation Type",
+  "comment" : ""
+}, {
   "message" : "RFQ Entry &amp; Quotation Request",
+  "comment" : ""
+}, {
+  "message" : "Req Date",
+  "comment" : ""
+}, {
+  "message" : "Request No",
+  "comment" : ""
+}, {
+  "message" : "Request for Quotation",
+  "comment" : ""
+}, {
+  "message" : "Requestor",
   "comment" : ""
 }, {
   "message" : "Risk management Category",
@@ -7013,10 +7274,10 @@
   "message" : "Sales Territory Review",
   "comment" : ""
 }, {
-  "message" : "T-CAS",
+  "message" : "Status",
   "comment" : ""
 }, {
-  "message" : "Textarea",
+  "message" : "T-CAS",
   "comment" : ""
 }, {
   "message" : "User 1",
@@ -7027,24 +7288,76 @@
 }, {
   "message" : "User 3",
   "comment" : ""
+}, {
+  "message" : "YODA Opportunity No",
+  "comment" : ""
 } ]</required_translations>
         <root_component/>
         <root_component_config/>
         <root_component_definition/>
         <schema_version>1.0.0</schema_version>
-        <state_properties/>
+        <state_properties>[
+    {
+        "initialValue": null,
+        "name": "end_user_sysid",
+        "shape": "",
+        "valueType": "string"
+    },
+    {
+        "initialValue": null,
+        "name": "end_user_display",
+        "shape": "",
+        "valueType": "string"
+    },
+    {
+        "initialValue": null,
+        "name": "caution",
+        "shape": "",
+        "valueType": "string"
+    },
+    {
+        "initialValue": null,
+        "name": "buyout_sysid",
+        "shape": "",
+        "valueType": "string"
+    },
+    {
+        "initialValue": null,
+        "name": "buyout_number",
+        "shape": "",
+        "valueType": "string"
+    },
+    {
+        "initialValue": null,
+        "name": "current_sysid",
+        "shape": "",
+        "valueType": "string"
+    },
+    {
+        "initialValue": null,
+        "name": "newClientStateParam6",
+        "shape": "",
+        "valueType": "string"
+    },
+    {
+        "initialValue": null,
+        "name": "newClientStateParam7",
+        "shape": "",
+        "valueType": "string"
+    }
+]</state_properties>
         <sys_class_name>sys_ux_macroponent</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-28 07:19:07</sys_created_on>
         <sys_id>946c4bf393d646104d95f55a7bba10b9</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>7</sys_mod_count>
         <sys_name>Default</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ux_macroponent_946c4bf393d646104d95f55a7bba10b9</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-05-28 08:00:40</sys_updated_on>
+        <sys_updated_by>lhyunseok</sys_updated_by>
+        <sys_updated_on>2024-05-29 13:18:26</sys_updated_on>
     </sys_ux_macroponent>
     <sys_translated_text action="delete_multiple" query="documentkey=946c4bf393d646104d95f55a7bba10b9"/>
 </record_update>
