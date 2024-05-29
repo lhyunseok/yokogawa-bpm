@@ -1,38 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="f7409f043b224e1046a3934a85e45aff" label="Order Item" max_length="40" name="x_yergb_bpm_order_item" type="collection">
-        <element choice="1" label="WBS" max_length="40" name="wbs" type="choice">
-            <choice/>
-        </element>
-        <element label="Sales Order" max_length="40" name="sales_order" type="string"/>
-        <element label="MSA Number" max_length="40" name="msa_number" type="string"/>
-        <element label="Target GR Date" max_length="40" name="target_gr_date" type="glide_date"/>
+        <element label="Amount" max_length="40" name="amount" type="integer"/>
         <element choice="1" label="Budget type" max_length="40" name="budget_type" type="choice">
-            <choice/>
+            <choice>
+                <element inactive_on_update="false" label="Y-Prod" sequence="0" value="prod"/>
+                <element inactive_on_update="false" label="BOP" sequence="1" value="bop"/>
+                <element inactive_on_update="false" label="Man hour" sequence="2" value="eng"/>
+                <element inactive_on_update="false" label="Other Cost" sequence="3" value="cost"/>
+            </choice>
         </element>
+        <element choice="1" label="Currency" max_length="40" name="currency" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="USD" sequence="0" value="usd"/>
+                <element inactive_on_update="false" label="KRW" sequence="1" value="krw"/>
+                <element inactive_on_update="false" label="CNY" sequence="2" value="cny"/>
+            </choice>
+        </element>
+        <element choice="1" label="Data type" max_length="40" name="data_type" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="WBS6" sequence="0" value="wbs6"/>
+                <element inactive_on_update="false" label="ITEM" sequence="1" value="item"/>
+            </choice>
+        </element>
+        <element label="GR Date" max_length="40" name="gr_date" type="glide_date"/>
+        <element label="L/T" max_length="40" name="lead_time" type="integer"/>
+        <element label="MSA Number" max_length="40" name="msa_number" type="string"/>
         <element choice="1" label="MS code" max_length="40" name="ms_code" type="choice">
             <choice/>
         </element>
-        <element label="PO Date" max_length="40" name="po_date" type="glide_date"/>
-        <element label="Project" max_length="32" name="project" reference="x_yergb_bpm_project" type="reference"/>
-        <element label="GR Date" max_length="40" name="gr_date" type="glide_date"/>
-        <element label="Amount" max_length="40" name="amount" type="integer"/>
-        <element choice="1" label="Data type" max_length="40" name="data_type" type="choice">
-            <choice/>
-        </element>
-        <element label="Vendor" max_length="32" name="vendor" reference="core_company" type="reference"/>
-        <element label="Strategy" max_length="40" name="strategy" type="string"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
         <element label="Planned Procurement" max_length="40" name="planned_procurement" type="glide_date"/>
         <element label="Plan GR Date" max_length="40" name="plan_gr_date" type="glide_date"/>
-        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="PO Date" max_length="40" name="po_date" type="glide_date"/>
+        <element label="Project" max_length="32" name="project" reference="x_yergb_bpm_project" type="reference"/>
         <element label="Quantity" max_length="40" name="quantity" type="integer"/>
+        <element choice="1" label="Region" max_length="40" name="region" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="YHQ" sequence="0" value="yhq"/>
+                <element inactive_on_update="false" label="YKO" sequence="1" value="yko"/>
+                <element inactive_on_update="false" label="YCN" sequence="2" value="ycn"/>
+            </choice>
+        </element>
+        <element label="Sales Order" max_length="40" name="sales_order" type="string"/>
         <element choice="1" label="State" max_length="40" name="state" type="choice">
             <choice/>
         </element>
+        <element label="Strategy" max_length="40" name="strategy" type="string"/>
+        <element label="Target GR Date" max_length="40" name="target_gr_date" type="glide_date"/>
+        <element label="Vendor" max_length="32" name="vendor" reference="core_company" type="reference"/>
+        <element choice="1" label="WBS" max_length="40" name="wbs" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="BOPH" value="2"/>
+                <element inactive_on_update="false" label="DCSH" value="0"/>
+                <element inactive_on_update="false" label="PNLH" value="1"/>
+            </choice>
+        </element>
         <index name="index">
-            <element name="vendor"/>
+            <element name="project"/>
         </index>
         <index name="index2">
-            <element name="project"/>
+            <element name="vendor"/>
         </index>
     </element>
 </database>
