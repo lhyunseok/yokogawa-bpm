@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Default">5bb6867b479e4210d254bce5536d439a</macroponent>
+        <name>set record info</name>
+        <preset/>
+        <required_translations>[
+    
+]</required_translations>
+        <script><![CDATA[/**
+* @param {params} params
+* @param {api} params.api
+* @param {any} params.event
+* @param {any} params.imports
+* @param {ApiHelpers} params.helpers
+*/
+function handler({api, event, helpers, imports}) {
+    api.setState('sys_created_by', {
+        "display": api.data.record.form.fields.sys_created_by.label,
+        "value": api.data.record.form.fields.sys_created_by.displayValue
+    });
+    api.setState('sys_created_on', {
+        "display": api.data.record.form.fields.sys_created_on.label,
+        "value": api.data.record.form.fields.sys_created_on.displayValue
+    });
+    api.setState('number', {
+        "display": api.data.record.form.fields.number.label,
+        "value": api.data.record.form.fields.number.displayValue
+    });
+    api.setState('project', {
+        "displayValue": api.data.record.form.fields.project.displayValue,
+        "reference": api.data.record.form.fields.project.reference,
+        "value": api.data.record.form.fields.project.value
+    });
+    api.setState('dmr', {
+        "displayValue": api.data.record.form.fields.dmr.displayValue,
+        "value": api.data.record.form.fields.dmr.value
+    });
+    api.setState('contract', api.data.record.form.fields.contract.displayValue);
+
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-05-30 11:58:42</sys_created_on>
+        <sys_id>f3de1ea847628610d254bce5536d4375</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>set record info</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_ux_client_script_f3de1ea847628610d254bce5536d4375</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-05-30 12:51:14</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

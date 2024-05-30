@@ -25,9 +25,7 @@
         <element label="GR Date" max_length="40" name="gr_date" type="glide_date"/>
         <element label="L/T" max_length="40" name="lead_time" type="integer"/>
         <element label="MSA Number" max_length="40" name="msa_number" type="string"/>
-        <element choice="1" label="MS code" max_length="40" name="ms_code" type="string">
-            <choice/>
-        </element>
+        <element calculation="(function calculatedFieldValue(current) {&#13;&#10;&#13;&#10;&#9;// Add your code here&#13;&#10;&#9;return '';  // return the calculated value&#13;&#10;&#13;&#10;})(current);" label="MS code" max_length="40" name="ms_code" type="string"/>
         <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
         <element label="Planned Procurement" max_length="40" name="planned_procurement" type="glide_date"/>
         <element label="Plan GR Date" max_length="40" name="plan_gr_date" type="glide_date"/>
