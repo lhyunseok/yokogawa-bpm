@@ -6,12 +6,16 @@
         <element label="MP Amount" max_length="40" name="mp_amount" type="integer"/>
         <element label="MP Gap %" max_length="20" name="mp_gap" type="decimal"/>
         <element label="Quantity" max_length="40" name="quantity" type="integer"/>
+        <element label="RFQ" max_length="32" name="rfq" reference="x_yergb_bpm_rfq_entry" type="reference"/>
         <element label="Total Amount" max_length="40" name="total_amount" type="integer"/>
         <element label="Total Cost" max_length="40" name="total_cost" type="integer"/>
         <element default="0" label="Version" max_length="40" name="version" type="integer"/>
         <element label="WBS 6" max_length="40" name="wbs_6" type="string"/>
         <index name="index">
             <element name="contract_company"/>
+        </index>
+        <index name="index2">
+            <element name="rfq"/>
         </index>
     </element>
 </database>
