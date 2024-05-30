@@ -1,13 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="1a37474c3bee0e1046a3934a85e45aea" label="Budget Plan" max_length="40" name="x_yergb_bpm_budget_plan" type="collection">
+        <element label="Base Month" max_length="40" name="base_month" type="string"/>
+        <element label="Contract" max_length="40" name="contract" type="integer"/>
+        <element choice="1" label="Currency" max_length="40" name="currency" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="USD" sequence="0" value="usd"/>
+                <element inactive_on_update="false" label="KRW" sequence="1" value="krw"/>
+                <element inactive_on_update="false" label="CNY" sequence="2" value="cny"/>
+            </choice>
+        </element>
+        <element choice="1" label="Data Type" max_length="40" name="data_type" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="WBS6" sequence="0" value="wbs6"/>
+                <element inactive_on_update="false" label="ITEM" sequence="1" value="item"/>
+            </choice>
+        </element>
+        <element label="DMR" max_length="40" name="dmr" type="string"/>
         <element label="GP" max_length="40" name="gp" type="integer"/>
         <element label="GPA" max_length="40" name="gpa" type="integer"/>
         <element label="Is changed" max_length="40" name="is_changed" type="boolean"/>
-        <element label="Total Cost" max_length="40" name="total_cost" type="integer"/>
-        <element label="PRF Change reason" max_length="40" name="prf_change_reason" type="string"/>
-        <element label="Base Month" max_length="40" name="base_month" type="string"/>
         <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="PRF Change reason" max_length="40" name="prf_change_reason" type="string"/>
         <element label="Project" max_length="32" name="project" reference="x_yergb_bpm_project" type="reference"/>
+        <element choice="1" label="Region" max_length="40" name="region" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="YHQ" sequence="0" value="yhq"/>
+                <element inactive_on_update="false" label="YKO" sequence="1" value="yko"/>
+                <element inactive_on_update="false" label="YCN" sequence="2" value="ycn"/>
+            </choice>
+        </element>
+        <element choice="1" label="State" max_length="40" name="state" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="New" sequence="0" value="0"/>
+                <element inactive_on_update="false" label="Approval Requested" sequence="1" value="1"/>
+                <element inactive_on_update="false" label="Completed" sequence="2" value="2"/>
+                <element inactive_on_update="false" label="Assess for Modify" sequence="3" value="3"/>
+            </choice>
+        </element>
+        <element label="Total Cost" max_length="40" name="total_cost" type="integer"/>
         <index name="index">
             <element name="project"/>
         </index>
