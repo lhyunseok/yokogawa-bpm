@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Default">063f266393da02101954718efaba10c4</macroponent>
+        <name>Redirect user to external  link</name>
+        <preset/>
+        <required_translations>[
+    
+]</required_translations>
+        <script><![CDATA[/**
+* @param {params} params
+* @param {api} params.api
+* @param {any} params.event
+* @param {any} params.imports
+* @param {ApiHelpers} params.helpers
+*/
+function handler({api, event, helpers, imports}) {
+
+    console.log("Link ============ Start =============") 
+   const uri = 'https://www.trade.gov/data-visualization/csl-search';
+    api.emit('CUSTOM_REDIRECT_URL', {url: uri});
+   console.log("Link ============ End =============")
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>choiyk02</sys_created_by>
+        <sys_created_on>2024-05-30 05:23:20</sys_created_on>
+        <sys_id>ec3294e4932202101954718efaba10ba</sys_id>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_name>Redirect user to external  link</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_ux_client_script_ec3294e4932202101954718efaba10ba</sys_update_name>
+        <sys_updated_by>choiyk02</sys_updated_by>
+        <sys_updated_on>2024-05-30 05:55:34</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>
