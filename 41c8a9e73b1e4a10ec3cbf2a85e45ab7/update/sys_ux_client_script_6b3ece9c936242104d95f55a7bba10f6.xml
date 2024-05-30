@@ -2,8 +2,8 @@
     <sys_ux_client_script action="INSERT_OR_UPDATE">
         <controller_preset/>
         <includes/>
-        <macroponent display_value="Default">946c4bf393d646104d95f55a7bba10b9</macroponent>
-        <name>input log</name>
+        <macroponent display_value="Default">6328dfb3931a46104d95f55a7bba108a</macroponent>
+        <name>log test</name>
         <preset/>
         <required_translations>[
     
@@ -16,31 +16,24 @@
 * @param {ApiHelpers} params.helpers
 */
 function handler({api, event, helpers, imports}) {
-    console.log("------------")
+    console.log('api')
     console.log(api)
+    console.log('event')
     console.log(event)
-    console.log(api.state.buyout_number)
-    console.log(api.state.buyout_sysid)
-    console.log(api.state.current_number)
-    console.log(api.state.current_sysid)
-    console.log(api.state.end_user_sysid)
-    console.log(api.state.end_user_display)
-    console.log(api.data.glide_form_1.nowRecordFormBlob.recordValues)
-
 }]]></script>
         <script_api_version>2.0.0</script_api_version>
         <sys_class_name>sys_ux_client_script</sys_class_name>
         <sys_created_by>lhyunseok</sys_created_by>
-        <sys_created_on>2024-05-29 13:16:03</sys_created_on>
-        <sys_id>a3a2ad98936e02104d95f55a7bba1080</sys_id>
-        <sys_mod_count>9</sys_mod_count>
-        <sys_name>input log</sys_name>
+        <sys_created_on>2024-05-29 16:18:18</sys_created_on>
+        <sys_id>6b3ece9c936242104d95f55a7bba10f6</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>log test</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_update_name>sys_ux_client_script_a3a2ad98936e02104d95f55a7bba1080</sys_update_name>
+        <sys_update_name>sys_ux_client_script_6b3ece9c936242104d95f55a7bba10f6</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-05-29 15:24:25</sys_updated_on>
+        <sys_updated_on>2024-05-29 16:18:18</sys_updated_on>
         <target>macroponent</target>
         <type>default</type>
     </sys_ux_client_script>
