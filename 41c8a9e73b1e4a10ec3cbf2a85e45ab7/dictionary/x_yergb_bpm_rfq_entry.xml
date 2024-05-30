@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="49b1af843be2ca10ec3cbf2a85e45a43" extends="x_yergb_bpm_process" label="RFQ Entry" max_length="40" name="x_yergb_bpm_rfq_entry" type="collection">
-        <element label="Quotation Due Date" max_length="40" name="quotation_due_date" type="glide_date"/>
-        <element label="Final Company" max_length="32" name="final_company" reference="core_company" type="reference"/>
         <element label="Cautions" max_length="40" name="caution" type="string"/>
-        <element label="Request Date" max_length="40" name="request_date" type="glide_date"/>
-        <element label="Estimated Order Intake Amount" max_length="40" name="estimated_order_intake_amount" type="integer"/>
-        <element label="Contract Company" max_length="32" name="contract_company" reference="core_company" type="reference"/>
-        <element label="YODA Opportunity No" max_length="40" name="yoda_opportunity_no" type="string"/>
-        <element label="OI Report" max_length="40" name="oi_report" type="string"/>
-        <element label="Requester" max_length="32" name="requester" reference="sys_user" type="reference"/>
-        <element label="Project Title" max_length="40" name="project_title" type="string"/>
-        <element label="Contractor Name" max_length="40" name="contractor_name" type="string"/>
         <element label="Complete Date" max_length="40" name="complete_date" type="glide_date"/>
-        <element label="Estimated Order Date" max_length="40" name="estimated_order_date" type="glide_date"/>
-        <element label="Sales Order" max_length="40" name="sales_order" type="string"/>
-        <element label="Estimated Delivery Date" max_length="40" name="estimated_delivery_date" type="glide_date"/>
+        <element label="Contractor Name" max_length="40" name="contractor_name" type="string"/>
+        <element label="Contract Company" max_length="32" name="contract_company" reference="core_company" type="reference"/>
         <element label="Currency" max_length="32" name="currency" reference="fx_currency" type="reference"/>
-        <element label="Quotation type" max_length="40" name="quotation_type" type="string"/>
+        <element label="Estimated Delivery Date" max_length="40" name="estimated_delivery_date" type="glide_date"/>
+        <element label="Estimated Order Date" max_length="40" name="estimated_order_date" type="glide_date"/>
+        <element label="Estimated Order Intake Amount" max_length="40" name="estimated_order_intake_amount" type="integer"/>
+        <element label="Final Company" max_length="32" name="final_company" reference="core_company" type="reference"/>
+        <element label="OI Report" max_length="40" name="oi_report" type="string"/>
         <element label="Project" max_length="40" name="project" type="string"/>
         <element label="Project Detail" max_length="40" name="project_detail" type="string"/>
-        <element label="Quotation" max_length="40" name="quotation" type="string"/>
+        <element label="Project Title" max_length="40" name="project_title" type="string"/>
+        <element label="Quotation" max_length="40" name="quotation" reference="x_yergb_bpm_quotation" type="string"/>
+        <element label="Quotation Due Date" max_length="40" name="quotation_due_date" type="glide_date"/>
+        <element label="Quotation type" max_length="40" name="quotation_type" type="string"/>
+        <element label="Requester" max_length="32" name="requester" reference="sys_user" type="reference"/>
+        <element label="Request Date" max_length="40" name="request_date" type="glide_date"/>
+        <element label="Sales Order" max_length="40" name="sales_order" type="string"/>
+        <element label="YODA Opportunity No" max_length="40" name="yoda_opportunity_no" type="string"/>
         <index name="index">
-            <element name="final_company"/>
+            <element name="contract_company"/>
         </index>
         <index name="index2">
             <element name="currency"/>
         </index>
         <index name="index3">
-            <element name="requester"/>
+            <element name="final_company"/>
         </index>
         <index name="index4">
-            <element name="contract_company"/>
+            <element name="requester"/>
         </index>
     </element>
 </database>
