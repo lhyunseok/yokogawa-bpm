@@ -9,25 +9,45 @@
     
 ]</required_translations>
         <script><![CDATA[/**
-* @param {params} params
-* @param {api} params.api
-* @param {any} params.event
-* @param {any} params.imports
-* @param {ApiHelpers} params.helpers
-*/
-function handler({api, event, helpers, imports}) {
-    // api.setState('sys_created_by', {
-    //     "display": api.data.record.form.fields.sys_created_by.displayValue,
-    //     "value": api.data.record.form.fields.sys_created_by.value
-    // });
-    // api.setState('sys_created_on', {
-    //     "display": api.data.record.form.fields.sys_created_on.displayValue,
-    //     "value": api.data.record.form.fields.sys_created_on.value
-    // }
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+function handler({
+    api,
+    event,
+    helpers,
+    imports
+}) {
+    api.setState('sys_created_by', {
+        "display": api.data.record.form.fields.sys_created_by.label,
+        "value": api.data.record.form.fields.sys_created_by.displayValue
+    });
+    api.setState('sys_created_on', {
+        "display": api.data.record.form.fields.sys_created_on.label,
+        "value": api.data.record.form.fields.sys_created_on.displayValue
+    });
     api.setState('number', {
         "display": api.data.record.form.fields.number.label,
         "value": api.data.record.form.fields.number.displayValue
     });
+    api.setState('project', {
+        "displayValue": api.data.record.form.fields.project.displayValue,
+        "reference": api.data.record.form.fields.project.reference,
+        "value": api.data.record.form.fields.project.value
+    });
+    api.setState('dmr', {
+        "displayValue": api.data.record.form.fields.dmr.displayValue,
+        "value": api.data.record.form.fields.dmr.value
+    });
+    //  "dmr": {
+//     "displayValue": "dmr",
+//     "reference": "ref",
+//     "value": "dmr"
+//   },
+    //
     // api.setState('customer', {
     //     "display": api.data.record.form.fields.customer.displayValue,
     //     "value": api.data.record.form.fields.customer.value
@@ -55,21 +75,21 @@ function handler({api, event, helpers, imports}) {
     //     "value": api.data.record.form.fields.state.value  
     // });
 
-// // Create an empty array to store the transformed choices
-// var transformedChoices = [];
+    // // Create an empty array to store the transformed choices
+    // var transformedChoices = [];
 
-// // Loop through each choice in the original data
-// for (var choice of jsonData) {
-//   // Create a new object with label and id properties
-//   var newChoice = {
-//     label: choice.displayValue, // Assign displayValue to label
-//     id: choice.value, // Assign value to id
-//   };
+    // // Loop through each choice in the original data
+    // for (var choice of jsonData) {
+    //   // Create a new object with label and id properties
+    //   var newChoice = {
+    //     label: choice.displayValue, // Assign displayValue to label
+    //     id: choice.value, // Assign value to id
+    //   };
 
-//   // Add the new object to the transformedChoices array
-//   transformedChoices.push(newChoice);
-// }
-  //  api.setState('aaaaa',jsonData);
+    //   // Add the new object to the transformedChoices array
+    //   transformedChoices.push(newChoice);
+    // }
+    //  api.setState('aaaaa',jsonData);
     // api.setState('state', {
     //     "display": api.data.record.form.fields.state.displayValue,
     //     "ref": "aaa",
@@ -82,14 +102,14 @@ function handler({api, event, helpers, imports}) {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-29 15:28:00</sys_created_on>
         <sys_id>84c44e5c476a0610d254bce5536d4357</sys_id>
-        <sys_mod_count>7</sys_mod_count>
+        <sys_mod_count>15</sys_mod_count>
         <sys_name>set record info</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ux_client_script_84c44e5c476a0610d254bce5536d4357</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-05-29 15:45:06</sys_updated_on>
+        <sys_updated_on>2024-05-30 08:01:17</sys_updated_on>
         <target>macroponent</target>
         <type>default</type>
     </sys_ux_client_script>
