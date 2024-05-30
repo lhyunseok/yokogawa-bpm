@@ -8,7 +8,7 @@
         <element label="Quantity" max_length="40" name="quantity" type="integer"/>
         <element label="Total Amount" max_length="40" name="total_amount" type="integer"/>
         <element label="Total Cost" max_length="40" name="total_cost" type="integer"/>
-        <element label="Version" max_length="40" name="version" type="integer"/>
+        <element default="0" label="Version" max_length="40" name="version" type="integer"/>
         <element label="WBS 6" max_length="40" name="wbs_6" type="string"/>
         <index name="index">
             <element name="contract_company"/>
