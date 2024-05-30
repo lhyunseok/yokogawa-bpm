@@ -25,7 +25,7 @@
         <element label="GR Date" max_length="40" name="gr_date" type="glide_date"/>
         <element label="L/T" max_length="40" name="lead_time" type="integer"/>
         <element label="MSA Number" max_length="40" name="msa_number" type="string"/>
-        <element choice="1" label="MS code" max_length="40" name="ms_code" type="choice">
+        <element choice="1" label="MS code" max_length="40" name="ms_code" type="string">
             <choice/>
         </element>
         <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
@@ -48,11 +48,13 @@
         <element label="Strategy" max_length="40" name="strategy" type="string"/>
         <element label="Target GR Date" max_length="40" name="target_gr_date" type="glide_date"/>
         <element label="Vendor" max_length="32" name="vendor" reference="core_company" type="reference"/>
-        <element choice="1" label="WBS" max_length="40" name="wbs" type="choice">
+        <element choice="1" label="Wbs" max_length="32" name="wbs" type="choice">
             <choice>
-                <element inactive_on_update="false" label="BOPH" value="2"/>
-                <element inactive_on_update="false" label="DCSH" value="0"/>
-                <element inactive_on_update="false" label="PNLH" value="1"/>
+                <element inactive_on_update="false" label="PNLH" sequence="0" value="PNLH"/>
+                <element inactive_on_update="false" label="BOPH" sequence="1" value="BOPH"/>
+                <element inactive_on_update="false" label="DCSH" sequence="2" value="DCSH"/>
+                <element inactive_on_update="false" label="SUPH" sequence="3" value="SUPH"/>
+                <element inactive_on_update="false" label="PIMH" sequence="4" value="PIMH"/>
             </choice>
         </element>
         <index name="index">
@@ -60,6 +62,9 @@
         </index>
         <index name="index2">
             <element name="vendor"/>
+        </index>
+        <index name="index3">
+            <element name="wbs"/>
         </index>
     </element>
 </database>
