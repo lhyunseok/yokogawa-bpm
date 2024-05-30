@@ -488,7 +488,7 @@
                                             ],
                                             "isHidden": {
                                                 "type": "JSON_LITERAL",
-                                                "value": null
+                                                "value": true
                                             },
                                             "preset": null,
                                             "propertyValues": {
@@ -535,7 +535,7 @@
                                                     "value": "secondary"
                                                 }
                                             },
-                                            "slot": "end",
+                                            "slot": "label-end",
                                             "styles": null
                                         }
                                     ]
@@ -630,7 +630,7 @@
                                     },
                                     "readonly": {
                                         "type": "JSON_LITERAL",
-                                        "value": false
+                                        "value": true
                                     },
                                     "required": {
                                         "type": "JSON_LITERAL",
@@ -3887,15 +3887,19 @@
                                                             },
                                                             "type": {
                                                                 "type": "JSON_LITERAL",
-                                                                "value": "number"
+                                                                "value": "text"
                                                             },
                                                             "value": {
-                                                                "type": "TRANSLATION_LITERAL",
-                                                                "value": {
-                                                                    "code": null,
-                                                                    "comment": "",
-                                                                    "message": "10000000000"
-                                                                }
+                                                                "binding": {
+                                                                    "address": [
+                                                                        "record",
+                                                                        "form",
+                                                                        "fields",
+                                                                        "contract",
+                                                                        "displayVaue"
+                                                                    ]
+                                                                },
+                                                                "type": "DATA_OUTPUT_BINDING"
                                                             }
                                                         },
                                                         "slot": null,
@@ -4024,12 +4028,16 @@
                                                                 "value": "number"
                                                             },
                                                             "value": {
-                                                                "type": "TRANSLATION_LITERAL",
-                                                                "value": {
-                                                                    "code": null,
-                                                                    "comment": "",
-                                                                    "message": "10000000000"
-                                                                }
+                                                                "binding": {
+                                                                    "address": [
+                                                                        "record",
+                                                                        "form",
+                                                                        "fields",
+                                                                        "total_cost",
+                                                                        "displayValue"
+                                                                    ]
+                                                                },
+                                                                "type": "DATA_OUTPUT_BINDING"
                                                             }
                                                         },
                                                         "slot": null,
@@ -4158,12 +4166,16 @@
                                                                 "value": "number"
                                                             },
                                                             "value": {
-                                                                "type": "TRANSLATION_LITERAL",
-                                                                "value": {
-                                                                    "code": null,
-                                                                    "comment": "",
-                                                                    "message": "10000000000"
-                                                                }
+                                                                "binding": {
+                                                                    "address": [
+                                                                        "record",
+                                                                        "form",
+                                                                        "fields",
+                                                                        "gpa",
+                                                                        "displayValue"
+                                                                    ]
+                                                                },
+                                                                "type": "DATA_OUTPUT_BINDING"
                                                             }
                                                         },
                                                         "slot": null,
@@ -4292,12 +4304,16 @@
                                                                 "value": "number"
                                                             },
                                                             "value": {
-                                                                "type": "TRANSLATION_LITERAL",
-                                                                "value": {
-                                                                    "code": null,
-                                                                    "comment": "",
-                                                                    "message": "10000000000"
-                                                                }
+                                                                "binding": {
+                                                                    "address": [
+                                                                        "record",
+                                                                        "form",
+                                                                        "fields",
+                                                                        "contract",
+                                                                        "label"
+                                                                    ]
+                                                                },
+                                                                "type": "DATA_OUTPUT_BINDING"
                                                             }
                                                         },
                                                         "slot": null,
@@ -4326,7 +4342,7 @@
                                                                 "styles": {
                                                                     "align-self": "center",
                                                                     "flex": "none",
-                                                                    "height": "25px",
+                                                                    "height": "",
                                                                     "width": "170px"
                                                                 }
                                                             },
@@ -4829,7 +4845,7 @@
                                             ],
                                             "isHidden": {
                                                 "type": "JSON_LITERAL",
-                                                "value": true
+                                                "value": false
                                             },
                                             "preset": null,
                                             "propertyValues": {
@@ -9468,10 +9484,6 @@
                                                             },
                                                             "fields": {
                                                                 "container": {
-                                                                    "sysId": {
-                                                                        "type": "JSON_LITERAL",
-                                                                        "value": "a83b8ad447aa0610d254bce5536d4362"
-                                                                    },
                                                                     "table": {
                                                                         "type": "JSON_LITERAL",
                                                                         "value": "x_yergb_bpm_order_item"
@@ -9488,10 +9500,17 @@
                                                                 "value": null
                                                             },
                                                             "params": {
-                                                                "type": "JSON_LITERAL",
-                                                                "value": {
-                                                                    "query": null
-                                                                }
+                                                                "container": {
+                                                                    "query": {
+                                                                        "binding": {
+                                                                            "address": [
+                                                                                "project_value"
+                                                                            ]
+                                                                        },
+                                                                        "type": "STATE_BINDING"
+                                                                    }
+                                                                },
+                                                                "type": "MAP_CONTAINER"
                                                             },
                                                             "passiveNavigation": {
                                                                 "type": "JSON_LITERAL",
@@ -9579,19 +9598,99 @@
                                 "elementId": "button_2",
                                 "elementLabel": "Button 2",
                                 "eventMappings": [
-                                    
+                                    {
+                                        "eventMappingId": "clwtgggiaraafhuddffhhrggwcpiixadd",
+                                        "isConfiguration": false,
+                                        "offRowStorageId": null,
+                                        "sourceEventApiName": "sn_button.NOW_BUTTON#CLICKED",
+                                        "sourceEventCorrelationId": null,
+                                        "sourceEventDefinition": {
+                                            "apiName": "sn_button.NOW_BUTTON#CLICKED",
+                                            "id": null,
+                                            "type": "UXEVENT"
+                                        },
+                                        "sourceEventSysId": null,
+                                        "targets": [
+                                            {
+                                                "broker": null,
+                                                "clientScript": null,
+                                                "conditional": null,
+                                                "declarativeAction": null,
+                                                "event": {
+                                                    "apiName": "x_yergb_bpm.NAV_ITEM_SELECTED_RELAY_136ea22f471e0210d254bce5536d4397",
+                                                    "payload": {
+                                                        "container": {
+                                                            "external": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": null
+                                                            },
+                                                            "fields": {
+                                                                "container": {
+                                                                    "table": {
+                                                                        "type": "JSON_LITERAL",
+                                                                        "value": "x_yergb_bpm_order_item"
+                                                                    }
+                                                                },
+                                                                "type": "MAP_CONTAINER"
+                                                            },
+                                                            "multiInstField": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": null
+                                                            },
+                                                            "navigationOptions": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": null
+                                                            },
+                                                            "params": {
+                                                                "container": {
+                                                                    "query": {
+                                                                        "binding": {
+                                                                            "address": [
+                                                                                "project_value"
+                                                                            ]
+                                                                        },
+                                                                        "type": "STATE_BINDING"
+                                                                    }
+                                                                },
+                                                                "type": "MAP_CONTAINER"
+                                                            },
+                                                            "passiveNavigation": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": null
+                                                            },
+                                                            "redirect": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": null
+                                                            },
+                                                            "route": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": "bop"
+                                                            },
+                                                            "targetRoute": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": null
+                                                            },
+                                                            "title": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": null
+                                                            }
+                                                        },
+                                                        "type": "MAP_CONTAINER"
+                                                    },
+                                                    "sysId": "898906d047aa0610d254bce5536d4364"
+                                                },
+                                                "operation": null,
+                                                "targetId": "clwtgggiaraafhvddffhhrwcoocclgm",
+                                                "type": "EVENT"
+                                            }
+                                        ]
+                                    }
                                 ],
                                 "isHidden": {
                                     "type": "JSON_LITERAL",
                                     "value": null
                                 },
-                                "preset": {
-                                    "controllerElementId": "record",
-                                    "disabledEventTargetIds": [
-                                        
-                                    ],
-                                    "id": "2c9b775ba59d59482acacfd67c793517"
-                                },
+                                "preset": null,
                                 "propertyValues": {
                                     "configAria": {
                                         "type": "JSON_LITERAL",
@@ -9600,6 +9699,10 @@
                                     "disabled": {
                                         "type": "JSON_LITERAL",
                                         "value": false
+                                    },
+                                    "icon": {
+                                        "type": "JSON_LITERAL",
+                                        "value": null
                                     },
                                     "label": {
                                         "type": "TRANSLATION_LITERAL",
@@ -9612,6 +9715,14 @@
                                     "size": {
                                         "type": "JSON_LITERAL",
                                         "value": "md"
+                                    },
+                                    "tooltipContent": {
+                                        "type": "TRANSLATION_LITERAL",
+                                        "value": {
+                                            "code": null,
+                                            "comment": "",
+                                            "message": "Enter a label"
+                                        }
                                     },
                                     "variant": {
                                         "type": "JSON_LITERAL",
@@ -9635,13 +9746,7 @@
                                     "type": "JSON_LITERAL",
                                     "value": null
                                 },
-                                "preset": {
-                                    "controllerElementId": "record",
-                                    "disabledEventTargetIds": [
-                                        
-                                    ],
-                                    "id": "2c9b775ba59d59482acacfd67c793517"
-                                },
+                                "preset": null,
                                 "propertyValues": {
                                     "configAria": {
                                         "type": "JSON_LITERAL",
@@ -9650,6 +9755,10 @@
                                     "disabled": {
                                         "type": "JSON_LITERAL",
                                         "value": false
+                                    },
+                                    "icon": {
+                                        "type": "JSON_LITERAL",
+                                        "value": null
                                     },
                                     "label": {
                                         "type": "TRANSLATION_LITERAL",
@@ -9662,6 +9771,14 @@
                                     "size": {
                                         "type": "JSON_LITERAL",
                                         "value": "md"
+                                    },
+                                    "tooltipContent": {
+                                        "type": "TRANSLATION_LITERAL",
+                                        "value": {
+                                            "code": null,
+                                            "comment": "",
+                                            "message": "Enter a label"
+                                        }
                                     },
                                     "variant": {
                                         "type": "JSON_LITERAL",
@@ -9685,13 +9802,7 @@
                                     "type": "JSON_LITERAL",
                                     "value": null
                                 },
-                                "preset": {
-                                    "controllerElementId": "record",
-                                    "disabledEventTargetIds": [
-                                        
-                                    ],
-                                    "id": "2c9b775ba59d59482acacfd67c793517"
-                                },
+                                "preset": null,
                                 "propertyValues": {
                                     "configAria": {
                                         "type": "JSON_LITERAL",
@@ -9700,6 +9811,10 @@
                                     "disabled": {
                                         "type": "JSON_LITERAL",
                                         "value": false
+                                    },
+                                    "icon": {
+                                        "type": "JSON_LITERAL",
+                                        "value": null
                                     },
                                     "label": {
                                         "type": "TRANSLATION_LITERAL",
@@ -9712,6 +9827,14 @@
                                     "size": {
                                         "type": "JSON_LITERAL",
                                         "value": "md"
+                                    },
+                                    "tooltipContent": {
+                                        "type": "TRANSLATION_LITERAL",
+                                        "value": {
+                                            "code": null,
+                                            "comment": "",
+                                            "message": "Enter a label"
+                                        }
                                     },
                                     "variant": {
                                         "type": "JSON_LITERAL",
@@ -11701,9 +11824,6 @@
     }
 ]</props>
         <required_translations>[ {
-  "message" : "10000000000",
-  "comment" : ""
-}, {
   "message" : "Activity",
   "comment" : ""
 }, {
@@ -12093,18 +12213,7 @@
         "valueType": "string"
     },
     {
-        "initialValue": {
-            "binding": {
-                "address": [
-                    "record",
-                    "form",
-                    "fields",
-                    "project",
-                    "value"
-                ]
-            },
-            "type": "DATA_OUTPUT_BINDING"
-        },
+        "initialValue": null,
         "name": "project_value",
         "shape": "",
         "valueType": "string"
@@ -12190,20 +12299,29 @@
         "name": "dmr_value",
         "shape": "",
         "valueType": "string"
+    },
+    {
+        "initialValue": {
+            "type": "JSON_LITERAL",
+            "value": "sssss"
+        },
+        "name": "contract",
+        "shape": "",
+        "valueType": "string"
     }
 ]</state_properties>
         <sys_class_name>sys_ux_macroponent</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-27 10:29:45</sys_created_on>
         <sys_id>136ea22f471e0210d254bce5536d4397</sys_id>
-        <sys_mod_count>207</sys_mod_count>
+        <sys_mod_count>223</sys_mod_count>
         <sys_name>Default</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ux_macroponent_136ea22f471e0210d254bce5536d4397</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-05-30 10:59:29</sys_updated_on>
+        <sys_updated_on>2024-05-30 13:34:35</sys_updated_on>
     </sys_ux_macroponent>
     <sys_translated_text action="delete_multiple" query="documentkey=136ea22f471e0210d254bce5536d4397"/>
 </record_update>
