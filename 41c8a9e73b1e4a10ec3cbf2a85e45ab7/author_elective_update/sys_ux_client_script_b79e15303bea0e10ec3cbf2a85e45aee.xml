@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="DELETE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Default">6328dfb3931a46104d95f55a7bba108a</macroponent>
+        <name>button_4/isHidden</name>
+        <preset/>
+        <required_translations>[
+    
+]</required_translations>
+        <script><![CDATA[/**
+  * @param {params} params
+  * @param {api} params.api
+  * @param {TransformApiHelpers} params.helpers
+  */
+function evaluateProperty({api, helpers}) {
+
+  console.log("ㅁㅈㄷ혿ㅁㅈㅎㄷㅁㅈㅎㄷㅁㅈㅎ")
+  console.log(api)
+  if(api.context.approval == true){
+    return true;
+  }
+  else{
+    return false;
+  }
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>lhyunseok@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-05-31 01:55:16</sys_created_on>
+        <sys_id>b79e15303bea0e10ec3cbf2a85e45aee</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>button_4/isHidden</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_ux_client_script_b79e15303bea0e10ec3cbf2a85e45aee</sys_update_name>
+        <sys_updated_by>lhyunseok@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-05-31 01:55:16</sys_updated_on>
+        <target>macroponent</target>
+        <type>transform</type>
+    </sys_ux_client_script>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</application>
+        <file_path/>
+        <instance_id>6a89af531b8542d877c7cb7b234bcb60</instance_id>
+        <instance_name>yokogawabpmdev</instance_name>
+        <name>sys_ux_client_script_b79e15303bea0e10ec3cbf2a85e45aee</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ux_client_script"&gt;&lt;sys_ux_client_script action="INSERT_OR_UPDATE"&gt;&lt;controller_preset/&gt;&lt;includes/&gt;&lt;macroponent display_value="Default"&gt;6328dfb3931a46104d95f55a7bba108a&lt;/macroponent&gt;&lt;name&gt;button_4/isHidden&lt;/name&gt;&lt;preset/&gt;&lt;required_translations&gt;[
+    
+]&lt;/required_translations&gt;&lt;script&gt;&lt;![CDATA[/**
+  * @param {params} params
+  * @param {api} params.api
+  * @param {TransformApiHelpers} params.helpers
+  */
+function evaluateProperty({api, helpers}) {
+
+  console.log("ㅁㅈㄷ혿ㅁㅈㅎㄷㅁㅈㅎㄷㅁㅈㅎ")
+  console.log(api)
+  if(api.context.approval == true){
+    return true;
+  }
+  else{
+    return false;
+  }
+}]]&gt;&lt;/script&gt;&lt;script_api_version&gt;2.0.0&lt;/script_api_version&gt;&lt;sys_class_name&gt;sys_ux_client_script&lt;/sys_class_name&gt;&lt;sys_created_by&gt;lhyunseok@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-05-31 01:55:16&lt;/sys_created_on&gt;&lt;sys_id&gt;b79e15303bea0e10ec3cbf2a85e45aee&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_name&gt;button_4/isHidden&lt;/sys_name&gt;&lt;sys_package display_value="BPM" source="x_yergb_bpm"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ux_client_script_b79e15303bea0e10ec3cbf2a85e45aee&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;lhyunseok@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-05-31 01:55:16&lt;/sys_updated_on&gt;&lt;target&gt;macroponent&lt;/target&gt;&lt;type&gt;transform&lt;/type&gt;&lt;/sys_ux_client_script&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>810459742</payload_hash>
+        <record_name>button_4/isHidden</record_name>
+        <reverted_from/>
+        <source>12d216283be20e10ec3cbf2a85e45a95</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>lhyunseok@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-05-31 01:55:16</sys_created_on>
+        <sys_id>b90f5d303bea0e10ec3cbf2a85e45a4f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18fcc5bc2760000001</sys_recorded_at>
+        <sys_updated_by>lhyunseok@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-05-31 01:55:16</sys_updated_on>
+        <type>UX Client Script</type>
+        <update_guid>f10f5d300fea0e10d534a3329c33e44f</update_guid>
+        <update_guid_history>f10f5d300fea0e10d534a3329c33e44f:810459742</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>lhyunseok@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-05-31 06:41:36</sys_created_on>
+        <sys_db_object display_value="" name="sys_ux_client_script">sys_ux_client_script</sys_db_object>
+        <sys_id>1fef1a88060f4f6187a14e7e99983851</sys_id>
+        <sys_metadata>b79e15303bea0e10ec3cbf2a85e45aee</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>button_4/isHidden</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_scope_delete display_value="">9ff3e273935a476eab36e9bd65d24759</sys_scope_delete>
+        <sys_update_name>sys_ux_client_script_b79e15303bea0e10ec3cbf2a85e45aee</sys_update_name>
+        <sys_update_version display_value="sys_ux_client_script_b79e15303bea0e10ec3cbf2a85e45aee">b90f5d303bea0e10ec3cbf2a85e45a4f</sys_update_version>
+        <sys_updated_by>lhyunseok@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-05-31 06:41:36</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
