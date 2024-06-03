@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="14f7f03547a20210a4863b12d16d43b2" label="Activity Type Master" max_length="40" name="x_yergb_bpm_activity_type_master" type="collection">
+        <element label="Activity Name" max_length="40" name="activity_name" type="string"/>
+        <element label="Activity Rate" max_length="40" name="activity_rate" type="string"/>
+        <element label="Activity Type" max_length="40" name="activity_type" type="string"/>
+        <element label="Authority code" max_length="32" name="authority_code" reference="core_company" type="reference"/>
+        <element label="Currency" max_length="32" name="currency" reference="fx_currency" type="reference"/>
+        <index name="index">
+            <element name="authority_code"/>
+        </index>
+        <index name="index2">
+            <element name="currency"/>
+        </index>
+    </element>
+</database>
