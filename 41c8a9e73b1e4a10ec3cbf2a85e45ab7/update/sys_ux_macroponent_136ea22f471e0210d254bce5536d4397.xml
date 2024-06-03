@@ -790,7 +790,7 @@
                                             "address": [
                                                 "look_up_a_record_1",
                                                 "result",
-                                                "pm",
+                                                "customer",
                                                 "displayValue"
                                             ]
                                         },
@@ -1453,7 +1453,7 @@
                                     },
                                     "readonly": {
                                         "type": "JSON_LITERAL",
-                                        "value": false
+                                        "value": true
                                     },
                                     "required": {
                                         "type": "JSON_LITERAL",
@@ -1488,8 +1488,8 @@
                                     "id": "bb0f92e8d7eff1590624bfe69d316f23",
                                     "type": "MACROPONENT"
                                 },
-                                "elementId": "input_1",
-                                "elementLabel": "Input 1",
+                                "elementId": "input_23",
+                                "elementLabel": "Input 23",
                                 "eventMappings": [
                                     
                                 ],
@@ -1616,7 +1616,7 @@
                                         "type": "STATE_BINDING"
                                     }
                                 },
-                                "slot": "label-end",
+                                "slot": null,
                                 "styles": null
                             },
                             {
@@ -1765,6 +1765,7 @@
                                     {
                                         "element_id": "input_22",
                                         "styles": {
+                                            "align-self": "stretch",
                                             "width": "auto"
                                         }
                                     },
@@ -1779,11 +1780,9 @@
                                         }
                                     },
                                     {
-                                        "element_id": "input_1",
+                                        "element_id": "input_23",
                                         "styles": {
                                             "align-self": "stretch",
-                                            "flex": "none",
-                                            "margin-left": "var(--now-scalable-space--md)",
                                             "width": "auto"
                                         }
                                     },
@@ -1792,7 +1791,7 @@
                                         "styles": {
                                             "align-self": "stretch",
                                             "flex": "none",
-                                            "margin-left": "var(--now-scalable-space--md)",
+                                            "margin-left": "0",
                                             "width": "auto"
                                         }
                                     }
@@ -1995,7 +1994,7 @@
                                     },
                                     "readonly": {
                                         "type": "JSON_LITERAL",
-                                        "value": false
+                                        "value": true
                                     },
                                     "required": {
                                         "type": "JSON_LITERAL",
@@ -2149,7 +2148,7 @@
                                     },
                                     "readonly": {
                                         "type": "JSON_LITERAL",
-                                        "value": false
+                                        "value": true
                                     },
                                     "required": {
                                         "type": "JSON_LITERAL",
@@ -2308,7 +2307,7 @@
                                     },
                                     "readonly": {
                                         "type": "JSON_LITERAL",
-                                        "value": false
+                                        "value": true
                                     },
                                     "required": {
                                         "type": "JSON_LITERAL",
@@ -2486,7 +2485,7 @@
                                     },
                                     "readonly": {
                                         "type": "JSON_LITERAL",
-                                        "value": false
+                                        "value": true
                                     },
                                     "required": {
                                         "type": "JSON_LITERAL",
@@ -3887,7 +3886,7 @@
                                                             },
                                                             "type": {
                                                                 "type": "JSON_LITERAL",
-                                                                "value": "text"
+                                                                "value": "number"
                                                             },
                                                             "value": {
                                                                 "binding": {
@@ -3896,7 +3895,7 @@
                                                                         "form",
                                                                         "fields",
                                                                         "contract",
-                                                                        "displayVaue"
+                                                                        "value"
                                                                     ]
                                                                 },
                                                                 "type": "DATA_OUTPUT_BINDING"
@@ -4034,7 +4033,7 @@
                                                                         "form",
                                                                         "fields",
                                                                         "total_cost",
-                                                                        "displayValue"
+                                                                        "value"
                                                                     ]
                                                                 },
                                                                 "type": "DATA_OUTPUT_BINDING"
@@ -4172,7 +4171,7 @@
                                                                         "form",
                                                                         "fields",
                                                                         "gpa",
-                                                                        "displayValue"
+                                                                        "value"
                                                                     ]
                                                                 },
                                                                 "type": "DATA_OUTPUT_BINDING"
@@ -4309,8 +4308,8 @@
                                                                         "record",
                                                                         "form",
                                                                         "fields",
-                                                                        "contract",
-                                                                        "label"
+                                                                        "gp",
+                                                                        "value"
                                                                     ]
                                                                 },
                                                                 "type": "DATA_OUTPUT_BINDING"
@@ -4861,7 +4860,7 @@
                                                     "script": {
                                                         "apiVersion": "2.0.0",
                                                         "controllerElementId": null,
-                                                        "inlineScript": "/**\n * @param {params} params\n * @param {api} params.api\n * @param {TransformApiHelpers} params.helpers\n */\nfunction evaluateProperty({\n    api,\n    helpers\n}) {\n\n    var today = new Date(); // 현재 날짜 객체 생성\n    var year = today.getFullYear(); // 현재 년도 추출\n    var baseMonth = today.getMonth(); // 현재 월 추출 (주의: JavaScript에서 월은 0부터 시작하기 때문에 +1 해야 함)\n    // 18개월 배열 생성\n    var months = [];\n    for (var i = 0; i &lt; 18; i++) {\n        var month = baseMonth + i; // 현재 월부터 시작하여 18개월까지 차례대로 계산\n        var yearToSet = year; // 년도 설정\n\n        // 12월을 넘어가는 경우 다음 해로 넘어가도록 처리\n        if (month &gt; 12) {\n            month -= 12;\n            yearToSet += 1;\n        }\n\n        // 2024년-05, 2024-06 ... 형식으로 변환하여 배열에 저장\n        months.push(`${yearToSet}-${month.toString().padStart(2, '0')}`);\n    }\n    //'wbs,wbs_description,month1,month2,month3,month4,month5,month6'\n    console.log(months); // 결과 출력: [\"2024-05\", \"2024-06\", \"2024-07\", \"2024-08\", \"2024-09\", ...]\n\n    // myarr 배열에 arr 배열의 모든 정보를 추가하는 코드\n\n    var arr = [];\n\n    var real = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'WBS'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'wbs'\n        }\n    };\n    // var real2 = {\n    //     \"columnInfo\": {\n    //         \"width\": 150,\n    //         \"header\": {\n    //             \"text\": 'WBS Desc'\n    //         }\n    //     },\n    //     \"layoutInfo\": {\n    //         \"width\": 150,\n    //         \"column\": 'wbs_description'\n    //     }\n    // };\n    arr.push(real);\n    // arr.push(real2);\n\n    // 새로운 개체를 생성합니다.\n    // const newObj = {\n    //     \"columnInfo\": {\n    //         \"header\": {\n    //             \"text\": \"ccc\"\n    //         }\n    //     },\n    //     \"layoutInfo\": {\n    //         \"column\": \"month3\"\n    //     }\n    // };\n\n    // push() 메서드를 사용하여 배열에 새로운 개체를 추가합니다.\n    // arr.push(newObj);\n\n    // console.log(arr);\n\n    for (let i = 1; i &lt; months.length; i++) {\n        const newObj = {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": months[i]\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": `month${i + 1}`\n            }\n        };\n\n        arr.push(newObj);\n    }\n\n    var real3 = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'Beyond 18'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'beyond18'\n        }\n    };\n\n    arr.push(real3);\n\n        var real4 = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'Forecast PTC'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'forecase_ptc'\n        }\n    };\n\n    arr.push(real4);\n\n    var real5 = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'Variance'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'variance'\n        }\n    };\n\n    arr.push(real5);\n\n\n    //   const newColumnInfo = {\n    //     \"header\": {\n    //       \"text\": months[i]\n    //     },\n    //     \"layoutInfo\": {\n    //       \"column\": `month${i + 1}`,\n    //       \"visible\": true\n    //     }\n    //   };\n\n    //   myarr.push({\n    //     \"columnInfo\": newColumnInfo,\n    //     \"layoutInfo\": {\n    //       \"column\": `month${i + 1}`,\n    //       \"visible\": true\n    //     }\n    //   });\n    // }\n\n\n    return arr;\n}",
+                                                        "inlineScript": "/**\n * @param {params} params\n * @param {api} params.api\n * @param {TransformApiHelpers} params.helpers\n */\nfunction evaluateProperty({\n    api,\n    helpers\n}) {\n\n    var today = new Date(); // 현재 날짜 객체 생성\n    var year = today.getFullYear(); // 현재 년도 추출\n    var baseMonth = today.getMonth() +1; // 현재 월 추출 (주의: JavaScript에서 월은 0부터 시작하기 때문에 +1 해야 함)\n    // 18개월 배열 생성\n    var months = [];\n    for (var i = 0; i &lt; 18; i++) {\n        var month = baseMonth + i; // 현재 월부터 시작하여 18개월까지 차례대로 계산\n        var yearToSet = year; // 년도 설정\n\n        // 12월을 넘어가는 경우 다음 해로 넘어가도록 처리\n        if (month &gt; 12) {\n            month -= 12;\n            yearToSet += 1;\n        }\n\n        // 2024년-05, 2024-06 ... 형식으로 변환하여 배열에 저장\n        months.push(`${yearToSet}-${month.toString().padStart(2, '0')}`);\n    }\n    //'wbs,wbs_description,month1,month2,month3,month4,month5,month6'\n    console.log(months); // 결과 출력: [\"2024-05\", \"2024-06\", \"2024-07\", \"2024-08\", \"2024-09\", ...]\n\n    // myarr 배열에 arr 배열의 모든 정보를 추가하는 코드\n\n    var arr = [];\n\n    var real = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'WBS'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'wbs'\n        }\n    };\n    // var real2 = {\n    //     \"columnInfo\": {\n    //         \"width\": 150,\n    //         \"header\": {\n    //             \"text\": 'WBS Desc'\n    //         }\n    //     },\n    //     \"layoutInfo\": {\n    //         \"width\": 150,\n    //         \"column\": 'wbs_description'\n    //     }\n    // };\n    arr.push(real);\n    // arr.push(real2);\n\n    // 새로운 개체를 생성합니다.\n    // const newObj = {\n    //     \"columnInfo\": {\n    //         \"header\": {\n    //             \"text\": \"ccc\"\n    //         }\n    //     },\n    //     \"layoutInfo\": {\n    //         \"column\": \"month3\"\n    //     }\n    // };\n\n    // push() 메서드를 사용하여 배열에 새로운 개체를 추가합니다.\n    // arr.push(newObj);\n\n    // console.log(arr);\n\n    for (let i = 0; i &lt; months.length; i++) {\n        const newObj = {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": months[i]\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": `month${i + 1}`\n            }\n        };\n\n        arr.push(newObj);\n    }\n\n    var real3 = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'Beyond 18'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'beyond18'\n        }\n    };\n\n    arr.push(real3);\n\n        var real4 = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'Forecast PTC'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'forecase_ptc'\n        }\n    };\n\n    arr.push(real4);\n\n    var real5 = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'Variance'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'variance'\n        }\n    };\n\n    arr.push(real5);\n\n\n    //   const newColumnInfo = {\n    //     \"header\": {\n    //       \"text\": months[i]\n    //     },\n    //     \"layoutInfo\": {\n    //       \"column\": `month${i + 1}`,\n    //       \"visible\": true\n    //     }\n    //   };\n\n    //   myarr.push({\n    //     \"columnInfo\": newColumnInfo,\n    //     \"layoutInfo\": {\n    //       \"column\": `month${i + 1}`,\n    //       \"visible\": true\n    //     }\n    //   });\n    // }\n\n\n    return arr;\n}",
                                                         "scriptSysId": "3129b95c472a0610d254bce5536d430c",
                                                         "target": null
                                                     },
@@ -4872,8 +4871,27 @@
                                                     "value": "wbs,month1,month2,month3,month4,month5,month6,month7,month8,month9,month10,month11,month12,month13,month14,month15,month16,month17,month18,beyond18,forecase_ptc,variance"
                                                 },
                                                 "encodedQuery": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": ""
+                                                    "transform": {
+                                                        "operands": {
+                                                            "container": [
+                                                                {
+                                                                    "type": "JSON_LITERAL",
+                                                                    "value": "project="
+                                                                },
+                                                                {
+                                                                    "binding": {
+                                                                        "address": [
+                                                                            "project_value"
+                                                                        ]
+                                                                    },
+                                                                    "type": "STATE_BINDING"
+                                                                }
+                                                            ],
+                                                            "type": "LIST_CONTAINER"
+                                                        },
+                                                        "operator": "CONCAT"
+                                                    },
+                                                    "type": "CLIENT_TRANSFORM"
                                                 },
                                                 "fixedColumnCount": {
                                                     "type": "JSON_LITERAL",
@@ -4888,7 +4906,7 @@
                                                     "value": {
                                                         "code": null,
                                                         "comment": "",
-                                                        "message": ""
+                                                        "message": "Total"
                                                     }
                                                 },
                                                 "isOnlyOneRowCheck": {
@@ -4901,11 +4919,11 @@
                                                 },
                                                 "showCheckBar": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": "true"
+                                                    "value": false
                                                 },
                                                 "showFooter": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": true
+                                                    "value": false
                                                 },
                                                 "showRowIndicator": {
                                                     "type": "JSON_LITERAL",
@@ -4913,11 +4931,11 @@
                                                 },
                                                 "showStateBar": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": "true"
+                                                    "value": true
                                                 },
                                                 "showTotalCount": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": false
+                                                    "value": true
                                                 },
                                                 "table": {
                                                     "type": "JSON_LITERAL",
@@ -4937,7 +4955,7 @@
                                                     "styles": {
                                                         "align-self": "center",
                                                         "flex": "none",
-                                                        "height": "370px",
+                                                        "height": "350px",
                                                         "margin-top": "0",
                                                         "min-width": "",
                                                         "padding-left": "0",
@@ -5010,7 +5028,7 @@
                                             "border-color": "RGB(var(--now-color--neutral-5))",
                                             "border-style": "solid",
                                             "border-width": "var(--now-static-space--xxs)",
-                                            "height": "470px",
+                                            "height": "450px",
                                             "width": "100%"
                                         }
                                     }
@@ -5086,6 +5104,7 @@
                         "box-sizing": "border-box",
                         "grid-template-columns": "100fr",
                         "grid-template-rows": "1fr",
+                        "height": "auto",
                         "width": "100%"
                     },
                     "type": "grid"
@@ -5162,6 +5181,7 @@
                             "internal": {
                                 "box-sizing": "border-box",
                                 "grid-template-rows": "1fr",
+                                "height": "auto",
                                 "width": "100%"
                             }
                         }
@@ -8160,26 +8180,51 @@
                                         "value": "chevron"
                                     },
                                     "items": {
-                                        "type": "JSON_LITERAL",
-                                        "value": [
+                                        "container": [
                                             {
-                                                "hideLabel": true,
-                                                "href": "#",
-                                                "icon": "home-outline",
-                                                "label": "First Item"
+                                                "container": {
+                                                    "hideLabel": {
+                                                        "type": "JSON_LITERAL",
+                                                        "value": true
+                                                    },
+                                                    "href": {
+                                                        "type": "JSON_LITERAL",
+                                                        "value": "#"
+                                                    },
+                                                    "icon": {
+                                                        "type": "JSON_LITERAL",
+                                                        "value": "home-outline"
+                                                    },
+                                                    "label": {
+                                                        "type": "TRANSLATION_LITERAL",
+                                                        "value": {
+                                                            "code": null,
+                                                            "comment": "",
+                                                            "message": "First Item"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "MAP_CONTAINER"
                                             },
                                             {
-                                                "href": "#",
-                                                "label": "Breadcrumbs1"
-                                            },
-                                            {
-                                                "href": "#",
-                                                "label": "Breadcrumbs2"
-                                            },
-                                            {
-                                                "label": "Breadcrumbs3"
+                                                "container": {
+                                                    "href": {
+                                                        "type": "JSON_LITERAL",
+                                                        "value": "#"
+                                                    },
+                                                    "label": {
+                                                        "type": "TRANSLATION_LITERAL",
+                                                        "value": {
+                                                            "code": null,
+                                                            "comment": "",
+                                                            "message": "Initial Plan"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "MAP_CONTAINER"
                                             }
-                                        ]
+                                        ],
+                                        "type": "LIST_CONTAINER"
                                     },
                                     "overflow": {
                                         "type": "JSON_LITERAL",
@@ -8325,87 +8370,6 @@
                                 ],
                                 "overrides": {
                                     "composition": [
-                                        {
-                                            "definition": {
-                                                "id": "15fe506403f8a98575b6df59008ea8f1",
-                                                "type": "MACROPONENT"
-                                            },
-                                            "elementId": "header_image",
-                                            "elementLabel": "Header image",
-                                            "eventMappings": [
-                                                
-                                            ],
-                                            "extensionPoints": [
-                                                
-                                            ],
-                                            "isHero": false,
-                                            "isHidden": {
-                                                "operation": {
-                                                    "left": {
-                                                        "operation": {
-                                                            "left": {
-                                                                "binding": {
-                                                                    "address": [
-                                                                        "record",
-                                                                        "form",
-                                                                        "header",
-                                                                        "headerImageItem",
-                                                                        "headerImage"
-                                                                    ]
-                                                                },
-                                                                "type": "DATA_OUTPUT_BINDING"
-                                                            },
-                                                            "operator": "EQUAL",
-                                                            "right": {
-                                                                "type": "JSON_LITERAL",
-                                                                "value": ""
-                                                            }
-                                                        },
-                                                        "type": "BINARY"
-                                                    },
-                                                    "operator": "OR",
-                                                    "right": {
-                                                        "operation": {
-                                                            "operand": {
-                                                                "binding": {
-                                                                    "address": [
-                                                                        "record",
-                                                                        "form",
-                                                                        "header",
-                                                                        "headerImageItem",
-                                                                        "headerImage"
-                                                                    ]
-                                                                },
-                                                                "type": "DATA_OUTPUT_BINDING"
-                                                            },
-                                                            "operator": "NOT"
-                                                        },
-                                                        "type": "UNARY"
-                                                    }
-                                                },
-                                                "type": "BINARY"
-                                            },
-                                            "isNonDestructive": false,
-                                            "items": [
-                                                
-                                            ],
-                                            "overrides": null,
-                                            "preset": {
-                                                "controllerElementId": "record",
-                                                "disabledEventTargetIds": [
-                                                    
-                                                ],
-                                                "id": "fb915bf1bad80b3097b5b2c76b35b215"
-                                            },
-                                            "propertyValues": {
-                                                "height": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": null
-                                                }
-                                            },
-                                            "slot": null,
-                                            "styles": null
-                                        },
                                         {
                                             "definition": {
                                                 "id": "d356d14b6e293a3020a244b63d278d8f",
@@ -8564,6 +8528,7 @@
                                                             {
                                                                 "element_id": "header_title_row",
                                                                 "styles": {
+                                                                    "align-self": "stretch",
                                                                     "flex-direction": "column"
                                                                 }
                                                             }
@@ -8614,14 +8579,6 @@
                                             "children": null,
                                             "isInline": null,
                                             "items": [
-                                                {
-                                                    "element_id": "header_image",
-                                                    "styles": {
-                                                        "height": "42px",
-                                                        "margin-inline-end": "0.75rem",
-                                                        "max-width": "42px"
-                                                    }
-                                                },
                                                 {
                                                     "element_id": "header_content",
                                                     "styles": {
@@ -8869,375 +8826,12 @@
                     "root": null,
                     "rules": null,
                     "styles": {
-                        "flex-direction": "row",
+                        "align-items": "stretch",
+                        "flex-direction": "column",
                         "padding-bottom": "var(--now-scalable-space--md)",
                         "padding-left": "var(--now-scalable-space--3xl)",
                         "padding-right": "var(--now-scalable-space--lg)",
                         "padding-top": "var(--now-scalable-space--lg)"
-                    },
-                    "templateId": "5832fd4d53c31010e6bcddeeff7b12db",
-                    "type": "flex"
-                },
-                "version": "3.0.0"
-            }
-        },
-        "propertyValues": {
-            "ariaRegionHeadingLevel": {
-                "type": "JSON_LITERAL",
-                "value": "1"
-            },
-            "ariaRegionName": {
-                "type": "TRANSLATION_LITERAL",
-                "value": {
-                    "code": null,
-                    "comment": "",
-                    "message": ""
-                }
-            },
-            "ariaRole": {
-                "type": "JSON_LITERAL",
-                "value": ""
-            },
-            "includeAriaHeading": {
-                "type": "JSON_LITERAL",
-                "value": false
-            },
-            "type": {
-                "type": "JSON_LITERAL",
-                "value": "section"
-            }
-        },
-        "slot": null,
-        "styles": null
-    },
-    {
-        "definition": {
-            "id": "d356d14b6e293a3020a244b63d278d8f",
-            "type": "MACROPONENT"
-        },
-        "elementId": "warning_messages_container",
-        "elementLabel": "Warning Messages Container",
-        "eventMappings": [
-            
-        ],
-        "extensionPoints": [
-            
-        ],
-        "isHero": false,
-        "isHidden": {
-            "type": "JSON_LITERAL",
-            "value": null
-        },
-        "isNonDestructive": false,
-        "items": [
-            
-        ],
-        "overrides": {
-            "composition": [
-                {
-                    "definition": {
-                        "id": "1f6e0643eca7a637e36bd7833549ec9e",
-                        "type": "MACROPONENT"
-                    },
-                    "elementId": "record_not_found",
-                    "elementLabel": "Record not found",
-                    "eventMappings": [
-                        
-                    ],
-                    "extensionPoints": [
-                        
-                    ],
-                    "isHero": false,
-                    "isHidden": {
-                        "operation": {
-                            "left": {
-                                "operation": {
-                                    "left": {
-                                        "operation": {
-                                            "left": {
-                                                "binding": {
-                                                    "address": [
-                                                        "record",
-                                                        "isValid"
-                                                    ]
-                                                },
-                                                "type": "DATA_OUTPUT_BINDING"
-                                            },
-                                            "operator": "NOT_EQUAL",
-                                            "right": {
-                                                "type": "JSON_LITERAL",
-                                                "value": true
-                                            }
-                                        },
-                                        "type": "BINARY"
-                                    },
-                                    "operator": "AND",
-                                    "right": {
-                                        "operation": {
-                                            "left": {
-                                                "binding": {
-                                                    "address": [
-                                                        "record",
-                                                        "isValid"
-                                                    ]
-                                                },
-                                                "type": "DATA_OUTPUT_BINDING"
-                                            },
-                                            "operator": "NOT_EQUAL",
-                                            "right": {
-                                                "type": "JSON_LITERAL",
-                                                "value": false
-                                            }
-                                        },
-                                        "type": "BINARY"
-                                    }
-                                },
-                                "type": "BINARY"
-                            },
-                            "operator": "OR",
-                            "right": {
-                                "operation": {
-                                    "left": {
-                                        "binding": {
-                                            "address": [
-                                                "record",
-                                                "isValid"
-                                            ]
-                                        },
-                                        "type": "DATA_OUTPUT_BINDING"
-                                    },
-                                    "operator": "EQUAL",
-                                    "right": {
-                                        "type": "JSON_LITERAL",
-                                        "value": true
-                                    }
-                                },
-                                "type": "BINARY"
-                            }
-                        },
-                        "type": "BINARY"
-                    },
-                    "isNonDestructive": false,
-                    "items": [
-                        
-                    ],
-                    "overrides": null,
-                    "propertyValues": {
-                        "hasNoMargin": {
-                            "type": "JSON_LITERAL",
-                            "value": false
-                        },
-                        "label": {
-                            "type": "TRANSLATION_LITERAL",
-                            "value": {
-                                "code": null,
-                                "comment": "",
-                                "message": "Record not found"
-                            }
-                        },
-                        "level": {
-                            "type": "JSON_LITERAL",
-                            "value": "1"
-                        },
-                        "variant": {
-                            "type": "JSON_LITERAL",
-                            "value": "header-primary"
-                        },
-                        "wontWrap": {
-                            "type": "JSON_LITERAL",
-                            "value": false
-                        }
-                    },
-                    "slot": null,
-                    "styles": null
-                },
-                {
-                    "definition": {
-                        "id": "1f6e0643eca7a637e36bd7833549ec9e",
-                        "type": "MACROPONENT"
-                    },
-                    "elementId": "security_constraints",
-                    "elementLabel": "Security constraints",
-                    "eventMappings": [
-                        
-                    ],
-                    "extensionPoints": [
-                        
-                    ],
-                    "isHero": false,
-                    "isHidden": {
-                        "operation": {
-                            "left": {
-                                "operation": {
-                                    "left": {
-                                        "operation": {
-                                            "left": {
-                                                "operation": {
-                                                    "left": {
-                                                        "binding": {
-                                                            "address": [
-                                                                "record",
-                                                                "isValid"
-                                                            ]
-                                                        },
-                                                        "type": "DATA_OUTPUT_BINDING"
-                                                    },
-                                                    "operator": "NOT_EQUAL",
-                                                    "right": {
-                                                        "type": "JSON_LITERAL",
-                                                        "value": true
-                                                    }
-                                                },
-                                                "type": "BINARY"
-                                            },
-                                            "operator": "AND",
-                                            "right": {
-                                                "operation": {
-                                                    "left": {
-                                                        "binding": {
-                                                            "address": [
-                                                                "record",
-                                                                "isValid"
-                                                            ]
-                                                        },
-                                                        "type": "DATA_OUTPUT_BINDING"
-                                                    },
-                                                    "operator": "NOT_EQUAL",
-                                                    "right": {
-                                                        "type": "JSON_LITERAL",
-                                                        "value": false
-                                                    }
-                                                },
-                                                "type": "BINARY"
-                                            }
-                                        },
-                                        "type": "BINARY"
-                                    },
-                                    "operator": "OR",
-                                    "right": {
-                                        "operation": {
-                                            "left": {
-                                                "binding": {
-                                                    "address": [
-                                                        "record",
-                                                        "isValid"
-                                                    ]
-                                                },
-                                                "type": "DATA_OUTPUT_BINDING"
-                                            },
-                                            "operator": "EQUAL",
-                                            "right": {
-                                                "type": "JSON_LITERAL",
-                                                "value": false
-                                            }
-                                        },
-                                        "type": "BINARY"
-                                    }
-                                },
-                                "type": "BINARY"
-                            },
-                            "operator": "OR",
-                            "right": {
-                                "operation": {
-                                    "left": {
-                                        "operation": {
-                                            "left": {
-                                                "binding": {
-                                                    "address": [
-                                                        "record",
-                                                        "isValid"
-                                                    ]
-                                                },
-                                                "type": "DATA_OUTPUT_BINDING"
-                                            },
-                                            "operator": "EQUAL",
-                                            "right": {
-                                                "type": "JSON_LITERAL",
-                                                "value": true
-                                            }
-                                        },
-                                        "type": "BINARY"
-                                    },
-                                    "operator": "AND",
-                                    "right": {
-                                        "operation": {
-                                            "left": {
-                                                "binding": {
-                                                    "address": [
-                                                        "record",
-                                                        "acl",
-                                                        "canRead"
-                                                    ]
-                                                },
-                                                "type": "DATA_OUTPUT_BINDING"
-                                            },
-                                            "operator": "EQUAL",
-                                            "right": {
-                                                "type": "JSON_LITERAL",
-                                                "value": true
-                                            }
-                                        },
-                                        "type": "BINARY"
-                                    }
-                                },
-                                "type": "BINARY"
-                            }
-                        },
-                        "type": "BINARY"
-                    },
-                    "isNonDestructive": false,
-                    "items": [
-                        
-                    ],
-                    "overrides": null,
-                    "propertyValues": {
-                        "hasNoMargin": {
-                            "type": "JSON_LITERAL",
-                            "value": false
-                        },
-                        "label": {
-                            "type": "TRANSLATION_LITERAL",
-                            "value": {
-                                "code": null,
-                                "comment": "",
-                                "message": "Security constraints prevent access to requested page"
-                            }
-                        },
-                        "level": {
-                            "type": "JSON_LITERAL",
-                            "value": "1"
-                        },
-                        "variant": {
-                            "type": "JSON_LITERAL",
-                            "value": "header-primary"
-                        },
-                        "wontWrap": {
-                            "type": "JSON_LITERAL",
-                            "value": false
-                        }
-                    },
-                    "slot": null,
-                    "styles": null
-                }
-            ],
-            "layout": {
-                "default": {
-                    "children": null,
-                    "isInline": null,
-                    "items": [
-                        {
-                            "element_id": "security_constraints",
-                            "styles": {}
-                        },
-                        {
-                            "element_id": "record_not_found",
-                            "styles": {}
-                        }
-                    ],
-                    "root": null,
-                    "rules": null,
-                    "styles": {
-                        "flex-direction": "column"
                     },
                     "templateId": "5832fd4d53c31010e6bcddeeff7b12db",
                     "type": "flex"
@@ -9317,14 +8911,10 @@
                         "currentStage": {
                             "binding": {
                                 "address": [
-                                    "record",
-                                    "form",
-                                    "fields",
-                                    "state",
-                                    "displayValue"
+                                    "state_display"
                                 ]
                             },
-                            "type": "DATA_OUTPUT_BINDING"
+                            "type": "STATE_BINDING"
                         },
                         "mode": {
                             "type": "JSON_LITERAL",
@@ -9486,7 +9076,7 @@
                                                                 "container": {
                                                                     "table": {
                                                                         "type": "JSON_LITERAL",
-                                                                        "value": "x_yergb_bpm_order_item"
+                                                                        "value": "x_yergb_bpm_project"
                                                                     }
                                                                 },
                                                                 "type": "MAP_CONTAINER"
@@ -9501,10 +9091,95 @@
                                                             },
                                                             "params": {
                                                                 "container": {
-                                                                    "query": {
+                                                                    "query": null,
+                                                                    "sysId": {
+                                                                        "type": "JSON_LITERAL",
+                                                                        "value": "@state.project_value"
+                                                                    }
+                                                                },
+                                                                "type": "MAP_CONTAINER"
+                                                            },
+                                                            "passiveNavigation": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": null
+                                                            },
+                                                            "redirect": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": null
+                                                            },
+                                                            "route": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": "prod"
+                                                            },
+                                                            "targetRoute": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": null
+                                                            },
+                                                            "title": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": null
+                                                            }
+                                                        },
+                                                        "type": "MAP_CONTAINER"
+                                                    },
+                                                    "sysId": "898906d047aa0610d254bce5536d4364"
+                                                },
+                                                "operation": null,
+                                                "targetId": "clwsaaddmvoaacciihhddchhctjlffraeaa",
+                                                "type": "EVENT"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "eventMappingId": "clwthmfgmaaccfffddffiiaafyddziyyh",
+                                        "isConfiguration": false,
+                                        "offRowStorageId": null,
+                                        "sourceEventApiName": "sn_button.NOW_BUTTON#CLICKED",
+                                        "sourceEventCorrelationId": null,
+                                        "sourceEventDefinition": {
+                                            "apiName": "sn_button.NOW_BUTTON#CLICKED",
+                                            "id": null,
+                                            "type": "UXEVENT"
+                                        },
+                                        "sourceEventSysId": null,
+                                        "targets": [
+                                            {
+                                                "broker": null,
+                                                "clientScript": null,
+                                                "conditional": null,
+                                                "declarativeAction": null,
+                                                "event": {
+                                                    "apiName": "x_yergb_bpm.NAV_ITEM_SELECTED_RELAY_136ea22f471e0210d254bce5536d4397",
+                                                    "payload": {
+                                                        "container": {
+                                                            "external": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": null
+                                                            },
+                                                            "fields": {
+                                                                "container": {
+                                                                    "table": {
+                                                                        "type": "JSON_LITERAL",
+                                                                        "value": "x_yergb_bpm_project"
+                                                                    }
+                                                                },
+                                                                "type": "MAP_CONTAINER"
+                                                            },
+                                                            "multiInstField": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": null
+                                                            },
+                                                            "navigationOptions": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": null
+                                                            },
+                                                            "params": {
+                                                                "container": {
+                                                                    "sysId": {
                                                                         "binding": {
                                                                             "address": [
-                                                                                "project_value"
+                                                                                "project",
+                                                                                "value"
                                                                             ]
                                                                         },
                                                                         "type": "STATE_BINDING"
@@ -9538,7 +9213,7 @@
                                                     "sysId": "898906d047aa0610d254bce5536d4364"
                                                 },
                                                 "operation": null,
-                                                "targetId": "clwsaaddmvoaacciihhddchhctjlffraeaa",
+                                                "targetId": "clwthmfgmaaccffgddffiiaaffiwhfffxw",
                                                 "type": "EVENT"
                                             }
                                         ]
@@ -9626,9 +9301,17 @@
                                                             },
                                                             "fields": {
                                                                 "container": {
+                                                                    "sysId": {
+                                                                        "binding": {
+                                                                            "address": [
+                                                                                "project_value"
+                                                                            ]
+                                                                        },
+                                                                        "type": "STATE_BINDING"
+                                                                    },
                                                                     "table": {
                                                                         "type": "JSON_LITERAL",
-                                                                        "value": "x_yergb_bpm_order_item"
+                                                                        "value": "x_yergb_bpm_project"
                                                                     }
                                                                 },
                                                                 "type": "MAP_CONTAINER"
@@ -9644,12 +9327,7 @@
                                                             "params": {
                                                                 "container": {
                                                                     "query": {
-                                                                        "binding": {
-                                                                            "address": [
-                                                                                "project_value"
-                                                                            ]
-                                                                        },
-                                                                        "type": "STATE_BINDING"
+                                                                        "type": "JSON_LITERAL"
                                                                     }
                                                                 },
                                                                 "type": "MAP_CONTAINER"
@@ -10110,7 +9788,7 @@
                                         "value": {
                                             "code": null,
                                             "comment": "",
-                                            "message": "Update"
+                                            "message": "Approval Request"
                                         }
                                     },
                                     "size": {
@@ -11486,7 +11164,7 @@
             },
             "returnFields": {
                 "type": "JSON_LITERAL",
-                "value": "number,pm,sys_id,sales_order"
+                "value": "number,pm,sys_id,sales_order,customer,name"
             },
             "returnTableMetadata": {
                 "type": "JSON_LITERAL",
@@ -11619,12 +11297,6 @@
                 "element_id": "top_container",
                 "styles": {
                     "height": "auto",
-                    "width": "100%"
-                }
-            },
-            {
-                "element_id": "warning_messages_container",
-                "styles": {
                     "width": "100%"
                 }
             },
@@ -11833,19 +11505,13 @@
   "message" : "All Projects",
   "comment" : ""
 }, {
+  "message" : "Approval Request",
+  "comment" : ""
+}, {
   "message" : "Attachment",
   "comment" : ""
 }, {
   "message" : "BOP",
-  "comment" : ""
-}, {
-  "message" : "Breadcrumbs1",
-  "comment" : ""
-}, {
-  "message" : "Breadcrumbs2",
-  "comment" : ""
-}, {
-  "message" : "Breadcrumbs3",
   "comment" : ""
 }, {
   "message" : "Cancel",
@@ -11905,6 +11571,9 @@
   "message" : "GPA",
   "comment" : ""
 }, {
+  "message" : "Initial Plan",
+  "comment" : ""
+}, {
   "message" : "Last Month",
   "comment" : ""
 }, {
@@ -11935,16 +11604,10 @@
   "message" : "Record History",
   "comment" : ""
 }, {
-  "message" : "Record not found",
-  "comment" : ""
-}, {
   "message" : "Region",
   "comment" : ""
 }, {
   "message" : "RelatedList",
-  "comment" : ""
-}, {
-  "message" : "Security constraints prevent access to requested page",
   "comment" : ""
 }, {
   "message" : "State",
@@ -11953,7 +11616,7 @@
   "message" : "Template",
   "comment" : ""
 }, {
-  "message" : "Update",
+  "message" : "Total",
   "comment" : ""
 }, {
   "message" : "Y-Prod",
@@ -11989,6 +11652,7 @@
             "type": "JSON_LITERAL",
             "value": {
                 "display": "sys_created_by",
+                "elm": {},
                 "ref": "ref",
                 "value": "sys_created_by"
             }
@@ -12018,7 +11682,7 @@
             "value": {
                 "displayValue": "project",
                 "reference": "project",
-                "value": "68ca41a047aa4610d254bce5536d4392"
+                "value": "9fb69ea03b268e1046a3934a85e45abe"
             }
         },
         "name": "project",
@@ -12308,20 +11972,29 @@
         "name": "contract",
         "shape": "",
         "valueType": "string"
+    },
+    {
+        "initialValue": {
+            "type": "JSON_LITERAL",
+            "value": "New"
+        },
+        "name": "state_display",
+        "shape": "",
+        "valueType": "string"
     }
 ]</state_properties>
         <sys_class_name>sys_ux_macroponent</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-27 10:29:45</sys_created_on>
         <sys_id>136ea22f471e0210d254bce5536d4397</sys_id>
-        <sys_mod_count>223</sys_mod_count>
+        <sys_mod_count>272</sys_mod_count>
         <sys_name>Default</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ux_macroponent_136ea22f471e0210d254bce5536d4397</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-05-30 13:34:35</sys_updated_on>
+        <sys_updated_by>hahyun@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-05-31 07:35:46</sys_updated_on>
     </sys_ux_macroponent>
     <sys_translated_text action="delete_multiple" query="documentkey=136ea22f471e0210d254bce5536d4397"/>
 </record_update>

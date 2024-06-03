@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Default">946c4bf393d646104d95f55a7bba10b9</macroponent>
+        <name>Svave lidation</name>
+        <preset/>
+        <required_translations>[
+    
+]</required_translations>
+        <script><![CDATA[/**
+* @param {params} params
+* @param {api} params.api
+* @param {any} params.event
+* @param {any} params.imports
+* @param {ApiHelpers} params.helpers
+*/
+function handler({api, event, helpers, imports}) {
+
+    if(api.state.req_date_check != null && api.state.comp_date_check != null){
+        return {
+        modalId: "[component-id$='confirm_1']",
+        showModal: true,
+        displayOptions: null,
+        bare: true,
+        viewportElementId: null,
+        viewportRoute: null,
+        viewportFields: null,
+        viewportParams: null
+        };
+    }
+    else{
+        console.log("hㅗ")
+    }
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>lhyunseok@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-05-31 07:22:25</sys_created_on>
+        <sys_id>e07812f43b6e0e10ec3cbf2a85e45abb</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>Svave lidation</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_ux_client_script_e07812f43b6e0e10ec3cbf2a85e45abb</sys_update_name>
+        <sys_updated_by>lhyunseok@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-05-31 07:26:40</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

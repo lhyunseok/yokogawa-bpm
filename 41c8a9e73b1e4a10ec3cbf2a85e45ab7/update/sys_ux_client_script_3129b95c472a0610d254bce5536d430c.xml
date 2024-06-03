@@ -20,7 +20,7 @@ function evaluateProperty({
 
     var today = new Date(); // 현재 날짜 객체 생성
     var year = today.getFullYear(); // 현재 년도 추출
-    var baseMonth = today.getMonth(); // 현재 월 추출 (주의: JavaScript에서 월은 0부터 시작하기 때문에 +1 해야 함)
+    var baseMonth = today.getMonth() +1; // 현재 월 추출 (주의: JavaScript에서 월은 0부터 시작하기 때문에 +1 해야 함)
     // 18개월 배열 생성
     var months = [];
     for (var i = 0; i < 18; i++) {
@@ -87,7 +87,7 @@ function evaluateProperty({
 
     // console.log(arr);
 
-    for (let i = 1; i < months.length; i++) {
+    for (let i = 0; i < months.length; i++) {
         const newObj = {
             "columnInfo": {
                 "width": 100,
@@ -177,14 +177,14 @@ function evaluateProperty({
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-29 14:58:04</sys_created_on>
         <sys_id>3129b95c472a0610d254bce5536d430c</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>11</sys_mod_count>
         <sys_name>02_grid_1/columnsLayout</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ux_client_script_3129b95c472a0610d254bce5536d430c</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-05-29 14:58:04</sys_updated_on>
+        <sys_updated_by>hahyun@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-05-31 07:35:48</sys_updated_on>
         <target>macroponent</target>
         <type>transform</type>
     </sys_ux_client_script>

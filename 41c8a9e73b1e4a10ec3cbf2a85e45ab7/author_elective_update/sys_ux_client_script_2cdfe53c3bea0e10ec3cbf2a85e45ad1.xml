@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="DELETE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Default">946c4bf393d646104d95f55a7bba10b9</macroponent>
+        <name>input_9/value</name>
+        <preset/>
+        <required_translations>[
+    
+]</required_translations>
+        <script><![CDATA[/**
+  * @param {params} params
+  * @param {api} params.api
+  * @param {TransformApiHelpers} params.helpers
+  */
+function evaluateProperty({api, helpers}) {
+  console.log("=-=-=-=-=-=-=-")
+  console.log(api)
+  if(api.state.url_sysid != '-1'){    // 파라미터 있어
+    //console.log("api.state")
+    //console.log(api.data.glide_form_1.nowRecordFormBlob.formFields.formFieldValues.contract_company.displayValue)
+
+    //api.setState("end_user_display", api.data.glide_form_1.nowRecordFormBlob.formFields.formFieldValues.contract_company.displayValue)
+    //api.setState("end_user_sysid", api.data.glide_form_1.nowRecordFormBlob.formFields.formFieldValues.contract_company.value)
+    // console.log(api.state)
+
+    return api.data.glide_form_1.nowRecordFormBlob.formFieldValues.contract_company.displayValue
+  }
+  else{
+    return api.state.end_user_display
+  }
+
+  
+	return '';
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>lhyunseok@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-05-31 03:17:40</sys_created_on>
+        <sys_id>2cdfe53c3bea0e10ec3cbf2a85e45ad1</sys_id>
+        <sys_mod_count>13</sys_mod_count>
+        <sys_name>input_9/value</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_ux_client_script_2cdfe53c3bea0e10ec3cbf2a85e45ad1</sys_update_name>
+        <sys_updated_by>lhyunseok@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-05-31 04:20:11</sys_updated_on>
+        <target>macroponent</target>
+        <type>transform</type>
+    </sys_ux_client_script>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</application>
+        <file_path/>
+        <instance_id>6a89af531b8542d877c7cb7b234bcb60</instance_id>
+        <instance_name>yokogawabpmdev</instance_name>
+        <name>sys_ux_client_script_2cdfe53c3bea0e10ec3cbf2a85e45ad1</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ux_client_script"&gt;&lt;sys_ux_client_script action="INSERT_OR_UPDATE"&gt;&lt;controller_preset/&gt;&lt;includes/&gt;&lt;macroponent display_value="Default"&gt;946c4bf393d646104d95f55a7bba10b9&lt;/macroponent&gt;&lt;name&gt;input_9/value&lt;/name&gt;&lt;preset/&gt;&lt;required_translations&gt;[
+    
+]&lt;/required_translations&gt;&lt;script&gt;&lt;![CDATA[/**
+  * @param {params} params
+  * @param {api} params.api
+  * @param {TransformApiHelpers} params.helpers
+  */
+function evaluateProperty({api, helpers}) {
+  console.log("=-=-=-=-=-=-=-")
+  console.log(api)
+  if(api.state.url_sysid != '-1'){    // 파라미터 있어
+    //console.log("api.state")
+    //console.log(api.data.glide_form_1.nowRecordFormBlob.formFields.formFieldValues.contract_company.displayValue)
+
+    //api.setState("end_user_display", api.data.glide_form_1.nowRecordFormBlob.formFields.formFieldValues.contract_company.displayValue)
+    //api.setState("end_user_sysid", api.data.glide_form_1.nowRecordFormBlob.formFields.formFieldValues.contract_company.value)
+    // console.log(api.state)
+
+    return api.data.glide_form_1.nowRecordFormBlob.formFieldValues.contract_company.displayValue
+  }
+  else{
+    return api.state.end_user_display
+  }
+
+  
+	return '';
+}]]&gt;&lt;/script&gt;&lt;script_api_version&gt;2.0.0&lt;/script_api_version&gt;&lt;sys_class_name&gt;sys_ux_client_script&lt;/sys_class_name&gt;&lt;sys_created_by&gt;lhyunseok@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-05-31 03:17:40&lt;/sys_created_on&gt;&lt;sys_id&gt;2cdfe53c3bea0e10ec3cbf2a85e45ad1&lt;/sys_id&gt;&lt;sys_mod_count&gt;13&lt;/sys_mod_count&gt;&lt;sys_name&gt;input_9/value&lt;/sys_name&gt;&lt;sys_package display_value="BPM" source="x_yergb_bpm"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ux_client_script_2cdfe53c3bea0e10ec3cbf2a85e45ad1&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;lhyunseok@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-05-31 04:20:11&lt;/sys_updated_on&gt;&lt;target&gt;macroponent&lt;/target&gt;&lt;type&gt;transform&lt;/type&gt;&lt;/sys_ux_client_script&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-164145859</payload_hash>
+        <record_name>input_9/value</record_name>
+        <reverted_from/>
+        <source>12d216283be20e10ec3cbf2a85e45a95</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>lhyunseok@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-05-31 04:20:11</sys_created_on>
+        <sys_id>64308af43b2e0e10ec3cbf2a85e45aa8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18fcce06e190000001</sys_recorded_at>
+        <sys_updated_by>lhyunseok@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-05-31 04:20:11</sys_updated_on>
+        <type>UX Client Script</type>
+        <update_guid>a0308af45c2e0e10a9bb09b7346de0a8</update_guid>
+        <update_guid_history>a0308af45c2e0e10a9bb09b7346de0a8:-164145859,eaf43930422e0e10b89c08053d90c254:2132397586,9f943930a82e0e1080d1980b2c249f4e:-1783979249,f2443dfc17ea0e106447f2745ea760fa:1772484901,ebe33dfc6bea0e10cfe5294f41261ef5:-128798552,5203f1fc4bea0e1001e122fce9eec64a:16621632,3ce1f1bc7dea0e107f9df891187f4c94:-1117659279</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>lhyunseok@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-05-31 04:31:09</sys_created_on>
+        <sys_db_object display_value="" name="sys_ux_client_script">sys_ux_client_script</sys_db_object>
+        <sys_id>cf386579aebb4a4087ce2aeff24e6a61</sys_id>
+        <sys_metadata>2cdfe53c3bea0e10ec3cbf2a85e45ad1</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>input_9/value</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_scope_delete display_value="">9ff3e273935a476eab36e9bd65d24759</sys_scope_delete>
+        <sys_update_name>sys_ux_client_script_2cdfe53c3bea0e10ec3cbf2a85e45ad1</sys_update_name>
+        <sys_update_version display_value="sys_ux_client_script_2cdfe53c3bea0e10ec3cbf2a85e45ad1">64308af43b2e0e10ec3cbf2a85e45aa8</sys_update_version>
+        <sys_updated_by>lhyunseok@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-05-31 04:31:09</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
