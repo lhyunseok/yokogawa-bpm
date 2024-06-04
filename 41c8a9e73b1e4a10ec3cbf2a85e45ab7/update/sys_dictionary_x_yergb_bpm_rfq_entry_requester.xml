@@ -2,7 +2,7 @@
     <sys_dictionary action="INSERT_OR_UPDATE" element="requester" table="x_yergb_bpm_rfq_entry">
         <active>true</active>
         <array>false</array>
-        <attributes/>
+        <attributes>edge_encryption_enabled=true,encode_utf8=false</attributes>
         <audit>false</audit>
         <calculation><![CDATA[(function calculatedFieldValue(current) {
 
@@ -16,7 +16,7 @@
         <column_label>Requester</column_label>
         <comments/>
         <create_roles/>
-        <default_value/>
+        <default_value>javascript:gs.getUserID()</default_value>
         <defaultsort/>
         <delete_roles/>
         <dependent/>
@@ -24,7 +24,7 @@
         <display>false</display>
         <dynamic_creation>false</dynamic_creation>
         <dynamic_creation_script/>
-        <dynamic_default_value/>
+        <dynamic_default_value display_value="Me">90d1921e5f510100a9ad2572f2b477fe</dynamic_default_value>
         <dynamic_ref_qual/>
         <element>requester</element>
         <element_reference>false</element_reference>
@@ -38,7 +38,7 @@
         <name>x_yergb_bpm_rfq_entry</name>
         <next_element/>
         <primary>false</primary>
-        <read_only>false</read_only>
+        <read_only>true</read_only>
         <read_roles/>
         <reference display_value="" name="sys_user">sys_user</reference>
         <reference_cascade_rule/>
@@ -57,13 +57,13 @@
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_dictionary_x_yergb_bpm_rfq_entry_requester</sys_update_name>
-        <sys_updated_by>lhyunseok@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-05-29 03:38:03</sys_updated_on>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-04 09:25:58</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>
         <use_dependent_field>false</use_dependent_field>
-        <use_dynamic_default>false</use_dynamic_default>
+        <use_dynamic_default>true</use_dynamic_default>
         <use_reference_qualifier>simple</use_reference_qualifier>
         <virtual>false</virtual>
         <virtual_type>script</virtual_type>
