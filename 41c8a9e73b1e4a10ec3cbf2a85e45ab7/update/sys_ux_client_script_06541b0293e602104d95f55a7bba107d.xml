@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="new design">9172c6c2932202104d95f55a7bba105f</macroponent>
+        <name>duPLICATE</name>
+        <preset/>
+        <required_translations>[
+    
+]</required_translations>
+        <script><![CDATA[/**
+* @param {params} params
+* @param {api} params.api
+* @param {any} params.event
+* @param {any} params.imports
+* @param {ApiHelpers} params.helpers
+*/
+function handler({api, event, helpers, imports}) {
+    var newMap = event.payload.row.rowData.value;
+    var new_caution= newMap.get("caution")
+    var cautionValue = new_caution.columnData.value;
+
+    console.log(new_caution)
+    console.log(cautionValue)
+    //api.setState('caution', new_caution)
+    //api.state.caution = new_caution
+    api.setState("caution",cautionValue);
+
+}
+
+
+
+/*
+
+*/]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>lhyunseok</sys_created_by>
+        <sys_created_on>2024-06-04 07:45:46</sys_created_on>
+        <sys_id>06541b0293e602104d95f55a7bba107d</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>duPLICATE</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_ux_client_script_06541b0293e602104d95f55a7bba107d</sys_update_name>
+        <sys_updated_by>lhyunseok</sys_updated_by>
+        <sys_updated_on>2024-06-04 07:45:46</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>
