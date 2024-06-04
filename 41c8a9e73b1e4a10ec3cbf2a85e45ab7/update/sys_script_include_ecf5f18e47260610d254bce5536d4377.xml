@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_yergb_bpm.WbsBudgetProcessor </api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>WbsBudgetProcessor </name>
+        <script><![CDATA[var WbsBudgetProcessor = Class.create();
+WbsBudgetProcessor.prototype = {
+    initialize: function() {
+    },
+
+    processWbsBudget: function(current, previous) {
+        var currentMonth = parseInt(current.base_month); 
+        var numMonths = 18;
+        var yearmonths = [];
+
+        for (var i = 0; i < numMonths; i++) {
+            yearmonths.push(currentMonth.toString());
+            currentMonth++;
+            if (currentMonth % 100 > 12) {
+                currentMonth += 88; 
+            }
+        }
+
+        var gr = new GlideRecord('x_yergb_bpm_order_item');
+        gr.addQuery('project', current.project);
+        gr.query();
+        var myresult = {};
+
+        while (gr.next()) {
+            var wbs = gr.getValue('wbs'); 
+            var amount = parseInt(gr.getValue('amount'), 10); 
+            var yearmonth = parseInt(gr.getValue('yearmonth'), 10); 
+
+            if (!myresult[wbs]) {
+                myresult[wbs] = {};
+            }
+
+            if (!myresult[wbs][yearmonth]) {
+                myresult[wbs][yearmonth] = 0;
+            }
+
+            myresult[wbs][yearmonth] += amount;
+        }
+
+        var myarr = ['month1', 'month2', 'month3', 'month4', 'month5', 'month6', 'month7', 'month8', 'month9', 'month10', 'month11', 'month12', 'month13', 'month14', 'month15', 'month16', 'month17', 'month18'];
+
+        function replaceYearMonthKeys(result, monthArray, arrArray) {
+            var newResult = {};
+
+            for (var wbs in result) {
+                newResult[wbs] = {};
+
+                for (var ym in result[wbs]) {
+                    var index = monthArray.indexOf(ym);
+                    if (index !== -1) {
+                        var newKey = arrArray[index];
+                        newResult[wbs][newKey] = result[wbs][ym];
+                    }
+                }
+            }
+
+            return newResult;
+        }
+
+        var updatedResult = replaceYearMonthKeys(myresult, yearmonths, myarr);
+
+        for (var wbs2 in updatedResult) {
+            var myquery = 'wbs=' + wbs2 + '^project=' + current.project;
+
+            var monthData = updatedResult[wbs2];
+            var gr2 = new GlideRecord('x_yergb_bpm_wbs_budget');
+            gr2.addEncodedQuery(myquery);
+
+            gr2.query();
+
+            if (gr2.next()) {
+                for (var month in monthData) {
+                    gr2.setValue(month, monthData[month]);
+                }
+                gr2.update();
+            } else {
+                var newRecord = new GlideRecord('x_yergb_bpm_wbs_budget');
+                newRecord.initialize();
+                newRecord.setValue('wbs', wbs2);
+                newRecord.setValue('project', current.project);
+
+                for (var month2 in monthData) {
+                    newRecord.setValue(month2, monthData[month2]);
+                }
+                newRecord.insert();
+            }
+        }
+    },
+
+    type: 'WbsBudgetProcessor'
+};
+]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-04 00:49:49</sys_created_on>
+        <sys_id>ecf5f18e47260610d254bce5536d4377</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>WbsBudgetProcessor </sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_script_include_ecf5f18e47260610d254bce5536d4377</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-04 00:49:49</sys_updated_on>
+    </sys_script_include>
+</record_update>
