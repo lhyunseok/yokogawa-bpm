@@ -44,6 +44,13 @@ function handler({
     });
     api.setState('contract', api.data.record.form.fields.contract.displayValue);
     api.setState('project_value', api.data.record.form.fields.project.value);
+    api.setState('tomorrow', api.data.record.form.fields.sum_wbs.value);
+    api.setState('state_value', api.data.record.form.fields.state.value);
+    api.setState('state_display', api.data.record.form.fields.state.displayValue);
+
+    if(api.data.record.form.fields.state.value != '0'){
+        api.setState('approval_button', true);
+    }
     //  "dmr": {
 //     "displayValue": "dmr",
 //     "reference": "ref",
@@ -104,14 +111,14 @@ function handler({
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-29 15:28:00</sys_created_on>
         <sys_id>84c44e5c476a0610d254bce5536d4357</sys_id>
-        <sys_mod_count>19</sys_mod_count>
+        <sys_mod_count>25</sys_mod_count>
         <sys_name>set record info</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ux_client_script_84c44e5c476a0610d254bce5536d4357</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-05-30 11:52:01</sys_updated_on>
+        <sys_updated_by>hhkim</sys_updated_by>
+        <sys_updated_on>2024-06-05 01:53:50</sys_updated_on>
         <target>macroponent</target>
         <type>default</type>
     </sys_ux_client_script>
