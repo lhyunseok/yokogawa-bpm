@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>false</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_yergb_bpm_budget_plan</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition table="x_yergb_bpm_budget_plan">sum_wbsVALCHANGES^EQ<item endquery="false" field="sum_wbs" goto="false" newquery="false" operator="VALCHANGES" or="false" value=""/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter_condition>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>calculate wbs amount</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+
+    var mymonth = current.base_month;
+    var numMonths = 18; // Number of months to generate
+    var currentMonth = parseInt(mymonth);
+    var yearmonths = [];
+
+    for (var i = 0; i < numMonths; i++) {
+        yearmonths.push(currentMonth.toString());
+        currentMonth++;
+        if (currentMonth % 100 > 12) {
+            currentMonth += 88;
+        }
+    }
+
+    var gr = new GlideRecord('x_yergb_bpm_order_item');
+    gr.addQuery('project', current.project);
+    gr.query();
+    var myresult = {};
+
+    while (gr.next()) {
+        var wbs = gr.getValue('wbs');
+        var amount = parseInt(gr.getValue('amount'), 10);
+        var yearmonth = parseInt(gr.getValue('yearmonth'), 10);
+
+        if (!myresult[wbs]) {
+            myresult[wbs] = {};
+        }
+
+        if (!myresult[wbs][yearmonth]) {
+            myresult[wbs][yearmonth] = 0;
+        }
+
+        myresult[wbs][yearmonth] += amount;
+    }
+
+    // gs.info(JSON.stringify(myresult));
+    var myarr = ['month1', 'month2', 'month3', 'month4', 'month5', 'month6', 'month7', 'month8', 'month9', 'month10', 'month11', 'month12', 'month13', 'month14', 'month15', 'month16', 'month17', 'month18'];
+
+    function replaceYearMonthKeys(result, monthArray, arrArray) {
+        var newResult = {};
+
+        for (var wbs in result) {
+            newResult[wbs] = {};
+
+            for (var ym in result[wbs]) {
+                var index = monthArray.indexOf(ym);
+                if (index !== -1) {
+                    var newKey = arrArray[index];
+                    newResult[wbs][newKey] = result[wbs][ym];
+                }
+            }
+        }
+
+        return newResult;
+    }
+
+    var updatedResult = replaceYearMonthKeys(myresult, yearmonths, myarr);
+    //gs.info(JSON.stringify(updatedResult));
+
+    for (var wbs2 in updatedResult) {
+        var myquery = 'wbs=' + wbs2 + '^project=' + current.project;
+
+        var monthData = updatedResult[wbs2];
+        var gr2 = new GlideRecord('x_yergb_bpm_wbs_budget');
+        gr2.addEncodedQuery(myquery);
+
+        gr2.query();
+
+        if (gr2.next()) {
+
+            for (var month in monthData) {
+                gr2.setValue(month, monthData[month]);
+            }
+            gr2.update();
+            //gs.info('Updated record with sys_id: ' + gr2.number + gr2.wbs);
+        } else {
+
+            var newRecord = new GlideRecord('x_yergb_bpm_wbs_budget');
+            newRecord.initialize();
+            newRecord.setValue('wbs', wbs2);
+            newRecord.setValue('project', current.project);
+
+            for (var month2 in monthData) {
+                newRecord.setValue(month2, monthData[month2]);
+            }
+            newRecord.insert();
+            //gs.info('Inserted record with sys_id: ' + newRecord.number + newRecord.wbs);
+        }
+    }
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-03 16:10:30</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>812f73f147eac210d254bce5536d4361</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>calculate wbs amount</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_script_812f73f147eac210d254bce5536d4361</sys_update_name>
+        <sys_updated_by>hhkim</sys_updated_by>
+        <sys_updated_on>2024-06-04 13:57:19</sys_updated_on>
+        <template/>
+        <when>before</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=812f73f147eac210d254bce5536d4361"/>
+</record_update>
