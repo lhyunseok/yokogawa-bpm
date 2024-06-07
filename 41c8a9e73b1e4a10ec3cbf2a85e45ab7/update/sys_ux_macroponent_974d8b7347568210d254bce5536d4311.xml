@@ -3955,7 +3955,7 @@
         ],
         "isHidden": {
             "type": "JSON_LITERAL",
-            "value": null
+            "value": true
         },
         "overrides": {
             "composition": [
@@ -4392,7 +4392,7 @@
                                     "disabledEventTargetIds": [
                                         
                                     ],
-                                    "id": "cd85631b773211102d674a44be5a992e"
+                                    "id": "06f0936926a6997bd5b952e61fea9290"
                                 },
                                 "propertyValues": {
                                     "delimiter": {
@@ -4401,41 +4401,40 @@
                                     },
                                     "displayInline": {
                                         "type": "JSON_LITERAL",
-                                        "value": true
+                                        "value": false
                                     },
                                     "hideLabels": {
                                         "type": "JSON_LITERAL",
                                         "value": false
                                     },
                                     "items": {
-                                        "binding": {
-                                            "address": [
-                                                "record",
-                                                "form",
-                                                "header",
-                                                "transformedSecondaryItems"
-                                            ]
+                                        "script": {
+                                            "apiVersion": "2.0.0",
+                                            "controllerElementId": null,
+                                            "inlineScript": "/**\n * @param {params} params\n * @param {api} params.api\n * @param {TransformApiHelpers} params.helpers\n */\nfunction evaluateProperty({\n    api,\n    helpers\n}) {\n    // \"header\": {\n    //     \"headerImageItem\": null,\n    //     \"primaryItem\": {\n    //       \"fieldName\": \"project\",\n    //       \"fieldLabel\": \"Project\",\n    //       \"displayValue\": \"PRJ0001008\"\n    //     },\n    //     \"secondaryItems\": [\n    //       {\n    //         \"fieldName\": \"number\",\n    //         \"fieldLabel\": \"Number\",\n    //         \"displayValue\": \"PRJ0\n    //api.data.record.form.fields.project.displayValue\n    //\n    //@data.record.form.header.transformedSecondaryItems\n    var my = [{\n            \"label\": \"Project Number\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.project.displayValue\n\n            }\n        },\n        {\n            \"label\": \"Project Name\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.header.secondaryItems[1].displayValue\n\n            }\n        },\n        {\n            \"label\": \"Customer\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.header.secondaryItems[2].displayValue\n\n            }\n        },\n        {\n            \"label\": \"PM\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.header.secondaryItems[2].displayValue\n\n            }\n        },\n        {\n            \"label\": \"Region\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.header.secondaryItems[3].displayValue\n\n            }\n        },\n        {\n            \"label\": \"Currency\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.header.secondaryItems[4].displayValue\n\n            }\n        },\n        {\n            \"label\": \"Number\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.number.displayValue\n\n            }\n        },\n        {\n            \"label\": \"Data type\",\n            \"value\": {\n                \"type\": \"highlighted-value\",\n                \"label\": api.data.record.form.fields.data_type.displayValue,\n                \"status\": \"positive\",\n                \"showIcon\": true\n            }\n        },\n        {\n            \"label\": \"Budget type\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.budget_type.displayValue\n\n            }\n        }\n    ];\n    return my;\n}",
+                                            "scriptSysId": "c2b2c55647a64610d254bce5536d431b",
+                                            "target": null
                                         },
-                                        "type": "DATA_OUTPUT_BINDING"
+                                        "type": "CLIENT_TRANSFORM_SCRIPT"
                                     },
                                     "layoutType": {
                                         "type": "JSON_LITERAL",
-                                        "value": "dynamic"
+                                        "value": "distributed"
                                     },
                                     "maxLinesPerValue": {
                                         "type": "JSON_LITERAL",
-                                        "value": 1
+                                        "value": 6
                                     },
                                     "rowsBeforeToggleShown": {
                                         "type": "JSON_LITERAL",
-                                        "value": 1
+                                        "value": 12
                                     },
                                     "title": {
                                         "type": "TRANSLATION_LITERAL",
                                         "value": {
                                             "code": null,
                                             "comment": "",
-                                            "message": "Project Budget Plan for Other Expense"
+                                            "message": "Project Budget Plan for Man Hour"
                                         }
                                     }
                                 },
@@ -4450,7 +4449,17 @@
                                     {
                                         "element_id": "display_value_block_1",
                                         "styles": {
-                                            "align-self": "stretch"
+                                            "align-self": "stretch",
+                                            "background": "rgb(var(--now-color--neutral-1))",
+                                            "font-size": "20px",
+                                            "margin-bottom": "var(--now-scalable-space--xxs)",
+                                            "margin-left": "var(--now-scalable-space--3xl)",
+                                            "margin-right": "var(--now-scalable-space--3xl)",
+                                            "margin-top": "var(--now-scalable-space--md)",
+                                            "padding-bottom": "var(--now-scalable-space--md)",
+                                            "padding-left": "var(--now-scalable-space--3xl)",
+                                            "padding-right": "300px",
+                                            "padding-top": "var(--now-scalable-space--md)"
                                         }
                                     }
                                 ],
@@ -4625,7 +4634,7 @@
         ],
         "isHidden": {
             "type": "JSON_LITERAL",
-            "value": false
+            "value": true
         },
         "overrides": {
             "composition": [
@@ -8579,13 +8588,106 @@
                                 },
                                 "overrides": {
                                     "composition": [
-                                        
+                                        {
+                                            "definition": {
+                                                "id": "db2db99e12480df481ca8c31a755d6a9",
+                                                "type": "MACROPONENT"
+                                            },
+                                            "elementId": "0525new_1",
+                                            "elementLabel": "0525new 1",
+                                            "eventMappings": [
+                                                
+                                            ],
+                                            "isHidden": {
+                                                "type": "JSON_LITERAL",
+                                                "value": null
+                                            },
+                                            "preset": null,
+                                            "propertyValues": {
+                                                "columnFitStyle": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "none"
+                                                },
+                                                "columnResizable": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "true"
+                                                },
+                                                "columnsLayout": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": [
+                                                        
+                                                    ]
+                                                },
+                                                "displayFields": {
+                                                    "type": "JSON_LITERAL"
+                                                },
+                                                "encodedQuery": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": ""
+                                                },
+                                                "fixedColumnCount": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": 0
+                                                },
+                                                "fixedRowCount": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": 0
+                                                },
+                                                "headerText": {
+                                                    "type": "TRANSLATION_LITERAL",
+                                                    "value": {
+                                                        "code": null,
+                                                        "comment": "",
+                                                        "message": "Total"
+                                                    }
+                                                },
+                                                "isOnlyOneRowCheck": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "false"
+                                                },
+                                                "selectionMode": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "none"
+                                                },
+                                                "showCheckBar": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "true"
+                                                },
+                                                "showFooter": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "true"
+                                                },
+                                                "showRowIndicator": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "true"
+                                                },
+                                                "showStateBar": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "true"
+                                                },
+                                                "showTotalCount": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "true"
+                                                },
+                                                "table": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "x_yergb_bpm_cost"
+                                                }
+                                            },
+                                            "slot": null,
+                                            "styles": null
+                                        }
                                     ],
                                     "layout": {
                                         "default": {
                                             "children": null,
                                             "items": [
-                                                
+                                                {
+                                                    "element_id": "0525new_1",
+                                                    "styles": {
+                                                        "height": "570px"
+                                                    }
+                                                }
                                             ],
                                             "root": null,
                                             "rules": null,
@@ -8644,7 +8746,7 @@
                                     {
                                         "element_id": "container_1",
                                         "styles": {
-                                            "height": "450px",
+                                            "height": "670px",
                                             "width": "100%"
                                         }
                                     }
@@ -8720,6 +8822,10 @@
                         "box-sizing": "border-box",
                         "grid-template-columns": "100fr",
                         "grid-template-rows": "1fr",
+                        "margin-left": "0",
+                        "margin-right": "0",
+                        "padding-left": "var(--now-scalable-space--lg)",
+                        "padding-right": "var(--now-scalable-space--lg)",
                         "width": "100%"
                     },
                     "type": "grid"
@@ -8740,14 +8846,18 @@
                                 "grid-template-columns": "1fr",
                                 "grid-template-rows": "1fr",
                                 "height": "fit-content",
+                                "margin-left": "0",
+                                "margin-right": "0",
                                 "max-height": "max-content",
                                 "min-height": "min-content",
+                                "padding-left": "var(--now-scalable-space--lg)",
+                                "padding-right": "var(--now-scalable-space--lg)",
                                 "width": "100%"
                             },
                             "type": "grid"
                         },
                         "query": {
-                            "max-width": 640
+                            "max-width": 700
                         }
                     }
                 ],
@@ -8768,7 +8878,7 @@
                         "breakpoints": [
                             {
                                 "behavior": "stack",
-                                "max-width": 640,
+                                "max-width": 700,
                                 "styles": {
                                     "box-sizing": "border-box",
                                     "grid-template-columns": "1fr",
@@ -8796,6 +8906,10 @@
                             "internal": {
                                 "box-sizing": "border-box",
                                 "grid-template-rows": "1fr",
+                                "margin-left": "0",
+                                "margin-right": "0",
+                                "padding-left": "var(--now-scalable-space--lg)",
+                                "padding-right": "var(--now-scalable-space--lg)",
                                 "width": "100%"
                             }
                         }
@@ -9903,6 +10017,9 @@
   "message" : "List of record activities and input fields for posting work notes or comments",
   "comment" : ""
 }, {
+  "message" : "Project Budget Plan for Man Hour",
+  "comment" : ""
+}, {
   "message" : "Project Budget Plan for Other Expense",
   "comment" : ""
 }, {
@@ -9921,6 +10038,9 @@
   "message" : "Template",
   "comment" : ""
 }, {
+  "message" : "Total",
+  "comment" : ""
+}, {
   "message" : "Yes",
   "comment" : ""
 } ]</required_translations>
@@ -9937,14 +10057,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-28 07:23:08</sys_created_on>
         <sys_id>974d8b7347568210d254bce5536d4311</sys_id>
-        <sys_mod_count>15</sys_mod_count>
+        <sys_mod_count>39</sys_mod_count>
         <sys_name>Default</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ux_macroponent_974d8b7347568210d254bce5536d4311</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-04 06:42:35</sys_updated_on>
+        <sys_updated_by>hhkim</sys_updated_by>
+        <sys_updated_on>2024-06-04 16:24:17</sys_updated_on>
     </sys_ux_macroponent>
     <sys_translated_text action="delete_multiple" query="documentkey=974d8b7347568210d254bce5536d4311"/>
 </record_update>
