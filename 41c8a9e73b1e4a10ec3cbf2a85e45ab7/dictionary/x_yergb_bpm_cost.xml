@@ -1,44 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="df4e87403b224e1046a3934a85e45abb" label="Cost" max_length="40" name="x_yergb_bpm_cost" type="collection">
-        <element label="Month16" max_length="40" name="month16" type="integer"/>
-        <element label="Total hour" max_length="40" name="total_hour" type="integer"/>
-        <element choice="1" label="Resource Code" max_length="40" name="resource_code" type="choice">
-            <choice/>
-        </element>
-        <element label="Month1" max_length="40" name="month1" type="integer"/>
-        <element label="Month15" max_length="40" name="month15" type="integer"/>
         <element label="Beyond18" max_length="40" name="beyond18" type="integer"/>
-        <element label="Total amount" max_length="40" name="total_amount" type="integer"/>
-        <element label="Month6" max_length="40" name="month6" type="integer"/>
-        <element label="Month2" max_length="40" name="month2" type="integer"/>
-        <element label="Month14" max_length="40" name="month14" type="integer"/>
-        <element label="Month9" max_length="40" name="month9" type="integer"/>
-        <element label="Month8" max_length="40" name="month8" type="integer"/>
+        <element label="Month1" max_length="40" name="month1" type="integer"/>
         <element label="Month13" max_length="40" name="month13" type="integer"/>
-        <element attributes="edge_encryption_enabled=true" choice="1" label="Activity Type" max_length="40" name="activity_type" type="choice">
-            <choice/>
-        </element>
-        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="Month17" max_length="40" name="month17" type="integer"/>
+        <element label="Month5" max_length="40" name="month5" type="integer"/>
+        <element label="Month4" max_length="40" name="month4" type="integer"/>
+        <element label="Month9" max_length="40" name="month9" type="integer"/>
         <element choice="1" label="Region" max_length="40" name="region" type="choice">
             <choice>
-                <element inactive_on_update="false" label="YHQ" sequence="0" value="yhq"/>
-                <element inactive_on_update="false" label="YCN" sequence="2" value="ycn"/>
                 <element inactive_on_update="false" label="YKO" sequence="1" value="yko"/>
+                <element inactive_on_update="false" label="YCN" sequence="2" value="ycn"/>
+                <element inactive_on_update="false" label="YHQ" sequence="0" value="yhq"/>
             </choice>
         </element>
-        <element choice="1" label="Data type" max_length="40" name="data_type" type="choice">
+        <element choice="1" label="WBS" max_length="40" name="wbs" type="choice">
             <choice>
-                <element inactive_on_update="false" label="WBS6" sequence="0" value="wbs6"/>
-                <element inactive_on_update="false" label="ITEM" sequence="1" value="item"/>
+                <element inactive_on_update="false" label="SUPE" value="5"/>
+                <element inactive_on_update="false" label="PJME" value="3"/>
+                <element inactive_on_update="false" label="DCSE" value="4"/>
             </choice>
         </element>
-        <element choice="1" label="Currency" max_length="40" name="currency" type="choice">
-            <choice>
-                <element inactive_on_update="false" label="KRW" sequence="1" value="krw"/>
-                <element inactive_on_update="false" label="CNY" sequence="2" value="cny"/>
-                <element inactive_on_update="false" label="USD" sequence="0" value="usd"/>
-            </choice>
-        </element>
+        <element label="Month10" max_length="40" name="month10" type="integer"/>
         <element choice="1" label="Budget type" max_length="40" name="budget_type" type="choice">
             <choice>
                 <element inactive_on_update="false" label="Other Cost" sequence="3" value="cost"/>
@@ -47,24 +30,41 @@
                 <element inactive_on_update="false" label="Y-Prod" sequence="0" value="prod"/>
             </choice>
         </element>
-        <element label="Month10" max_length="40" name="month10" type="integer"/>
-        <element choice="1" label="WBS" max_length="40" name="wbs" type="choice">
+        <element label="Month14" max_length="40" name="month14" type="integer"/>
+        <element label="Month18" max_length="40" name="month18" type="integer"/>
+        <element label="Month6" max_length="40" name="month6" type="integer"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element choice="1" label="Resource Code" max_length="40" name="resource_code" type="choice">
+            <choice/>
+        </element>
+        <element choice="1" label="Currency" max_length="40" name="currency" type="choice">
             <choice>
-                <element inactive_on_update="false" label="DCSE" value="4"/>
-                <element inactive_on_update="false" label="SUPE" value="5"/>
-                <element inactive_on_update="false" label="PJME" value="3"/>
+                <element inactive_on_update="false" label="KRW" sequence="1" value="krw"/>
+                <element inactive_on_update="false" label="CNY" sequence="2" value="cny"/>
+                <element inactive_on_update="false" label="USD" sequence="0" value="usd"/>
             </choice>
         </element>
-        <element label="Month3" max_length="40" name="month3" type="integer"/>
-        <element label="Month7" max_length="40" name="month7" type="integer"/>
-        <element label="Month12" max_length="40" name="month12" type="integer"/>
-        <element label="Month5" max_length="40" name="month5" type="integer"/>
         <element label="Month11" max_length="40" name="month11" type="integer"/>
+        <element label="Total amount" max_length="40" name="total_amount" type="integer"/>
+        <element label="Month15" max_length="40" name="month15" type="integer"/>
+        <element label="Month2" max_length="40" name="month2" type="integer"/>
+        <element label="Month7" max_length="40" name="month7" type="integer"/>
         <element label="Base Month" max_length="40" name="base_month" type="string"/>
+        <element choice="1" label="Data type" max_length="40" name="data_type" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="ITEM" sequence="1" value="item"/>
+                <element inactive_on_update="false" label="WBS6" sequence="0" value="wbs6"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Activity Type" max_length="40" name="activity_type" type="choice">
+            <choice/>
+        </element>
+        <element label="Month3" max_length="40" name="month3" type="integer"/>
+        <element label="Month8" max_length="40" name="month8" type="integer"/>
         <element label="Order Item" max_length="32" name="order_item" reference="x_yergb_bpm_order_item" type="reference"/>
-        <element label="Month18" max_length="40" name="month18" type="integer"/>
-        <element label="Month4" max_length="40" name="month4" type="integer"/>
-        <element label="Month17" max_length="40" name="month17" type="integer"/>
+        <element label="Total hour" max_length="40" name="total_hour" type="integer"/>
+        <element label="Month12" max_length="40" name="month12" type="integer"/>
+        <element label="Month16" max_length="40" name="month16" type="integer"/>
         <index name="index">
             <element name="order_item"/>
         </index>
