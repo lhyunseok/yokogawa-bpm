@@ -338,7 +338,7 @@
         ],
         "isHidden": {
             "type": "JSON_LITERAL",
-            "value": true
+            "value": null
         },
         "overrides": {
             "composition": [
@@ -2021,6 +2021,503 @@
                                 "margin-top": "0",
                                 "padding-left": "50px",
                                 "padding-right": "50px",
+                                "width": "100%"
+                            }
+                        }
+                    },
+                    "type": "columnSection"
+                },
+                "version": "1.0.0"
+            }
+        },
+        "slot": null,
+        "styles": null
+    },
+    {
+        "definition": {
+            "id": "d356d14b6e293a3020a244b63d278d8f",
+            "type": "MACROPONENT"
+        },
+        "elementId": "column_layout_3",
+        "elementLabel": "Column layout 3",
+        "eventMappings": [
+            
+        ],
+        "isHidden": {
+            "type": "JSON_LITERAL",
+            "value": null
+        },
+        "overrides": {
+            "composition": [
+                {
+                    "definition": {
+                        "id": "d356d14b6e293a3020a244b63d278d8f",
+                        "type": "MACROPONENT"
+                    },
+                    "elementId": "__clwpupaaggkaaccdggddffhhrddaanljvgii__column_1",
+                    "elementLabel": "__clwpupaaggkaaccdggddffhhrddaanljvgii__Column 1",
+                    "eventMappings": [
+                        
+                    ],
+                    "isHidden": {
+                        "type": "JSON_LITERAL",
+                        "value": null
+                    },
+                    "overrides": {
+                        "composition": [
+                            {
+                                "definition": {
+                                    "id": "d356d14b6e293a3020a244b63d278d8f",
+                                    "type": "MACROPONENT"
+                                },
+                                "elementId": "container_1",
+                                "elementLabel": "Container 1",
+                                "eventMappings": [
+                                    
+                                ],
+                                "isHidden": {
+                                    "type": "JSON_LITERAL",
+                                    "value": null
+                                },
+                                "overrides": {
+                                    "composition": [
+                                        {
+                                            "definition": {
+                                                "id": "db2db99e12480df481ca8c31a755d6a9",
+                                                "type": "MACROPONENT"
+                                            },
+                                            "elementId": "0525new_1",
+                                            "elementLabel": "0525new 1",
+                                            "eventMappings": [
+                                                
+                                            ],
+                                            "isHidden": {
+                                                "type": "JSON_LITERAL",
+                                                "value": null
+                                            },
+                                            "preset": null,
+                                            "propertyValues": {
+                                                "columnFitStyle": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "evenFill"
+                                                },
+                                                "columnResizable": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "true"
+                                                },
+                                                "columnsLayout": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": [
+                                                        
+                                                    ]
+                                                },
+                                                "displayFields": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "project,wbs,sys_created_on,amount,plan_gr_date,lead_time,target_gr_date"
+                                                },
+                                                "encodedQuery": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": ""
+                                                },
+                                                "fixedColumnCount": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": 0
+                                                },
+                                                "fixedRowCount": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": 0
+                                                },
+                                                "headerText": {
+                                                    "type": "TRANSLATION_LITERAL",
+                                                    "value": {
+                                                        "code": null,
+                                                        "comment": "",
+                                                        "message": "Total"
+                                                    }
+                                                },
+                                                "isOnlyOneRowCheck": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "false"
+                                                },
+                                                "selectionMode": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "none"
+                                                },
+                                                "showCheckBar": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "true"
+                                                },
+                                                "showFooter": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "true"
+                                                },
+                                                "showRowIndicator": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "true"
+                                                },
+                                                "showStateBar": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "true"
+                                                },
+                                                "showTotalCount": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "true"
+                                                },
+                                                "table": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "x_yergb_bpm_order_item"
+                                                }
+                                            },
+                                            "slot": null,
+                                            "styles": null
+                                        },
+                                        {
+                                            "definition": {
+                                                "id": "7264505e3fa348f63c0d5178aaba46f1",
+                                                "type": "MACROPONENT"
+                                            },
+                                            "elementId": "02_grid_1",
+                                            "elementLabel": "02 grid 1",
+                                            "eventMappings": [
+                                                
+                                            ],
+                                            "isHidden": {
+                                                "type": "JSON_LITERAL",
+                                                "value": true
+                                            },
+                                            "preset": null,
+                                            "propertyValues": {
+                                                "columnFitStyle": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "evenFill"
+                                                },
+                                                "columnResizable": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "true"
+                                                },
+                                                "columnsLayout": {
+                                                    "script": {
+                                                        "apiVersion": "2.0.0",
+                                                        "controllerElementId": null,
+                                                        "inlineScript": "/**\n * @param {params} params\n * @param {api} params.api\n * @param {TransformApiHelpers} params.helpers\n */\nfunction evaluateProperty({\n    api,\n    helpers\n}) {\n    var myColumn2 = [{\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": 'WBS'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": 'wbs'\n            }\n        },\n        {\n            \"columnInfo\": {\n                \"width\": 150,\n                \"header\": {\n                    \"text\": 'MS Code'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 150,\n                \"column\": 'ms_code'\n            }\n        },\n        {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": 'Unit Cost Price'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": 'unit_cost_price'\n            }\n        },\n        {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": 'Quantity'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": 'quantity'\n            }\n        },\n        {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": 'Amount'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": 'amount'\n            }\n        },\n        {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": 'Strategy'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": 'strategy'\n            }\n        },\n        {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": 'L/T'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": 'lead_time'\n            }\n        },\n        {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": 'Planned Procurement'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": 'planned_procurement'\n            }\n        },\n        {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": 'Plan GR Date'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": 'plan_gr_date'\n            }\n        }\n\n    ];\n    return myColumn2;\n}",
+                                                        "scriptSysId": "d3def18f47aa4a10d254bce5536d4359",
+                                                        "target": null
+                                                    },
+                                                    "type": "CLIENT_TRANSFORM_SCRIPT"
+                                                },
+                                                "displayFields": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "wbs,ms_code,unit_cost_price,quantity,amount,strategy,lead_time,planned_procurement,plan_gr_date"
+                                                },
+                                                "encodedQuery": {
+                                                    "transform": {
+                                                        "operands": {
+                                                            "container": [
+                                                                {
+                                                                    "type": "JSON_LITERAL",
+                                                                    "value": "project="
+                                                                },
+                                                                {
+                                                                    "binding": {
+                                                                        "address": [
+                                                                            "project",
+                                                                            "value"
+                                                                        ]
+                                                                    },
+                                                                    "type": "STATE_BINDING"
+                                                                },
+                                                                {
+                                                                    "type": "JSON_LITERAL",
+                                                                    "value": "^budget_type=prod^ORDERBYwbs^ORDERBYnumber"
+                                                                }
+                                                            ],
+                                                            "type": "LIST_CONTAINER"
+                                                        },
+                                                        "operator": "CONCAT"
+                                                    },
+                                                    "type": "CLIENT_TRANSFORM"
+                                                },
+                                                "fixedColumnCount": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": 0
+                                                },
+                                                "fixedRowCount": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": 0
+                                                },
+                                                "headerText": {
+                                                    "type": "TRANSLATION_LITERAL",
+                                                    "value": {
+                                                        "code": null,
+                                                        "comment": "",
+                                                        "message": "Total"
+                                                    }
+                                                },
+                                                "isOnlyOneRowCheck": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "false"
+                                                },
+                                                "selectionMode": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "none"
+                                                },
+                                                "showCheckBar": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "true"
+                                                },
+                                                "showFooter": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "true"
+                                                },
+                                                "showRowIndicator": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "true"
+                                                },
+                                                "showStateBar": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "true"
+                                                },
+                                                "showTotalCount": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "true"
+                                                },
+                                                "table": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "x_yergb_bpm_order_item"
+                                                }
+                                            },
+                                            "slot": null,
+                                            "styles": null
+                                        }
+                                    ],
+                                    "layout": {
+                                        "default": {
+                                            "children": null,
+                                            "items": [
+                                                {
+                                                    "element_id": "0525new_1",
+                                                    "styles": {
+                                                        "align-self": "stretch",
+                                                        "height": "500px"
+                                                    }
+                                                },
+                                                {
+                                                    "element_id": "02_grid_1",
+                                                    "styles": {
+                                                        "height": "400px",
+                                                        "width": "100%"
+                                                    }
+                                                }
+                                            ],
+                                            "root": null,
+                                            "rules": null,
+                                            "styles": {
+                                                "flex-direction": "column"
+                                            },
+                                            "templateId": "5832fd4d53c31010e6bcddeeff7b12db",
+                                            "type": "flex"
+                                        },
+                                        "version": "3.0.0"
+                                    }
+                                },
+                                "preset": null,
+                                "propertyValues": {
+                                    "ariaRegionHeadingLevel": {
+                                        "type": "JSON_LITERAL",
+                                        "value": "1"
+                                    },
+                                    "ariaRegionName": {
+                                        "type": "TRANSLATION_LITERAL",
+                                        "value": {
+                                            "code": null,
+                                            "comment": "",
+                                            "message": ""
+                                        }
+                                    },
+                                    "ariaRole": {
+                                        "type": "JSON_LITERAL",
+                                        "value": ""
+                                    },
+                                    "hideEmptyStateUi": {
+                                        "type": "JSON_LITERAL",
+                                        "value": true
+                                    },
+                                    "includeAriaHeading": {
+                                        "type": "JSON_LITERAL",
+                                        "value": false
+                                    },
+                                    "slotWrapperBehavior": {
+                                        "type": "JSON_LITERAL",
+                                        "value": "fullheight"
+                                    },
+                                    "type": {
+                                        "type": "JSON_LITERAL",
+                                        "value": "section"
+                                    }
+                                },
+                                "slot": null,
+                                "styles": null
+                            }
+                        ],
+                        "layout": {
+                            "default": {
+                                "children": null,
+                                "items": [
+                                    {
+                                        "element_id": "container_1",
+                                        "styles": {
+                                            "height": "500px",
+                                            "width": "100%"
+                                        }
+                                    }
+                                ],
+                                "root": null,
+                                "rules": {
+                                    "flex-direction": "row"
+                                },
+                                "styles": {
+                                    "align-items": "flex-start",
+                                    "box-sizing": "border-box",
+                                    "flex-direction": "column",
+                                    "height": "100%",
+                                    "justify-content": "flex-start",
+                                    "overflow": "auto"
+                                },
+                                "type": "flex"
+                            },
+                            "version": "3.0.0"
+                        }
+                    },
+                    "preset": null,
+                    "propertyValues": {
+                        "slotWrapperBehavior": {
+                            "type": "JSON_LITERAL",
+                            "value": "contents"
+                        }
+                    },
+                    "scratchPad": {
+                        "uib": {
+                            "layout": {
+                                "column": {
+                                    "styleConfig": {
+                                        "external": {
+                                            "display": "contents",
+                                            "width": "100%"
+                                        },
+                                        "internal": {
+                                            "align-items": "flex-start",
+                                            "box-sizing": "border-box",
+                                            "flex-direction": "column",
+                                            "height": "100%",
+                                            "justify-content": "flex-start",
+                                            "overflow": "auto"
+                                        }
+                                    }
+                                },
+                                "type": "column"
+                            },
+                            "version": "1.0.0"
+                        }
+                    },
+                    "slot": null,
+                    "styles": null
+                }
+            ],
+            "layout": {
+                "default": {
+                    "children": null,
+                    "isInline": null,
+                    "items": [
+                        {
+                            "element_id": "__clwpupaaggkaaccdggddffhhrddaanljvgii__column_1",
+                            "styles": {
+                                "display": "contents",
+                                "width": "100%"
+                            }
+                        }
+                    ],
+                    "root": null,
+                    "rules": null,
+                    "styles": {
+                        "box-sizing": "border-box",
+                        "grid-template-columns": "100fr",
+                        "grid-template-rows": "1fr",
+                        "width": "100%"
+                    },
+                    "type": "grid"
+                },
+                "disableAutoReflow": true,
+                "queries": [
+                    {
+                        "layout": {
+                            "children": null,
+                            "isInline": null,
+                            "items": [
+                                
+                            ],
+                            "root": null,
+                            "rules": null,
+                            "styles": {
+                                "box-sizing": "border-box",
+                                "grid-template-columns": "1fr",
+                                "grid-template-rows": "1fr",
+                                "height": "fit-content",
+                                "max-height": "max-content",
+                                "min-height": "min-content",
+                                "width": "100%"
+                            },
+                            "type": "grid"
+                        },
+                        "query": {
+                            "max-width": 640
+                        }
+                    }
+                ],
+                "version": "3.0.0"
+            }
+        },
+        "preset": null,
+        "propertyValues": {
+            "slotWrapperBehavior": {
+                "type": "JSON_LITERAL",
+                "value": "contents"
+            }
+        },
+        "scratchPad": {
+            "uib": {
+                "layout": {
+                    "columnSection": {
+                        "breakpoints": [
+                            {
+                                "behavior": "stack",
+                                "max-width": 640,
+                                "styles": {
+                                    "box-sizing": "border-box",
+                                    "grid-template-columns": "1fr",
+                                    "grid-template-rows": "1fr",
+                                    "height": "fit-content",
+                                    "max-height": "max-content",
+                                    "min-height": "min-content",
+                                    "width": "100%"
+                                }
+                            }
+                        ],
+                        "children": [
+                            {
+                                "columnNumber": 1,
+                                "unit": "%",
+                                "width": 100
+                            }
+                        ],
+                        "id": "UIB_COLUMN_SECTION_SINGLE_COLUMN_SECTION",
+                        "styleConfig": {
+                            "external": {
+                                "display": "contents",
+                                "width": "100%"
+                            },
+                            "internal": {
+                                "box-sizing": "border-box",
+                                "grid-template-rows": "1fr",
                                 "width": "100%"
                             }
                         }
@@ -4832,7 +5329,7 @@
                                 "apiVersion": "2.0.0",
                                 "controllerElementId": null,
                                 "inlineScript": null,
-                                "scriptSysId": "53b6867b479e4210d254bce5536d439e",
+                                "scriptSysId": "1bdef18f47aa4a10d254bce5536d430a",
                                 "target": null
                             },
                             "type": "CLIENT_TRANSFORM_SCRIPT"
@@ -4966,7 +5463,7 @@
         "isHero": false,
         "isHidden": {
             "type": "JSON_LITERAL",
-            "value": true
+            "value": null
         },
         "isNonDestructive": false,
         "items": [
@@ -5479,683 +5976,6 @@
     },
     {
         "definition": {
-            "id": "d356d14b6e293a3020a244b63d278d8f",
-            "type": "MACROPONENT"
-        },
-        "elementId": "column_layout_4",
-        "elementLabel": "Column layout 4",
-        "eventMappings": [
-            
-        ],
-        "isHidden": {
-            "type": "JSON_LITERAL",
-            "value": null
-        },
-        "overrides": {
-            "composition": [
-                {
-                    "definition": {
-                        "id": "d356d14b6e293a3020a244b63d278d8f",
-                        "type": "MACROPONENT"
-                    },
-                    "elementId": "__clxeeffwapwaaiinmddjhhpmhhidfptu__column_1",
-                    "elementLabel": "__clxeeffwapwaaiinmddjhhpmhhidfptu__Column 1",
-                    "eventMappings": [
-                        
-                    ],
-                    "isHidden": {
-                        "type": "JSON_LITERAL",
-                        "value": null
-                    },
-                    "overrides": {
-                        "composition": [
-                            {
-                                "definition": {
-                                    "id": "c573bd7eec7d763a1009669c8c97825c",
-                                    "type": "MACROPONENT"
-                                },
-                                "elementId": "display_value_block_1",
-                                "elementLabel": "Display value block 1",
-                                "eventMappings": [
-                                    
-                                ],
-                                "isHidden": {
-                                    "type": "JSON_LITERAL",
-                                    "value": null
-                                },
-                                "preset": {
-                                    "controllerElementId": "record",
-                                    "disabledEventTargetIds": [
-                                        
-                                    ],
-                                    "id": "06f0936926a6997bd5b952e61fea9290"
-                                },
-                                "propertyValues": {
-                                    "delimiter": {
-                                        "type": "JSON_LITERAL",
-                                        "value": ""
-                                    },
-                                    "items": {
-                                        "script": {
-                                            "apiVersion": "2.0.0",
-                                            "controllerElementId": null,
-                                            "inlineScript": "/**\n * @param {params} params\n * @param {api} params.api\n * @param {TransformApiHelpers} params.helpers\n */\nfunction evaluateProperty({\n    api,\n    helpers\n}) {\n    var myRecords = [{\n            \"label\": \"Project Number\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.number.displayValue\n\n            }\n        },\n        {\n            \"label\": \"Project Name\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.name.displayValue\n            }\n        },\n        {\n            \"label\": \"Customer\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.customer.displayValue\n            }\n        },\n        {\n            \"label\": \"PM\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.pm.displayValue\n            }\n        },\n        {\n            \"label\": \"Region\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.region.displayValue\n            }\n        },\n        {\n            \"label\": \"Currency\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.currency.displayValue\n            }\n        },\n        {\n            \"label\": \"Data type\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.look_up_multiple_records_1.results[0].data_type.displayValue\n            }\n        },\n        {\n            \"label\": \"Budget Type\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.look_up_multiple_records_1.results[0].budget_type.displayValue\n            }\n        },\n    ];\n    return myRecords;\n}",
-                                            "scriptSysId": "c886b983476a4a10d254bce5536d43b5",
-                                            "target": null
-                                        },
-                                        "type": "CLIENT_TRANSFORM_SCRIPT"
-                                    },
-                                    "maxLinesPerValue": {
-                                        "type": "JSON_LITERAL",
-                                        "value": 6
-                                    },
-                                    "rowsBeforeToggleShown": {
-                                        "type": "JSON_LITERAL",
-                                        "value": 12
-                                    },
-                                    "title": {
-                                        "type": "TRANSLATION_LITERAL",
-                                        "value": {
-                                            "code": null,
-                                            "comment": "",
-                                            "message": "Project Budget Plan for Y-Product"
-                                        }
-                                    }
-                                },
-                                "slot": null,
-                                "styles": null
-                            }
-                        ],
-                        "layout": {
-                            "default": {
-                                "children": null,
-                                "items": [
-                                    {
-                                        "element_id": "display_value_block_1",
-                                        "styles": {
-                                            "align-self": "stretch",
-                                            "background": "rgb(var(--now-color--neutral-1))",
-                                            "margin-bottom": "var(--now-scalable-space--xxs)",
-                                            "margin-left": "var(--now-scalable-space--3xl)",
-                                            "margin-right": "var(--now-scalable-space--3xl)",
-                                            "margin-top": "var(--now-scalable-space--md)",
-                                            "padding-bottom": "var(--now-scalable-space--md)",
-                                            "padding-left": "var(--now-scalable-space--3xl)",
-                                            "padding-top": "var(--now-scalable-space--md)"
-                                        }
-                                    }
-                                ],
-                                "root": null,
-                                "rules": {
-                                    "flex-direction": "row"
-                                },
-                                "styles": {
-                                    "align-items": "flex-start",
-                                    "box-sizing": "border-box",
-                                    "flex-direction": "column",
-                                    "height": "100%",
-                                    "justify-content": "flex-start",
-                                    "overflow": "auto"
-                                },
-                                "type": "flex"
-                            },
-                            "version": "3.0.0"
-                        }
-                    },
-                    "preset": null,
-                    "propertyValues": {
-                        "slotWrapperBehavior": {
-                            "type": "JSON_LITERAL",
-                            "value": "contents"
-                        }
-                    },
-                    "scratchPad": {
-                        "uib": {
-                            "layout": {
-                                "column": {
-                                    "styleConfig": {
-                                        "external": {
-                                            "display": "contents",
-                                            "width": "100%"
-                                        },
-                                        "internal": {
-                                            "align-items": "flex-start",
-                                            "box-sizing": "border-box",
-                                            "flex-direction": "column",
-                                            "height": "100%",
-                                            "justify-content": "flex-start",
-                                            "overflow": "auto"
-                                        }
-                                    }
-                                },
-                                "type": "column"
-                            },
-                            "version": "1.0.0"
-                        }
-                    },
-                    "slot": null,
-                    "styles": null
-                }
-            ],
-            "layout": {
-                "default": {
-                    "children": null,
-                    "isInline": null,
-                    "items": [
-                        {
-                            "element_id": "__clxeeffwapwaaiinmddjhhpmhhidfptu__column_1",
-                            "styles": {
-                                "display": "contents",
-                                "width": "100%"
-                            }
-                        }
-                    ],
-                    "root": null,
-                    "rules": null,
-                    "styles": {
-                        "box-sizing": "border-box",
-                        "grid-template-columns": "100fr",
-                        "grid-template-rows": "1fr",
-                        "width": "100%"
-                    },
-                    "type": "grid"
-                },
-                "disableAutoReflow": true,
-                "queries": [
-                    {
-                        "layout": {
-                            "children": null,
-                            "isInline": null,
-                            "items": [
-                                
-                            ],
-                            "root": null,
-                            "rules": null,
-                            "styles": {
-                                "box-sizing": "border-box",
-                                "grid-template-columns": "1fr",
-                                "grid-template-rows": "1fr",
-                                "height": "fit-content",
-                                "max-height": "max-content",
-                                "min-height": "min-content",
-                                "width": "100%"
-                            },
-                            "type": "grid"
-                        },
-                        "query": {
-                            "max-width": 640
-                        }
-                    }
-                ],
-                "version": "3.0.0"
-            }
-        },
-        "preset": null,
-        "propertyValues": {
-            "slotWrapperBehavior": {
-                "type": "JSON_LITERAL",
-                "value": "contents"
-            }
-        },
-        "scratchPad": {
-            "uib": {
-                "layout": {
-                    "columnSection": {
-                        "breakpoints": [
-                            {
-                                "behavior": "stack",
-                                "max-width": 640,
-                                "styles": {
-                                    "box-sizing": "border-box",
-                                    "grid-template-columns": "1fr",
-                                    "grid-template-rows": "1fr",
-                                    "height": "fit-content",
-                                    "max-height": "max-content",
-                                    "min-height": "min-content",
-                                    "width": "100%"
-                                }
-                            }
-                        ],
-                        "children": [
-                            {
-                                "columnNumber": 1,
-                                "unit": "%",
-                                "width": 100
-                            }
-                        ],
-                        "id": "UIB_COLUMN_SECTION_SINGLE_COLUMN_SECTION",
-                        "styleConfig": {
-                            "external": {
-                                "display": "contents",
-                                "width": "100%"
-                            },
-                            "internal": {
-                                "box-sizing": "border-box",
-                                "grid-template-rows": "1fr",
-                                "width": "100%"
-                            }
-                        }
-                    },
-                    "type": "columnSection"
-                },
-                "version": "1.0.0"
-            }
-        },
-        "slot": null,
-        "styles": null
-    },
-    {
-        "definition": {
-            "id": "d356d14b6e293a3020a244b63d278d8f",
-            "type": "MACROPONENT"
-        },
-        "elementId": "column_layout_5",
-        "elementLabel": "Column layout 5",
-        "eventMappings": [
-            
-        ],
-        "isHidden": {
-            "type": "JSON_LITERAL",
-            "value": null
-        },
-        "overrides": {
-            "composition": [
-                {
-                    "definition": {
-                        "id": "d356d14b6e293a3020a244b63d278d8f",
-                        "type": "MACROPONENT"
-                    },
-                    "elementId": "__clxeeffzvhhnaaiiypddjhhphccxlggbsg__column_1",
-                    "elementLabel": "__clxeeffzvhhnaaiiypddjhhphccxlggbsg__Column 1",
-                    "eventMappings": [
-                        
-                    ],
-                    "isHidden": {
-                        "type": "JSON_LITERAL",
-                        "value": null
-                    },
-                    "overrides": {
-                        "composition": [
-                            {
-                                "definition": {
-                                    "id": "d356d14b6e293a3020a244b63d278d8f",
-                                    "type": "MACROPONENT"
-                                },
-                                "elementId": "container_2",
-                                "elementLabel": "Container 2",
-                                "eventMappings": [
-                                    
-                                ],
-                                "isHidden": {
-                                    "type": "JSON_LITERAL",
-                                    "value": null
-                                },
-                                "overrides": {
-                                    "composition": [
-                                        {
-                                            "definition": {
-                                                "id": "db2db99e12480df481ca8c31a755d6a9",
-                                                "type": "MACROPONENT"
-                                            },
-                                            "elementId": "0525new_1",
-                                            "elementLabel": "0525new 1",
-                                            "eventMappings": [
-                                                
-                                            ],
-                                            "isHidden": {
-                                                "type": "JSON_LITERAL",
-                                                "value": null
-                                            },
-                                            "preset": null,
-                                            "propertyValues": {
-                                                "columnFitStyle": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": "evenFill"
-                                                },
-                                                "columnResizable": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": "true"
-                                                },
-                                                "columnsLayout": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": [
-                                                        
-                                                    ]
-                                                },
-                                                "displayFields": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": "wbs,ms_code,unit_cost_price,quantity,amount,strategy,lead_time,planned_procurement,plan_gr_date"
-                                                },
-                                                "encodedQuery": {
-                                                    "transform": {
-                                                        "operands": {
-                                                            "container": [
-                                                                {
-                                                                    "type": "JSON_LITERAL",
-                                                                    "value": "project="
-                                                                },
-                                                                {
-                                                                    "binding": {
-                                                                        "address": [
-                                                                            "sysId"
-                                                                        ],
-                                                                        "category": "props"
-                                                                    },
-                                                                    "type": "CONTEXT_BINDING"
-                                                                },
-                                                                {
-                                                                    "type": "JSON_LITERAL",
-                                                                    "value": "^budget_type="
-                                                                },
-                                                                {
-                                                                    "binding": {
-                                                                        "address": [
-                                                                            "budget"
-                                                                        ]
-                                                                    },
-                                                                    "type": "STATE_BINDING"
-                                                                }
-                                                            ],
-                                                            "type": "LIST_CONTAINER"
-                                                        },
-                                                        "operator": "CONCAT"
-                                                    },
-                                                    "type": "CLIENT_TRANSFORM"
-                                                },
-                                                "fixedColumnCount": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": 0
-                                                },
-                                                "fixedRowCount": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": 0
-                                                },
-                                                "headerText": {
-                                                    "type": "TRANSLATION_LITERAL",
-                                                    "value": {
-                                                        "code": null,
-                                                        "comment": "",
-                                                        "message": "Total"
-                                                    }
-                                                },
-                                                "isOnlyOneRowCheck": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": "false"
-                                                },
-                                                "selectionMode": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": "none"
-                                                },
-                                                "showCheckBar": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": "true"
-                                                },
-                                                "showFooter": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": "true"
-                                                },
-                                                "showRowIndicator": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": "true"
-                                                },
-                                                "showStateBar": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": "true"
-                                                },
-                                                "showTotalCount": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": "true"
-                                                },
-                                                "table": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": "x_yergb_bpm_order_item"
-                                                }
-                                            },
-                                            "slot": null,
-                                            "styles": null
-                                        }
-                                    ],
-                                    "layout": {
-                                        "default": {
-                                            "children": null,
-                                            "items": [
-                                                {
-                                                    "element_id": "0525new_1",
-                                                    "styles": {
-                                                        "align-self": "stretch",
-                                                        "height": "570px"
-                                                    }
-                                                }
-                                            ],
-                                            "root": null,
-                                            "rules": null,
-                                            "styles": {
-                                                "flex-direction": "column"
-                                            },
-                                            "templateId": "5832fd4d53c31010e6bcddeeff7b12db",
-                                            "type": "flex"
-                                        },
-                                        "version": "3.0.0"
-                                    }
-                                },
-                                "preset": null,
-                                "propertyValues": {
-                                    "ariaRegionHeadingLevel": {
-                                        "type": "JSON_LITERAL",
-                                        "value": "1"
-                                    },
-                                    "ariaRegionName": {
-                                        "type": "TRANSLATION_LITERAL",
-                                        "value": {
-                                            "code": null,
-                                            "comment": "",
-                                            "message": ""
-                                        }
-                                    },
-                                    "ariaRole": {
-                                        "type": "JSON_LITERAL",
-                                        "value": ""
-                                    },
-                                    "hideEmptyStateUi": {
-                                        "type": "JSON_LITERAL",
-                                        "value": true
-                                    },
-                                    "includeAriaHeading": {
-                                        "type": "JSON_LITERAL",
-                                        "value": false
-                                    },
-                                    "slotWrapperBehavior": {
-                                        "type": "JSON_LITERAL",
-                                        "value": "fullheight"
-                                    },
-                                    "type": {
-                                        "type": "JSON_LITERAL",
-                                        "value": "section"
-                                    }
-                                },
-                                "slot": null,
-                                "styles": null
-                            }
-                        ],
-                        "layout": {
-                            "default": {
-                                "children": null,
-                                "items": [
-                                    {
-                                        "element_id": "container_2",
-                                        "styles": {
-                                            "height": "670px",
-                                            "width": "100%"
-                                        }
-                                    }
-                                ],
-                                "root": null,
-                                "rules": {
-                                    "flex-direction": "row"
-                                },
-                                "styles": {
-                                    "align-items": "flex-start",
-                                    "box-sizing": "border-box",
-                                    "flex-direction": "column",
-                                    "height": "100%",
-                                    "justify-content": "flex-start",
-                                    "overflow": "auto"
-                                },
-                                "type": "flex"
-                            },
-                            "version": "3.0.0"
-                        }
-                    },
-                    "preset": null,
-                    "propertyValues": {
-                        "slotWrapperBehavior": {
-                            "type": "JSON_LITERAL",
-                            "value": "contents"
-                        }
-                    },
-                    "scratchPad": {
-                        "uib": {
-                            "layout": {
-                                "column": {
-                                    "styleConfig": {
-                                        "external": {
-                                            "display": "contents",
-                                            "width": "100%"
-                                        },
-                                        "internal": {
-                                            "align-items": "flex-start",
-                                            "box-sizing": "border-box",
-                                            "flex-direction": "column",
-                                            "height": "100%",
-                                            "justify-content": "flex-start",
-                                            "overflow": "auto"
-                                        }
-                                    }
-                                },
-                                "type": "column"
-                            },
-                            "version": "1.0.0"
-                        }
-                    },
-                    "slot": null,
-                    "styles": null
-                }
-            ],
-            "layout": {
-                "default": {
-                    "children": null,
-                    "isInline": null,
-                    "items": [
-                        {
-                            "element_id": "__clxeeffzvhhnaaiiypddjhhphccxlggbsg__column_1",
-                            "styles": {
-                                "display": "contents",
-                                "width": "100%"
-                            }
-                        }
-                    ],
-                    "root": null,
-                    "rules": null,
-                    "styles": {
-                        "box-sizing": "border-box",
-                        "grid-template-columns": "100fr",
-                        "grid-template-rows": "1fr",
-                        "padding-left": "var(--now-scalable-space--lg)",
-                        "padding-right": "var(--now-scalable-space--lg)",
-                        "width": "100%"
-                    },
-                    "type": "grid"
-                },
-                "disableAutoReflow": true,
-                "queries": [
-                    {
-                        "layout": {
-                            "children": null,
-                            "isInline": null,
-                            "items": [
-                                
-                            ],
-                            "root": null,
-                            "rules": null,
-                            "styles": {
-                                "box-sizing": "border-box",
-                                "grid-template-columns": "1fr",
-                                "grid-template-rows": "1fr",
-                                "height": "fit-content",
-                                "max-height": "max-content",
-                                "min-height": "min-content",
-                                "padding-left": "var(--now-scalable-space--lg)",
-                                "padding-right": "var(--now-scalable-space--lg)",
-                                "width": "100%"
-                            },
-                            "type": "grid"
-                        },
-                        "query": {
-                            "max-width": 640
-                        }
-                    }
-                ],
-                "version": "3.0.0"
-            }
-        },
-        "preset": null,
-        "propertyValues": {
-            "slotWrapperBehavior": {
-                "type": "JSON_LITERAL",
-                "value": "contents"
-            }
-        },
-        "scratchPad": {
-            "uib": {
-                "layout": {
-                    "columnSection": {
-                        "breakpoints": [
-                            {
-                                "behavior": "stack",
-                                "max-width": 640,
-                                "styles": {
-                                    "box-sizing": "border-box",
-                                    "grid-template-columns": "1fr",
-                                    "grid-template-rows": "1fr",
-                                    "height": "fit-content",
-                                    "max-height": "max-content",
-                                    "min-height": "min-content",
-                                    "width": "100%"
-                                }
-                            }
-                        ],
-                        "children": [
-                            {
-                                "columnNumber": 1,
-                                "unit": "%",
-                                "width": 100
-                            }
-                        ],
-                        "id": "UIB_COLUMN_SECTION_SINGLE_COLUMN_SECTION",
-                        "styleConfig": {
-                            "external": {
-                                "display": "contents",
-                                "width": "100%"
-                            },
-                            "internal": {
-                                "box-sizing": "border-box",
-                                "grid-template-rows": "1fr",
-                                "padding-left": "var(--now-scalable-space--lg)",
-                                "padding-right": "var(--now-scalable-space--lg)",
-                                "width": "100%"
-                            }
-                        }
-                    },
-                    "type": "columnSection"
-                },
-                "version": "1.0.0"
-            }
-        },
-        "slot": null,
-        "styles": null
-    },
-    {
-        "definition": {
             "id": "9c2e3b0978b3250ef3081204f151026a",
             "type": "MACROPONENT"
         },
@@ -6314,7 +6134,7 @@
                                                         "type": "JSON_LITERAL",
                                                         "value": {}
                                                     },
-                                                    "sysId": "52912f683be68e1046a3934a85e45a62"
+                                                    "sysId": "c7def18f47aa4a10d254bce5536d4306"
                                                 },
                                                 "conditional": null,
                                                 "declarativeAction": null,
@@ -7092,7 +6912,7 @@
                                 "type": "JSON_LITERAL",
                                 "value": {}
                             },
-                            "sysId": "f3de1ea847628610d254bce5536d4375"
+                            "sysId": "17def18f47aa4a10d254bce5536d435d"
                         },
                         "conditional": null,
                         "declarativeAction": null,
@@ -7364,7 +7184,7 @@
             },
             "returnFields": {
                 "type": "JSON_LITERAL",
-                "value": "data_type,budget_type,project"
+                "value": "region,currency,data_type,budget_type,project,project.pm,project.name,project.customer.name"
             },
             "sortType": {
                 "type": "JSON_LITERAL",
@@ -7477,21 +7297,14 @@
                 }
             },
             {
-                "element_id": "column_layout_4",
-                "styles": {
-                    "display": "contents",
-                    "width": "100%"
-                }
-            },
-            {
-                "element_id": "column_layout_5",
-                "styles": {
-                    "display": "contents",
-                    "width": "100%"
-                }
-            },
-            {
                 "element_id": "column_layout_2",
+                "styles": {
+                    "display": "contents",
+                    "width": "100%"
+                }
+            },
+            {
+                "element_id": "column_layout_3",
                 "styles": {
                     "display": "contents",
                     "width": "100%"
@@ -7522,7 +7335,7 @@
     "version": "3.0.0"
 }</layout>
         <macroponent_dependencies/>
-        <name>Default</name>
+        <name>Default 0607</name>
         <output_prop_mapping/>
         <props>[
     {
@@ -7846,29 +7659,20 @@
         "name": "project_id",
         "shape": "",
         "valueType": "string"
-    },
-    {
-        "initialValue": {
-            "type": "JSON_LITERAL",
-            "value": "Y-Prod"
-        },
-        "name": "budget",
-        "shape": "",
-        "valueType": "string"
     }
 ]</state_properties>
         <sys_class_name>sys_ux_macroponent</sys_class_name>
-        <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2024-05-28 02:14:51</sys_created_on>
-        <sys_id>5bb6867b479e4210d254bce5536d439a</sys_id>
-        <sys_mod_count>126</sys_mod_count>
-        <sys_name>Default</sys_name>
+        <sys_created_by>hhkim</sys_created_by>
+        <sys_created_on>2024-06-07 04:00:41</sys_created_on>
+        <sys_id>4bde394f47aa4a10d254bce5536d4371</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Default 0607</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_update_name>sys_ux_macroponent_5bb6867b479e4210d254bce5536d439a</sys_update_name>
+        <sys_update_name>sys_ux_macroponent_4bde394f47aa4a10d254bce5536d4371</sys_update_name>
         <sys_updated_by>hhkim</sys_updated_by>
-        <sys_updated_on>2024-06-07 04:25:06</sys_updated_on>
+        <sys_updated_on>2024-06-07 04:00:43</sys_updated_on>
     </sys_ux_macroponent>
-    <sys_translated_text action="delete_multiple" query="documentkey=5bb6867b479e4210d254bce5536d439a"/>
+    <sys_translated_text action="delete_multiple" query="documentkey=4bde394f47aa4a10d254bce5536d4371"/>
 </record_update>
