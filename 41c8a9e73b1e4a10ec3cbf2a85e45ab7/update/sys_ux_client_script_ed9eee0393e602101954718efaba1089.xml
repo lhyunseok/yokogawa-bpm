@@ -3,7 +3,7 @@
         <controller_preset/>
         <includes/>
         <macroponent display_value="Default">063f266393da02101954718efaba10c4</macroponent>
-        <name>St filter</name>
+        <name>New client script 1</name>
         <preset/>
         <required_translations>[
     
@@ -17,33 +17,20 @@
 */
 function handler({api, event, helpers, imports}) {
 
-  console.log("Search ============ Start =============") 
-    var find = api.state.src_find;
-    var v_query="";
-
-    // Company    
-    // Status
-   
-    if( find != undefined){
-        v_query=v_query+"NameLIKE"+ find +"^";
-    }
-    
-
-   console.log("Search ============ End =============")
 }]]></script>
         <script_api_version>2.0.0</script_api_version>
         <sys_class_name>sys_ux_client_script</sys_class_name>
         <sys_created_by>choiyk02</sys_created_by>
-        <sys_created_on>2024-05-30 05:23:20</sys_created_on>
-        <sys_id>ec3294e4932202101954718efaba10ba</sys_id>
-        <sys_mod_count>11</sys_mod_count>
-        <sys_name>St filter</sys_name>
+        <sys_created_on>2024-06-07 10:02:21</sys_created_on>
+        <sys_id>ed9eee0393e602101954718efaba1089</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>New client script 1</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_update_name>sys_ux_client_script_ec3294e4932202101954718efaba10ba</sys_update_name>
+        <sys_update_name>sys_ux_client_script_ed9eee0393e602101954718efaba1089</sys_update_name>
         <sys_updated_by>choiyk02</sys_updated_by>
-        <sys_updated_on>2024-06-07 10:02:20</sys_updated_on>
+        <sys_updated_on>2024-06-07 10:02:21</sys_updated_on>
         <target>macroponent</target>
         <type>default</type>
     </sys_ux_client_script>
