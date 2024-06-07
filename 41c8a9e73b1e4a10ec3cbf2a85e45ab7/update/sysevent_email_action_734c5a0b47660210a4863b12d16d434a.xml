@@ -7,8 +7,7 @@
         <affected_field_on_event/>
         <category display_value="Uncategorized" name="Uncategorized">c97d83137f4432005f58108c3ffa917a</category>
         <collection>x_yergb_bpm_rfq_entry</collection>
-        <condition table="x_yergb_bpm_rfq_entry">stateCHANGESTO3^stateCHANGESFROM2^EQ<item display_value="Requested" endquery="false" field="state" goto="false" newquery="false" operator="CHANGESTO" or="false" value="3"/>
-            <item display_value="Assess" endquery="false" field="state" goto="false" newquery="false" operator="CHANGESFROM" or="false" value="2"/>
+        <condition table="x_yergb_bpm_rfq_entry">stateCHANGESTO-5^EQ<item display_value="Returned" endquery="false" field="state" goto="false" newquery="false" operator="CHANGESTO" or="false" value="-5"/>
             <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
         </condition>
         <content_type>text/html</content_type>
@@ -40,50 +39,44 @@
         <mandatory>false</mandatory>
         <message/>
         <message_html><![CDATA[<p>Hello,</p>
-<p>This is notification for Quotation Request.</p>
-<p>RFQ Entry information like below:</p>
 <p>&nbsp;</p>
-<p>---------------------------------------------------------------------</p>
-<p>RFQ Entry Number: ${number}</p>
-<p>Requester: ${requester}</p>
-<p>Reason Code: ${reason_code}</p>
-<p>Request Due Date: ${request_due_date}</p>
-<p>Remark: ${remark}</p>
-<p>-----------------------------------------------------------------------</p>
+<p>Your quotation request is just returned by ${assigned_to}.</p>
 <p>&nbsp;</p>
-<p>Click here ${URI} to open RFQ Entry information in details.</p>
+<p>You can change state to 'Cancel' or 'Assess' again.</p>
+<p>&nbsp;</p>
+<p>If you want to open RFQ Entry infomation in details then Click here : ${URI}</p>
 <p>&nbsp;</p>
 <p>Thank you.</p>]]></message_html>
         <message_list/>
         <message_text/>
-        <name>Notice to Assignment group for RFQ</name>
+        <name>Notice to requester RFQ returned info</name>
         <omit_watermark>false</omit_watermark>
         <order>100</order>
         <push_message_only>false</push_message_only>
-        <recipient_fields>assignment_group</recipient_fields>
+        <recipient_fields>requester</recipient_fields>
         <recipient_groups/>
         <recipient_users/>
         <reply_to/>
         <send_self>true</send_self>
         <sms_alternate/>
         <style/>
-        <subject>Quotation Request ${number} by ${requester}</subject>
+        <subject>Returned your Quotation Request</subject>
         <subscribable>false</subscribable>
         <sys_class_name>sysevent_email_action</sys_class_name>
         <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-07 02:25:58</sys_created_on>
+        <sys_created_on>2024-06-07 06:14:13</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>ff78290747620210a4863b12d16d43ed</sys_id>
-        <sys_mod_count>5</sys_mod_count>
-        <sys_name>Notice to Assignment group for RFQ</sys_name>
+        <sys_id>734c5a0b47660210a4863b12d16d434a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Notice to requester RFQ returned info</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_update_name>sysevent_email_action_ff78290747620210a4863b12d16d43ed</sys_update_name>
+        <sys_update_name>sysevent_email_action_734c5a0b47660210a4863b12d16d434a</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-07 06:08:31</sys_updated_on>
+        <sys_updated_on>2024-06-07 06:14:13</sys_updated_on>
         <sys_version>2</sys_version>
         <template display_value="Unsubscribe and Preferences">7ed0481f3b0b2200c869c2c703efc487</template>
         <type>email</type>

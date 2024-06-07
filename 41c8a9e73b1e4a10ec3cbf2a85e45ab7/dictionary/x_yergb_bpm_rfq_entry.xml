@@ -5,7 +5,7 @@
         <element label="Project Title" max_length="40" name="project_title" type="string"/>
         <element label="Project" max_length="40" name="project" type="string"/>
         <element label="Sales Order" max_length="40" name="sales_order" type="string"/>
-        <element attributes="edge_encryption_enabled=true,encode_utf8=false" default="javascript:gs.getUserID()" dynamic_default_value="90d1921e5f510100a9ad2572f2b477fe" label="Requester" max_length="32" name="requester" read_only="true" reference="sys_user" type="reference" use_dynamic_default="true"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false,readonly_clickthrough=true" default="javascript:gs.getUserID()" dynamic_default_value="90d1921e5f510100a9ad2572f2b477fe" label="Requester" max_length="32" name="requester" read_only="true" reference="sys_user" type="reference" use_dynamic_default="true"/>
         <element label="Credit Assessment" max_length="32" name="credit_assessment" reference="x_yergb_bpm_credit_assessment" type="reference"/>
         <element label="End User" max_length="32" name="end_user" reference="core_company" type="reference"/>
         <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Assigned to" max_length="32" name="assigned_to" reference="sys_user" type="reference"/>
@@ -19,7 +19,12 @@
         <element attributes="edge_encryption_enabled=true" default="true" label="Active" max_length="40" name="active" read_only="true" type="boolean"/>
         <element label="OI Report" max_length="40" name="oi_report" type="string"/>
         <element default="javascript:gs.nowDateTime();" dynamic_default_value="79cb83a85f220100a9ad2572f2b4773c" label="Request Date" mandatory="true" max_length="40" name="request_date" type="glide_date" use_dynamic_default="true"/>
-        <element label="Quotation type" max_length="40" name="quotation_type" type="string"/>
+        <element choice="1" label="Quotation type" max_length="40" name="quotation_type" type="string">
+            <choice>
+                <element inactive_on_update="false" label="Submission to Customers" sequence="20" value="submission"/>
+                <element inactive_on_update="false" label="Budgetary" sequence="10" value="budgetary"/>
+            </choice>
+        </element>
         <element label="Estimated Order Intake Amount" max_length="40" name="estimated_order_intake_amount" type="integer"/>
         <element label="Quotation" max_length="40" name="quotation" reference="x_yergb_bpm_quotation" type="reference"/>
         <element label="Project Detail" max_length="40" name="project_detail" type="string"/>
