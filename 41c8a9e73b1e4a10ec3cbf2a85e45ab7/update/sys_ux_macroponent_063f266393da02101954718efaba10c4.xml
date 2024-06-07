@@ -924,7 +924,60 @@
                                                         "elementId": "input_25",
                                                         "elementLabel": "Input 25",
                                                         "eventMappings": [
-                                                            
+                                                            {
+                                                                "eventMappingId": "clxeeccqoubbaabbmbbddffhhrveccdxupd",
+                                                                "isConfiguration": false,
+                                                                "offRowStorageId": null,
+                                                                "sourceEventApiName": "sn_input.NOW_INPUT#INVALID_SET",
+                                                                "sourceEventCorrelationId": null,
+                                                                "sourceEventDefinition": {
+                                                                    "apiName": "sn_input.NOW_INPUT#INVALID_SET",
+                                                                    "id": null,
+                                                                    "type": "UXEVENT"
+                                                                },
+                                                                "sourceEventSysId": null,
+                                                                "targets": [
+                                                                    {
+                                                                        "broker": null,
+                                                                        "clientScript": null,
+                                                                        "conditional": null,
+                                                                        "declarativeAction": null,
+                                                                        "event": null,
+                                                                        "operation": {
+                                                                            "dataBrokerId": "dc6e87a5232200100e4bc50947bf654b",
+                                                                            "operationName": "SET_VALUE",
+                                                                            "parentResourceId": "glide_form_1",
+                                                                            "payload": {
+                                                                                "container": {
+                                                                                    "displayValue": {
+                                                                                        "binding": {
+                                                                                            "address": [
+                                                                                                "final_company_display"
+                                                                                            ]
+                                                                                        },
+                                                                                        "type": "STATE_BINDING"
+                                                                                    },
+                                                                                    "fieldName": {
+                                                                                        "type": "JSON_LITERAL",
+                                                                                        "value": "final_company"
+                                                                                    },
+                                                                                    "value": {
+                                                                                        "binding": {
+                                                                                            "address": [
+                                                                                                "final_company_sysid"
+                                                                                            ]
+                                                                                        },
+                                                                                        "type": "STATE_BINDING"
+                                                                                    }
+                                                                                },
+                                                                                "type": "MAP_CONTAINER"
+                                                                            }
+                                                                        },
+                                                                        "targetId": "clxeeccqoubbaabbmccddffhhrbtqddgglld",
+                                                                        "type": "DATABROKER_OP"
+                                                                    }
+                                                                ]
+                                                            }
                                                         ],
                                                         "isHidden": {
                                                             "type": "JSON_LITERAL",
@@ -3076,7 +3129,53 @@
                                                         "elementId": "input_5",
                                                         "elementLabel": "Input 5",
                                                         "eventMappings": [
-                                                            
+                                                            {
+                                                                "eventMappingId": "clxeehhiihhiqaabbcvddffhhrxluiivlii",
+                                                                "isConfiguration": false,
+                                                                "offRowStorageId": null,
+                                                                "sourceEventApiName": "sn_input.NOW_INPUT#INVALID_SET",
+                                                                "sourceEventCorrelationId": null,
+                                                                "sourceEventDefinition": {
+                                                                    "apiName": "sn_input.NOW_INPUT#INVALID_SET",
+                                                                    "id": null,
+                                                                    "type": "UXEVENT"
+                                                                },
+                                                                "sourceEventSysId": null,
+                                                                "targets": [
+                                                                    {
+                                                                        "broker": null,
+                                                                        "clientScript": null,
+                                                                        "conditional": null,
+                                                                        "declarativeAction": null,
+                                                                        "event": {
+                                                                            "apiName": "sn_uxf.MACROPONENT_STATE_UPDATE_REQUESTED",
+                                                                            "payload": {
+                                                                                "container": {
+                                                                                    "propName": {
+                                                                                        "type": "JSON_LITERAL",
+                                                                                        "value": "Result"
+                                                                                    },
+                                                                                    "value": {
+                                                                                        "binding": {
+                                                                                            "address": [
+                                                                                                "fieldValue",
+                                                                                                "result",
+                                                                                                "value"
+                                                                                            ]
+                                                                                        },
+                                                                                        "type": "EVENT_PAYLOAD_BINDING"
+                                                                                    }
+                                                                                },
+                                                                                "type": "MAP_CONTAINER"
+                                                                            },
+                                                                            "sysId": "32408b42ff7a10109046e490703bf176"
+                                                                        },
+                                                                        "operation": null,
+                                                                        "targetId": "clxeehhiihhiqaabbcwddffhhrbbitjjmcpw",
+                                                                        "type": "EVENT"
+                                                                    }
+                                                                ]
+                                                            }
                                                         ],
                                                         "isHidden": {
                                                             "type": "JSON_LITERAL",
@@ -5073,8 +5172,15 @@
                                                                 "value": "text"
                                                             },
                                                             "value": {
-                                                                "type": "JSON_LITERAL",
-                                                                "value": null
+                                                                "binding": {
+                                                                    "address": [
+                                                                        "look_up_record_1",
+                                                                        "result",
+                                                                        "department",
+                                                                        "displayValue"
+                                                                    ]
+                                                                },
+                                                                "type": "DATA_OUTPUT_BINDING"
                                                             }
                                                         },
                                                         "slot": null,
@@ -5203,8 +5309,15 @@
                                                                 "value": "text"
                                                             },
                                                             "value": {
-                                                                "type": "JSON_LITERAL",
-                                                                "value": null
+                                                                "binding": {
+                                                                    "address": [
+                                                                        "look_up_record_1",
+                                                                        "result",
+                                                                        "department",
+                                                                        "displayValue"
+                                                                    ]
+                                                                },
+                                                                "type": "DATA_OUTPUT_BINDING"
                                                             }
                                                         },
                                                         "slot": null,
@@ -5224,6 +5337,7 @@
                                                             {
                                                                 "element_id": "input_12",
                                                                 "styles": {
+                                                                    "padding-left": "var(--now-scalable-space--xs)",
                                                                     "width": "99%"
                                                                 }
                                                             }
@@ -6418,8 +6532,15 @@
                                                                 "value": "text"
                                                             },
                                                             "value": {
-                                                                "type": "JSON_LITERAL",
-                                                                "value": null
+                                                                "binding": {
+                                                                    "address": [
+                                                                        "look_up_record_1",
+                                                                        "result",
+                                                                        "employee_number",
+                                                                        "value"
+                                                                    ]
+                                                                },
+                                                                "type": "DATA_OUTPUT_BINDING"
                                                             }
                                                         },
                                                         "slot": null,
@@ -6550,9 +6671,10 @@
                                                             "value": {
                                                                 "binding": {
                                                                     "address": [
-                                                                        "look_up_user_1",
-                                                                        "user",
-                                                                        "userName"
+                                                                        "look_up_record_1",
+                                                                        "result",
+                                                                        "name",
+                                                                        "value"
                                                                     ]
                                                                 },
                                                                 "type": "DATA_OUTPUT_BINDING"
@@ -6575,6 +6697,7 @@
                                                             {
                                                                 "element_id": "input_14",
                                                                 "styles": {
+                                                                    "padding-left": "var(--now-scalable-space--xs)",
                                                                     "width": "99%"
                                                                 }
                                                             }
@@ -7964,6 +8087,7 @@
                                                 {
                                                     "element_id": "input_18",
                                                     "styles": {
+                                                        "padding-left": "var(--now-scalable-space--xs)",
                                                         "width": "66%"
                                                     }
                                                 },
@@ -8266,10 +8390,7 @@
                                                     "type": "JSON_LITERAL",
                                                     "value": "text"
                                                 },
-                                                "value": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": null
-                                                }
+                                                "value": null
                                             },
                                             "slot": null,
                                             "styles": null
@@ -9520,6 +9641,7 @@
                                                 {
                                                     "element_id": "input_22",
                                                     "styles": {
+                                                        "padding-left": "var(--now-scalable-space--xs)",
                                                         "width": "66%"
                                                     }
                                                 },
@@ -12122,6 +12244,7 @@
                                                 {
                                                     "element_id": "input_43",
                                                     "styles": {
+                                                        "padding-left": "var(--now-scalable-space--xs)",
                                                         "width": "100%"
                                                     }
                                                 }
@@ -17824,6 +17947,94 @@
                                                 "operation": null,
                                                 "targetId": "clwssglsfaacceeccddffhhrhhbbcqhhnjjjj",
                                                 "type": "CLIENT_SCRIPT"
+                                            },
+                                            {
+                                                "broker": null,
+                                                "clientScript": null,
+                                                "conditional": null,
+                                                "declarativeAction": null,
+                                                "event": {
+                                                    "apiName": "sn_uxf.MACROPONENT_STATE_UPDATE_REQUESTED",
+                                                    "payload": {
+                                                        "container": {
+                                                            "propName": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": "final_company_sysid"
+                                                            },
+                                                            "value": {
+                                                                "binding": {
+                                                                    "address": [
+                                                                        "sys_id"
+                                                                    ]
+                                                                },
+                                                                "type": "EVENT_PAYLOAD_BINDING"
+                                                            }
+                                                        },
+                                                        "type": "MAP_CONTAINER"
+                                                    },
+                                                    "sysId": "32408b42ff7a10109046e490703bf176"
+                                                },
+                                                "operation": null,
+                                                "targetId": "clxeeffoxyjjaabbssddffhhrkcjjodnffk",
+                                                "type": "EVENT"
+                                            },
+                                            {
+                                                "broker": null,
+                                                "clientScript": null,
+                                                "conditional": null,
+                                                "declarativeAction": null,
+                                                "event": {
+                                                    "apiName": "sn_uxf.MACROPONENT_STATE_UPDATE_REQUESTED",
+                                                    "payload": {
+                                                        "container": {
+                                                            "propName": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": "final_company_display"
+                                                            },
+                                                            "value": {
+                                                                "binding": {
+                                                                    "address": [
+                                                                        "row",
+                                                                        "display",
+                                                                        "value"
+                                                                    ]
+                                                                },
+                                                                "type": "EVENT_PAYLOAD_BINDING"
+                                                            }
+                                                        },
+                                                        "type": "MAP_CONTAINER"
+                                                    },
+                                                    "sysId": "32408b42ff7a10109046e490703bf176"
+                                                },
+                                                "operation": null,
+                                                "targetId": "clxeeffuggrhaabbxpddffhhrhddgyaaygaa",
+                                                "type": "EVENT"
+                                            },
+                                            {
+                                                "broker": null,
+                                                "clientScript": null,
+                                                "conditional": null,
+                                                "declarativeAction": null,
+                                                "event": {
+                                                    "apiName": "x_yergb_bpm.MODAL_SELECTED_RELAY_063f266393da02101954718efaba10c4",
+                                                    "payload": {
+                                                        "type": "JSON_LITERAL",
+                                                        "value": {
+                                                            "bare": null,
+                                                            "displayOptions": null,
+                                                            "modalId": null,
+                                                            "showModal": null,
+                                                            "viewportElementId": null,
+                                                            "viewportFields": null,
+                                                            "viewportParams": null,
+                                                            "viewportRoute": null
+                                                        }
+                                                    },
+                                                    "sysId": "a1091c18932a02101954718efaba109b"
+                                                },
+                                                "operation": null,
+                                                "targetId": "clxeeffvgenaabbzaddffhhrvjabbxcejj",
+                                                "type": "EVENT"
                                             }
                                         ]
                                     }
@@ -18543,7 +18754,125 @@
                                 "elementId": "list___simple_4",
                                 "elementLabel": "List - Simple 4",
                                 "eventMappings": [
-                                    
+                                    {
+                                        "eventMappingId": "clxeecchrnxaabbgccddffhhrlyqurzqz",
+                                        "isConfiguration": false,
+                                        "offRowStorageId": null,
+                                        "sourceEventApiName": "sn_record_list_con.NOW_RECORD_LIST_CONNECTED#ROW_CLICKED",
+                                        "sourceEventCorrelationId": null,
+                                        "sourceEventDefinition": {
+                                            "apiName": "sn_record_list_con.NOW_RECORD_LIST_CONNECTED#ROW_CLICKED",
+                                            "id": null,
+                                            "type": "UXEVENT"
+                                        },
+                                        "sourceEventSysId": null,
+                                        "targets": [
+                                            {
+                                                "broker": null,
+                                                "clientScript": null,
+                                                "conditional": null,
+                                                "declarativeAction": null,
+                                                "event": {
+                                                    "apiName": "sn_uxf.MACROPONENT_STATE_UPDATE_REQUESTED",
+                                                    "payload": {
+                                                        "container": {
+                                                            "propName": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": "final_company_sysid"
+                                                            },
+                                                            "value": {
+                                                                "binding": {
+                                                                    "address": [
+                                                                        "sys_id"
+                                                                    ]
+                                                                },
+                                                                "type": "EVENT_PAYLOAD_BINDING"
+                                                            }
+                                                        },
+                                                        "type": "MAP_CONTAINER"
+                                                    },
+                                                    "sysId": "32408b42ff7a10109046e490703bf176"
+                                                },
+                                                "operation": null,
+                                                "targetId": "clxeecchrnxaabbgddddffhhriiaazpmaiil",
+                                                "type": "EVENT"
+                                            },
+                                            {
+                                                "broker": null,
+                                                "clientScript": null,
+                                                "conditional": null,
+                                                "declarativeAction": null,
+                                                "event": {
+                                                    "apiName": "sn_uxf.MACROPONENT_STATE_UPDATE_REQUESTED",
+                                                    "payload": {
+                                                        "container": {
+                                                            "propName": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": "final_company_display"
+                                                            },
+                                                            "value": {
+                                                                "binding": {
+                                                                    "address": [
+                                                                        "row",
+                                                                        "displayValue",
+                                                                        "value"
+                                                                    ]
+                                                                },
+                                                                "type": "EVENT_PAYLOAD_BINDING"
+                                                            }
+                                                        },
+                                                        "type": "MAP_CONTAINER"
+                                                    },
+                                                    "sysId": "32408b42ff7a10109046e490703bf176"
+                                                },
+                                                "operation": null,
+                                                "targetId": "clxeeccljjiigaabbjkddffhhrcczqrpyzg",
+                                                "type": "EVENT"
+                                            },
+                                            {
+                                                "broker": null,
+                                                "clientScript": null,
+                                                "conditional": null,
+                                                "declarativeAction": null,
+                                                "event": {
+                                                    "apiName": "x_yergb_bpm.MODAL_SELECTED_RELAY_063f266393da02101954718efaba10c4",
+                                                    "payload": {
+                                                        "type": "JSON_LITERAL",
+                                                        "value": {
+                                                            "bare": true,
+                                                            "displayOptions": null,
+                                                            "modalId": "[component-id$='custom_1']",
+                                                            "showModal": null,
+                                                            "viewportElementId": null,
+                                                            "viewportFields": null,
+                                                            "viewportParams": null,
+                                                            "viewportRoute": null
+                                                        }
+                                                    },
+                                                    "sysId": "a1091c18932a02101954718efaba109b"
+                                                },
+                                                "operation": null,
+                                                "targetId": "clxeeccmgyiaabblffddffhhraafkffggnla",
+                                                "type": "EVENT"
+                                            },
+                                            {
+                                                "broker": null,
+                                                "clientScript": {
+                                                    "payload": {
+                                                        "type": "JSON_LITERAL",
+                                                        "value": {}
+                                                    },
+                                                    "sysId": "ac3294e4932202101954718efaba10ba"
+                                                },
+                                                "conditional": null,
+                                                "declarativeAction": null,
+                                                "event": null,
+                                                "operation": null,
+                                                "targetId": "clxeeccnyigaabbloddffhhrjjyueeiiuff",
+                                                "type": "CLIENT_SCRIPT"
+                                            }
+                                        ]
+                                    }
                                 ],
                                 "isHidden": {
                                     "type": "JSON_LITERAL",
@@ -22883,23 +23212,14 @@
             
         ],
         "inputValues": {
-            "recordId": {
-                "binding": {
-                    "address": [
-                        "look_up_user_1",
-                        "user",
-                        "sys_id"
-                    ]
-                },
-                "type": "DATA_OUTPUT_BINDING"
-            },
+            "recordId": null,
             "returnFieldMetadata": {
                 "type": "JSON_LITERAL",
                 "value": false
             },
             "returnFields": {
                 "type": "JSON_LITERAL",
-                "value": "email,employee_number,company"
+                "value": "email,employee_number,company.country,name,department.name,department.id"
             },
             "returnTableMetadata": {
                 "type": "JSON_LITERAL",
@@ -23347,7 +23667,7 @@
     {
         "initialValue": {
             "type": "JSON_LITERAL",
-            "value": ""
+            "value": "3M-Russia Branch"
         },
         "name": "final_company_display",
         "shape": "",
@@ -23370,20 +23690,26 @@
         "name": "contrctor_display",
         "shape": "",
         "valueType": "string"
+    },
+    {
+        "initialValue": null,
+        "name": "Result",
+        "shape": "",
+        "valueType": "string"
     }
 ]</state_properties>
         <sys_class_name>sys_ux_macroponent</sys_class_name>
         <sys_created_by>choiyk02</sys_created_by>
         <sys_created_on>2024-05-27 10:33:15</sys_created_on>
         <sys_id>063f266393da02101954718efaba10c4</sys_id>
-        <sys_mod_count>130</sys_mod_count>
+        <sys_mod_count>145</sys_mod_count>
         <sys_name>Default</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ux_macroponent_063f266393da02101954718efaba10c4</sys_update_name>
         <sys_updated_by>choiyk02</sys_updated_by>
-        <sys_updated_on>2024-06-05 08:29:14</sys_updated_on>
+        <sys_updated_on>2024-06-07 04:40:09</sys_updated_on>
     </sys_ux_macroponent>
     <sys_translated_text action="delete_multiple" query="documentkey=063f266393da02101954718efaba10c4"/>
 </record_update>
