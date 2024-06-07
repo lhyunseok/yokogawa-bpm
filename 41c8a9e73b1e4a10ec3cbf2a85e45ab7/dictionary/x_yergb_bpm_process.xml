@@ -6,6 +6,7 @@
             <choice/>
         </element>
         <element label="Application" max_length="40" name="application" type="string"/>
+        <element label="Work notes" max_length="4000" name="work_notes" type="journal_input"/>
         <index name="index">
             <element name="sys_class_name"/>
         </index>
