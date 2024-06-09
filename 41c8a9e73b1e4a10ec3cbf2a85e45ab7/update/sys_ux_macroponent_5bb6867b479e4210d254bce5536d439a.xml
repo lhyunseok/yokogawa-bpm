@@ -5539,7 +5539,7 @@
                                         "script": {
                                             "apiVersion": "2.0.0",
                                             "controllerElementId": null,
-                                            "inlineScript": "/**\n * @param {params} params\n * @param {api} params.api\n * @param {TransformApiHelpers} params.helpers\n */\nfunction evaluateProperty({\n    api,\n    helpers\n}) {\n    var myRecords = [{\n            \"label\": \"Project Number\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.number.displayValue\n\n            }\n        },\n        {\n            \"label\": \"Project Name\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.name.displayValue\n            }\n        },\n        {\n            \"label\": \"Customer\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.customer.displayValue\n            }\n        },\n        {\n            \"label\": \"PM\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.pm.displayValue\n            }\n        },\n        {\n            \"label\": \"Region\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.region.displayValue\n            }\n        },\n        {\n            \"label\": \"Currency\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.currency.displayValue\n            }\n        },\n        {\n            \"label\": \"Data type\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.look_up_multiple_records_1.results[0].data_type.displayValue\n            }\n        },\n        {\n            \"label\": \"Budget Type\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.look_up_multiple_records_1.results[0].budget_type.displayValue\n            }\n        },\n    ];\n    return myRecords;\n}",
+                                            "inlineScript": "/**\n * @param {params} params\n * @param {api} params.api\n * @param {TransformApiHelpers} params.helpers\n */\nfunction evaluateProperty({\n    api,\n    helpers\n}) {\n    var myRecords = [{\n            \"label\": \"Project Code\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.project_code.displayValue\n\n            }\n        },\n        {\n            \"label\": \"Project Name\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.name.displayValue\n            }\n        },\n        {\n            \"label\": \"Customer\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.customer.displayValue\n            }\n        },\n        {\n            \"label\": \"PM\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.pm.displayValue\n            }\n        },\n        {\n            \"label\": \"Region\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.region.displayValue\n            }\n        },\n        {\n            \"label\": \"Currency\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.currency.displayValue\n            }\n        },\n        {\n            \"label\": \"Data type\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.look_up_multiple_records_1.results[0].data_type.displayValue\n            }\n        },\n        {\n            \"label\": \"Budget Type\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.look_up_multiple_records_1.results[0].budget_type.displayValue\n            }\n        },\n    ];\n    return myRecords;\n}",
                                             "scriptSysId": "c886b983476a4a10d254bce5536d43b5",
                                             "target": null
                                         },
@@ -5817,14 +5817,18 @@
                                                     "value": "true"
                                                 },
                                                 "columnsLayout": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": [
-                                                        
-                                                    ]
+                                                    "script": {
+                                                        "apiVersion": "2.0.0",
+                                                        "controllerElementId": null,
+                                                        "inlineScript": "/**\n * @param {params} params\n * @param {api} params.api\n * @param {TransformApiHelpers} params.helpers\n */\nfunction evaluateProperty({\n    api,\n    helpers\n}) {\n\n    var arr = [];\n    var headers = ['WBS', 'MS Code', 'Unit Cost Price', 'Quantity', 'Amount', 'Strategy', 'L/T', 'Planned Procurement', 'Plan GR Date'];\n    var columns = ['wbs', 'ms_code', 'unit_cost_price', 'quantity', 'amount', 'strategy', 'lead_time', 'planned_procurement', 'plan_gr_date'];\n\n    for (let i = 0; i &lt; headers.length; i++) {\n        const newObj = {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": headers[i]\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": columns[i]\n            }\n        };\n\n        arr.push(newObj);\n    }\n\n    return arr;\n}",
+                                                        "scriptSysId": "56e01bb33b224210ec3cbf2a85e45ac0",
+                                                        "target": null
+                                                    },
+                                                    "type": "CLIENT_TRANSFORM_SCRIPT"
                                                 },
                                                 "displayFields": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": "project,wbs,ms_code,unit_cost_price,quantity,amount,strategy,lead_time,planned_procurement,plan_gr_date"
+                                                    "value": "wbs,ms_code,unit_cost_price,quantity,amount,strategy,lead_time,planned_procurement,plan_gr_date"
                                                 },
                                                 "encodedQuery": {
                                                     "transform": {
@@ -5857,7 +5861,7 @@
                                                                 },
                                                                 {
                                                                     "type": "JSON_LITERAL",
-                                                                    "value": "^ORDERBYDESCsys_created_on"
+                                                                    "value": "^ORDERBYwbs^ORDERBYms_code"
                                                                 }
                                                             ],
                                                             "type": "LIST_CONTAINER"
@@ -6053,7 +6057,7 @@
                                                     "element_id": "02_grid_1",
                                                     "styles": {
                                                         "align-self": "stretch",
-                                                        "height": "600px"
+                                                        "height": "590px"
                                                     }
                                                 },
                                                 {
@@ -8029,14 +8033,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-28 02:14:51</sys_created_on>
         <sys_id>5bb6867b479e4210d254bce5536d439a</sys_id>
-        <sys_mod_count>142</sys_mod_count>
+        <sys_mod_count>148</sys_mod_count>
         <sys_name>Default</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ux_macroponent_5bb6867b479e4210d254bce5536d439a</sys_update_name>
         <sys_updated_by>hahyun@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-09 10:54:21</sys_updated_on>
+        <sys_updated_on>2024-06-09 20:51:03</sys_updated_on>
     </sys_ux_macroponent>
     <sys_translated_text action="delete_multiple" query="documentkey=5bb6867b479e4210d254bce5536d439a"/>
 </record_update>

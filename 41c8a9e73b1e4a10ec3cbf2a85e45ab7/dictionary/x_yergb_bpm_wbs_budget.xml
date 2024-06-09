@@ -25,7 +25,7 @@
         <element label="Month13" max_length="40" name="month13" type="integer"/>
         <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
         <element label="WBS Description" max_length="40" name="wbs_desc" type="string"/>
-        <element attributes="edge_encryption_enabled=true" function_definition="glidefunction:add(month1,add(month2,add(month3,add(month4,add(month5,add(month6,add(month7,add(month8,add(month9,add(month10,add(month11,add(month12,add(month13,add(month14,add(month15,add(month16,add(month17,month18)))))))))))))))))" function_field="true" label="forecast ptc" max_length="19" name="rpt_forecast_ptc" read_only="true" type="longint"/>
+        <element active="false" attributes="edge_encryption_enabled=true" function_definition="glidefunction:add(month1,add(month2,add(month3,add(month4,add(month5,add(month6,add(month7,add(month8,add(month9,add(month10,add(month11,add(month12,add(month13,add(month14,add(month15,add(month16,add(month17,month18)))))))))))))))))" function_field="true" label="forecast ptc" max_length="19" name="rpt_forecast_ptc" read_only="true" type="longint"/>
         <element label="Month7" max_length="40" name="month7" type="integer"/>
         <element label="Project" max_length="32" name="project" reference="x_yergb_bpm_project" type="reference"/>
         <element label="Month15" max_length="40" name="month15" type="integer"/>
@@ -39,7 +39,7 @@
         <element label="Month16" max_length="40" name="month16" type="integer"/>
         <element label="Month17" max_length="40" name="month17" type="integer"/>
         <element label="Month18" max_length="40" name="month18" type="integer"/>
-        <element label="Base Month" max_length="40" name="base_month" type="string"/>
+        <element default="202406" label="Base Month" max_length="40" name="base_month" type="string"/>
         <index name="index">
             <element name="project"/>
         </index>

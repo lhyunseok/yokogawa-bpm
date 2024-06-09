@@ -8606,17 +8606,21 @@
                                             "propertyValues": {
                                                 "columnFitStyle": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": "evenFill"
+                                                    "value": "none"
                                                 },
                                                 "columnResizable": {
                                                     "type": "JSON_LITERAL",
                                                     "value": "true"
                                                 },
                                                 "columnsLayout": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": [
-                                                        
-                                                    ]
+                                                    "script": {
+                                                        "apiVersion": "2.0.0",
+                                                        "controllerElementId": null,
+                                                        "inlineScript": "/**\n  * @param {params} params\n  * @param {api} params.api\n  * @param {TransformApiHelpers} params.helpers\n  */\nfunction evaluateProperty({api, helpers}) {\n\n    var arr = [];\n    var headers = ['Activity Type','Rate*Hour','Total','202406','202407','202408','202409','202410','202411','202412','202501','202502','202503','202504','202505','202506','202507','202508','202509','202510','202511','Beyond18'];\n    var columns = ['activity_type','total_hour','total_amount','month1','month2','month3','month4','month5','month6','month7','month8','month9','month10','month11','month12','month13','month14','month15','month16','month17','month18','beyond18'];\n\n    for (let i = 0; i &lt; headers.length; i++) {\n        const newObj = {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": headers[i]\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": columns[i]\n            }\n        };\n\n        arr.push(newObj);\n    }\n\n    return arr;\n}",
+                                                        "scriptSysId": "5ae01bb33b224210ec3cbf2a85e45ac0",
+                                                        "target": null
+                                                    },
+                                                    "type": "CLIENT_TRANSFORM_SCRIPT"
                                                 },
                                                 "displayFields": {
                                                     "type": "JSON_LITERAL",
@@ -8647,7 +8651,7 @@
                                                 },
                                                 "fixedColumnCount": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": 0
+                                                    "value": 3
                                                 },
                                                 "fixedRowCount": {
                                                     "type": "JSON_LITERAL",
@@ -8671,7 +8675,7 @@
                                                 },
                                                 "showCheckBar": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": "true"
+                                                    "value": false
                                                 },
                                                 "showFooter": {
                                                     "type": "JSON_LITERAL",
@@ -8679,11 +8683,11 @@
                                                 },
                                                 "showRowIndicator": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": "true"
+                                                    "value": false
                                                 },
                                                 "showStateBar": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": "true"
+                                                    "value": false
                                                 },
                                                 "showTotalCount": {
                                                     "type": "JSON_LITERAL",
@@ -10167,8 +10171,8 @@
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ux_macroponent_974d8b7347568210d254bce5536d4311</sys_update_name>
-        <sys_updated_by>hhkim</sys_updated_by>
-        <sys_updated_on>2024-06-09 03:14:20</sys_updated_on>
+        <sys_updated_by>hahyun@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-09 18:54:52</sys_updated_on>
     </sys_ux_macroponent>
     <sys_translated_text action="delete_multiple" query="documentkey=974d8b7347568210d254bce5536d4311"/>
 </record_update>
