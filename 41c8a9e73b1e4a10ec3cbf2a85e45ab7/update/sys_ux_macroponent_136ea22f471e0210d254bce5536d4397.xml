@@ -4921,7 +4921,7 @@
                                                     "script": {
                                                         "apiVersion": "2.0.0",
                                                         "controllerElementId": null,
-                                                        "inlineScript": "/**\n * @param {params} params\n * @param {api} params.api\n * @param {TransformApiHelpers} params.helpers\n */\nfunction evaluateProperty({\n    api,\n    helpers\n}) {\n\n    var bbb = api.state.baseM; //202406\n\n    // 18개월 배열 생성\n    var currentMonth = parseInt(bbb);\n    var numMonths = 18;\n    var yearmonths = [];\n\n    for (var i = 0; i &lt; numMonths; i++) {\n        yearmonths.push(currentMonth.toString());\n        currentMonth++;\n        if (currentMonth % 100 &gt; 12) {\n            currentMonth += 88;\n        }\n    }\n\n    console.log('yearmonths', yearmonths);\n\n    var arr = [];\n\n    var real = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'WBS'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'wbs'\n        }\n    };\n\n    arr.push(real);\n\n    var real2 = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'Forecast PTC'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'forecase_ptc'\n        }\n    };\n    arr.push(real2);\n    var real3 = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'Variance'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'variance'\n        }\n    };\n    arr.push(real3);\n\n    for (let i = 0; i &lt; yearmonths.length; i++) {\n        const newObj = {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": yearmonths[i]\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": `month${i+1}`\n            }\n        };\n\n        arr.push(newObj);\n    }\n\n    var real2 = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'Beyond18'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'beyond18'\n        }\n    };\n\n    arr.push(real2);\n    return arr;\n}",
+                                                        "inlineScript": "/**\n * @param {params} params\n * @param {api} params.api\n * @param {TransformApiHelpers} params.helpers\n */\nfunction evaluateProperty({\n    api,\n    helpers\n}) {\n\n    var bbb = api.state.baseM; //202406\n\n    // 18개월 배열 생성\n    var currentMonth = parseInt(bbb);\n    var numMonths = 18;\n    var yearmonths = [];\n\n    for (var i = 0; i &lt; numMonths; i++) {\n        yearmonths.push(currentMonth.toString());\n        currentMonth++;\n        if (currentMonth % 100 &gt; 12) {\n            currentMonth += 88;\n        }\n    }\n\n    console.log('yearmonths', yearmonths);\n\n    var arr = [];\n\n    var real = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'WBS'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'wbs'\n        }\n    };\n\n    arr.push(real);\n\n\n\n    for (let i = 0; i &lt; yearmonths.length; i++) {\n        const newObj = {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": yearmonths[i]\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": `month${i+1}`\n            }\n        };\n\n        arr.push(newObj);\n    }\n\n    var real2 = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'Beyond18'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'beyond18'\n        }\n    };\n\n    arr.push(real2);\n\n    var real3 = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'Forecast PTC'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'rpt_forecast_ptc'\n        }\n    };\n    arr.push(real3);\n    var real4 = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'Variance'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'variance'\n        }\n    };\n    arr.push(real4);\n    return arr;\n}",
                                                         "scriptSysId": "6cc8de833ba28250ec3cbf2a85e45ae3",
                                                         "target": null
                                                     },
@@ -4929,7 +4929,7 @@
                                                 },
                                                 "displayFields": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": "wbs,forecase_ptc,variance,month1,month2,month3,month4,month5,month6,month7,month8,month9,month10,month11,month12,month13,month14,month15,month16,month17,month18,beyond18"
+                                                    "value": "wbs,month1,month2,month3,month4,month5,month6,month7,month8,month9,month10,month11,month12,month13,month14,month15,month16,month17,month18,beyond18,rpt_forecast_ptc,variance"
                                                 },
                                                 "encodedQuery": {
                                                     "transform": {
@@ -4946,6 +4946,22 @@
                                                                         ]
                                                                     },
                                                                     "type": "STATE_BINDING"
+                                                                },
+                                                                {
+                                                                    "type": "JSON_LITERAL",
+                                                                    "value": "^base_month="
+                                                                },
+                                                                {
+                                                                    "binding": {
+                                                                        "address": [
+                                                                            "baseM"
+                                                                        ]
+                                                                    },
+                                                                    "type": "STATE_BINDING"
+                                                                },
+                                                                {
+                                                                    "type": "JSON_LITERAL",
+                                                                    "value": "^ORDERBYsys_created_on"
                                                                 }
                                                             ],
                                                             "type": "LIST_CONTAINER"
@@ -5215,10 +5231,7 @@
                                         "element_id": "container_1",
                                         "styles": {
                                             "align-self": "center",
-                                            "border-color": "RGB(var(--now-color--neutral-5))",
-                                            "border-style": "solid",
-                                            "border-width": "var(--now-static-space--xxs)",
-                                            "height": "auto",
+                                            "height": "510px",
                                             "width": "98%"
                                         }
                                     }
@@ -5228,7 +5241,7 @@
                                     "flex-direction": "row"
                                 },
                                 "styles": {
-                                    "align-items": "flex-start",
+                                    "align-items": "stretch",
                                     "box-sizing": "border-box",
                                     "flex-direction": "column",
                                     "height": "100%",
@@ -5257,7 +5270,7 @@
                                             "width": "100%"
                                         },
                                         "internal": {
-                                            "align-items": "flex-start",
+                                            "align-items": "stretch",
                                             "box-sizing": "border-box",
                                             "flex-direction": "column",
                                             "height": "100%",
@@ -9947,12 +9960,8 @@
                                     }
                                 ],
                                 "isHidden": {
-                                    "binding": {
-                                        "address": [
-                                            "wbs_button"
-                                        ]
-                                    },
-                                    "type": "STATE_BINDING"
+                                    "type": "JSON_LITERAL",
+                                    "value": true
                                 },
                                 "preset": null,
                                 "propertyValues": {
@@ -10290,8 +10299,10 @@
                                     {
                                         "element_id": "button_7",
                                         "styles": {
+                                            "height": "",
                                             "margin-left": "var(--now-scalable-space--xs)",
-                                            "margin-right": "var(--now-scalable-space--xs)"
+                                            "margin-right": "var(--now-scalable-space--xs)",
+                                            "width": ""
                                         }
                                     },
                                     {
@@ -12533,14 +12544,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-27 10:29:45</sys_created_on>
         <sys_id>136ea22f471e0210d254bce5536d4397</sys_id>
-        <sys_mod_count>416</sys_mod_count>
+        <sys_mod_count>422</sys_mod_count>
         <sys_name>Default</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ux_macroponent_136ea22f471e0210d254bce5536d4397</sys_update_name>
-        <sys_updated_by>hhkim</sys_updated_by>
-        <sys_updated_on>2024-06-09 08:16:10</sys_updated_on>
+        <sys_updated_by>hahyun@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-09 09:58:41</sys_updated_on>
     </sys_ux_macroponent>
     <sys_translated_text action="delete_multiple" query="documentkey=136ea22f471e0210d254bce5536d4397"/>
 </record_update>
