@@ -17,7 +17,7 @@
 */
 function handler({api, event, helpers, imports}) {
         helpers.timing.setTimeout(function () {
-        console.log('Test re-element work!');
+        console.log('Test re-element work111!');
 
         let firDep = 0;
         let secDep = 1;
@@ -310,7 +310,7 @@ function handler({api, event, helpers, imports}) {
         let simpCont_02_02 = pElem.childNodes[0].childNodes[thrDep].childNodes[0].childNodes[1]
             .childNodes[0].childNodes[0];
 
-            //pElem.childNodes[0].childNodes[thrDep].childNodes[0].style.marginLeft = '50px';
+            pElem.childNodes[0].childNodes[thrDep].childNodes[0].style.marginLeft = '50px';
             simpCont_02_01.style.fontWeight = 'bold';
             simpCont_02_01.style.fontSize = '16px';
             simpCont_02_01.style.height='40px';
@@ -566,14 +566,14 @@ function handler({api, event, helpers, imports}) {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-05 05:01:54</sys_created_on>
         <sys_id>da48fb5683620210b3dd1665eeaad3c7</sys_id>
-        <sys_mod_count>1069</sys_mod_count>
+        <sys_mod_count>1077</sys_mod_count>
         <sys_name>preElem</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ux_client_script_da48fb5683620210b3dd1665eeaad3c7</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-09 01:09:09</sys_updated_on>
+        <sys_updated_on>2024-06-09 02:13:49</sys_updated_on>
         <target>macroponent</target>
         <type>default</type>
     </sys_ux_client_script>
