@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element db_object_id="59507cb947620210a4863b12d16d4322" extends="sys_import_set_row" label="wbs master2" max_length="40" name="x_yergb_bpm_wbs_master2" type="collection">
+    <element db_object_id="59507cb947620210a4863b12d16d4322" extends="sys_import_set_row" max_length="40" name="x_yergb_bpm_wbs_master2" type="collection">
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=WBS Description" label="WBS Description" max_length="40" name="u_wbs_description" type="string"/>
         <element attributes="edge_encryption_enabled=true,import_attribute_name=A" label="A" max_length="40" name="u_a" type="string"/>
         <element attributes="edge_encryption_enabled=true,import_attribute_name=WBS Code" label="WBS Code" max_length="40" name="u_wbs_code" type="string"/>
-        <element attributes="edge_encryption_enabled=true,import_attribute_name=WBS Description" label="WBS Description" max_length="40" name="u_wbs_description" type="string"/>
     </element>
 </database>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_yergb_bpm_quote_item</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition table="x_yergb_bpm_quote_item">quotationISNOTEMPTY^EQ<item endquery="false" field="quotation" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter_condition>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Calculate Total for Quotation</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+
+    var tot_amt = 0;
+    var tot_cost = 0;
+    var gr = new GlideRecord('x_yergb_bpm_quote_item');
+    gr.addQuery('quotation', current.quotation);
+    gr.query();
+    //gs.info(gr.getRowCount());
+    while (gr.next()) {
+        gs.info(gr.ext_cost + " : " + gr.ext_price_amount);
+        tot_amt += gr.ext_price_amount;
+        tot_cost += gr.ext_cost;
+    }
+
+    // gs.info("tot_amt : " + tot_amt);
+    // gs.info("tot_cost : " + tot_cost);
+
+	var grq = new GlideRecord('x_yergb_bpm_quotation');
+	grq.addQuery('active',true);
+	grq.addQuery('sys_id', current.quotation);
+	grq.query();
+	if(grq.next()) {
+		grq.total_amount = tot_amt + current.ext_price_amount;
+		grq.total_cost = tot_cost + current.ext_cost;
+		grq.update();
+	}
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-07 09:44:11</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>0f9c4fc7476a0210a4863b12d16d43e0</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Calculate Total for Quotation</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_script_0f9c4fc7476a0210a4863b12d16d43e0</sys_update_name>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-07 09:46:38</sys_updated_on>
+        <template/>
+        <when>before</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=0f9c4fc7476a0210a4863b12d16d43e0"/>
+</record_update>

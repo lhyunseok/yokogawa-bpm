@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="9399a12b3b1e4a10ec3cbf2a85e45a90" label="BPM Process" max_length="40" name="x_yergb_bpm_process" text_index="true" type="collection">
-        <element label="Application" max_length="40" name="application" type="string"/>
         <element default="javascript:current.getTableName();" label="Class" max_length="80" name="sys_class_name" type="sys_class_name"/>
         <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" display="true" label="Number" max_length="40" name="number" type="string"/>
+        <element attributes="edge_encryption_enabled=true" choice="3" label="State" max_length="40" name="state" type="integer">
+            <choice/>
+        </element>
+        <element label="Application" max_length="40" name="application" type="string"/>
+        <element label="Work notes" max_length="4000" name="work_notes" type="journal_input"/>
         <index name="index">
             <element name="sys_class_name"/>
         </index>

@@ -3255,7 +3255,7 @@
         "isHero": false,
         "isHidden": {
             "type": "JSON_LITERAL",
-            "value": null
+            "value": true
         },
         "isNonDestructive": false,
         "items": [
@@ -4126,7 +4126,7 @@
         ],
         "isHidden": {
             "type": "JSON_LITERAL",
-            "value": null
+            "value": true
         },
         "overrides": {
             "composition": [
@@ -5832,6 +5832,257 @@
             "id": "d356d14b6e293a3020a244b63d278d8f",
             "type": "MACROPONENT"
         },
+        "elementId": "column_layout_5",
+        "elementLabel": "Column layout 5",
+        "eventMappings": [
+            
+        ],
+        "isHidden": {
+            "type": "JSON_LITERAL",
+            "value": null
+        },
+        "overrides": {
+            "composition": [
+                {
+                    "definition": {
+                        "id": "d356d14b6e293a3020a244b63d278d8f",
+                        "type": "MACROPONENT"
+                    },
+                    "elementId": "__clxeeggtcljjaajbddddjhhpggggjjdaqiibb__column_1",
+                    "elementLabel": "__clxeeggtcljjaajbddddjhhpggggjjdaqiibb__Column 1",
+                    "eventMappings": [
+                        
+                    ],
+                    "isHidden": {
+                        "type": "JSON_LITERAL",
+                        "value": null
+                    },
+                    "overrides": {
+                        "composition": [
+                            {
+                                "definition": {
+                                    "id": "c573bd7eec7d763a1009669c8c97825c",
+                                    "type": "MACROPONENT"
+                                },
+                                "elementId": "display_value_block_1",
+                                "elementLabel": "Display value block 1",
+                                "eventMappings": [
+                                    
+                                ],
+                                "isHidden": {
+                                    "type": "JSON_LITERAL",
+                                    "value": null
+                                },
+                                "preset": {
+                                    "controllerElementId": "record",
+                                    "disabledEventTargetIds": [
+                                        
+                                    ],
+                                    "id": "06f0936926a6997bd5b952e61fea9290"
+                                },
+                                "propertyValues": {
+                                    "delimiter": {
+                                        "type": "JSON_LITERAL",
+                                        "value": ""
+                                    },
+                                    "items": {
+                                        "script": {
+                                            "apiVersion": "2.0.0",
+                                            "controllerElementId": null,
+                                            "inlineScript": "/**\n * @param {params} params\n * @param {api} params.api\n * @param {TransformApiHelpers} params.helpers\n */\nfunction evaluateProperty({\n    api,\n    helpers\n}) {\n    // \"header\": {\n    //     \"headerImageItem\": null,\n    //     \"primaryItem\": {\n    //       \"fieldName\": \"project\",\n    //       \"fieldLabel\": \"Project\",\n    //       \"displayValue\": \"PRJ0001008\"\n    //     },\n    //     \"secondaryItems\": [\n    //       {\n    //         \"fieldName\": \"number\",\n    //         \"fieldLabel\": \"Number\",\n    //         \"displayValue\": \"PRJ0\n    //api.data.record.form.fields.project.displayValue\n    //\n    //@data.record.form.header.transformedSecondaryItems\n    var my = [{\n            \"label\": \"Project Number\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.number.displayValue\n            }\n        },\n        {\n            \"label\": \"Project Name\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.name.displayValue\n            }\n        },\n        {\n            \"label\": \"Customer\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.customer.displayValue\n            }\n        },\n        {\n            \"label\": \"PM\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.pm.displayValue\n            }\n        },\n        {\n            \"label\": \"Region\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.region.displayValue\n            }\n        },\n        {\n           \"label\": \"Currency\",\n             \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.record.form.fields.currency.displayValue\n            }\n        },\n        {\n            \"label\": \"Data type\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.look_up_multiple_records_1.results[0].data_type.displayValue\n            }\n        },\n                {\n            \"label\": \"Budget Type\",\n            \"value\": {\n                \"type\": \"string\",\n                \"value\": api.data.look_up_multiple_records_1.results[0].budget_type.displayValue\n            }\n        },\n        // {\n        //     \"label\": \"Data type\",\n        //     \"value\": {\n        //         \"type\": \"highlighted-value\",\n        //         \"label\": api.data.record.form.fields.data_type.displayValue,\n        //         \"status\": \"positive\",\n        //         \"showIcon\": true\n        //     }\n        // },\n        // {\n        //     \"label\": \"Budget type\",\n        //     \"value\": {\n        //         \"type\": \"string\",\n        //         \"value\": api.data.record.form.fields.budget_type.displayValue\n\n        //     }\n        // }\n    ];\n    return my;\n}",
+                                            "scriptSysId": "ffd4c28747ea4a10d254bce5536d4309",
+                                            "target": null
+                                        },
+                                        "type": "CLIENT_TRANSFORM_SCRIPT"
+                                    },
+                                    "title": {
+                                        "type": "TRANSLATION_LITERAL",
+                                        "value": {
+                                            "code": null,
+                                            "comment": "",
+                                            "message": "Project Budget Plan for BOP"
+                                        }
+                                    }
+                                },
+                                "slot": null,
+                                "styles": null
+                            }
+                        ],
+                        "layout": {
+                            "default": {
+                                "children": null,
+                                "items": [
+                                    {
+                                        "element_id": "display_value_block_1",
+                                        "styles": {
+                                            "align-self": "stretch"
+                                        }
+                                    }
+                                ],
+                                "root": null,
+                                "rules": {
+                                    "flex-direction": "row"
+                                },
+                                "styles": {
+                                    "align-items": "flex-start",
+                                    "box-sizing": "border-box",
+                                    "flex-direction": "column",
+                                    "height": "100%",
+                                    "justify-content": "flex-start",
+                                    "overflow": "auto"
+                                },
+                                "type": "flex"
+                            },
+                            "version": "3.0.0"
+                        }
+                    },
+                    "preset": null,
+                    "propertyValues": {
+                        "slotWrapperBehavior": {
+                            "type": "JSON_LITERAL",
+                            "value": "contents"
+                        }
+                    },
+                    "scratchPad": {
+                        "uib": {
+                            "layout": {
+                                "column": {
+                                    "styleConfig": {
+                                        "external": {
+                                            "display": "contents",
+                                            "width": "100%"
+                                        },
+                                        "internal": {
+                                            "align-items": "flex-start",
+                                            "box-sizing": "border-box",
+                                            "flex-direction": "column",
+                                            "height": "100%",
+                                            "justify-content": "flex-start",
+                                            "overflow": "auto"
+                                        }
+                                    }
+                                },
+                                "type": "column"
+                            },
+                            "version": "1.0.0"
+                        }
+                    },
+                    "slot": null,
+                    "styles": null
+                }
+            ],
+            "layout": {
+                "default": {
+                    "children": null,
+                    "isInline": null,
+                    "items": [
+                        {
+                            "element_id": "__clxeeggtcljjaajbddddjhhpggggjjdaqiibb__column_1",
+                            "styles": {
+                                "display": "contents",
+                                "width": "100%"
+                            }
+                        }
+                    ],
+                    "root": null,
+                    "rules": null,
+                    "styles": {
+                        "box-sizing": "border-box",
+                        "grid-template-columns": "100fr",
+                        "grid-template-rows": "1fr",
+                        "width": "100%"
+                    },
+                    "type": "grid"
+                },
+                "disableAutoReflow": true,
+                "queries": [
+                    {
+                        "layout": {
+                            "children": null,
+                            "isInline": null,
+                            "items": [
+                                
+                            ],
+                            "root": null,
+                            "rules": null,
+                            "styles": {
+                                "box-sizing": "border-box",
+                                "grid-template-columns": "1fr",
+                                "grid-template-rows": "1fr",
+                                "height": "fit-content",
+                                "max-height": "max-content",
+                                "min-height": "min-content",
+                                "width": "100%"
+                            },
+                            "type": "grid"
+                        },
+                        "query": {
+                            "max-width": 640
+                        }
+                    }
+                ],
+                "version": "3.0.0"
+            }
+        },
+        "preset": null,
+        "propertyValues": {
+            "slotWrapperBehavior": {
+                "type": "JSON_LITERAL",
+                "value": "contents"
+            }
+        },
+        "scratchPad": {
+            "uib": {
+                "layout": {
+                    "columnSection": {
+                        "breakpoints": [
+                            {
+                                "behavior": "stack",
+                                "max-width": 640,
+                                "styles": {
+                                    "box-sizing": "border-box",
+                                    "grid-template-columns": "1fr",
+                                    "grid-template-rows": "1fr",
+                                    "height": "fit-content",
+                                    "max-height": "max-content",
+                                    "min-height": "min-content",
+                                    "width": "100%"
+                                }
+                            }
+                        ],
+                        "children": [
+                            {
+                                "columnNumber": 1,
+                                "unit": "%",
+                                "width": 100
+                            }
+                        ],
+                        "id": "UIB_COLUMN_SECTION_SINGLE_COLUMN_SECTION",
+                        "styleConfig": {
+                            "external": {
+                                "display": "contents",
+                                "width": "100%"
+                            },
+                            "internal": {
+                                "box-sizing": "border-box",
+                                "grid-template-rows": "1fr",
+                                "width": "100%"
+                            }
+                        }
+                    },
+                    "type": "columnSection"
+                },
+                "version": "1.0.0"
+            }
+        },
+        "slot": null,
+        "styles": null
+    },
+    {
+        "definition": {
+            "id": "d356d14b6e293a3020a244b63d278d8f",
+            "type": "MACROPONENT"
+        },
         "elementId": "column_layout_3",
         "elementLabel": "Column layout 3",
         "eventMappings": [
@@ -5877,11 +6128,11 @@
                                     "composition": [
                                         {
                                             "definition": {
-                                                "id": "7264505e3fa348f63c0d5178aaba46f1",
+                                                "id": "db2db99e12480df481ca8c31a755d6a9",
                                                 "type": "MACROPONENT"
                                             },
-                                            "elementId": "02_grid_1",
-                                            "elementLabel": "02 grid 1",
+                                            "elementId": "0525new_1",
+                                            "elementLabel": "0525new 1",
                                             "eventMappings": [
                                                 
                                             ],
@@ -5893,53 +6144,25 @@
                                             "propertyValues": {
                                                 "columnFitStyle": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": "evenFill"
+                                                    "value": "none"
                                                 },
                                                 "columnResizable": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": true
+                                                    "value": "true"
                                                 },
                                                 "columnsLayout": {
-                                                    "script": {
-                                                        "apiVersion": "2.0.0",
-                                                        "controllerElementId": null,
-                                                        "inlineScript": "/**\n * @param {params} params\n * @param {api} params.api\n * @param {TransformApiHelpers} params.helpers\n */\nfunction evaluateProperty({\n    api,\n    helpers\n}) {\n    var myColumn = [{\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": 'WBS'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": 'wbs'\n            }\n        },\n        {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": 'Vendor name'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": 'vendor'\n            }\n        },\n        {\n            \"columnInfo\": {\n                \"width\": 150,\n                \"header\": {\n                    \"text\": 'MS Code'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 150,\n                \"column\": 'ms_code'\n            }\n        },\n        {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": 'Unit Cost Price'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": 'unit_cost_price'\n            }\n        },\n        {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": 'Quantity'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": 'quantity'\n            }\n        },\n        {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": 'Amount'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": 'amount'\n            }\n        },\n        {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": 'Strategy'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": 'strategy'\n            }\n        },\n        {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": 'L/T'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": 'lead_time'\n            }\n        },\n        {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": 'Planned Procurement'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": 'planned_procurement'\n            }\n        },\n        {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": 'Plan GR Date'\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": 'plan_gr_date'\n            }\n        }\n\n    ];\n    return myColumn;\n}",
-                                                        "scriptSysId": "23efd1703b6e8e1046a3934a85e45a62",
-                                                        "target": null
-                                                    },
-                                                    "type": "CLIENT_TRANSFORM_SCRIPT"
+                                                    "type": "JSON_LITERAL",
+                                                    "value": [
+                                                        
+                                                    ]
                                                 },
                                                 "displayFields": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": "wbs,vendor,ms_code,unit_cost_price,quantity,amount,strategy,lead_time,planned_procurement,plan_gr_date"
+                                                    "value": null
                                                 },
                                                 "encodedQuery": {
-                                                    "transform": {
-                                                        "operands": {
-                                                            "container": [
-                                                                {
-                                                                    "type": "JSON_LITERAL",
-                                                                    "value": "project="
-                                                                },
-                                                                {
-                                                                    "binding": {
-                                                                        "address": [
-                                                                            "project",
-                                                                            "value"
-                                                                        ]
-                                                                    },
-                                                                    "type": "STATE_BINDING"
-                                                                },
-                                                                {
-                                                                    "type": "JSON_LITERAL",
-                                                                    "value": "^budget_type=bop^ORDERBYwbs"
-                                                                }
-                                                            ],
-                                                            "type": "LIST_CONTAINER"
-                                                        },
-                                                        "operator": "CONCAT"
-                                                    },
-                                                    "type": "CLIENT_TRANSFORM"
+                                                    "type": "JSON_LITERAL",
+                                                    "value": ""
                                                 },
                                                 "fixedColumnCount": {
                                                     "type": "JSON_LITERAL",
@@ -5967,15 +6190,15 @@
                                                 },
                                                 "showCheckBar": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": true
+                                                    "value": "true"
                                                 },
                                                 "showFooter": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": true
+                                                    "value": "true"
                                                 },
                                                 "showRowIndicator": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": true
+                                                    "value": "true"
                                                 },
                                                 "showStateBar": {
                                                     "type": "JSON_LITERAL",
@@ -5987,7 +6210,7 @@
                                                 },
                                                 "table": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": "x_yergb_bpm_order_item"
+                                                    "value": ""
                                                 }
                                             },
                                             "slot": null,
@@ -5999,10 +6222,8 @@
                                             "children": null,
                                             "items": [
                                                 {
-                                                    "element_id": "02_grid_1",
-                                                    "styles": {
-                                                        "height": "400px"
-                                                    }
+                                                    "element_id": "0525new_1",
+                                                    "styles": {}
                                                 }
                                             ],
                                             "root": null,
@@ -6242,7 +6463,7 @@
         "isHero": false,
         "isHidden": {
             "type": "JSON_LITERAL",
-            "value": null
+            "value": true
         },
         "isNonDestructive": false,
         "items": [
@@ -7778,6 +7999,56 @@
             }
         },
         "readEvaluationMode": "EAGER"
+    },
+    {
+        "definition": {
+            "id": "b997a84053021010cbc2ddeeff7b1228",
+            "type": "COMPOSITE"
+        },
+        "dependencies": {},
+        "elementId": "look_up_multiple_records_1",
+        "elementLabel": "Look up multiple records 1",
+        "eventMappings": [
+            
+        ],
+        "inputValues": {
+            "encodedQuery": {
+                "type": "JSON_LITERAL",
+                "value": "budget_type=bop"
+            },
+            "limit": {
+                "type": "JSON_LITERAL",
+                "value": "1000"
+            },
+            "offset": {
+                "type": "JSON_LITERAL",
+                "value": null
+            },
+            "orderBy": {
+                "type": "JSON_LITERAL"
+            },
+            "queryCategory": {
+                "type": "JSON_LITERAL",
+                "value": ""
+            },
+            "returnFieldMetadata": {
+                "type": "JSON_LITERAL",
+                "value": false
+            },
+            "returnFields": {
+                "type": "JSON_LITERAL",
+                "value": "budget_type,data_type"
+            },
+            "sortType": {
+                "type": "JSON_LITERAL",
+                "value": "asc"
+            },
+            "table": {
+                "type": "JSON_LITERAL",
+                "value": "x_yergb_bpm_order_item"
+            }
+        },
+        "readEvaluationMode": "EAGER"
     }
 ]</data>
         <description/>
@@ -7847,6 +8118,13 @@
             },
             {
                 "element_id": "column_layout_2",
+                "styles": {
+                    "display": "contents",
+                    "width": "100%"
+                }
+            },
+            {
+                "element_id": "column_layout_5",
                 "styles": {
                     "display": "contents",
                     "width": "100%"
@@ -8180,14 +8458,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-28 06:31:58</sys_created_on>
         <sys_id>719103fb47d28210d254bce5536d43a7</sys_id>
-        <sys_mod_count>57</sys_mod_count>
+        <sys_mod_count>59</sys_mod_count>
         <sys_name>Default</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ux_macroponent_719103fb47d28210d254bce5536d43a7</sys_update_name>
-        <sys_updated_by>hahyun@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-05-31 04:01:03</sys_updated_on>
+        <sys_updated_by>hhkim</sys_updated_by>
+        <sys_updated_on>2024-06-07 04:34:06</sys_updated_on>
     </sys_ux_macroponent>
     <sys_translated_text action="delete_multiple" query="documentkey=719103fb47d28210d254bce5536d43a7"/>
 </record_update>
