@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element db_object_id="f8c497de47a20210a4863b12d16d4395" extends="x_yergb_bpm_process" label="Quote Item" max_length="40" name="x_yergb_bpm_quote_item" type="collection">
-        <element label="MS Code" max_length="100" name="ms_code" type="string"/>
-        <element label="Unit Cost" max_length="40" name="unit_cost" type="integer"/>
-        <element label="GP Amount" max_length="40" name="gp_amount" type="integer"/>
-        <element label="Unit MP" max_length="40" name="unit_mp" type="integer"/>
-        <element label="WBS 6" max_length="32" name="wbs_6" reference="x_yergb_bpm_wbs_master" type="reference"/>
-        <element label="Quotation" max_length="32" name="quotation" reference="x_yergb_bpm_quotation" type="reference"/>
-        <element label="Total Amount" max_length="40" name="total_amount" type="integer"/>
-        <element label="Total Cost" max_length="40" name="total_cost" type="integer"/>
-        <element label="Description" max_length="1000" name="description" type="string"/>
-        <element label="Unit Price" max_length="40" name="unit_price" type="integer"/>
-        <element label="Quantity" max_length="40" name="quantity" type="integer"/>
-        <element label="Ext. Cost" max_length="40" name="ext_cost" type="integer"/>
-        <element label="Ext. Price Amount" max_length="40" name="ext_price_amount" type="integer"/>
-        <element label="Vendor" max_length="32" name="vendor" reference="core_company" reference_qual="vendor=true^EQ" reference_qual_condition="vendor=true^EQ" type="reference"/>
-        <element label="MP Amount" max_length="40" name="mp_amount" type="integer"/>
+    <element db_object_id="0def2e9f3b2e465046a3934a85e45ab9" extends="x_yergb_bpm_process" label="Quote Item" max_length="40" name="x_yergb_bpm_quote_item" type="collection">
+        <element attributes="edge_encryption_enabled=true" label="MP Amount" max_length="40" name="mp_amount" type="integer"/>
+        <element label="Description" max_length="4000" name="description" type="string"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Vendor" max_length="32" name="vendor" reference="core_company" reference_qual="vendor=true^EQ" reference_qual_condition="vendor=true^EQ" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" label="Total Cost" max_length="40" name="total_cost" read_only="true" type="integer"/>
+        <element attributes="edge_encryption_enabled=true" label="Unit Price" mandatory="true" max_length="40" name="unit_price" type="integer"/>
+        <element attributes="edge_encryption_enabled=true" label="GP Amount" max_length="40" name="gp_amount" type="integer"/>
+        <element attributes="edge_encryption_enabled=true" label="Unit MP" max_length="40" name="unit_mp" type="integer"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Quotation" max_length="32" name="quotation" read_only="true" reference="x_yergb_bpm_quotation" type="reference"/>
+        <element label="Total Price" max_length="40" name="total_price" read_only="true" type="integer"/>
+        <element attributes="edge_encryption_enabled=true" label="Quantity" mandatory="true" max_length="40" name="quantity" type="integer"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="WBS 6" max_length="32" name="wbs_6" reference="x_yergb_bpm_wbs_master" type="reference"/>
+        <element label="MS Code" mandatory="true" max_length="100" name="ms_code" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Unit Cost" mandatory="true" max_length="40" name="unit_cost" type="integer"/>
         <index name="index">
             <element name="quotation"/>
         </index>
         <index name="index2">
-            <element name="vendor"/>
+            <element name="wbs_6"/>
         </index>
         <index name="index3">
-            <element name="wbs_6"/>
+            <element name="vendor"/>
         </index>
     </element>
 </database>
