@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_yergb_bpm_wbs_budget</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>calculate budget cost</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+    var myquery = 'base_month=' + current.base_month + '^project=' + current.project;
+    var gr = new GlideRecord('x_yergb_bpm_wbs_budget');
+    gr.addEncodedQuery(myquery);
+    gr.query();
+    var totalCost = 0;
+    var i = 0;
+
+    while (gr.next()) {
+        i++;
+        // 각 레코드의 amount 필드 값을 합산
+        //gr.contract += parseFloat(current.rpt_forecast_ptc); // amount 필드가 숫자 형식일 경우 parseFloat를 사용하여 변
+        totalCost += parseFloat(gr.rpt_forecast_ptc);
+
+    }
+
+    var gr2 = new GlideRecord('x_yergb_bpm_budget_plan');
+    gr2.addEncodedQuery(myquery);
+    gr2.query();
+
+    if (gr2.next()) {
+        gr2.setValue('total_cost', totalCost);
+        gr2.update(); // 변경 사항을 저장
+    }
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>hhkim</sys_created_by>
+        <sys_created_on>2024-06-09 07:22:59</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>2e9ebc3747664e10d254bce5536d43f4</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>calculate budget cost</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_script_2e9ebc3747664e10d254bce5536d43f4</sys_update_name>
+        <sys_updated_by>hhkim</sys_updated_by>
+        <sys_updated_on>2024-06-09 08:04:30</sys_updated_on>
+        <template/>
+        <when>after</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=2e9ebc3747664e10d254bce5536d43f4"/>
+</record_update>
