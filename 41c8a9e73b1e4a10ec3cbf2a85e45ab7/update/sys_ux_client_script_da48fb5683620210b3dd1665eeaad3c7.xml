@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="new design">9172c6c2932202104d95f55a7bba105f</macroponent>
+        <name>preElem</name>
+        <preset/>
+        <required_translations>[
+    
+]</required_translations>
+        <script><![CDATA[/**
+* @param {params} params
+* @param {api} params.api
+* @param {any} params.event
+* @param {any} params.imports
+* @param {ApiHelpers} params.helpers
+*/
+function handler({api, event, helpers, imports}) {
+        helpers.timing.setTimeout(function () {
+        console.log('Test re-element work!');
+
+        let firDep = 0;
+        let secDep = 1;
+        let thrDep = 2;
+        let forDep = 3;
+        let fifDep = 4; 
+        let sixDep = 5; 
+
+        let pElem = this.window.document.querySelector('macroponent-f51912f4c700201072b211d4d8c26010')
+        .shadowRoot.querySelector('sn-canvas-appshell-root')
+        .querySelector('sn-canvas-appshell-layout')
+        .querySelector('sn-polaris-layout')
+        .querySelector('sn-canvas-appshell-main') 
+        .shadowRoot.querySelector('sn-canvas-experience-shell')
+        .querySelector('macroponent-c276387cc331101080d6d3658940ddd2')
+        .shadowRoot.querySelector('sn-canvas-chrome-state')
+        .querySelector('sn-canvas-root')
+        .querySelector('sn-canvas-layout')
+        .querySelector('sn-canvas-tabsdata')
+        .querySelector('sn-canvas-main')
+        .shadowRoot.querySelector('sn-canvas-screen')
+        .shadowRoot.querySelector('screen-action-transformer-9572cec2932202104d95f55a7bba10e3')
+        .querySelector('macroponent-9172c6c2932202104d95f55a7bba105f')
+        .shadowRoot.querySelector('sn-form-data-connected')
+        .querySelector('now-uxf-page');
+
+        // 1층 
+        let simpCont_01_01 = pElem.childNodes[0].childNodes[secDep].childNodes[0].childNodes[firDep].childNodes[0];
+        let simpCont_01_02 = pElem.childNodes[0].childNodes[secDep].childNodes[0].childNodes[secDep].childNodes[0];
+        let simpCont_01_03 = pElem.childNodes[0].childNodes[secDep].childNodes[0].childNodes[thrDep].childNodes[0];
+        let simpCont_01_04 = pElem.childNodes[0].childNodes[secDep].childNodes[0].childNodes[forDep].childNodes[0];
+
+        // 1층 1번째
+        let simpCont_01_01_01_lb = simpCont_01_01.childNodes[firDep].childNodes[0].childNodes[0];
+        let simpCont_01_01_01_ip = simpCont_01_01.childNodes[firDep].childNodes[0].childNodes[1]
+            .shadowRoot.childNodes[0].childNodes[0].childNodes[1];
+        let simpCont_01_01_01_ip_sty = simpCont_01_01.childNodes[firDep].childNodes[0].childNodes[1]
+            .shadowRoot.childNodes[0].childNodes[0];
+
+        let simpCont_01_01_02_lb = simpCont_01_01.childNodes[secDep].childNodes[0].childNodes[0];
+        let simpCont_01_01_02_ip_01 = simpCont_01_01.childNodes[secDep].childNodes[0].childNodes[1]
+            .shadowRoot.childNodes[0];
+        let simpCont_01_01_02_ip_02 = simpCont_01_01.childNodes[secDep].childNodes[0].childNodes[2]
+            .shadowRoot.childNodes[0];
+
+        let simpCont_01_01_03_lb = simpCont_01_01.childNodes[thrDep].childNodes[0].childNodes[0];
+        let simpCont_01_01_03_dp = simpCont_01_01.childNodes[thrDep].childNodes[0].childNodes[1]
+            .shadowRoot.childNodes[0].childNodes[1].childNodes[0];
+        let simpCont_01_01_03_dp_sty = simpCont_01_01.childNodes[thrDep].childNodes[0].childNodes[1]
+            .shadowRoot.childNodes[0].childNodes[1];
+
+        let simpCont_01_01_04_lb = simpCont_01_01.childNodes[forDep].childNodes[0].childNodes[0];
+        let simpCont_01_01_04_ip = simpCont_01_01.childNodes[forDep].childNodes[0].childNodes[1]
+            .shadowRoot.childNodes[0].childNodes[0].childNodes[1];
+        let simpCont_01_01_04_ip_sty = simpCont_01_01.childNodes[forDep].childNodes[0].childNodes[1]
+            .shadowRoot.childNodes[0].childNodes[0];
+
+        // 1층 2번째
+        let simpCont_01_02_01_lb = simpCont_01_02.childNodes[firDep].childNodes[0].childNodes[0];
+        let simpCont_01_02_01_dp = simpCont_01_02.childNodes[firDep].childNodes[0].childNodes[1]
+            .shadowRoot.childNodes[0].childNodes[1].childNodes[0];
+        let simpCont_01_02_01_dp_sty = simpCont_01_02.childNodes[firDep].childNodes[0].childNodes[1]
+            .shadowRoot.childNodes[0].childNodes[1];
+        let simpCont_01_02_02_lb = simpCont_01_02.childNodes[secDep].childNodes[0].childNodes[0];
+        let simpCont_01_02_02_dt = simpCont_01_02.childNodes[secDep].childNodes[0].childNodes[1]
+            .shadowRoot.childNodes[0].shadowRoot.childNodes[0];
+        let simpCont_01_02_03_lb = simpCont_01_02.childNodes[thrDep].childNodes[0].childNodes[0];
+        let simpCont_01_02_03_dt = simpCont_01_02.childNodes[thrDep].childNodes[0].childNodes[1]
+            .shadowRoot.childNodes[0].shadowRoot.childNodes[0];
+
+        // 1층 4번째
+        let simpCont_01_04_01_lb = simpCont_01_04.childNodes[firDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[0].childNodes[0].childNodes[0];
+        let simpCont_01_04_01_ip = simpCont_01_04.childNodes[firDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[1].childNodes[0].childNodes[0].shadowRoot.childNodes[0]
+            .childNodes[0].childNodes[1];
+        let simpCont_01_04_01_ip_sty = simpCont_01_04.childNodes[firDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[1].childNodes[0].childNodes[0].shadowRoot.childNodes[0]
+            .childNodes[0];
+
+        let simpCont_01_04_02_lb = simpCont_01_04.childNodes[secDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[0].childNodes[0].childNodes[0];
+        let simpCont_01_04_02_01_ip = simpCont_01_04.childNodes[secDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[1].childNodes[0].childNodes[0];
+        let simpCont_01_04_02_02_ip = simpCont_01_04.childNodes[secDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[2].childNodes[0].childNodes[0];
+        let simpCont_01_04_02_03_bt = simpCont_01_04.childNodes[secDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[3].childNodes[0].childNodes[0].shadowRoot.childNodes[0];
+
+        let simpCont_01_04_03_lb = simpCont_01_04.childNodes[thrDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[0].childNodes[0].childNodes[0];
+        let simpCont_01_04_03_ip = simpCont_01_04.childNodes[thrDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[1].childNodes[0].childNodes[0].shadowRoot.childNodes[0]
+            .childNodes[0].childNodes[1];
+        let simpCont_01_04_03_ip_sty = simpCont_01_04.childNodes[thrDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[1].childNodes[0].childNodes[0].shadowRoot.childNodes[0]
+            .childNodes[0];
+
+        let simpCont_01_04_04_lb = simpCont_01_04.childNodes[forDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[0].childNodes[0].childNodes[0];
+        let simpCont_01_04_04_01_ip = simpCont_01_04.childNodes[forDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[1].childNodes[0].childNodes[0];
+        let simpCont_01_04_04_02_ip = simpCont_01_04.childNodes[forDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[2].childNodes[0].childNodes[0];
+        let simpCont_01_04_04_03_bt = simpCont_01_04.childNodes[forDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[3].childNodes[0].childNodes[0].shadowRoot.childNodes[0];
+
+        // Title & Navi
+        pElem.childNodes[0].childNodes[firDep].childNodes[0].childNodes[firDep].childNodes[0].style.marginLeft='50px';
+        pElem.childNodes[0].childNodes[firDep].childNodes[0].childNodes[secDep].style.marginLeft='50px';
+
+        
+        
+        
+
+        // 1층 background
+        let elmTemp = pElem.childNodes[0].childNodes[secDep].childNodes[0];
+        elmTemp.style.backgroundColor = '#f7f7f7';
+        elmTemp.style.paddingTop = '16px';
+        elmTemp.style.paddingBottom = '16px';
+        elmTemp.style.marginLeft = '50px';
+        elmTemp.style.marginRight = '50px';
+        
+            // 1-1F box
+            simpCont_01_01.style.width='450px';
+            
+            // 1-1F first elements
+            simpCont_01_01_01_lb.shadowRoot.childNodes[0].style.width = '150px';
+            simpCont_01_01_01_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+            simpCont_01_01_01_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+            simpCont_01_01_01_ip_sty.style.width = '284px';
+            simpCont_01_01_01_ip_sty.style.height = '28px';
+            simpCont_01_01.childNodes[firDep].childNodes[0].childNodes[1].style.marginTop='0px';
+            simpCont_01_01.childNodes[firDep].childNodes[0].childNodes[1].style.marginBottom='0px';
+
+            // 1-1F second elements
+            simpCont_01_01.childNodes[secDep].style.marginTop='8px';
+            simpCont_01_01_02_lb.shadowRoot.childNodes[0].style.width = '150px';
+            simpCont_01_01_02_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+            simpCont_01_01_02_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+            simpCont_01_01_02_ip_01.childNodes[0].style.height = '28px';
+            simpCont_01_01_02_ip_01.childNodes[0].style.width = '140px';
+            simpCont_01_01_02_ip_02.childNodes[0].style.height = '28px';
+            simpCont_01_01_02_ip_02.childNodes[0].style.width = '140px';
+            simpCont_01_01_02_ip_02.childNodes[0].style.marginLeft = '4px';
+            simpCont_01_01.childNodes[secDep].childNodes[0].childNodes[1].style.marginTop = '0px';
+            simpCont_01_01.childNodes[secDep].childNodes[0].childNodes[1].style.marginBottom = '0px';
+            simpCont_01_01.childNodes[secDep].childNodes[0].childNodes[2].style.marginTop = '0px';
+            simpCont_01_01.childNodes[secDep].childNodes[0].childNodes[2].style.marginBottom = '0px';
+
+            // 1-1F third elements
+            simpCont_01_01.childNodes[thrDep].style.marginTop='8px';
+            simpCont_01_01_03_lb.shadowRoot.childNodes[0].style.width = '150px';
+            simpCont_01_01_03_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+            simpCont_01_01_03_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+            simpCont_01_01_03_dp_sty.childNodes[0].style.width = '284px';
+            simpCont_01_01_03_dp_sty.childNodes[0].style.height = '28px';
+            simpCont_01_01.childNodes[thrDep].childNodes[0].childNodes[1].style.marginTop='0px';
+            simpCont_01_01.childNodes[thrDep].childNodes[0].childNodes[1].style.marginBottom='0px';
+
+            // 1-1F fourth elements
+            simpCont_01_01.childNodes[forDep].style.marginTop='8px';
+            simpCont_01_01_04_lb.shadowRoot.childNodes[0].style.width = '150px';
+            simpCont_01_01_04_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+            simpCont_01_01_04_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+            simpCont_01_01_04_ip_sty.style.width = '284px';
+            simpCont_01_01_04_ip_sty.style.height = '28px';
+            simpCont_01_01.childNodes[forDep].childNodes[0].childNodes[1].style.marginTop='0px';
+            simpCont_01_01.childNodes[forDep].childNodes[0].childNodes[1].style.marginBottom='0px';
+
+            // 1-2F box
+            simpCont_01_02.style.width='300px';
+            simpCont_01_02.style.marginLeft = '30px';
+   
+            // 1-2F first element
+            simpCont_01_02_01_lb.shadowRoot.childNodes[0].style.width = '150px';
+            simpCont_01_02_01_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+            simpCont_01_02_01_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+            simpCont_01_02_01_dp.style.width = '140px';
+            simpCont_01_02_01_dp.style.height = '28px';
+            simpCont_01_02.childNodes[firDep].childNodes[0].childNodes[1].style.marginTop='0px';
+            simpCont_01_02.childNodes[firDep].childNodes[0].childNodes[1].style.marginBottom='0px';
+
+            // 1-2F second element
+            simpCont_01_02.childNodes[secDep].style.marginTop='8px';
+            simpCont_01_02_02_lb.shadowRoot.childNodes[0].style.width = '150px';
+            simpCont_01_02_02_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+            simpCont_01_02_02_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+            simpCont_01_02.childNodes[1].childNodes[0].childNodes[1].style.marginTop = '0px';
+            simpCont_01_02.childNodes[1].childNodes[0].childNodes[1].style.marginBottom = '0px';
+            simpCont_01_02_02_dt.shadowRoot.childNodes[0].childNodes[0].style.width = '140px';
+            simpCont_01_02_02_dt.shadowRoot.childNodes[0].childNodes[0].style.height = '28px';
+
+            // 1-2F third element
+            simpCont_01_02.childNodes[thrDep].style.marginTop='8px';
+            simpCont_01_02_03_lb.shadowRoot.childNodes[0].style.width = '150px';
+            simpCont_01_02_03_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+            simpCont_01_02_03_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+            simpCont_01_02.childNodes[2].childNodes[0].childNodes[1].style.marginTop = '0px';
+            simpCont_01_02.childNodes[2].childNodes[0].childNodes[1].style.marginBottom = '0px';
+            simpCont_01_02_03_dt.shadowRoot.childNodes[0].childNodes[0].style.width = '140px';
+            simpCont_01_02_03_dt.shadowRoot.childNodes[0].childNodes[0].style.height = '28px';
+
+            // 1-3F box
+            //simpCont_01_03.style.display='none';
+            pElem.childNodes[0].childNodes[secDep].childNodes[0].childNodes[thrDep].style.display = 'none';
+
+
+            // 1-4F box
+            simpCont_01_04.style.width = '500px';
+            simpCont_01_04.style.marginLeft = '30px';
+
+            // 1-4F first element
+            simpCont_01_04_01_lb.shadowRoot.childNodes[0].style.width = '150px';
+            simpCont_01_04_01_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+            simpCont_01_04_01_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+            simpCont_01_04_01_ip_sty.style.width = '284px';
+            simpCont_01_04_01_ip_sty.style.height = '28px';
+            simpCont_01_04_01_ip_sty.style.marginLeft='10px';
+            simpCont_01_04.childNodes[firDep].childNodes[0].childNodes[0].childNodes[0].childNodes[1]
+                .childNodes[0].childNodes[0].style.marginTop='0px';
+            simpCont_01_04.childNodes[firDep].childNodes[0].childNodes[0].childNodes[0].childNodes[1]
+                .childNodes[0].childNodes[0].style.marginBottom='0px';
+            
+            // 1-4F second element
+            simpCont_01_04.childNodes[secDep].style.marginTop='8px';
+            simpCont_01_04_02_lb.shadowRoot.childNodes[0].style.width='150px';
+            simpCont_01_04_02_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+            simpCont_01_04_02_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+            simpCont_01_04_02_lb.shadowRoot.childNodes[0].style.marginRight = '16px';
+
+            simpCont_01_04_02_01_ip.shadowRoot.childNodes[0].childNodes[0].style.height = '28px';
+            simpCont_01_04.childNodes[secDep].childNodes[0].childNodes[0]
+                .childNodes[0].childNodes[1].childNodes[0].style.width='140px';
+            simpCont_01_04_02_02_ip.shadowRoot.childNodes[0].childNodes[0].style.height = '28px';
+            simpCont_01_04.childNodes[secDep].childNodes[0].childNodes[0]
+                .childNodes[0].childNodes[2].childNodes[0].style.width='140px';
+            simpCont_01_04.childNodes[secDep].childNodes[0].childNodes[0]
+                .childNodes[0].childNodes[2].childNodes[0].style.marginLeft = '4px';
+            simpCont_01_04_02_01_ip.style.marginBottom = '0px';
+            simpCont_01_04_02_01_ip.style.marginTop = '0px';
+            simpCont_01_04_02_02_ip.style.marginBottom = '0px';
+            simpCont_01_04_02_02_ip.style.marginTop = '0px';
+            simpCont_01_04_02_03_bt.style.width='28px';
+            simpCont_01_04_02_03_bt.style.height='28px';
+            simpCont_01_04_02_03_bt.style.marginLeft = '4px';
+
+            // 1-4F third element
+            simpCont_01_04.childNodes[thrDep].style.marginTop='8px';
+            simpCont_01_04_03_lb.shadowRoot.childNodes[0].style.width = '150px';
+            simpCont_01_04_03_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+            simpCont_01_04_03_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+
+            simpCont_01_04_03_ip_sty.style.width = '284px';
+            simpCont_01_04_03_ip_sty.style.height = '28px';
+            simpCont_01_04_03_ip_sty.style.marginLeft = '10px';
+            simpCont_01_04.childNodes[thrDep].childNodes[0].childNodes[0].childNodes[0].childNodes[1]
+                .childNodes[0].childNodes[0].style.marginTop='0px';
+            simpCont_01_04.childNodes[thrDep].childNodes[0].childNodes[0].childNodes[0].childNodes[1]
+                .childNodes[0].childNodes[0].style.marginBottom='0px';
+
+            // 1-4F forth element
+            simpCont_01_04.childNodes[forDep].style.marginTop='8px';
+            simpCont_01_04_04_lb.shadowRoot.childNodes[0].style.width = '150px';
+            simpCont_01_04_04_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+            simpCont_01_04_04_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+            simpCont_01_04_04_lb.shadowRoot.childNodes[0].style.marginRight='16px';
+
+            simpCont_01_04_04_01_ip.shadowRoot.childNodes[0].childNodes[0].style.height = '28px';
+            simpCont_01_04.childNodes[forDep].childNodes[0].childNodes[0]
+                .childNodes[0].childNodes[1].childNodes[0].style.width='140px';
+            simpCont_01_04_04_02_ip.shadowRoot.childNodes[0].childNodes[0].style.height = '28px';
+            simpCont_01_04.childNodes[forDep].childNodes[0].childNodes[0]
+                .childNodes[0].childNodes[2].childNodes[0].style.width='140px';
+            simpCont_01_04_04_01_ip.style.marginBottom = '0px';
+            simpCont_01_04_04_01_ip.style.marginTop = '0px';
+            simpCont_01_04_04_02_ip.style.marginBottom = '0px';
+            simpCont_01_04_04_02_ip.style.marginTop = '0px';
+            simpCont_01_04_04_03_bt.style.width='28px';
+            simpCont_01_04_04_03_bt.style.height='28px';
+            simpCont_01_04_04_03_bt.style.marginLeft = '4px';
+
+
+
+
+
+        // Simple container 02
+        let simpCont_02_01 = pElem.childNodes[0].childNodes[thrDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[0];
+        let simpCont_02_02 = pElem.childNodes[0].childNodes[thrDep].childNodes[0].childNodes[1]
+            .childNodes[0].childNodes[0];
+
+            //pElem.childNodes[0].childNodes[thrDep].childNodes[0].style.marginLeft = '50px';
+            simpCont_02_01.style.fontWeight = 'bold';
+            simpCont_02_01.style.fontSize = '16px';
+            simpCont_02_01.style.height='40px';
+            pElem.childNodes[0].childNodes[thrDep].childNodes[0].childNodes[0]
+            .childNodes[0].style.width = '750px';
+            pElem.childNodes[0].childNodes[thrDep].childNodes[0].childNodes[0]
+            .childNodes[0].style.width = '150px';
+
+            simpCont_02_02.style.fontWeight = 'bold';
+            simpCont_02_02.style.fontSize = '16px';
+            simpCont_02_02.style.height='40px';
+
+
+        // Simple container 03
+        let simpCont_03_01 = pElem.childNodes[0].childNodes[forDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[firDep];
+        let simpCont_03_02 = pElem.childNodes[0].childNodes[forDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[secDep];
+
+        let simpCont_03_01_01_lb = simpCont_03_01.childNodes[0].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[0].childNodes[0];
+        let simpCont_03_01_01_ip = simpCont_03_01.childNodes[0].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[0].childNodes[1].shadowRoot.childNodes[0]
+            .childNodes[1].childNodes[0];
+
+        let simpCont_03_01_02_lb = simpCont_03_01.childNodes[0].childNodes[0].childNodes[0]
+            .childNodes[1].childNodes[0].childNodes[0];
+        let simpCont_03_01_02_ip = simpCont_03_01.childNodes[0].childNodes[0].childNodes[0]
+            .childNodes[1].childNodes[0].childNodes[1].shadowRoot.childNodes[0]
+            .childNodes[0];
+
+        let simpCont_03_01_03_lb = simpCont_03_01.childNodes[0].childNodes[0].childNodes[0]
+            .childNodes[2].childNodes[0].childNodes[0];
+        let simpCont_03_01_03_ip = simpCont_03_01.childNodes[0].childNodes[0].childNodes[0]
+            .childNodes[2].childNodes[0].childNodes[1];
+
+        let simpCont_03_01_04_lb = simpCont_03_01.childNodes[0].childNodes[0].childNodes[0]
+            .childNodes[3].childNodes[0].childNodes[0];
+        let simpCont_03_01_04_ip = simpCont_03_01.childNodes[0].childNodes[0].childNodes[0]
+            .childNodes[3].childNodes[0].childNodes[1].shadowRoot.childNodes[0]
+            .childNodes[0];
+
+        let simpCont_03_01_05_lb = simpCont_03_01.childNodes[0].childNodes[0].childNodes[0]
+            .childNodes[5].childNodes[0].childNodes[0];
+        let simpCont_03_01_05_ip = simpCont_03_01.childNodes[0].childNodes[0].childNodes[0]
+            .childNodes[5].childNodes[0].childNodes[1].shadowRoot.childNodes[0]
+            .childNodes[0];
+
+        let simpCont_03_02_01_lb = simpCont_03_02.childNodes[0].childNodes[0].childNodes[0]
+            .childNodes[0];
+        let simpCont_03_02_01_bt_01 = simpCont_03_02.childNodes[0].childNodes[0].childNodes[0]
+            .childNodes[1];
+        let simpCont_03_02_01_bt_02 = simpCont_03_02.childNodes[0].childNodes[0].childNodes[0]
+            .childNodes[2];
+
+        let simpCont_03_02_02_lb = simpCont_03_02.childNodes[0].childNodes[1].childNodes[0]
+            .childNodes[0];
+        let simpCont_03_02_02_bt_01 = simpCont_03_02.childNodes[0].childNodes[1].childNodes[0]
+            .childNodes[1];
+        let simpCont_03_02_02_bt_02 = simpCont_03_02.childNodes[0].childNodes[1].childNodes[0]
+            .childNodes[2];
+
+        let simpCont_03_02_03_lb = simpCont_03_02.childNodes[0].childNodes[2].childNodes[0]
+            .childNodes[0];
+        let simpCont_03_02_03_bt_01 = simpCont_03_02.childNodes[0].childNodes[2].childNodes[0]
+            .childNodes[1];
+        let simpCont_03_02_03_bt_02 = simpCont_03_02.childNodes[0].childNodes[2].childNodes[0]
+            .childNodes[2];
+
+        let simpCont_03_02_04_lb = simpCont_03_02.childNodes[0].childNodes[3].childNodes[0]
+            .childNodes[0];
+        let simpCont_03_02_04_bt_01 = simpCont_03_02.childNodes[0].childNodes[3].childNodes[0]
+            .childNodes[1];
+        let simpCont_03_02_04_bt_02 = simpCont_03_02.childNodes[0].childNodes[3].childNodes[0]
+            .childNodes[2];
+
+        // 3F box
+        let thirdBox_01 = pElem.childNodes[0].childNodes[forDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[0].childNodes[0];
+        let thirdBox_02 = pElem.childNodes[0].childNodes[forDep].childNodes[0].childNodes[0]
+            .childNodes[0].childNodes[1].childNodes[0];
+
+        thirdBox_01.style.width = '750px';
+        thirdBox_01.style.marginLeft='50px';
+        thirdBox_01.style.marginRight='30px';
+        thirdBox_01.style.paddingTop='16px';
+        thirdBox_01.style.paddingBottom='16px';
+
+        thirdBox_02.style.width = '500px';
+        thirdBox_02.style.paddingTop='16px';
+        thirdBox_02.style.paddingBottom='16px';
+
+        // 3-1F first element
+        simpCont_03_01_01_lb.shadowRoot.childNodes[0].style.width = '150px';
+        simpCont_03_01_01_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+        simpCont_03_01_01_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+        
+
+        simpCont_03_01_02_lb.shadowRoot.childNodes[0].style.width = '150px';
+        simpCont_03_01_02_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+        simpCont_03_01_02_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+        simpCont_03_01_02_ip.style.width = '140px';
+        simpCont_03_01_02_ip.style.height = '28px';
+
+        simpCont_03_01_03_lb.shadowRoot.childNodes[0].style.width = '150px';
+        simpCont_03_01_03_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+        simpCont_03_01_03_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+
+        simpCont_03_01_04_lb.shadowRoot.childNodes[0].style.width = '150px';
+        simpCont_03_01_04_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+        simpCont_03_01_04_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+        simpCont_03_01_04_ip.style.width = '140px';
+        simpCont_03_01_04_ip.style.height = '28px';
+
+        simpCont_03_01_05_lb.shadowRoot.childNodes[0].style.width = '150px';
+        simpCont_03_01_05_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+        simpCont_03_01_05_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+        simpCont_03_01_05_ip.style.width = '140px';
+        simpCont_03_01_05_ip.style.height = '28px';
+
+
+        // 3-2F first element
+        simpCont_03_02_01_lb.shadowRoot.childNodes[0].style.width = '200px';
+        simpCont_03_02_01_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+        simpCont_03_02_01_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+        console.log(simpCont_03_02_01_bt_01);
+        simpCont_03_02_01_bt_01.style.width = '140px';
+        simpCont_03_02_01_bt_01.style.height = '28px';
+        simpCont_03_02_01_bt_01.style.backgroundColor = 'white';
+
+        // 3-2F second element
+        simpCont_03_02.childNodes[0].childNodes[1].style.marginTop = '8px';
+        simpCont_03_02_02_lb.shadowRoot.childNodes[0].style.width = '200px';
+        simpCont_03_02_02_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+        simpCont_03_02_02_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+        
+        // 3-2F third element
+        simpCont_03_02.childNodes[0].childNodes[2].style.marginTop = '8px';
+        simpCont_03_02_03_lb.shadowRoot.childNodes[0].style.width = '200px';
+        simpCont_03_02_03_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+        simpCont_03_02_03_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+
+        // 3-2F fourth element
+        simpCont_03_02.childNodes[0].childNodes[3].style.marginTop = '8px';
+        simpCont_03_02_04_lb.shadowRoot.childNodes[0].style.width = '200px';
+        simpCont_03_02_04_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+        simpCont_03_02_04_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+
+ 
+
+        // 4F title & box
+        let simpCont_04 = pElem.childNodes[0].childNodes[fifDep].childNodes[0].childNodes[0];
+
+        simpCont_04.style.fontSize = '16px';
+        simpCont_04.style.fontWeight = 'bold';
+        simpCont_04.style.marginLeft = '50px';
+        simpCont_04.style.marginTop = '10px';
+        simpCont_04.style.height = '38px';
+
+
+
+        // 5F
+        let simpCont_05_01_lb = pElem.childNodes[0].childNodes[sixDep].childNodes[0]
+            .childNodes[0].childNodes[0].childNodes[0];
+        let simpCont_05_01_ip = pElem.childNodes[0].childNodes[sixDep].childNodes[0]
+            .childNodes[0].childNodes[0].childNodes[1];
+
+        let simpCont_05_02_01_lb = pElem.childNodes[0].childNodes[sixDep].childNodes[0]
+            .childNodes[1].childNodes[0].childNodes[0];
+        let simpCont_05_02_01_ip = pElem.childNodes[0].childNodes[sixDep].childNodes[0]
+            .childNodes[1].childNodes[0].childNodes[1];
+
+        let simpCont_05_02_02_lb = pElem.childNodes[0].childNodes[sixDep].childNodes[0]
+            .childNodes[1].childNodes[0].childNodes[2];
+        let simpCont_05_02_02_ip = pElem.childNodes[0].childNodes[sixDep].childNodes[0]
+            .childNodes[1].childNodes[0].childNodes[3];
+
+        let simpCont_05_03_lb = pElem.childNodes[0].childNodes[sixDep].childNodes[0]
+            .childNodes[2].childNodes[0].childNodes[0];
+        let simpCont_05_03_ip = pElem.childNodes[0].childNodes[sixDep].childNodes[0]
+            .childNodes[2].childNodes[0].childNodes[1];
+
+        let simpCont_05_04_lb = pElem.childNodes[0].childNodes[sixDep].childNodes[0]
+            .childNodes[3].childNodes[0].childNodes[0];
+        let simpCont_05_04_ip = pElem.childNodes[0].childNodes[sixDep].childNodes[0]
+            .childNodes[3].childNodes[0].childNodes[1];
+
+
+        // 5F background
+        elmTemp = pElem.childNodes[0].childNodes[sixDep].childNodes[0];
+        elmTemp.style.backgroundColor = '#f7f7f7';
+        elmTemp.style.paddingTop = '16px';
+        elmTemp.style.paddingBottom = '16px';
+        elmTemp.style.marginLeft = '50px';
+        elmTemp.style.marginRight = '50px';
+
+
+        // 5F first element
+        simpCont_05_01_lb.shadowRoot.childNodes[0].style.width = '150px';
+        simpCont_05_01_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+        simpCont_05_01_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+
+        simpCont_05_01_ip.style.margin = '0px';
+        simpCont_05_01_ip.shadowRoot.childNodes[0].childNodes[0].style.height = '28px';
+        simpCont_05_01_ip.shadowRoot.childNodes[0].childNodes[0].style.width = '613px';
+
+        // 5F second element
+        pElem.childNodes[0].childNodes[sixDep].childNodes[0].childNodes[1].style.marginTop = '8px';
+        simpCont_05_02_01_lb.shadowRoot.childNodes[0].style.width = '150px';
+        simpCont_05_02_01_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+        simpCont_05_02_01_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+
+        simpCont_05_02_01_ip.style.marginTop = '0px';
+        simpCont_05_02_01_ip.style.marginBottom = '0px';
+        simpCont_05_02_01_ip.shadowRoot.childNodes[0].childNodes[0].style.width = '140px';
+        simpCont_05_02_01_ip.shadowRoot.childNodes[0].shadowRoot.childNodes[0]
+            .shadowRoot.childNodes[0].childNodes[0].style.height = '28px';
+
+        simpCont_05_02_02_lb.shadowRoot.childNodes[0].style.width = '150px';
+        simpCont_05_02_02_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+        simpCont_05_02_02_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+
+        simpCont_05_02_02_ip.style.marginTop = '0px';
+        simpCont_05_02_02_ip.style.marginBottom = '0px';
+        simpCont_05_02_02_ip.shadowRoot.childNodes[0].childNodes[0].style.width = '140px';
+        simpCont_05_02_02_ip.shadowRoot.childNodes[0].shadowRoot.childNodes[0]
+            .shadowRoot.childNodes[0].childNodes[0].style.height = '28px';
+
+        // 5F third element
+        pElem.childNodes[0].childNodes[sixDep].childNodes[0].childNodes[2].style.marginTop = '8px';
+        simpCont_05_03_lb.shadowRoot.childNodes[0].style.width = '150px';
+        simpCont_05_03_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+        simpCont_05_03_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+
+        simpCont_05_03_ip.style.margin = '0px';
+        simpCont_05_03_ip.shadowRoot.childNodes[0].childNodes[0].style.height = '81px';
+        simpCont_05_03_ip.shadowRoot.childNodes[0].childNodes[0].style.width = '613px';
+        
+        // 5F fourth element
+        pElem.childNodes[0].childNodes[sixDep].childNodes[0].childNodes[3].style.marginTop = '8px';
+        simpCont_05_04_lb.shadowRoot.childNodes[0].style.width = '150px';
+        simpCont_05_04_lb.shadowRoot.childNodes[0].style.marginBottom = '0px';
+        simpCont_05_04_lb.shadowRoot.childNodes[0].style.marginTop = '5px';
+
+        simpCont_05_04_ip.style.margin = '0px';
+        simpCont_05_04_ip.shadowRoot.childNodes[0].childNodes[0].style.height = '81px';
+        simpCont_05_04_ip.shadowRoot.childNodes[0].childNodes[0].style.width = '613px';
+    });  
+    
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-05 05:01:54</sys_created_on>
+        <sys_id>da48fb5683620210b3dd1665eeaad3c7</sys_id>
+        <sys_mod_count>1069</sys_mod_count>
+        <sys_name>preElem</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_ux_client_script_da48fb5683620210b3dd1665eeaad3c7</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-09 01:09:09</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>
