@@ -423,26 +423,47 @@
                             "value": "chevron"
                         },
                         "items": {
-                            "type": "JSON_LITERAL",
-                            "value": [
+                            "container": [
                                 {
-                                    "hideLabel": true,
-                                    "href": "#",
-                                    "icon": "home-outline",
-                                    "label": "First Item"
+                                    "container": {
+                                        "hideLabel": {
+                                            "type": "JSON_LITERAL",
+                                            "value": true
+                                        },
+                                        "href": {
+                                            "type": "JSON_LITERAL",
+                                            "value": "#"
+                                        },
+                                        "icon": {
+                                            "type": "JSON_LITERAL",
+                                            "value": "home-outline"
+                                        },
+                                        "label": {
+                                            "type": "TRANSLATION_LITERAL",
+                                            "value": {
+                                                "code": null,
+                                                "comment": "",
+                                                "message": "First Item"
+                                            }
+                                        }
+                                    },
+                                    "type": "MAP_CONTAINER"
                                 },
                                 {
-                                    "href": "#",
-                                    "label": "Breadcrumbs1"
-                                },
-                                {
-                                    "href": "#",
-                                    "label": "Breadcrumbs2"
-                                },
-                                {
-                                    "label": "Breadcrumbs3"
+                                    "container": {
+                                        "label": {
+                                            "type": "TRANSLATION_LITERAL",
+                                            "value": {
+                                                "code": null,
+                                                "comment": "",
+                                                "message": "RFQ Entry"
+                                            }
+                                        }
+                                    },
+                                    "type": "MAP_CONTAINER"
                                 }
-                            ]
+                            ],
+                            "type": "LIST_CONTAINER"
                         },
                         "overflow": {
                             "type": "JSON_LITERAL",
@@ -587,7 +608,7 @@
                                                     "value": {
                                                         "code": null,
                                                         "comment": "",
-                                                        "message": "&lt;p style=\"text-align: right;\"&gt;&amp;nbsp; &amp;nbsp;Number&lt;/p&gt;"
+                                                        "message": "&lt;p style=\"text-align: right;\"&gt;&amp;nbsp; &amp;nbsp;Number&amp;nbsp;&amp;nbsp;&lt;/p&gt;"
                                                     }
                                                 }
                                             },
@@ -1971,7 +1992,7 @@
                                                     "value": {
                                                         "code": null,
                                                         "comment": "",
-                                                        "message": "&lt;p style=\"text-align: right;\"&gt;Status&amp;nbsp;&lt;/p&gt;"
+                                                        "message": "&lt;p style=\"text-align: right;\"&gt;Status&amp;nbsp;&amp;nbsp;&lt;/p&gt;"
                                                     }
                                                 }
                                             },
@@ -2323,7 +2344,7 @@
                                                     "value": {
                                                         "code": null,
                                                         "comment": "",
-                                                        "message": "&lt;p style=\"text-align: right;\"&gt;Req. Date&lt;/p&gt;"
+                                                        "message": "&lt;p style=\"text-align: right;\"&gt;Req. Date&amp;nbsp;&amp;nbsp;&lt;/p&gt;"
                                                     }
                                                 }
                                             },
@@ -2592,7 +2613,7 @@
                                                     "value": {
                                                         "code": null,
                                                         "comment": "",
-                                                        "message": "&lt;p style=\"text-align: right;\"&gt;Comp. Date&lt;/p&gt;"
+                                                        "message": "&lt;p style=\"text-align: right;\"&gt;Comp. Date&amp;nbsp;&amp;nbsp;&lt;/p&gt;"
                                                     }
                                                 }
                                             },
@@ -6127,7 +6148,7 @@
                     "rules": null,
                     "styles": {
                         "box-sizing": "border-box",
-                        "grid-template-columns": "31.664601827522116fr 18.9968342433415fr 9.999580791424497fr 39.3314831377119fr",
+                        "grid-template-columns": "31.664601827522116fr 18.9968342433415fr 3.998950953344239fr 45.33211297579216fr",
                         "grid-template-rows": "1fr",
                         "padding-left": "0",
                         "padding-right": "0",
@@ -6207,12 +6228,12 @@
                             {
                                 "columnNumber": 3,
                                 "unit": "%",
-                                "width": 9.999580791424497
+                                "width": 3.998950953344239
                             },
                             {
                                 "columnNumber": 4,
                                 "unit": "%",
-                                "width": 39.3314831377119
+                                "width": 45.33211297579216
                             }
                         ],
                         "id": "UIB_COLUMN_SECTION_SINGLE_COLUMN_SECTION",
@@ -6489,7 +6510,7 @@
                     "rules": null,
                     "styles": {
                         "box-sizing": "border-box",
-                        "grid-template-columns": "60.00003486538887fr 39.99996513461113fr",
+                        "grid-template-columns": "65.00090517713332fr 34.999094822866695fr",
                         "grid-template-rows": "1fr",
                         "padding-right": "0",
                         "width": "100%"
@@ -6557,12 +6578,12 @@
                             {
                                 "columnNumber": 1,
                                 "unit": "%",
-                                "width": 60.00003486538887
+                                "width": 65.00090517713332
                             },
                             {
                                 "columnNumber": 2,
                                 "unit": "%",
-                                "width": 39.99996513461113
+                                "width": 34.999094822866695
                             }
                         ],
                         "id": "UIB_COLUMN_SECTION_SINGLE_COLUMN_SECTION",
@@ -7239,7 +7260,7 @@
                                             },
                                             "styles": {
                                                 "align-items": "flex-start",
-                                                "background": "rgb(var(--now-color--neutral-1))",
+                                                "background": "rgb(var(--now-color_background--secondary))",
                                                 "box-sizing": "border-box",
                                                 "flex-direction": "column",
                                                 "height": "100%",
@@ -7269,7 +7290,7 @@
                                                     },
                                                     "internal": {
                                                         "align-items": "flex-start",
-                                                        "background": "rgb(var(--now-color--neutral-1))",
+                                                        "background": "rgb(var(--now-color_background--secondary))",
                                                         "box-sizing": "border-box",
                                                         "flex-direction": "column",
                                                         "height": "100%",
@@ -7475,6 +7496,68 @@
                                                         },
                                                         "slot": null,
                                                         "styles": null
+                                                    },
+                                                    {
+                                                        "definition": {
+                                                            "id": "844d56291d91b330f2269558e3f47701",
+                                                            "type": "MACROPONENT"
+                                                        },
+                                                        "elementId": "button_iconic_6",
+                                                        "elementLabel": "Button iconic 6",
+                                                        "eventMappings": [
+                                                            
+                                                        ],
+                                                        "isHidden": {
+                                                            "type": "JSON_LITERAL",
+                                                            "value": null
+                                                        },
+                                                        "preset": null,
+                                                        "propertyValues": {
+                                                            "bare": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": false
+                                                            },
+                                                            "configAria": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": {
+                                                                    "aria-label": "Search"
+                                                                }
+                                                            },
+                                                            "disabled": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": false
+                                                            },
+                                                            "hidePadding": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": false
+                                                            },
+                                                            "highContrast": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": false
+                                                            },
+                                                            "icon": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": "magnifying-glass-outline"
+                                                            },
+                                                            "size": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": "md"
+                                                            },
+                                                            "tooltipContent": {
+                                                                "type": "TRANSLATION_LITERAL",
+                                                                "value": {
+                                                                    "code": null,
+                                                                    "comment": "",
+                                                                    "message": "Enter a label"
+                                                                }
+                                                            },
+                                                            "variant": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": "secondary"
+                                                            }
+                                                        },
+                                                        "slot": null,
+                                                        "styles": null
                                                     }
                                                 ],
                                                 "layout": {
@@ -7490,6 +7573,13 @@
                                                             {
                                                                 "element_id": "input_35",
                                                                 "styles": {}
+                                                            },
+                                                            {
+                                                                "element_id": "button_iconic_6",
+                                                                "styles": {
+                                                                    "height": "",
+                                                                    "width": ""
+                                                                }
                                                             }
                                                         ],
                                                         "root": null,
@@ -7560,7 +7650,7 @@
                                             },
                                             "styles": {
                                                 "align-items": "flex-start",
-                                                "background": "rgb(var(--now-color--neutral-1))",
+                                                "background": "rgb(var(--now-color_background--secondary))",
                                                 "box-sizing": "border-box",
                                                 "flex-direction": "column",
                                                 "height": "100%",
@@ -7590,7 +7680,7 @@
                                                     },
                                                     "internal": {
                                                         "align-items": "flex-start",
-                                                        "background": "rgb(var(--now-color--neutral-1))",
+                                                        "background": "rgb(var(--now-color_background--secondary))",
                                                         "box-sizing": "border-box",
                                                         "flex-direction": "column",
                                                         "height": "100%",
@@ -8719,7 +8809,7 @@
                                 "styles": {
                                     "box-sizing": "border-box",
                                     "column-gap": "0",
-                                    "grid-template-columns": "29.999711710815532fr 29.999665169307796fr 40.000623119876664fr",
+                                    "grid-template-columns": "35.333571823586055fr 29.667034188099898fr 34.99939398831404fr",
                                     "grid-template-rows": "1fr",
                                     "width": "100%"
                                 },
@@ -8786,17 +8876,17 @@
                                         {
                                             "columnNumber": 1,
                                             "unit": "%",
-                                            "width": 29.999711710815532
+                                            "width": 35.333571823586055
                                         },
                                         {
                                             "columnNumber": 2,
                                             "unit": "%",
-                                            "width": 29.999665169307796
+                                            "width": 29.667034188099898
                                         },
                                         {
                                             "columnNumber": 3,
                                             "unit": "%",
-                                            "width": 40.000623119876664
+                                            "width": 34.99939398831404
                                         }
                                     ],
                                     "id": "UIB_COLUMN_SECTION_SINGLE_COLUMN_SECTION",
@@ -12265,13 +12355,13 @@
   "message" : "&lt;p style=\"text-align: right;\"&gt;&amp;nbsp; &amp;nbsp; Requester&amp;nbsp;&amp;nbsp;&lt;/p&gt;",
   "comment" : ""
 }, {
-  "message" : "&lt;p style=\"text-align: right;\"&gt;&amp;nbsp; &amp;nbsp;Number&lt;/p&gt;",
+  "message" : "&lt;p style=\"text-align: right;\"&gt;&amp;nbsp; &amp;nbsp;Number&amp;nbsp;&amp;nbsp;&lt;/p&gt;",
   "comment" : ""
 }, {
   "message" : "&lt;p style=\"text-align: right;\"&gt;Caution&lt;/p&gt;",
   "comment" : ""
 }, {
-  "message" : "&lt;p style=\"text-align: right;\"&gt;Comp. Date&lt;/p&gt;",
+  "message" : "&lt;p style=\"text-align: right;\"&gt;Comp. Date&amp;nbsp;&amp;nbsp;&lt;/p&gt;",
   "comment" : ""
 }, {
   "message" : "&lt;p style=\"text-align: right;\"&gt;Country&lt;/p&gt;",
@@ -12307,7 +12397,7 @@
   "message" : "&lt;p style=\"text-align: right;\"&gt;Quotation&lt;/p&gt;",
   "comment" : ""
 }, {
-  "message" : "&lt;p style=\"text-align: right;\"&gt;Req. Date&lt;/p&gt;",
+  "message" : "&lt;p style=\"text-align: right;\"&gt;Req. Date&amp;nbsp;&amp;nbsp;&lt;/p&gt;",
   "comment" : ""
 }, {
   "message" : "&lt;p style=\"text-align: right;\"&gt;Risk management Category&lt;/p&gt;",
@@ -12316,7 +12406,7 @@
   "message" : "&lt;p style=\"text-align: right;\"&gt;Sales Territory REview&lt;/p&gt;",
   "comment" : ""
 }, {
-  "message" : "&lt;p style=\"text-align: right;\"&gt;Status&amp;nbsp;&lt;/p&gt;",
+  "message" : "&lt;p style=\"text-align: right;\"&gt;Status&amp;nbsp;&amp;nbsp;&lt;/p&gt;",
   "comment" : ""
 }, {
   "message" : "&lt;p style=\"text-align: right;\"&gt;T-CAS&lt;/p&gt;",
@@ -12343,15 +12433,6 @@
   "message" : "Assess",
   "comment" : ""
 }, {
-  "message" : "Breadcrumbs1",
-  "comment" : ""
-}, {
-  "message" : "Breadcrumbs2",
-  "comment" : ""
-}, {
-  "message" : "Breadcrumbs3",
-  "comment" : ""
-}, {
   "message" : "Cancelled",
   "comment" : ""
 }, {
@@ -12374,6 +12455,9 @@
   "comment" : ""
 }, {
   "message" : "New",
+  "comment" : ""
+}, {
+  "message" : "RFQ Entry",
   "comment" : ""
 }, {
   "message" : "RFQ Entry &amp; Quotation Request2211",
@@ -12493,14 +12577,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-04 01:42:28</sys_created_on>
         <sys_id>9172c6c2932202104d95f55a7bba105f</sys_id>
-        <sys_mod_count>798</sys_mod_count>
+        <sys_mod_count>873</sys_mod_count>
         <sys_name>new design</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ux_macroponent_9172c6c2932202104d95f55a7bba105f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-09 08:08:33</sys_updated_on>
+        <sys_updated_on>2024-06-09 12:50:45</sys_updated_on>
     </sys_ux_macroponent>
     <sys_translated_text action="delete_multiple" query="documentkey=9172c6c2932202104d95f55a7bba105f"/>
 </record_update>

@@ -62,6 +62,8 @@ function handler({api, event, helpers, imports}) {
             .shadowRoot.childNodes[0];
         let simpCont_01_01_02_ip_02 = simpCont_01_01.childNodes[secDep].childNodes[0].childNodes[2]
             .shadowRoot.childNodes[0];
+        let simpCont_01_01_02_bt_03 = simpCont_01_01.childNodes[secDep].childNodes[0].childNodes[3]
+            .shadowRoot.childNodes[0];
 
         let simpCont_01_01_03_lb = simpCont_01_01.childNodes[thrDep].childNodes[0].childNodes[0];
         let simpCont_01_01_03_dp = simpCont_01_01.childNodes[thrDep].childNodes[0].childNodes[1]
@@ -74,6 +76,8 @@ function handler({api, event, helpers, imports}) {
             .shadowRoot.childNodes[0].childNodes[0].childNodes[1];
         let simpCont_01_01_04_ip_sty = simpCont_01_01.childNodes[forDep].childNodes[0].childNodes[1]
             .shadowRoot.childNodes[0].childNodes[0];
+        let simpCont_01_01_04_bt_03 = simpCont_01_01.childNodes[forDep].childNodes[0].childNodes[2]
+            .shadowRoot.childNodes[0];
 
         // 1층 2번째
         let simpCont_01_02_01_lb = simpCont_01_02.childNodes[firDep].childNodes[0].childNodes[0];
@@ -134,15 +138,27 @@ function handler({api, event, helpers, imports}) {
         
 
         // 1층 background
-        let elmTemp = pElem.childNodes[0].childNodes[secDep].childNodes[0];
-        elmTemp.style.backgroundColor = '#f7f7f7';
-        elmTemp.style.paddingTop = '16px';
-        elmTemp.style.paddingBottom = '16px';
-        elmTemp.style.marginLeft = '50px';
-        elmTemp.style.marginRight = '50px';
-        
+        let elmTemp = pElem.childNodes[0].childNodes[secDep].childNodes[0].childNodes[0];
+
+        let e_01_01_box = pElem.childNodes[0].childNodes[secDep].childNodes[0].childNodes[0].childNodes[0];
+        e_01_01_box.style.backgroundColor = '#f7f7f7';
+        e_01_01_box.style.paddingTop = '16px';
+        e_01_01_box.style.paddingBottom = '16px';
+        e_01_01_box.style.marginLeft = '50px';
+
+        let e_01_02_box = pElem.childNodes[0].childNodes[secDep].childNodes[0].childNodes[1].childNodes[0];
+        e_01_02_box.style.backgroundColor = '#f7f7f7';
+        e_01_02_box.style.paddingTop = '16px';
+        e_01_02_box.style.paddingBottom = '16px';
+
+        let e_01_03_box = pElem.childNodes[0].childNodes[secDep].childNodes[0].childNodes[3].childNodes[0];
+        e_01_03_box.style.backgroundColor = '#f7f7f7';
+        e_01_03_box.style.paddingTop = '16px';
+        e_01_03_box.style.paddingBottom = '16px';
+        console.log(e_01_03_box);
+
             // 1-1F box
-            simpCont_01_01.style.width='450px';
+            simpCont_01_01.style.width='500px';
             
             // 1-1F first elements
             simpCont_01_01_01_lb.shadowRoot.childNodes[0].style.width = '150px';
@@ -167,6 +183,10 @@ function handler({api, event, helpers, imports}) {
             simpCont_01_01.childNodes[secDep].childNodes[0].childNodes[1].style.marginBottom = '0px';
             simpCont_01_01.childNodes[secDep].childNodes[0].childNodes[2].style.marginTop = '0px';
             simpCont_01_01.childNodes[secDep].childNodes[0].childNodes[2].style.marginBottom = '0px';
+            simpCont_01_01_02_bt_03.style.width = '28px';
+            simpCont_01_01_02_bt_03.style.height = '28px';
+            simpCont_01_01_02_bt_03.style.marginLeft='5px';
+
 
             // 1-1F third elements
             simpCont_01_01.childNodes[thrDep].style.marginTop='8px';
@@ -187,9 +207,13 @@ function handler({api, event, helpers, imports}) {
             simpCont_01_01_04_ip_sty.style.height = '28px';
             simpCont_01_01.childNodes[forDep].childNodes[0].childNodes[1].style.marginTop='0px';
             simpCont_01_01.childNodes[forDep].childNodes[0].childNodes[1].style.marginBottom='0px';
+            simpCont_01_01_04_bt_03.style.width = '28px';
+            simpCont_01_01_04_bt_03.style.height = '28px';
+            simpCont_01_01_04_bt_03.style.marginLeft = '5px';
+
 
             // 1-2F box
-            simpCont_01_02.style.width='300px';
+            simpCont_01_02.style.width='350px';
             simpCont_01_02.style.marginLeft = '30px';
    
             // 1-2F first element
@@ -227,8 +251,9 @@ function handler({api, event, helpers, imports}) {
 
 
             // 1-4F box
-            simpCont_01_04.style.width = '500px';
+            simpCont_01_04.style.width = '530px';
             simpCont_01_04.style.marginLeft = '30px';
+            simpCont_01_04.style.paddingRight = '30px';
 
             // 1-4F first element
             simpCont_01_04_01_lb.shadowRoot.childNodes[0].style.width = '150px';
@@ -317,7 +342,27 @@ function handler({api, event, helpers, imports}) {
 
 
         // 3F box
-        pElem.childNodes[0].childNodes[forDep].childNodes[0].style.marginLeft = '50px';
+        let e_03_01_box = pElem.childNodes[0].childNodes[forDep].childNodes[0]
+            .childNodes[0].childNodes[0].childNodes[0].childNodes[0];
+        e_03_01_box.style.marginLeft = '50px';
+        e_03_01_box.style.paddingTop = '18px';
+        e_03_01_box.style.paddingBottom = '18px';
+
+        let e_03_02_box = pElem.childNodes[0].childNodes[forDep].childNodes[0]
+            .childNodes[0].childNodes[0].childNodes[1].childNodes[0];
+        e_03_02_box.style.paddingTop = '18px';
+        e_03_02_box.style.paddingBottom = '18px';
+        e_03_02_box.style.marginRight = '20px';
+
+        let e_03_03_box = pElem.childNodes[0].childNodes[forDep].childNodes[0]
+            .childNodes[0].childNodes[0].childNodes[2].childNodes[0];
+        e_03_03_box.style.paddingTop = '18px';
+        e_03_03_box.style.paddingBottom = '18px';
+        e_03_03_box.style.paddingLeft = '40px';
+        e_03_03_box.style.marginRight = '50px';
+
+
+
         // 3-1F 
         let simpCont_03_01 = pElem.childNodes[0].childNodes[forDep].childNodes[0].childNodes[0]
             .childNodes[0].childNodes[firDep];
@@ -339,7 +384,7 @@ function handler({api, event, helpers, imports}) {
 
         simpCont_03_01_01_ip.style.marginTop = '0px';
         simpCont_03_01_01_ip.style.marginBottom = '0px';
-        simpCont_03_01_01_ip.shadowRoot.childNodes[0].childNodes[0].style.width = '140px';
+        simpCont_03_01_01_ip.shadowRoot.childNodes[0].childNodes[0].style.width = '284px';
         simpCont_03_01_01_ip.shadowRoot.childNodes[0].childNodes[0].style.height = '28px';
 
         // 3-1F second element
@@ -358,7 +403,7 @@ function handler({api, event, helpers, imports}) {
 
         simpCont_03_01_02_ip.style.marginTop = '0px';
         simpCont_03_01_02_ip.style.marginBottom = '0px';
-        simpCont_03_01_02_ip.shadowRoot.childNodes[0].shadowRoot.childNodes[0].style.width = '140px';
+        simpCont_03_01_02_ip.shadowRoot.childNodes[0].shadowRoot.childNodes[0].style.width = '284px';
         simpCont_03_01_02_ip.shadowRoot.childNodes[0].shadowRoot.childNodes[0].style.height = '28px';
 
 
@@ -367,6 +412,9 @@ function handler({api, event, helpers, imports}) {
             .childNodes[0];
         let simpCont_03_02_01_ip = simpCont_03_02.childNodes[0].childNodes[0].childNodes[0]
             .childNodes[1];
+        let simpCont_03_02_01_bt = simpCont_03_02.childNodes[0].childNodes[0].childNodes[0]
+            .childNodes[2].shadowRoot.childNodes[0];
+        console.log(simpCont_03_02_01_bt);
         //simpCont_03_02_01_lb.style.width = '150px';
         //simpCont_03_02_01_lb.style.marginRight = '10px';
         simpCont_03_02_01_lb.shadowRoot.childNodes[0].style.width = '170px';
@@ -375,8 +423,12 @@ function handler({api, event, helpers, imports}) {
 
         simpCont_03_02_01_ip.style.marginTop = '0px';
         simpCont_03_02_01_ip.style.marginBottom = '0px';
-        simpCont_03_02_01_ip.shadowRoot.childNodes[0].childNodes[0].style.width = '140px';
+        simpCont_03_02_01_ip.shadowRoot.childNodes[0].childNodes[0].style.width = '170px';
         simpCont_03_02_01_ip.shadowRoot.childNodes[0].childNodes[0].style.height = '28px';
+
+        simpCont_03_02_01_bt.style.width= '28px';
+        simpCont_03_02_01_bt.style.height = '28px';
+        simpCont_03_02_01_bt.style.marginLeft = '5px';
 
 
         // 3-3F first element
@@ -553,14 +605,14 @@ function handler({api, event, helpers, imports}) {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-05 05:01:54</sys_created_on>
         <sys_id>da48fb5683620210b3dd1665eeaad3c7</sys_id>
-        <sys_mod_count>1323</sys_mod_count>
+        <sys_mod_count>1439</sys_mod_count>
         <sys_name>preElem</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ux_client_script_da48fb5683620210b3dd1665eeaad3c7</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-09 08:08:34</sys_updated_on>
+        <sys_updated_on>2024-06-09 12:45:37</sys_updated_on>
         <target>macroponent</target>
         <type>default</type>
     </sys_ux_client_script>
