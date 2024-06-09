@@ -143,7 +143,7 @@
                                                 },
                                                 "variant": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": "secondary"
+                                                    "value": "primary"
                                                 }
                                             },
                                             "slot": null,
@@ -207,11 +207,11 @@
                                         },
                                         {
                                             "definition": {
-                                                "id": "67d8bc45906c355a3100c0782f45487b",
+                                                "id": "d37ce8abca89d02905fed903c8e34d8e",
                                                 "type": "MACROPONENT"
                                             },
-                                            "elementId": "button_bare_9",
-                                            "elementLabel": "Button bare 9",
+                                            "elementId": "button_3",
+                                            "elementLabel": "Button 3",
                                             "eventMappings": [
                                                 
                                             ],
@@ -229,19 +229,7 @@
                                                     "type": "JSON_LITERAL",
                                                     "value": false
                                                 },
-                                                "hideBlockPadding": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": false
-                                                },
-                                                "highContrast": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": false
-                                                },
-                                                "iconEnd": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": null
-                                                },
-                                                "iconStart": {
+                                                "icon": {
                                                     "type": "JSON_LITERAL",
                                                     "value": null
                                                 },
@@ -253,17 +241,21 @@
                                                         "message": "Access"
                                                     }
                                                 },
-                                                "showInlinePadding": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": false
-                                                },
                                                 "size": {
                                                     "type": "JSON_LITERAL",
                                                     "value": "md"
                                                 },
+                                                "tooltipContent": {
+                                                    "type": "TRANSLATION_LITERAL",
+                                                    "value": {
+                                                        "code": null,
+                                                        "comment": "",
+                                                        "message": "Enter a label"
+                                                    }
+                                                },
                                                 "variant": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": "secondary"
+                                                    "value": "primary"
                                                 }
                                             },
                                             "slot": null,
@@ -276,15 +268,24 @@
                                             "items": [
                                                 {
                                                     "element_id": "button_2",
-                                                    "styles": {}
+                                                    "styles": {
+                                                        "height": "28px",
+                                                        "width": "100px"
+                                                    }
                                                 },
                                                 {
                                                     "element_id": "button_1",
-                                                    "styles": {}
+                                                    "styles": {
+                                                        "height": "28px",
+                                                        "width": "100px"
+                                                    }
                                                 },
                                                 {
-                                                    "element_id": "button_bare_9",
-                                                    "styles": {}
+                                                    "element_id": "button_3",
+                                                    "styles": {
+                                                        "height": "28px",
+                                                        "width": "100px"
+                                                    }
                                                 }
                                             ],
                                             "root": null,
@@ -292,6 +293,9 @@
                                             "styles": {
                                                 "flex-direction": "row",
                                                 "gap": "var(--now-scalable-space--xxl)",
+                                                "margin-right": "var(--now-scalable-space--xl)",
+                                                "margin-top": "var(--now-scalable-space--lg)",
+                                                "padding-top": "0",
                                                 "width": "100%"
                                             },
                                             "templateId": "5832fd4d53c31010e6bcddeeff7b12db",
@@ -486,7 +490,10 @@
                         },
                         {
                             "element_id": "breadcrumbs_1",
-                            "styles": {}
+                            "styles": {
+                                "margin-bottom": "var(--now-scalable-space--sm)",
+                                "margin-top": "0"
+                            }
                         }
                     ],
                     "root": null,
@@ -12234,29 +12241,13 @@
                     "type": "JSON_LITERAL",
                     "value": {}
                 },
-                "sysId": "cf72c282932202104d95f55a7bba1070"
-            },
-            "conditional": null,
-            "declarativeAction": null,
-            "event": null,
-            "operation": null,
-            "targetId": "clwzvpkyhhaajjfaaddffhhruezeeddjbhh",
-            "type": "CLIENT_SCRIPT"
-        },
-        {
-            "broker": null,
-            "clientScript": {
-                "payload": {
-                    "type": "JSON_LITERAL",
-                    "value": {}
-                },
                 "sysId": "da48fb5683620210b3dd1665eeaad3c7"
             },
             "conditional": null,
             "declarativeAction": null,
             "event": null,
             "operation": null,
-            "targetId": "clxbbdddekeeaabbzmddffhhsvggoddggygdd",
+            "targetId": "clxiiffiiiggyaabbxaaddjhhqiihhghhwiiffc",
             "type": "CLIENT_SCRIPT"
         }
     ]
@@ -12577,14 +12568,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-04 01:42:28</sys_created_on>
         <sys_id>9172c6c2932202104d95f55a7bba105f</sys_id>
-        <sys_mod_count>873</sys_mod_count>
+        <sys_mod_count>879</sys_mod_count>
         <sys_name>new design</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ux_macroponent_9172c6c2932202104d95f55a7bba105f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-09 12:50:45</sys_updated_on>
+        <sys_updated_on>2024-06-09 23:04:08</sys_updated_on>
     </sys_ux_macroponent>
     <sys_translated_text action="delete_multiple" query="documentkey=9172c6c2932202104d95f55a7bba105f"/>
 </record_update>
