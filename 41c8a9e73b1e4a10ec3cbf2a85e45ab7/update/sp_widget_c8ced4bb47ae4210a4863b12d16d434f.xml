@@ -98,8 +98,8 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .custom-checkbox input:checked ~ .checkmark:after {  display: block;  left: 50%; top: 50%;  height: 16px;  width: 18px;  transform: translate(-50%, -50%);  background: url(images/icon_checkbox.png) no-repeat center center;}&#13;
 &#13;
 .custom-checkbox input:disabled ~ .checkmark {border: 1px solid #D1D1D1; background: #E2E2E2; cursor: not-allowed; }&#13;
-.custom-checkbox input:checked:disabled ~ .checkmark {background:#E2E2E2 url(images/icon_checkbox_dis.png) no-repeat center center; }&#13;
-.custom-checkbox input:disabled ~ .checkmark:after {background: url(images/icon_checkbox_dis.png) no-repeat center center;}&#13;
+.custom-checkbox input:checked:disabled ~ .checkmark {background:#E2E2E2 url(icon_checkbox_dis.png) no-repeat center center; }&#13;
+.custom-checkbox input:disabled ~ .checkmark:after {background: url(icon_checkbox_dis.png) no-repeat center center;}&#13;
 &#13;
 .yoko-wid140 {width: 140px !important;}&#13;
 .yoko-form-inline select {width: calc(100% - 28px);}&#13;
@@ -164,14 +164,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-09 04:57:11</sys_created_on>
         <sys_id>c8ced4bb47ae4210a4863b12d16d434f</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_name>ypsample1</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_c8ced4bb47ae4210a4863b12d16d434f</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-09 05:45:17</sys_updated_on>
+        <sys_updated_on>2024-06-09 11:15:36</sys_updated_on>
         <template><![CDATA[    <div class="yoko-container">
         <div class="yoko-breadcrumb">Home >  WF Request  management</div>
         <div class="yoko-title-btn-wrap">
@@ -451,12 +451,942 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                         <button type="button" class="yoko-btn yoko-btn-fill-red">Assign</button>
                     </div>
                 </div>
-                    <div id="realgrid" style="width: 100%; height: 500px;"></div>
-                  
-                
+                    
+                <div id="realgrid" style="width: 100%; height: 500px;">
+                  <div tabindex="0" class="rg-root rg-grid"
+                    style="position: relative; width: 100%; height: 100%; box-sizing: border-box; overflow: hidden; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); cursor: default;">
+                    <div class=""
+                      style="position: absolute; box-sizing: border-box; cursor: default; left: 0px; top: 0px; width: 0px; height: 0px;">
+                      <div
+                        style="position: absolute; box-sizing: border-box; overflow: hidden !important; left: 0px; top: 0px; width: 1598px; height: 498px;">
+                        <div class="" style="position: absolute; box-sizing: border-box; left: 0px; top: 0px; width: 0px; height: 0px;">
+                          <div class=""
+                            style="position: absolute; box-sizing: border-box; left: 68px; top: 0px; width: 1440px; height: 498px;">
+                            <div class="rg-header"
+                              style="position: absolute; box-sizing: border-box; overflow: hidden; left: 0px; top: 0px; width: 1440px; height: 40px;">
+                              <table aria-hidden="true" role="grid" class="rg-table"
+                                style="table-layout: fixed !important; width: 100% !important;">
+                                <caption
+                                  style="height: 0px; width: 0px; overflow: hidden; padding: 0px !important; box-sizing: border-box;">
+                                  grid table </caption>
+                                <thead>
+                                  <tr role="row" aria-hidden="true" style="border: 0px none !important;">
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      Application</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      Status</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      Apply No</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 240px;">
+                                      Customer Name</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      SAP Doc No</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 120px;">
+                                      Req. Date</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 240px;">
+                                      Requester</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 120px;">
+                                      Comp. Date</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 120px;">
+                                      Comp. Emp</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr role="row" style="height: 40px;">
+                                    <td role="gridcell" class="rg-header-cell">
+                                      <div class="rg-header-renderer" style="max-height: 38px; overflow: hidden;">
+                                        <span>Application</span></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-header-cell">
+                                      <div class="rg-header-renderer" style="max-height: 38px; overflow: hidden;"><span>Status</span>
+                                      </div>
+                                    </td>
+                                    <td role="gridcell" class="rg-header-cell">
+                                      <div class="rg-header-renderer" style="max-height: 38px; overflow: hidden;"><span>Apply No</span>
+                                      </div>
+                                    </td>
+                                    <td role="gridcell" class="rg-header-cell">
+                                      <div class="rg-header-renderer" style="max-height: 38px; overflow: hidden;"><span>Customer
+                                          Name</span></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-header-cell">
+                                      <div class="rg-header-renderer" style="max-height: 38px; overflow: hidden;"><span>SAP Doc
+                                          No</span></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-header-cell">
+                                      <div class="rg-header-renderer" style="max-height: 38px; overflow: hidden;"><span>Req. Date</span>
+                                      </div>
+                                    </td>
+                                    <td role="gridcell" class="rg-header-cell">
+                                      <div class="rg-header-renderer" style="max-height: 38px; overflow: hidden;"><span>Requester</span>
+                                      </div>
+                                    </td>
+                                    <td role="gridcell" class="rg-header-cell">
+                                      <div class="rg-header-renderer" style="max-height: 38px; overflow: hidden;"><span>Comp.
+                                          Date</span></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-header-cell">
+                                      <div class="rg-header-renderer" style="max-height: 38px; overflow: hidden;"><span>Comp. Emp</span>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div class="rg-body"
+                              style="position: absolute; box-sizing: border-box; overflow: hidden; left: 0px; top: 40px; width: 1440px; height: 418px;">
+                              <table role="grid" class="rg-table" style="table-layout: fixed !important; width: 100% !important;">
+                                <caption
+                                  style="height: 0px; width: 0px; overflow: hidden; padding: 0px !important; box-sizing: border-box;">
+                                </caption>
+                                <thead>
+                                  <tr role="row" style="border: 0px none !important;">
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      Application</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      Status</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      Apply No</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 240px;">
+                                      Customer Name</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      SAP Doc No</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 120px;">
+                                      Req. Date</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 240px;">
+                                      Requester</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 120px;">
+                                      Comp. Date</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 120px;">
+                                      Comp. Emp</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr role="row" class=" rg-data-row" style="height: 36px;">
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RFQ</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Submitted</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/10</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Lee SangKyung</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/30</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RPA</div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class=" rg-data-row rg-alternate-row" style="height: 36px;">
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RFQ</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Submitted</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/10</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Lee SangKyung</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/30</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RPA</div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class=" rg-data-row" style="height: 36px;">
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RFQ</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Submitted</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/10</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Lee SangKyung</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/30</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RPA</div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class=" rg-data-row rg-alternate-row" style="height: 36px;">
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RFQ</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Submitted</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/10</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Lee SangKyung</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/30</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RPA</div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class=" rg-data-row" style="height: 36px;">
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RFQ</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Submitted</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/10</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Lee SangKyung</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/30</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RPA</div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class=" rg-data-row rg-alternate-row" style="height: 36px;">
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RFQ</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Submitted</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/10</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Lee SangKyung</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/30</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RPA</div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class=" rg-data-row" style="height: 36px;">
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RFQ</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Submitted</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/10</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Lee SangKyung</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/30</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RPA</div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class=" rg-data-row rg-alternate-row" style="height: 36px;">
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RFQ</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Submitted</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/10</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Lee SangKyung</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/30</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RPA</div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class=" rg-data-row" style="height: 36px;">
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RFQ</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Submitted</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/10</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Lee SangKyung</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/30</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RPA</div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class=" rg-data-row rg-alternate-row" style="height: 36px;">
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RFQ</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Submitted</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/10</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Lee SangKyung</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/30</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RPA</div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class=" rg-data-row" style="height: 36px;">
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RFQ</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Submitted</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/10</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Lee SangKyung</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/30</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RPA</div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class=" rg-data-row rg-alternate-row" style="height: 36px;">
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RFQ</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Submitted</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">XXXXXXXX</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/10</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">Lee SangKyung</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">2024/01/30</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell ">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">RPA</div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <div class="rg-footer"
+                              style="position: absolute; box-sizing: border-box; overflow: hidden; left: 0px; top: 458px; width: 1440px; height: 40px;">
+                              <table aria-hidden="true" role="grid" class="rg-table"
+                                style="table-layout: fixed !important; width: 100% !important;">
+                                <caption
+                                  style="height: 0px; width: 0px; overflow: hidden; padding: 0px !important; box-sizing: border-box;">
+                                  grid table </caption>
+                                <thead>
+                                  <tr role="row" aria-hidden="true" style="border: 0px none !important;">
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      Application summary</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      Status summary</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      Apply No summary</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 240px;">
+                                      Customer Name summary</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      SAP Doc No summary</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 120px;">
+                                      Req. Date summary</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 240px;">
+                                      Requester summary</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 120px;">
+                                      Comp. Date summary</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 120px;">
+                                      Comp. Emp summary</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr role="row" style="height: 40px;">
+                                    <td role="gridcell" class="rg-footer-cell ">
+                                      <div class="rg-footer-renderer" style="max-height: 38px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-footer-cell ">
+                                      <div class="rg-footer-renderer" style="max-height: 38px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-footer-cell ">
+                                      <div class="rg-footer-renderer" style="max-height: 38px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-footer-cell ">
+                                      <div class="rg-footer-renderer" style="max-height: 38px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-footer-cell ">
+                                      <div class="rg-footer-renderer" style="max-height: 38px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-footer-cell ">
+                                      <div class="rg-footer-renderer" style="max-height: 38px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-footer-cell ">
+                                      <div class="rg-footer-renderer" style="max-height: 38px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-footer-cell ">
+                                      <div class="rg-footer-renderer" style="max-height: 38px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-footer-cell ">
+                                      <div class="rg-footer-renderer" style="max-height: 38px; overflow: hidden;"></div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                          <div style="position: absolute; box-sizing: border-box; display: none;">
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                          </div>
+                          <div style="position: absolute; box-sizing: border-box; display: none;">
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                          </div>
+                          <div class=""
+                            style="position: absolute; box-sizing: border-box; left: 0px; top: 0px; width: 68px; height: 498px;">
+                            <div class="rg-rowbarcontainer"
+                              style="position: absolute; box-sizing: border-box; overflow: hidden; left: 0px; top: 40px; width: 68px; height: 418px;">
+                              <table aria-hidden="true" role="grid" class="rg-table"
+                                style="table-layout: fixed !important; width: 100% !important;">
+                                <caption
+                                  style="height: 0px; width: 0px; overflow: hidden; padding: 0px !important; box-sizing: border-box;">
+                                  grid table </caption>
+                                <thead>
+                                  <tr role="row" aria-hidden="true" style="border: 0px none !important;">
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 32px;">
+                                      indicator column</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 16px;">
+                                      state column</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 20px;">
+                                      check column</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr role="row" class="rg-row-bar" style="height: 36px;">
+                                    <td role="gridcell" class="rg-rowindicator-cell">
+                                      <div style="max-height: 34px; overflow: hidden;">1</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-statebar-cell ">
+                                      <div style="max-height: 34px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-checkbar-cell">
+                                      <div style="max-height: 34px; overflow: hidden;"><input type="checkbox" id="$$-check-bar-cell0-52"
+                                          tabindex="-1" class="rg-checkbox" style="display: inline-block;"><span
+                                          style="display: none;"></span><label for="$$-check-bar-cell0-52" style="display: none;">1 row
+                                          unchecked</label></div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class="rg-row-bar rg-alternate-row-bar" style="height: 36px;">
+                                    <td role="gridcell" class="rg-rowindicator-cell">
+                                      <div style="max-height: 34px; overflow: hidden;">2</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-statebar-cell ">
+                                      <div style="max-height: 34px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-checkbar-cell">
+                                      <div style="max-height: 34px; overflow: hidden;"><input type="checkbox" id="$$-check-bar-cell1-52"
+                                          tabindex="-1" class="rg-checkbox" style="display: inline-block;"><span
+                                          style="display: none;"></span><label for="$$-check-bar-cell1-52" style="display: none;">2 row
+                                          unchecked</label></div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class="rg-row-bar" style="height: 36px;">
+                                    <td role="gridcell" class="rg-rowindicator-cell">
+                                      <div style="max-height: 34px; overflow: hidden;">3</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-statebar-cell ">
+                                      <div style="max-height: 34px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-checkbar-cell">
+                                      <div style="max-height: 34px; overflow: hidden;"><input type="checkbox" id="$$-check-bar-cell2-52"
+                                          tabindex="-1" class="rg-checkbox" style="display: inline-block;"><span
+                                          style="display: none;"></span><label for="$$-check-bar-cell2-52" style="display: none;">3 row
+                                          unchecked</label></div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class="rg-row-bar rg-alternate-row-bar" style="height: 36px;">
+                                    <td role="gridcell" class="rg-rowindicator-cell">
+                                      <div style="max-height: 34px; overflow: hidden;">4</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-statebar-cell ">
+                                      <div style="max-height: 34px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-checkbar-cell">
+                                      <div style="max-height: 34px; overflow: hidden;"><input type="checkbox" id="$$-check-bar-cell3-52"
+                                          tabindex="-1" class="rg-checkbox" style="display: inline-block;"><span
+                                          style="display: none;"></span><label for="$$-check-bar-cell3-52" style="display: none;">4 row
+                                          unchecked</label></div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class="rg-row-bar" style="height: 36px;">
+                                    <td role="gridcell" class="rg-rowindicator-cell">
+                                      <div style="max-height: 34px; overflow: hidden;">5</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-statebar-cell ">
+                                      <div style="max-height: 34px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-checkbar-cell">
+                                      <div style="max-height: 34px; overflow: hidden;"><input type="checkbox" id="$$-check-bar-cell4-52"
+                                          tabindex="-1" class="rg-checkbox" style="display: inline-block;"><span
+                                          style="display: none;"></span><label for="$$-check-bar-cell4-52" style="display: none;">5 row
+                                          unchecked</label></div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class="rg-row-bar rg-alternate-row-bar" style="height: 36px;">
+                                    <td role="gridcell" class="rg-rowindicator-cell">
+                                      <div style="max-height: 34px; overflow: hidden;">6</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-statebar-cell ">
+                                      <div style="max-height: 34px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-checkbar-cell">
+                                      <div style="max-height: 34px; overflow: hidden;"><input type="checkbox" id="$$-check-bar-cell5-52"
+                                          tabindex="-1" class="rg-checkbox" style="display: inline-block;"><span
+                                          style="display: none;"></span><label for="$$-check-bar-cell5-52" style="display: none;">6 row
+                                          unchecked</label></div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class="rg-row-bar" style="height: 36px;">
+                                    <td role="gridcell" class="rg-rowindicator-cell">
+                                      <div style="max-height: 34px; overflow: hidden;">7</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-statebar-cell ">
+                                      <div style="max-height: 34px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-checkbar-cell">
+                                      <div style="max-height: 34px; overflow: hidden;"><input type="checkbox" id="$$-check-bar-cell6-52"
+                                          tabindex="-1" class="rg-checkbox" style="display: inline-block;"><span
+                                          style="display: none;"></span><label for="$$-check-bar-cell6-52" style="display: none;">7 row
+                                          unchecked</label></div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class="rg-row-bar rg-alternate-row-bar" style="height: 36px;">
+                                    <td role="gridcell" class="rg-rowindicator-cell">
+                                      <div style="max-height: 34px; overflow: hidden;">8</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-statebar-cell ">
+                                      <div style="max-height: 34px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-checkbar-cell">
+                                      <div style="max-height: 34px; overflow: hidden;"><input type="checkbox" id="$$-check-bar-cell7-52"
+                                          tabindex="-1" class="rg-checkbox" style="display: inline-block;"><span
+                                          style="display: none;"></span><label for="$$-check-bar-cell7-52" style="display: none;">8 row
+                                          unchecked</label></div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class="rg-row-bar" style="height: 36px;">
+                                    <td role="gridcell" class="rg-rowindicator-cell">
+                                      <div style="max-height: 34px; overflow: hidden;">9</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-statebar-cell ">
+                                      <div style="max-height: 34px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-checkbar-cell">
+                                      <div style="max-height: 34px; overflow: hidden;"><input type="checkbox" id="$$-check-bar-cell8-52"
+                                          tabindex="-1" class="rg-checkbox" style="display: inline-block;"><span
+                                          style="display: none;"></span><label for="$$-check-bar-cell8-52" style="display: none;">9 row
+                                          unchecked</label></div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class="rg-row-bar rg-alternate-row-bar" style="height: 36px;">
+                                    <td role="gridcell" class="rg-rowindicator-cell">
+                                      <div style="max-height: 34px; overflow: hidden;">10</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-statebar-cell ">
+                                      <div style="max-height: 34px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-checkbar-cell">
+                                      <div style="max-height: 34px; overflow: hidden;"><input type="checkbox" id="$$-check-bar-cell9-52"
+                                          tabindex="-1" class="rg-checkbox" style="display: inline-block;"><span
+                                          style="display: none;"></span><label for="$$-check-bar-cell9-52" style="display: none;">10 row
+                                          unchecked</label></div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class="rg-row-bar" style="height: 36px;">
+                                    <td role="gridcell" class="rg-rowindicator-cell">
+                                      <div style="max-height: 34px; overflow: hidden;">11</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-statebar-cell ">
+                                      <div style="max-height: 34px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-checkbar-cell">
+                                      <div style="max-height: 34px; overflow: hidden;"><input type="checkbox"
+                                          id="$$-check-bar-cell10-52" tabindex="-1" class="rg-checkbox"
+                                          style="display: inline-block;"><span style="display: none;"></span><label
+                                          for="$$-check-bar-cell10-52" style="display: none;">11 row unchecked</label></div>
+                                    </td>
+                                  </tr>
+                                  <tr role="row" class="rg-row-bar rg-alternate-row-bar" style="height: 36px;">
+                                    <td role="gridcell" class="rg-rowindicator-cell">
+                                      <div style="max-height: 34px; overflow: hidden;">12</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-statebar-cell ">
+                                      <div style="max-height: 34px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-checkbar-cell">
+                                      <div style="max-height: 34px; overflow: hidden;"><input type="checkbox"
+                                          id="$$-check-bar-cell11-52" tabindex="-1" class="rg-checkbox"
+                                          style="display: inline-block;"><span style="display: none;"></span><label
+                                          for="$$-check-bar-cell11-52" style="display: none;">12 row unchecked</label></div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <div class="rg-foot"
+                              style="position: absolute; box-sizing: border-box; overflow: hidden; left: 0px; top: 458px; width: 68px; height: 40px;">
+                              <table aria-hidden="true" role="grid" class="rg-table"
+                                style="table-layout: fixed !important; width: 100% !important;">
+                                <caption
+                                  style="height: 0px; width: 0px; overflow: hidden; padding: 0px !important; box-sizing: border-box;">
+                                  grid table </caption>
+                                <thead>
+                                  <tr role="row" aria-hidden="true" style="border: 0px none !important;">
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 32px;">
+                                      indicator foot</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 16px;">
+                                      state foot</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 20px;">
+                                      check foot</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr role="row" style="height: 40px;">
+                                    <td role="gridcell" class="rg-foot-cell rg-rowindicator-foot">
+                                      <div style="max-height: 38px; overflow: hidden;">Σ</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-foot-cell rg-statebar-foot">
+                                      <div style="max-height: 38px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-foot-cell rg-checkbar-foot">
+                                      <div style="max-height: 38px; overflow: hidden;"></div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div class="rg-head"
+                              style="position: absolute; box-sizing: border-box; overflow: hidden; left: 0px; top: 0px; width: 68px; height: 40px;">
+                              <table aria-hidden="true" role="grid" class="rg-table"
+                                style="table-layout: fixed !important; width: 100% !important;">
+                                <caption
+                                  style="height: 0px; width: 0px; overflow: hidden; padding: 0px !important; box-sizing: border-box;">
+                                  grid table </caption>
+                                <thead>
+                                  <tr role="row" aria-hidden="true" style="border: 0px none !important;">
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 32px;">
+                                      indicator head</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 16px;">
+                                      state head</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 20px;">
+                                      check head</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr role="row" style="height: 40px;">
+                                    <td role="gridcell" class="rg-head-cell rg-rowindicator-head">
+                                      <div style="max-height: 38px; overflow: hidden;">No.</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-head-cell rg-statebar-head">
+                                      <div style="max-height: 38px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-head-cell rg-checkbar-head">
+                                      <div style="max-height: 38px; overflow: hidden;"><input id="$$-grid-head-check-52" type="checkbox"
+                                          class="rg-checkbox" tabindex="-1" style="display: inline-block;"><span
+                                          class="rg-checkbar-head-unchecked" style="display: none;"></span><label
+                                          for="$$-grid-head-check-52" style="display: none;">grid head check</label><span
+                                          style="display: block;"></span></div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                          </div>
+                          <div style="position: absolute; box-sizing: border-box; display: none;">
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                          </div>
+                          <div class=""
+                            style="position: absolute; box-sizing: border-box; left: -10px; top: -10px; width: 1px; height: 1px;">
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"><span
+                                class="rg-group-panel-message"></span></div>
+                          </div>
+                          <div
+                            style="position: absolute; box-sizing: border-box; overflow: hidden !important; pointer-events: none !important; display: none;">
+                          </div>
+                          <div class=""
+                            style="position: absolute; box-sizing: border-box; left: 0px; top: 0px; width: 0px; height: 0px;"></div>
+                          <div class=""
+                            style="position: absolute; box-sizing: border-box; left: 0px; top: 0px; width: 0px; height: 0px;">
+                            <div style="position: absolute; box-sizing: border-box; pointer-events: none !important; display: none;">
+                            </div>
+                            <div style="position: absolute; box-sizing: border-box; pointer-events: none !important; display: none;">
+                            </div>
+                            <div style="position: absolute; box-sizing: border-box; pointer-events: none !important; display: none;">
+                            </div>
+                            <div
+                              style="position: absolute; box-sizing: border-box; pointer-events: none !important; background: none !important; border: none !important; overflow: hidden !important; display: none;">
+                              <div class="rg-focus"
+                                style="position: absolute; box-sizing: border-box; pointer-events: none !important;"></div>
+                            </div>
+                            <div
+                              style="position: absolute; box-sizing: border-box; pointer-events: none !important; background: none !important; border: none !important; overflow: hidden !important; display: none;">
+                              <div style="position: absolute; box-sizing: border-box; pointer-events: none !important;"></div>
+                            </div>
+                            <div
+                              style="position: absolute; box-sizing: border-box; pointer-events: none !important; background: none !important; border: none !important; overflow: hidden !important; display: none;">
+                              <div style="position: absolute; box-sizing: border-box; pointer-events: none !important;"></div>
+                            </div>
+                          </div>
+                          <div style="position: absolute; box-sizing: border-box; display: none;">
+                            <div style="position: absolute; box-sizing: border-box;"></div>
+                            <div style="position: absolute; box-sizing: border-box;"></div>
+                            <div style="position: absolute; box-sizing: border-box;"></div>
+                            <div style="position: absolute; box-sizing: border-box;"></div>
+                          </div>
+                          <div class="rg-vscrollbar"
+                            style="position: absolute; box-sizing: border-box; left: 1582px; top: 0px; width: 16px; height: 498px;">
+                            <div class="rg-scrolltrack"
+                              style="position: absolute; box-sizing: border-box; left: 0px; top: 0px; width: 16px; height: 498px;">
+                            </div>
+                            <div class="rg-scrollthumb"
+                              style="position: absolute; box-sizing: border-box; left: 2px; top: 20px; width: 12px; height: 359px;">
+                            </div>
+                            <div class="rg-scroll-up"
+                              style="position: absolute; box-sizing: border-box; left: 0px; top: 0px; width: 16px; height: 20px;"></div>
+                            <div class="rg-scroll-down"
+                              style="position: absolute; box-sizing: border-box; left: 0px; top: 478px; width: 16px; height: 20px;">
+                            </div>
+                          </div>
+                          <div style="position: absolute; box-sizing: border-box; display: none;"></div>
+                        </div>
+                        <div style="position: absolute; box-sizing: border-box; display: none;"><span role="gridcell">표시할 데이터가
+                            없습니다.</span></div>
+                      </div>
+                    </div>
+                    <div aria-hidden="true" class="rg-footer">
+                      <table aria-hidden="true" class="rg-table"
+                        style="width: 1000px; height: 1px; left: -10000px; position: absolute;">
+                        <caption style="height: 0px; width: 0px; box-sizing: border-box; overflow: hidden;">grid measurer table
+                        </caption>
+                        <thead>
+                          <tr>
+                            <th scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="">
+                            <td class="rg-footer-cell">
+                              <div>AYwyhi우리테크</div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div><span aria-hidden="true" class="rg-rowindicator-cell"
+                      style="position: absolute; left: -10000px; top: -10000px; display: block;">13</span><input type="checkbox"
+                      title="grid check measurer" tabindex="-1" aria-hidden="true"
+                      style="position: absolute; left: -1000px; top: -11000px; display: block;">
+                    <div spellcheck="false" aria-hidden="true" class="rg-editor-container"
+                      style="position: absolute; width: 0px; height: 0px; padding: 0px; margin: 0px; border: none; box-shadow: none;">
+                      <input id="$$_rg_editor160" aria-hidden="true" autocomplete="off" tabindex="-1" class="rg-editor rg-text-editor"
+                        style="position: absolute; box-sizing: border-box; margin: 0px; padding: 0px 2px; overflow-wrap: normal; overflow: hidden; resize: none; border: none; outline: none; left: 0px; top: 0px; width: 100%; height: 100%; -webkit-user-modify: read-write-plaintext-only; white-space: pre; transform: translateZ(0px);"><label
+                        for="$$_rg_editor160" style="display: none; position: absolute; height: 0px; width: 0px;"></label></div>
+                  </div>
+                </div>
                 
             </div>
         </div>
-    </div>]]></template>
+    </div>
+   
+    <script src="app.js"></script>]]></template>
     </sp_widget>
 </record_update>
