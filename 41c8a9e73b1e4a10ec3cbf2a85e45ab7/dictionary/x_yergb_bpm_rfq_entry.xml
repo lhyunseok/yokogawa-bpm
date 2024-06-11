@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element audit="true" db_object_id="49b1af843be2ca10ec3cbf2a85e45a43" extends="x_yergb_bpm_process" label="RFQ Entry" max_length="40" name="x_yergb_bpm_rfq_entry" type="collection">
+        <element label="Estimated OI Amount" max_length="40" name="estimated_oi_amount" type="decimal"/>
         <element label="Risk Management" max_length="32" name="risk_management" reference="x_yergb_bpm_risk_management" type="reference"/>
         <element label="Quotation Due Date" max_length="40" name="quotation_due_date" type="glide_date"/>
         <element label="Project" max_length="40" name="project" type="string"/>
@@ -26,7 +27,6 @@
                 <element inactive_on_update="false" label="Submission to Customers" sequence="20" value="submission"/>
             </choice>
         </element>
-        <element label="Estimated Order Intake Amount" max_length="40" name="estimated_order_intake_amount" type="integer"/>
         <element label="Quotation" max_length="40" name="quotation" reference="x_yergb_bpm_quotation" type="reference"/>
         <element label="YODA Opportunity No" max_length="40" name="yoda_opportunity_no" type="string"/>
         <element label="Contract" max_length="32" name="contract" reference="core_company" type="reference"/>

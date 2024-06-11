@@ -36,8 +36,8 @@
 	var total_price = current.quantity * current.unit_price;
 	var total_cost = current.quantity * current.unit_cost;
 
-	current.total_price = total_price;
-	current.total_cost = total_cost;
+	current.exptended_price = total_price;
+	current.exptended_cost = total_cost;
 
 	var quo_amt = total_price;
 	var quo_cost = total_cost;
@@ -45,16 +45,16 @@
 	gr.addQuery('quotation', current.quotation);
 	gr.query();
 	while (gr.next()) {
-		quo_amt += gr.total_price;
-		quo_cost += gr.total_cost;
+		quo_amt += gr.exptended_price;
+		quo_cost += gr.exptended_cost;
 	}
 
 	var grq = new GlideRecord('x_yergb_bpm_quotation');
 	grq.addQuery('sys_id', current.quotation);
 	grq.query();
 	if (grq.next()) {
-		grq.setValue('total_amount', quo_amt);
-		grq.setValue('total_cost', quo_cost);
+		grq.setValue('total_quote_price', quo_amt);
+		grq.setValue('total_quote_cost', quo_cost);
 		grq.update();
 	}
 
@@ -65,7 +65,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>6584b2d33b6e465046a3934a85e45a78</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>Calculate total price and cost</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
@@ -73,7 +73,7 @@
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_6584b2d33b6e465046a3934a85e45a78</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-08 08:54:36</sys_updated_on>
+        <sys_updated_on>2024-06-11 07:23:16</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>
