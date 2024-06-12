@@ -32,7 +32,7 @@
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
 
-	var quote_no = "QUOT"+ current.rfq_entry.number.substring(3,10);
+	var quote_no = "QUOT"+ current.number.substring(3,10);
 	var version = "";
 	var gr = new GlideRecord('x_yergb_bpm_quotation');
 	gr.addQuery('rfq_entry',current.sys_id);
@@ -41,6 +41,19 @@
 	if(gr.next()) {
 		version = gr.version + 1;
 	}
+
+	if(version == '' || version == null) {
+		version = 1;
+	}
+
+	gr.newRecord();
+	gr.rfq_entry = current.sys_id;
+	gr.number = quote_no;
+	gr.version = version;
+	gr.assignment_group = current.assignment_group;
+	gr.assined_to = current.assigned_to;
+	gr.state = 1;
+	gr.insert();
 	
 
 })(current, previous);]]></script>
@@ -50,7 +63,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>3ef5c8b8473e8610a4863b12d16d4382</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>5</sys_mod_count>
         <sys_name>RFQ Entry Accepted</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
@@ -58,7 +71,7 @@
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_3ef5c8b8473e8610a4863b12d16d4382</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-12 06:56:36</sys_updated_on>
+        <sys_updated_on>2024-06-12 07:45:56</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>
