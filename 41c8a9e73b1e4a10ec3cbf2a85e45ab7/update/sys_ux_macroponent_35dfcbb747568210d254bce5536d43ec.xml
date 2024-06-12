@@ -4657,11 +4657,11 @@
                                     "composition": [
                                         {
                                             "definition": {
-                                                "id": "db2db99e12480df481ca8c31a755d6a9",
+                                                "id": "7264505e3fa348f63c0d5178aaba46f1",
                                                 "type": "MACROPONENT"
                                             },
-                                            "elementId": "0525new_1",
-                                            "elementLabel": "0525new 1",
+                                            "elementId": "02_grid_1",
+                                            "elementLabel": "02 grid 1",
                                             "eventMappings": [
                                                 
                                             ],
@@ -4673,20 +4673,25 @@
                                             "propertyValues": {
                                                 "columnFitStyle": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": "none"
+                                                    "value": "evenFill"
                                                 },
                                                 "columnResizable": {
                                                     "type": "JSON_LITERAL",
                                                     "value": "true"
                                                 },
                                                 "columnsLayout": {
-                                                    "type": "JSON_LITERAL",
-                                                    "value": [
-                                                        
-                                                    ]
+                                                    "script": {
+                                                        "apiVersion": "2.0.0",
+                                                        "controllerElementId": null,
+                                                        "inlineScript": "/**\n  * @param {params} params\n  * @param {api} params.api\n  * @param {TransformApiHelpers} params.helpers\n  */\nfunction evaluateProperty({api, helpers}) {\n\n    var arr = [];\n    var headers = ['WBS','Resource','Amount','202406','202407','202408','202409','202410','202411','202412','202501','202502','202503','202504','202505','202506','202507','202508','202509','202510','202511','Beyond18'];\n    var columns = ['wbs','resource_code','total_amount','month1','month2','month3','month4','month5','month6','month7','month8','month9','month10','month11','month12','month13','month14','month15','month16','month17','month18','beyond18'];\n\n    for (let i = 0; i &lt; headers.length; i++) {\n        const newObj = {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": headers[i]\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": columns[i]\n            }\n        };\n\n        arr.push(newObj);\n    }\n\n    return arr;\n}",
+                                                        "scriptSysId": "1ae01bb33b224210ec3cbf2a85e45ac0",
+                                                        "target": null
+                                                    },
+                                                    "type": "CLIENT_TRANSFORM_SCRIPT"
                                                 },
                                                 "displayFields": {
-                                                    "type": "JSON_LITERAL"
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "wbs,resource_code,total_amount,month1,month2,month3,month4,month5,month6,month7,month8,month9,month10,month11,month12,month13,month14,month15,month16,month17,month18,beyond18"
                                                 },
                                                 "encodedQuery": {
                                                     "transform": {
@@ -4694,16 +4699,15 @@
                                                             "container": [
                                                                 {
                                                                     "type": "JSON_LITERAL",
-                                                                    "value": "order_item.project="
+                                                                    "value": "budget_type="
                                                                 },
                                                                 {
                                                                     "binding": {
                                                                         "address": [
-                                                                            "sysId"
-                                                                        ],
-                                                                        "category": "props"
+                                                                            "budget"
+                                                                        ]
                                                                     },
-                                                                    "type": "CONTEXT_BINDING"
+                                                                    "type": "STATE_BINDING"
                                                                 }
                                                             ],
                                                             "type": "LIST_CONTAINER"
@@ -4770,10 +4774,10 @@
                                             "children": null,
                                             "items": [
                                                 {
-                                                    "element_id": "0525new_1",
+                                                    "element_id": "02_grid_1",
                                                     "styles": {
-                                                        "align-self": "stretch",
-                                                        "height": "570px"
+                                                        "height": "600px",
+                                                        "width": "100%"
                                                     }
                                                 }
                                             ],
@@ -4834,7 +4838,7 @@
                                     {
                                         "element_id": "container_1",
                                         "styles": {
-                                            "height": "670px",
+                                            "height": "690px",
                                             "width": "100%"
                                         }
                                     }
@@ -4910,7 +4914,7 @@
                         "box-sizing": "border-box",
                         "grid-template-columns": "100fr",
                         "grid-template-rows": "1fr",
-                        "height": "670px",
+                        "height": "700px",
                         "padding-left": "var(--now-scalable-space--lg)",
                         "padding-right": "var(--now-scalable-space--lg)",
                         "width": "100%"
@@ -4991,7 +4995,7 @@
                             "internal": {
                                 "box-sizing": "border-box",
                                 "grid-template-rows": "1fr",
-                                "height": "670px",
+                                "height": "700px",
                                 "padding-left": "var(--now-scalable-space--lg)",
                                 "padding-right": "var(--now-scalable-space--lg)",
                                 "width": "100%"
@@ -6837,6 +6841,37 @@
                         "type": "EVENT"
                     }
                 ]
+            },
+            {
+                "eventMappingId": "clxhhwiiggwfaadffdddffiiaamaajjuquqh",
+                "isConfiguration": false,
+                "offRowStorageId": null,
+                "sourceEventApiName": "sn_now_record_form.CTRL_RECORD#RECORD_DATA_FETCH_COMPLETED",
+                "sourceEventCorrelationId": null,
+                "sourceEventDefinition": {
+                    "apiName": "sn_now_record_form.CTRL_RECORD#RECORD_DATA_FETCH_COMPLETED",
+                    "id": null,
+                    "type": "UXEVENT"
+                },
+                "sourceEventSysId": null,
+                "targets": [
+                    {
+                        "broker": null,
+                        "clientScript": {
+                            "payload": {
+                                "type": "JSON_LITERAL",
+                                "value": {}
+                            },
+                            "sysId": "d6e01bb33b224210ec3cbf2a85e45ac0"
+                        },
+                        "conditional": null,
+                        "declarativeAction": null,
+                        "event": null,
+                        "operation": null,
+                        "targetId": "clxhhwiiggwfaadffeddffiiaasaaeewhhbbvj",
+                        "type": "CLIENT_SCRIPT"
+                    }
+                ]
             }
         ],
         "inputValues": {
@@ -7448,20 +7483,29 @@
         "name": "project_id",
         "shape": "",
         "valueType": "string"
+    },
+    {
+        "initialValue": {
+            "type": "JSON_LITERAL",
+            "value": "12"
+        },
+        "name": "budget",
+        "shape": "",
+        "valueType": "string"
     }
 ]</state_properties>
         <sys_class_name>sys_ux_macroponent</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-28 07:34:14</sys_created_on>
         <sys_id>35dfcbb747568210d254bce5536d43ec</sys_id>
-        <sys_mod_count>22</sys_mod_count>
+        <sys_mod_count>33</sys_mod_count>
         <sys_name>Default</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ux_macroponent_35dfcbb747568210d254bce5536d43ec</sys_update_name>
-        <sys_updated_by>hhkim</sys_updated_by>
-        <sys_updated_on>2024-06-07 03:58:38</sys_updated_on>
+        <sys_updated_by>hahyun@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-10 00:09:39</sys_updated_on>
     </sys_ux_macroponent>
     <sys_translated_text action="delete_multiple" query="documentkey=35dfcbb747568210d254bce5536d43ec"/>
 </record_update>

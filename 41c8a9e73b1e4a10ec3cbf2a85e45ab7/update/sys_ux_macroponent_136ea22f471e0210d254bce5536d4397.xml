@@ -3238,14 +3238,7 @@
                                                                 "type": "JSON_LITERAL",
                                                                 "value": "number"
                                                             },
-                                                            "value": {
-                                                                "binding": {
-                                                                    "address": [
-                                                                        "tomorrow"
-                                                                    ]
-                                                                },
-                                                                "type": "STATE_BINDING"
-                                                            }
+                                                            "value": null
                                                         },
                                                         "slot": null,
                                                         "styles": null
@@ -3372,14 +3365,7 @@
                                                                 "type": "JSON_LITERAL",
                                                                 "value": "number"
                                                             },
-                                                            "value": {
-                                                                "binding": {
-                                                                    "address": [
-                                                                        "state_value"
-                                                                    ]
-                                                                },
-                                                                "type": "STATE_BINDING"
-                                                            }
+                                                            "value": null
                                                         },
                                                         "slot": null,
                                                         "styles": null
@@ -3506,14 +3492,7 @@
                                                                 "type": "JSON_LITERAL",
                                                                 "value": "number"
                                                             },
-                                                            "value": {
-                                                                "binding": {
-                                                                    "address": [
-                                                                        "baseM"
-                                                                    ]
-                                                                },
-                                                                "type": "STATE_BINDING"
-                                                            }
+                                                            "value": null
                                                         },
                                                         "slot": null,
                                                         "styles": null
@@ -4921,15 +4900,15 @@
                                                     "script": {
                                                         "apiVersion": "2.0.0",
                                                         "controllerElementId": null,
-                                                        "inlineScript": "/**\n * @param {params} params\n * @param {api} params.api\n * @param {TransformApiHelpers} params.helpers\n */\nfunction evaluateProperty({\n    api,\n    helpers\n}) {\n\n    var bbb = api.state.baseM; //202406\n\n    // 18개월 배열 생성\n    var currentMonth = parseInt(bbb);\n    var numMonths = 18;\n    var yearmonths = [];\n\n    for (var i = 0; i &lt; numMonths; i++) {\n        yearmonths.push(currentMonth.toString());\n        currentMonth++;\n        if (currentMonth % 100 &gt; 12) {\n            currentMonth += 88;\n        }\n    }\n\n    console.log('yearmonths', yearmonths);\n\n    var arr = [];\n\n    var real = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'WBS'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'wbs'\n        }\n    };\n\n    arr.push(real);\n\n\n\n    for (let i = 0; i &lt; yearmonths.length; i++) {\n        const newObj = {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": yearmonths[i]\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": `month${i+1}`\n            }\n        };\n\n        arr.push(newObj);\n    }\n\n    var real2 = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'Beyond18'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'beyond18'\n        }\n    };\n\n    arr.push(real2);\n\n    var real3 = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'Forecast PTC'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'rpt_forecast_ptc'\n        }\n    };\n    arr.push(real3);\n    var real4 = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'Variance'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'variance'\n        }\n    };\n    arr.push(real4);\n    return arr;\n}",
-                                                        "scriptSysId": "6cc8de833ba28250ec3cbf2a85e45ae3",
+                                                        "inlineScript": "/**\n * @param {params} params\n * @param {api} params.api\n * @param {TransformApiHelpers} params.helpers\n */\nfunction evaluateProperty({\n    api,\n    helpers\n}) {\n\n    var bbb = api.state.baseM; //202406\n\n    // 18개월 배열 생성\n    var currentMonth = parseInt(bbb);\n    var numMonths = 18;\n    var yearmonths = [];\n\n    for (var i = 0; i &lt; numMonths; i++) {\n        yearmonths.push(currentMonth.toString());\n        currentMonth++;\n        if (currentMonth % 100 &gt; 12) {\n            currentMonth += 88;\n        }\n    }\n\n    console.log('yearmonths', yearmonths);\n\n    var arr = [];\n\n    var real = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'WBS'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'wbs'\n        }\n    };\n\n    arr.push(real);\n\n\n\n    for (let i = 0; i &lt; yearmonths.length; i++) {\n        const newObj = {\n            \"columnInfo\": {\n                \"width\": 100,\n                \"header\": {\n                    \"text\": yearmonths[i]\n                }\n            },\n            \"layoutInfo\": {\n                \"width\": 100,\n                \"column\": `month${i+1}`\n            }\n        };\n\n        arr.push(newObj);\n    }\n\n    var real2 = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'Beyond18'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'beyond18'\n        }\n    };\n\n    arr.push(real2);\n\n\n    var real4 = {\n        \"columnInfo\": {\n            \"width\": 100,\n            \"header\": {\n                \"text\": 'Variance'\n            }\n        },\n        \"layoutInfo\": {\n            \"width\": 100,\n            \"column\": 'variance'\n        }\n    };\n    arr.push(real4);\n    return arr;\n}",
+                                                        "scriptSysId": "16e01bb33b224210ec3cbf2a85e45ac0",
                                                         "target": null
                                                     },
                                                     "type": "CLIENT_TRANSFORM_SCRIPT"
                                                 },
                                                 "displayFields": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": "wbs,month1,month2,month3,month4,month5,month6,month7,month8,month9,month10,month11,month12,month13,month14,month15,month16,month17,month18,beyond18,rpt_forecast_ptc,variance"
+                                                    "value": "wbs,month1,month2,month3,month4,month5,month6,month7,month8,month9,month10,month11,month12,month13,month14,month15,month16,month17,month18,beyond18,variance"
                                                 },
                                                 "encodedQuery": {
                                                     "transform": {
@@ -4937,19 +4916,7 @@
                                                             "container": [
                                                                 {
                                                                     "type": "JSON_LITERAL",
-                                                                    "value": "project="
-                                                                },
-                                                                {
-                                                                    "binding": {
-                                                                        "address": [
-                                                                            "project_value"
-                                                                        ]
-                                                                    },
-                                                                    "type": "STATE_BINDING"
-                                                                },
-                                                                {
-                                                                    "type": "JSON_LITERAL",
-                                                                    "value": "^base_month="
+                                                                    "value": "base_month="
                                                                 },
                                                                 {
                                                                     "binding": {
@@ -4961,7 +4928,7 @@
                                                                 },
                                                                 {
                                                                     "type": "JSON_LITERAL",
-                                                                    "value": "^ORDERBYsys_created_on"
+                                                                    "value": "^ORDERBYDESCsys_created_on"
                                                                 }
                                                             ],
                                                             "type": "LIST_CONTAINER"
@@ -9920,96 +9887,6 @@
                                     "id": "d37ce8abca89d02905fed903c8e34d8e",
                                     "type": "MACROPONENT"
                                 },
-                                "elementId": "button_7",
-                                "elementLabel": "Button 7",
-                                "eventMappings": [
-                                    {
-                                        "eventMappingId": "clwzffnujyaabbxpddbhhpmccseeiifccn",
-                                        "isConfiguration": false,
-                                        "offRowStorageId": null,
-                                        "sourceEventApiName": "sn_button.NOW_BUTTON#CLICKED",
-                                        "sourceEventCorrelationId": null,
-                                        "sourceEventDefinition": {
-                                            "apiName": "sn_button.NOW_BUTTON#CLICKED",
-                                            "id": null,
-                                            "type": "UXEVENT"
-                                        },
-                                        "sourceEventSysId": null,
-                                        "targets": [
-                                            {
-                                                "broker": null,
-                                                "clientScript": null,
-                                                "conditional": null,
-                                                "declarativeAction": null,
-                                                "event": null,
-                                                "operation": {
-                                                    "dataBrokerId": "029f04e053610110ac9bddeeff7b1294",
-                                                    "operationName": "CTRL_RECORD#EXECUTE_UI_ACTION",
-                                                    "parentResourceId": "record",
-                                                    "payload": {
-                                                        "type": "JSON_LITERAL",
-                                                        "value": {
-                                                            "actionSysId": "876f6cd247264610d254bce5536d434f"
-                                                        }
-                                                    }
-                                                },
-                                                "targetId": "clwzffnujyaabbxqddbhhpczghhweca",
-                                                "type": "DATABROKER_OP"
-                                            }
-                                        ]
-                                    }
-                                ],
-                                "isHidden": {
-                                    "type": "JSON_LITERAL",
-                                    "value": true
-                                },
-                                "preset": null,
-                                "propertyValues": {
-                                    "configAria": {
-                                        "type": "JSON_LITERAL",
-                                        "value": {}
-                                    },
-                                    "disabled": {
-                                        "type": "JSON_LITERAL",
-                                        "value": false
-                                    },
-                                    "icon": {
-                                        "type": "JSON_LITERAL",
-                                        "value": null
-                                    },
-                                    "label": {
-                                        "type": "TRANSLATION_LITERAL",
-                                        "value": {
-                                            "code": null,
-                                            "comment": "",
-                                            "message": "WBS"
-                                        }
-                                    },
-                                    "size": {
-                                        "type": "JSON_LITERAL",
-                                        "value": "md"
-                                    },
-                                    "tooltipContent": {
-                                        "type": "TRANSLATION_LITERAL",
-                                        "value": {
-                                            "code": null,
-                                            "comment": "",
-                                            "message": "Enter a label"
-                                        }
-                                    },
-                                    "variant": {
-                                        "type": "JSON_LITERAL",
-                                        "value": "secondary"
-                                    }
-                                },
-                                "slot": null,
-                                "styles": null
-                            },
-                            {
-                                "definition": {
-                                    "id": "d37ce8abca89d02905fed903c8e34d8e",
-                                    "type": "MACROPONENT"
-                                },
                                 "elementId": "button_6",
                                 "elementLabel": "Button 6",
                                 "eventMappings": [
@@ -10077,6 +9954,96 @@
                                             "code": null,
                                             "comment": "",
                                             "message": "Approval Request"
+                                        }
+                                    },
+                                    "size": {
+                                        "type": "JSON_LITERAL",
+                                        "value": "md"
+                                    },
+                                    "tooltipContent": {
+                                        "type": "TRANSLATION_LITERAL",
+                                        "value": {
+                                            "code": null,
+                                            "comment": "",
+                                            "message": "Enter a label"
+                                        }
+                                    },
+                                    "variant": {
+                                        "type": "JSON_LITERAL",
+                                        "value": "secondary"
+                                    }
+                                },
+                                "slot": null,
+                                "styles": null
+                            },
+                            {
+                                "definition": {
+                                    "id": "d37ce8abca89d02905fed903c8e34d8e",
+                                    "type": "MACROPONENT"
+                                },
+                                "elementId": "button_7",
+                                "elementLabel": "Button 7",
+                                "eventMappings": [
+                                    {
+                                        "eventMappingId": "clwzffnujyaabbxpddbhhpmccseeiifccn",
+                                        "isConfiguration": false,
+                                        "offRowStorageId": null,
+                                        "sourceEventApiName": "sn_button.NOW_BUTTON#CLICKED",
+                                        "sourceEventCorrelationId": null,
+                                        "sourceEventDefinition": {
+                                            "apiName": "sn_button.NOW_BUTTON#CLICKED",
+                                            "id": null,
+                                            "type": "UXEVENT"
+                                        },
+                                        "sourceEventSysId": null,
+                                        "targets": [
+                                            {
+                                                "broker": null,
+                                                "clientScript": null,
+                                                "conditional": null,
+                                                "declarativeAction": null,
+                                                "event": null,
+                                                "operation": {
+                                                    "dataBrokerId": "029f04e053610110ac9bddeeff7b1294",
+                                                    "operationName": "CTRL_RECORD#EXECUTE_UI_ACTION",
+                                                    "parentResourceId": "record",
+                                                    "payload": {
+                                                        "type": "JSON_LITERAL",
+                                                        "value": {
+                                                            "actionSysId": "876f6cd247264610d254bce5536d434f"
+                                                        }
+                                                    }
+                                                },
+                                                "targetId": "clwzffnujyaabbxqddbhhpczghhweca",
+                                                "type": "DATABROKER_OP"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "isHidden": {
+                                    "type": "JSON_LITERAL",
+                                    "value": false
+                                },
+                                "preset": null,
+                                "propertyValues": {
+                                    "configAria": {
+                                        "type": "JSON_LITERAL",
+                                        "value": {}
+                                    },
+                                    "disabled": {
+                                        "type": "JSON_LITERAL",
+                                        "value": false
+                                    },
+                                    "icon": {
+                                        "type": "JSON_LITERAL",
+                                        "value": null
+                                    },
+                                    "label": {
+                                        "type": "TRANSLATION_LITERAL",
+                                        "value": {
+                                            "code": null,
+                                            "comment": "",
+                                            "message": "WBS"
                                         }
                                     },
                                     "size": {
@@ -10297,19 +10264,19 @@
                                         "styles": {}
                                     },
                                     {
+                                        "element_id": "button_6",
+                                        "styles": {
+                                            "margin-left": "var(--now-scalable-space--xs)",
+                                            "margin-right": "var(--now-scalable-space--xs)"
+                                        }
+                                    },
+                                    {
                                         "element_id": "button_7",
                                         "styles": {
                                             "height": "",
                                             "margin-left": "var(--now-scalable-space--xs)",
                                             "margin-right": "var(--now-scalable-space--xs)",
                                             "width": ""
-                                        }
-                                    },
-                                    {
-                                        "element_id": "button_6",
-                                        "styles": {
-                                            "margin-left": "var(--now-scalable-space--xs)",
-                                            "margin-right": "var(--now-scalable-space--xs)"
                                         }
                                     },
                                     {
@@ -12544,14 +12511,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-27 10:29:45</sys_created_on>
         <sys_id>136ea22f471e0210d254bce5536d4397</sys_id>
-        <sys_mod_count>422</sys_mod_count>
+        <sys_mod_count>429</sys_mod_count>
         <sys_name>Default</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ux_macroponent_136ea22f471e0210d254bce5536d4397</sys_update_name>
         <sys_updated_by>hahyun@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-09 09:58:41</sys_updated_on>
+        <sys_updated_on>2024-06-09 23:04:13</sys_updated_on>
     </sys_ux_macroponent>
     <sys_translated_text action="delete_multiple" query="documentkey=136ea22f471e0210d254bce5536d4397"/>
 </record_update>
