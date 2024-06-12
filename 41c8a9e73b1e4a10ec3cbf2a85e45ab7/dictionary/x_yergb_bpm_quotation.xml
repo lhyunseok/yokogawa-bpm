@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element db_object_id="0d73e7843be2ca10ec3cbf2a85e45a29" extends="x_yergb_bpm_process" label="Quotation" max_length="40" name="x_yergb_bpm_quotation" type="collection">
-        <element label="Active" max_length="40" name="active" type="boolean"/>
-        <element label="WBS 6" max_length="40" name="wbs_6" type="string"/>
-        <element default="0" label="Version" max_length="40" name="version" type="integer"/>
-        <element label="Total Cost" max_length="40" name="total_cost" type="integer"/>
-        <element attributes="edge_encryption_enabled=true" label="Quantity" mandatory="true" max_length="40" name="quantity" type="integer"/>
-        <element label="RFQ Entry" max_length="32" name="rfq_entry" reference="x_yergb_bpm_rfq_entry" type="reference"/>
-        <element label="GP Amount" max_length="40" name="gp_amount" type="integer"/>
-        <element label="MP Amount" max_length="40" name="mp_amount" type="integer"/>
-        <element label="GP %" max_length="40" name="gp" type="decimal"/>
-        <element label="Total Amount" max_length="40" name="total_amount" type="integer"/>
+    <element audit="true" db_object_id="0d73e7843be2ca10ec3cbf2a85e45a29" extends="x_yergb_bpm_process" label="Quotation" max_length="40" name="x_yergb_bpm_quotation" type="collection">
+        <element label="Assigned to" max_length="32" name="assigned_to" reference="sys_user" type="reference"/>
+        <element label="GP Amount" max_length="40" name="gp_amount" type="decimal"/>
         <element label="MP Gap %" max_length="20" name="mp_gap" type="decimal"/>
+        <element label="Version" max_length="40" name="version" type="string"/>
+        <element label="Active" max_length="40" name="active" type="boolean"/>
+        <element label="Assignment group" max_length="32" name="assignment_group" reference="sys_user_group" type="reference"/>
+        <element label="RFQ Entry" max_length="32" name="rfq_entry" reference="x_yergb_bpm_rfq_entry" type="reference"/>
+        <element label="GP %" max_length="40" name="gp" type="decimal"/>
+        <element label="Total Quote Price" max_length="40" name="total_quote_price" type="decimal"/>
+        <element label="Total Quote Cost" max_length="40" name="total_quote_cost" type="decimal"/>
+        <element label="MP Amount" max_length="40" name="mp_amount" type="decimal"/>
         <index name="index">
+            <element name="assigned_to"/>
+        </index>
+        <index name="index2">
+            <element name="assignment_group"/>
+        </index>
+        <index name="index3">
             <element name="rfq_entry"/>
         </index>
     </element>
