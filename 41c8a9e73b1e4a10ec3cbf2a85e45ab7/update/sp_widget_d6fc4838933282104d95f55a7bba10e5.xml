@@ -1,71 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller=function($scope) { 
-	
-	
-	/* widget controller */  
-	var c = this;
-	
-	
-	console.log("c 가 뭐야")
-	console.log(c)
-	c.data.know = "dd"
-	$scope.clickMethod = function () {
-    // Get the value from the input field using ng-model
-    var inputValue = c.estOiAmount;
+        <client_script><![CDATA[api.controller = function($scope, $location) {
 
-    // Assign the value to c.data for server-side processing
-    c.data.estOiAmount = inputValue;
+    /* widget controller */
+    var c = this;
+
+    // Function to get URL parameters
+    /////////////////////////////////////// 파라메터 체크
+    c.getUrlParameter = function(param) {
+        return $location.search()[param];
+    };
+
+    // Example: Retrieve a specific parameter
+    var paramValue = c.getUrlParameter('sys_id');
+    console.log('Value of yourParameterName:', paramValue);
+    c.data.paramValue = paramValue;
 
     // Call the server script
     c.server.update().then(function(response) {
-      // Optionally handle the server response if needed
-      if(response.data && response.data.result) {
-        alert(response.data.result);
-      }
+        // Handle the server response if needed
+        console.log('Server response:', response);
     });
+    /////////////////////////////////////정체성 체크
+    console.log("c 가 뭐야")
+    console.log(c)
 
-    // Display the value in an alert (for client-side confirmation)
-    alert('The entered amount is: ' + inputValue);
-  };
-	
-	 // Get the modal
-  var modal = document.getElementById("myModal");
+    //////////////////////////////////// 클릭하고 데이터 넘기기
+    $scope.clickMethod = function() {
+        // Get the value from the input field using ng-model
+        var inputValue = c.estOiAmount;
 
-  // Get the button that opens the modal
-  var btn = document.getElementById("openModalButton");
+        // Assign the value to c.data for server-side processing
+        c.data.estOiAmount = inputValue;
 
-  // Get the <span> element that closes the modal
-  var span = document.getElementsByClassName("close")[0];
+        // Call the server script
+        c.server.update().then(function(response) {
+            // Optionally handle the server response if needed
+            if (response.data && response.data.result) {
+                alert(response.data.result);
+            }
+        });
 
-  // Get the close button
-  var closeButton = document.getElementById("closeModalButton");
+        // Display the value in an alert (for client-side confirmation)
+        alert('The entered amount is: ' + inputValue);
+    };
+		/////////////////////////////////   Assess 버튼 클릭
+	 $scope.clickAssess = function() {
+		 		alert("ASSESS?")
+        // Get the value from the input field using ng-model
+        c.data.newState = 2;
+        c.data.assessFlag = true;
+		 
+		  // Call the server script to update the state
+        c.server.update().then(function(response) {
+            // Handle the server response if needed
+            console.log('Server response:', response);
+            
+            // Refresh the page
+            //
+        });
+				location.reload();
+    };
 
-  // When the user clicks the button, open the modal
-  btn.onclick = function() {
-    modal.style.display = "block";
-  }
 
-  // When the user clicks on <span> (x), close the modal
-  span.onclick = function() {
-    modal.style.display = "none";
-  }
+    //////////////////////////////////  모달창 관련한 로직
+    // Get the modal
+    var modal = document.getElementById("myModal");
 
-  // When the user clicks on close button, close the modal
-  closeButton.onclick = function() {
-    modal.style.display = "none";
-  }
+    // Get the button that opens the modal
+    var btn = document.getElementById("openModalButton");
 
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // Get the close button
+    var closeButton = document.getElementById("closeModalButton");
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
     }
-  }													
-													
-													
-													
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks on close button, close the modal
+    closeButton.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+
+
 };]]></client_script>
         <controller_as>c</controller_as>
         <css>@charset "UTF-8";
@@ -278,9 +313,12 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <option_schema/>
         <public>false</public>
         <roles/>
-        <script><![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */
+        <script><![CDATA[(function() {
+    /* populate the 'data' object */ /* e.g., data.table = $sp.getValue('table'); */
 
 
+
+    /*   // 몸풀기
 	 var gr = new GlideRecord('incident');
 
   // 특정 sys_id를 가진 레코드를 쿼리합니다.
@@ -293,54 +331,95 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
     //gs.addErrorMessage('No record found with the given sys_id.');
   }
   data.number = gr.getValue('number');
-	options.table = "incident"
-	data.getwidget = $sp.getWidget('snh-data-table',options)
-																 
-			console.log("여기는 뭐드라?")
+	*/
+    //////////////// 파라미터 있는지 체크 하는거다. 
+    if (input && input.paramValue) {
+        var paramValue = input.paramValue;
+        gs.addErrorMessage('Record created with param value: ' + paramValue);
 
-		 	console.log(input)
+        var gr = new GlideRecord('x_yergb_bpm_process');
 
- if (input && input.estOiAmount) { // 없으면 오류 뜸, 둘다 있어야 함.
-		console.log("여기 되던가?")
-	 	console.log(input)
-	 // Retrieve the input value from the client script
-    var estOiAmount = input.estOiAmount;
+        ///////////// 여기서는 아마 뿌려주는 로직을 할듯
+        gr.get(input.paramValue);
+        data.state = gr.state.getDisplayValue();
+					
+				if(gr.state.getDisplayValue() != "New"){
+					data.showAssess = false;
+				}
+			else{
+					data.showAssess = true;
 
-    // Add an error message to the UI
-    //gs.addErrorMessage('The entered amount is: ' + estOiAmount);
+			}
+			/////////// 시스아이디 있고, 상태가 new 일때만
+			
+			
+			
+			/////////// 파라미터 있는 상태에서 만약에 내가 ass를 누름
+			if(input.assessFlag){
+				gs.addInfoMessage("눌렸다 눌렸어")
+				
+        var grA = new GlideRecord('x_yergb_bpm_process');
 
-	     // Create a new record in the specified table
-    var gr = new GlideRecord('x_yergb_bpm_rfq_entry'); // Replace 'your_table_name' with the actual table name
-    gr.initialize();
-    gr.setValue('estimated_oi_amount', estOiAmount); // Replace 'amount_field' with the actual field name
-    gr.insert();
-	 
-	     //gs.addErrorMessage('성공일거야 아마도' + estOiAmount);
+        ///////////// 여기서는 아마 뿌려주는 로직을 할듯
+        grA.get(input.paramValue);
+				grA.setValue('state', input.newState)
+       gs.addErrorMessage(input.newState);
+			grA.update()
+		gs.addInfoMessage("바뀐다 바뀐다")
 
-    // Return a response to the client script
-    data.result = 'Error message added for amount: ' + estOiAmount;
-  } else {
-    data.result = 'No amount provided';
-  }
-	
-	
-	
-	
-	
+			
+			}
+			
+
+    }
+
+
+    ////////// 일단 위젯 불러오는거
+    options.table = "incident"
+    data.getwidget = $sp.getWidget('snh-data-table', options)
+
+    //////////////////////// 버튼 눌렀을때
+    if (input && input.estOiAmount) { // 없으면 오류 뜸, 둘다 있어야 함.
+        console.log("여기 되던가?")
+        console.log(input)
+        // Retrieve the input value from the client script
+        var estOiAmount = input.estOiAmount;
+
+        // Add an error message to the UI
+        //gs.addErrorMessage('The entered amount is: ' + estOiAmount);
+
+        ///////////////////////////// Create할거라니까
+        // Create a new record in the specified table 
+        var gr = new GlideRecord('x_yergb_bpm_rfq_entry'); // Replace 'your_table_name' with the actual table name
+        gr.initialize();
+        gr.setValue('estimated_oi_amount', estOiAmount); // Replace 'amount_field' with the actual field name
+        gr.insert();
+
+        //gs.addErrorMessage('성공일거야 아마도' + estOiAmount);
+
+        // Return a response to the client script
+        data.result = 'Error message added for amount: ' + estOiAmount;
+    } else {
+        data.result = 'No amount provided';
+    }
+
+
+
+
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>lhyunseok</sys_created_by>
         <sys_created_on>2024-06-12 06:12:28</sys_created_on>
         <sys_id>d6fc4838933282104d95f55a7bba10e5</sys_id>
-        <sys_mod_count>75</sys_mod_count>
+        <sys_mod_count>116</sys_mod_count>
         <sys_name>portal_function</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_d6fc4838933282104d95f55a7bba10e5</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-13 04:20:55</sys_updated_on>
+        <sys_updated_on>2024-06-13 06:27:05</sys_updated_on>
         <template><![CDATA[<div>
 <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
@@ -352,7 +431,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                 <button class="yoko-btn yoko-btn-outline">Accept</button>
                 <button class="yoko-btn yoko-btn-outline">Submit Quote</button>
                 <button class="yoko-btn yoko-btn-outline">Request Quote</button>
-                <button class="yoko-btn yoko-btn-outline">Assess</button>
+                <button class="yoko-btn yoko-btn-outline" id="AssessButton" ng-if="data.showAssess"   ng-click="clickAssess()">Assess</button>
                 <button class="yoko-btn yoko-btn-outline">Update</button>
                 <button class="yoko-btn yoko-btn-fill"  id="saveButton" ng-click="clickMethod()">Save</button>
             </div>
@@ -378,7 +457,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                         <div class="yoko-form-col">
                             <div class="yoko-form-group">
                                 <label for="state" class="yoko-short">State</label>
-                                <input type="text" name="state" value="Drafting" placeholder="" class="yoko-wid140">
+                                <input type="text" name="state" value={{data.state}} placeholder="" class="yoko-wid140" readonly>
                             </div>
                             <div class="yoko-form-group">
                                 <label for="req_date" class="yoko-short">Req. Date</label>
