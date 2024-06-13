@@ -11,7 +11,12 @@
     c.getUrlParameter = function(param) {
         return $location.search()[param];
     };
-
+  // Function to handle click event
+    $scope.handleClick = function() {
+        if (c.data.qNum) {
+            window.location.href = "/sp_config?id=epic_01_ui_quote&sys_id"+c.data.q_sys_id; // Redirect to the URL
+        }
+    };
     // Example: Retrieve a specific parameter
     var paramValue = c.getUrlParameter('sys_id');
     console.log('Value of yourParameterName:', paramValue);
@@ -27,9 +32,16 @@
     console.log(c)
 
     //////////////////////////////////// 클릭하고 데이터 넘기기
-    $scope.clickMethod = function() {
+    $scope.clickSave = function() {
         // Get the value from the input field using ng-model
         var inputValue = c.estOiAmount;
+        if (paramValue) { //이거 업데이트임
+            c.data.updataFlag = true;
+        } else { // 이거 새로 넣는거임
+            alert("eawgheawgew")
+            c.data.insertFlag = true;
+        }
+
 
         // Assign the value to c.data for server-side processing
         c.data.estOiAmount = inputValue;
@@ -45,117 +57,117 @@
         // Display the value in an alert (for client-side confirmation)
         alert('The entered amount is: ' + inputValue);
     };
-		/////////////////////////////////   Assess 버튼 클릭
-	 $scope.clickAssess = function() {
-		 		alert("ASSESS?")
+    /////////////////////////////////   Assess 버튼 클릭
+    $scope.clickAssess = function() {
+        alert("ASSESS?")
         // Get the value from the input field using ng-model
         c.data.newState = 2;
         c.data.buttunflag = true;
-		 
-		  // Call the server script to update the state
-		 
+
+        // Call the server script to update the state
+
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
         });
-				
 
-				location.reload();
+
+        location.reload();
     };
-	
-	$scope.clickRequest = function() {
-		 		alert("REQUEST?")
+
+    $scope.clickRequest = function() {
+        alert("REQUEST?")
         // Get the value from the input field using ng-model
         c.data.newState = 3;
         c.data.buttunflag = true;
-		 
-		  // Call the server script to update the state
-		 
+
+        // Call the server script to update the state
+
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
         });
-				
-				location.reload();
+
+        location.reload();
     };
 
-	$scope.clickSubmit = function() {
-		 		alert("SUBMIT?")
+    $scope.clickSubmit = function() {
+        alert("SUBMIT?")
         // Get the value from the input field using ng-model
         c.data.newState = 5;
         c.data.buttunflag = true;
-		 
-		  // Call the server script to update the state
-		 
+
+        // Call the server script to update the state
+
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
         });
-				
-				location.reload();
+
+        location.reload();
     };
 
-	$scope.clickInProgress = function() {
-		 		alert("IN PROGRESS?")
+    $scope.clickInProgress = function() {
+        alert("IN PROGRESS?")
         // Get the value from the input field using ng-model
         c.data.newState = 4;
         c.data.buttunflag = true;
-		 
-		  // Call the server script to update the state
-		 
+
+        // Call the server script to update the state
+
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
         });
-				
-				location.reload();
+
+        location.reload();
     };
 
-	$scope.clickAccept = function() {
-		 		alert("ACCEPT?")
+    $scope.clickAccept = function() {
+        alert("ACCEPT?")
         // Get the value from the input field using ng-model
         c.data.newState = 4;
         c.data.buttunflag = true;
-		 
-		  // Call the server script to update the state
-		 
+
+        // Call the server script to update the state
+
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
         });
-				
-				location.reload();
+
+        location.reload();
     };
 
-	$scope.clickReturn = function() {
-		 		alert("RETURN?")
+    $scope.clickReturn = function() {
+        alert("RETURN?")
         // Get the value from the input field using ng-model
         c.data.newState = -5;
         c.data.buttunflag = true;
-		 
-		  // Call the server script to update the state
-		 
+
+        // Call the server script to update the state
+
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
         });
-				
-				location.reload();
+
+        location.reload();
     };
-	$scope.clickCancel = function() {
-		 		alert("CANCEL?")
+    $scope.clickCancel = function() {
+        alert("CANCEL?")
         // Get the value from the input field using ng-model
         c.data.newState = -8;
         c.data.buttunflag = true;
-		 
-		  // Call the server script to update the state
-		 
+
+        // Call the server script to update the state
+
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
         });
-				
-				location.reload();
+
+        location.reload();
     };
 
 
@@ -409,84 +421,141 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
-    /* populate the 'data' object */ /* e.g., data.table = $sp.getValue('table'); */
+    /* populate the 'data' object */
+    /* e.g., data.table = $sp.getValue('table'); */
+    var userName = gs.getUser().getName();
+    console.log("0000000000000000000000")
+    console.log(userName)
+    // Pass the user's name to the client script
+    data.userName = userName;
+    data.showUpdate = false;
+    data.sys_id = $sp.getParameter("sys_id");
+		//gs.addInfoMessage(data.sys_id)
+    // Select 가져올건데
+    var grS = new GlideRecord('x_yergb_bpm_rfq_entry'); // Replace with your table name
+    grS.initialize();
+    var choices = grS.getElement('quotation_type').getChoices(); // Replace with your field name
+    var choicesValue = grS.getElement('quotation_type').getChoiceValue(); // Replace with your field name
+    console.log("11111111")
+    console.log(choices)
+    console.log(choicesValue)
+    // Prepare the choices for the client script
+    var choiceList = [];
+    for (var i = 0; i < choices.length; i++) {
+        var choice = choices[i];
+        console.log(choice)
+        choiceList.push(choice)
+        //choiceList.push({
+        //   value: choice[i].getValue(),
+        //  label: choice[i].getLabel()
+        //});
+    }
 
+    data.choices = choiceList;
+
+
+	if(data.sys_id){
+		 var grI = new GlideRecord('x_yergb_bpm_quotation');
+ 					  var quotation_number
+            var quotation_sysId
+            ///////////// 여기서는 아마 뿌려주는 로직을 할듯
+            grI.addQuery('rfq_entry', data.sys_id);
+            grI.query();
+            while (grI.next()) {
+                 quotation_number = grI.number.toString();
+                 quotation_sysId = grI.sys_id.toString();
+				
+          
+            }
+  					data.qNum = quotation_number
+            data.q_sys_id = quotation_sysId
+            //gs.addInfoMessage(typeof data.q_number)
+	}
+	
+	
     //////////////// 파라미터 있는지 체크 하는거다. 
     if (input && input.paramValue) {
         var paramValue = input.paramValue;
         gs.addErrorMessage('Record created with param value: ' + paramValue);
 
-        var gr = new GlideRecord('x_yergb_bpm_process');
+        var gr = new GlideRecord('x_yergb_bpm_rfq_entry');
 
         ///////////// 여기서는 아마 뿌려주는 로직을 할듯
         gr.get(input.paramValue);
         data.state = gr.state.getDisplayValue();
-					
-				if(gr.state.getDisplayValue() == "New"){
-					data.showAssess = true;
-					data.showRequest = false;
-					data.showSubmit = false;
-					data.showInProgress = false;
-					data.showAccept = false;
-					data.showReturn = false;
-					data.showCancel = false;
-				}
-				else if(gr.state.getDisplayValue() == "Assess"){
-					data.showAssess = false;
-					data.showRequest = true;
-					data.showSubmit = false;
-					data.showInProgress = true;
-					data.showAccept = false;
-					data.showReturn = false;
-					data.showCancel = false;
-				}
-				else if(gr.state.getDisplayValue() == "Requested"){
-					data.showAssess = false;
-					data.showRequest = false;
-					data.showSubmit = false;
-					data.showInProgress = false;
-					data.showAccept = true;
-					data.showReturn = true;
-					data.showCancel = false;
-				}
-				else if(gr.state.getDisplayValue() == "Returned"){
-					data.showAssess = true;
-					data.showRequest = false;
-					data.showSubmit = false;
-					data.showInProgress = false;
-					data.showAccept = false;
-					data.showReturn = false;
-					data.showCancel = true;
-				}
-				else if(gr.state.getDisplayValue() == "In Progress"){
-					data.showAssess = false;
-					data.showRequest = false;
-					data.showSubmit = true;
-					data.showInProgress = false;
-					data.showAccept = false;
-					data.showReturn = false;
-					data.showCancel = false;
-				}
-			/////////// 시스아이디 있고, 상태가 new 일때만
-			
-			
-			
-			/////////// 파라미터 있는 상태에서 만약에 내가 ass를 누름
-			if(input.buttunflag){
-				gs.addInfoMessage("눌렸다 눌렸어")
-				
-        var grA = new GlideRecord('x_yergb_bpm_process');
 
-        ///////////// 여기서는 아마 뿌려주는 로직을 할듯
-        grA.get(input.paramValue);
-				grA.setValue('state', input.newState)
-       gs.addErrorMessage(input.newState);
-			grA.update()
-		gs.addInfoMessage("바뀐다 바뀐다")
+        if (gr.state.getDisplayValue() == "New") {
+            data.showAssess = true;
+            data.showRequest = false;
+            data.showSubmit = false;
+            data.showInProgress = false;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = false;
+            data.showUpdate = true;
+        } else if (gr.state.getDisplayValue() == "Assess") {
+            data.showAssess = false;
+            data.showRequest = true;
+            data.showSubmit = false;
+            data.showInProgress = true;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = false;
+            data.showUpdate = true;
+        } else if (gr.state.getDisplayValue() == "Requested") {
+            data.showAssess = false;
+            data.showRequest = false;
+            data.showSubmit = false;
+            data.showInProgress = false;
+            data.showAccept = true;
+            data.showReturn = true;
+            data.showCancel = false;
+            data.showUpdate = true;
+        } else if (gr.state.getDisplayValue() == "Returned") {
+            data.showAssess = true;
+            data.showRequest = false;
+            data.showSubmit = false;
+            data.showInProgress = false;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = true;
+            data.showUpdate = true;
+        } else if (gr.state.getDisplayValue() == "In Progress") {
+            data.showAssess = false;
+            data.showRequest = false;
+            data.showSubmit = true;
+            data.showInProgress = false;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = false;
+            data.showUpdate = true;
 
-			
-			}
-			
+            //가져와서 일단 말 박아주는거 해야함
+           
+            //Return the results to the client script
+            
+
+        }
+        /////////// 시스아이디 있고, 상태가 new 일때만
+
+
+
+        /////////// 파라미터 있는 상태에서 만약에 내가 ass를 누름
+        if (input.buttunflag) {
+            gs.addInfoMessage("눌렸다 눌렸어")
+
+            var grA = new GlideRecord('x_yergb_bpm_rfq_entry');
+
+            ///////////// 여기서는 아마 뿌려주는 로직을 할듯
+            grA.get(input.paramValue);
+            grA.setValue('state', input.newState)
+            gs.addErrorMessage(input.newState);
+            grA.update()
+            gs.addInfoMessage("바뀐다 바뀐다")
+
+
+        }
+
 
     }
 
@@ -496,7 +565,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
     data.getwidget = $sp.getWidget('snh-data-table', options)
 
     //////////////////////// 버튼 눌렀을때
-    if (input && input.estOiAmount) { // 없으면 오류 뜸, 둘다 있어야 함.
+    if (input && input.insertFlag) { // 없으면 오류 뜸, 둘다 있어야 함.
         console.log("여기 되던가?")
         console.log(input)
         // Retrieve the input value from the client script
@@ -516,8 +585,18 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 
         // Return a response to the client script
         data.result = 'Error message added for amount: ' + estOiAmount;
-    } else {
-        data.result = 'No amount provided';
+    } else if (input && input.updataFlag) {
+        var estOiAmount = input.estOiAmount;
+
+        gs.addInfoMessage("집에가자")
+        gs.addInfoMessage(input.paramValue)
+
+        var grU = new GlideRecord('x_yergb_bpm_rfq_entry');
+
+        ///////////// 여기서는 아마 뿌려주는 로직을 할듯
+        grU.get(input.paramValue);
+        grU.setValue('estimated_oi_amount', estOiAmount)
+        grU.update()
     }
 
 
@@ -529,14 +608,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>lhyunseok</sys_created_by>
         <sys_created_on>2024-06-12 06:12:28</sys_created_on>
         <sys_id>d6fc4838933282104d95f55a7bba10e5</sys_id>
-        <sys_mod_count>124</sys_mod_count>
+        <sys_mod_count>231</sys_mod_count>
         <sys_name>portal_function</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_d6fc4838933282104d95f55a7bba10e5</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-13 07:32:09</sys_updated_on>
+        <sys_updated_on>2024-06-13 11:00:21</sys_updated_on>
         <template><![CDATA[<div>
 <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
@@ -550,8 +629,8 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                 <button class="yoko-btn yoko-btn-outline" ng-if="data.showSubmit" ng-click="clickSubmit()">Submit Quote</button>
                 <button class="yoko-btn yoko-btn-outline" ng-if="data.showRequest" ng-click="clickRequest()">Request Quote</button>
                 <button class="yoko-btn yoko-btn-outline" id="AssessButton" ng-if="data.showAssess" ng-click="clickAssess()">Assess</button>
-                <button class="yoko-btn yoko-btn-outline">Update</button>
-                <button class="yoko-btn yoko-btn-fill"  id="saveButton" ng-click="clickMethod()">Save</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showUpdate">Update</button>
+                <button class="yoko-btn yoko-btn-fill"  id="saveButton" ng-click="clickSave()">Save</button>
             </div>
         </div>
         <div class="yoko-content">
@@ -566,7 +645,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                             <div class="yoko-form-group">
                                 <label for="requester_no" class="yoko-short">Requester</label>
                                 <div class="yoko-form-inline">
-                                    <input type="number" name="requester_no" value="" placeholder="30053053" disabled class="yoko-wid140">
+                                    <input type="text" name="requester_no" value={{data.userName}}  disabled class="yoko-wid140">
                                     <button type="button" class="yoko-btn yoko-btn-search" id ="openModalButton"></button>
                               </div>
                             </div>
@@ -575,7 +654,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                         <div class="yoko-form-col">
                             <div class="yoko-form-group">
                                 <label for="state" class="yoko-short">State</label>
-                                <input type="text" name="state" value={{data.state}} placeholder="" class="yoko-wid140" readonly>
+                                <input type="text" name="state" value={{data.state}} placeholder="New" class="yoko-wid140" readonly   >
                             </div>
                             <div class="yoko-form-group">
                                 <label for="req_date" class="yoko-short">Req. Date</label>
@@ -617,18 +696,25 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                         <div class="yoko-form-group">
                             <label for="quotation">Quotation</label>
                             <div class="yoko-form-inline">
-                                <input type="number" name="quotation" value="" placeholder="30053053" class="yoko-wid140">
-                                <button type="button" class="yoko-btn yoko-btn-search"></button>
+                                
+                                <!-- input type="text" name="quotation" value={{data.qNum}} placeholder="" class="yoko-wid140" disable -->
+                                <input type="text" name="quotation" ng-model="c.data.qNum" placeholder="" class="yoko-wid140" ng-click="handleClick()" readonly>
+                                <input type="text" name="quotation_sysId" ng-model="c.data.q_sys_id" placeholder="" class="yoko-wid140" ng-click="handleClick()" ng-style="{'display': 'none'}" readonly>
+  
+                              <button type="button" class="yoko-btn yoko-btn-search"></button>
                             </div>
                         </div>
                         <div class="yoko-form-group">
                             <label for="type">Quotation type</label>
                             <div class="yoko-form-inline">
-                                <select id="type" name="type" class="yoko-wid140">
+                                <!--select id="type" name="type" class="yoko-wid140">
                                     <option value="option1">KRW</option>
                                     <option value="option2">KRW</option>
                                     <option value="option3">KRW</option>
-                                </select>
+                                </select-->
+                              <select id="type" name="type" class="yoko-wid140" ng-model="c.data.selectedType" ng-options="option as option for option in c.data.choices">
+    															<option value="">Select Type</option>
+  													</select>
                             </div>
                         </div> 
                         <div class="yoko-form-group">
@@ -644,14 +730,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                         <div class="yoko-form-group">
                             <label for="assignment_group" class="yoko-short-110">Assignment group</label>
                             <div class="yoko-form-inline">
-                                <input type="number" name="assignment_group" value="" placeholder="30053053" disabled class="yoko-wid140">
+                                <input type="number" name="assignment_group" value="" placeholder="" disabled class="yoko-wid140">
                                 <button type="button" class="yoko-btn yoko-btn-search"></button>
                             </div>
                         </div>
                         <div class="yoko-form-group">
                             <label for="assigned_to" class="yoko-short-110">Assigned to</label>
                             <div class="yoko-form-inline">
-                                <input type="number" name="assigned_to" value="" placeholder="30053053" disabled class="yoko-wid140">
+                                <input type="number" name="assigned_to" value="" placeholder="" disabled class="yoko-wid140">
                                 <button type="button" class="yoko-btn yoko-btn-search"></button>
                             </div>
                         </div>
@@ -800,7 +886,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                 </div>
             </div>
         </div>
-    <!-- iframe src='/ui_page.do?sys_id=27a2384193e402104d95f55a7bba1098' width='100%' height='450px' style='border:none;'>
+    <!-- iframe src='/ui_page.do?sys_id=27a2384193e402104d95f55a7bba1098'+ / {{}} width='100%' height='450px' style='border:none;'>
 </iframe-->
     </div>
 
