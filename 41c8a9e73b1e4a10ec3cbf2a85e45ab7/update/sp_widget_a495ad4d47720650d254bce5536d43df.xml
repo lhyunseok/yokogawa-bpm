@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {
+  /* widget controller */
+  var c = this;
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.process-breadcrumb {&#13;
+  list-style: none;&#13;
+  padding-left: 0;&#13;
+  white-space: nowrap;&#13;
+  height: 46px;&#13;
+  width: 100%;&#13;
+  padding-right: 45px;&#13;
+  display: table; }&#13;
+.process-breadcrumb &gt; li {&#13;
+  display: table-cell;&#13;
+  position: relative; }&#13;
+.process-breadcrumb &gt; li &gt; a {&#13;
+  display: block;&#13;
+  padding: 14px 15px 12px 38px;&#13;
+  transition: all 1s;&#13;
+  text-align: center; }&#13;
+.process-breadcrumb &gt; li &gt; a, .process-breadcrumb &gt; li &gt; a:visited, .process-breadcrumb &gt; li &gt; a:hover {&#13;
+  color: #2e2e2e;&#13;
+  text-decoration: none; }&#13;
+.process-breadcrumb &gt; li:first-child &gt; a {&#13;
+  padding-left: 15px; }&#13;
+.process-breadcrumb &gt; li:last-child:after {&#13;
+  display: none; }&#13;
+.process-breadcrumb &gt; li:after {&#13;
+  display: block;&#13;
+  height: 32px;&#13;
+  width: 32px;&#13;
+  position: absolute;&#13;
+  top: 6px;&#13;
+  right: -18px;&#13;
+  border-top: 1px solid #cbcbcb;&#13;
+  border-right: 1px solid #cbcbcb;&#13;
+  background-color: transparent;&#13;
+  content: ' ';&#13;
+  -moz-transform: rotate(45deg);&#13;
+  -ms-transform: rotate(45deg);&#13;
+  -webkit-transform: rotate(45deg);&#13;
+  transform: rotate(45deg); }&#13;
+.process-breadcrumb &gt; li.active &gt; a:before, .process-breadcrumb &gt; li &gt; a:hover:before {&#13;
+  position: absolute;&#13;
+  bottom: 0;&#13;
+  left: 3px;&#13;
+  right: -3px;&#13;
+  top: auto;&#13;
+  height: 3px;&#13;
+  background-color: #1f8476;&#13;
+  display: inline-block;&#13;
+  content: ' ';&#13;
+  transform: skewX(-45deg); }&#13;
+.process-breadcrumb &gt; li.disabled &gt; a, .process-breadcrumb &gt; li.disabled &gt; a:visited, .process-breadcrumb &gt; li.disabled &gt; a:hover {&#13;
+  border-bottom-color: transparent;&#13;
+  cursor: default; }&#13;
+.process-breadcrumb &gt; li.disabled &gt; a:before, .process-breadcrumb &gt; li.disabled &gt; a:visited:before, .process-breadcrumb &gt; li.disabled &gt; a:hover:before {&#13;
+  display: none; }&#13;
+.process-breadcrumb &gt; li.completed &gt; a:after {&#13;
+  font-family: "retina_icons";&#13;
+  display: inline-block;&#13;
+  vertical-align: middle;&#13;
+  line-height: 1;&#13;
+  font-weight: normal;&#13;
+  font-style: normal;&#13;
+  speak: none;&#13;
+  text-decoration: inherit;&#13;
+  text-transform: none;&#13;
+  text-rendering: optimizeLegibility;&#13;
+  -webkit-font-smoothing: antialiased;&#13;
+  -moz-osx-font-smoothing: grayscale;&#13;
+  content: "";&#13;
+  color: #1f8476;&#13;
+  vertical-align: text-bottom;&#13;
+  margin-left: 5px; }&#13;
+.process-breadcrumb.process-breadcrumb-border {&#13;
+  border: 1px solid #cbcbcb; }&#13;
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>stepper</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>stepper</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    data.flow_formatter = [];
+
+    // Get table & sys_id
+    data.table = input.table || $sp.getParameter("table");
+    data.sys_id = input.sys_id || $sp.getParameter("sys_id");
+    //data.table = 'change_request';
+    //data.sys_id = '1c87925347c12200e0ef563dbb9a7177';
+    gr = new GlideRecord(data.table);
+    if (!gr.isValid()) {
+        return;
+    }
+    gr.get(data.sys_id);
+    if (!gr.canRead()) {
+        return;
+    }
+
+    var afterCurrent = false;
+    var pf = new GlideRecord('sys_process_flow');
+    pf.addQuery('table', data.table);
+    //pf.addQuery('table', 'change_request');
+    pf.addActiveQuery();
+    pf.orderBy('order');
+    pf.query();
+    while (pf.next()) {
+        if (GlideFilter.checkRecord(gr, pf.u_show_condition)) {
+            var item = {};
+            item.label = pf.getDisplayValue('label');
+            if (GlideFilter.checkRecord(gr, pf.condition)) {
+                item.state = 'current';
+                item.style = 'active';
+                afterCurrent = true;
+            } else {
+                if (afterCurrent) {
+                    item.state = 'future';
+                    item.style = 'disabled';
+                } else {
+                    item.state = 'past';
+                    item.style = 'completed disabled';
+                }
+            }
+            data.flow_formatter.push(item);
+        }
+    }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>hhkim</sys_created_by>
+        <sys_created_on>2024-06-13 07:18:33</sys_created_on>
+        <sys_id>a495ad4d47720650d254bce5536d43df</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>stepper</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sp_widget_a495ad4d47720650d254bce5536d43df</sys_update_name>
+        <sys_updated_by>hhkim</sys_updated_by>
+        <sys_updated_on>2024-06-13 07:19:49</sys_updated_on>
+        <template><![CDATA[<div class="panel-default" ng-if="data.flow_formatter.length > 0">
+  <table style="width: 100%;">
+    <tbody>
+    	<tr>
+        <td>
+          <ol class="process-breadcrumb process-breadcrumb-border" role="tablist">
+            <li ng-repeat="item in data.flow_formatter" ng-class="item.style" data-state="{{item.state}}">
+              <a>{{item.label}}</a>
+            </li>
+          </ol>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>]]></template>
+    </sp_widget>
+</record_update>
