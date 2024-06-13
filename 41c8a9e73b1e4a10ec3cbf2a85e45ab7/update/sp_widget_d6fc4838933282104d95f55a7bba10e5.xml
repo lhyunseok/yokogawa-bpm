@@ -1,7 +1,202 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller=function() {  /* widget controller */  var c = this;};]]></client_script>
+        <client_script><![CDATA[api.controller = function($scope, $location) {
+
+    /* widget controller */
+    var c = this;
+
+    // Function to get URL parameters
+    /////////////////////////////////////// 파라메터 체크
+    c.getUrlParameter = function(param) {
+        return $location.search()[param];
+    };
+
+    // Example: Retrieve a specific parameter
+    var paramValue = c.getUrlParameter('sys_id');
+    console.log('Value of yourParameterName:', paramValue);
+    c.data.paramValue = paramValue;
+
+    // Call the server script
+    c.server.update().then(function(response) {
+        // Handle the server response if needed
+        console.log('Server response:', response);
+    });
+    /////////////////////////////////////정체성 체크
+    console.log("c 가 뭐야")
+    console.log(c)
+
+    //////////////////////////////////// 클릭하고 데이터 넘기기
+    $scope.clickMethod = function() {
+        // Get the value from the input field using ng-model
+        var inputValue = c.estOiAmount;
+
+        // Assign the value to c.data for server-side processing
+        c.data.estOiAmount = inputValue;
+
+        // Call the server script
+        c.server.update().then(function(response) {
+            // Optionally handle the server response if needed
+            if (response.data && response.data.result) {
+                alert(response.data.result);
+            }
+        });
+
+        // Display the value in an alert (for client-side confirmation)
+        alert('The entered amount is: ' + inputValue);
+    };
+		/////////////////////////////////   Assess 버튼 클릭
+	 $scope.clickAssess = function() {
+		 		alert("ASSESS?")
+        // Get the value from the input field using ng-model
+        c.data.newState = 2;
+        c.data.buttunflag = true;
+		 
+		  // Call the server script to update the state
+		 
+        c.server.update().then(function(response) {
+            // Handle the server response if needed
+            console.log('Server response:', response);
+        });
+				
+
+				location.reload();
+    };
+	
+	$scope.clickRequest = function() {
+		 		alert("REQUEST?")
+        // Get the value from the input field using ng-model
+        c.data.newState = 3;
+        c.data.buttunflag = true;
+		 
+		  // Call the server script to update the state
+		 
+        c.server.update().then(function(response) {
+            // Handle the server response if needed
+            console.log('Server response:', response);
+        });
+				
+				location.reload();
+    };
+
+	$scope.clickSubmit = function() {
+		 		alert("SUBMIT?")
+        // Get the value from the input field using ng-model
+        c.data.newState = 5;
+        c.data.buttunflag = true;
+		 
+		  // Call the server script to update the state
+		 
+        c.server.update().then(function(response) {
+            // Handle the server response if needed
+            console.log('Server response:', response);
+        });
+				
+				location.reload();
+    };
+
+	$scope.clickInProgress = function() {
+		 		alert("IN PROGRESS?")
+        // Get the value from the input field using ng-model
+        c.data.newState = 4;
+        c.data.buttunflag = true;
+		 
+		  // Call the server script to update the state
+		 
+        c.server.update().then(function(response) {
+            // Handle the server response if needed
+            console.log('Server response:', response);
+        });
+				
+				location.reload();
+    };
+
+	$scope.clickAccept = function() {
+		 		alert("ACCEPT?")
+        // Get the value from the input field using ng-model
+        c.data.newState = 4;
+        c.data.buttunflag = true;
+		 
+		  // Call the server script to update the state
+		 
+        c.server.update().then(function(response) {
+            // Handle the server response if needed
+            console.log('Server response:', response);
+        });
+				
+				location.reload();
+    };
+
+	$scope.clickReturn = function() {
+		 		alert("RETURN?")
+        // Get the value from the input field using ng-model
+        c.data.newState = -5;
+        c.data.buttunflag = true;
+		 
+		  // Call the server script to update the state
+		 
+        c.server.update().then(function(response) {
+            // Handle the server response if needed
+            console.log('Server response:', response);
+        });
+				
+				location.reload();
+    };
+	$scope.clickCancel = function() {
+		 		alert("CANCEL?")
+        // Get the value from the input field using ng-model
+        c.data.newState = -8;
+        c.data.buttunflag = true;
+		 
+		  // Call the server script to update the state
+		 
+        c.server.update().then(function(response) {
+            // Handle the server response if needed
+            console.log('Server response:', response);
+        });
+				
+				location.reload();
+    };
+
+
+    //////////////////////////////////  모달창 관련한 로직
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("openModalButton");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // Get the close button
+    var closeButton = document.getElementById("closeModalButton");
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks on close button, close the modal
+    closeButton.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+
+
+};]]></client_script>
         <controller_as>c</controller_as>
         <css>@charset "UTF-8";
 
@@ -33,7 +228,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .yoko-btn.yoko-btn-fill-red:hover  {background-color: #E35050; border: 1px solid #E35050;}
 
 
-.yoko-btn-search {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(images/icon_search.png) no-repeat center center !important;}
+.yoko-btn-search {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(icon_search.png) no-repeat center center !important;}
 .yoko-btn-search:hover {background-color: #eaeaea;}
 
 .yoko-search-form {display: flex; gap: 30px; padding: 16px 30px; max-width: 1600px;  background-color: #F7F7F7; border: 1px solid #EDEDED; border-radius: 4px;}
@@ -57,13 +252,13 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .yoko-search-form textarea {max-height: none; width: 100%; padding: 10px 10px 10px 10px; }
 /* .yoko-search-form input[type=date] {width: 140px; } */
 .yoko-search-form input[type=date]::-webkit-calendar-picker-indicator,
-.yoko-search-form input[type=date]::-webkit-inner-spin-button {background: url('images/icon_calendar.png') no-repeat right center; }
+.yoko-search-form input[type=date]::-webkit-inner-spin-button {background: url('icon_calendar.png') no-repeat right center; }
 
 .yoko-search-form select {
   -moz-appearance:none; /* Firefox */
   -webkit-appearance:none; /* Safari and Chrome */
   appearance:none;
-  background-image: url(images/icon_arrow_down.png);
+  background-image: url(icon_arrow_down.png);
   background-repeat: no-repeat;
   background-position-x: 100%;
   background-position-y: 1px;
@@ -95,7 +290,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .custom-checkbox:hover input ~ .checkmark {background-color: #FFF;}
 .custom-checkbox input:checked ~ .checkmark {  background-color: #68B3FC;  border-radius: 2px;  border: 1px solid #68B3FC;}
 .custom-checkbox .checkmark:after {  content: "";  position: absolute;  display: none;}
-.custom-checkbox input:checked ~ .checkmark:after {  display: block;  left: 50%; top: 50%;  height: 16px;  width: 18px;  transform: translate(-50%, -50%);  background: url(images/icon_checkbox.png) no-repeat center center;}
+.custom-checkbox input:checked ~ .checkmark:after {  display: block;  left: 50%; top: 50%;  height: 16px;  width: 18px;  transform: translate(-50%, -50%);  background: url(icon_checkbox.png) no-repeat center center;}
 
 .custom-checkbox input:disabled ~ .checkmark {border: 1px solid #D1D1D1; background: #E2E2E2; cursor: not-allowed; }
 .custom-checkbox input:checked:disabled ~ .checkmark {background:#E2E2E2 url(images/icon_checkbox_dis.png) no-repeat center center; }
@@ -161,7 +356,45 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .rg-header .rg-table tr td:hover {background: #68B3FC !important; color: #fff !important;}
 .rg-header-select {background: rgb(232 248 240 / 50%) !important;}
 .rg-selection { background: rgb(232 248 240 / 35%) !important; border: 1px solid #15BD66!important;}
-.rg-editor-container { border: 2px solid #27C382 !important; }</css>
+.rg-editor-container { border: 2px solid #27C382 !important; }
+
+
+
+ .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -175,34 +408,150 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <option_schema/>
         <public>false</public>
         <roles/>
-        <script><![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]></script>
+        <script><![CDATA[(function() {
+    /* populate the 'data' object */ /* e.g., data.table = $sp.getValue('table'); */
+
+    //////////////// 파라미터 있는지 체크 하는거다. 
+    if (input && input.paramValue) {
+        var paramValue = input.paramValue;
+        gs.addErrorMessage('Record created with param value: ' + paramValue);
+
+        var gr = new GlideRecord('x_yergb_bpm_process');
+
+        ///////////// 여기서는 아마 뿌려주는 로직을 할듯
+        gr.get(input.paramValue);
+        data.state = gr.state.getDisplayValue();
+					
+				if(gr.state.getDisplayValue() == "New"){
+					data.showAssess = true;
+					data.showRequest = false;
+					data.showSubmit = false;
+					data.showInProgress = false;
+					data.showAccept = false;
+					data.showReturn = false;
+					data.showCancel = false;
+				}
+				else if(gr.state.getDisplayValue() == "Assess"){
+					data.showAssess = false;
+					data.showRequest = true;
+					data.showSubmit = false;
+					data.showInProgress = true;
+					data.showAccept = false;
+					data.showReturn = false;
+					data.showCancel = false;
+				}
+				else if(gr.state.getDisplayValue() == "Requested"){
+					data.showAssess = false;
+					data.showRequest = false;
+					data.showSubmit = false;
+					data.showInProgress = false;
+					data.showAccept = true;
+					data.showReturn = true;
+					data.showCancel = false;
+				}
+				else if(gr.state.getDisplayValue() == "Returned"){
+					data.showAssess = true;
+					data.showRequest = false;
+					data.showSubmit = false;
+					data.showInProgress = false;
+					data.showAccept = false;
+					data.showReturn = false;
+					data.showCancel = true;
+				}
+				else if(gr.state.getDisplayValue() == "In Progress"){
+					data.showAssess = false;
+					data.showRequest = false;
+					data.showSubmit = true;
+					data.showInProgress = false;
+					data.showAccept = false;
+					data.showReturn = false;
+					data.showCancel = false;
+				}
+			/////////// 시스아이디 있고, 상태가 new 일때만
+			
+			
+			
+			/////////// 파라미터 있는 상태에서 만약에 내가 ass를 누름
+			if(input.buttunflag){
+				gs.addInfoMessage("눌렸다 눌렸어")
+				
+        var grA = new GlideRecord('x_yergb_bpm_process');
+
+        ///////////// 여기서는 아마 뿌려주는 로직을 할듯
+        grA.get(input.paramValue);
+				grA.setValue('state', input.newState)
+       gs.addErrorMessage(input.newState);
+			grA.update()
+		gs.addInfoMessage("바뀐다 바뀐다")
+
+			
+			}
+			
+
+    }
+
+
+    ////////// 일단 위젯 불러오는거
+    options.table = "incident"
+    data.getwidget = $sp.getWidget('snh-data-table', options)
+
+    //////////////////////// 버튼 눌렀을때
+    if (input && input.estOiAmount) { // 없으면 오류 뜸, 둘다 있어야 함.
+        console.log("여기 되던가?")
+        console.log(input)
+        // Retrieve the input value from the client script
+        var estOiAmount = input.estOiAmount;
+
+        // Add an error message to the UI
+        //gs.addErrorMessage('The entered amount is: ' + estOiAmount);
+
+        ///////////////////////////// Create할거라니까
+        // Create a new record in the specified table 
+        var gr = new GlideRecord('x_yergb_bpm_rfq_entry'); // Replace 'your_table_name' with the actual table name
+        gr.initialize();
+        gr.setValue('estimated_oi_amount', estOiAmount); // Replace 'amount_field' with the actual field name
+        gr.insert();
+
+        //gs.addErrorMessage('성공일거야 아마도' + estOiAmount);
+
+        // Return a response to the client script
+        data.result = 'Error message added for amount: ' + estOiAmount;
+    } else {
+        data.result = 'No amount provided';
+    }
+
+
+
+
+})();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>lhyunseok</sys_created_by>
         <sys_created_on>2024-06-12 06:12:28</sys_created_on>
         <sys_id>d6fc4838933282104d95f55a7bba10e5</sys_id>
-        <sys_mod_count>5</sys_mod_count>
+        <sys_mod_count>124</sys_mod_count>
         <sys_name>portal_function</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_d6fc4838933282104d95f55a7bba10e5</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-12 06:38:34</sys_updated_on>
+        <sys_updated_on>2024-06-13 07:32:09</sys_updated_on>
         <template><![CDATA[<div>
 <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
         <div class="yoko-title-btn-wrap">
             <h1 class="yoko-title">RFQ Entry & Quotation Request</h1>
             <div class="yoko-btn-wrap">
-                <button class="yoko-btn yoko-btn-outline">Cancel</button>
-                <button class="yoko-btn yoko-btn-outline">Return</button>
-                <button class="yoko-btn yoko-btn-outline">Accept</button>
-                <button class="yoko-btn yoko-btn-outline">Submit Quote</button>
-                <button class="yoko-btn yoko-btn-outline">Request Quote</button>
-                <button class="yoko-btn yoko-btn-outline">Assess</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showCancel" ng-click="clickCancel()">Cancel</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showReturn" ng-click="clickReturn()">Return</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showAccept" ng-click="clickAccept()">Accept</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showInProgress" ng-click="clickInProgress()">In Progress</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showSubmit" ng-click="clickSubmit()">Submit Quote</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showRequest" ng-click="clickRequest()">Request Quote</button>
+                <button class="yoko-btn yoko-btn-outline" id="AssessButton" ng-if="data.showAssess" ng-click="clickAssess()">Assess</button>
                 <button class="yoko-btn yoko-btn-outline">Update</button>
-                <button class="yoko-btn yoko-btn-fill">Save</button>
+                <button class="yoko-btn yoko-btn-fill"  id="saveButton" ng-click="clickMethod()">Save</button>
             </div>
         </div>
         <div class="yoko-content">
@@ -218,15 +567,15 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                                 <label for="requester_no" class="yoko-short">Requester</label>
                                 <div class="yoko-form-inline">
                                     <input type="number" name="requester_no" value="" placeholder="30053053" disabled class="yoko-wid140">
-                                    <button type="button" class="yoko-btn yoko-btn-search"></button>
-                                </div>
+                                    <button type="button" class="yoko-btn yoko-btn-search" id ="openModalButton"></button>
+                              </div>
                             </div>
                         </div>
                         
                         <div class="yoko-form-col">
                             <div class="yoko-form-group">
-                                <label for="status" class="yoko-short">Status</label>
-                                <input type="text" name="status" value="Drafting" placeholder="" class="yoko-wid140">
+                                <label for="state" class="yoko-short">State</label>
+                                <input type="text" name="state" value={{data.state}} placeholder="" class="yoko-wid140" readonly>
                             </div>
                             <div class="yoko-form-group">
                                 <label for="req_date" class="yoko-short">Req. Date</label>
@@ -252,7 +601,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                         </div>
                         <div class="yoko-form-group">
                             <label for="est_oi_amount" class="yoko-short-110">Est OI Amount</label>
-                            <input type="text" name="est_oi_amount" value="" placeholder="" class="yoko-wid140">
+                            <input type="text" name="est_oi_amount" value="" placeholder="" class="yoko-wid140" ng-model="c.estOiAmount">
                         </div>
         
                         <div class="yoko-form-group">
@@ -293,9 +642,9 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                             <input type="text" name="oppt_no" value="" placeholder="" class="yoko-wid172">
                         </div>
                         <div class="yoko-form-group">
-                            <label for="requester_no" class="yoko-short-110">Requester</label>
+                            <label for="assignment_group" class="yoko-short-110">Assignment group</label>
                             <div class="yoko-form-inline">
-                                <input type="number" name="requester_no" value="" placeholder="30053053" disabled class="yoko-wid140">
+                                <input type="number" name="assignment_group" value="" placeholder="30053053" disabled class="yoko-wid140">
                                 <button type="button" class="yoko-btn yoko-btn-search"></button>
                             </div>
                         </div>
@@ -410,7 +759,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             <div class="yoko-search-form-wrapper">
                 <div class="yoko-search-form-wrap yoko-project-wrap yoko-col60">
                     <div class="yoko-search-form-heading">Project</div>
-                    <div class="yoko-search-form">
+                    <div class="yoko-search-form" style="height: 260px">
                         <div class="yoko-form-col yoko-col100">
                             <div class="yoko-form-group">
                                 <label for="title" class="yoko-short">Project Title</label>
@@ -431,7 +780,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                 </div>
                 <div class="yoko-search-form-wrap yoko-project-wrap yoko-col40">
                     <div class="yoko-search-form-heading">Request Quote</div>
-                    <div class="yoko-search-form">
+                    <div class="yoko-search-form" style="height: 260px">
                         <div class="yoko-form-col yoko-col100">
                             <div class="yoko-form-group">
                                 <label for="reason_code" class="yoko-short-110">Reason Code</label>
@@ -451,7 +800,11 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                 </div>
             </div>
         </div>
+    <!-- iframe src='/ui_page.do?sys_id=27a2384193e402104d95f55a7bba1098' width='100%' height='450px' style='border:none;'>
+</iframe-->
     </div>
+
+  
     <script>
         const buttons = document.querySelectorAll('.yoko-title-btn-wrap .yoko-btn-wrap button');
 
@@ -482,6 +835,38 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             }
         };
 
-    </script></div>]]></template>
+    </script>
+
+
+
+
+
+   <!-- Modal Structure -->
+  <div id="myModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>Modal Title</h2>
+      </div>
+      <div class="modal-body">
+        <p>This is the content of the modal.</p>
+          	<sp-widget widget="data.getwidget"></sp-widget>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="closeModalButton">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</div>]]></template>
     </sp_widget>
 </record_update>

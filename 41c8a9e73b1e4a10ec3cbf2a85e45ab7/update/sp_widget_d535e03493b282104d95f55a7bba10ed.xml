@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function ($scope, $element, $window, $location, $rootScope, $timeout, snAttachmentHandler, $http, spUtil, userPreferences, $filter, i18n, $uibModal, spAriaUtil) {
+  /* widget controller */
+  var c = this;
+	$scope.uploadNewProfilePicture = function($event) {
+
+		console.log("ㅗㅁㅈ도하조핟ㅁ조핟ㅁ저")
+	}
+	
+	/*
+	  c.openModal = function() {
+			console.log("이게 되누")
+    $uibModal.open({
+      widget: 'widget-modal',  // Replace 'modal_widget' with the sys_id or name of your widget
+      widgetInput: {
+        // Any input parameters you want to pass to the widget
+      }
+    }).then(function(modalResult) {
+      // Handle the result if necessary
+      console.log(modalResult);
+    });
+  };
+
+  document.getElementById('openModalButton').addEventListener('click', function() {
+    $scope.$apply(c.openModal);
+  });
+	*/
+	
+	
+/*
+ c.openModal = function() {
+    $uibModal.open({
+      
+			template: `
+        <div class="modal-header">
+          <h3 class="modal-title">Modal Title</h3>
+        </div>
+        <div class="modal-body">
+          <p>This is the content of the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" ng-click="close()">Close</button>
+        </div>
+      `,
+			
+			templateUrl  : 'gridtest_hs',
+      controller: function($scope, $uibModalInstance) {
+        $scope.close = function() {
+          $uibModalInstance.close();
+        };
+      }
+    });
+  };
+
+  document.getElementById('openModalButton').addEventListener('click', function() {
+    $scope.$apply(c.openModal);
+  });
+*/
+	
+	
+	
+	 // Get the modal
+  var modal = document.getElementById("myModal");
+
+  // Get the button that opens the modal
+  var btn = document.getElementById("openModalButton");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // Get the close button
+  var closeButton = document.getElementById("closeModalButton");
+
+  // When the user clicks the button, open the modal
+  btn.onclick = function() {
+    modal.style.display = "block";
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks on close button, close the modal
+  closeButton.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css> .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>button_modal</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>button_modal</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+	options.table = "incident"
+	data.getwidget = $sp.getWidget('snh-data-table',options);
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>lhyunseok</sys_created_by>
+        <sys_created_on>2024-06-12 07:58:21</sys_created_on>
+        <sys_id>d535e03493b282104d95f55a7bba10ed</sys_id>
+        <sys_mod_count>24</sys_mod_count>
+        <sys_name>button_modal</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sp_widget_d535e03493b282104d95f55a7bba10ed</sys_update_name>
+        <sys_updated_by>lhyunseok</sys_updated_by>
+        <sys_updated_on>2024-06-12 10:44:43</sys_updated_on>
+        <template><![CDATA[<div>
+<!-- your widget template -->
+  <button ng-click="uploadNewProfilePicture($event)"
+	type="button"
+	class="btn btn-default send-message">${Open Modal}</button>
+  
+  <div class="my-widget">
+  <button id="openModalButton">Open Modal</button>
+</div>
+  
+  
+  
+  
+   <!-- Modal Structure -->
+  <div id="myModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>Modal Title</h2>
+      </div>
+      <div class="modal-body">
+        <p>This is the content of the modal.</p>
+          	<sp-widget widget="data.getwidget"></sp-widget>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="closeModalButton">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+</div>]]></template>
+    </sp_widget>
+</record_update>
