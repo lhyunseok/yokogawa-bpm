@@ -50,16 +50,111 @@
 		 		alert("ASSESS?")
         // Get the value from the input field using ng-model
         c.data.newState = 2;
-        c.data.assessFlag = true;
+        c.data.buttunflag = true;
 		 
 		  // Call the server script to update the state
+		 
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
-            
-            // Refresh the page
-            //
         });
+				
+
+				location.reload();
+    };
+	
+	$scope.clickRequest = function() {
+		 		alert("REQUEST?")
+        // Get the value from the input field using ng-model
+        c.data.newState = 3;
+        c.data.buttunflag = true;
+		 
+		  // Call the server script to update the state
+		 
+        c.server.update().then(function(response) {
+            // Handle the server response if needed
+            console.log('Server response:', response);
+        });
+				
+				location.reload();
+    };
+
+	$scope.clickSubmit = function() {
+		 		alert("SUBMIT?")
+        // Get the value from the input field using ng-model
+        c.data.newState = 5;
+        c.data.buttunflag = true;
+		 
+		  // Call the server script to update the state
+		 
+        c.server.update().then(function(response) {
+            // Handle the server response if needed
+            console.log('Server response:', response);
+        });
+				
+				location.reload();
+    };
+
+	$scope.clickInProgress = function() {
+		 		alert("IN PROGRESS?")
+        // Get the value from the input field using ng-model
+        c.data.newState = 4;
+        c.data.buttunflag = true;
+		 
+		  // Call the server script to update the state
+		 
+        c.server.update().then(function(response) {
+            // Handle the server response if needed
+            console.log('Server response:', response);
+        });
+				
+				location.reload();
+    };
+
+	$scope.clickAccept = function() {
+		 		alert("ACCEPT?")
+        // Get the value from the input field using ng-model
+        c.data.newState = 4;
+        c.data.buttunflag = true;
+		 
+		  // Call the server script to update the state
+		 
+        c.server.update().then(function(response) {
+            // Handle the server response if needed
+            console.log('Server response:', response);
+        });
+				
+				location.reload();
+    };
+
+	$scope.clickReturn = function() {
+		 		alert("RETURN?")
+        // Get the value from the input field using ng-model
+        c.data.newState = -5;
+        c.data.buttunflag = true;
+		 
+		  // Call the server script to update the state
+		 
+        c.server.update().then(function(response) {
+            // Handle the server response if needed
+            console.log('Server response:', response);
+        });
+				
+				location.reload();
+    };
+	$scope.clickCancel = function() {
+		 		alert("CANCEL?")
+        // Get the value from the input field using ng-model
+        c.data.newState = -8;
+        c.data.buttunflag = true;
+		 
+		  // Call the server script to update the state
+		 
+        c.server.update().then(function(response) {
+            // Handle the server response if needed
+            console.log('Server response:', response);
+        });
+				
 				location.reload();
     };
 
@@ -316,22 +411,6 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <script><![CDATA[(function() {
     /* populate the 'data' object */ /* e.g., data.table = $sp.getValue('table'); */
 
-
-
-    /*   // 몸풀기
-	 var gr = new GlideRecord('incident');
-
-  // 특정 sys_id를 가진 레코드를 쿼리합니다.
-  gr.get('5fad66d4935a02104d95f55a7bba10da');
-
-  // 레코드가 존재하는지 확인하고 number 필드 값을 출력합니다.
-  if (gr.isValidRecord()) {
-    //gs.addErrorMessage('Number: ' + gr.getValue('number'));
-  } else {
-    //gs.addErrorMessage('No record found with the given sys_id.');
-  }
-  data.number = gr.getValue('number');
-	*/
     //////////////// 파라미터 있는지 체크 하는거다. 
     if (input && input.paramValue) {
         var paramValue = input.paramValue;
@@ -343,19 +422,57 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         gr.get(input.paramValue);
         data.state = gr.state.getDisplayValue();
 					
-				if(gr.state.getDisplayValue() != "New"){
-					data.showAssess = false;
-				}
-			else{
+				if(gr.state.getDisplayValue() == "New"){
 					data.showAssess = true;
-
-			}
+					data.showRequest = false;
+					data.showSubmit = false;
+					data.showInProgress = false;
+					data.showAccept = false;
+					data.showReturn = false;
+					data.showCancel = false;
+				}
+				else if(gr.state.getDisplayValue() == "Assess"){
+					data.showAssess = false;
+					data.showRequest = true;
+					data.showSubmit = false;
+					data.showInProgress = true;
+					data.showAccept = false;
+					data.showReturn = false;
+					data.showCancel = false;
+				}
+				else if(gr.state.getDisplayValue() == "Requested"){
+					data.showAssess = false;
+					data.showRequest = false;
+					data.showSubmit = false;
+					data.showInProgress = false;
+					data.showAccept = true;
+					data.showReturn = true;
+					data.showCancel = false;
+				}
+				else if(gr.state.getDisplayValue() == "Returned"){
+					data.showAssess = true;
+					data.showRequest = false;
+					data.showSubmit = false;
+					data.showInProgress = false;
+					data.showAccept = false;
+					data.showReturn = false;
+					data.showCancel = true;
+				}
+				else if(gr.state.getDisplayValue() == "In Progress"){
+					data.showAssess = false;
+					data.showRequest = false;
+					data.showSubmit = true;
+					data.showInProgress = false;
+					data.showAccept = false;
+					data.showReturn = false;
+					data.showCancel = false;
+				}
 			/////////// 시스아이디 있고, 상태가 new 일때만
 			
 			
 			
 			/////////// 파라미터 있는 상태에서 만약에 내가 ass를 누름
-			if(input.assessFlag){
+			if(input.buttunflag){
 				gs.addInfoMessage("눌렸다 눌렸어")
 				
         var grA = new GlideRecord('x_yergb_bpm_process');
@@ -412,26 +529,27 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>lhyunseok</sys_created_by>
         <sys_created_on>2024-06-12 06:12:28</sys_created_on>
         <sys_id>d6fc4838933282104d95f55a7bba10e5</sys_id>
-        <sys_mod_count>116</sys_mod_count>
+        <sys_mod_count>124</sys_mod_count>
         <sys_name>portal_function</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_d6fc4838933282104d95f55a7bba10e5</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-13 06:27:05</sys_updated_on>
+        <sys_updated_on>2024-06-13 07:32:09</sys_updated_on>
         <template><![CDATA[<div>
 <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
         <div class="yoko-title-btn-wrap">
             <h1 class="yoko-title">RFQ Entry & Quotation Request</h1>
             <div class="yoko-btn-wrap">
-                <button class="yoko-btn yoko-btn-outline">Cancel</button>
-                <button class="yoko-btn yoko-btn-outline">Return</button>
-                <button class="yoko-btn yoko-btn-outline">Accept</button>
-                <button class="yoko-btn yoko-btn-outline">Submit Quote</button>
-                <button class="yoko-btn yoko-btn-outline">Request Quote</button>
-                <button class="yoko-btn yoko-btn-outline" id="AssessButton" ng-if="data.showAssess"   ng-click="clickAssess()">Assess</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showCancel" ng-click="clickCancel()">Cancel</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showReturn" ng-click="clickReturn()">Return</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showAccept" ng-click="clickAccept()">Accept</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showInProgress" ng-click="clickInProgress()">In Progress</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showSubmit" ng-click="clickSubmit()">Submit Quote</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showRequest" ng-click="clickRequest()">Request Quote</button>
+                <button class="yoko-btn yoko-btn-outline" id="AssessButton" ng-if="data.showAssess" ng-click="clickAssess()">Assess</button>
                 <button class="yoko-btn yoko-btn-outline">Update</button>
                 <button class="yoko-btn yoko-btn-fill"  id="saveButton" ng-click="clickMethod()">Save</button>
             </div>
