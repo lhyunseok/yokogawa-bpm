@@ -58,7 +58,8 @@
 
 	var quo_gp = quo_price - quo_cost;
 
-	var gp_percent = (gp_amount / quo_price) * 100;
+	var gp_percent = (quo_gp / quo_price) * 100;
+	var mp_gap_percent = ((quo_price - quo_mp) / quo_price ) * 100;
 
 	var grq = new GlideRecord('x_yergb_bpm_quotation');
 	grq.addQuery('sys_id', current.quotation);
@@ -68,7 +69,8 @@
 		grq.setValue('total_quote_cost', quo_cost);
 		grq.setValue('mp_amount',quo_mp);
 		grq.setValue('gp_amount',quo_gp);
-		grp.setValue('gp_percent',gp_percent.toFixed(2));
+		grq.setValue('gp_percent',gp_percent.toFixed(2));
+		grq.setValue('mp_gap_percent',mp_gap_percent.toFixed(2));
 		grq.update();
 	}
 
@@ -79,7 +81,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>6584b2d33b6e465046a3934a85e45a78</sys_id>
-        <sys_mod_count>10</sys_mod_count>
+        <sys_mod_count>14</sys_mod_count>
         <sys_name>Calculate total price and cost</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
@@ -87,7 +89,7 @@
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_6584b2d33b6e465046a3934a85e45a78</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-13 02:05:11</sys_updated_on>
+        <sys_updated_on>2024-06-13 03:17:47</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

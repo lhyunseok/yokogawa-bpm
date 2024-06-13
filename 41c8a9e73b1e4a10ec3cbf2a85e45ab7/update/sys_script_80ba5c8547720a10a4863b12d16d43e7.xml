@@ -53,6 +53,9 @@
 
 	var quo_gp = quo_price - quo_cost;
 
+	var gp_percent = (quo_gp / quo_price) * 100;
+	var mp_gap_percent = ((quo_price - quo_mp) / quo_price ) * 100;
+
 	var grq = new GlideRecord('x_yergb_bpm_quotation');
 	grq.addQuery('sys_id', current.quotation);
 	grq.query();
@@ -61,6 +64,8 @@
 		grq.setValue('total_quote_cost', quo_cost);
 		grq.setValue('mp_amount',quo_mp);
 		grq.setValue('gp_amount',quo_gp);
+		grq.setValue('gp_percent',gp_percent.toFixed(2));
+		grq.setValue('mp_gap_percent',mp_gap_percent.toFixed(2));
 		grq.update();
 	}
 
@@ -71,7 +76,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>80ba5c8547720a10a4863b12d16d43e7</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>Calculate amt when delete</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
@@ -79,7 +84,7 @@
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_80ba5c8547720a10a4863b12d16d43e7</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-13 01:52:30</sys_updated_on>
+        <sys_updated_on>2024-06-13 03:19:32</sys_updated_on>
         <template/>
         <when>after</when>
     </sys_script>
