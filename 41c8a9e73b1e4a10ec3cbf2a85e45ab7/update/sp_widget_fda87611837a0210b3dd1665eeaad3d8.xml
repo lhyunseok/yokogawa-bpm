@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {
+  /* widget controller */
+  var c = this;
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>		.header {&#13;
+            width: 100%;&#13;
+            height: 60px;&#13;
+            background-color: #1e90ff;&#13;
+            color: #fff;&#13;
+            display: flex;&#13;
+            align-items: center;&#13;
+            justify-content: space-between;&#13;
+            padding: 0 20px;&#13;
+            box-sizing: border-box;&#13;
+            position: fixed;&#13;
+            top: 0;&#13;
+            left: 0;&#13;
+            z-index: 1000; /* Ensure header is on top of other content */&#13;
+        }&#13;
+        .logo {&#13;
+            display: flex;&#13;
+            align-items: center;&#13;
+        }&#13;
+        .logo img {&#13;
+            width: 160px;&#13;
+            height: 24px;&#13;
+            margin-right: 20px; /* Adjust as needed */&#13;
+        }&#13;
+        .nav-links {&#13;
+            display: flex;&#13;
+            align-items: center;&#13;
+            margin-left: auto; /* Push nav links to the right */&#13;
+        }&#13;
+        .nav-links &gt; li {&#13;
+            list-style-type: none;&#13;
+            margin-right: 20px;&#13;
+            position: relative;&#13;
+        }&#13;
+        .nav-links &gt; li &gt; a {&#13;
+            color: #fff;&#13;
+            text-decoration: none;&#13;
+            padding: 10px;&#13;
+            display: block;&#13;
+        }&#13;
+        .nav-links &gt; li &gt; a:hover {&#13;
+            color: #ffc107; /* Change color on hover */&#13;
+        }&#13;
+        .dropdown-content {&#13;
+            display: none;&#13;
+            position: absolute;&#13;
+            background-color: #333;&#13;
+            min-width: 160px;&#13;
+            z-index: 1;&#13;
+        }&#13;
+        .dropdown-content a {&#13;
+            color: #fff;&#13;
+            text-decoration: none;&#13;
+            display: block;&#13;
+            padding: 10px;&#13;
+        }&#13;
+        .nav-links &gt; li:hover .dropdown-content {&#13;
+            display: block;&#13;
+        }</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>yrfqsample03</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>yRfqSample03</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-14 08:01:45</sys_created_on>
+        <sys_id>fda87611837a0210b3dd1665eeaad3d8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>yRfqSample03</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sp_widget_fda87611837a0210b3dd1665eeaad3d8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-14 08:01:45</sys_updated_on>
+        <template><![CDATA[	<div class="header">
+        <div class="logo">
+            <img src="ykLogoSampleBPM.png" alt="Logo">
+            <ul class="nav-links">
+                <li>
+                    <a href="javascript:void(0)">RFQ</a>
+                    <div class="dropdown-content">
+                        <a href="https://www.example.com" target="_blank">RFQ Entry</a>
+                        <a href="https://www.example.com" target="_blank">Quotation Request</a>
+                    </div>
+                </li>
+                <!-- Add more <li> items for additional links -->
+            </ul>
+        </div>
+    </div>
+    <!-- Content below header -->
+    <div style="margin-top: 60px;">
+        <!-- Your page content goes here -->
+    </div>]]></template>
+    </sp_widget>
+</record_update>
