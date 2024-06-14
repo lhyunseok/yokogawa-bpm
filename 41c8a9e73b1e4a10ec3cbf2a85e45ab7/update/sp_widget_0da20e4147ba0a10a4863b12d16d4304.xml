@@ -9,7 +9,7 @@
         <css>@charset "UTF-8";&#13;
 &#13;
 &#13;
-body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; line-height: normal;}&#13;
+body {margin: 0;  font-family: "Pretendard"; font-size: 14px; font-weight: 400; line-height: normal;}&#13;
 &#13;
 .blank {width: 100%; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); }&#13;
 .yoko-container {margin: 40px auto 0; min-width: 1400px; max-width: 1600px; font-family: "Pretendard"; font-size: 14px; font-weight: 400; letter-spacing: 0;}&#13;
@@ -200,14 +200,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-13 09:26:15</sys_created_on>
         <sys_id>0da20e4147ba0a10a4863b12d16d4304</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_name>quotation</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0da20e4147ba0a10a4863b12d16d4304</sys_update_name>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-13 09:26:15</sys_updated_on>
+        <sys_updated_by>hhkim</sys_updated_by>
+        <sys_updated_on>2024-06-14 08:45:07</sys_updated_on>
         <template><![CDATA[    <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > Quotation</div>
         <div class="yoko-title-btn-wrap">
@@ -346,16 +346,9 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                     
                 </div>
             </div>
-            
-            <div class="yoko-grid-area-wrapper">
-                <div class="yoko-grid-btn-wrap">
-                    <button type="button" class="yoko-btn yoko-btn-add"></button>
-                    <button type="button" class="yoko-btn yoko-btn-delete"></button>
-                </div>
-                <div class="yoko-grid-area">
-
-                </div>
-            </div>
+          
+           <iframe src='/x_yergb_bpm_SorinGrid_BPM.do?id_q=509e929d47fa4650d254bce5536d4378' width='100%' height='400px' style='border:none;'></iframe>
+           
         </div>
     </div>]]></template>
     </sp_widget>

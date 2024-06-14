@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_yergb_bpm.RealGridUtilsBPM</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>RealGridUtilsBPM</name>
+        <script><![CDATA[var RealGridUtilsBPM = Class.create();
+RealGridUtilsBPM.prototype = {
+    initialize: function() {},
+
+    getRealGridKey: function() {
+        // return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP++bUn16KUuDYPGjmXkNrgkO9y6iqz39NL2bv3IdPQpJ8IeMqlSWuW04=';
+        return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYnPAZ2U443ftFtq1GKyB4jmAL12I5YlRY7nDp96mgkGF1aIR/+OY0FAv/bXcyw/1FAj+gHj1bcIaQ==';
+    },
+    getIncidentInfo: function(id_q) {
+        var grinc = new GlideRecord("x_yergb_bpm_quote_item");
+        grinc.orderBy("number");
+        grinc.addEncodedQuery('quotation=' + id_q);
+        grinc.query();
+        //quotation=509e929d47fa4650d254bce5536d4378
+        var incinfo = [];
+        while (grinc.next()) {
+            incinfo.push({
+                'sys_id': grinc.sys_id.getDisplayValue(),
+                'number': grinc.number.getDisplayValue(),
+                'wbs_6': grinc.wbs_6.getDisplayValue(),
+                'ms_code': grinc.ms_code.getDisplayValue(),
+                'description': grinc.description.getDisplayValue(),
+                'quantity': grinc.quantity.getDisplayValue(),
+                'unit_price': grinc.unit_price.getDisplayValue(),
+                'extended_price': grinc.extended_price.getDisplayValue(),
+                'unit_cost': grinc.unit_cost.getDisplayValue(),
+                'extended_cost': grinc.extended_cost.getDisplayValue(),
+                'unit_mp': grinc.unit_mp.getDisplayValue(),
+                'mp_amount': grinc.mp_amount.getDisplayValue(),
+                'vendor': grinc.vendor.getDisplayValue(),
+                'quotation': grinc.quotation.getDisplayValue(),
+            });
+        }
+
+        return incinfo;
+    },
+
+    getFields: function() {
+        var fields = [
+            'sys_id',
+            'number',
+            'wbs_6',
+            'ms_code',
+            'description',
+            'quantity',
+            'unit_price',
+            'extended_price',
+            'unit_cost',
+            'extended_cost',
+            'unit_mp',
+            'mp_amount',
+            'vendor',
+            'quotation'
+        ];
+        return fields;
+    },
+
+    getLayouts: function() {
+        var layouts = [
+            'sys_id',
+            'number',
+            'wbs_6',
+            'ms_code',
+            'description',
+            'quantity',
+            'unit_price',
+            'extended_price',
+            'unit_cost',
+            'extended_cost',
+            'unit_mp',
+            'mp_amount',
+            'vendor',
+            'quotation'
+        ];
+        return layouts;
+    },
+
+    getTestValue: function() {
+        return 234;
+    },
+
+    getColumns: function() {
+        var columns = [{
+                "name": "sys_id",
+                "fieldName": "sys_id",
+                "type": "data",
+                "width": 0,
+                "header": {
+                    "text": "sysid"
+                },
+            },
+            {
+                "name": "number",
+                "fieldName": "number",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Number"
+                },
+            },
+            {
+                "name": "wbs_6",
+                "fieldName": "wbs_6",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "WBS 6"
+                },
+            },
+            {
+                "name": "ms_code",
+                "fieldName": "ms_code",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "MS Code"
+                },
+            },
+            {
+                "name": "description",
+                "fieldName": "description",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Description"
+                },
+            },
+            {
+                "name": "quantity",
+                "fieldName": "quantity",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Quantity"
+                },
+            },
+            {
+                "name": "unit_price",
+                "fieldName": "unit_price",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Unit Price"
+                },
+            },
+            {
+                "name": "extended_price",
+                "fieldName": "extended_price",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Extended Price"
+                },
+            },
+            {
+                "name": "unit_cost",
+                "fieldName": "unit_cost",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Unit Cost"
+                },
+            },
+            {
+                "name": "extended_cost",
+                "fieldName": "extended_cost",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Extended Cost"
+                },
+            },
+            {
+                "name": "unit_mp",
+                "fieldName": "unit_mp",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Unit MP"
+                },
+            },
+            {
+                "name": "mp_amount",
+                "fieldName": "mp_amount",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "MP Amount"
+                },
+            },
+            {
+                "name": "vendor",
+                "fieldName": "vendor",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Vendor"
+                },
+            },
+            {
+                "name": "quotation",
+                "fieldName": "quotation",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "quotation"
+                },
+            }
+        ];
+        return columns;
+    },
+
+    type: 'RealGridUtilsBPM'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>hhkim</sys_created_by>
+        <sys_created_on>2024-06-14 08:27:11</sys_created_on>
+        <sys_id>73cebe9947be4650d254bce5536d431a</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>RealGridUtilsBPM</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_script_include_73cebe9947be4650d254bce5536d431a</sys_update_name>
+        <sys_updated_by>hhkim</sys_updated_by>
+        <sys_updated_on>2024-06-14 08:49:58</sys_updated_on>
+    </sys_script_include>
+</record_update>

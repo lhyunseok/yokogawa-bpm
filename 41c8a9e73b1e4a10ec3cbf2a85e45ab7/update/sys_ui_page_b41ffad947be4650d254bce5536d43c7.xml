@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script><![CDATA[function addEmptyRow(dp, gridView) {
+    var dataRow = dp.addRow({});
+    gridView.setCurrent({
+        dataRow: dataRow
+    });
+    //추가된 행으로 포커스 이동
+    //setTimeout(function(){gridView.showEditor();}, 10); //바로 편집기를 표시하고 싶을때
+}
+
+function addRow(dp, gridView, qvalue) {
+  var values = {quotation: qvalue};
+  var dataRow = dp.addRow(values);
+  gridView.setCurrent({dataRow: dataRow}); //추가된 행으로 포커스 이동
+  //setTimeout(function(){gridView.showEditor();}, 10); //바로 편집기를 표시하고 싶을때
+}
+
+function btnRemoveRow(dp, gridView) {
+    var curr = gridView.getCurrent();
+    dp.removeRow(curr.dataRow);
+}
+
+function createRecord(dataSets) {
+    var fields = [
+        'sys_id',
+        'number',
+        'wbs_6',
+        'ms_code',
+        'description',
+        'quantity',
+        'unit_price',
+        'extended_price',
+        'unit_cost',
+        'extended_cost',
+        'unit_mp',
+        'mp_amount',
+        'vendor',
+		'quotation'
+    ];
+
+    // wbs_6 코드와 sys_id 매핑을 저장할 객체
+    var wbsMap = {};
+    var vendorMap = {};
+
+    // WBS 코드와 Vendor 이름 추출
+    var wbsCodes = dataSets.map(function(data) {
+        return data[2]; // wbs_6 필드의 인덱스는 2
+    }).filter(function(wbsCode) {
+        return wbsCode !== null && wbsCode !== '';
+    });
+
+    var vendorNames = dataSets.map(function(data) {
+        return data[12]; // vendor 필드의 인덱스는 12
+    }).filter(function(vendorName) {
+        return vendorName !== null && vendorName !== '';
+    });
+
+    // WBS 코드에 대한 GlideRecord 쿼리
+    if (wbsCodes.length > 0) {
+        var grWBS = new GlideRecord('x_yergb_bpm_wbs_master');
+        grWBS.addQuery('code', 'IN', wbsCodes);
+        grWBS.query();
+
+        while (grWBS.next()) {
+            wbsMap[grWBS.getValue('code')] = grWBS.sys_id.toString();
+        }
+    }
+
+    // Vendor 이름에 대한 GlideRecord 쿼리
+    if (vendorNames.length > 0) {
+        var grVendor = new GlideRecord('core_company');
+        grVendor.addQuery('name', 'IN', vendorNames);
+        grVendor.query();
+
+        while (grVendor.next()) {
+            vendorMap[grVendor.getValue('name')] = grVendor.sys_id.toString();
+        }
+    }
+
+    // 데이터셋 처리
+    dataSets.forEach(function(dataSet) {
+        var mappedData = dataSet.slice(); // 데이터 복사
+		//mappedData.push()
+
+        // WBS_6 필드 업데이트
+        var wbsCode = mappedData[2];
+        mappedData[2] = wbsMap[wbsCode] || '';
+
+        // Vendor 필드 업데이트
+        var vendorName = mappedData[12];
+        mappedData[12] = vendorMap[vendorName] || '';
+
+        var newRecord = new GlideRecord('x_yergb_bpm_quote_item');
+        newRecord.initialize();
+		//newRecord.setValue('quotation', '509e929d47fa4650d254bce5536d4378');
+
+        // 필드 값 설정
+        fields.forEach(function(field, index) {
+            if (mappedData[index] !== null) {
+                newRecord.setValue(field, mappedData[index]);
+            }
+        });    
+
+        // 레코드 삽입
+        newRecord.insert();
+    });
+}
+
+
+// function createRecord(dataSets) {
+//     var fields = [
+//         'sys_id',
+//         'number',
+//         'wbs_6',
+//         'ms_code',
+//         'description',
+//         'quantity',
+//         'unit_price',
+//         'extended_price',
+//         'unit_cost',
+//         'extended_cost',
+//         'unit_mp',
+//         'mp_amount',
+//         'vendor'
+//     ];
+
+//     // wbs_6 코드와 sys_id 매핑을 저장할 객체
+//     var wbsMap = {};
+//     var vendorMap = {};
+
+//     // WBS 코드와 Vendor 이름 추출
+//     var wbsCodes = dataSets.map(function(data) {
+//         return data[2]; // wbs_6 필드의 인덱스는 2
+//     }).filter(function(wbsCode) {
+//         return wbsCode !== null && wbsCode !== '';
+//     });
+
+//     var vendorNames = dataSets.map(function(data) {
+//         return data[12]; // vendor 필드의 인덱스는 12
+//     }).filter(function(vendorName) {
+//         return vendorName !== null && vendorName !== '';
+//     });
+
+//     // WBS 코드에 대한 GlideRecord 쿼리
+//     if (wbsCodes.length > 0) {
+//         var grWBS = new GlideRecord('x_yergb_bpm_wbs_master');
+//         grWBS.addQuery('code', 'IN', wbsCodes);
+//         grWBS.query();
+
+//         while (grWBS.next()) {
+//             wbsMap[grWBS.getValue('code')] = grWBS.sys_id.toString();
+//         }
+//     }
+
+//     // Vendor 이름에 대한 GlideRecord 쿼리
+//     if (vendorNames.length > 0) {
+//         var grVendor = new GlideRecord('core_company');
+//         grVendor.addQuery('name', 'IN', vendorNames);
+//         grVendor.query();
+
+//         while (grVendor.next()) {
+//             vendorMap[grVendor.getValue('name')] = grVendor.sys_id.toString();
+//         }
+//     }
+
+//     // 데이터셋 처리
+//     dataSets.forEach(function(dataSet) {
+//         var mappedData = dataSet.slice(); // 데이터 복사
+
+//         // WBS_6 필드 업데이트
+//         var wbsCode = mappedData[2];
+//         mappedData[2] = wbsMap[wbsCode] || '';
+
+//         // Vendor 필드 업데이트
+//         var vendorName = mappedData[12];
+//         mappedData[12] = vendorMap[vendorName] || '';
+
+//         var newRecord = new GlideRecord('x_yergb_bpm_quote_item');
+//         newRecord.initialize();
+
+//         // 필드 값 설정
+//         fields.forEach(function(field, index) {
+//             if (mappedData[index] !== null) {
+//                 newRecord.setValue(field, mappedData[index]);
+//             }
+//         });
+
+//         newRecord.insert();
+//     });
+// }
+
+function updateRecord(updateSets) {
+    var fields = [
+        'sys_id',
+        'number',
+        'wbs_6',
+        'ms_code',
+        'description',
+        'quantity',
+        'unit_price',
+        'extended_price',
+        'unit_cost',
+        'extended_cost',
+        'unit_mp',
+        'mp_amount',
+        'vendor'
+    ];
+
+    // wbs_6 코드와 sys_id 매핑을 저장할 객체
+    var wbsMap = {};
+    var vendorMap = {};
+
+    // WBS 코드와 Vendor 이름 추출
+    var wbsCodes = updateSets.map(function(data) {
+        return data[2]; // wbs_6 필드의 인덱스는 2
+    }).filter(function(wbsCode) {
+        return wbsCode !== null && wbsCode !== '';
+    });
+
+    var vendorNames = updateSets.map(function(data) {
+        return data[12]; // vendor 필드의 인덱스는 12
+    }).filter(function(vendorName) {
+        return vendorName !== null && vendorName !== '';
+    });
+
+    // WBS 코드에 대한 GlideRecord 쿼리
+    if (wbsCodes.length > 0) {
+        var grWBS = new GlideRecord('x_yergb_bpm_wbs_master');
+        grWBS.addQuery('code', 'IN', wbsCodes);
+        grWBS.query();
+
+        while (grWBS.next()) {
+            wbsMap[grWBS.getValue('code')] = grWBS.sys_id.toString();
+        }
+    }
+
+    // Vendor 이름에 대한 GlideRecord 쿼리
+    if (vendorNames.length > 0) {
+        var grVendor = new GlideRecord('core_company');
+        grVendor.addQuery('name', 'IN', vendorNames);
+        grVendor.query();
+
+        while (grVendor.next()) {
+            vendorMap[grVendor.getValue('name')] = grVendor.sys_id.toString();
+        }
+    }
+
+    // 데이터셋 처리
+    updateSets.forEach(function(updateSet) {
+        var mappedData = updateSet.slice(); // 데이터 복사
+
+        // WBS_6 필드 업데이트
+        var wbsCode = mappedData[2];
+        mappedData[2] = wbsMap[wbsCode] || '';
+
+        // Vendor 필드 업데이트
+        var vendorName = mappedData[12];
+        mappedData[12] = vendorMap[vendorName] || '';
+
+        var newRecord = new GlideRecord('x_yergb_bpm_quote_item');
+        newRecord.addQuery('sys_id', mappedData[0]); // sys_id 필드의 인덱스는 0
+        newRecord.query();
+
+        if (newRecord.next()) {
+            // 필드 값 설정
+            fields.forEach(function(field, index) {
+                if (mappedData[index] !== null) {
+                    newRecord.setValue(field, mappedData[index]);
+                }
+            });
+
+            newRecord.update();
+        }
+    });
+}
+
+// function createRecord(dataSets) {
+//     var fields = [
+//         'sys_id',
+//         'number',
+//         'wbs_6',
+//         'ms_code',
+//         'description',
+//         'quantity',
+//         'unit_price',
+//         'extended_price',
+//         'unit_cost',
+//         'extended_cost',
+//         'unit_mp',
+//         'mp_amount',
+//         'vendor'
+//     ];
+
+//     var wbsCodes = dataSets.map(function(data) {
+//         return data[2]; // wbs_6 필드의 인덱스는 2
+//     }).filter(function(wbsCode) {
+//         return wbsCode !== null && wbsCode !== '';
+//     });
+
+//     var wbsMap = {}; // wbs_6 코드와 sys_id 매핑을 저장할 객체
+
+//     if (wbsCodes.length > 0) {
+//         var grWBS = new GlideRecord('x_yergb_bpm_wbs_master');
+//         grWBS.addQuery('code', 'IN', wbsCodes);
+//         grWBS.query();
+
+//         while (grWBS.next()) {
+//             wbsMap[grWBS.getValue('code')] = grWBS.sys_id.toString();
+//         }
+//     }
+
+//     dataSets.forEach(function(dataSet) {
+//         var mywbs = dataSet[2]; // wbs_6 필드의 인덱스는 2
+//         var mappedData = dataSet.slice(); // 데이터 복사
+
+//         mappedData[2] = wbsMap[mywbs] || ''; // wbs_6 필드 업데이트
+
+//         var newRecord = new GlideRecord('x_yergb_bpm_quote_item');
+//         newRecord.initialize();
+
+//         fields.forEach(function(field, index) {
+//             if (mappedData[index] !== null) {
+//                 newRecord.setValue(field, mappedData[index]);
+//             }
+//         });
+
+//         newRecord.insert();
+//     });
+// }
+
+// function updateRecord(updateSets) {
+//     var fields = [
+//         'sys_id',
+//         'number',
+//         'wbs_6',
+//         'ms_code',
+//         'description',
+//         'quantity',
+//         'unit_price',
+//         'extended_price',
+//         'unit_cost',
+//         'extended_cost',
+//         'unit_mp',
+//         'mp_amount',
+//         'vendor'
+//     ];
+
+//     var wbsCodes = updateSets.map(function(data) {
+//         return data[2]; // wbs_6 필드의 인덱스는 2
+//     }).filter(function(wbsCode) {
+//         return wbsCode !== null && wbsCode !== '';
+//     });
+
+//     var wbsMap = {}; // wbs_6 코드와 sys_id 매핑을 저장할 객체
+
+//     if (wbsCodes.length > 0) {
+//         var grWBS = new GlideRecord('x_yergb_bpm_wbs_master');
+//         grWBS.addQuery('code', 'IN', wbsCodes);
+//         grWBS.query();
+
+//         while (grWBS.next()) {
+//             wbsMap[grWBS.getValue('code')] = grWBS.sys_id.toString();
+//         }
+//     }
+
+//     updateSets.forEach(function(updateSet) {
+//         var mywbs = updateSet[2]; // wbs_6 필드의 인덱스는 2
+//         var mappedData = updateSet.slice(); // 데이터 복사
+
+//         mappedData[2] = wbsMap[mywbs] || ''; // wbs_6 필드 업데이트
+
+//         var newRecord = new GlideRecord('x_yergb_bpm_quote_item');
+//         newRecord.addQuery('sys_id', mappedData[0]); // sys_id 필드의 인덱스는 0
+//         newRecord.query();
+
+//         if (newRecord.next()) {
+//             fields.forEach(function(field, index) {
+//                 if (mappedData[index] !== null) {
+//                     newRecord.setValue(field, mappedData[index]);
+//                 }
+//             });
+
+//             newRecord.update();
+//         }
+//     });
+// }
+
+
+//0222 hh 추가
+function popUpUserList(sysid_par, group_sysid_par) {
+
+    var myQuery;
+
+    if (group_sysid_par == null) {
+        myQuery = 'group.sys_idSTARTSWITH';
+    } else {
+        myQuery = 'group.sys_idSTARTSWITH' + group_sysid_par;
+    }
+    var gm = new GlideModal("glide_info_user_grid", true, 400);
+    gm.setTitle("Group User List");
+    gm.setPreference("title", "Test body text");
+    gm.setPreference("parm_inc", sysid_par);
+    gm.setPreference("parm_group", myQuery);
+    gm.setPreference("onPromptComplete", function(data) {
+        alert("You clicked on 'Ok'" + data);
+    });
+    gm.render();
+}
+
+//0222 hh 추가
+function receiveDataFromModal(data, name, row, data2, data2_sysid) {
+
+    document.getElementById("pInput").value = data;
+    document.getElementById("pInput2").value = name;
+    document.getElementById("pInput3").value = row;
+    document.getElementById("pInput4").value = data2;
+    document.getElementById("pInput5").value = data2_sysid;
+
+    var button = document.getElementById("openModalBtn2");
+    var event = new MouseEvent("click", {
+        view: window,
+        bubbles: true,
+        cancelable: true
+    });
+    button.dispatchEvent(event);
+}
+
+function receiveMessage(event) {
+    // Check the origin of the message
+    if (event.origin !== window.location.origin) {
+        // Discard the message if it comes from an unknown origin for security reasons
+        return;
+    }
+
+    // Handle the message received from the modal
+    var dataFromModal = event.data;
+    alert('Data received from modal:', dataFromModal);
+
+    // Perform further actions based on the received data
+}
+
+function get_user_uipage(sysid_par, group_sysid_par) {
+
+    if (group_sysid_par == null) {
+        var url = "sys_user_list.do?sysparm_query=caller_id=javascript:gs.getUserID()";
+
+        var windowFeatures = "width=800,height=600,left=100,top=100,resizable=yes,scrollbars=yes";
+
+        // 새 창을 열고, 설정한 크기와 위치로 표시
+        var childWindow = window.open(url, "_blank", windowFeatures);
+
+
+        // 된다 된다 
+        childWindow.addEventListener('load', function() {
+            // 새 창의 DOM에 접근하여 로직을 실행
+            var links = childWindow.document.querySelectorAll('.linked.formlink');
+            links.forEach(function(link) {
+                link.onclick = function() {
+                    // 부모 창으로 "hello" 메시지를 보냄
+                    window.postMessage(link.toString(), '*'); // '*' 대신에 정확한 출처를 명시하는 것이 보안에 더 좋습니다.
+                    childWindow.close(); // 메시지 전송 후 창을 닫음
+                    return false; // 링크의 기본 동작 방지
+                };
+            });
+        });
+    } else {
+        var url = "sys_user_grmember_list.do?sysparm_query=group=" + group_sysid_par
+        var windowFeatures = "width=800,height=600,left=100,top=100,resizable=yes,scrollbars=yes";
+
+        // 새 창을 열고, 설정한 크기와 위치로 표시
+        var childWindow = window.open(url, "_blank", windowFeatures);
+
+        // 된다 된다 
+        childWindow.addEventListener('load', function() {
+            // 새 창의 DOM에 접근하여 로직을 실행
+            var links = childWindow.document.querySelectorAll('.linked');
+            links.forEach(function(link) {
+                link.onclick = function() {
+                    // 부모 창으로 "hello" 메시지를 보냄
+                    window.postMessage(link.toString(), '*'); // '*' 대신에 정확한 출처를 명시하는 것이 보안에 더 좋습니다.
+                    childWindow.close(); // 메시지 전송 후 창을 닫음
+                    return false; // 링크의 기본 동작 방지
+                };
+            });
+        });
+    }
+    // 부모 창의 스크립트 예시
+    window.addEventListener('message', function(event) {
+
+        //alert("event.data");
+        urlString = event.data;
+        // "sys_id=" 문자열 위치 찾기
+        var startIndex = urlString.indexOf("sys_id=") + 7; // "sys_id=" 문자열 길이를 더해 실제 값의 시작 위치를 찾음
+
+        // "&" 문자열 위치 찾기
+        var endIndex = urlString.indexOf("&", startIndex); // startIndex 이후 "&" 문자열 위치 찾기
+
+        // "&"가 없는 경우 URL의 끝까지가 sys_id 값임
+        endIndex = endIndex === -1 ? urlString.length : endIndex;
+
+        // sys_id 값 추출
+        var sysId = urlString.substring(startIndex, endIndex);
+        //alert(sysId);
+        final_return = sysId;
+
+        ///////////////////////
+        var gr = new GlideRecord('incident'); // 'incident' 테이블에 대한 GlideRecord 객체 생성
+        gr.addQuery("sys_id", sysid_par);
+        gr.query();
+        if (gr.next()) {
+            //alert(gr.assigned_to);
+            gr.assigned_to = sysId; // 'assigned_to' 필드를 새로운 값으로 설정
+            //gr.short_description = gr.short_description + sysId; // 'assigned_to' 필드를 새로운 값으로 설정
+            gr.update(); // 레코드 업데이트
+        }
+
+        location.reload(); // 전체 페이지를 새로고침
+
+    });
+
+}
+
+function setPageSelbox(gridView, dp) {
+    //alert("setPageSelbox");
+    var totalData = dp.getRowCount(); // 총 데이터 수
+    var dataPerPage = 100; // 한 페이지에 나타낼 데이터 수
+    var pageCount = 3; // 한 화면에 나타낼 페이지 수
+    gridView.setPaging(true, dataPerPage);
+    paging(totalData, dataPerPage, pageCount, 1, gridView, dp);
+
+    var totalPage = Math.ceil(totalData / dataPerPage); // 총 페이지 수
+
+    var selBox = document.getElementById('selBox'); // jQuery 대신 순수 JavaScript 사용
+    for (var i = 1; totalPage >= i; i++) {
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.innerHTML = i;
+        selBox.appendChild(opt);
+    }
+
+    selBox.addEventListener('change', function() {
+        //alert("this.value")
+        //alert(this.value)
+        var totalData = dp.getRowCount(); // 총 데이터 수
+        var dataPerPage = 8; // 한 페이지에 나타낼 데이터 수
+        var pageCount = 3; // 한 화면에 나타낼 페이지 수
+        var selectedPage = this.value;
+
+        gridView.setPage(selectedPage - 1);
+        paging(totalData, dataPerPage, pageCount, selectedPage, gridView);
+    });
+}
+
+
+function paging(totalData, dataPerPage, pageCount, currentPage, gridView) {
+    //alert("paging");
+    var totalPage = Math.ceil(totalData / dataPerPage); // 총 페이지 수
+    var pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
+    //alert(totalPage);
+    //alert(pageGroup);
+
+    var last = pageGroup * pageCount; // 화면에 보여질 마지막 페이지 번호
+    if (last > totalPage)
+        last = totalPage;
+    var first = last - (pageCount - 1) < 1 ? 1 : last - (pageCount - 1); // 화면에 보여질 첫번째 페이지 번호
+    var next = last + 1;
+    var prev = first - 1;
+
+    var pagingView = document.getElementById("paging");
+
+    var html = "";
+
+    if (prev == 0) {
+        html += "<a href='#' id='first' class='disabled'>|<</a> ";
+        html += "<a href='#' id='prev' class='disabled'><</a> ";
+    } else {
+        html += "<a href='#' id='first'>|<</a> ";
+        html += "<a href='#' id='prev'><</a> ";
+    }
+
+    for (var i = first; i <= last; i++) {
+        html += "<a href='#' style='width: 50px' id='" + i + "'>" + i + "</a> ";
+    }
+
+    if (last < totalPage) {
+        html += "<a href='#' id='next'>></a>";
+        html += "<a href='#' id='last'>>|</a>";
+    } else {
+        html += "<a href='#' id='next' class='disabled'>></a>";
+        html += "<a href='#' id='last' class='disabled'>>|</a>";
+    }
+
+    pagingView.innerHTML = html; // 페이지 목록 생성
+
+    // 현재 페이지 표시
+    var currentPageElement = document.getElementById(currentPage);
+    if (currentPageElement) {
+        currentPageElement.style.textDecoration = "none";
+        currentPageElement.style.color = "red";
+        currentPageElement.style.fontWeight = "bold";
+    }
+
+    // 페이지 이동 이벤트 리스너 추가
+    var pagingLinks = pagingView.getElementsByTagName('a');
+    Array.from(pagingLinks).forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            var selectedPage = this.id === 'first' ? 1 :
+                this.id === 'next' ? next :
+                this.id === 'prev' ? (prev < 1 ? 1 : prev) :
+                this.id === 'last' ? totalPage : parseInt(this.textContent);
+
+            gridView.setPage(selectedPage - 1);
+            paging(totalData, dataPerPage, pageCount, selectedPage, gridView);
+        });
+    });
+}
+
+function cellEdit(sysid_par, newValue, gridView) {
+    // var ga = new GlideAjax('CallGlideRecord');
+    // ga.addParam('sysparm_name', 'getRecordData');
+    // ga.addParam('sys_id', sysid_par);
+    // ga.addParam('newValue', newValue);
+    // ga.getXMLAnswer(function(answer) {
+    //     console.log("서버로부터 반환된 데이터: " + answer);
+    //     // 여기서 answer는 getRecordData 메소드로부터 반환된 값입니다.
+    // });
+
+
+    var gr = new GlideRecord('incident');
+    gr.addQuery('sys_id', sysid_par);
+    gr.query();
+    while (gr.next()) {
+        gr.short_description = newValue;
+        gr.update();
+    }
+    gridView.refresh();
+}
+
+
+function multiCellEdit(sysid_par_array, newValue, gridView) {
+    var length = sysid_par_array.length;
+    for (var i = 0; i < length; i++) {
+        var gr = new GlideRecord('incident');
+        gr.addQuery('sys_id', sysid_par_array[i]);
+        gr.query();
+        while (gr.next()) {
+            gr.short_description = newValue;
+            gr.update();
+        }
+
+    }
+    gridView.refresh();
+}
+
+
+function buttonMultiCellEdit(sysid_par_array, newValue_array, gridView, newValues_assigned_to, newValues_assigned_group) {
+    var length = sysid_par_array.length;
+    for (var i = 0; i < length; i++) {
+        var gr = new GlideRecord('incident');
+        gr.addQuery('sys_id', sysid_par_array[i]);
+        gr.query();
+        while (gr.next()) {
+            gr.short_description = newValue_array[i];
+            gr.assigned_to = newValues_assigned_to[i];
+            gr.assignment_group = newValues_assigned_group[i];
+            gr.update();
+        }
+
+    }
+    alert("서비스나우 저장까지 성공")
+    location.reload(); // 전체 페이지를 새로고침
+
+}
+
+function getAjaxData(gridView, dp, num, sdesc, state, startdate, enddate) {
+    // alert("Call getAjaxData() : " + state);
+    var ga = new GlideAjax('RealGridAjax');
+    ga.addParam('sysparm_name', 'getIncidentData');
+    ga.addParam('sysparm_inc_num', num);
+    ga.addParam('sysparm_inc_sdesc', sdesc);
+    ga.addParam('sysparm_inc_state', state);
+    ga.addParam('sysparm_inc_start', startdate);
+    ga.addParam('sysparm_inc_end', enddate);
+    ga.getXMLAnswer(_AjaxResponse);
+
+    function _AjaxResponse(response) {
+        // alert("In _AjaxResponse : " + response);
+        var searchData = JSON.parse(response);
+        dp.setRows(searchData);
+        setPageSelbox(gridView, dp);
+    }
+}]]></client_script>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_yergb_bpm_SorinGrid_BPM.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+
+<g:evaluate>
+	var id_q = RP.getParameterValue('id_q');
+</g:evaluate>
+
+<g:evaluate var="jvar_now_GR" object="true">
+   var rgutil = new RealGridUtilsBPM();
+   var rgkey = rgutil.getRealGridKey();
+   var gfields = rgutil.getFields();
+   var glayouts = rgutil.getLayouts();
+   var gcolumns = rgutil.getColumns();
+   var incident = rgutil.getIncidentInfo(id_q);
+</g:evaluate>
+
+<g:evaluate var="jvar_state_GR" object="true">
+	var gr_state = new GlideRecord('sys_choice');
+	gr_state.addEncodedQuery('nameSTARTSWITHincident^elementSTARTSWITHstate^inactive=False');
+	gr_state.query();
+</g:evaluate>
+
+<script type="text/javascript">
+    var realGrid2Lic = "${rgkey}";
+</script>
+
+<script type="text/javascript">
+    var data = JSON.parse("${JSON.stringify(incident)}");
+</script>
+
+<style>
+
+/*리얼그리드 수정*/
+.rg-root {color: #4B5966 !important;  font-family: "Pretendard" !important;   font-size: 14px !important;  font-style: normal !important;  font-weight: 500 !important;  line-height: normal !important;}
+.rg-grid {border: 1px solid #EAEEF3 !important;}
+
+.rg-header {background: #FBFCFF  !important; color:#8B99A6 !important; font-weight: 600 !important; font-weight: 500 !important;}
+.rg-header .rg-table tr td {border-right: 1px solid #EAEEF3 !important; border-bottom: 1px solid #EAEEF3 !important; font-weight: 500 !important;} 
+.rg-head {background: #FBFCFF  !important; color:#8B99A6 !important; font-weight: 600 !important; font-weight: 500 !important;}
+.rg-head .rg-table tr td { border-right: 1px solid #EAEEF3 !important;  border-bottom: 1px solid #EAEEF3 !important; font-weight: 500 !important;}
+
+.rg-body,
+.rg-fixed-body {color: #4B5966 !important;}
+.rg-body .rg-table tr td, 
+.rg-fixed-body .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-bottom: 1px solid #EAEEF3 !important;}
+.rg-rowbarcontainer .rg-table tr td {background-color: transparent !important;    border-right: 1px solid #EAEEF3 !important;    border-bottom: 1px solid #EAEEF3 !important;}
+.rg-alternate-row {background: #fff !important;}
+.rg-footer {color: #606060 !important; background: #FBFCFF  !important;}
+.rg-footer .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-top: 1px solid #EAEEF3 !important;}
+.rg-foot {color: #606060 !important; background: #FBFCFF  !important;}
+.rg-foot .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-top: 1px solid #EAEEF3 !important;}
+.rg-focus {border:  2px solid #68B3FC !important;}
+.rg-header-focus {background: #E5F2FF !important; color: #6F7479 !important;}
+.rg-header .rg-table tr td:hover {background: #68B3FC !important; color: #fff !important;}
+.rg-header-select {background: rgb(232 248 240 / 50%) !important;}
+.rg-selection { background: rgb(232 248 240 / 35%) !important; border: 1px solid #15BD66!important;}
+.rg-editor-container { border: 2px solid #27C382 !important; }
+
+.yoko-grid-btn-wrap-grid {display: flex; gap: 7px; justify-content: right; margin: 2px;}
+
+</style>
+
+<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"></script>
+
+<script type="text/javascript">
+        var gridView;
+        var dp;
+    window.addEventListener('DOMContentLoaded', function () {
+        gridView = new RealGrid.GridView('gridContainer');
+        dp = new RealGrid.LocalDataProvider();
+
+        gridView.setDataSource(dp);
+
+		const fields = JSON.parse("${JSON.stringify(gfields)}");
+		const columns = JSON.parse("${JSON.stringify(gcolumns)}");
+		const layouts = JSON.parse("${JSON.stringify(glayouts)}");
+		console.log(columns)
+
+        // 데이터 설정
+        dp.setFields(fields);
+        gridView.setColumns(columns);
+		gridView.footers.visible = false;
+		gridView.commitEditor();
+		gridView.undoable = true;
+
+		gridView.columnByName("sys_id").visible =  false;
+		//gridView.columnByName("quotation").visible =  false;
+
+        gridView.setColumnLayout(layouts);
+
+		//Delete
+		const deleteData = document.getElementById('bt-delete');
+		deleteData.addEventListener('click', function () {
+			btnRemoveRow(dp,gridView);
+		});
+
+		//Add
+		const addData = document.getElementById('bt-add');
+		addData.addEventListener('click', function () {
+			//addEmptyRow(dp,gridView);
+			console.log("${id_q}");
+			debugger
+			addRow(dp,gridView,"${id_q}");
+		});
+
+		//SAVE
+		const oData = document.getElementById('bt-save');
+		oData.addEventListener('click', function () {
+			var dataSets = [];
+			var updateSets = [];
+
+			let urows = dp.getStateRows('updated');
+			let crows = dp.getStateRows('created');
+			console.log(crows);
+			console.log(urows);
+			debugger
+			
+			for (var i = 0 ;  crows.length > i ;i++){
+				dataSets.push(dp.getValues(crows[i]));
+			}
+
+			for (var n = 0 ;  urows.length > n ;n++){
+				updateSets.push(dp.getValues(urows[n]));
+			}
+
+			console.log('dataSets-----' + dataSets);
+			console.log('updateSets----' + updateSets);
+			debugger
+
+			if(crows.length || urows.length){
+				var result = confirm("데이터를 저장 하시겠습니까");
+			}else{
+				alert('수정된 데이터가 없습니다.');
+				return;
+			}
+
+			if(result){
+				if(crows.length){
+					createRecord(dataSets);		
+				}
+				if(urows.length){
+					updateRecord(updateSets);		
+				}
+				alert('saved');
+				location.reload();
+			}
+		});
+
+		dp.setRows(data);
+		setPageSelbox(gridView, dp);
+
+    });
+	
+</script>
+<div class="yoko-grid-btn-wrap-grid">
+	<button id="bt-add">Add</button>
+	<button id="bt-delete">Delete</button>
+	<button id="bt-save">Save</button>
+</div>
+
+<div class="out" id='gridContainer' style="width:100%; height: 270px;"></div>
+<input  type="hidden" name="myparam" value="${id_q}" />
+<script>
+</script>
+</j:jelly>
+]]></html>
+        <name>SorinGrid_BPM</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>hhkim</sys_created_by>
+        <sys_created_on>2024-06-14 08:28:20</sys_created_on>
+        <sys_id>b41ffad947be4650d254bce5536d43c7</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>SorinGrid_BPM</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_ui_page_b41ffad947be4650d254bce5536d43c7</sys_update_name>
+        <sys_updated_by>hhkim</sys_updated_by>
+        <sys_updated_on>2024-06-14 08:52:02</sys_updated_on>
+    </sys_ui_page>
+</record_update>
