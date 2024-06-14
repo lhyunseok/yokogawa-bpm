@@ -9,7 +9,7 @@
         <css>@charset "UTF-8";&#13;
 &#13;
 &#13;
-body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; line-height: normal;}&#13;
+body {margin: 0;  font-family: "Pretendard"; font-size: 14px; font-weight: 400; line-height: normal;}&#13;
 &#13;
 .blank {width: 100%; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); }&#13;
 .yoko-container {margin: 40px auto 0; min-width: 1400px; max-width: 1600px; font-family: "Pretendard"; font-size: 14px; font-weight: 400; letter-spacing: 0;}&#13;
@@ -200,14 +200,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>hhkim</sys_created_by>
         <sys_created_on>2024-06-13 10:51:05</sys_created_on>
         <sys_id>5156d20547b60650d254bce5536d435c</sys_id>
-        <sys_mod_count>5</sys_mod_count>
+        <sys_mod_count>12</sys_mod_count>
         <sys_name>Copy of quotation</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_5156d20547b60650d254bce5536d435c</sys_update_name>
         <sys_updated_by>hhkim</sys_updated_by>
-        <sys_updated_on>2024-06-13 11:02:39</sys_updated_on>
+        <sys_updated_on>2024-06-14 06:07:11</sys_updated_on>
         <template><![CDATA[    <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > Quotation</div>
         <div class="yoko-title-btn-wrap">
@@ -347,15 +347,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                 </div>
             </div>
           
-            <div class="yoko-grid-area-wrapper">
-                <div class="yoko-grid-btn-wrap">
-                    <button type="button" class="yoko-btn yoko-btn-add"></button>
-                    <button type="button" class="yoko-btn yoko-btn-delete"></button>
-                </div>
-                <div class="yoko-grid-area" id="realgrid" style="width: 100%; height: 400px;">
-                    <iframe src='/ui_page.do?sys_id=a0c847ca1be242506e3b1066b04bcb67' width='100%' height='400px' style='border:none;'></iframe>
-                </div>
-            </div>
+           <iframe src='/SorinGrid_0604sample.do?id_q=509e929d47fa4650d254bce5536d4378' width='100%' height='400px' style='border:none;'></iframe>
            
         </div>
     </div>]]></template>
