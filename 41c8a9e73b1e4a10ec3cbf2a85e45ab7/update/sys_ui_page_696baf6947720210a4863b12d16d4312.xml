@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script/>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_yergb_bpm_rfqentrylist.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+
+<style>
+.yoko-container {margin: 40px auto 0; min-width: 1400px; max-width: 1600px; font-family: "Pretendard"; font-size: 14px; font-weight: 400; letter-spacing: 0;}
+.yoko-container * {box-sizing: border-box;}
+.yoko-breadcrumb {color: #425D78;}
+.yoko-title-btn-wrap {display: flex; justify-content: space-between; align-items: center; margin: 8px 0 25px 0;}
+.yoko-title-btn-wrap .yoko-title {margin:0; color: #1C3956; font-family: "Pretendard";font-size: 24px;  font-style: normal;  font-weight: 700; line-height: normal;}
+.yoko-title-btn-wrap .yoko-btn-wrap {display: flex; gap: 4px; margin-bottom: 0;}
+.rg-root {
+  font-family: "Malgun Gothic", "맑은 고딕", AppleSDGothicNeo-Light, sans-serif;
+  font-size: 12px;
+  color: #000000;
+  background: #FFFFFF;
+  -webkit-appearance: none;
+  outline: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  touch-action: none;
+  -ms-touch-action: none; }
+  .rg-root .rg-table, .rg-root .rg-table td {
+    position: relative;
+    margin: 0 !important;
+    /* 0과 다르면 자동 행 계산 시 틀어진다! content div 전에서 설정할 것!*/
+    padding: 0 !important;
+    /* 0과 다르면 자동 행 계산 시 틀어진다! content div 전에서 설정할 것! */
+    border-spacing: 0 !important;
+    border-collapse: separate !important;
+    box-sizing: border-box !important;
+    line-height: 1.5em;
+    outline: none; }
+  .rg-root input::-ms-clear {
+    display: none; }
+
+.rg-grid {
+  border: 1px solid #6e7786; }
+.rg-header {
+  text-align: center;
+  font-weight: bold;
+  color: #4e545f;
+  background: #e4e7eb; }
+.rg-header .rg-table tr td {
+	border-top: none;
+	border-right: 1px solid #bcc0c8;
+	border-bottom: 1px solid #bcc0c8;
+	border-left: none;
+	overflow: hidden; }
+.rg-header .rg-table tr td:hover {
+	background: #cdd2d9; }
+.rg-header-cell {
+  text-align: center; }
+
+.rg-header-group-cell {
+  background: #d9dce2;
+  text-align: center; }
+
+.rg-header-renderer {
+  padding: 0 4px; }
+.rg-data-row {
+  background: none; }
+.rg-data-cell {
+  white-space: nowrap;
+  text-align: center; }
+
+.rg-data-empty-cell {
+  color: #bfbfbf; }
+.rg-renderer {
+  border: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding: 0 4px;
+  text-overflow: ellipsis; }
+</style>
+
+<div class="yoko-container">
+        <div class="yoko-breadcrumb">Home > RFQ Entry List</div>
+        <div class="yoko-title-btn-wrap">
+            <h1 class="yoko-title">RFQ Entry</h1>
+        </div>
+        <div>                    
+                <div id="realgrid" style="width: 100%; height: 500px;">
+                  <div tabindex="0" class="rg-root rg-grid"
+                    style="position: relative; width: 100%; height: 100%; box-sizing: border-box; overflow: hidden; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); cursor: default;">
+                    <div class=""
+                      style="position: absolute; box-sizing: border-box; cursor: default; left: 0px; top: 0px; width: 0px; height: 0px;">
+                      <div
+                        style="position: absolute; box-sizing: border-box; overflow: hidden !important; left: 0px; top: 0px; width: 1598px; height: 498px;">
+                        <div class="" style="position: absolute; box-sizing: border-box; left: 0px; top: 0px; width: 0px; height: 0px;">
+                          <div class=""
+                            style="position: absolute; box-sizing: border-box; left: 68px; top: 0px; width: 1440px; height: 498px;">
+                            <div class="rg-header"
+                              style="position: absolute; box-sizing: border-box; overflow: hidden; left: 0px; top: 0px; width: 1440px; height: 40px;">
+                              <table aria-hidden="true" role="grid" class="rg-table"
+                                style="table-layout: fixed !important; width: 100% !important;">
+                                <caption
+                                  style="height: 0px; width: 0px; overflow: hidden; padding: 0px !important; box-sizing: border-box;">
+                                  grid table </caption>
+                                <thead>
+                                  <tr role="row" aria-hidden="true" style="border: 0px none !important;">
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      Number</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      State</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      Quotation</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 240px;">
+                                      OI Report</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      Sales Order</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 120px;">
+                                      Project</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 240px;">
+                                      PO</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 120px;">
+                                      Billing</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 120px;">
+                                      Requester</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr role="row" style="height: 40px;">
+                                    <td role="gridcell" class="rg-header-cell">
+                                      <div class="rg-header-renderer" style="max-height: 38px; overflow: hidden;"><span>Number</span>
+									  </div>
+                                    </td>
+                                    <td role="gridcell" class="rg-header-cell">
+                                      <div class="rg-header-renderer" style="max-height: 38px; overflow: hidden;"><span>State</span>
+                                      </div>
+                                    </td>
+                                    <td role="gridcell" class="rg-header-cell">
+                                      <div class="rg-header-renderer" style="max-height: 38px; overflow: hidden;"><span>Quotation</span>
+                                      </div>
+                                    </td>
+                                    <td role="gridcell" class="rg-header-cell">
+                                      <div class="rg-header-renderer" style="max-height: 38px; overflow: hidden;"><span>OI Report</span></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-header-cell">
+                                      <div class="rg-header-renderer" style="max-height: 38px; overflow: hidden;"><span>Sales Order</span></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-header-cell">
+                                      <div class="rg-header-renderer" style="max-height: 38px; overflow: hidden;"><span>Project</span>
+                                      </div>
+                                    </td>
+                                    <td role="gridcell" class="rg-header-cell">
+                                      <div class="rg-header-renderer" style="max-height: 38px; overflow: hidden;"><span>PO</span>
+                                      </div>
+                                    </td>
+                                    <td role="gridcell" class="rg-header-cell">
+                                      <div class="rg-header-renderer" style="max-height: 38px; overflow: hidden;"><span>billing</span></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-header-cell">
+                                      <div class="rg-header-renderer" style="max-height: 38px; overflow: hidden;"><span>Requester</span>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div class="rg-body"
+                              style="position: absolute; box-sizing: border-box; overflow: hidden; left: 0px; top: 40px; width: 1440px; height: 618px;">
+                              <table role="grid" class="rg-table" style="table-layout: fixed !important; width: 100% !important;">
+                                <caption
+                                  style="height: 0px; width: 0px; overflow: hidden; padding: 0px !important; box-sizing: border-box;">
+                                </caption>
+                                <thead>
+                                  <tr role="row" style="border: 0px none !important;">
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      Number</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      State</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      Quotation</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 240px;">
+                                      OI Report</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 150px;">
+                                      Sales Order</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 120px;">
+                                      Project</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 240px;">
+                                      PO</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 120px;">
+                                      Billing</th>
+                                    <th scope="col"
+                                      style="margin: 0px !important; padding: 0px !important; font-size: 0px !important; line-height: 0px !important; height: 0px; width: 120px;">
+                                      Requester</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+								
+								<g2:evaluate var="jvar_assessable_types">
+								var gr = new GlideRecord('x_yergb_bpm_rfq_entry');
+								gr.orderByDesc("number");
+									gr.query();
+									gr;
+								</g2:evaluate>
+
+								<j2:while test="$[gr.next()]">
+                                  <tr role="row" class="rg-data-row" style="height: 36px;">
+                                    <td role="gridcell" class="rg-data-cell">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">$[gr.number]</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">$[gr.state.getDisplayValue()]</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">$[gr.quotation.getDisplayValue()]</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">$[gr.oi_report.getDisplayValue()]</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">$[gr.sales_order.getDisplayValue()]</div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;"></div>
+                                    </td>
+                                    <td role="gridcell" class="rg-data-cell">
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">$[gr.requester.getDisplayValue()]</div>
+                                    </td>
+                                  </tr>
+								</j2:while>
+                                </tbody>
+                              </table>
+                            </div>
+
+                          </div>
+                          <div style="position: absolute; box-sizing: border-box; display: none;">
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                          </div>
+                          <div style="position: absolute; box-sizing: border-box; display: none;">
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                          </div>
+
+                          <div style="position: absolute; box-sizing: border-box; display: none;">
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"></div>
+                          </div>
+                          <div class=""
+                            style="position: absolute; box-sizing: border-box; left: -10px; top: -10px; width: 1px; height: 1px;">
+                            <div style="position: absolute; box-sizing: border-box; overflow: hidden; display: none;"><span
+                                class="rg-group-panel-message"></span></div>
+                          </div>
+                          <div
+                            style="position: absolute; box-sizing: border-box; overflow: hidden !important; pointer-events: none !important; display: none;">
+                          </div>
+                          <div class=""
+                            style="position: absolute; box-sizing: border-box; left: 0px; top: 0px; width: 0px; height: 0px;"></div>
+                          <div class=""
+                            style="position: absolute; box-sizing: border-box; left: 0px; top: 0px; width: 0px; height: 0px;">
+                            <div style="position: absolute; box-sizing: border-box; pointer-events: none !important; display: none;">
+                            </div>
+                            <div style="position: absolute; box-sizing: border-box; pointer-events: none !important; display: none;">
+                            </div>
+                            <div style="position: absolute; box-sizing: border-box; pointer-events: none !important; display: none;">
+                            </div>
+                            <div
+                              style="position: absolute; box-sizing: border-box; pointer-events: none !important; background: none !important; border: none !important; overflow: hidden !important; display: none;">
+                              <div class="rg-focus"
+                                style="position: absolute; box-sizing: border-box; pointer-events: none !important;"></div>
+                            </div>
+                            <div
+                              style="position: absolute; box-sizing: border-box; pointer-events: none !important; background: none !important; border: none !important; overflow: hidden !important; display: none;">
+                              <div style="position: absolute; box-sizing: border-box; pointer-events: none !important;"></div>
+                            </div>
+                            <div
+                              style="position: absolute; box-sizing: border-box; pointer-events: none !important; background: none !important; border: none !important; overflow: hidden !important; display: none;">
+                              <div style="position: absolute; box-sizing: border-box; pointer-events: none !important;"></div>
+                            </div>
+                          </div>
+                          <div style="position: absolute; box-sizing: border-box; display: none;">
+                            <div style="position: absolute; box-sizing: border-box;"></div>
+                            <div style="position: absolute; box-sizing: border-box;"></div>
+                            <div style="position: absolute; box-sizing: border-box;"></div>
+                            <div style="position: absolute; box-sizing: border-box;"></div>
+                          </div>
+                          <div class="rg-vscrollbar"
+                            style="position: absolute; box-sizing: border-box; left: 1582px; top: 0px; width: 16px; height: 498px;">
+                            <div class="rg-scrolltrack"
+                              style="position: absolute; box-sizing: border-box; left: 0px; top: 0px; width: 16px; height: 498px;">
+                            </div>
+                            <div class="rg-scrollthumb"
+                              style="position: absolute; box-sizing: border-box; left: 2px; top: 20px; width: 12px; height: 359px;">
+                            </div>
+                            <div class="rg-scroll-up"
+                              style="position: absolute; box-sizing: border-box; left: 0px; top: 0px; width: 16px; height: 20px;"></div>
+                            <div class="rg-scroll-down"
+                              style="position: absolute; box-sizing: border-box; left: 0px; top: 478px; width: 16px; height: 20px;">
+                            </div>
+                          </div>
+                          <div style="position: absolute; box-sizing: border-box; display: none;"></div>
+                        </div>
+                        <div style="position: absolute; box-sizing: border-box; display: none;"><span role="gridcell">표시할 데이터가
+                            없습니다.</span></div>
+                      </div>
+                    </div>
+                    <div aria-hidden="true" class="rg-footer">
+                      <table aria-hidden="true" class="rg-table"
+                        style="width: 1000px; height: 1px; left: -10000px; position: absolute;">
+                        <caption style="height: 0px; width: 0px; box-sizing: border-box; overflow: hidden;">grid measurer table
+                        </caption>
+                        <thead>
+                          <tr>
+                            <th scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="">
+                            <td class="rg-footer-cell">
+                              <div>AYwyhi우리테크</div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                  </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</j:jelly>]]></html>
+        <name>rfqentrylist</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-15 06:20:10</sys_created_on>
+        <sys_id>696baf6947720210a4863b12d16d4312</sys_id>
+        <sys_mod_count>19</sys_mod_count>
+        <sys_name>rfqentrylist</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_ui_page_696baf6947720210a4863b12d16d4312</sys_update_name>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-15 07:49:49</sys_updated_on>
+    </sys_ui_page>
+</record_update>
