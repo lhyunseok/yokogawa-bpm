@@ -6,7 +6,6 @@
         <element label="Project" max_length="40" name="project" type="string"/>
         <element label="Sales Order" max_length="40" name="sales_order" type="string"/>
         <element attributes="edge_encryption_enabled=true,encode_utf8=false,readonly_clickthrough=true" default="javascript:gs.getUserID()" dynamic_default_value="90d1921e5f510100a9ad2572f2b477fe" label="Requester" max_length="32" name="requester" read_only="true" reference="sys_user" type="reference" use_dynamic_default="true"/>
-        <element label="Contract Country" max_length="32" name="contract_country" reference="core_country" type="reference"/>
         <element label="Credit Assessment" max_length="32" name="credit_assessment" reference="x_yergb_bpm_credit_assessment" type="reference"/>
         <element label="End User" max_length="32" name="end_user" reference="core_company" type="reference"/>
         <element attributes="edge_encryption_enabled=true,encode_utf8=false" dependent="assignment_group" dependent_on_field="assignment_group" label="Assigned to" max_length="32" name="assigned_to" reference="sys_user" type="reference" use_dependent_field="true"/>
@@ -47,27 +46,24 @@
             <element name="contract"/>
         </index>
         <index name="index4">
-            <element name="contract_country"/>
-        </index>
-        <index name="index5">
             <element name="credit_assessment"/>
         </index>
-        <index name="index6">
+        <index name="index5">
             <element name="currency"/>
         </index>
-        <index name="index7">
+        <index name="index6">
             <element name="end_user"/>
         </index>
-        <index name="index8">
+        <index name="index7">
             <element name="requester"/>
         </index>
-        <index name="index9">
+        <index name="index8">
             <element name="risk_management"/>
         </index>
-        <index name="index10">
+        <index name="index9">
             <element name="t_cas"/>
         </index>
-        <index name="index11">
+        <index name="index10">
             <element name="territory_review"/>
         </index>
     </element>
