@@ -31,6 +31,7 @@
         <element label="Contract" max_length="32" name="contract" reference="core_company" type="reference"/>
         <element label="Contract Name" max_length="40" name="contract_name" type="string"/>
         <element label="Request Due Date" max_length="40" name="request_due_date" type="glide_date"/>
+        <element label="Contract Country" max_length="32" name="contract_country" reference="core_country" type="reference"/>
         <element label="Remark" max_length="4000" name="remark" type="string"/>
         <element label="Estimated Delivery Date" max_length="40" name="estimated_delivery_date" type="glide_date"/>
         <element label="Complete Date" max_length="40" name="complete_date" type="glide_date"/>
@@ -46,24 +47,27 @@
             <element name="contract"/>
         </index>
         <index name="index4">
-            <element name="credit_assessment"/>
+            <element name="contract_country"/>
         </index>
         <index name="index5">
-            <element name="currency"/>
+            <element name="credit_assessment"/>
         </index>
         <index name="index6">
-            <element name="end_user"/>
+            <element name="currency"/>
         </index>
         <index name="index7">
-            <element name="requester"/>
+            <element name="end_user"/>
         </index>
         <index name="index8">
-            <element name="risk_management"/>
+            <element name="requester"/>
         </index>
         <index name="index9">
-            <element name="t_cas"/>
+            <element name="risk_management"/>
         </index>
         <index name="index10">
+            <element name="t_cas"/>
+        </index>
+        <index name="index11">
             <element name="territory_review"/>
         </index>
     </element>
