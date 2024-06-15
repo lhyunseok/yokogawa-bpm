@@ -15,7 +15,6 @@
         <element label="Project Detail" max_length="4000" name="project_detail" type="string"/>
         <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Currency" max_length="32" name="currency" reference="fx_currency" reference_qual="active=true^EQ" reference_qual_condition="active=true^EQ" type="reference"/>
         <element label="Project title" max_length="100" name="project_title" type="string"/>
-        <element label="Contract Country" max_length="40" name="contract_country" type="string"/>
         <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Assignment group" max_length="32" name="assignment_group" reference="sys_user_group" type="reference"/>
         <element attributes="edge_encryption_enabled=true" default="true" label="Active" max_length="40" name="active" read_only="true" type="boolean"/>
         <element label="Caution" max_length="4000" name="caution" type="string"/>
