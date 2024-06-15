@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller=function() {
+        <client_script><![CDATA[api.controller=function($scope, $location) {
   /* widget controller */
   var c = this;
+	
+	// Function to get URL parameters
+	
+	c.getUrlParameter = function(param) {
+		return $location.search()[param];
+	};
+	
+	    // Example: Retrieve a specific parameter
+    var paramValue = c.getUrlParameter('sys_id');
+    console.log('Value of yourParameterName:', paramValue);
+    c.data.paramValue = paramValue;
+
+	
+	
+	debugger
+	
+	
+	
+	
 };]]></client_script>
         <controller_as>c</controller_as>
         <css>@charset "UTF-8";&#13;
@@ -186,28 +205,93 @@ body {margin: 0;  font-family: "Pretendard"; font-size: 14px; font-weight: 400; 
         <link><![CDATA[function link(scope, element, attrs, controller) {
   
 }]]></link>
-        <name>Copy of quotation</name>
+        <name>quotation_hh</name>
         <option_schema/>
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
   /* populate the 'data' object */
   /* e.g., data.table = $sp.getValue('table'); */
+    var userName = gs.getUser().getName();
+    data.userName = userName;
+    data.showUpdate = false;
+    data.sys_id = $sp.getParameter("sys_id"); //rfq_entry sys_id ? //quotation sys_id?
+	
+	  //var grS = new GlideRecord('x_yergb_bpm_quotation'); // Replace with your table name
+    //grS.initialize();
 
+	if(data.sys_id){
+		
+		var grI = new GlideRecord('x_yergb_bpm_quotation');
+		if (grI.get(data.sys_id)) {
+    // Record found, storing field values in the data object
+			data.active = grI.getValue('active');
+			data.application = grI.getValue('application');
+			data.assigned_to = grI.getDisplayValue('assigned_to');
+			data.assignment_group = grI.getDisplayValue('assignment_group');
+			data.gp_amount = grI.getDisplayValue('gp_amount');
+			data.gp_percent = grI.getDisplayValue('gp_percent');
+			data.mp_amount = grI.getDisplayValue('mp_amount');
+			data.mp_gap_percent = grI.getDisplayValue('mp_gap_percent');
+			data.number = grI.getValue('number');
+			data.rfq_entry = grI.getDisplayValue('rfq_entry');
+			data.rfq_entry_id = grI.getValue('rfq_entry');
+
+			data.state = grI.getDisplayValue('state');
+			data.state_value = grI.getValue('state');
+
+			data.sys_class_name = grI.getValue('sys_class_name');
+			data.sys_created_by = grI.getValue('sys_created_by');
+			data.sys_created_on = grI.getValue('sys_created_on');
+			data.sys_id = grI.getValue('sys_id');
+			data.sys_mod_count = grI.getValue('sys_mod_count');
+			data.sys_updated_by = grI.getValue('sys_updated_by');
+			data.sys_updated_on = grI.getValue('sys_updated_on');
+			data.total_quote_cost = grI.getValue('total_quote_cost');
+			data.total_quote_price = grI.getValue('total_quote_price');
+			data.version = grI.getValue('version');
+			data.work_notes = grI.getValue('work_notes');
+    // Add more logic here as needed
+	} else {
+    // Record not found, handle accordingly
+	}
+		
+		if(data.rfq_entry_id){
+			var grRfq = new GlideRecord('x_yergb_bpm_rfq_entry');
+			if (grRfq.get(data.rfq_entry_id)) {
+				data.contract = grRfq.getDisplayValue('contract');
+				data.reason_code = grRfq.getDisplayValue('reason_code');
+				data.request_due_date = grRfq.getDisplayValue('request_due_date');
+				data.remark = grRfq.getDisplayValue('remark');
+				data.currency = grRfq.getDisplayValue('currency');
+
+			}
+		}
+		
+		data.gridUrl = '/x_yergb_bpm_SorinGrid_BPM.do?id_q='+ data.sys_id;
+	}
+	
+	
+	
+	
+
+	
+	
+	
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>hhkim</sys_created_by>
         <sys_created_on>2024-06-13 10:51:05</sys_created_on>
         <sys_id>5156d20547b60650d254bce5536d435c</sys_id>
-        <sys_mod_count>12</sys_mod_count>
-        <sys_name>Copy of quotation</sys_name>
+        <sys_mod_count>72</sys_mod_count>
+        <sys_name>quotation_hh</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_5156d20547b60650d254bce5536d435c</sys_update_name>
         <sys_updated_by>hhkim</sys_updated_by>
-        <sys_updated_on>2024-06-14 06:07:11</sys_updated_on>
+        <sys_updated_on>2024-06-15 08:00:16</sys_updated_on>
         <template><![CDATA[    <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > Quotation</div>
         <div class="yoko-title-btn-wrap">
@@ -225,11 +309,11 @@ body {margin: 0;  font-family: "Pretendard"; font-size: 14px; font-weight: 400; 
                     <div class="yoko-form-col">
                         <div class="yoko-form-group">
                             <label for="request_no" class="yoko-short-120">Number</label>
-                            <input type="number" name="request_no" value="" placeholder="RFQ0001134" disabled class="yoko-wid140">
+                            <input type="text" name="request_no" value={{data.number}} placeholder="" disabled class="yoko-wid140">
                         </div>
                         <div class="yoko-form-group">
                             <label for="version" class="yoko-short-120">Version</label>
-                            <input type="number" name="version" value="" placeholder="" disabled class="yoko-wid140">
+                            <input type="number" name="version" value={{data.version}} placeholder="" disabled class="yoko-wid140">
                         </div>
                         <div class="yoko-form-group">
                             <label for="ess_no" class="yoko-short-120">ESS/SQMS No.</label>
@@ -244,19 +328,19 @@ body {margin: 0;  font-family: "Pretendard"; font-size: 14px; font-weight: 400; 
                         </div>
                         <div class="yoko-form-group">
                             <label for="state" class="yoko-short-120">state</label>
-                            <input type="number" name="state" value="" placeholder="" disabled class="yoko-wid140">
+                            <input type="text" name="state" value={{c.data.state}} placeholder={{c.data.state}} disabled class="yoko-wid140">
                         </div>
                         <div class="yoko-form-group">
                             <label for="assignment_group" class="yoko-short-120">Assignment group</label>
                             <div class="yoko-form-inline">
-                                <input type="number" name="assignment_group" value="" placeholder="" class="yoko-wid140">
+                                <input type="text" name="assignment_group" value={{data.assignment_group}} placeholder={{data.assignment_group}} class="yoko-wid140">
                                 <button type="button" class="yoko-btn yoko-btn-search"></button>
                             </div>
                         </div>
                         <div class="yoko-form-group">
                             <label for="assigned_to" class="yoko-short-120">Assigned to</label>
                             <div class="yoko-form-inline">
-                                <input type="number" name="assigned_to" value="" placeholder="" class="yoko-wid140">
+                                <input type="text" name="assigned_to" value={{data.assigned_to}} placeholder={{data.assigned_to}} class="yoko-wid140">
                                 <button type="button" class="yoko-btn yoko-btn-search"></button>
                             </div>
                         </div>
@@ -265,7 +349,7 @@ body {margin: 0;  font-family: "Pretendard"; font-size: 14px; font-weight: 400; 
                         <div class="yoko-form-col">
                             <div class="yoko-form-group">
                                 <label for="currency" class="yoko-short-130">Currency</label>
-                                <input type="number" name="currency" value="" placeholder="" disabled class="yoko-wid140">
+                                <input type="text" name="currency" value={{data.currency}} placeholder="" disabled class="yoko-wid140">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="ex_rate" class="yoko-short-130">Ex. Rate</label>
@@ -277,7 +361,7 @@ body {margin: 0;  font-family: "Pretendard"; font-size: 14px; font-weight: 400; 
                             </div>
                             <div class="yoko-form-group">
                                 <label for="total_quote_price" class="yoko-short-130">Total Quote Price</label>
-                                <input type="number" name="total_quote_price" value="" placeholder="" class="yoko-wid140">
+                                <input type="number" name="total_quote_price" value="" placeholder={{data.total_quote_price}} class="yoko-wid140">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="total_estimated_cost" class="yoko-short-130">Total Estimated Cost</label>
@@ -289,19 +373,19 @@ body {margin: 0;  font-family: "Pretendard"; font-size: 14px; font-weight: 400; 
                         <div class="yoko-form-col yoko-form-amount-wrap">
                             <div class="yoko-form-group">
                                 <label for="gp_amount" class="yoko-short">GP Amount</label>
-                                <input type="number" name="gp_amount" value="" placeholder="" class="yoko-wid140">
+                                <input type="number" name="gp_amount" value={{data.gp_amount}} placeholder="{{data.gp_amount}}" class="yoko-wid140">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="mp_amount" class="yoko-short">MP Amount</label>
-                                <input type="number" name="mp_amount" value="" placeholder="" class="yoko-wid140">
+                                <input type="number" name="mp_amount" value={{data.mp_amount}} placeholder="{{data.mp_amount}}" class="yoko-wid140">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="gp" class="yoko-short">GP %</label>
-                                <input type="number" name="gp" value="" placeholder="" class="yoko-wid140">
+                                <input type="number" name="gp" value={{data.gp_percent}} placeholder="{{data.gp_percent}}" class="yoko-wid140">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="mp_gap" class="yoko-short">MP Gap %</label>
-                                <input type="number" name="mp_gap" value="" placeholder="" class="yoko-wid140">
+                                <input type="number" name="mp_gap" value={{data.mp_gap_percent}} placeholder="{{data.mp_gap_percent}}" class="yoko-wid140">
                             </div>
                         </div>
                     </div>
@@ -313,29 +397,29 @@ body {margin: 0;  font-family: "Pretendard"; font-size: 14px; font-weight: 400; 
                                     <div class="yoko-form-group">
                                         <label for="rfq_entry" class="yoko-short">RFQ Entry</label>
                                         <div class="yoko-form-inline">
-                                            <input type="text" name="rfq_entry" value="" placeholder="" disabled class="yoko-wid140">
+                                            <input type="text" name="rfq_entry" value={{data.rfq_entry}} placeholder="{{data.rfq_entry}}" disabled class="yoko-wid140">
                                             <button type="button" class="yoko-btn yoko-btn-info-fill"></button>
                                         </div>
                                     </div>
                                     <div class="yoko-form-group">
                                         <label for="contractor" class="yoko-short">Contractor</label>
-                                        <input type="text" name="contractor" value="" placeholder="" disabled class="yoko-wid140">
+                                        <input type="text" name="contractor" value={{data.contract}} placeholder="{{data.contract}}" disabled class="yoko-wid140">
                                     </div>
                                 </div>
                                 <div class="yoko-form-col">
                                     <div class="yoko-form-group">
                                         <label for="reason_code" class="yoko-short-120">Reason Code</label>
-                                        <input type="text" name="reason_code" value="" placeholder="" disabled class="yoko-wid140">
+                                        <input type="text" name="reason_code" value={{data.reason_code}} placeholder="{{data.reason_code}}" disabled class="yoko-wid140">
                                     </div>
                                     <div class="yoko-form-group">
                                         <label for="request_due_date" class="yoko-short-120">Request Due Date</label>
-                                        <input type="text" name="request_due_date" value="" placeholder="" disabled class="yoko-wid140">
+                                        <input type="text" name="request_due_date" value={{data.request_due_date}} placeholder="{{data.request_due_date}}" disabled class="yoko-wid140">
                                     </div>
                                 </div>
                             </div>
                             <div class="yoko-form-group">
                                 <label for="caution" class="yoko-short">Remark</label>
-                                <textarea id="caution" name="caution" rows="8" required placeholder="" disabled></textarea>
+                                <textarea id="caution" name="caution" rows="8" required placeholder="{{data.remark}}" disabled>{{data.remark}}</textarea>
                             </div>
                         </div>
    
@@ -347,7 +431,7 @@ body {margin: 0;  font-family: "Pretendard"; font-size: 14px; font-weight: 400; 
                 </div>
             </div>
           
-           <iframe src='/SorinGrid_0604sample.do?id_q=509e929d47fa4650d254bce5536d4378' width='100%' height='400px' style='border:none;'></iframe>
+           <iframe src={{data.gridUrl}} width='100%' height='400px' style='border:none;'></iframe>
            
         </div>
     </div>]]></template>
