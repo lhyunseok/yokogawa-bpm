@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
     <sys_ui_page action="INSERT_OR_UPDATE">
         <category>general</category>
-        <client_script/>
+        <client_script><![CDATA[	function onClick(rfq_sys_id) {
+		window.location.href="/sp?id=epic_01_ui_rfp&sys_id="+rfq_sys_id;
+	}
+]]></client_script>
         <description/>
         <direct>false</direct>
         <endpoint>x_yergb_bpm_rfqentrylist.do</endpoint>
@@ -228,7 +231,7 @@
 								<j2:while test="$[gr.next()]">
                                   <tr role="row" class="rg-data-row" style="height: 36px;">
                                     <td role="gridcell" class="rg-data-cell">
-                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">$[gr.number]</div>
+                                      <div class="rg-renderer" style="max-height: 34px; overflow: hidden;" ng-click="onClick($[gr.sys_id])"><a href="https://naver.com">$[gr.number]</a></div>
                                     </td>
                                     <td role="gridcell" class="rg-data-cell">
                                       <div class="rg-renderer" style="max-height: 34px; overflow: hidden;">$[gr.state.getDisplayValue()]</div>
@@ -364,6 +367,8 @@
         </div>
     </div>
 
+
+
 </j:jelly>]]></html>
         <name>rfqentrylist</name>
         <processing_script/>
@@ -371,13 +376,13 @@
         <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-15 06:20:10</sys_created_on>
         <sys_id>696baf6947720210a4863b12d16d4312</sys_id>
-        <sys_mod_count>19</sys_mod_count>
+        <sys_mod_count>24</sys_mod_count>
         <sys_name>rfqentrylist</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ui_page_696baf6947720210a4863b12d16d4312</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-15 07:49:49</sys_updated_on>
+        <sys_updated_on>2024-06-15 09:17:56</sys_updated_on>
     </sys_ui_page>
 </record_update>
