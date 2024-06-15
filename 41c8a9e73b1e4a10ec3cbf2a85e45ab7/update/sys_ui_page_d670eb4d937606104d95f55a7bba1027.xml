@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script/>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_yergb_bpm_testestsets.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+  <g:evaluate var="sysparm_id2">
+    var sysparm_id2 = RP.getParameterValue('sysparm_id2');
+    sysparm_id2;
+  </g:evaluate>
+  <g:ui_form>
+    <input type="text" name="myparam" value="${sysparm_id2}" />
+    <button type="submit" name="search" value="search">search</button>
+  </g:ui_form>
+</j:jelly>
+]]></html>
+        <name>testestsets</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>lhyunseok</sys_created_by>
+        <sys_created_on>2024-06-13 16:15:55</sys_created_on>
+        <sys_id>d670eb4d937606104d95f55a7bba1027</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>testestsets</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_ui_page_d670eb4d937606104d95f55a7bba1027</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-14 00:55:19</sys_updated_on>
+    </sys_ui_page>
+</record_update>
