@@ -46,18 +46,21 @@
             c.data.updateFlag = true;
 
             console.log(c.data.estimated_order_date)
+					  c.server.update().then(function(response) {
+							
+            if (response.data && response.data.result) {
+                //alert(response.data.result);
+														location.reload();
+
+            }
+							
+location.reload();
+        });
 
         } else { // 이거 새로 넣는거임
             //alert("eawgheawgew")
             c.data.insertFlag = true;
-        }
-
-
-        // Assign the value to c.data for server-side processing
-        //c.data.estOiAmount = inputValue;
-
-        // Call the server script
-        c.server.update().then(function(response) {
+					  c.server.update().then(function(response) {
 							console.log("-----")
 							console.log(response)
 							console.log(c.data.redirect_sys_id)
@@ -67,9 +70,16 @@
             if (response.data && response.data.result) {
                 //alert(response.data.result);
 							console.log("-----")
-							
             }
         });
+        }
+
+
+        // Assign the value to c.data for server-side processing
+        //c.data.estOiAmount = inputValue;
+
+        // Call the server script
+      
 
         // Display the value in an //alert (for client-side confirmation)
         ////alert('The entered amount is: ' + inputValue);
@@ -97,15 +107,15 @@
     $scope.clickRequest = function() {
         //alert("REQUEST?")
         // Get the value from the input field using ng-model
-        c.data.newState = 3;
-        c.data.buttunflag = true;
+       
 
-        if (!c.data.reasonCode || !c.data.request_due_date || !c.data.caution) {
+        if (!c.data.reason_code || !c.data.request_due_date || !c.data.remark) {
             alert("Mandatory is empty");
             document.querySelector('.yoko-search-form-wrap.yoko-project-wrap.yoko-col40 .yoko-search-form').classList.add('highlight-form');
 
         } else {
-
+						 c.data.newState = 3;
+        c.data.buttunflag = true;
             c.server.update().then(function(response) {
                 // Handle the server response if needed
                 console.log('Server response:', response);
@@ -1286,14 +1296,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>lhyunseok</sys_created_by>
         <sys_created_on>2024-06-12 06:12:28</sys_created_on>
         <sys_id>d6fc4838933282104d95f55a7bba10e5</sys_id>
-        <sys_mod_count>623</sys_mod_count>
+        <sys_mod_count>631</sys_mod_count>
         <sys_name>portal_function</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_d6fc4838933282104d95f55a7bba10e5</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-16 10:19:05</sys_updated_on>
+        <sys_updated_on>2024-06-16 10:46:21</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
             <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
