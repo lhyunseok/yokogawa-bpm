@@ -742,7 +742,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
     data.requester_sys_id = userName_sys_id;
     data.showUpdate = false;
     data.sys_id = $sp.getParameter("sys_id");
-    ////gs.addInfoMessage(data.sys_id)
+    //////gs.addInfoMessage(data.sys_id)
     // Select 가져올건데
     var grS = new GlideRecord('x_yergb_bpm_rfq_entry'); // Replace with your table name
     grS.initialize();
@@ -765,9 +765,9 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 
     data.choices = choiceList;
 
-    //gs.addInfoMessage(data.sys_id)
+    ////gs.addInfoMessage(data.sys_id)
     if (data.sys_id && input && input.readStatus) { // 이거 업데이트다
-        gs.addErrorMessage("읽어오는중")
+        //gs.addErrorMessage("읽어오는중")
         var grI = new GlideRecord('x_yergb_bpm_rfq_entry');
 
         var requester
@@ -803,10 +803,10 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         grI.query();
         while (grI.next()) {
             requester = grI.requester.name.toString();
-            //gs.addErrorMessage(requester)
+            ////gs.addErrorMessage(requester)
             requester_sys_id = grI.requester.toString();
             //quotation_number = grI.quotation_number.toString();
-            //gs.addInfoMessage(quotation_number)
+            ////gs.addInfoMessage(quotation_number)
             //quotation_sysId = grI.quotation_sysId.toString();
             number = grI.number.toString()
             request_date = grI.request_date.toString()
@@ -877,8 +877,8 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         data.reason_code = reason_code
         data.request_due_date = request_due_date
         data.remark = remark
-        ////gs.addInfoMessage(typeof data.q_number)
-        //gs.addInfoMessage("aefawefweafw +"+ data.number)
+        //////gs.addInfoMessage(typeof data.q_number)
+        ////gs.addInfoMessage("aefawefweafw +"+ data.number)
         var grQ = new GlideRecord('x_yergb_bpm_quotation');
         var quotation
         var quotation_sys_id
@@ -900,7 +900,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
     //////////////// 파라미터 있는지 체크 하는거다. 
     if (input && input.paramValue) {
         var paramValue = input.paramValue;
-        //gs.addErrorMessage('Record created with param value: ' + paramValue);
+        ////gs.addErrorMessage('Record created with param value: ' + paramValue);
 
         var gr = new GlideRecord('x_yergb_bpm_rfq_entry');
 
@@ -966,16 +966,16 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 
         /////////// 파라미터 있는 상태에서 만약에 내가 ass를 누름
         if (input.buttunflag) {
-            //gs.addInfoMessage("눌렸다 눌렸어")
+            ////gs.addInfoMessage("눌렸다 눌렸어")
 
             var grA = new GlideRecord('x_yergb_bpm_rfq_entry');
 
             ///////////// 여기서는 아마 뿌려주는 로직을 할듯
             grA.get(input.paramValue);
             grA.setValue('state', input.newState)
-            //gs.addErrorMessage(input.newState);
+            ////gs.addErrorMessage(input.newState);
             grA.update()
-            //gs.addInfoMessage("바뀐다 바뀐다")
+            ////gs.addInfoMessage("바뀐다 바뀐다")
 
 
         }
@@ -989,7 +989,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         console.log("여기 되던가?")
         console.log(input)
         // Retrieve the input value from the client script
-        gs.addInfoMessage("집에 왔니")
+        //gs.addInfoMessage("집에 왔니")
         /*
         var requester = input.requester_sys_id
         var complete_date = input.complete_date
@@ -1035,10 +1035,10 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         var reason_code = getValueOrEmptyString(input.reason_code)
         var request_due_date = input.request_due_date
         var remark = getValueOrEmptyString(input.remark)
-        gs.addErrorMessage(remark)
+        //gs.addErrorMessage(remark)
 
 
-        gs.addInfoMessage(estimated_oi_amount)
+        //gs.addInfoMessage(estimated_oi_amount)
         // Create a new record in the specified table 
         var gr = new GlideRecord('x_yergb_bpm_rfq_entry'); // Replace 'your_table_name' with the actual table name
         gr.initialize();
@@ -1065,16 +1065,16 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         gr.setValue('request_due_date', request_due_date)
         gr.setValue('remark', remark)
         gr.insert();
-        gs.addInfoMessage("집에 ㄷ멓ㄹㅈㄷㅁ횆돟ㅁㅈㄷ호")
+        //gs.addInfoMessage("집에 ㄷ멓ㄹㅈㄷㅁ횆돟ㅁㅈㄷ호")
 
-        ////gs.addErrorMessage('성공일거야 아마도' + estOiAmount);
+        //////gs.addErrorMessage('성공일거야 아마도' + estOiAmount);
 
         // Return a response to the client script
     } else if (input && input.updateFlag) {
         //var estOiAmount = input.estOiAmount;
 
-        gs.addInfoMessage("집에가자")
-        gs.addInfoMessage(input.quotation_type)
+        //gs.addInfoMessage("집에가자")
+        //gs.addInfoMessage(input.quotation_type)
         var requester = input.requester_sys_id
 
         var request_date = input.request_date
@@ -1099,7 +1099,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         var request_due_date = input.request_due_date
         var remark = getValueOrEmptyString(input.remark)
         var grU = new GlideRecord('x_yergb_bpm_rfq_entry');
-        gs.addInfoMessage(estimated_oi_amount)
+        //gs.addInfoMessage(estimated_oi_amount)
 
         ///////////// 여기서는 아마 뿌려주는 로직을 할듯
         grU.get(input.paramValue);
@@ -1127,7 +1127,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         grU.setValue('request_due_date', request_due_date)
         grU.setValue('remark', remark)
         grU.update()
-        gs.addInfoMessage("집에가자??!@#@!$")
+        //gs.addInfoMessage("집에가자??!@#@!$")
 
     }
 
@@ -1278,14 +1278,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>lhyunseok</sys_created_by>
         <sys_created_on>2024-06-12 06:12:28</sys_created_on>
         <sys_id>d6fc4838933282104d95f55a7bba10e5</sys_id>
-        <sys_mod_count>603</sys_mod_count>
+        <sys_mod_count>604</sys_mod_count>
         <sys_name>portal_function</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_d6fc4838933282104d95f55a7bba10e5</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-16 04:59:12</sys_updated_on>
+        <sys_updated_on>2024-06-16 08:34:53</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
             <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
