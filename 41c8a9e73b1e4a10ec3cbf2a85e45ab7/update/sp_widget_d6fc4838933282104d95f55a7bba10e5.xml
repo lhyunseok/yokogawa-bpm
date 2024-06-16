@@ -14,8 +14,8 @@
     };
     // Function to handle click event
     $scope.handleClick = function() {
-        if (c.data.qNum) {
-            window.location.href = "/sp?id=epic_01_ui_quote&sys_id=" + c.data.quotation_sysId; // Redirect to the URL
+        if (c.data.quotation) {
+            window.location.href = "/sp?id=epic_01_ui_quote&sys_id=" + c.data.quotation_sys_id; // Redirect to the URL
         }
     };
     // Example: Retrieve a specific parameter
@@ -1074,6 +1074,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         //var estOiAmount = input.estOiAmount;
 
         gs.addInfoMessage("집에가자")
+        gs.addInfoMessage(input.quotation_type)
         var requester = input.requester_sys_id
 
         var request_date = input.request_date
@@ -1277,14 +1278,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>lhyunseok</sys_created_by>
         <sys_created_on>2024-06-12 06:12:28</sys_created_on>
         <sys_id>d6fc4838933282104d95f55a7bba10e5</sys_id>
-        <sys_mod_count>595</sys_mod_count>
+        <sys_mod_count>603</sys_mod_count>
         <sys_name>portal_function</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_d6fc4838933282104d95f55a7bba10e5</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-16 01:37:14</sys_updated_on>
+        <sys_updated_on>2024-06-16 04:59:12</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
             <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
@@ -1370,7 +1371,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                                     
                                     <!-- input type="text" name="quotation" value={{data.qNum}} placeholder="" class="yoko-wid140" disable -->
                                     <input type="text" name="quotation" ng-model="c.data.quotation" placeholder="" class="yoko-wid140" ng-click="handleClick()" readonly>
-                                    <input type="text" name="quotation_sysId" ng-model="c.data.quotation_sysId" placeholder="" class="yoko-wid140" ng-click="handleClick()" ng-style="{'display': 'none'}" readonly>
+                                    <input type="text" name="quotation_sysId" ng-model="c.data.quotation_sys_id" placeholder="" class="yoko-wid140" ng-click="handleClick()" ng-style="{'display': 'none'}" readonly>
       
                                   <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickQuotation()"></button>
                                 </div>
@@ -1383,7 +1384,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                                         <option value="option2">KRW</option>
                                         <option value="option3">KRW</option>
                                     </select-->
-                                  <select id="type" name="type" class="yoko-wid140" ng-model="c.data.data.selectedType" ng-options="option as option for option in c.data.choices">
+                                  <select id="type" name="type" class="yoko-wid140" ng-model="c.data.quotation_type" ng-options="option as option for option in c.data.choices">
                                                                     <option value="">Select Type</option>
                                                           </select>
                                 </div>
