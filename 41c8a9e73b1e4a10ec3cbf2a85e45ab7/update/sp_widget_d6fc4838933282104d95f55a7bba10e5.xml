@@ -749,7 +749,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <script><![CDATA[(function() {
     /* populate the 'data' object */
     /* e.g., data.table = $sp.getValue('table'); */
-    var userName = gs.getUser().getName();
+    var userName = gs.getUser().getDisplayName()
     var userName_sys_id = gs.getUser().getID();
     console.log("0000000000000000000000")
     console.log(userName)
@@ -1296,14 +1296,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>lhyunseok</sys_created_by>
         <sys_created_on>2024-06-12 06:12:28</sys_created_on>
         <sys_id>d6fc4838933282104d95f55a7bba10e5</sys_id>
-        <sys_mod_count>631</sys_mod_count>
+        <sys_mod_count>637</sys_mod_count>
         <sys_name>portal_function</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_d6fc4838933282104d95f55a7bba10e5</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-16 10:46:21</sys_updated_on>
+        <sys_updated_on>2024-06-16 11:08:51</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
             <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
@@ -1336,7 +1336,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                                     <div class="yoko-form-inline">
                                         <input type="text" name="requester_no"  ng-model="c.data.requester" disabled class="yoko-wid140">
                                         <input type="text" name="requester_no_sys_id" value=""  disabled class="yoko-wid140"  ng-model="c.data.requester_sys_id" ng-style="{'display': 'none'}" >
-                                        <button type="button" class="yoko-btn yoko-btn-search" id ="openModalButton"  ng-click="clickRequester()"  ></button>
+                                        <!-- button type="button" class="yoko-btn yoko-btn-search" id ="openModalButton"  ng-click="clickRequester()"  ></button-->
                                   </div>
                                 </div>
                             </div>
@@ -1344,7 +1344,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                             <div class="yoko-form-col">
                                 <div class="yoko-form-group">
                                     <label for="state" class="yoko-short">State</label>
-                                    <input type="text" name="state" value={{data.state}} placeholder="New" class="yoko-wid140" readonly   >
+                                    <input type="text" name="state" value={{data.state}} placeholder="New" class="yoko-wid140" disabled   >
                                 </div>
                                 <div class="yoko-form-group">
                                     <label for="req_date" class="yoko-short">Req. Date</label>
@@ -1391,7 +1391,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                                     <input type="text" name="quotation" ng-model="c.data.quotation" placeholder="" class="yoko-wid140" ng-click="handleClick()" readonly>
                                     <input type="text" name="quotation_sysId" ng-model="c.data.quotation_sys_id" placeholder="" class="yoko-wid140" ng-click="handleClick()" ng-style="{'display': 'none'}" readonly>
       
-                                  <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickQuotation()"></button>
+                                  <!--button type="button" class="yoko-btn yoko-btn-search" ng-click="clickQuotation()"></button-->
                                 </div>
                             </div>
                             <div class="yoko-form-group">
