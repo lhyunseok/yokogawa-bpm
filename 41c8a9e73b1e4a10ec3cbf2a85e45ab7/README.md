@@ -26,3 +26,4 @@ If you find yourself unable to import your repository due to the presence of fil
    Currently listed dependencies:
    * System (apps/system_user)
    * System Import Sets
+   * Release Management
