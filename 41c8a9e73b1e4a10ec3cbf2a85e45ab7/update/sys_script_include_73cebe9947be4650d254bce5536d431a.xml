@@ -18,12 +18,13 @@ RealGridUtilsBPM.prototype = {
             return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYnPAZ2U443ftFtq1GKyB4jmAL12I5YlRY7nDp96mgkGF1aIR/+OY0FAv/bXcyw/1FAj+gHj1bcIaQ==';
         } else if (instanceUrl.includes('dev51314')) {
             return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP++bUn16KUuDYPGjmXkNrgkO9y6iqz39NL2bv3IdPQpJ8IeMqlSWuW04=';
-		}
-		else if (instanceUrl.includes('dev197054')) {
+        } else if (instanceUrl.includes('dev197054')) {
             return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+xy/pIW0HghIJKTWpoOpNFnkmhX0fXje4w7n7/ElITcuCZPJfHzThFk=';
+        } else if (instanceUrl.includes('dev251919')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+5kVu6qIimZpJKTWpoOpNFnkmhX0fXje4w7n7/ElITcuCZPJfHzThFk=';
         } else {
-            gs.addInfoMessage('script include - RealGridUtilsBPM - PDI realgrid key 추가 필요');
-            return ;
+            gs.addInfoMessage('script include - RealGridUtilsBPM - PDI용 realgrid key 발급받아서 추가하세요~~');
+            return;
         }
     },
     getIncidentInfo: function(id_q) {
@@ -31,7 +32,6 @@ RealGridUtilsBPM.prototype = {
         grinc.orderBy("number");
         grinc.addEncodedQuery('quotation=' + id_q);
         grinc.query();
-        //quotation=509e929d47fa4650d254bce5536d4378
         var incinfo = [];
         while (grinc.next()) {
             incinfo.push({
@@ -46,12 +46,10 @@ RealGridUtilsBPM.prototype = {
                 'unit_cost': grinc.unit_cost.getDisplayValue(),
                 'extended_cost': grinc.extended_cost.getDisplayValue(),
                 'unit_mp': grinc.unit_mp.getDisplayValue(),
-                'mp_amount': grinc.mp_amount.getDisplayValue(),
                 'vendor': grinc.vendor.getDisplayValue(),
-                'quotation': id_q,
+                'quotation': id_q
             });
         }
-
         return incinfo;
     },
 
@@ -236,13 +234,13 @@ RealGridUtilsBPM.prototype = {
         <sys_created_by>hhkim</sys_created_by>
         <sys_created_on>2024-06-14 08:27:11</sys_created_on>
         <sys_id>73cebe9947be4650d254bce5536d431a</sys_id>
-        <sys_mod_count>6</sys_mod_count>
+        <sys_mod_count>13</sys_mod_count>
         <sys_name>RealGridUtilsBPM</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_include_73cebe9947be4650d254bce5536d431a</sys_update_name>
-        <sys_updated_by>hhkim</sys_updated_by>
-        <sys_updated_on>2024-06-15 08:08:53</sys_updated_on>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-15 15:22:34</sys_updated_on>
     </sys_script_include>
 </record_update>

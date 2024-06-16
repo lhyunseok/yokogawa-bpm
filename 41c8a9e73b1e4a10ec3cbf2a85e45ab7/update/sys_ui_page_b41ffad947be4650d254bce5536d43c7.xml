@@ -724,11 +724,11 @@ function getAjaxData(gridView, dp, num, sdesc, state, startdate, enddate) {
 </script>
 
 <script type="text/javascript">
-    var data = JSON.parse("${JSON.stringify(incident)}");
+    var mydata = JSON.parse("${JSON.stringify(incident)}");
 </script>
 
 <style>
-
+body[data-formName=ui_page_render] { padding: 0 !important; }
 /*리얼그리드 수정*/
 .rg-root {color: #4B5966 !important;  font-family: "Pretendard" !important;   font-size: 14px !important;  font-style: normal !important;  font-weight: 500 !important;  line-height: normal !important;}
 .rg-grid {border: 1px solid #EAEEF3 !important;}
@@ -784,7 +784,11 @@ function getAjaxData(gridView, dp, num, sdesc, state, startdate, enddate) {
 		gridView.undoable = true;
 
 		gridView.columnByName("sys_id").visible =  false;
-		//gridView.columnByName("quotation").visible =  false;
+		gridView.columnByName("quotation").visible =  false;
+		gridView.columnByName("mp_amount").visible =  false;
+
+		gridView.editOptions.commitWhenLeave = true;
+		gridView.displayOptions.fitStyle = 'evenFill'
 
         gridView.setColumnLayout(layouts);
 
@@ -811,10 +815,15 @@ function getAjaxData(gridView, dp, num, sdesc, state, startdate, enddate) {
 
 			let urows = dp.getStateRows('updated');
 			let crows = dp.getStateRows('created');
-			console.log(crows);
-			console.log(urows);
-			debugger
-			
+
+		
+			if(crows.length || urows.length){
+				var result = confirm("데이터를 저장 하시겠습니까");
+			}else{
+				alert('수정된 데이터가 없습니다.');
+				return;
+			}
+
 			for (var i = 0 ;  crows.length > i ;i++){
 				dataSets.push(dp.getValues(crows[i]));
 			}
@@ -823,17 +832,7 @@ function getAjaxData(gridView, dp, num, sdesc, state, startdate, enddate) {
 				updateSets.push(dp.getValues(urows[n]));
 			}
 
-			console.log('dataSets-----' + dataSets);
-			console.log('updateSets----' + updateSets);
 			debugger
-
-			if(crows.length || urows.length){
-				var result = confirm("데이터를 저장 하시겠습니까");
-			}else{
-				alert('수정된 데이터가 없습니다.');
-				return;
-			}
-
 			if(result){
 				if(crows.length){
 					createRecord(dataSets);		
@@ -846,7 +845,7 @@ function getAjaxData(gridView, dp, num, sdesc, state, startdate, enddate) {
 			}
 		});
 
-		dp.setRows(data);
+		dp.setRows(mydata);
 		setPageSelbox(gridView, dp);
 
     });
@@ -870,13 +869,13 @@ function getAjaxData(gridView, dp, num, sdesc, state, startdate, enddate) {
         <sys_created_by>hhkim</sys_created_by>
         <sys_created_on>2024-06-14 08:28:20</sys_created_on>
         <sys_id>b41ffad947be4650d254bce5536d43c7</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>9</sys_mod_count>
         <sys_name>SorinGrid_BPM</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ui_page_b41ffad947be4650d254bce5536d43c7</sys_update_name>
-        <sys_updated_by>hhkim</sys_updated_by>
-        <sys_updated_on>2024-06-14 08:52:02</sys_updated_on>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-16 03:49:28</sys_updated_on>
     </sys_ui_page>
 </record_update>
