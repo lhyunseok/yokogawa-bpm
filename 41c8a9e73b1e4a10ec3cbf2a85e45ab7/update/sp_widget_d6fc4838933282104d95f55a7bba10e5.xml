@@ -111,8 +111,9 @@ location.reload();
 
         if (!c.data.reason_code || !c.data.request_due_date || !c.data.remark) {
             alert("Mandatory is empty");
-            document.querySelector('.yoko-search-form-wrap.yoko-project-wrap.yoko-col40 .yoko-search-form').classList.add('highlight-form');
-
+            //document.querySelector('.yoko-search-form-wrap.yoko-project-wrap.yoko-col40 .yoko-search-form .').classList.add('highlight-form');
+  				  const reasonCode = document.querySelector('input[name="reason_code"]');
+reasonCode.classList.add('highlight-form');
         } else {
 					 c.data.updateFlag = true;
 						 c.data.newState = 3;
@@ -1317,14 +1318,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>lhyunseok</sys_created_by>
         <sys_created_on>2024-06-12 06:12:28</sys_created_on>
         <sys_id>d6fc4838933282104d95f55a7bba10e5</sys_id>
-        <sys_mod_count>672</sys_mod_count>
+        <sys_mod_count>694</sys_mod_count>
         <sys_name>portal_function</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_d6fc4838933282104d95f55a7bba10e5</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-17 07:15:43</sys_updated_on>
+        <sys_updated_on>2024-06-17 08:52:13</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
             <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
@@ -1585,15 +1586,15 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                         <div class="yoko-search-form" style="height: 260px">
                             <div class="yoko-form-col yoko-col100">
                                 <div class="yoko-form-group">
-                                    <label for="reason_code" class="yoko-short-110">Reason Code</label>
+                                    <label for="reason_code" class="yoko-short-110" style="width:12rem">* Reason Code</label>
                                     <input type="text" name="reason_code" ng-model="c.data.reason_code" placeholder="" class="yoko-wid140">
                                 </div>
                                 <div class="yoko-form-group">
-                                    <label for="request_due_date" class="yoko-short-110">Request Due Date</label>
+                                    <label for="request_due_date" class="yoko-short-110" style="width:12rem">* Request Due Date</label>
                                     <input type="date" name="request_due_date" value={{data.request_due_date}}  ng-model="c.data.request_due_date" id="request_due_date" class="yoko-wid140">
                                 </div>
                                 <div class="yoko-form-group">
-                                    <label for="remark" class="yoko-short-110">Remark</label>
+                                    <label for="remark" class="yoko-short-110" style="width:16rem">* Remark</label>
                                     <textarea id="remark" name="remark" rows="8" ng-model="c.data.remark" required placeholder=""></textarea>
                                 </div>
                             </div>
