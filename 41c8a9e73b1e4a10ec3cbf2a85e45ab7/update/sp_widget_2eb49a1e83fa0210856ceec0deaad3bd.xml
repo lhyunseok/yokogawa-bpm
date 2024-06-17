@@ -15,7 +15,7 @@
     // Function to handle click event
     $scope.handleClick = function() {
         if (c.data.quotation) {
-            window.location.href = "/sp?id=epic_01_ui_quote&table=x_yergb_bpm_quotation&sys_id=" + c.data.quotation_sys_id; // Redirect to the URL
+            window.location.href = "/sp?id=epic_01_ui_quote&sys_id=" + c.data.quotation_sys_id; // Redirect to the URL
         }
     };
     // Example: Retrieve a specific parameter
@@ -64,7 +64,7 @@ location.reload();
 							console.log("-----")
 							console.log(response)
 							console.log(c.data.redirect_sys_id)
-							window.location.href = "/sp?id=epic_01_ui_rfp&table=x_yergb_bpm_rfq_entry&sys_id="+c.data.redirect_sys_id;
+							window.location.href = "/sp?id=epic_01_ui_rfp&sys_id="+c.data.redirect_sys_id;
 							//
             // Optionally handle the server response if needed
             if (response.data && response.data.result) {
@@ -111,11 +111,9 @@ location.reload();
 
         if (!c.data.reason_code || !c.data.request_due_date || !c.data.remark) {
             alert("Mandatory is empty");
-            //document.querySelector('.yoko-search-form-wrap.yoko-project-wrap.yoko-col40 .yoko-search-form .').classList.add('highlight-form');
-  				  const reasonCode = document.querySelector('input[name="reason_code"]');
-reasonCode.classList.add('highlight-form');
+            document.querySelector('.yoko-search-form-wrap.yoko-project-wrap.yoko-col40 .yoko-search-form').classList.add('highlight-form');
+
         } else {
-					 c.data.updateFlag = true;
 						 c.data.newState = 3;
         c.data.buttunflag = true;
             c.server.update().then(function(response) {
@@ -742,10 +740,10 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <docs/>
         <field_list/>
         <has_preview>false</has_preview>
-        <id>portal_function</id>
+        <id>initplanmngtwd</id>
         <internal>false</internal>
         <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
-        <name>portal_function</name>
+        <name>initPlanMngtWd</name>
         <option_schema/>
         <public>false</public>
         <roles/>
@@ -762,7 +760,6 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
     data.requester_sys_id = userName_sys_id;
     data.showUpdate = false;
     data.sys_id = $sp.getParameter("sys_id");
-	data.showSave = true
     //////gs.addInfoMessage(data.sys_id)
     // Select 가져올건데
     var grS = new GlideRecord('x_yergb_bpm_rfq_entry'); // Replace with your table name
@@ -938,8 +935,6 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.showReturn = false;
             data.showCancel = false;
             data.showUpdate = true;
-				    data.showSave = true  			
-
         } else if (gr.state.getDisplayValue() == "Assess") {
             data.showAssess = false;
             data.showRequest = true;
@@ -949,7 +944,6 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.showReturn = false;
             data.showCancel = false;
             data.showUpdate = true;
-					data.showSave = true  
         } else if (gr.state.getDisplayValue() == "Requested") {
             data.showAssess = false;
             data.showRequest = false;
@@ -959,7 +953,6 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.showReturn = true;
             data.showCancel = false;
             data.showUpdate = true;
-					data.showSave = true  
         } else if (gr.state.getDisplayValue() == "Returned") {
             data.showAssess = true;
             data.showRequest = false;
@@ -969,7 +962,6 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.showReturn = false;
             data.showCancel = true;
             data.showUpdate = true;
-					data.showSave = true  
         } else if (gr.state.getDisplayValue() == "In Progress") {
             data.showAssess = false;
             data.showRequest = false;
@@ -979,28 +971,11 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.showReturn = false;
             data.showCancel = false;
             data.showUpdate = true;
-					data.showSave = true  
             //가져와서 일단 말 박아주는거 해야함
             //Return the results to the client script
         }
         /////////// 시스아이디 있고, 상태가 new 일때만
 
-			 if (gr.requester != gs.getUser().getID()) {
-				 		
-				 		//gs.addInfoMessage("gr.requester 달러")
-				 		//gs.addInfoMessage(gr.requester)
-				 		//gs.addInfoMessage(gs.getUser().getID())
-            data.showAssess = false;
-            data.showRequest = false;
-            data.showSubmit = false;
-            data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = false;
-       			data.showSave = false
-			 }
-			
 
 
         /////////// 파라미터 있는 상태에서 만약에 내가 ass를 누름
@@ -1315,17 +1290,17 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
-        <sys_created_by>lhyunseok</sys_created_by>
-        <sys_created_on>2024-06-12 06:12:28</sys_created_on>
-        <sys_id>d6fc4838933282104d95f55a7bba10e5</sys_id>
-        <sys_mod_count>697</sys_mod_count>
-        <sys_name>portal_function</sys_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-17 07:56:29</sys_created_on>
+        <sys_id>2eb49a1e83fa0210856ceec0deaad3bd</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>initPlanMngtWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_update_name>sp_widget_d6fc4838933282104d95f55a7bba10e5</sys_update_name>
-        <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-17 10:08:32</sys_updated_on>
+        <sys_update_name>sp_widget_2eb49a1e83fa0210856ceec0deaad3bd</sys_update_name>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-17 07:56:53</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
             <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
@@ -1340,7 +1315,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                     <button class="yoko-btn yoko-btn-outline" ng-if="data.showRequest" ng-click="clickRequest()">Request Quote</button>
                     <button class="yoko-btn yoko-btn-outline" id="AssessButton" ng-if="data.showAssess" ng-click="clickAssess()">Assess</button>
                     <button class="yoko-btn yoko-btn-outline" ng-if="data.showUpdate">Update</button>
-                    <button class="yoko-btn yoko-btn-fill" ng-if="data.showSave" id="saveButton" ng-click="clickSave()">Save</button>
+                    <button class="yoko-btn yoko-btn-fill"  id="saveButton" ng-click="clickSave()">Save</button>
                 </div>
             </div>
             <div class="yoko-content">
@@ -1586,15 +1561,15 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                         <div class="yoko-search-form" style="height: 260px">
                             <div class="yoko-form-col yoko-col100">
                                 <div class="yoko-form-group">
-                                    <label for="reason_code" class="yoko-short-110" style="width:12rem">* Reason Code</label>
+                                    <label for="reason_code" class="yoko-short-110">Reason Code</label>
                                     <input type="text" name="reason_code" ng-model="c.data.reason_code" placeholder="" class="yoko-wid140">
                                 </div>
                                 <div class="yoko-form-group">
-                                    <label for="request_due_date" class="yoko-short-110" style="width:12rem">* Request Due Date</label>
+                                    <label for="request_due_date" class="yoko-short-110">Request Due Date</label>
                                     <input type="date" name="request_due_date" value={{data.request_due_date}}  ng-model="c.data.request_due_date" id="request_due_date" class="yoko-wid140">
                                 </div>
                                 <div class="yoko-form-group">
-                                    <label for="remark" class="yoko-short-110" style="width:16rem">* Remark</label>
+                                    <label for="remark" class="yoko-short-110">Remark</label>
                                     <textarea id="remark" name="remark" rows="8" ng-model="c.data.remark" required placeholder=""></textarea>
                                 </div>
                             </div>
