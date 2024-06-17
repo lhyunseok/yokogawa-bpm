@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller=function($scope, $location) {
+        <client_script><![CDATA[api.controller=function($scope, $location, $window) {
   /* widget controller */
   var c = this;
 		
@@ -25,6 +25,14 @@
 		});
 	};
 	
+	$window.addEventListener('message', function(event) {
+		if (event.data.type === 'updateIframeSrc') {
+			location.reload();
+            //var iframe = document.getElementById('myIframe');
+           // iframe.src = event.data.newSrc;
+           // console.log('Iframe src updated to:', event.data.newSrc);
+		}
+  });
 	
 };
 
@@ -241,7 +249,6 @@ if(input){
 		if (grI.get(data.sys_id)) {
     // Record found, storing field values in the data object
 			data.active = grI.getValue('active');
-			data.application = grI.getValue('application');
 			data.assigned_to = grI.getDisplayValue('assigned_to');
 			data.assignment_group = grI.getDisplayValue('assignment_group');
 			data.gp_amount = grI.getDisplayValue('gp_amount');
@@ -255,16 +262,9 @@ if(input){
 			data.state = grI.getDisplayValue('state');
 			data.state_value = grI.getValue('state');
 
-			data.sys_class_name = grI.getValue('sys_class_name');
-			data.sys_created_by = grI.getValue('sys_created_by');
-			data.sys_created_on = grI.getValue('sys_created_on');
-			data.sys_mod_count = grI.getValue('sys_mod_count');
-			data.sys_updated_by = grI.getValue('sys_updated_by');
-			data.sys_updated_on = grI.getValue('sys_updated_on');
-			data.total_quote_cost = grI.getValue('total_quote_cost');
-			data.total_quote_price = grI.getValue('total_quote_price');
+			data.total_quote_cost = grI.getDisplayValue('total_quote_cost');
+			data.total_quote_price = grI.getDisplayValue('total_quote_price');
 			data.version = grI.getValue('version');
-			data.work_notes = grI.getValue('work_notes');
 			
 			data.ess = grI.getDisplayValue('mp_amount');
 
@@ -320,14 +320,14 @@ if(input){
         <sys_created_by>hhkim</sys_created_by>
         <sys_created_on>2024-06-13 10:51:05</sys_created_on>
         <sys_id>5156d20547b60650d254bce5536d435c</sys_id>
-        <sys_mod_count>98</sys_mod_count>
+        <sys_mod_count>102</sys_mod_count>
         <sys_name>quotation_hh</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_5156d20547b60650d254bce5536d435c</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-16 05:58:51</sys_updated_on>
+        <sys_updated_by>hahyun@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-17 01:22:33</sys_updated_on>
         <template><![CDATA[    <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > Quotation</div>
         <div class="yoko-title-btn-wrap">
@@ -372,7 +372,7 @@ if(input){
                         <div class="yoko-form-col">
                         		<div class="yoko-form-group">
                         			<label for="ess_sqms_no" class="yoko-short-130">ESS/SQMS No.</label>
-                                <input type="number" name="ess_sqms_no" value="" placeholder="" class="yoko-wid140">
+                                <input type="text" name="ess_sqms_no" value="" placeholder="" class="yoko-wid140">
                       			</div>
                             <div class="yoko-form-group">
                                 <label for="currency" class="yoko-short-130">Currency</label>
@@ -380,11 +380,11 @@ if(input){
                             </div>
                             <div class="yoko-form-group">
                                 <label for="total_quote_price" class="yoko-short-130">Total Quote Price</label>
-                                <input type="number" name="total_quote_price" value={{data.total_quote_price}} placeholder="" disabled class="yoko-wid140">
+                                <input type="text" name="total_quote_price" value={{data.total_quote_price}} placeholder="" disabled class="yoko-wid140" style = "text-align:right;">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="total_estimated_cost" class="yoko-short-130">Total Quote Cost</label>
-                                <input type="number" name="total_quote_cost" value={{data.total_quote_price}} placeholder="" disabled class="yoko-wid140">
+                                <input type="text" name="total_quote_cost" value={{data.total_quote_price}} placeholder="" disabled class="yoko-wid140" style = "text-align:right;">
                             </div>
             
                         </div>
@@ -392,19 +392,19 @@ if(input){
                         <div class="yoko-form-col yoko-form-amount-wrap">
                             <div class="yoko-form-group">
                                 <label for="gp_amount" class="yoko-short">GP Amount</label>
-                                <input type="number" name="gp_amount" value={{data.gp_amount}} placeholder="" disabled class="yoko-wid140">
+                                <input type="text" name="gp_amount" value={{data.gp_amount}} placeholder="" disabled class="yoko-wid140" style = "text-align:right;">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="mp_amount" class="yoko-short">MP Amount</label>
-                                <input type="number" name="mp_amount" value={{data.mp_amount}} placeholder="" disabled class="yoko-wid140">
+                                <input type="text" name="mp_amount" value={{data.mp_amount}} placeholder="" disabled class="yoko-wid140" style = "text-align:right;">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="gp" class="yoko-short">GP %</label>
-                                <input type="number" name="gp" value={{data.gp_percent}} placeholder="" disabled class="yoko-wid140">
+                                <input type="text" name="gp" value={{data.gp_percent}} placeholder="" disabled class="yoko-wid140" style = "text-align:right;">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="mp_gap" class="yoko-short">MP Gap %</label>
-                                <input type="number" name="mp_gap" value={{data.mp_gap_percent}} placeholder="" disabled class="yoko-wid140">
+                                <input type="text" name="mp_gap" value={{data.mp_gap_percent}} placeholder="" disabled class="yoko-wid140" style = "text-align:right;">
                             </div>
                         </div>
                     </div>
@@ -449,7 +449,7 @@ if(input){
                 </div>
             </div>
           
-           <iframe src={{data.gridUrl}} width='100%' height='500px' style='border:none;'></iframe>
+           <iframe src={{data.gridUrl}} width='100%' height='500px' style='border:none;' id='myIframe'></iframe>
            
         </div>
     </div>]]></template>
