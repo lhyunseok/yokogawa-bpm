@@ -847,47 +847,19 @@ body[data-formName=ui_page_render] { padding: 0 !important; }
 				if(urows.length){
 					updateRecord(updateSets);		
 				}
-				alert('saved');
-				location.reload();
+				//alert('saved');
+				updateParentIframeSrc();
+				//location.reload();
 			}
 		});
-		// //SAVE
-		// const oData = document.getElementById('bt-save');
-		// oData.addEventListener('click', function () {
-		// 	var dataSets = [];
-		// 	var updateSets = [];
 
-		// 	let urows = dp.getStateRows('updated');
-		// 	let crows = dp.getStateRows('created');
-
-		
-		// 	if(crows.length || urows.length){
-		// 		var result = confirm("데이터를 저장 하시겠습니까");
-		// 	}else{
-		// 		alert('수정된 데이터가 없습니다.');
-		// 		return;
-		// 	}
-
-		// 	for (var i = 0 ;  crows.length > i ;i++){
-		// 		dataSets.push(dp.getValues(crows[i]));
-		// 	}
-
-		// 	for (var n = 0 ;  urows.length > n ;n++){
-		// 		updateSets.push(dp.getValues(urows[n]));
-		// 	}
-
-		// 	debugger
-		// 	if(result){
-		// 		if(crows.length){
-		// 			createRecord(dataSets);		
-		// 		}
-		// 		if(urows.length){
-		// 			updateRecord(updateSets);		
-		// 		}
-		// 		alert('saved');
-		// 		location.reload();
-		// 	}
-		// });
+	function updateParentIframeSrc() {
+		var url = new URL(window.location.href);
+        url.searchParams.set('reload', 'ok');
+	   	var newSrc = url.toString();
+    	window.parent.postMessage({ type: 'updateIframeSrc', newSrc: newSrc }, '*');
+    }
+	
 
 		dp.setRows(mydata);
 		setPageSelbox(gridView, dp);
@@ -913,13 +885,13 @@ body[data-formName=ui_page_render] { padding: 0 !important; }
         <sys_created_by>hhkim</sys_created_by>
         <sys_created_on>2024-06-14 08:28:20</sys_created_on>
         <sys_id>b41ffad947be4650d254bce5536d43c7</sys_id>
-        <sys_mod_count>10</sys_mod_count>
+        <sys_mod_count>11</sys_mod_count>
         <sys_name>SorinGrid_BPM</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ui_page_b41ffad947be4650d254bce5536d43c7</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-16 12:00:18</sys_updated_on>
+        <sys_updated_by>hahyun@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-17 01:20:18</sys_updated_on>
     </sys_ui_page>
 </record_update>
