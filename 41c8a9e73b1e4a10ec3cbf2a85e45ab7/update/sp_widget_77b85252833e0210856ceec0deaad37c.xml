@@ -14,13 +14,13 @@
     // Function to handle click event
     $scope.handleClick = function() {
         if (c.data.quotation) {
-            window.location.href = "/sp?id=epic_03_ui_budget_y_product&sys_id=" + c.data.quotation_sys_id; // Redirect to the URL
+            window.location.href = "/ybpm?id=epic_03_ui_budget_y_product&number=" + c.data.key; // Redirect to the URL
         }
     };
     // Example: Retrieve a specific parameter
-    var paramValue = c.getUrlParameter('sys_id');
+    var paramValue = c.getUrlParameter('number');
     c.data.paramValue = paramValue;
-
+	
     // Call the server script
     c.server.update().then(function(response) {
         // Handle the server response if needed
@@ -30,7 +30,7 @@
     $scope.clickSave = function() {
         // Get the value from the input field using ng-model
         //var inputValue = c.estOiAmount;
-        c.estimated_order_date = c.data.estimated_order_date
+        //c.estimated_order_date = c.data.estimated_order_date;
 
         if (paramValue) { //이거 업데이트임
             //alert("UPDTATETE")
@@ -46,7 +46,7 @@
         } else { // New
             c.data.insertFlag = true;
             c.server.update().then(function(response) {
-                window.location.href = "/ybpm?id=epic_03_ui_budget_y_product&sys_id=" + c.data.redirect_sys_id;
+                window.location.href = "/ybpm?id=epic_03_ui_budget_y_product&number=" + c.data.key;
 
                 // Optionally handle the server response if needed
                 //if (response.data && response.data.result) {
@@ -417,34 +417,38 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <roles/>
         <script><![CDATA[(function() {
 
-        data.sys_id = $sp.getParameter("sys_id");
-        var gr1 = new GlideRecord('x_yergb_bpm_budget_plan');
+    data.key = $sp.getParameter("number");
 
-        if (data.sys_id && input && input.readStatus) { // Update
-            var gr2 = new GlideRecord('x_yergb_bpm_budget_plan');
-            gr2.addQuery('sys_id', data.sys_id);
-            gr2.query();
-            //while (grI.next()) {
-
-            //}
-        } // else {  // Insert
-
-        //}
-
+    if (data.key && input && input.readStatus) { // Update
+        var grProject = new GlideRecord('x_yergb_bpm_project');
+        grProject.addQuery('number', data.key);
+        grProject.query();
+        if (grProject.next()) {
+            data.number = grProject.number.toString(); //Project Number
+            data.name = grProject.name.toString(); //Project Name
+			data.pm = grProject.getDisplayValue('pm'); //PM Name
+			data.user = grProject.pm.user_name.toString(); // PM ID
+			data.region = grProject.getDisplayValue('region'); // Region
+			data.currency = grProject.getDisplayValue('currency'); // Currency
+			data.data_type = grProject.getDisplayValue('u_data_type'); // Data Type
+			data.budget_type = grProject.getDisplayValue('u_budget_type'); // Budget Type
+			data.customer = grProject.customer.name.toString(); // CustomerName
+        }
+    }
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-17 08:14:02</sys_created_on>
         <sys_id>77b85252833e0210856ceec0deaad37c</sys_id>
-        <sys_mod_count>5</sys_mod_count>
+        <sys_mod_count>22</sys_mod_count>
         <sys_name>budgetPlanMngtWd01</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_77b85252833e0210856ceec0deaad37c</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-17 09:03:43</sys_updated_on>
+        <sys_updated_on>2024-06-18 04:36:43</sys_updated_on>
         <template><![CDATA[    <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > Project Budget Plan for Y-Product</div>
         <div class="yoko-title-btn-wrap">
@@ -460,43 +464,43 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                     <div class="yoko-form-col">
                         <div class="yoko-form-group">
                             <label for="project_number" class="yoko-short-100">Project Number</label>
-                            <input type="text" name="project_number" value="" placeholder="E2024052001" disabled class="yoko-wid247">
+                            <input type="text" name="project_number" value={{data.number}} placeholder="" disabled class="yoko-wid247">
                         </div>
                         <div class="yoko-form-group">
                             <label for="customer" class="yoko-short-100">Customer</label>
-                            <input type="text" name="customer" value="" placeholder="Sorin Information Tech." disabled class="yoko-wid247">
+                            <input type="text" name="customer" value={{data.customer}} placeholder="" disabled class="yoko-wid247">
                         </div>
                         <div class="yoko-form-group">
                             <label for="pm_name" class="yoko-short-100">PM Name</label>
                             <div class="yoko-form-inline yoko-wid247">
-                                <input type="number" name="pm_number" value="" placeholder="29190701" disabled class="yoko-col40">
-                                <input type="text" name="pm_name" value="" placeholder="김성태" disabled class="yoko-col60">
+                                <input type="number" name="pm_number" value={{data.user}} placeholder="" disabled class="yoko-col40">
+                                <input type="text" name="pm_name" value={{data.pm}} placeholder="" disabled class="yoko-col60">
                             </div>
                         </div>
                         <div class="yoko-form-group">
                             <label for="project_name" class="yoko-short-100">Project Name</label>
-                            <input type="text" name="project_name" value="" placeholder="2008943545-KOGAS-DANGJIN_22" disabled class="yoko-wid247">
+                            <input type="text" name="project_name" value={{data.name}} placeholder="" disabled class="yoko-wid247">
                         </div>  
                     </div>
 
                     <div class="yoko-form-col">
                         <div class="yoko-form-group">
                             <label for="data_type" class="yoko-short">Data type</label>
-                            <input type="text" name="data_type" value="" placeholder="ITEM" disabled class="yoko-wid140">
+                            <input type="text" name="data_type" value={{data.data_type}} placeholder="" disabled class="yoko-wid140">
                         </div>
                         <div class="yoko-form-group">
                             <label for="budget_type" class="yoko-short">Budget type</label>
-                            <input type="text" name="budget_type" value="" placeholder="Y-PROD" disabled class="yoko-wid140">
+                            <input type="text" name="budget_type" value={{data.budget_type}} placeholder="" disabled class="yoko-wid140">
                         </div>
                     </div>
                     <div class="yoko-form-col"> 
                         <div class="yoko-form-group">
                             <label for="region" class="yoko-short">Region</label>
-                            <input type="text" name="region" value="" placeholder="ITEM" disabled class="yoko-wid140">
+                            <input type="text" name="region" value={{data.region}} placeholder="" disabled class="yoko-wid140">
                         </div>
                         <div class="yoko-form-group">
                             <label for="currency" class="yoko-short">Currency</label>
-                            <input type="text" name="currency" value="" placeholder="CNY" disabled class="yoko-wid140">
+                            <input type="text" name="currency" value={{data.currency}} placeholder="" disabled class="yoko-wid140">
                         </div>
                     </div>
                     
