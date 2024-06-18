@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="4f1ea7cc3be2ca10ec3cbf2a85e45a15" extends="x_yergb_bpm_process" label="TCAS Management" max_length="40" name="x_yergb_bpm_tcas_management" type="collection">
-        <element label="Section name" max_length="40" name="section_name" type="string"/>
         <element label="Final Company" max_length="32" name="final_company" reference="core_company" type="reference"/>
-        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Requestor" max_length="32" name="requester" reference="sys_user" type="reference"/>
-        <element label="Quote type" max_length="40" name="quote_type" type="string"/>
-        <element label="RFQ Entry" max_length="32" name="rfq_entry" reference="x_yergb_bpm_rfq_entry" type="reference"/>
         <element label="Biz scope" max_length="40" name="biz_scope" type="string"/>
-        <element label="Question6" max_length="40" name="question6" type="string"/>
-        <element label="Question2" max_length="40" name="question2" type="string"/>
-        <element label="Section code" max_length="40" name="section_code" type="string"/>
-        <element label="Contract Company" max_length="32" name="contract_company" reference="core_company" type="reference"/>
-        <element label="Request type" max_length="40" name="request_type" type="string"/>
-        <element label="Question3" max_length="40" name="question3" type="string"/>
-        <element label="Question1" max_length="40" name="question1" type="string"/>
         <element label="Question5" max_length="40" name="question5" type="string"/>
-        <element label="Approval Number" max_length="40" name="approval_number" type="string"/>
+        <element label="Question3" max_length="40" name="question3" type="string"/>
+        <element label="Contract Company" max_length="32" name="contract_company" reference="core_company" type="reference"/>
+        <element label="Question2" max_length="40" name="question2" type="string"/>
         <element label="Question4" max_length="40" name="question4" type="string"/>
+        <element label="Quote type" max_length="40" name="quote_type" type="string"/>
+        <element label="Section code" max_length="40" name="section_code" type="string"/>
         <element label="Currency" max_length="32" name="currency" reference="core_company" type="reference"/>
+        <element label="Question6" max_length="40" name="question6" type="string"/>
+        <element label="Approval Number" max_length="40" name="approval_number" type="string"/>
+        <element label="RFQ Entry" max_length="32" name="rfq_entry" reference="x_yergb_bpm_rfq_entry" type="reference"/>
+        <element label="Question1" max_length="40" name="question1" type="string"/>
+        <element label="Request type" max_length="40" name="request_type" type="string"/>
+        <element label="Section name" max_length="40" name="section_name" type="string"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Requestor" max_length="32" name="requester" reference="sys_user" type="reference"/>
         <index name="index">
             <element name="contract_company"/>
         </index>
