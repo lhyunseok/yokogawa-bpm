@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller = function($scope, $location) {
+        <client_script><![CDATA[api.controller = function($scope, $location, $window) {
 
     /* widget controller */
     var c = this;
@@ -20,52 +20,43 @@
     // Example: Retrieve a specific parameter
     var paramValue = c.getUrlParameter('number');
     c.data.paramValue = paramValue;
-	
+
     // Call the server script
     c.server.update().then(function(response) {
         // Handle the server response if needed
     });
 
-    // 클릭하고 데이터 넘기기
-    $scope.clickSave = function() {
-        // Get the value from the input field using ng-model
-        //var inputValue = c.estOiAmount;
-        //c.estimated_order_date = c.data.estimated_order_date;
-
-        if (paramValue) { //이거 업데이트임
-            //alert("UPDTATETE")
-            c.data.updateFlag = true;
-            c.server.update().then(function(response) {
-
-                if (response.data && response.data.result) {
-                    location.reload();
-                }
-                location.reload();
-            });
-
-        } else { // New
-            c.data.insertFlag = true;
-            c.server.update().then(function(response) {
-                window.location.href = "/ybpm?id=epic_03_ui_budget_y_product&number=" + c.data.key;
-
-                // Optionally handle the server response if needed
-                //if (response.data && response.data.result) {
-                //}
-            });
-        }
-
-        // Assign the value to c.data for server-side processing
-        //c.data.estOiAmount = inputValue;
-
-        // Call the server script
-
-        // Display the value in an //alert (for client-side confirmation)
-        ////alert('The entered amount is: ' + inputValue);
-    };
-
     $scope.clickCreateMSA = function() {
-		alert("Working..... In progress develop");
+        alert("Working..... In progress develop");
     };
+	
+    //grid save 할 때 전체페이지 reload
+    $window.addEventListener('message', function(event) {
+        if (event.data.type === 'updateIframeSrc') {
+            location.reload();
+        }
+    });
+    // Function to dynamically adjust iframe height
+    function resizeIframe() {
+        var iframe = document.getElementById('myIframe');
+        if (iframe) {
+            var windowHeight = window.innerHeight;
+            iframe.style.height = Math.max(windowHeight * 0.5, 200) + 'px';
+        }
+    }
+
+    // Add event listener to resize iframe when content loads
+    $window.onload = function() {
+        resizeIframe();
+    };
+
+    // Add event listener to window resize event
+    $window.addEventListener('resize', function() {
+        resizeIframe();
+    });
+
+    // Call resizeIframe on initial load to set the initial height
+    resizeIframe();
 }]]></client_script>
         <controller_as>c</controller_as>
         <css>@charset "UTF-8";&#13;
@@ -74,108 +65,108 @@
     font-family: "Pretendard";&#13;
     font-weight: 100;&#13;
     font-style: normal;&#13;
-    src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
+    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
     src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
         format("embedded-opentype"),&#13;
       url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
       url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");&#13;
+      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
     font-display: swap;&#13;
   }&#13;
   @font-face {&#13;
     font-family: "Pretendard";&#13;
     font-weight: 200;&#13;
     font-style: normal;&#13;
-    src: url("./fonts/pretendard/Pretendard-ExtraLight.eot");&#13;
-    src: url("./fonts/pretendard/Pretendard-ExtraLight.eot?#iefix")&#13;
+    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
         format("embedded-opentype"),&#13;
-      url("./fonts/pretendard/Pretendard-ExtraLight.woff2") format("woff2"),&#13;
-      url("./fonts/pretendard/Pretendard-ExtraLight.woff") format("woff"),&#13;
-      url("./fonts/pretendard/Pretendard-ExtraLight.ttf") format("truetype");&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
     font-display: swap;&#13;
   }&#13;
   @font-face {&#13;
     font-family: "Pretendard";&#13;
     font-weight: 300;&#13;
     font-style: normal;&#13;
-    src: url("./fonts/pretendard/Pretendard-Light.eot");&#13;
-    src: url("./fonts/pretendard/Pretendard-Light.eot?#iefix")&#13;
+    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
         format("embedded-opentype"),&#13;
-      url("./fonts/pretendard/Pretendard-Light.woff2") format("woff2"),&#13;
-      url("./fonts/pretendard/Pretendard-Light.woff") format("woff"),&#13;
-      url("./fonts/pretendard/Pretendard-Light.ttf") format("truetype");&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
     font-display: swap;&#13;
   }&#13;
   @font-face {&#13;
     font-family: "Pretendard";&#13;
     font-weight: 400;&#13;
     font-style: normal;&#13;
-    src: url("./fonts/pretendard/Pretendard-Regular.eot");&#13;
-    src: url("./fonts/pretendard/Pretendard-Regular.eot?#iefix")&#13;
+    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
         format("embedded-opentype"),&#13;
-      url("./fonts/pretendard/Pretendard-Regular.woff2") format("woff2"),&#13;
-      url("./fonts/pretendard/Pretendard-Regular.woff") format("woff"),&#13;
-      url("./fonts/pretendard/Pretendard-Regular.ttf") format("truetype");&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
     font-display: swap;&#13;
   }&#13;
   @font-face {&#13;
     font-family: "Pretendard";&#13;
     font-weight: 500;&#13;
     font-style: normal;&#13;
-    src: url("./fonts/pretendard/Pretendard-Medium.eot");&#13;
-    src: url("./fonts/pretendard/Pretendard-Medium.eot?#iefix")&#13;
+    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
         format("embedded-opentype"),&#13;
-      url("./fonts/pretendard/Pretendard-Medium.woff2") format("woff2"),&#13;
-      url("./fonts/pretendard/Pretendard-Medium.woff") format("woff"),&#13;
-      url("./fonts/pretendard/Pretendard-Medium.ttf") format("truetype");&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
     font-display: swap;&#13;
   }&#13;
   @font-face {&#13;
     font-family: "Pretendard";&#13;
     font-weight: 600;&#13;
     font-style: normal;&#13;
-    src: url("./fonts/pretendard/Pretendard-SemiBold.eot");&#13;
-    src: url("./fonts/pretendard/Pretendard-SemiBold.eot?#iefix")&#13;
+    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
         format("embedded-opentype"),&#13;
-      url("./fonts/pretendard/Pretendard-SemiBold.woff2") format("woff2"),&#13;
-      url("./fonts/pretendard/Pretendard-SemiBold.woff") format("woff"),&#13;
-      url("./fonts/pretendard/Pretendard-SemiBold.ttf") format("truetype");&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
     font-display: swap;&#13;
   }&#13;
   @font-face {&#13;
     font-family: "Pretendard";&#13;
     font-weight: 700;&#13;
     font-style: normal;&#13;
-    src: url("./fonts/pretendard/Pretendard-Bold.eot");&#13;
+    /*src: url("./fonts/pretendard/Pretendard-Bold.eot");&#13;
     src: url("./fonts/pretendard/Pretendard-Bold.eot?#iefix")&#13;
         format("embedded-opentype"),&#13;
       url("./fonts/pretendard/Pretendard-Bold.woff2") format("woff2"),&#13;
       url("./fonts/pretendard/Pretendard-Bold.woff") format("woff"),&#13;
-      url("./fonts/pretendard/Pretendard-Bold.ttf") format("truetype");&#13;
+      url("./fonts/pretendard/Pretendard-Bold.ttf") format("truetype");*/&#13;
     font-display: swap;&#13;
   }&#13;
   @font-face {&#13;
     font-family: "Pretendard";&#13;
     font-weight: 800;&#13;
     font-style: normal;&#13;
-    src: url("./fonts/pretendard/Pretendard-ExtraBold.eot");&#13;
-    src: url("./fonts/pretendard/Pretendard-ExtraBold.eot?#iefix")&#13;
+    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
         format("embedded-opentype"),&#13;
-      url("./fonts/pretendard/Pretendard-ExtraBold.woff2") format("woff2"),&#13;
-      url("./fonts/pretendard/Pretendard-ExtraBold.woff") format("woff"),&#13;
-      url("./fonts/pretendard/Pretendard-ExtraBold.ttf") format("truetype");&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
     font-display: swap;&#13;
   }&#13;
   @font-face {&#13;
     font-family: "Pretendard";&#13;
     font-weight: 900;&#13;
     font-style: normal;&#13;
-    src: url("./fonts/pretendard/Pretendard-Black.eot");&#13;
-    src: url("./fonts/pretendard/Pretendard-Black.eot?#iefix")&#13;
+    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
         format("embedded-opentype"),&#13;
-      url("./fonts/pretendard/Pretendard-Black.woff2") format("woff2"),&#13;
-      url("./fonts/pretendard/Pretendard-Black.woff") format("woff"),&#13;
-      url("./fonts/pretendard/Pretendard-Black.ttf") format("truetype");&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
     font-display: swap;&#13;
   }&#13;
 &#13;
@@ -418,6 +409,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <script><![CDATA[(function() {
 
     data.key = $sp.getParameter("number");
+    data.gridUrl = '/x_yergb_bpm_SorinGrid_BPM.do?id_q=' + data.number;
 
     if (data.key && input && input.readStatus) { // Update
         var grProject = new GlideRecord('x_yergb_bpm_project');
@@ -426,36 +418,37 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         if (grProject.next()) {
             data.number = grProject.number.toString(); //Project Number
             data.name = grProject.name.toString(); //Project Name
-			data.pm = grProject.getDisplayValue('pm'); //PM Name
-			data.user = grProject.pm.user_name.toString(); // PM ID
-			data.region = grProject.getDisplayValue('region'); // Region
-			data.currency = grProject.getDisplayValue('currency'); // Currency
-			data.data_type = grProject.getDisplayValue('u_data_type'); // Data Type
-			data.budget_type = grProject.getDisplayValue('u_budget_type'); // Budget Type
-			data.customer = grProject.customer.name.toString(); // CustomerName
+            data.pm = grProject.getDisplayValue('pm'); //PM Name
+            data.user = grProject.pm.user_name.toString(); // PM ID
+            data.region = grProject.getDisplayValue('region'); // Region
+            data.currency = grProject.getDisplayValue('currency'); // Currency
+            data.data_type = grProject.getDisplayValue('u_data_type'); // Data Type
+            data.budget_type = grProject.getDisplayValue('u_budget_type'); // Budget Type
+            data.customer = grProject.customer.name.toString(); // CustomerName
+            data.sys_id = grProject.sys_id;
         }
     }
+    data.gridUrl = '/x_yergb_bpm_SorinGrid_prod.do?id_q=' + data.sys_id;
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-17 08:14:02</sys_created_on>
         <sys_id>77b85252833e0210856ceec0deaad37c</sys_id>
-        <sys_mod_count>22</sys_mod_count>
+        <sys_mod_count>32</sys_mod_count>
         <sys_name>budgetPlanMngtWd01</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_77b85252833e0210856ceec0deaad37c</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-18 04:36:43</sys_updated_on>
+        <sys_updated_on>2024-06-18 10:43:32</sys_updated_on>
         <template><![CDATA[    <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > Project Budget Plan for Y-Product</div>
         <div class="yoko-title-btn-wrap">
             <h1 class="yoko-title">Project Budget Plan for Y-Product</h1>
             <div class="yoko-btn-wrap">
-                <button class="yoko-btn yoko-btn-outline" ng-click="clickSave()">Update</button>
-                <button class="yoko-btn yoko-btn-fill" ng-click="clickCreateMSA()">Create MSA</button>
+                <button class="yoko-btn yoko-btn-fill" ng-click="clickCreateMSA()" id="bt-save">Create MSA</button>
             </div>
         </div>
         <div class="yoko-content">
@@ -473,7 +466,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                         <div class="yoko-form-group">
                             <label for="pm_name" class="yoko-short-100">PM Name</label>
                             <div class="yoko-form-inline yoko-wid247">
-                                <input type="number" name="pm_number" value={{data.user}} placeholder="" disabled class="yoko-col40">
+                                <input type="text" name="pm_number" value={{data.user}} placeholder="" disabled class="yoko-col40">
                                 <input type="text" name="pm_name" value={{data.pm}} placeholder="" disabled class="yoko-col60">
                             </div>
                         </div>
@@ -506,7 +499,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                     
                 </div>
             </div>
-        
+            <iframe src={{data.gridUrl}} width='100%' height='500px' style='border:none;' id='myIframe'></iframe>
         </div>
     </div>]]></template>
     </sp_widget>
