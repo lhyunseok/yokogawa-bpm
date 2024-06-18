@@ -46,32 +46,32 @@
             c.data.updateFlag = true;
 
             console.log(c.data.estimated_order_date)
-					  c.server.update().then(function(response) {
-							
-            if (response.data && response.data.result) {
-                //alert(response.data.result);
-														location.reload();
+            c.server.update().then(function(response) {
 
-            }
-							
-location.reload();
-        });
+                if (response.data && response.data.result) {
+                    //alert(response.data.result);
+                    location.reload();
+
+                }
+
+                location.reload();
+            });
 
         } else { // 이거 새로 넣는거임
             //alert("eawgheawgew")
             c.data.insertFlag = true;
-					  c.server.update().then(function(response) {
-							console.log("-----")
-							console.log(response)
-							console.log(c.data.redirect_sys_id)
-							window.location.href = "/sp?id=epic_01_ui_rfp&table=x_yergb_bpm_rfq_entry&sys_id="+c.data.redirect_sys_id;
-							//
-            // Optionally handle the server response if needed
-            if (response.data && response.data.result) {
-                //alert(response.data.result);
-							console.log("-----")
-            }
-        });
+            c.server.update().then(function(response) {
+                console.log("-----")
+                console.log(response)
+                console.log(c.data.redirect_sys_id)
+                window.location.href = "/sp?id=epic_01_ui_rfp&table=x_yergb_bpm_rfq_entry&sys_id=" + c.data.redirect_sys_id;
+                //
+                // Optionally handle the server response if needed
+                if (response.data && response.data.result) {
+                    //alert(response.data.result);
+                    console.log("-----")
+                }
+            });
         }
 
 
@@ -79,7 +79,7 @@ location.reload();
         //c.data.estOiAmount = inputValue;
 
         // Call the server script
-      
+
 
         // Display the value in an //alert (for client-side confirmation)
         ////alert('The entered amount is: ' + inputValue);
@@ -88,18 +88,22 @@ location.reload();
     $scope.clickAssess = function() {
         //alert("ASSESS?")
         // Get the value from the input field using ng-model
-        c.data.newState = 2;
-        c.data.buttunflag = true;
-
+       
+//alert(c.data.quotation_type)
         // Call the server script to update the state
-
-        c.server.update().then(function(response) {
-            // Handle the server response if needed
-            console.log('Server response:', response);
-						location.reload();
-
-
-        });
+ 						if (c.data.quotation_type=='undefined') {
+            alert("Mandatory is empty");
+            //document.querySelector('.yoko-search-form-wrap.yoko-project-wrap.yoko-col40 .yoko-search-form .').classList.add('highlight-form');
+  				
+        } else {
+				 c.data.newState = 2;
+        c.data.buttunflag = true;
+            c.server.update().then(function(response) {
+                // Handle the server response if needed
+                console.log('Server response:', response);
+                location.reload();
+            });
+        }
 
 
     };
@@ -107,7 +111,6 @@ location.reload();
     $scope.clickRequest = function() {
         //alert("REQUEST?")
         // Get the value from the input field using ng-model
-       
 
         if (!c.data.reason_code || !c.data.request_due_date || !c.data.remark) {
             alert("Mandatory is empty");
@@ -124,12 +127,14 @@ reasonCode.classList.add('highlight-form');
                 location.reload();
             });
         }
+        
+        }
 
         // Call the server script to update the state
 
 
 
-    };
+
 
     $scope.clickSubmit = function() {
         //alert("SUBMIT?")
@@ -142,7 +147,7 @@ reasonCode.classList.add('highlight-form');
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
-						location.reload();
+            location.reload();
         });
 
 
@@ -169,6 +174,21 @@ reasonCode.classList.add('highlight-form');
         //alert("ACCEPT?")
         // Get the value from the input field using ng-model
         c.data.newState = 4;
+        c.data.buttunflag = true;
+
+        // Call the server script to update the state
+
+        c.server.update().then(function(response) {
+            // Handle the server response if needed
+            console.log('Server response:', response);
+            location.reload();
+        });
+
+    };
+		$scope.clickOIReport = function() {
+        //alert("OI Report?")
+        // Get the value from the input field using ng-model
+        c.data.newState = 9;
         c.data.buttunflag = true;
 
         // Call the server script to update the state
@@ -436,36 +456,37 @@ reasonCode.classList.add('highlight-form');
         modal.style.display = "block";
 
     };
-	
-	
-// In your controller
-$scope.$watch('c.data.contract', function(newVal, oldVal) {
-    $scope.isContractDummyDisabled = !!newVal; // Set to true if contract has a value, otherwise false
-});
 
-// Initialize the variable when the controller is first loaded
-$scope.isContractDummyDisabled = !!$scope.c.data.contract;
-	
-	
-	// In your controller
-$scope.$watch('c.data.end_user', function(newVal, oldVal) {
-    if (!newVal) {
-        $scope.c.data.end_user_code = '';
-    }
-});
-	
-	
-	
-	// In your controller
-$scope.$watch('c.data.contract', function(newVal, oldVal) {
-    if (!newVal) {
-        $scope.c.data.contract_code = '';
-    }
-});
-	
-};
 
-]]></client_script>
+    // In your controller
+    $scope.$watch('c.data.contract', function(newVal, oldVal) {
+        $scope.isContractDummyDisabled = !!newVal; // Set to true if contract has a value, otherwise false
+    });
+
+    // Initialize the variable when the controller is first loaded
+    $scope.isContractDummyDisabled = !!$scope.c.data.contract;
+
+
+    // In your controller
+    $scope.$watch('c.data.end_user', function(newVal, oldVal) {
+        if (!newVal) {
+            $scope.c.data.end_user_code = '';
+        }
+    });
+
+
+
+    // In your controller
+    $scope.$watch('c.data.contract', function(newVal, oldVal) {
+        if (!newVal) {
+            $scope.c.data.contract_code = '';
+        }
+    });
+
+
+
+
+}]]></client_script>
         <controller_as>c</controller_as>
         <css>@charset "UTF-8";
 
@@ -519,6 +540,33 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 
 .yoko-btn-search {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(icon_search.png) no-repeat center center !important;}
 .yoko-btn-search:hover {background-color: #eaeaea;}
+
+
+.yoko-btn-quotation {
+  border: 1px solid #E1E8F0;
+  padding: 0 10px; /* 좌우 패딩 추가 */
+  width : 140px;
+  min-width: 30px;
+  height: 28px;
+  background-color: #fff;
+  color: #000;
+  font-size: 14px;
+  display: inline-flex; /* 중앙 배치를 위한 플렉스박스 사용 */
+  align-items: center; /* 수직 중앙 배치 */
+  justify-content: center; /* 수평 중앙 배치 */
+  cursor: pointer;
+}
+
+.yoko-btn-quotation:hover {
+  background-color: #eaeaea;
+}
+
+/* 다른 폼 요소와 일치하도록 스타일 조정 */
+.yoko-form-group {
+  margin-bottom: 15px;
+}
+
+
 
 .yoko-search-form {display: flex; gap: 30px; padding: 16px 30px; max-width: 1600px;  background-color: #F7F7F7; border: 1px solid #EDEDED; border-radius: 4px;}
 
@@ -692,7 +740,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 2; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -735,7 +783,8 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 }
 .highlight-form {
   border: 2px solid red;
-}</css>
+}
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -762,7 +811,8 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
     data.requester_sys_id = userName_sys_id;
     data.showUpdate = false;
     data.sys_id = $sp.getParameter("sys_id");
-	data.showSave = true
+    data.showSave = true
+	data.showQuotationTypeSelect = true;
     //////gs.addInfoMessage(data.sys_id)
     // Select 가져올건데
     var grS = new GlideRecord('x_yergb_bpm_rfq_entry'); // Replace with your table name
@@ -861,6 +911,8 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             reason_code = grI.reason_code.toString()
             request_due_date = grI.request_due_date.toString()
             remark = grI.remark.toString()
+				    quotation_type_label = getChoiceLabel('x_yergb_bpm_rfq_entry', 'quotation_type', quotation_type);
+						//gs.addInfoMessage(quotation_type_label)
         }
         //data.qNum = quotation_number
         //data.q_sys_id = quotation_sysId
@@ -875,6 +927,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         //.quotation = quotation
         //data.quotation_sys_id = quotation_sys_id
         data.quotation_type = quotation_type
+        data.quotation_type_label = quotation_type_label
         data.quotation_due_date = quotation_due_date
         data.yoda_opportunity_no = yoda_opportunity_no
         data.assignment_group = assignment_group
@@ -913,7 +966,23 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         }
         data.quotation = quotation
         data.quotation_sys_id = quotation_sys_id
-    }
+			
+			
+			
+			//user 의 company를 찾고
+			//그 컴패니의 currency의 display value를 가져와야 하는군
+			
+		  	var grU = new GlideRecord('sys_user');
+     		grU.get(data.requester_sys_id)
+				grUCompany = grU.company
+				var grC = new GlideRecord ('core_company')
+				if (grC.get(grUCompany)){
+		    var currency = grC.u_currency.code
+				gs.addInfoMessage(currency)
+		  	data.currency =  grC.u_currency.code.toString()
+					
+				}
+		}
 
 
 
@@ -938,8 +1007,10 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.showReturn = false;
             data.showCancel = false;
             data.showUpdate = true;
-				    data.showSave = true  			
-
+            data.showSave = true
+            data.showOIReport = false;
+					data.showQuotationTypeSelect = true;
+					data.showQuotationType = false;
         } else if (gr.state.getDisplayValue() == "Assess") {
             data.showAssess = false;
             data.showRequest = true;
@@ -949,7 +1020,10 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.showReturn = false;
             data.showCancel = false;
             data.showUpdate = true;
-					data.showSave = true  
+            data.showSave = true
+            data.showOIReport = false;
+					data.showQuotationTypeSelect = false;
+					data.showQuotationType = true;
         } else if (gr.state.getDisplayValue() == "Requested") {
             data.showAssess = false;
             data.showRequest = false;
@@ -959,7 +1033,10 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.showReturn = true;
             data.showCancel = false;
             data.showUpdate = true;
-					data.showSave = true  
+            data.showSave = true
+            data.showOIReport = false;
+					data.showQuotationTypeSelect = false;
+					data.showQuotationType = true;
         } else if (gr.state.getDisplayValue() == "Returned") {
             data.showAssess = true;
             data.showRequest = false;
@@ -969,7 +1046,10 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.showReturn = false;
             data.showCancel = true;
             data.showUpdate = true;
-					data.showSave = true  
+            data.showSave = true
+            data.showOIReport = false;
+					data.showQuotationTypeSelect = false;
+					data.showQuotationType = true;
         } else if (gr.state.getDisplayValue() == "In Progress") {
             data.showAssess = false;
             data.showRequest = false;
@@ -979,17 +1059,35 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.showReturn = false;
             data.showCancel = false;
             data.showUpdate = true;
-					data.showSave = true  
+            data.showSave = true
+            data.showOIReport = false;
+					data.showQuotationTypeSelect = false;
+					data.showQuotationType = true;
+            //가져와서 일단 말 박아주는거 해야함
+            //Return the results to the client script
+        } else if (gr.state.getDisplayValue() == "Submitted") {
+					  data.showAssess = false;
+            data.showRequest = false;
+            data.showSubmit = false;
+            data.showInProgress = false;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = false;
+            data.showUpdate = true;
+            data.showSave = true;
+            data.showOIReport = true;
+					data.showQuotationTypeSelect = false;
+					data.showQuotationType = true;
             //가져와서 일단 말 박아주는거 해야함
             //Return the results to the client script
         }
         /////////// 시스아이디 있고, 상태가 new 일때만
 
-			 if (gr.requester != gs.getUser().getID()) {
-				 		
-				 		//gs.addInfoMessage("gr.requester 달러")
-				 		//gs.addInfoMessage(gr.requester)
-				 		//gs.addInfoMessage(gs.getUser().getID())
+        if (gr.requester != gs.getUser().getID()) {
+
+            //gs.addInfoMessage("gr.requester 달러")
+            //gs.addInfoMessage(gr.requester)
+            //gs.addInfoMessage(gs.getUser().getID())
             data.showAssess = false;
             data.showRequest = false;
             data.showSubmit = false;
@@ -998,9 +1096,11 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.showReturn = false;
             data.showCancel = false;
             data.showUpdate = false;
-       			data.showSave = false
-			 }
-			
+            data.showSave = false
+					data.showQuotationTypeSelect = false;
+					data.showQuotationType = true;
+        }
+
 
 
         /////////// 파라미터 있는 상태에서 만약에 내가 ass를 누름
@@ -1074,7 +1174,9 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         var reason_code = getValueOrEmptyString(input.reason_code)
         var request_due_date = input.request_due_date
         var remark = getValueOrEmptyString(input.remark)
-        //gs.addErrorMessage(remark)
+        
+				gs.addErrorMessage("=-=-=-=-=-=-=-")
+gs.addErrorMessage(quotation_type)
 
 
         //gs.addInfoMessage(estimated_oi_amount)
@@ -1108,7 +1210,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 
 
         //////gs.addErrorMessage('성공일거야 아마도' + estOiAmount);
-			 data.redirect_sys_id = gr.getUniqueValue();;
+        data.redirect_sys_id = gr.getUniqueValue();;
         // Return a response to the client script
     } else if (input && input.updateFlag) {
         //var estOiAmount = input.estOiAmount;
@@ -1256,7 +1358,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                 column1: gr.getValue('name'),
                 column2: gr.getValue('sys_id'),
                 column3: gr.getValue('u_company_code'),
-                column4:  gr.getValue('city')
+                column4: gr.getValue('city')
             });
         }
 
@@ -1276,7 +1378,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                 column1: gr.getValue('name'),
                 column2: gr.getValue('sys_id'),
                 column3: gr.getValue('u_company_code'),
-                 column4:  gr.getValue('city')
+                column4: gr.getValue('city')
 
             });
         }
@@ -1311,373 +1413,383 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         return typeof value === 'undefined' ? '' : value;
     }
 
+function getChoiceLabel(table, element, value) {
+    var gr = new GlideRecord('sys_choice');
+    gr.addQuery('name', table); // 테이블 이름
+    gr.addQuery('element', element); // 필드 이름
+    gr.addQuery('value', value); // 선택 값
+    gr.query();
 
+    if (gr.next()) {
+        return gr.getValue('label'); // 선택 필드의 보이는 값 반환
+    } else {
+        return 'none';
+    }
+}
+	
+	
+	
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>lhyunseok</sys_created_by>
         <sys_created_on>2024-06-12 06:12:28</sys_created_on>
         <sys_id>d6fc4838933282104d95f55a7bba10e5</sys_id>
-        <sys_mod_count>697</sys_mod_count>
+        <sys_mod_count>766</sys_mod_count>
         <sys_name>portal_function</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_d6fc4838933282104d95f55a7bba10e5</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-17 10:08:32</sys_updated_on>
+        <sys_updated_on>2024-06-18 08:37:04</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
-            <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
-            <div class="yoko-title-btn-wrap">
-                <h1 class="yoko-title">RFQ Entry & Quotation Request</h1>
-                <div class="yoko-btn-wrap">
-                    <button class="yoko-btn yoko-btn-fill-red" ng-if="data.showCancel" ng-click="clickCancel()">Cancel</button>
-                    <button class="yoko-btn yoko-btn-fill-red" ng-if="data.showReturn" ng-click="clickReturn()">Return</button>
-                    <button class="yoko-btn yoko-btn-fill-accept" ng-if="data.showAccept" ng-click="clickAccept()">Accept</button>
-                    <button class="yoko-btn yoko-btn-outline" ng-if="data.showInProgress" ng-click="clickInProgress()">In Progress</button>
-                    <button class="yoko-btn yoko-btn-outline" ng-if="data.showSubmit" ng-click="clickSubmit()">Submit Quote</button>
-                    <button class="yoko-btn yoko-btn-outline" ng-if="data.showRequest" ng-click="clickRequest()">Request Quote</button>
-                    <button class="yoko-btn yoko-btn-outline" id="AssessButton" ng-if="data.showAssess" ng-click="clickAssess()">Assess</button>
-                    <button class="yoko-btn yoko-btn-outline" ng-if="data.showUpdate">Update</button>
-                    <button class="yoko-btn yoko-btn-fill" ng-if="data.showSave" id="saveButton" ng-click="clickSave()">Save</button>
+        <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
+        <div class="yoko-title-btn-wrap">
+            <h1 class="yoko-title">RFQ Entry & Quotation Request</h1>
+            <div class="yoko-btn-wrap">
+                <button class="yoko-btn yoko-btn-fill-red" ng-if="data.showCancel" ng-click="clickCancel()">Cancel</button>
+                <button class="yoko-btn yoko-btn-fill-red" ng-if="data.showReturn" ng-click="clickReturn()">Return</button>
+                <button class="yoko-btn yoko-btn-fill-accept" ng-if="data.showAccept" ng-click="clickAccept()">Accept</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showOIReport" ng-click="clickOIReport()">OI Report</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showInProgress" ng-click="clickInProgress()">In Progress</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showSubmit" ng-click="clickSubmit()">Submit Quote</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showRequest" ng-click="clickRequest()">Request Quote</button>
+                <button class="yoko-btn yoko-btn-outline" id="AssessButton" ng-if="data.showAssess" ng-click="clickAssess()">Assess</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showUpdate">Update</button>
+                <button class="yoko-btn yoko-btn-fill" ng-if="data.showSave" id="saveButton" ng-click="clickSave()">Save</button>
+            </div>
+        </div>
+        <div class="yoko-content">
+            <div class="yoko-search-form-wrap">
+                <div class="yoko-search-form">
+                    <div class="yoko-flex-responsive">
+                        <div class="yoko-form-col">
+                            <div class="yoko-form-group">
+                                <label for="request_no" class="yoko-short">Number</label>
+                                <input type="text" name="request_no" value="" placeholder="" ng-model="c.data.number" disabled>
+
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="requester_no" class="yoko-short">Requester</label>
+                                <div class="yoko-form-inline">
+                                    <input type="text" name="requester_no" ng-model="c.data.requester" disabled class="yoko-wid140">
+                                    <input type="text" name="requester_no_sys_id" value="" disabled class="yoko-wid140" ng-model="c.data.requester_sys_id" ng-style="{'display': 'none'}">
+                                    <!-- button type="button" class="yoko-btn yoko-btn-search" id ="openModalButton"  ng-click="clickRequester()"  ></button-->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="yoko-form-col">
+                            <div class="yoko-form-group">
+                                <label for="state" class="yoko-short">State</label>
+                                <input type="text" name="state" value={{data.state}} placeholder="New" class="yoko-wid140" disabled>
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="req_date" class="yoko-short">Req. Date</label>
+                                <input type="date" name="req_date" class="yoko-wid140" value={{data.request_date}} ng-model="c.data.request_date">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="comp_date" class="yoko-short">Comp. Date</label>
+                                <input type="date" name="comp_date" class="yoko-wid140" value={{data.complete_date}} ng-model="c.data.complete_date">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="yoko-form-col">
+                        <div class="yoko-form-group">
+                            <label for="type" class="yoko-short-110">Currency</label>
+                            <input type="text" name="currency" ng-model="c.data.currency" class="yoko-wid140" disabled>
+
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="est_oi_amount" class="yoko-short-110">Est OI Amount</label>
+                            <input type="text" name="est_oi_amount" value="" placeholder="" class="yoko-wid140" ng-model="c.data.estimated_oi_amount">
+                        </div>
+
+                        <div class="yoko-form-group">
+                            <label for="orderdate" class="yoko-short-110">Est. Order Date</label>
+                            <input type="date" name="orderdate" id="orderdate" class="yoko-wid140" value={{data.estimated_order_date}} ng-model="c.data.estimated_order_date">
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="deliverydate" class="yoko-short-110">Est. Delivery Date</label>
+                            <input type="date" name="deliverydate" id="deliverydate" class="yoko-wid140" value={{data.estimated_delivery_date}} ng-model="c.data.estimated_delivery_date">
+                        </div>
+                    </div>
+                    <div class="yoko-form-col">
+                        <div class="yoko-form-group">
+                            <label for="quotation">Quotation</label>
+                            <div class="yoko-form-inline">
+
+                                <!-- input type="text" name="quotation" value={{data.qNum}} placeholder="" class="yoko-wid140" disable -->
+                                <button class="yoko-btn yoko-btn-quotation" ng-click="handleClick()">
+                                    {{c.data.quotation}}
+                                </button> <input type="text" name="quotation_sysId" ng-model="c.data.quotation_sys_id" placeholder="" class="yoko-wid140" ng-click="handleClick()" ng-style="{'display': 'none'}" readonly>
+
+                                <!--button type="button" class="yoko-btn yoko-btn-search" ng-click="clickQuotation()"></button-->
+                            </div>
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="type">Quotation type</label>
+                            <div class="yoko-form-inline">
+
+                                <select id="type" name="type" class="yoko-wid140" ng-model="c.data.quotation_type" ng-options="option as option for option in c.data.choices" ng-if="data.showQuotationTypeSelect">
+                                    <option value="">Select Type</option>
+                                </select>
+
+                                <input type="text" name="quotation_type" ng-model="c.data.quotation_type_label" class="yoko-wid140" style="font-size:12px" ng-if="data.showQuotationType">
+
+                            </div>
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="quotationdate">Quotation Due Date</label>
+                            <input type="date" name="quotation_date" id="quotation_date" class="yoko-wid140" value={{data.quotation_due_date}} ng-model="c.data.quotation_due_date">
+                        </div>
+                    </div>
+                    <div class="yoko-form-col">
+                        <div class="yoko-form-group">
+                            <label for="oppt_no" class="yoko-short-110">YODA Oppt. No</label>
+                            <input type="text" name="oppt_no" value="" placeholder="" class="yoko-wid172" ng-model="c.data.yoda_opportunity_no">
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="assignment_group" class="yoko-short-110">Assignment group</label>
+                            <div class="yoko-form-inline">
+                                <input type="text" name="assignment_group" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.assignment_group">
+                                <input type="text" name="assignment_group_sys_id" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.assignment_group_sys_id" ng-style="{'display': 'none'}">
+                                <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickAssignmentGroup()"></button>
+                            </div>
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="assigned_to" class="yoko-short-110">Assigned to</label>
+                            <div class="yoko-form-inline">
+                                <input type="text" name="assigned_to" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.assigned_to">
+                                <input type="text" name="assigned_to_sys_id" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.assigned_to_sys_id" ng-style="{'display': 'none'}">
+                                <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickAssignedTo()"></button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="yoko-content">
-                <div class="yoko-search-form-wrap">
+            <div class="yoko-search-form-wrapper">
+                <div class="yoko-search-form-wrap yoko-search-form-company yoko-col60">
+                    <div class="yoko-search-form-heading">Company</div>
+                    <div class="yoko-search-form yoko-padding24">
+                        <div class="yoko-form-col">
+                            <div class="yoko-form-group-heading-wrap">
+                                <div class="yoko-form-group-heading">End User</div>
+                                <div class="yoko-form-group-line"></div>
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="end_user" class="yoko-short">End User</label>
+                                <div class="yoko-form-inline yoko-wid172">
+                                    <input type="text" name="end_user" value={{data.end_user}} ng-model="c.data.end_user">
+                                    <input type="text" name="end_user_sys_id" value={{data.end_user_sys_id}} ng-model="c.data.end_user_sys_id" ng-style="{'display': 'none'}">
+                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickEndUser()"></button>
+                                </div>
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="code" class="yoko-short">Code</label>
+                                <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid172" ng-model="c.data.end_user_code">
+                            </div>
+                        </div>
+                        <div class="yoko-form-col">
+                            <div class="yoko-form-group-heading-wrap">
+                                <div class="yoko-form-group-heading">Contract</div>
+                                <div class="yoko-form-group-line"></div>
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="contract" class="yoko-short">Contract</label>
+                                <div class="yoko-form-inline yoko-wid172">
+                                    <input type="text" name="contract" value={{data.contract}} ng-model="c.data.contract">
+                                    <input type="text" name="contract_sys_id" value={{data.contract_sys_id}} ng-model="c.data.contract_sys_id" ng-style="{'display': 'none'}">
+                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickContract()"></button>
+                                </div>
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="code" class="yoko-short">Code</label>
+                                <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid172" ng-model="c.data.contract_code">
+                            </div>
+                        </div>
+                        <div class="yoko-form-col">
+                            <div class="yoko-form-group-heading-wrap">
+                                <div class="yoko-form-group-heading">Contract - Dummy</div>
+                                <div class="yoko-form-group-line"></div>
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="contract_name" class="yoko-short-110">Contract Name</label>
+                                <input type="text" name="contract_name" value="" placeholder="" class="yoko-wid172" ng-model="c.data.contract_name" ng-disabled="isContractDummyDisabled">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="contract_address" class="yoko-short-110">Contract Address</label>
+                                <input type="text" name="contract_address" value="" placeholder="" class="yoko-wid172" ng-model="c.data.contract_address" ng-disabled="isContractDummyDisabled">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="contract_country" class="yoko-short-110">Contract Country</label>
+                                <div class="yoko-form-inline yoko-wid172">
+                                    <input type="text" name="contract_country" value="" placeholder="" ng-model="c.data.contract_country" disabled>
+                                    <input type="text" name="contract_country_sys_id" value="" placeholder="" ng-model="c.data.contract_country_sys_id" ng-style="{'display': 'none'}">
+                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickContractCountry()" ng-disabled="isContractDummyDisabled"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="yoko-search-form-wrap yoko-search-form-governance yoko-col40">
+                    <div class="yoko-search-form-heading">Governance</div>
                     <div class="yoko-search-form">
-                        <div class="yoko-flex-responsive">
-                            <div class="yoko-form-col">
-                                <div class="yoko-form-group">
-                                    <label for="request_no" class="yoko-short">Number</label>
-                                    <input type="text" name="request_no" value="" placeholder="" ng-model="c.data.number" disabled>
-                                    
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="requester_no" class="yoko-short">Requester</label>
-                                    <div class="yoko-form-inline">
-                                        <input type="text" name="requester_no"  ng-model="c.data.requester" disabled class="yoko-wid140">
-                                        <input type="text" name="requester_no_sys_id" value=""  disabled class="yoko-wid140"  ng-model="c.data.requester_sys_id" ng-style="{'display': 'none'}" >
-                                        <!-- button type="button" class="yoko-btn yoko-btn-search" id ="openModalButton"  ng-click="clickRequester()"  ></button-->
-                                  </div>
-                                </div>
-                            </div>
-                            
-                            <div class="yoko-form-col">
-                                <div class="yoko-form-group">
-                                    <label for="state" class="yoko-short">State</label>
-                                    <input type="text" name="state" value={{data.state}} placeholder="New" class="yoko-wid140" disabled   >
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="req_date" class="yoko-short">Req. Date</label>
-                                    <input type="date"  name="req_date" class="yoko-wid140" value={{data.request_date}} ng-model="c.data.request_date">
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="comp_date" class="yoko-short">Comp. Date</label>
-                                    <input type="date" name="comp_date" class="yoko-wid140" value={{data.complete_date}} ng-model="c.data.complete_date">
-                                </div>
-                            </div>
-                        </div>
-    
                         <div class="yoko-form-col">
                             <div class="yoko-form-group">
-                                <label for="type" class="yoko-short-110">Currency</label>
+                                <label for="t-cas" class="yoko-short-120">T-CAS</label>
                                 <div class="yoko-form-inline">
-                                    <select id="type" name="type" class="yoko-wid140">
-                                        <option value="option1">KRW</option>
-                                        <option value="option2">KRW</option>
-                                        <option value="option3">KRW</option>
-                                    </select>
+                                    <input type="text" name="t-cas" value="" placeholder="" class="yoko-wid140">
+                                    <button type="button" class="yoko-btn yoko-btn-search"></button>
                                 </div>
                             </div>
                             <div class="yoko-form-group">
-                                <label for="est_oi_amount" class="yoko-short-110">Est OI Amount</label>
-                                <input type="text" name="est_oi_amount" value="" placeholder="" class="yoko-wid140" ng-model="c.data.estimated_oi_amount">
-                            </div>
-            
-                            <div class="yoko-form-group">
-                                <label for="orderdate" class="yoko-short-110">Est. Order Date</label>
-                                <input type="date" name="orderdate" id="orderdate" class="yoko-wid140"  value={{data.estimated_order_date}}   ng-model="c.data.estimated_order_date">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="deliverydate" class="yoko-short-110">Est. Delivery Date</label>
-                                <input type="date" name="deliverydate" id="deliverydate" class="yoko-wid140" value={{data.estimated_delivery_date}} ng-model="c.data.estimated_delivery_date">
-                            </div>
-                        </div>
-                        <div class="yoko-form-col">
-                            <div class="yoko-form-group">
-                                <label for="quotation">Quotation</label>
+                                <label for="territory_review" class="yoko-short-120">Territory Review</label>
                                 <div class="yoko-form-inline">
-                                    
-                                    <!-- input type="text" name="quotation" value={{data.qNum}} placeholder="" class="yoko-wid140" disable -->
-                                    <input type="text" name="quotation" ng-model="c.data.quotation" placeholder="" class="yoko-wid140" ng-click="handleClick()" readonly>
-                                    <input type="text" name="quotation_sysId" ng-model="c.data.quotation_sys_id" placeholder="" class="yoko-wid140" ng-click="handleClick()" ng-style="{'display': 'none'}" readonly>
-      
-                                  <!--button type="button" class="yoko-btn yoko-btn-search" ng-click="clickQuotation()"></button-->
+                                    <input type="text" name="territory_review" value="" placeholder="" class="yoko-wid140">
+                                    <button type="button" class="yoko-btn yoko-btn-search"></button>
                                 </div>
                             </div>
                             <div class="yoko-form-group">
-                                <label for="type">Quotation type</label>
+                                <label for="risk_management" class="yoko-short-120">Risk Management</label>
                                 <div class="yoko-form-inline">
-                                    <!--select id="type" name="type" class="yoko-wid140">
-                                        <option value="option1">KRW</option>
-                                        <option value="option2">KRW</option>
-                                        <option value="option3">KRW</option>
-                                    </select-->
-                                  <select id="type" name="type" class="yoko-wid140" ng-model="c.data.quotation_type" ng-options="option as option for option in c.data.choices">
-                                                                    <option value="">Select Type</option>
-                                                          </select>
+                                    <input type="text" name="risk_management" value="" placeholder="" class="yoko-wid140">
+                                    <button type="button" class="yoko-btn yoko-btn-search"></button>
                                 </div>
-                            </div> 
-                            <div class="yoko-form-group">
-                                <label for="quotationdate">Quotation Due Date</label>
-                                <input type="date" name="quotation_date" id="quotation_date" class="yoko-wid140" value={{data.quotation_due_date}} ng-model="c.data.quotation_due_date">
-                            </div>
-                        </div>
-                        <div class="yoko-form-col">
-                            <div class="yoko-form-group">
-                                <label for="oppt_no" class="yoko-short-110">YODA Oppt. No</label>
-                                <input type="text" name="oppt_no" value="" placeholder="" class="yoko-wid172" ng-model="c.data.yoda_opportunity_no">
                             </div>
                             <div class="yoko-form-group">
-                                <label for="assignment_group" class="yoko-short-110">Assignment group</label>
+                                <label for="credit_assessment" class="yoko-short-120">Credit Assessment</label>
                                 <div class="yoko-form-inline">
-                                    <input type="text" name="assignment_group" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.assignment_group">
-                                    <input type="text" name="assignment_group_sys_id" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.assignment_group_sys_id" ng-style="{'display': 'none'}">
-                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickAssignmentGroup()"></button>
-                                </div>
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="assigned_to" class="yoko-short-110">Assigned to</label>
-                                <div class="yoko-form-inline">
-                                    <input type="text" name="assigned_to" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.assigned_to">
-                                    <input type="text" name="assigned_to_sys_id" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.assigned_to_sys_id" ng-style="{'display': 'none'}">
-                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickAssignedTo()"></button>
+                                    <input type="text" name="credit_assessment" value="" placeholder="" class="yoko-wid140">
+                                    <button type="button" class="yoko-btn yoko-btn-search"></button>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="yoko-search-form-wrapper">
-                    <div class="yoko-search-form-wrap yoko-search-form-company yoko-col60">
-                        <div class="yoko-search-form-heading">Company</div>
-                        <div class="yoko-search-form yoko-padding24">
-                            <div class="yoko-form-col">
-                                <div class="yoko-form-group-heading-wrap">
-                                    <div class="yoko-form-group-heading">End User</div>
-                                    <div class="yoko-form-group-line"></div>
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="end_user" class="yoko-short">End User</label>
-                                    <div class="yoko-form-inline yoko-wid172">
-                                        <input type="text" name="end_user"  value={{data.end_user}} ng-model="c.data.end_user">
-                                        <input type="text" name="end_user_sys_id"  value={{data.end_user_sys_id}} ng-model="c.data.end_user_sys_id" ng-style="{'display': 'none'}">
-                                        <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickEndUser()"></button>
-                                    </div>
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="code" class="yoko-short">Code</label>
-                                    <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid172"  ng-model="c.data.end_user_code">
-                                </div>
-                            </div>
-                            <div class="yoko-form-col">
-                                <div class="yoko-form-group-heading-wrap">
-                                    <div class="yoko-form-group-heading">Contract</div>
-                                    <div class="yoko-form-group-line"></div>
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="contract" class="yoko-short">Contract</label>
-                                    <div class="yoko-form-inline yoko-wid172">
-                                        <input type="text" name="contract"  value={{data.contract}} ng-model="c.data.contract">
-                                        <input type="text" name="contract_sys_id"   value={{data.contract_sys_id}}  ng-model="c.data.contract_sys_id" ng-style="{'display': 'none'}">
-                                        <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickContract()"></button>
-                                    </div>
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="code" class="yoko-short">Code</label>
-                                    <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid172"  ng-model="c.data.contract_code"> 
-                                </div>
-                            </div>
-                            <div class="yoko-form-col">
-                                <div class="yoko-form-group-heading-wrap">
-                                    <div class="yoko-form-group-heading">Contract - Dummy</div>
-                                    <div class="yoko-form-group-line"></div>
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="contract_name" class="yoko-short-110">Contract Name</label>
-                                    <input type="text" name="contract_name" value="" placeholder="" class="yoko-wid172" ng-model="c.data.contract_name" ng-disabled="isContractDummyDisabled">
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="contract_address" class="yoko-short-110">Contract Address</label>
-                                    <input type="text" name="contract_address" value="" placeholder="" class="yoko-wid172" ng-model="c.data.contract_address" ng-disabled="isContractDummyDisabled">
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="contract_country" class="yoko-short-110">Contract Country</label>
-                                    <div class="yoko-form-inline yoko-wid172">
-                                        <input type="text" name="contract_country" value="" placeholder="" ng-model="c.data.contract_country" disabled>
-                                        <input type="text" name="contract_country_sys_id" value="" placeholder="" ng-model="c.data.contract_country_sys_id" ng-style="{'display': 'none'}">
-                                        <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickContractCountry()" ng-disabled="isContractDummyDisabled"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="yoko-search-form-wrap yoko-search-form-governance yoko-col40">
-                        <div class="yoko-search-form-heading">Governance</div>
-                        <div class="yoko-search-form">
-                            <div class="yoko-form-col">
-                                <div class="yoko-form-group">
-                                    <label for="t-cas" class="yoko-short-120">T-CAS</label>
-                                    <div class="yoko-form-inline">
-                                        <input type="text" name="t-cas" value="" placeholder="" class="yoko-wid140">
-                                        <button type="button" class="yoko-btn yoko-btn-search" ></button>
-                                    </div>
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="territory_review" class="yoko-short-120">Territory Review</label>
-                                    <div class="yoko-form-inline">
-                                        <input type="text" name="territory_review" value="" placeholder="" class="yoko-wid140">
-                                        <button type="button" class="yoko-btn yoko-btn-search"></button>
-                                    </div>
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="risk_management" class="yoko-short-120">Risk Management</label>
-                                    <div class="yoko-form-inline">
-                                        <input type="text" name="risk_management" value="" placeholder="" class="yoko-wid140">
-                                        <button type="button" class="yoko-btn yoko-btn-search"></button>
-                                    </div>
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="credit_assessment" class="yoko-short-120">Credit Assessment</label>
-                                    <div class="yoko-form-inline">
-                                        <input type="text" name="credit_assessment" value="" placeholder="" class="yoko-wid140">
-                                        <button type="button" class="yoko-btn yoko-btn-search"></button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="yoko-search-form-wrapper">
-                    <div class="yoko-search-form-wrap yoko-project-wrap yoko-col60">
-                        <div class="yoko-search-form-heading">Project</div>
-                        <div class="yoko-search-form" style="height: 260px">
-                            <div class="yoko-form-col yoko-col100">
-                                <div class="yoko-form-group">
-                                    <label for="title" class="yoko-short">Project Title</label>
-                                    <input type="text" name="title" id="title" placeholder="" ng-model="c.data.project_title">
-                                </div>
-    
-                                <div class="yoko-form-group">
-                                    <label for="detail" class="yoko-short">Project Detail</label>
-                                    <textarea id="detail" name="detail" rows="4" required placeholder=""  ng-model="c.data.project_detail"></textarea>
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="caution" class="yoko-short">Caution</label>
-                                    <textarea id="caution" name="caution" rows="4" required placeholder=""  ng-model="c.data.caution"></textarea>
-                                </div>
-                            </div>
-    
-                        </div>
-                    </div>
-                    <div class="yoko-search-form-wrap yoko-project-wrap yoko-col40">
-                        <div class="yoko-search-form-heading">Request Quote</div>
-                        <div class="yoko-search-form" style="height: 260px">
-                            <div class="yoko-form-col yoko-col100">
-                                <div class="yoko-form-group">
-                                    <label for="reason_code" class="yoko-short-110" style="width:12rem">* Reason Code</label>
-                                    <input type="text" name="reason_code" ng-model="c.data.reason_code" placeholder="" class="yoko-wid140">
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="request_due_date" class="yoko-short-110" style="width:12rem">* Request Due Date</label>
-                                    <input type="date" name="request_due_date" value={{data.request_due_date}}  ng-model="c.data.request_due_date" id="request_due_date" class="yoko-wid140">
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="remark" class="yoko-short-110" style="width:16rem">* Remark</label>
-                                    <textarea id="remark" name="remark" rows="8" ng-model="c.data.remark" required placeholder=""></textarea>
-                                </div>
-                            </div>
-    
-                        </div>
+
                     </div>
                 </div>
             </div>
+            <div class="yoko-search-form-wrapper">
+                <div class="yoko-search-form-wrap yoko-project-wrap yoko-col60">
+                    <div class="yoko-search-form-heading">Project</div>
+                    <div class="yoko-search-form" style="height: 260px">
+                        <div class="yoko-form-col yoko-col100">
+                            <div class="yoko-form-group">
+                                <label for="title" class="yoko-short">Project Title</label>
+                                <input type="text" name="title" id="title" placeholder="" ng-model="c.data.project_title">
+                            </div>
+
+                            <div class="yoko-form-group">
+                                <label for="detail" class="yoko-short">Project Detail</label>
+                                <textarea id="detail" name="detail" rows="4" required placeholder="" ng-model="c.data.project_detail"></textarea>
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="caution" class="yoko-short">Caution</label>
+                                <textarea id="caution" name="caution" rows="4" required placeholder="" ng-model="c.data.caution"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="yoko-search-form-wrap yoko-project-wrap yoko-col40">
+                    <div class="yoko-search-form-heading">Request Quote</div>
+                    <div class="yoko-search-form" style="height: 260px">
+                        <div class="yoko-form-col yoko-col100">
+                            <div class="yoko-form-group">
+                                <label for="reason_code" class="yoko-short-110" style="width:12rem">* Reason Code</label>
+                                <input type="text" name="reason_code" ng-model="c.data.reason_code" placeholder="" class="yoko-wid140">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="request_due_date" class="yoko-short-110" style="width:12rem">* Request Due Date</label>
+                                <input type="date" name="request_due_date" value={{data.request_due_date}} ng-model="c.data.request_due_date" id="request_due_date" class="yoko-wid140">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="remark" class="yoko-short-110" style="width:16rem">* Remark</label>
+                                <textarea id="remark" name="remark" rows="8" ng-model="c.data.remark" required placeholder=""></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- iframe src='/ui_page.do?sys_id=27a2384193e402104d95f55a7bba1098'+ / {{}} width='100%' height='450px' style='border:none;'>
     </iframe-->
-        </div>
-    
-      
-        <script>
-            const buttons = document.querySelectorAll('.yoko-title-btn-wrap .yoko-btn-wrap button');
-    
-            buttons.forEach(button => {
-                button.addEventListener('click', function() {
-                    buttons.forEach(btn => {
-                        btn.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                });
-            });
-    
-            window.onload = function() {
-                var wrapper = document.querySelector('.yoko-search-form-wrapper');
-                if (wrapper) {
-                    var forms = wrapper.querySelectorAll('.yoko-search-form-wrap > .yoko-search-form');
-                    var maxHeight = 0;
-                    // 모든 .yoko-search-form 요소의 높이를 확인하여 최대 높이를 찾습니다.
-                    forms.forEach(function(form) {
-                        if (form.offsetHeight > maxHeight) {
-                            maxHeight = form.offsetHeight;
-                        }
-                    });
-                    // 최대 높이로 모든 .yoko-search-form 요소의 높이를 설정합니다.
-                    forms.forEach(function(form) {
-                        form.style.height = maxHeight + 'px';
-                    });
-                }
-            };
-    
-        </script>
-    
-    
-    
-    
-    
-    
-    <!-- Modal Test Structure -->
-  <div id="modalTest" class="modal" style="display:none;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="close">&times;</span>
-        <h2>{{data.modalTitle}}</h2>
-      </div>
-      <div class="modal-body">
-       
-			<ul id="container" class="container">
-								<li ng-repeat="item in c.data.items"  >
-                		<span ng-click="c.logSysId(item.column1, item.column2, item.column3) ">{{ item.column1 }}</span>
-                 		<span ng-if="false">{{ item.column2 }}</span>
-                 		<span>{{ item.column3 }}</span>
-                 		<span>{{ item.column4 }}</span>
-                </li>
-        </ul>
-        
-        
-        <div class="pagination" id="pagination"></div>
- 
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary" id="closeModalButton">Close</button>
-      </div>
     </div>
-  </div>
-    
-    
-    
-    
-    
-    
+
+
+    <script>
+        const buttons = document.querySelectorAll('.yoko-title-btn-wrap .yoko-btn-wrap button');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                buttons.forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        window.onload = function() {
+            var wrapper = document.querySelector('.yoko-search-form-wrapper');
+            if (wrapper) {
+                var forms = wrapper.querySelectorAll('.yoko-search-form-wrap > .yoko-search-form');
+                var maxHeight = 0;
+                // 모든 .yoko-search-form 요소의 높이를 확인하여 최대 높이를 찾습니다.
+                forms.forEach(function(form) {
+                    if (form.offsetHeight > maxHeight) {
+                        maxHeight = form.offsetHeight;
+                    }
+                });
+                // 최대 높이로 모든 .yoko-search-form 요소의 높이를 설정합니다.
+                forms.forEach(function(form) {
+                    form.style.height = maxHeight + 'px';
+                });
+            }
+        };
+    </script>
+
+
+
+
+
+
+    <!-- Modal Test Structure -->
+    <div id="modalTest" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>{{data.modalTitle}}</h2>
+            </div>
+            <div class="modal-body">
+
+                <ul id="container" class="container">
+                    <li ng-repeat="item in c.data.items">
+                        <span ng-click="c.logSysId(item.column1, item.column2, item.column3) ">{{ item.column1 }}</span>
+                        <span ng-if="false">{{ item.column2 }}</span>
+                        <span>{{ item.column3 }}</span>
+                        <span>{{ item.column4 }}</span>
+                    </li>
+                </ul>
+
+
+                <div class="pagination" id="pagination"></div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="closeModalButton">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
 </div>]]></template>
     </sp_widget>
 </record_update>
