@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="3f68365e477a02106cce1ce4316d4342" extends="x_yergb_bpm_process" label="OI Items" max_length="40" name="x_yergb_bpm_oi_items" type="collection">
+        <element attributes="edge_encryption_enabled=true,omit_sys_original=true,serializer=com.glide.currency2.Currency2XMLSerializer" label="MP Amount" max_length="40" name="mp_amount" type="currency2"/>
+        <element attributes="edge_encryption_enabled=true,omit_sys_original=true,serializer=com.glide.currency2.Currency2XMLSerializer" label="Unit Price" max_length="40" name="unit_price" type="currency2"/>
+        <element attributes="edge_encryption_enabled=true,omit_sys_original=true,serializer=com.glide.currency2.Currency2XMLSerializer" label="GP Amount" max_length="40" name="gp_amount" type="currency2"/>
+        <element attributes="edge_encryption_enabled=true,omit_sys_original=true,serializer=com.glide.currency2.Currency2XMLSerializer" label="Unit MP" max_length="40" name="unit_mp" type="currency2"/>
+        <element label="Description" max_length="4000" name="description" type="string"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="OI Report" max_length="32" name="oi_report" reference="x_yergb_bpm_oi_report" type="reference"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="WBS 6" max_length="32" name="wbs_6" reference="x_yergb_bpm_wbs_master" type="reference"/>
+        <element attributes="edge_encryption_enabled=true,omit_sys_original=true,serializer=com.glide.currency2.Currency2XMLSerializer" label="Extended Cost" max_length="40" name="extended_cost" type="currency2"/>
+        <element label="MS Code" max_length="100" name="ms_code" type="string"/>
+        <element attributes="edge_encryption_enabled=true,omit_sys_original=true,serializer=com.glide.currency2.Currency2XMLSerializer" label="Unit Cost" max_length="40" name="unit_cost" type="currency2"/>
+        <element attributes="edge_encryption_enabled=true,omit_sys_original=true,serializer=com.glide.currency2.Currency2XMLSerializer" label="Extended Price" max_length="40" name="extended_price" type="currency2"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Vendor" max_length="32" name="vendor" reference="core_company" reference_qual="vendor=true^EQ" reference_qual_condition="vendor=true^EQ" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" label="Quantity" max_length="40" name="quantity" type="integer"/>
+        <index name="index">
+            <element name="extended_cost"/>
+        </index>
+        <index name="index2">
+            <element name="extended_price"/>
+        </index>
+        <index name="index3">
+            <element name="gp_amount"/>
+        </index>
+        <index name="index4">
+            <element name="mp_amount"/>
+        </index>
+        <index name="index5">
+            <element name="oi_report"/>
+        </index>
+        <index name="index6">
+            <element name="unit_cost"/>
+        </index>
+        <index name="index7">
+            <element name="unit_mp"/>
+        </index>
+        <index name="index8">
+            <element name="unit_price"/>
+        </index>
+        <index name="index9">
+            <element name="vendor"/>
+        </index>
+        <index name="index10">
+            <element name="wbs_6"/>
+        </index>
+    </element>
+</database>

@@ -1,3 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element db_object_id="7920694947f20a10a4863b12d16d439d" extends="x_yergb_bpm_process" label="OI Report" max_length="40" name="x_yergb_bpm_oi_report" type="collection"/>
+    <element db_object_id="7920694947f20a10a4863b12d16d439d" extends="x_yergb_bpm_process" label="OI Report" max_length="40" name="x_yergb_bpm_oi_report" type="collection">
+        <element label="GP %" max_length="40" name="gp_percent" type="decimal"/>
+        <element label="MP Amount (TC)" max_length="40" name="mp_amount_tc" type="currency2"/>
+        <element label="Order Type" max_length="32" name="order_type" reference="x_yergb_bpm_common_code" reference_qual="category=ORDER TYPE^EQ" reference_qual_condition="category=ORDER TYPE^EQ" type="reference"/>
+        <element label="GP Amount (LC)" max_length="40" name="gp_amount_lc" type="currency2"/>
+        <element label="MP Gap (LC)" max_length="40" name="mp_gap_lc" type="currency2"/>
+        <element label="MP Amount (LC)" max_length="40" name="mp_amount_lc" type="currency2"/>
+        <element label="Payment Terms" max_length="32" name="payment_terms" reference="x_yergb_bpm_common_code" reference_qual="category=Payment Terms^code_type=AR^EQ" reference_qual_condition="category=Payment Terms^code_type=AR^EQ" type="reference"/>
+        <element label="TAX Classification" max_length="32" name="tax_classification" reference="x_yergb_bpm_common_code" reference_qual="category=TAX CLASSIFICATION^EQ" reference_qual_condition="category=TAX CLASSIFICATION^EQ" type="reference"/>
+        <element label="MP Gap %" max_length="40" name="mp_gap_percent" type="decimal"/>
+        <element label="OI Amount (LC)" max_length="40" name="oi_amount_lc" type="currency2"/>
+        <element label="Customer PO No." max_length="40" name="customer_po_no" type="string"/>
+        <element label="Total Extended Cost (LC)" max_length="40" name="total_extended_cost_lc" type="currency2"/>
+        <element label="E-Draft Maturity Days" max_length="40" name="e_draft_maturity_days" type="integer"/>
+        <element label="GP Amount (TC)" max_length="40" name="gp_amount_tc" type="currency2"/>
+        <element label="OI Amount (TC)" max_length="40" name="oi_amount_tc" type="currency2"/>
+        <element label="MP Gap (TC)" max_length="40" name="mp_gap_tc" type="currency2"/>
+        <element label="Total Extended Cost (TC)" max_length="40" name="total_extended_cost_tc" type="currency2"/>
+        <index name="index">
+            <element name="gp_amount_lc"/>
+        </index>
+        <index name="index2">
+            <element name="total_extended_cost_lc"/>
+        </index>
+        <index name="index3">
+            <element name="mp_gap_tc"/>
+        </index>
+        <index name="index4">
+            <element name="mp_amount_lc"/>
+        </index>
+        <index name="index5">
+            <element name="mp_amount_tc"/>
+        </index>
+        <index name="index6">
+            <element name="payment_terms"/>
+        </index>
+        <index name="index7">
+            <element name="mp_gap_lc"/>
+        </index>
+        <index name="index8">
+            <element name="oi_amount_tc"/>
+        </index>
+        <index name="index9">
+            <element name="tax_classification"/>
+        </index>
+        <index name="index10">
+            <element name="total_extended_cost_tc"/>
+        </index>
+        <index name="index11">
+            <element name="oi_amount_lc"/>
+        </index>
+        <index name="index12">
+            <element name="order_type"/>
+        </index>
+        <index name="index13">
+            <element name="gp_amount_tc"/>
+        </index>
+    </element>
 </database>
