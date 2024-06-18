@@ -1,43 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element audit="true" db_object_id="49b1af843be2ca10ec3cbf2a85e45a43" extends="x_yergb_bpm_process" label="RFQ Entry" max_length="40" name="x_yergb_bpm_rfq_entry" type="collection">
-
-        <element label="Territory Review" max_length="32" name="territory_review" reference="x_yergb_bpm_territory" type="reference"/>
-        <element label="Complete Date" max_length="40" name="complete_date" type="glide_date"/>
-        <element label="Remark" max_length="4000" name="remark" type="string"/>
-        <element label="Project" max_length="40" name="project" type="string"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" dependent="assignment_group" dependent_on_field="assignment_group" label="Assigned to" max_length="32" name="assigned_to" reference="sys_user" type="reference" use_dependent_field="true"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Currency" max_length="32" name="currency" reference="fx_currency" reference_qual="active=true^EQ" reference_qual_condition="active=true^EQ" type="reference"/>
+        <element label="Quotation Due Date" max_length="40" name="quotation_due_date" type="glide_date"/>
         <element label="Credit Assessment" max_length="32" name="credit_assessment" reference="x_yergb_bpm_credit_assessment" type="reference"/>
+        <element label="Estimated Order Date" max_length="40" name="estimated_order_date" type="glide_date"/>
+        <element attributes="edge_encryption_enabled=true" default="true" label="Active" max_length="40" name="active" read_only="true" type="boolean"/>
+        <element label="T CAS" max_length="32" name="t_cas" reference="x_yergb_bpm_tcas_management" type="reference"/>
         <element label="Project title" max_length="100" name="project_title" type="string"/>
-        <element label="YODA Opportunity No" max_length="40" name="yoda_opportunity_no" type="string"/>
-        <element label="Risk Management" max_length="32" name="risk_management" reference="x_yergb_bpm_risk_management" type="reference"/>
-        <element label="Sales Order" max_length="40" name="sales_order" type="string"/>
-        <element label="Project Detail" max_length="4000" name="project_detail" type="string"/>
         <element choice="1" label="Quotation type" max_length="40" name="quotation_type" type="string">
             <choice>
                 <element inactive_on_update="false" label="Budgetary" sequence="10" value="budgetary"/>
                 <element inactive_on_update="false" label="Submission to Customers" sequence="20" value="submission"/>
             </choice>
         </element>
-
-        <element label="Contract Address" max_length="100" name="contract_address" type="string"/>
-        <element label="OI Report" max_length="40" name="oi_report" type="string"/>
-        <element attributes="edge_encryption_enabled=true,encode_utf8=false" dependent="assignment_group" dependent_on_field="assignment_group" label="Assigned to" max_length="32" name="assigned_to" reference="sys_user" type="reference" use_dependent_field="true"/>
-        <element attributes="edge_encryption_enabled=true" default="true" label="Active" max_length="40" name="active" read_only="true" type="boolean"/>
-        <element label="Contract Name" max_length="40" name="contract_name" type="string"/>
+        <element label="Request Due Date" max_length="40" name="request_due_date" type="glide_date"/>
+        <element label="Contract" max_length="32" name="contract" reference="core_company" type="reference"/>
+        <element label="Quotation" max_length="40" name="quotation" reference="x_yergb_bpm_quotation" type="reference"/>
         <element label="Reason Code" max_length="40" name="reason_code" type="string"/>
         <element label="Estimated Delivery Date" max_length="40" name="estimated_delivery_date" type="glide_date"/>
-        <element label="T CAS" max_length="32" name="t_cas" reference="x_yergb_bpm_tcas_management" type="reference"/>
-        <element label="Caution" max_length="4000" name="caution" type="string"/>
-        <element label="Request Due Date" max_length="40" name="request_due_date" type="glide_date"/>
-        <element label="End User" max_length="32" name="end_user" reference="core_company" type="reference"/>
-        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Assignment group" max_length="32" name="assignment_group" reference="sys_user_group" type="reference"/>
-        <element label="Contract" max_length="32" name="contract" reference="core_company" type="reference"/>
-        <element label="Quotation Due Date" max_length="40" name="quotation_due_date" type="glide_date"/>
-        <element attributes="edge_encryption_enabled=true,encode_utf8=false,readonly_clickthrough=true" default="javascript:gs.getUserID()" dynamic_default_value="90d1921e5f510100a9ad2572f2b477fe" label="Requester" max_length="32" name="requester" read_only="true" reference="sys_user" type="reference" use_dynamic_default="true"/>
-        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Currency" max_length="32" name="currency" reference="fx_currency" reference_qual="active=true^EQ" reference_qual_condition="active=true^EQ" type="reference"/>
-        <element label="Quotation" max_length="40" name="quotation" reference="x_yergb_bpm_quotation" type="reference"/>
-        <element label="Estimated Order Date" max_length="40" name="estimated_order_date" type="glide_date"/>
-        <element default="javascript:gs.nowDateTime();" dynamic_default_value="79cb83a85f220100a9ad2572f2b4773c" label="Request Date" mandatory="true" max_length="40" name="request_date" type="glide_date" use_dynamic_default="true"/>
         <element label="Estimated OI Amount" max_length="40" name="estimated_oi_amount" type="decimal"/>
+        <element label="Project" max_length="40" name="project" type="string"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false,readonly_clickthrough=true" default="javascript:gs.getUserID()" dynamic_default_value="90d1921e5f510100a9ad2572f2b477fe" label="Requester" max_length="32" name="requester" read_only="true" reference="sys_user" type="reference" use_dynamic_default="true"/>
+        <element default="javascript:gs.nowDateTime();" dynamic_default_value="79cb83a85f220100a9ad2572f2b4773c" label="Request Date" mandatory="true" max_length="40" name="request_date" type="glide_date" use_dynamic_default="true"/>
+        <element label="End User" max_length="32" name="end_user" reference="core_company" type="reference"/>
+        <element label="Project Detail" max_length="4000" name="project_detail" type="string"/>
+        <element label="Caution" max_length="4000" name="caution" type="string"/>
+        <element label="Risk Management" max_length="32" name="risk_management" reference="x_yergb_bpm_risk_management" type="reference"/>
+        <element label="Contract Address" max_length="100" name="contract_address" type="string"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Assignment group" max_length="32" name="assignment_group" reference="sys_user_group" type="reference"/>
+        <element label="Complete Date" max_length="40" name="complete_date" type="glide_date"/>
+        <element label="Remark" max_length="4000" name="remark" type="string"/>
+        <element label="Contract Name" max_length="40" name="contract_name" type="string"/>
+        <element label="YODA Opportunity No" max_length="40" name="yoda_opportunity_no" type="string"/>
+        <element label="Territory Review" max_length="32" name="territory_review" reference="x_yergb_bpm_territory" type="reference"/>
+        <element label="Sales Order" max_length="40" name="sales_order" type="string"/>
         <index name="index">
             <element name="assigned_to"/>
         </index>
