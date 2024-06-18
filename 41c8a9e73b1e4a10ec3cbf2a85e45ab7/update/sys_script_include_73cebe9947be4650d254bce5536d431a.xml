@@ -24,8 +24,10 @@ RealGridUtilsBPM.prototype = {
             return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+5kVu6qIimZpJKTWpoOpNFnkmhX0fXje4w7n7/ElITcuCZPJfHzThFk=';
         } else if (instanceUrl.includes('dev178808')) {
             return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+xoV7b+wGal7JKTWpoOpNFnkmhX0fXje4w7n7/ElITcuQU5++nrgCcc=';
-        } else {
-            gs.addInfoMessage('script include - RealGridUtilsBPM - PDI용 realgrid key 발급받아서 추가하세요~~');
+        }else if (instanceUrl.includes('dev260285')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+w9HPS02Uro1JKTWpoOpNFnkmhX0fXje4w7n7/ElITcuJBKTc5vuhGc=';
+        }else{
+          gs.addInfoMessage('script include - RealGridUtilsBPM - PDI용 realgrid key 발급받아서 추가하세요~~');
             return;
         }
     },
@@ -236,13 +238,13 @@ RealGridUtilsBPM.prototype = {
         <sys_created_by>hhkim</sys_created_by>
         <sys_created_on>2024-06-14 08:27:11</sys_created_on>
         <sys_id>73cebe9947be4650d254bce5536d431a</sys_id>
-        <sys_mod_count>18</sys_mod_count>
+        <sys_mod_count>19</sys_mod_count>
         <sys_name>RealGridUtilsBPM</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_include_73cebe9947be4650d254bce5536d431a</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-16 13:33:37</sys_updated_on>
+        <sys_updated_on>2024-06-18 04:22:18</sys_updated_on>
     </sys_script_include>
 </record_update>
