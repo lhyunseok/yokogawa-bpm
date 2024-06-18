@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element audit="true" db_object_id="49b1af843be2ca10ec3cbf2a85e45a43" extends="x_yergb_bpm_process" label="RFQ Entry" max_length="40" name="x_yergb_bpm_rfq_entry" type="collection">
+
         <element label="Territory Review" max_length="32" name="territory_review" reference="x_yergb_bpm_territory" type="reference"/>
         <element label="Complete Date" max_length="40" name="complete_date" type="glide_date"/>
         <element label="Remark" max_length="4000" name="remark" type="string"/>
@@ -16,6 +17,7 @@
                 <element inactive_on_update="false" label="Submission to Customers" sequence="20" value="submission"/>
             </choice>
         </element>
+
         <element label="Contract Address" max_length="100" name="contract_address" type="string"/>
         <element label="OI Report" max_length="40" name="oi_report" type="string"/>
         <element attributes="edge_encryption_enabled=true,encode_utf8=false" dependent="assignment_group" dependent_on_field="assignment_group" label="Assigned to" max_length="32" name="assigned_to" reference="sys_user" type="reference" use_dependent_field="true"/>
