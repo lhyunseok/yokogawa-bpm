@@ -2,7 +2,7 @@
     <sys_dictionary action="INSERT_OR_UPDATE" element="mp_gap_tc" table="x_yergb_bpm_oi_report">
         <active>true</active>
         <array>false</array>
-        <attributes/>
+        <attributes>edge_encryption_enabled=true</attributes>
         <audit>false</audit>
         <calculation><![CDATA[(function calculatedFieldValue(current) {
 
@@ -32,7 +32,7 @@
         <formula/>
         <function_definition/>
         <function_field>false</function_field>
-        <internal_type display_value="">currency2</internal_type>
+        <internal_type display_value="Decimal">decimal</internal_type>
         <mandatory>false</mandatory>
         <max_length>40</max_length>
         <name>x_yergb_bpm_oi_report</name>
@@ -51,14 +51,14 @@
         <staged>false</staged>
         <sys_class_name>sys_dictionary</sys_class_name>
         <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-17 09:07:52</sys_created_on>
+        <sys_created_on>2024-06-18 10:03:20</sys_created_on>
         <sys_name>MP Gap (TC)</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_dictionary_x_yergb_bpm_oi_report_mp_gap_tc</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-17 09:07:52</sys_updated_on>
+        <sys_updated_on>2024-06-18 10:03:20</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>
