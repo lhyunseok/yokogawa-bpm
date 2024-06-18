@@ -58,7 +58,7 @@
             });
 
         } else { // 이거 새로 넣는거임
-            //alert("eawgheawgew")
+            alert("eawgheawgew")
             c.data.insertFlag = true;
             c.server.update().then(function(response) {
                 console.log("-----")
@@ -69,7 +69,7 @@
                 // Optionally handle the server response if needed
                 if (response.data && response.data.result) {
                     //alert(response.data.result);
-                    console.log("-----")
+                    console.log("----wgeaegrjiohgrew;jioj;iogewt;jio-")
                 }
             });
         }
@@ -88,16 +88,16 @@
     $scope.clickAssess = function() {
         //alert("ASSESS?")
         // Get the value from the input field using ng-model
-       
-//alert(c.data.quotation_type)
+
+        //alert(c.data.quotation_type)
         // Call the server script to update the state
- 						if (c.data.quotation_type=='undefined') {
+        if (c.data.quotation_type == 'undefined') {
             alert("Mandatory is empty");
             //document.querySelector('.yoko-search-form-wrap.yoko-project-wrap.yoko-col40 .yoko-search-form .').classList.add('highlight-form');
-  				
+
         } else {
-				 c.data.newState = 2;
-        c.data.buttunflag = true;
+            c.data.newState = 2;
+            c.data.buttunflag = true;
             c.server.update().then(function(response) {
                 // Handle the server response if needed
                 console.log('Server response:', response);
@@ -115,22 +115,22 @@
         if (!c.data.reason_code || !c.data.request_due_date || !c.data.remark) {
             alert("Mandatory is empty");
             //document.querySelector('.yoko-search-form-wrap.yoko-project-wrap.yoko-col40 .yoko-search-form .').classList.add('highlight-form');
-  				  const reasonCode = document.querySelector('input[name="reason_code"]');
-reasonCode.classList.add('highlight-form');
+            const reasonCode = document.querySelector('input[name="reason_code"]');
+            reasonCode.classList.add('highlight-form');
         } else {
-					 c.data.updateFlag = true;
-						 c.data.newState = 3;
-        c.data.buttunflag = true;
+            c.data.updateFlag = true;
+            c.data.newState = 3;
+            c.data.buttunflag = true;
             c.server.update().then(function(response) {
                 // Handle the server response if needed
                 console.log('Server response:', response);
                 location.reload();
             });
         }
-        
-        }
 
-        // Call the server script to update the state
+    }
+
+    // Call the server script to update the state
 
 
 
@@ -139,16 +139,23 @@ reasonCode.classList.add('highlight-form');
     $scope.clickSubmit = function() {
         //alert("SUBMIT?")
         // Get the value from the input field using ng-model
-        c.data.newState = 5;
-        c.data.buttunflag = true;
+        
 
         // Call the server script to update the state
+				//alert(c.data.quotation_state != "Completed")
+      if (c.data.quotation_state != "Completed") {
+            alert("Quotation is Not Completed");
+            //document.querySelector('.yoko-search-form-wrap.yoko-project-wrap.yoko-col40 .yoko-search-form .').classList.add('highlight-form');
 
-        c.server.update().then(function(response) {
-            // Handle the server response if needed
-            console.log('Server response:', response);
-            location.reload();
-        });
+        } else {
+            c.data.newState = 5;
+        		c.data.buttunflag = true;
+            c.server.update().then(function(response) {
+                // Handle the server response if needed
+                console.log('Server response:', response);
+                location.reload();
+            });
+        }
 
 
     };
@@ -185,7 +192,7 @@ reasonCode.classList.add('highlight-form');
         });
 
     };
-		$scope.clickOIReport = function() {
+    $scope.clickOIReport = function() {
         //alert("OI Report?")
         // Get the value from the input field using ng-model
         c.data.newState = 9;
@@ -490,13 +497,12 @@ reasonCode.classList.add('highlight-form');
         <controller_as>c</controller_as>
         <css>@charset "UTF-8";
 
-
 body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; line-height: normal;}
 
 .blank {width: 100%; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); }
 .yoko-container {margin: 40px auto 0; min-width: 1000px; max-width: 1600px; font-family: "Pretendard"; font-size: 14px; font-weight: 400; letter-spacing: 0;}
 .yoko-container * {box-sizing: border-box;}
-.yoko-container .yoko-content {display: flex; gap: 30px; flex-direction: column;}
+.yoko-container .yoko-content {display: flex; gap: 0px; flex-direction: column;}
 .yoko-breadcrumb {color: #425D78;}
 .yoko-title-btn-wrap {display: flex; justify-content: space-between; align-items: center; margin: 8px 0 25px 0;}
 .yoko-title-btn-wrap .yoko-title {margin:0; color: #1C3956; font-family: "Pretendard";font-size: 24px;  font-style: normal;  font-weight: 700; line-height: normal;}
@@ -540,33 +546,6 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 
 .yoko-btn-search {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(icon_search.png) no-repeat center center !important;}
 .yoko-btn-search:hover {background-color: #eaeaea;}
-
-
-.yoko-btn-quotation {
-  border: 1px solid #E1E8F0;
-  padding: 0 10px; /* 좌우 패딩 추가 */
-  width : 140px;
-  min-width: 30px;
-  height: 28px;
-  background-color: #fff;
-  color: #000;
-  font-size: 14px;
-  display: inline-flex; /* 중앙 배치를 위한 플렉스박스 사용 */
-  align-items: center; /* 수직 중앙 배치 */
-  justify-content: center; /* 수평 중앙 배치 */
-  cursor: pointer;
-}
-
-.yoko-btn-quotation:hover {
-  background-color: #eaeaea;
-}
-
-/* 다른 폼 요소와 일치하도록 스타일 조정 */
-.yoko-form-group {
-  margin-bottom: 15px;
-}
-
-
 
 .yoko-search-form {display: flex; gap: 30px; padding: 16px 30px; max-width: 1600px;  background-color: #F7F7F7; border: 1px solid #EDEDED; border-radius: 4px;}
 
@@ -667,6 +646,35 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 
 
 
+.yoko-btn-quotation {
+
+  border: 1px solid #E1E8F0;
+
+  padding: 0 10px; /* 좌우 패딩 추가 */
+
+  width : 140px;
+
+  min-width: 30px;
+
+  height: 28px;
+
+  background-color: #fff;
+
+  color: #000;
+
+  font-size: 14px;
+
+  display: inline-flex; /* 중앙 배치를 위한 플렉스박스 사용 */
+
+  align-items: center; /* 수직 중앙 배치 */
+
+  justify-content: center; /* 수평 중앙 배치 */
+
+  cursor: pointer;
+
+}
+
+
 
 
 /*리얼그리드 수정*/
@@ -740,7 +748,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 2; /* Sit on top */
+  z-index: 3; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -783,8 +791,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 }
 .highlight-form {
   border: 2px solid red;
-}
-</css>
+}</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -956,16 +963,18 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         var grQ = new GlideRecord('x_yergb_bpm_quotation');
         var quotation
         var quotation_sys_id
+        var quotation_state
         ///////////// 여기서는 아마 뿌려주는 로직을 할듯
         grQ.addQuery('rfq_entry', data.sys_id);
         grQ.query();
         while (grQ.next()) {
             quotation = grQ.number.toString();
             quotation_sys_id = grQ.sys_id.toString();
-
+						quotation_state = grQ.state.getDisplayValue().toString();
         }
         data.quotation = quotation
         data.quotation_sys_id = quotation_sys_id
+        data.quotation_state = quotation_state
 			
 			
 			
@@ -1076,6 +1085,21 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.showUpdate = true;
             data.showSave = true;
             data.showOIReport = true;
+					data.showQuotationTypeSelect = false;
+					data.showQuotationType = true;
+            //가져와서 일단 말 박아주는거 해야함
+            //Return the results to the client script
+        }else if (gr.state.getDisplayValue() == "Completed") {
+					  data.showAssess = false;
+            data.showRequest = false;
+            data.showSubmit = false;
+            data.showInProgress = false;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = false;
+            data.showUpdate = false;
+            data.showSave = false;
+            data.showOIReport = false;
 					data.showQuotationTypeSelect = false;
 					data.showQuotationType = true;
             //가져와서 일단 말 박아주는거 해야함
@@ -1435,14 +1459,14 @@ function getChoiceLabel(table, element, value) {
         <sys_created_by>lhyunseok</sys_created_by>
         <sys_created_on>2024-06-12 06:12:28</sys_created_on>
         <sys_id>d6fc4838933282104d95f55a7bba10e5</sys_id>
-        <sys_mod_count>766</sys_mod_count>
+        <sys_mod_count>809</sys_mod_count>
         <sys_name>portal_function</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_d6fc4838933282104d95f55a7bba10e5</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-18 08:37:04</sys_updated_on>
+        <sys_updated_on>2024-06-18 11:36:49</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
@@ -1467,7 +1491,7 @@ function getChoiceLabel(table, element, value) {
                     <div class="yoko-flex-responsive">
                         <div class="yoko-form-col">
                             <div class="yoko-form-group">
-                                <label for="request_no" class="yoko-short">Number</label>
+                                <label for="request_no" class="yoko-short">${Number}</label>
                                 <input type="text" name="request_no" value="" placeholder="" ng-model="c.data.number" disabled>
 
                             </div>
@@ -1523,7 +1547,7 @@ function getChoiceLabel(table, element, value) {
                             <div class="yoko-form-inline">
 
                                 <!-- input type="text" name="quotation" value={{data.qNum}} placeholder="" class="yoko-wid140" disable -->
-                                <button class="yoko-btn yoko-btn-quotation" ng-click="handleClick()">
+                                <button class="yoko-btn-quotation" ng-click="handleClick()">
                                     {{c.data.quotation}}
                                 </button> <input type="text" name="quotation_sysId" ng-model="c.data.quotation_sys_id" placeholder="" class="yoko-wid140" ng-click="handleClick()" ng-style="{'display': 'none'}" readonly>
 
@@ -1533,15 +1557,19 @@ function getChoiceLabel(table, element, value) {
                         <div class="yoko-form-group">
                             <label for="type">Quotation type</label>
                             <div class="yoko-form-inline">
-
                                 <select id="type" name="type" class="yoko-wid140" ng-model="c.data.quotation_type" ng-options="option as option for option in c.data.choices" ng-if="data.showQuotationTypeSelect">
                                     <option value="">Select Type</option>
                                 </select>
-
                                 <input type="text" name="quotation_type" ng-model="c.data.quotation_type_label" class="yoko-wid140" style="font-size:12px" ng-if="data.showQuotationType">
-
                             </div>
                         </div>
+
+                        <div class="yoko-form-group">
+                            <label for="quotation_state">Quotation State</label>
+                            <input type="text" name="quotation_state"  class="yoko-wid140" ng-model="c.data.quotation_state" disabled>
+                        </div>
+
+
                         <div class="yoko-form-group">
                             <label for="quotationdate">Quotation Due Date</label>
                             <input type="date" name="quotation_date" id="quotation_date" class="yoko-wid140" value={{data.quotation_due_date}} ng-model="c.data.quotation_due_date">
