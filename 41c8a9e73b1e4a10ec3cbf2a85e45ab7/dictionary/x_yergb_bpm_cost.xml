@@ -1,36 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="df4e87403b224e1046a3934a85e45abb" label="Cost" max_length="40" name="x_yergb_bpm_cost" type="collection">
-        <element attributes="edge_encryption_enabled=true" label="Month2" max_length="20" name="month2" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true" label="Month3" max_length="20" name="month3" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true" label="Total amount" max_length="20" name="total_amount" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true" label="Month10" max_length="20" name="month10" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true" label="Month14" max_length="20" name="month14" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true" label="Month13" max_length="20" name="month13" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true" label="Beyond18" max_length="20" name="beyond18" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true" label="Month1" max_length="20" name="month1" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Region" max_length="32" name="region" reference="x_yergb_bpm_region_master" type="reference"/>
         <element attributes="edge_encryption_enabled=true" label="Month12" max_length="20" name="month12" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true" label="Month6" max_length="20" name="month6" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="WBS" max_length="32" name="wbs" reference="x_yergb_bpm_wbs_master" type="reference"/>
-        <element attributes="edge_encryption_enabled=true" label="Month7" max_length="20" name="month7" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true" label="Month4" max_length="20" name="month4" type="decimal"/>
         <element attributes="edge_encryption_enabled=true" choice="1" label="Activity Type" max_length="40" name="activity_type" type="choice">
             <choice/>
         </element>
-        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
-        <element choice="1" label="Data type" max_length="40" name="data_type" type="choice">
-            <choice>
-                <element inactive_on_update="false" label="ITEM" sequence="1" value="item"/>
-                <element inactive_on_update="false" label="WBS6" sequence="0" value="wbs6"/>
-            </choice>
-        </element>
-        <element choice="1" label="Currency" max_length="40" name="currency" type="choice">
-            <choice>
-                <element inactive_on_update="false" label="USD" sequence="0" value="usd"/>
-                <element inactive_on_update="false" label="CNY" sequence="2" value="cny"/>
-                <element inactive_on_update="false" label="KRW" sequence="1" value="krw"/>
-            </choice>
-        </element>
+        <element attributes="edge_encryption_enabled=true" label="Month5" max_length="20" name="month5" type="decimal"/>
         <element attributes="edge_encryption_enabled=true" label="Month8" max_length="20" name="month8" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true" label="Month13" max_length="20" name="month13" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Resource Code" max_length="32" name="resource_code" reference="x_yergb_bpm_resource_master" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" label="Month3" max_length="20" name="month3" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true" label="Beyond18" max_length="20" name="beyond18" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true" label="Month11" max_length="20" name="month11" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true" label="Month6" max_length="20" name="month6" type="decimal"/>
+        <element label="Base Month" max_length="40" name="base_month" type="string"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
         <element choice="1" label="Budget type" max_length="40" name="budget_type" type="choice">
             <choice>
                 <element inactive_on_update="false" label="Other Cost" sequence="3" value="cost"/>
@@ -40,16 +24,32 @@
             </choice>
         </element>
         <element attributes="edge_encryption_enabled=true" label="Month9" max_length="20" name="month9" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true" label="Month17" max_length="20" name="month17" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Resource Code" max_length="32" name="resource_code" reference="x_yergb_bpm_resource_master" type="reference"/>
-        <element attributes="edge_encryption_enabled=true" label="Month11" max_length="20" name="month11" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true" label="Total amount" max_length="20" name="total_amount" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true" label="Month1" max_length="20" name="month1" type="decimal"/>
         <element attributes="edge_encryption_enabled=true" label="Month16" max_length="20" name="month16" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true" label="Month18" max_length="20" name="month18" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true" label="Month4" max_length="20" name="month4" type="decimal"/>
-        <element label="Base Month" max_length="40" name="base_month" type="string"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="WBS" max_length="32" name="wbs" reference="x_yergb_bpm_wbs_master" type="reference"/>
         <element label="Order Item" max_length="32" name="order_item" reference="x_yergb_bpm_order_item" type="reference"/>
+        <element choice="1" label="Data type" max_length="40" name="data_type" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="WBS6" sequence="0" value="wbs6"/>
+                <element inactive_on_update="false" label="ITEM" sequence="1" value="item"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" label="Month2" max_length="20" name="month2" type="decimal"/>
+        <element choice="1" label="Currency" max_length="40" name="currency" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="KRW" sequence="1" value="krw"/>
+                <element inactive_on_update="false" label="CNY" sequence="2" value="cny"/>
+                <element inactive_on_update="false" label="USD" sequence="0" value="usd"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" label="Month14" max_length="20" name="month14" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true" label="Month17" max_length="20" name="month17" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true" label="Month10" max_length="20" name="month10" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Region" max_length="32" name="region" reference="x_yergb_bpm_region_master" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" label="Month18" max_length="20" name="month18" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true" label="Month7" max_length="20" name="month7" type="decimal"/>
         <element attributes="edge_encryption_enabled=true" label="Month15" max_length="20" name="month15" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true" label="Month5" max_length="20" name="month5" type="decimal"/>
         <index name="index">
             <element name="order_item"/>
         </index>
