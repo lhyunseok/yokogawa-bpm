@@ -8,7 +8,7 @@
         <element label="GP Amount (TC)" max_length="40" name="gp_amount_tc" type="currency2"/>
         <element label="E-Draft Maturity Days" max_length="40" name="e_draft_maturity_days" type="integer"/>
         <element label="GP %" max_length="40" name="gp_percent" type="decimal"/>
-        <element label="Version" max_length="40" name="version" type="integer"/>
+        <element attributes="edge_encryption_enabled=true" label="Version" max_length="40" name="version" type="integer"/>
         <element label="OI Amount (TC)" max_length="40" name="oi_amount_tc" type="currency2"/>
         <element label="Total Extended Cost (LC)" max_length="40" name="total_extended_cost_lc" type="currency2"/>
         <element label="OI Amount (LC)" max_length="40" name="oi_amount_lc" type="currency2"/>
@@ -18,7 +18,7 @@
         <element label="GP Amount (LC)" max_length="40" name="gp_amount_lc" type="currency2"/>
         <element label="MP Amount (TC)" max_length="40" name="mp_amount_tc" type="currency2"/>
         <element label="MP Gap %" max_length="40" name="mp_gap_percent" type="decimal"/>
-        <element label="RFQ Entry" max_length="32" name="rfq_entry" reference="x_yergb_bpm_rfq_entry" type="reference"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="RFQ Entry" max_length="32" name="rfq_entry" reference="x_yergb_bpm_rfq_entry" type="reference"/>
         <index name="index">
             <element name="gp_amount_lc"/>
         </index>
