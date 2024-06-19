@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller = function($scope, $location) {
+        <client_script><![CDATA[api.controller = function($scope, $location, $window) {
 
     /* widget controller */
     var c = this;
     c.data.readStatus = true;
+
     // Function to get URL parameters
     c.getUrlParameter = function(param) {
         return $location.search()[param];
@@ -13,10 +14,9 @@
     // Function to handle click event
     $scope.handleClick = function() {
         if (c.data.quotation) {
-            window.location.href = "/ybpm?id=epic_03_ui_init&table=x_yergb_bpm_project&sys_id=" + c.data.key; // Redirect to the URL
+            window.location.href = "/ybpm?id=epic_03_ui_budget_y_product&number=" + c.data.key; // Redirect to the URL
         }
     };
-
     // Example: Retrieve a specific parameter
     var paramValue = c.getUrlParameter('number');
     c.data.paramValue = paramValue;
@@ -26,28 +26,38 @@
         // Handle the server response if needed
     });
 
-    $scope.clickYProd = function() {
-        window.location.href = "/ybpm?id=epic_03_ui_budget_y_product&number=" + c.data.paramValue;
+    $scope.clickCreateMSA = function() {
+        alert("Working..... In progress develop");
     };
-    $scope.clickBOP = function() {
-        alert("Working..... In progress develop..BOP");
+	
+    //grid save 할 때 전체페이지 reload
+    $window.addEventListener('message', function(event) {
+        if (event.data.type === 'updateIframeSrc') {
+            location.reload();
+        }
+    });
+    // Function to dynamically adjust iframe height
+    function resizeIframe() {
+        var iframe = document.getElementById('myIframe');
+        if (iframe) {
+            var windowHeight = window.innerHeight;
+            iframe.style.height = Math.max(windowHeight * 0.5, 200) + 'px';
+        }
+    }
+
+    // Add event listener to resize iframe when content loads
+    $window.onload = function() {
+        resizeIframe();
     };
-    $scope.clickManHour = function() {
-        alert("Working..... In progress develop..ManHour");
-    };
-    $scope.clickOther = function() {
-        alert("Working..... In progress develop..Other");
-    };
-    $scope.clickApproval = function() {
-        alert("Working..... In progress develop..Approval");
-    };
-    $scope.clickClose = function() {
-        alert("Working..... In progress develop..Close");
-    };
-    $scope.clickMSF = function() {
-        alert("Working..... In progress develop..MSF");
-    };
-};]]></client_script>
+
+    // Add event listener to window resize event
+    $window.addEventListener('resize', function() {
+        resizeIframe();
+    });
+
+    // Call resizeIframe on initial load to set the initial height
+    resizeIframe();
+}]]></client_script>
         <controller_as>c</controller_as>
         <css>@charset "UTF-8";&#13;
 &#13;
@@ -385,34 +395,27 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .rg-editor-container { border: 2px solid #27C382 !important; }</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
-        <description/>
+        <description>Other</description>
         <docs/>
         <field_list/>
         <has_preview>false</has_preview>
-        <id>initplanmngtwd</id>
+        <id>budgetplanmngtwd04</id>
         <internal>false</internal>
         <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
-        <name>initPlanMngtWd</name>
+        <name>budgetPlanMngtWd04</name>
         <option_schema/>
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
-	
-    data.number = $sp.getParameter("number");
 
-    data.baseMonth = '202408';
-    data.planType = 'Initial';
-    data.openedBy = gs.getUser().getDisplayName();
-    var currentdate = new GlideDate();
-    currentdate.getByFormat("yyyy-MM-dd");
-    data.opened = currentdate;
+    data.key = $sp.getParameter("number");
+    data.gridUrl = '/x_yergb_bpm_SorinGrid_BPM.do?id_q=' + data.number;
 
-    if (data.number) { // Update
+    if (data.key && input && input.readStatus) { // Update
         var grProject = new GlideRecord('x_yergb_bpm_project');
-        grProject.addQuery('number', data.number);
+        grProject.addQuery('number', data.key);
         grProject.query();
         if (grProject.next()) {
-            data.key = grProject.getUniqueValue();
             data.number = grProject.number.toString(); //Project Number
             data.name = grProject.name.toString(); //Project Name
             data.pm = grProject.getDisplayValue('pm'); //PM Name
@@ -422,164 +425,80 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.data_type = grProject.getDisplayValue('u_data_type'); // Data Type
             data.budget_type = grProject.getDisplayValue('u_budget_type'); // Budget Type
             data.customer = grProject.customer.name.toString(); // CustomerName
-            //data.sys_id = grProject.sys_id;
-        }
-        if (data.key) {
-            var grBudgetPlan = new GlideRecord('x_yergb_bpm_budget_plan');
-            grBudgetPlan.addQuery('project', data.key);
-            grBudgetPlan.query();
-            if (grBudgetPlan.next()) {
-                data.baseMonth = grBudgetPlan.base_month.toString();
-                data.planType = "PRF";
-                data.openedBy = grBudgetPlan.getDispalyValue("sys_created_by");
-                data.opened = grBudgetPlan.sys_created_on;
-            }
+            data.sys_id = grProject.sys_id;
         }
     }
+    data.gridUrl = '/x_yergb_bpm_SorinGrid_prod.do?id_q=' + data.sys_id;
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-17 07:56:29</sys_created_on>
-        <sys_id>2eb49a1e83fa0210856ceec0deaad3bd</sys_id>
-        <sys_mod_count>41</sys_mod_count>
-        <sys_name>initPlanMngtWd</sys_name>
+        <sys_created_on>2024-06-19 02:07:04</sys_created_on>
+        <sys_id>ffe7d7b683b20210856ceec0deaad3e3</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>budgetPlanMngtWd04</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_update_name>sp_widget_2eb49a1e83fa0210856ceec0deaad3bd</sys_update_name>
+        <sys_update_name>sp_widget_ffe7d7b683b20210856ceec0deaad3e3</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-18 10:54:18</sys_updated_on>
+        <sys_updated_on>2024-06-19 03:56:06</sys_updated_on>
         <template><![CDATA[    <div class="yoko-container">
+        <div class="yoko-breadcrumb">Home > Project Budget Plan for Other Expense</div>
         <div class="yoko-title-btn-wrap">
+            <h1 class="yoko-title">Project Budget Plan for Other Expense</h1>
             <div class="yoko-btn-wrap">
-                <button class="yoko-btn yoko-btn-outline" ng-click="clickYProd()">Y-Prod</button>
-                <button class="yoko-btn yoko-btn-outline" ng-click="clickBOP()">BOP</button>
-                <button class="yoko-btn yoko-btn-outline" ng-click="clickManHour()">Man hour</button>
-                <button class="yoko-btn yoko-btn-outline" ng-click="clickOther()">Other</button>
-            </div>
-            <div class="yoko-btn-wrap">
-                <button class="yoko-btn yoko-btn-outline" ng-click="clickApproval()">Approval Request</button>
-                <button class="yoko-btn yoko-btn-outline" ng-click="clickClose()">Close</button>
-                <button class="yoko-btn yoko-btn-fill" ng-click="clickMSF()">Make SAP File</button>
             </div>
         </div>
         <div class="yoko-content">
             <div class="yoko-search-form-wrap">
                 <div class="yoko-search-form">
-                    <div class="yoko-form-group">
-                        <label for="base_month" class="yoko-short">Base Month</label>
-                        <input type="text" name="base_month" value={{data.baseMonth}} placeholder="" disabled class="yoko-wid140">
-                    </div>
-                    <div class="yoko-form-group">
-                        <label for="plan_type" class="yoko-short">Plan Type</label>
-                        <input type="text" name="plan_type" value={{data.planType}} placeholder="" disabled class="yoko-wid140">
-                    </div>
-                    <div class="yoko-form-group">
-                        <label for="opened_by" class="yoko-short">Opened By</label>
-                        <input type="text" name="opened_by" value={{data.openedBy}} placeholder="" disabled class="yoko-wid140">
-                    </div>
-                    <div class="yoko-form-group">
-                        <label for="opened" class="yoko-short">Opened</label>
-                        <input type="text" name="opened" value={{data.opened}} placeholder="" disabled class="yoko-wid140">
-                    </div>
-                </div>
-            </div>
-            <div class="yoko-search-form-wrapper">
-                <div class="yoko-search-form-wrap yoko-col60">
-                    <div class="yoko-search-form">
-                        <div class="yoko-form-col">
-                            <div class="yoko-form-group">
-                                <label for="project_number" class="yoko-short-100">Project Number</label>
-                                <input type="text" name="project_number" value={{data.number}} placeholder="" disabled class="yoko-wid247">
-                            </div>
-                            <div class="yoko-form-group">
+                    <div class="yoko-form-col">
+                        <div class="yoko-form-group">
+                            <label for="project_number" class="yoko-short-100">Project Number</label>
+                            <input type="text" name="project_number" value={{data.number}} placeholder="" disabled class="yoko-wid247">
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="customer" class="yoko-short-100">Customer</label>
+                            <input type="text" name="customer" value={{data.customer}} placeholder="" disabled class="yoko-wid247">
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="pm_name" class="yoko-short-100">PM Name</label>
+                            <div class="yoko-form-inline yoko-wid247">
                                 <input type="text" name="pm_number" value={{data.user}} placeholder="" disabled class="yoko-col40">
                                 <input type="text" name="pm_name" value={{data.pm}} placeholder="" disabled class="yoko-col60">
                             </div>
-                            <!--<div class="yoko-form-group">
-                                <label for="customer" class="yoko-short-100">Customer</label>
-                                <input type="text" name="customer" value={{data.customer}} placeholder="" disabled class="yoko-wid247">
-                            </div>-->
-                            <div class="yoko-form-group">
-                                <label for="pm_name" class="yoko-short-100">PM Name</label>
-                                <input type="text" name="pm_name" value="" placeholder="" disabled class="yoko-wid247">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="project_name" class="yoko-short-100">Project Name</label>
-                                <input type="text" name="project_name" value={{data.name}} placeholder="" disabled class="yoko-wid247">
-                            </div>  
                         </div>
+                        <div class="yoko-form-group">
+                            <label for="project_name" class="yoko-short-100">Project Name</label>
+                            <input type="text" name="project_name" value={{data.name}} placeholder="" disabled class="yoko-wid247">
+                        </div>  
+                    </div>
 
-                        <div class="yoko-form-col">
-                            <div class="yoko-form-group">
-                                <label for="state" class="yoko-short">State</label>
-                                <input type="text" name="state" value={{data.state}} placeholder="" disabled class="yoko-wid140">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="date_type" class="yoko-short">Date type</label>
-                                <input type="text" name="date_type" value={{data.data_type}} placeholder="" disabled class="yoko-wid140">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="region" class="yoko-short">Region</label>
-                                <input type="text" name="region" value={{data.region}} placeholder="" disabled class="yoko-wid140">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="currency" class="yoko-short">Currency</label>
-                                <input type="text" name="currency" value={{data.currency}} placeholder="" disabled class="yoko-wid140">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="dmr" class="yoko-short">DMR</label>
-                                <div class="yoko-form-inline">
-                                    <input type="text" name="dmr" value="" placeholder="" class="yoko-wid140">
-                                    <button type="button" class="yoko-btn yoko-btn-search"></button>
-                                </div>
-                            </div>
+                    <div class="yoko-form-col">
+                        <div class="yoko-form-group">
+                            <label for="data_type" class="yoko-short">Data type</label>
+                            <input type="text" name="data_type" value={{data.data_type}} placeholder="" disabled class="yoko-wid140">
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="budget_type" class="yoko-short">Budget type</label>
+                            <input type="text" name="budget_type" value={{data.budget_type}} placeholder="" disabled class="yoko-wid140">
                         </div>
                     </div>
-                </div>
-                <div class="yoko-search-form-wrap yoko-col40">
-                    <div class="yoko-search-form">
-                        <div class="yoko-form-col">
-                            <div class="yoko-form-group">
-                                <label class="yoko-short"></label>
-                                <div class="yoko-form-group-heading-wrap">
-                                    <div class="yoko-form-group-heading yoko-wid140">Last Month</div>
-                                    <div class="yoko-form-group-heading yoko-wid140">Current Month</div>
-                                </div>
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="contract1" class="yoko-short">Contract</label>
-                                <div class="yoko-form-inline">
-                                    <input type="text" id="contract1" name="contract1" value="" placeholder="" disabled class="yoko-wid140">
-                                    <input type="text" id="contract2" name="contract2" value="" placeholder="" disabled class="yoko-wid140">
-                                </div>
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="cost1" class="yoko-short">Cost</label>
-                                <div class="yoko-form-inline">
-                                    <input type="text" id="cost1" name="cost1" value="" placeholder="" disabled class="yoko-wid140">
-                                    <input type="text" id="cost2" name="cost2" value="" placeholder="" disabled class="yoko-wid140">
-                                </div>
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="gpa1" class="yoko-short">GPA</label>
-                                <div class="yoko-form-inline">
-                                    <input type="text" id="gpa1" name="gpa1" value="" placeholder="" disabled class="yoko-wid140">
-                                    <input type="text" id="gpa2" name="gpa2" value="" placeholder="" disabled class="yoko-wid140">
-                                </div>
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="gp1" class="yoko-short">GP(%)</label>
-                                <div class="yoko-form-inline">
-                                    <input type="text" id="gp1" name="gp1" value="" placeholder="" disabled class="yoko-wid140">
-                                    <input type="text" id="gp2" name="gp2" value="" placeholder="" disabled class="yoko-wid140">
-                                </div>
-                            </div>
+                    <div class="yoko-form-col"> 
+                        <div class="yoko-form-group">
+                            <label for="region" class="yoko-short">Region</label>
+                            <input type="text" name="region" value={{data.region}} placeholder="" disabled class="yoko-wid140">
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="currency" class="yoko-short">Currency</label>
+                            <input type="text" name="currency" value={{data.currency}} placeholder="" disabled class="yoko-wid140">
                         </div>
                     </div>
+                    
                 </div>
             </div>
+            <iframe src={{data.gridUrl}} width='100%' height='500px' style='border:none;' id='myIframe'></iframe>
         </div>
     </div>]]></template>
     </sp_widget>
