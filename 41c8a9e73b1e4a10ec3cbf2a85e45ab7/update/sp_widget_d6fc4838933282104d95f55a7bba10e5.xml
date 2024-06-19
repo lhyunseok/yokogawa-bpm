@@ -58,7 +58,7 @@
             });
 
         } else { // 이거 새로 넣는거임
-            alert("eawgheawgew")
+            //alert("eawgheawgew")
             c.data.insertFlag = true;
             c.server.update().then(function(response) {
                 console.log("-----")
@@ -96,6 +96,8 @@
             //document.querySelector('.yoko-search-form-wrap.yoko-project-wrap.yoko-col40 .yoko-search-form .').classList.add('highlight-form');
 
         } else {
+					            c.data.updateFlag = true;
+
             c.data.newState = 2;
             c.data.buttunflag = true;
             c.server.update().then(function(response) {
@@ -495,11 +497,7 @@
 
 }]]></client_script>
         <controller_as>c</controller_as>
-        <css>@charset "UTF-8";
-
-body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; line-height: normal;}
-
-.blank {width: 100%; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); }
+        <css>.blank {width: 100%; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); }
 .yoko-container {margin: 40px auto 0; min-width: 1000px; max-width: 1600px; font-family: "Pretendard"; font-size: 14px; font-weight: 400; letter-spacing: 0;}
 .yoko-container * {box-sizing: border-box;}
 .yoko-container .yoko-content {display: flex; gap: 0px; flex-direction: column;}
@@ -1250,6 +1248,7 @@ gs.addErrorMessage(quotation_type)
         var estimated_delivery_date = input.estimated_delivery_date
         var quotation_due_date = input.quotation_due_date
         var quotation_type = input.quotation_type
+				gs.addInfoMessage(quotation_type)
         var yoda_opportunity_no = getValueOrEmptyString(input.yoda_opportunity_no)
         var assignment_group = input.assignment_group_sys_id
         var assigned_to = input.assigned_to_sys_id
@@ -1459,14 +1458,14 @@ function getChoiceLabel(table, element, value) {
         <sys_created_by>lhyunseok</sys_created_by>
         <sys_created_on>2024-06-12 06:12:28</sys_created_on>
         <sys_id>d6fc4838933282104d95f55a7bba10e5</sys_id>
-        <sys_mod_count>809</sys_mod_count>
+        <sys_mod_count>815</sys_mod_count>
         <sys_name>portal_function</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_d6fc4838933282104d95f55a7bba10e5</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-18 11:36:49</sys_updated_on>
+        <sys_updated_on>2024-06-19 00:34:43</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
