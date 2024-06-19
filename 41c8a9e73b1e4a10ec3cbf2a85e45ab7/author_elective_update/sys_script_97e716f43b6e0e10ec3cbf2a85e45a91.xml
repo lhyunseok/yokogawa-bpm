@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="DELETE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>false</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_yergb_bpm_order_item</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition table="x_yergb_bpm_order_item">plan_gr_dateVALCHANGES^EQ<item endquery="false" field="plan_gr_date" goto="false" newquery="false" operator="VALCHANGES" or="false" value=""/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter_condition>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>set yearMonth</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+
+    var mydate = current.plan_gr_date;
+    var mymonth = mydate.split('-')[0] + mydate.split('-')[1];
+
+	current.yearmonth = mymonth;
+	current.update();
+
+    // var gr = new GlideRecord('x_yergb_bpm_order_item');
+    // if (gr.get(current.sys_id)) {
+    //     gr.setValue('yearmonth', mymonth);
+    //     gr.update();
+    // }
+
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>hahyun@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-05-31 06:14:44</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>97e716f43b6e0e10ec3cbf2a85e45a91</sys_id>
+        <sys_mod_count>11</sys_mod_count>
+        <sys_name>set yearMonth</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_script_97e716f43b6e0e10ec3cbf2a85e45a91</sys_update_name>
+        <sys_updated_by>hhkim</sys_updated_by>
+        <sys_updated_on>2024-06-04 14:04:52</sys_updated_on>
+        <template/>
+        <when>after</when>
+    </sys_script>
+    <sys_translated_text action="DELETE" query="documentkey=97e716f43b6e0e10ec3cbf2a85e45a91"/>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</application>
+        <file_path/>
+        <instance_id>6660c3f11b1d8610c82acb7b234bcb33</instance_id>
+        <instance_name>dev251919</instance_name>
+        <name>sys_script_97e716f43b6e0e10ec3cbf2a85e45a91</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_script"&gt;
+    &lt;sys_script action="INSERT_OR_UPDATE"&gt;
+        &lt;abort_action&gt;false&lt;/abort_action&gt;
+        &lt;access&gt;package_private&lt;/access&gt;
+        &lt;action_delete&gt;false&lt;/action_delete&gt;
+        &lt;action_insert&gt;true&lt;/action_insert&gt;
+        &lt;action_query&gt;false&lt;/action_query&gt;
+        &lt;action_update&gt;true&lt;/action_update&gt;
+        &lt;active&gt;false&lt;/active&gt;
+        &lt;add_message&gt;false&lt;/add_message&gt;
+        &lt;advanced&gt;true&lt;/advanced&gt;
+        &lt;change_fields&gt;false&lt;/change_fields&gt;
+        &lt;client_callable&gt;false&lt;/client_callable&gt;
+        &lt;collection&gt;x_yergb_bpm_order_item&lt;/collection&gt;
+        &lt;condition/&gt;
+        &lt;description/&gt;
+        &lt;execute_function&gt;false&lt;/execute_function&gt;
+        &lt;filter_condition table="x_yergb_bpm_order_item"&gt;plan_gr_dateVALCHANGES^EQ&lt;item endquery="false" field="plan_gr_date" goto="false" newquery="false" operator="VALCHANGES" or="false" value=""/&gt;
+            &lt;item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/&gt;
+        &lt;/filter_condition&gt;
+        &lt;is_rest&gt;false&lt;/is_rest&gt;
+        &lt;message/&gt;
+        &lt;name&gt;set yearMonth&lt;/name&gt;
+        &lt;order&gt;100&lt;/order&gt;
+        &lt;priority&gt;100&lt;/priority&gt;
+        &lt;rest_method/&gt;
+        &lt;rest_method_text/&gt;
+        &lt;rest_service/&gt;
+        &lt;rest_service_text/&gt;
+        &lt;rest_variables/&gt;
+        &lt;role_conditions/&gt;
+        &lt;script&gt;&lt;![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+
+    var mydate = current.plan_gr_date;
+    var mymonth = mydate.split('-')[0] + mydate.split('-')[1];
+
+	current.yearmonth = mymonth;
+	current.update();
+
+    // var gr = new GlideRecord('x_yergb_bpm_order_item');
+    // if (gr.get(current.sys_id)) {
+    //     gr.setValue('yearmonth', mymonth);
+    //     gr.update();
+    // }
+
+
+})(current, previous);]]&gt;&lt;/script&gt;
+        &lt;sys_class_name&gt;sys_script&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;hahyun@sorin.co.kr&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2024-05-31 06:14:44&lt;/sys_created_on&gt;
+        &lt;sys_domain&gt;global&lt;/sys_domain&gt;
+        &lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;
+        &lt;sys_id&gt;97e716f43b6e0e10ec3cbf2a85e45a91&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;11&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;set yearMonth&lt;/sys_name&gt;
+        &lt;sys_overrides/&gt;
+        &lt;sys_package display_value="BPM" source="x_yergb_bpm"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sys_script_97e716f43b6e0e10ec3cbf2a85e45a91&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;hhkim&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2024-06-04 14:04:52&lt;/sys_updated_on&gt;
+        &lt;template/&gt;
+        &lt;when&gt;after&lt;/when&gt;
+    &lt;/sys_script&gt;
+    &lt;sys_translated_text action="delete_multiple" query="documentkey=97e716f43b6e0e10ec3cbf2a85e45a91"/&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>-517275278</payload_hash>
+        <record_name>set yearMonth</record_name>
+        <reverted_from/>
+        <source>be4da31a837ec2105a8e9630ceaad3a5</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>current</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-17 14:24:33</sys_created_on>
+        <sys_id>878dab9a837ec2105a8e9630ceaad3d8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1902695d9510000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-17 14:24:33</sys_updated_on>
+        <type>Business Rule</type>
+        <update_guid>438dab9a857ec210dca1ded707d92fd8</update_guid>
+        <update_guid_history>438dab9a857ec210dca1ded707d92fd8:0,a40be7d2e77ec21061c58dca8fe3cfb9:453126378,ab0a35d20836c2102cd1438cc4bbafab:0,5949b19e14f2c210a7981781c002df61:-260456663,2950e1b972ba0210a628b70d5f5d9dff:-517275278</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>hhkim</sys_created_by>
+        <sys_created_on>2024-06-19 05:46:20</sys_created_on>
+        <sys_db_object display_value="" name="sys_script">sys_script</sys_db_object>
+        <sys_id>986174d5f238408da68263965a09abc1</sys_id>
+        <sys_metadata>97e716f43b6e0e10ec3cbf2a85e45a91</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>set yearMonth</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_parent display_value="Order Item">f7409f043b224e1046a3934a85e45aff</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_scope_delete display_value="">9ff3e273935a476eab36e9bd65d24759</sys_scope_delete>
+        <sys_update_name>sys_script_97e716f43b6e0e10ec3cbf2a85e45a91</sys_update_name>
+        <sys_update_version display_value="sys_script_97e716f43b6e0e10ec3cbf2a85e45a91">878dab9a837ec2105a8e9630ceaad3d8</sys_update_version>
+        <sys_updated_by>hhkim</sys_updated_by>
+        <sys_updated_on>2024-06-19 05:46:20</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

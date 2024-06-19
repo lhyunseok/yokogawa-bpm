@@ -4,29 +4,23 @@
         <client_script><![CDATA[function addRow(dp, gridView, qvalue) {
     var values = {
         project: qvalue,
-		budget_type: 'prod'
+        budget_type: 'prod'
     };
     var dataRow = dp.addRow(values);
     gridView.setCurrent({
         dataRow: dataRow
-    }); //추가된 행으로 포커스 이동
-    //setTimeout(function(){gridView.showEditor();}, 10); //바로 편집기를 표시하고 싶을때
+    });
 }
 
 function createRecord(dataSets, fields) {
-
-    // wbs_6 코드와 sys_id 매핑을 저장할 객체
     var wbsMap = {};
 
-    // WBS 코드와 Vendor 이름 추출
     var wbsCodes = dataSets.map(function(data) {
         return data[1];
     }).filter(function(wbsCode) {
         return wbsCode !== null && wbsCode !== '';
     });
 
-
-    // WBS 코드에 대한 GlideRecord 쿼리
     if (wbsCodes.length > 0) {
         var grWBS = new GlideRecord('x_yergb_bpm_wbs_master');
         grWBS.addQuery('code', 'IN', wbsCodes);
@@ -37,7 +31,6 @@ function createRecord(dataSets, fields) {
         }
     }
 
-    // 데이터셋 처리
     dataSets.forEach(function(dataSet) {
         var mappedData = dataSet.slice(); // 데이터 복사
 
@@ -52,7 +45,6 @@ function createRecord(dataSets, fields) {
                 newRecord.setValue(field, mappedData[index]);
             }
         });
-
         newRecord.insert();
     });
 }
@@ -73,7 +65,7 @@ function updateRecord(updateSets, fields) {
     var vendorMap = {};
 
     var wbsCodes = updateSets.map(function(data) {
-        return data[1]; 
+        return data[1];
     }).filter(function(wbsCode) {
         return wbsCode !== null && wbsCode !== '';
     });
@@ -105,12 +97,10 @@ function updateRecord(updateSets, fields) {
                     newRecord.setValue(field, mappedData[index]);
                 }
             });
-
             newRecord.update();
         }
     });
-}
-]]></client_script>
+}]]></client_script>
         <description/>
         <direct>false</direct>
         <endpoint>x_yergb_bpm_SorinGrid_prod.do</endpoint>
@@ -174,144 +164,127 @@ body[data-formName=ui_page_render] { padding: 0 !important; }
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"></script>
 
 <script type="text/javascript">
-        var gridView;
-        var dp;
+    var gridView;
+    var dp;
     window.addEventListener('DOMContentLoaded', function () {
         gridView = new RealGrid.GridView('gridContainer');
         dp = new RealGrid.LocalDataProvider();
 
         gridView.setDataSource(dp);
 
-      const fields = JSON.parse("${JSON.stringify(gfields)}");
-      const columns = JSON.parse("${JSON.stringify(gcolumns)}");
-      const layouts = JSON.parse("${JSON.stringify(glayouts)}");
-      console.log(columns)
+      	const fields = JSON.parse("${JSON.stringify(gfields)}");
+      	const columns = JSON.parse("${JSON.stringify(gcolumns)}");
+      	const layouts = JSON.parse("${JSON.stringify(glayouts)}");
+      	console.log(columns)
 
         // 데이터 설정
-      dp.setFields(fields);
-      gridView.setColumns(columns);
-      gridView.footers.visible = false;
-      gridView.commitEditor();
-      gridView.undoable = true;
+      	dp.setFields(fields);
+      	gridView.setColumns(columns);
+     	gridView.footers.visible = false;
+      	gridView.commitEditor();
+      	gridView.undoable = true;
 
-      gridView.columnByName("sys_id").visible =  false;
-	  gridView.columnByName("project").visible =  false;
-	  gridView.columnByName("budget_type").visible =  false;
+      	gridView.columnByName("sys_id").visible =  false;
+	  	gridView.columnByName("project").visible =  false;
+	  	gridView.columnByName("budget_type").visible =  false;
 
-      gridView.editOptions.commitWhenLeave = true;
-      gridView.displayOptions.fitStyle = 'evenFill'
+      	gridView.editOptions.commitWhenLeave = true;
+      	gridView.displayOptions.fitStyle = 'evenFill'
 
-      gridView.setColumnLayout(layouts);
-      dp.softDeleting = false;
+      	gridView.setColumnLayout(layouts);
+      	dp.softDeleting = false;
       
-      //Delete
-      const deleteData = document.getElementById('bt-delete');
-      deleteData.addEventListener('click', function () {
-         var rows = gridView.getCheckedRows();
-         var sysidArr = dp.getFieldValues('sys_id');
-          var deleteArr = [];
-         var crows = dp.getStateRows('created');
+      	//Delete
+      	const deleteData = document.getElementById('bt-delete');
+      	deleteData.addEventListener('click', function () {
+         	var rows = gridView.getCheckedRows();
+         	var sysidArr = dp.getFieldValues('sys_id');
+         	var deleteArr = [];
+         	var crows = dp.getStateRows('created');
 
-         if (rows.length == 0) {
-                 alert('삭제할 행을 체크해주세요.');
-              return;
-          }
+         	if (rows.length == 0) {
+                alert('삭제할 행을 체크해주세요.');
+              	return;
+          	}
 
-         // rows 배열의 모든 요소가 crows 배열에 포함되는지 확인
-         var allIncluded = rows.every(row => crows.includes(row));
+         	// rows 배열의 모든 요소가 crows 배열에 포함되는지 확인
+         	var allIncluded = rows.every(row => crows.includes(row));
 
-         if (allIncluded) {
-             dp.removeRows(rows);
-            return;
-         }else {
-            var result = confirm("데이터를 삭제 하시겠습니까");
-         }
+         	if (allIncluded) {
+             	dp.removeRows(rows);
+            	return;
+         	}else {
+            	var result = confirm("데이터를 삭제 하시겠습니까");
+         	}
 
-         if(result){
-             for (var j = 0; rows.length > j; j++) {
-                 var row = rows[j];
-               if(sysidArr[row]){
-                  deleteArr.push(sysidArr[row]);
-                 } 
-             }
+         	if(result){
+             	for (var j = 0; rows.length > j; j++) {
+                 	var row = rows[j];
+               		if(sysidArr[row]){
+                  		deleteArr.push(sysidArr[row]);
+                 	} 
+             	}
 
-            dp.removeRows(rows);
-            deleteRecord(deleteArr);
-             gridView.checkRows(rows, false);
-            updateParentIframeSrc();
-         }else{
-            return;
-         }
-         
+            	dp.removeRows(rows);
+            	deleteRecord(deleteArr);
+             	gridView.checkRows(rows, false);
+            	updateParentIframeSrc();
+         	}else{
+            	return;
+         	}
       });
 
-      //Add
-      const addData = document.getElementById('bt-add');
-      addData.addEventListener('click', function () {
-         //addEmptyRow(dp,gridView);
-         console.log("${id_q}");
-         debugger
-         addRow(dp,gridView,"${id_q}");
-      });
+      	//Add
+      	const addData = document.getElementById('bt-add');
+      	addData.addEventListener('click', function () {
+        	addRow(dp,gridView,"${id_q}");
+      	});
 
-      //SAVE
-      const oData = document.getElementById('bt-save');
-      oData.addEventListener('click', function () {
-         var dataSets = [];
-         var updateSets = [];
+      	//SAVE
+      	const oData = document.getElementById('bt-save');
+      	oData.addEventListener('click', function () {
+         	var dataSets = [];
+         	var updateSets = [];
 
-         let urows = dp.getStateRows('updated');
-         let crows = dp.getStateRows('created');
+         	let urows = dp.getStateRows('updated');
+         	let crows = dp.getStateRows('created');
 
-         for (var i = 0 ;  crows.length > i ;i++){
-            dataSets.push(dp.getValues(crows[i]));
-         }
+         	for (var i = 0 ;  crows.length > i ;i++){
+            	dataSets.push(dp.getValues(crows[i]));
+         	}
 
-        //  for (var k = 0; dataSets.length > k ; k++) {
-        //      if (dataSets[k][3] == null) {
-        //        alert('Ms Code는 필수값 입니다.');
-        //        return;
-        //       } 
-        //  }
-      
+         	if(crows.length || urows.length){
+            	var result = confirm("데이터를 저장 하시겠습니까");
+         	}else{
+            	alert('수정된 데이터가 없습니다.');
+            	return;
+         	}
 
-         if(crows.length || urows.length){
-            var result = confirm("데이터를 저장 하시겠습니까");
-         }else{
-            alert('수정된 데이터가 없습니다.');
-            return;
-         }
+         	for (var n = 0 ;  urows.length > n ;n++){
+            	updateSets.push(dp.getValues(urows[n]));
+         	}
 
-         for (var n = 0 ;  urows.length > n ;n++){
-            updateSets.push(dp.getValues(urows[n]));
-         }
-
-         debugger
-         if(result){
-            if(crows.length){
-               createRecord(dataSets, fields);      
-            }
-            if(urows.length){
-               updateRecord(updateSets, fields);      
-            }
-            //alert('saved');
+         	if(result){
+            	if(crows.length){
+               		createRecord(dataSets, fields);      
+            	}
+            	if(urows.length){
+               		updateRecord(updateSets, fields);      
+            	}
             location.reload();
 			updateParentIframeSrc();
-            
-         }
-      });
+         	}
+    	});
 
-   function updateParentIframeSrc() {
-      var url = new URL(window.location.href);
-        url.searchParams.set('reload', 'ok');
-         var newSrc = url.toString();
-       window.parent.postMessage({ type: 'updateIframeSrc', newSrc: newSrc }, '*');
-    }
-   
+   		function updateParentIframeSrc() {
+      		var url = new URL(window.location.href);
+        	url.searchParams.set('reload', 'ok');
+         	var newSrc = url.toString();
+       		window.parent.postMessage({ type: 'updateIframeSrc', newSrc: newSrc }, '*');
+    	}
 
-      dp.setRows(mydata);
-
-    });
+    	dp.setRows(mydata);
+	});
    
 </script>
 <div class="yoko-grid-btn-wrap-grid">
@@ -332,13 +305,13 @@ body[data-formName=ui_page_render] { padding: 0 !important; }
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-18 04:50:48</sys_created_on>
         <sys_id>50d3f2e247ba0e502b397d7ba26d43ff</sys_id>
-        <sys_mod_count>11</sys_mod_count>
+        <sys_mod_count>12</sys_mod_count>
         <sys_name>SorinGrid_prod</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ui_page_50d3f2e247ba0e502b397d7ba26d43ff</sys_update_name>
-        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-18 07:39:53</sys_updated_on>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-19 05:41:18</sys_updated_on>
     </sys_ui_page>
 </record_update>

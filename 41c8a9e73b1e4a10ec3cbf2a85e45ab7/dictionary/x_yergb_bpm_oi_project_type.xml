@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="624500833bb68210ec3cbf2a85e45adf" label="OI Project Type" max_length="40" name="x_yergb_bpm_oi_project_type" type="collection">
+        <element label="Rate %" max_length="40" name="rate_percent" type="decimal"/>
+        <element label="Sequence" max_length="40" name="sequence" type="integer"/>
+        <element label="Project Type" max_length="32" name="project_type" reference="x_yergb_bpm_common_code" reference_qual="category=PJT TYPE^EQ" reference_qual_condition="category=PJT TYPE^EQ" type="reference"/>
+        <element label="OI Report" max_length="32" name="oi_report" reference="x_yergb_bpm_oi_report" type="reference"/>
+        <index name="index">
+            <element name="project_type"/>
+        </index>
+        <index name="index2">
+            <element name="oi_report"/>
+        </index>
+    </element>
+</database>
