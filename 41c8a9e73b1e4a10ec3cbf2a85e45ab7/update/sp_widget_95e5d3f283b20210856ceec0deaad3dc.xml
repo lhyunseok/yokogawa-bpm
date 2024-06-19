@@ -30,13 +30,13 @@
         window.location.href = "/ybpm?id=epic_03_ui_budget_y_product&number=" + c.data.paramValue;
     };
     $scope.clickBOP = function() {
-        alert("Working..... In progress develop..BOP");
+        window.location.href = "/ybpm?id=epic_03_ui_budget_bop&number=" + c.data.paramValue;
     };
     $scope.clickManHour = function() {
-        alert("Working..... In progress develop..ManHour");
+        window.location.href = "/ybpm?id=epic_03_ui_budget_man_hour&number=" + c.data.paramValue;
     };
     $scope.clickOther = function() {
-        alert("Working..... In progress develop..Other");
+        window.location.href = "/ybpm?id=epic_03_ui_budget_other&number=" + c.data.paramValue;
     };
     $scope.clickApproval = function() {
         alert("Working..... In progress develop..Approval");
@@ -397,16 +397,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
-	
-    data.number = $sp.getParameter("number");
 
-    data.baseMonth = '202408';
+    data.number = $sp.getParameter("number");
     data.planType = 'Initial';
     data.openedBy = gs.getUser().getDisplayName();
-    var currentdate = new GlideDate();
-    currentdate.getByFormat("yyyy-MM-dd");
-    data.opened = currentdate;
-
+    var currentDate = new GlideDate();
+    data.opened = currentDate.getValue().toString();
+    data.baseMonth = currentDate.getByFormat("yyyyMM").toString();
+	
     if (data.number) { // Update
         var grProject = new GlideRecord('x_yergb_bpm_project');
         grProject.addQuery('number', data.number);
@@ -422,6 +420,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.data_type = grProject.getDisplayValue('u_data_type'); // Data Type
             data.budget_type = grProject.getDisplayValue('u_budget_type'); // Budget Type
             data.customer = grProject.customer.name.toString(); // CustomerName
+			data.state = grProject.getDisplayValue('state'); // State
             //data.sys_id = grProject.sys_id;
         }
         if (data.key) {
@@ -433,6 +432,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                 data.planType = "PRF";
                 data.openedBy = grBudgetPlan.getDispalyValue("sys_created_by");
                 data.opened = grBudgetPlan.sys_created_on;
+				data.budgetPlanNumber = grProject.number;
             }
         }
     }
@@ -440,17 +440,17 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-17 07:56:29</sys_created_on>
-        <sys_id>2eb49a1e83fa0210856ceec0deaad3bd</sys_id>
-        <sys_mod_count>41</sys_mod_count>
+        <sys_created_on>2024-06-19 01:58:09</sys_created_on>
+        <sys_id>95e5d3f283b20210856ceec0deaad3dc</sys_id>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>initPlanMngtWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_update_name>sp_widget_2eb49a1e83fa0210856ceec0deaad3bd</sys_update_name>
+        <sys_update_name>sp_widget_95e5d3f283b20210856ceec0deaad3dc</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-18 10:54:18</sys_updated_on>
-        <template><![CDATA[    <div class="yoko-container">
+        <sys_updated_on>2024-06-19 02:12:40</sys_updated_on>
+        <template><![CDATA[  <div class="yoko-container">
         <div class="yoko-title-btn-wrap">
             <div class="yoko-btn-wrap">
                 <button class="yoko-btn yoko-btn-outline" ng-click="clickYProd()">Y-Prod</button>
@@ -493,17 +493,21 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                                 <label for="project_number" class="yoko-short-100">Project Number</label>
                                 <input type="text" name="project_number" value={{data.number}} placeholder="" disabled class="yoko-wid247">
                             </div>
-                            <div class="yoko-form-group">
-                                <input type="text" name="pm_number" value={{data.user}} placeholder="" disabled class="yoko-col40">
-                                <input type="text" name="pm_name" value={{data.pm}} placeholder="" disabled class="yoko-col60">
-                            </div>
-                            <!--<div class="yoko-form-group">
-                                <label for="customer" class="yoko-short-100">Customer</label>
-                                <input type="text" name="customer" value={{data.customer}} placeholder="" disabled class="yoko-wid247">
+                            <!--<div class="yoko-form-group" id="budgetPlanNumber">
+                                <label for="Budget_plan_number" class="yoko-short-100">Budget Plan Number</label>
+                                <input type="text" name="Budget_plan_number" value={{data.budgetPlanNumber}} placeholder="" disabled class="yoko-wid247">
                             </div>-->
                             <div class="yoko-form-group">
+                                <label for="customer" class="yoko-short-100">Customer</label>
+                                <input type="text" name="customer" value={{data.customer}} placeholder="" disabled class="yoko-wid247">
+                            </div>
+
+                            <div class="yoko-form-group">
                                 <label for="pm_name" class="yoko-short-100">PM Name</label>
-                                <input type="text" name="pm_name" value="" placeholder="" disabled class="yoko-wid247">
+                                <div class="yoko-form-inline yoko-wid247">
+                                <input type="text" name="pm_number" value={{data.user}} placeholder="" disabled class="yoko-col40">
+                                <input type="text" name="pm_name" value={{data.pm}} placeholder="" disabled class="yoko-col60">
+                              </div>
                             </div>
                             <div class="yoko-form-group">
                                 <label for="project_name" class="yoko-short-100">Project Name</label>
@@ -581,6 +585,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                 </div>
             </div>
         </div>
-    </div>]]></template>
+    </div>
+]]></template>
     </sp_widget>
 </record_update>

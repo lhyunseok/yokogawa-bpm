@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function($scope, $location, $window) {
+
+    /* widget controller */
+    var c = this;
+    c.data.readStatus = true;
+
+    // Function to get URL parameters
+    c.getUrlParameter = function(param) {
+        return $location.search()[param];
+    };
+    // Function to handle click event
+    $scope.handleClick = function() {
+        if (c.data.quotation) {
+            window.location.href = "/ybpm?id=epic_03_ui_budget_y_product&number=" + c.data.key; // Redirect to the URL
+        }
+    };
+    // Example: Retrieve a specific parameter
+    var paramValue = c.getUrlParameter('number');
+    c.data.paramValue = paramValue;
+
+    // Call the server script
+    c.server.update().then(function(response) {
+        // Handle the server response if needed
+    });
+
+    $scope.clickCreateMSA = function() {
+        alert("Working..... In progress develop");
+    };
+	
+    //grid save 할 때 전체페이지 reload
+    $window.addEventListener('message', function(event) {
+        if (event.data.type === 'updateIframeSrc') {
+            location.reload();
+        }
+    });
+    // Function to dynamically adjust iframe height
+    function resizeIframe() {
+        var iframe = document.getElementById('myIframe');
+        if (iframe) {
+            var windowHeight = window.innerHeight;
+            iframe.style.height = Math.max(windowHeight * 0.5, 200) + 'px';
+        }
+    }
+
+    // Add event listener to resize iframe when content loads
+    $window.onload = function() {
+        resizeIframe();
+    };
+
+    // Add event listener to window resize event
+    $window.addEventListener('resize', function() {
+        resizeIframe();
+    });
+
+    // Call resizeIframe on initial load to set the initial height
+    resizeIframe();
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>@charset "UTF-8";&#13;
+&#13;
+@font-face {&#13;
+    font-family: "Pretendard";&#13;
+    font-weight: 100;&#13;
+    font-style: normal;&#13;
+    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
+        format("embedded-opentype"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
+    font-display: swap;&#13;
+  }&#13;
+  @font-face {&#13;
+    font-family: "Pretendard";&#13;
+    font-weight: 200;&#13;
+    font-style: normal;&#13;
+    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
+        format("embedded-opentype"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
+    font-display: swap;&#13;
+  }&#13;
+  @font-face {&#13;
+    font-family: "Pretendard";&#13;
+    font-weight: 300;&#13;
+    font-style: normal;&#13;
+    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
+        format("embedded-opentype"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
+    font-display: swap;&#13;
+  }&#13;
+  @font-face {&#13;
+    font-family: "Pretendard";&#13;
+    font-weight: 400;&#13;
+    font-style: normal;&#13;
+    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
+        format("embedded-opentype"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
+    font-display: swap;&#13;
+  }&#13;
+  @font-face {&#13;
+    font-family: "Pretendard";&#13;
+    font-weight: 500;&#13;
+    font-style: normal;&#13;
+    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
+        format("embedded-opentype"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
+    font-display: swap;&#13;
+  }&#13;
+  @font-face {&#13;
+    font-family: "Pretendard";&#13;
+    font-weight: 600;&#13;
+    font-style: normal;&#13;
+    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
+        format("embedded-opentype"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
+    font-display: swap;&#13;
+  }&#13;
+  @font-face {&#13;
+    font-family: "Pretendard";&#13;
+    font-weight: 700;&#13;
+    font-style: normal;&#13;
+    /*src: url("./fonts/pretendard/Pretendard-Bold.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Bold.eot?#iefix")&#13;
+        format("embedded-opentype"),&#13;
+      url("./fonts/pretendard/Pretendard-Bold.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Bold.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Bold.ttf") format("truetype");*/&#13;
+    font-display: swap;&#13;
+  }&#13;
+  @font-face {&#13;
+    font-family: "Pretendard";&#13;
+    font-weight: 800;&#13;
+    font-style: normal;&#13;
+    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
+        format("embedded-opentype"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
+    font-display: swap;&#13;
+  }&#13;
+  @font-face {&#13;
+    font-family: "Pretendard";&#13;
+    font-weight: 900;&#13;
+    font-style: normal;&#13;
+    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
+        format("embedded-opentype"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
+    font-display: swap;&#13;
+  }&#13;
+&#13;
+@charset "UTF-8";&#13;
+&#13;
+&#13;
+body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; line-height: normal;}&#13;
+&#13;
+.blank {width: 100%; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); }&#13;
+.yoko-container {margin: 40px auto 0; min-width: 1400px; max-width: 1600px; font-family: "Pretendard"; font-size: 14px; font-weight: 400; letter-spacing: 0;}&#13;
+.yoko-container * {box-sizing: border-box;}&#13;
+.yoko-container .yoko-content {display: flex; gap: 30px; flex-direction: column;}&#13;
+.yoko-breadcrumb {color: #425D78;}&#13;
+.yoko-title-btn-wrap {display: flex; justify-content: space-between; align-items: center; margin: 8px 0 25px 0;}&#13;
+.yoko-title-btn-wrap .yoko-title {margin:0; color: #1C3956; font-family: "Pretendard";font-size: 24px;  font-style: normal;  font-weight: 700; line-height: normal;}&#13;
+.yoko-title-btn-wrap .yoko-btn-wrap {display: flex; gap: 4px; margin-bottom: 0;}&#13;
+&#13;
+.yoko-btn-wrap {display: flex; justify-content: space-between; margin-bottom: 8px;}&#13;
+.yoko-btn-wrap &gt; div {display: flex; gap: 4px;}&#13;
+&#13;
+.yoko-btn {cursor: pointer; border-radius: 4px; text-align: center; font-family: "Pretendard";font-size: 14px;  font-style: normal; font-weight: 400;  padding: 8px 20px 8px 20px;}&#13;
+.yoko-btn:disabled  {border: 1px solid #AABBD1; color: #C8CED4;}&#13;
+&#13;
+.yoko-btn.yoko-btn-outline {background: #fff; border: 1px solid #EAEEF3;  color: #4B5E70; }&#13;
+.yoko-btn.yoko-btn-outline:hover  {border: 1px solid #AABBD1;}&#13;
+&#13;
+.yoko-btn.yoko-btn-fill {background-color: #68B3FC; border: 1px solid #4193E2; color: #fff;}&#13;
+.yoko-btn.yoko-btn-fill:hover  {background-color: #4193E2; border: 1px solid #4193E2;}&#13;
+&#13;
+.yoko-btn.yoko-btn-fill-red {background-color: #FF6D6D; border: 1px solid #E35050; color: #fff;}&#13;
+.yoko-btn.yoko-btn-fill-red:hover  {background-color: #E35050; border: 1px solid #E35050;}&#13;
+&#13;
+&#13;
+.yoko-btn-search {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(images/icon_search.png) no-repeat center center !important;}&#13;
+.yoko-btn-search:hover {background-color: #eaeaea;}&#13;
+.yoko-btn-add {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(images/icon_add.png) no-repeat center center !important;}&#13;
+.yoko-btn-add:hover {background-color: #eaeaea;}&#13;
+.yoko-btn-delete {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(images/icon_delete.png) no-repeat center center !important;}&#13;
+.yoko-btn-delete:hover {background-color: #eaeaea;}&#13;
+.yoko-btn-info-fill {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(images/icon_info_fill.png) no-repeat center center !important;}&#13;
+.yoko-btn-info-fill:hover {background-color: #eaeaea;}&#13;
+&#13;
+.yoko-search-form {display: flex; gap: 30px; padding: 16px 30px; max-width: 1600px;  background-color: #F7F7F7; border: 1px solid #EDEDED; border-radius: 4px;}&#13;
+&#13;
+.yoko-form-group .yoko-btn {padding: 5px 10px 5px 10px;}&#13;
+.yoko-search-form .yoko-form-group {display: flex; align-items: center; gap: 20px; /*width: 100%; min-width: 240px;*/}&#13;
+.yoko-search-form .yoko-form-group label {width:130px; min-width: 130px; text-align: right;}&#13;
+.yoko-search-form label {color: #4B5E70; font-family: 'Pretendard'; font-size: 13px; font-style: normal; font-weight: 500; line-height: normal;}&#13;
+.yoko-search-form label.yoko-short {width: 80px; min-width: 80px;}&#13;
+.yoko-search-form label.yoko-short-100 {width: 100px; min-width: 100px;}&#13;
+.yoko-search-form label.yoko-short-110 {width: 110px; min-width: 110px;}&#13;
+.yoko-search-form label.yoko-short-120 {width: 120px; min-width: 120px;}&#13;
+.yoko-search-form label.yoko-short-130 {width: 130px; min-width: 130px;}&#13;
+.yoko-search-form label.yoko-middle {width: 170px; min-width: 170px;}&#13;
+.yoko-search-form label.yoko-long {width: 200px; min-width: 200px;}&#13;
+.yoko-search-form label.yoko-btn-fill {background-color: #68B3FC;text-align: center; color: #fff; font-weight: 400;  padding: 5px 10px 6px 10px; border-radius: 4px;}&#13;
+.yoko-search-form label.yoko-long.yoko-btn-fill {width: calc(200px - 10px);}&#13;
+.yoko-search-form label.yoko-middle.yoko-btn-fill {width: calc(170px - 10px);}&#13;
+&#13;
+.yoko-search-form input,&#13;
+.yoko-search-form select,&#13;
+.yoko-search-form textarea {font-family: "Pretendard"; font-size: 13px; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); border-radius: 4px; border: 1px solid #E1E8F0; color: #7A8692;}&#13;
+.yoko-search-form textarea {max-height: none; width: 100%; padding: 10px 10px 10px 10px; }&#13;
+/* .yoko-search-form input[type=date] {width: 140px; } */&#13;
+.yoko-search-form input[type=date]::-webkit-calendar-picker-indicator,&#13;
+.yoko-search-form input[type=date]::-webkit-inner-spin-button {background: url('images/icon_calendar.png') no-repeat right center; }&#13;
+&#13;
+.yoko-search-form select {&#13;
+  -moz-appearance:none; /* Firefox */&#13;
+  -webkit-appearance:none; /* Safari and Chrome */&#13;
+  appearance:none;&#13;
+  background-image: url(images/icon_arrow_down.png);&#13;
+  background-repeat: no-repeat;&#13;
+  background-position-x: 100%;&#13;
+  background-position-y: 1px;&#13;
+  line-height: 15px;&#13;
+  padding: 6px 30px 5px 10px;&#13;
+&#13;
+}&#13;
+&#13;
+.yoko-form-inline {display: flex;gap: 4px; width: calc(100% - 4px); align-items: center;}&#13;
+.yoko-form-group-title {padding: 4px 0 8px 0; color: #1C3956; font-family: "Pretendard"; font-size: 14px;font-style: normal;font-weight: 700; line-height: normal;}&#13;
+.yoko-form-group-hori  {display: flex;gap: 0; /*width:100%;*/}&#13;
+.yoko-flex-responsive {display: flex; gap: 30px;}&#13;
+.yoko-form-col {/*width: 100%;*/ display: flex; gap: 8px; flex-direction: column;}&#13;
+.yoko-form-col.yoko-gap7 {gap:7px ;}&#13;
+.yoko-col100 {width: 100%;}&#13;
+.yoko-col60 {width: 60%;}&#13;
+.yoko-col50 {width: 50%;}&#13;
+.yoko-col40 {width: 40%}&#13;
+.yoko-col35 {width: 35%}&#13;
+.yoko-col30 {width: 30%}&#13;
+.yoko-col20 {width: 20%} &#13;
+.yoko-col15 {width: 15%} &#13;
+.yoko-col10 {width: 10%} &#13;
+&#13;
+.yoko-search-form label.checkbox-label {text-align: left;width: auto; min-width: auto; cursor: pointer; display: flex; gap: 10px; align-items: center; justify-content: flex-start; color: #4B5E70; font-family: "Pretendard";  font-size: 13px; font-style: normal; font-weight: 400; line-height: normal;}&#13;
+.custom-checkbox {position: relative;}&#13;
+.custom-checkbox input { position: absolute;  opacity: 0;  cursor: pointer;  width: 18px; height: 18px; z-index: 1;}&#13;
+.custom-checkbox .checkmark {position: relative;  top: 0;  left: 0;  display: block;  height: 18px;  width: 18px;  border-radius: 2px;border: 1px solid #DCE3EB;background: #FFF; overflow: hidden;}&#13;
+.custom-checkbox:hover input ~ .checkmark {background-color: #FFF;}&#13;
+.custom-checkbox input:checked ~ .checkmark {  background-color: #68B3FC;  border-radius: 2px;  border: 1px solid #68B3FC;}&#13;
+.custom-checkbox .checkmark:after {  content: "";  position: absolute;  display: none;}&#13;
+.custom-checkbox input:checked ~ .checkmark:after {  display: block;  left: 50%; top: 50%;  height: 16px;  width: 18px;  transform: translate(-50%, -50%);  background: url(images/icon_checkbox.png) no-repeat center center;}&#13;
+&#13;
+.custom-checkbox input:disabled ~ .checkmark {border: 1px solid #D1D1D1; background: #E2E2E2; cursor: not-allowed; }&#13;
+.custom-checkbox input:checked:disabled ~ .checkmark {background:#E2E2E2 url(images/icon_checkbox_dis.png) no-repeat center center; }&#13;
+.custom-checkbox input:disabled ~ .checkmark:after {background: url(images/icon_checkbox_dis.png) no-repeat center center;}&#13;
+&#13;
+.yoko-wid127 {width: 127px !important;}&#13;
+.yoko-wid134 {width: 134px !important;}&#13;
+.yoko-wid140 {width: 140px !important;}&#13;
+.yoko-wid147 {width: 147px !important;}&#13;
+.yoko-wid154 {width: 154px !important;}&#13;
+.yoko-wid158 {width: 158px !important;}&#13;
+.yoko-wid172 {width: 172px !important;}&#13;
+.yoko-wid247 {width: 247px !important;}&#13;
+.yoko-wid559 {width: 559px !important;}&#13;
+.yoko-wid717 {width: 717px !important;}&#13;
+/* .yoko-form-inline select {width: calc(100% - 28px);} */&#13;
+.yoko-btn-spacing {width: calc(100% - 32px);}&#13;
+&#13;
+.yoko-search-form-wrapper {display: flex; gap: 20px; }&#13;
+.yoko-search-form-wrap .yoko-search-form-heading {margin-top: 10px; margin-bottom: 5px; font-size: 16px; font-weight: 600; color: #1F3B55;}&#13;
+&#13;
+.yoko-governance-wrap .yoko-search-form button {width: 100%; min-width: 140px;}&#13;
+.yoko-project-wrap .yoko-search-form input[type=text] {width: 100%;}&#13;
+&#13;
+.yoko-form-group-heading-wrap {display: flex; gap: 9px; justify-content: space-between; align-items: center;}&#13;
+.yoko-form-group-heading {font-size: 14px; font-weight: 700; color: #1F3B55;}&#13;
+.yoko-form-group-line {flex-grow: 1; height: 1px; background-color: #E1E1E1;}&#13;
+.yoko-padding24 {padding: 24px;}&#13;
+.yoko-grid-btn-wrap {display: flex; gap: 7px; justify-content: right;}&#13;
+&#13;
+.yoko-project-wrap {height: 255px;}&#13;
+.yoko-project-wrap .yoko-search-form {height: 100%;}&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+/* 테이블 형식 */&#13;
+.yoko-search-table input,&#13;
+.yoko-search-table select,&#13;
+.yoko-search-table textarea {font-family: "Pretendard"; font-size: 13px; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); border-radius: 4px; border: 1px solid #E1E8F0; color: #7A8692;}&#13;
+.yoko-search-table textarea {max-height: none; width: 100%; padding: 10px 10px 10px 10px; }&#13;
+.yoko-search-table input[type=date]::-webkit-calendar-picker-indicator,&#13;
+.yoko-search-table input[type=date]::-webkit-inner-spin-button {background: url('images/icon_calendar.png') no-repeat right center; }&#13;
+&#13;
+.yoko-search-table select {&#13;
+  -moz-appearance:none; /* Firefox */&#13;
+  -webkit-appearance:none; /* Safari and Chrome */&#13;
+  appearance:none;&#13;
+  background-image: url(images/icon_arrow_down.png);&#13;
+  background-repeat: no-repeat;&#13;
+  background-position-x: 100%;&#13;
+  background-position-y: 1px;&#13;
+  line-height: 15px;&#13;
+  padding: 6px 30px 5px 10px;&#13;
+}&#13;
+&#13;
+.yoko-search-table-wrap {display: flex; gap: 0;}&#13;
+.yoko-search-table tr.yoko-height-short {height: 39px;} &#13;
+.yoko-search-table {border-spacing: 0; border-collapse: collapse;}&#13;
+.yoko-search-table tr th {padding-right: 16px; text-align: right; background-color: #F7F7F7; border-top: 1px solid #EDEDED; border-bottom: 1px solid #EDEDED;}&#13;
+.yoko-search-table tr th.yoko-bg-none {background-color: #fff;}&#13;
+.yoko-search-table tr th label {color: #4B5E70; font-family: 'Pretendard'; font-size: 13px; font-style: normal; font-weight: 500; line-height: normal;}&#13;
+.yoko-search-table tr td {padding: 5px 10px; border-top: 1px solid #EDEDED; border-bottom: 1px solid #EDEDED;}&#13;
+.yoko-search-table tr td input {padding: 5px 10px; width: 100%; height: 100%;}&#13;
+.yoko-search-table tr td input:disabled {border: 1px solid #E1E8F0; background: #F1F1F1;}&#13;
+.yoko-search-table .yoko-form-inline {width: 100%;}&#13;
+&#13;
+.yoko-search-table-wrapper {display: flex; gap: 30px;}&#13;
+.yoko-search-table-heading {margin-top: 12px; margin-bottom: 5px; font-size: 16px; font-weight: 600; color: #1F3B55;}&#13;
+.yoko-table-heading {text-align: left !important; font-size: 14px; font-weight: 700; color: #1F3B55;}&#13;
+.yoko-search-table.yoko-empty-col {flex: 1;}&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+@media (max-width: 1719px) {&#13;
+  .yoko-container {width: 1280px; min-width: 1280px;}&#13;
+  .yoko-search-form {gap: 15px;}&#13;
+  .yoko-flex-responsive {flex-direction: column; gap: 8px;}&#13;
+  .yoko-search-form-company.yoko-col60 {width: 888px;}&#13;
+  .yoko-search-form-company .yoko-padding24 {padding: 14px;}&#13;
+  .yoko-search-form-company .yoko-search-form {gap: 7px;}&#13;
+  .yoko-search-form-governance.yoko-col40 {width: 381px;}&#13;
+  .yoko-project-wrap.yoko-col60 {width: 888px;}&#13;
+  .yoko-project-wrap.yoko-col40 {width: 381px;}&#13;
+  .yoko-project-wrap .yoko-search-form {padding: 18px;}&#13;
+&#13;
+  .yoko-form-amount-wrap label.yoko-short {width: 130px;}&#13;
+}&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+/*리얼그리드 수정*/&#13;
+.rg-root {color: #4B5966 !important;  font-family: "Pretendard" !important;   font-size: 14px !important;  font-style: normal !important;  font-weight: 500 !important;  line-height: normal !important;}&#13;
+.rg-grid {border: 1px solid #EAEEF3 !important;}&#13;
+&#13;
+.rg-header {background: #FBFCFF  !important; color:#8B99A6 !important; font-weight: 600 !important; font-weight: 500 !important;}&#13;
+.rg-header .rg-table tr td {border-right: 1px solid #EAEEF3 !important; border-bottom: 1px solid #EAEEF3 !important; font-weight: 500 !important;} &#13;
+.rg-head {background: #FBFCFF  !important; color:#8B99A6 !important; font-weight: 600 !important; font-weight: 500 !important;}&#13;
+.rg-head .rg-table tr td { border-right: 1px solid #EAEEF3 !important;  border-bottom: 1px solid #EAEEF3 !important; font-weight: 500 !important;}&#13;
+&#13;
+.rg-body,&#13;
+.rg-fixed-body {color: #4B5966 !important;}&#13;
+.rg-body .rg-table tr td, &#13;
+.rg-fixed-body .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-bottom: 1px solid #EAEEF3 !important;}&#13;
+.rg-rowbarcontainer .rg-table tr td {background-color: transparent !important;    border-right: 1px solid #EAEEF3 !important;    border-bottom: 1px solid #EAEEF3 !important;}&#13;
+.rg-alternate-row {background: #fff !important;}&#13;
+.rg-footer {color: #606060 !important; background: #FBFCFF  !important;}&#13;
+.rg-footer .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-top: 1px solid #EAEEF3 !important;}&#13;
+.rg-foot {color: #606060 !important; background: #FBFCFF  !important;}&#13;
+.rg-foot .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-top: 1px solid #EAEEF3 !important;}&#13;
+.rg-focus {border:  2px solid #68B3FC !important;}&#13;
+.rg-header-focus {background: #E5F2FF !important; color: #6F7479 !important;}&#13;
+.rg-header .rg-table tr td:hover {background: #68B3FC !important; color: #fff !important;}&#13;
+.rg-header-select {background: rgb(232 248 240 / 50%) !important;}&#13;
+.rg-selection { background: rgb(232 248 240 / 35%) !important; border: 1px solid #15BD66!important;}&#13;
+.rg-editor-container { border: 2px solid #27C382 !important; }</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description>Man Hour</description>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>budgetplanmngtwd03</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>budgetPlanMngtWd03</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+
+    data.key = $sp.getParameter("number");
+    data.gridUrl = '/x_yergb_bpm_SorinGrid_BPM.do?id_q=' + data.number;
+
+    if (data.key && input && input.readStatus) { // Update
+        var grProject = new GlideRecord('x_yergb_bpm_project');
+        grProject.addQuery('number', data.key);
+        grProject.query();
+        if (grProject.next()) {
+            data.number = grProject.number.toString(); //Project Number
+            data.name = grProject.name.toString(); //Project Name
+            data.pm = grProject.getDisplayValue('pm'); //PM Name
+            data.user = grProject.pm.user_name.toString(); // PM ID
+            data.region = grProject.getDisplayValue('region'); // Region
+            data.currency = grProject.getDisplayValue('currency'); // Currency
+            data.data_type = grProject.getDisplayValue('u_data_type'); // Data Type
+            data.budget_type = grProject.getDisplayValue('u_budget_type'); // Budget Type
+            data.customer = grProject.customer.name.toString(); // CustomerName
+            data.sys_id = grProject.sys_id;
+        }
+    }
+    data.gridUrl = '/x_yergb_bpm_SorinGrid_prod.do?id_q=' + data.sys_id;
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-19 02:06:36</sys_created_on>
+        <sys_id>85d793b683b20210856ceec0deaad31c</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>budgetPlanMngtWd03</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sp_widget_85d793b683b20210856ceec0deaad31c</sys_update_name>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-19 02:11:36</sys_updated_on>
+        <template><![CDATA[    <div class="yoko-container">
+        <div class="yoko-breadcrumb">Home > Project Budget Plan for Man Hour</div>
+        <div class="yoko-title-btn-wrap">
+            <h1 class="yoko-title">Project Budget Plan for Man Hour</h1>
+            <div class="yoko-btn-wrap">
+            </div>
+        </div>
+        <div class="yoko-content">
+            <div class="yoko-search-form-wrap">
+                <div class="yoko-search-form">
+                    <div class="yoko-form-col">
+                        <div class="yoko-form-group">
+                            <label for="project_number" class="yoko-short-100">Project Number</label>
+                            <input type="text" name="project_number" value={{data.number}} placeholder="" disabled class="yoko-wid247">
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="customer" class="yoko-short-100">Customer</label>
+                            <input type="text" name="customer" value={{data.customer}} placeholder="" disabled class="yoko-wid247">
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="pm_name" class="yoko-short-100">PM Name</label>
+                            <div class="yoko-form-inline yoko-wid247">
+                                <input type="text" name="pm_number" value={{data.user}} placeholder="" disabled class="yoko-col40">
+                                <input type="text" name="pm_name" value={{data.pm}} placeholder="" disabled class="yoko-col60">
+                            </div>
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="project_name" class="yoko-short-100">Project Name</label>
+                            <input type="text" name="project_name" value={{data.name}} placeholder="" disabled class="yoko-wid247">
+                        </div>  
+                    </div>
+
+                    <div class="yoko-form-col">
+                        <div class="yoko-form-group">
+                            <label for="data_type" class="yoko-short">Data type</label>
+                            <input type="text" name="data_type" value={{data.data_type}} placeholder="" disabled class="yoko-wid140">
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="budget_type" class="yoko-short">Budget type</label>
+                            <input type="text" name="budget_type" value={{data.budget_type}} placeholder="" disabled class="yoko-wid140">
+                        </div>
+                    </div>
+                    <div class="yoko-form-col"> 
+                        <div class="yoko-form-group">
+                            <label for="region" class="yoko-short">Region</label>
+                            <input type="text" name="region" value={{data.region}} placeholder="" disabled class="yoko-wid140">
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="currency" class="yoko-short">Currency</label>
+                            <input type="text" name="currency" value={{data.currency}} placeholder="" disabled class="yoko-wid140">
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <iframe src={{data.gridUrl}} width='100%' height='500px' style='border:none;' id='myIframe'></iframe>
+        </div>
+    </div>]]></template>
+    </sp_widget>
+</record_update>
