@@ -51,7 +51,7 @@
     // Function to handle click event
     $scope.handleClick = function() {	
         if (c.data.rfq_entry_id) {
-            window.location.href = "/sp?id=rfqEntry&table=x_yergb_bpm_rfq_entry&sys_id=" + c.data.rfq_entry_id; // Redirect to the URL
+            window.location.href = "/sp?id=rfqentry&table=x_yergb_bpm_rfq_entry&sys_id=" + c.data.rfq_entry_id; // Redirect to the URL
         } else {
             alert('no rfq record')
         }
@@ -363,14 +363,14 @@ body {margin: 0;  font-family: "Pretendard"; font-size: 14px; font-weight: 400; 
         <sys_created_by>hhkim</sys_created_by>
         <sys_created_on>2024-06-13 10:51:05</sys_created_on>
         <sys_id>5156d20547b60650d254bce5536d435c</sys_id>
-        <sys_mod_count>131</sys_mod_count>
+        <sys_mod_count>132</sys_mod_count>
         <sys_name>quotationWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_5156d20547b60650d254bce5536d435c</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-19 04:51:54</sys_updated_on>
+        <sys_updated_by>lhyunseok</sys_updated_by>
+        <sys_updated_on>2024-06-19 06:17:08</sys_updated_on>
         <template><![CDATA[    <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > Quotation</div>
         <div class="yoko-title-btn-wrap">
