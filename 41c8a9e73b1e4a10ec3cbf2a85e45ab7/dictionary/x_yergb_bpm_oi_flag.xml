@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="614784073bb68210ec3cbf2a85e45a4d" label="OI Flag" max_length="40" name="x_yergb_bpm_oi_flag" type="collection">
+        <element label="Sequence" max_length="40" name="sequence" type="integer"/>
+        <element label="Flag Name" max_length="32" name="flag_name" reference="x_yergb_bpm_common_code" reference_qual="category=OI Flag^EQ" reference_qual_condition="category=OI Flag^EQ" type="reference"/>
+        <element label="Flag Value" max_length="40" name="flag_value" type="decimal"/>
+        <element label="OI Report" max_length="32" name="oi_report" reference="x_yergb_bpm_oi_report" type="reference"/>
+        <index name="index">
+            <element name="oi_report"/>
+        </index>
+        <index name="index2">
+            <element name="flag_name"/>
+        </index>
+    </element>
+</database>
