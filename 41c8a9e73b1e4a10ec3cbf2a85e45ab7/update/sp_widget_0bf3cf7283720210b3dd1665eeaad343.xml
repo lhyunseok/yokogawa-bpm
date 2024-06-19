@@ -4,6 +4,9 @@
         <client_script><![CDATA[api.controller=function($scope, $location) {
   /* widget controller */
   var c = this;
+
+	var modalOrderType = document.getElementById("modalOrderType");
+	var modalProjectType = document.getElementById("modalProjectType");
 	
 	c.data.showAddInfo = true;
 	c.data.showRFQEntry = true;
@@ -14,6 +17,18 @@
 	c.data.checkedAI = false;
 	c.data.checkedDES = false;
 	c.data.checkedSmart = false;
+	
+	/* Modal type */
+	c.data.modalOrderType = false;
+	c.data.modalTypeOrderType = false;
+	c.data.modalTypeTaxClass = false;
+	c.data.modalTypeIndustry = false;
+	c.data.modalTypePayTerms = false;
+	
+	c.data.modalProjectType = false;
+	c.data.modalTypePrjType1 = false;
+	c.data.modalTypePrjType2 = false;
+	c.data.modalTypePrjType3 = false;
 	
 	$scope.displayScreen = function(idx) {
 		if(idx == 1) {
@@ -41,7 +56,24 @@
 	}
 	
 	$scope.btnClickOrdTypeSearch = function(idx) {
-		console.log("BTN : Ord type Search--" + idx);
+		console.log("BTN : Ord type Search : Modal block--" + idx);
+		modalOrderType.style.display = 'block';
+		c.data.modalOrderType = true;
+		
+		if(idx == 1) {
+			c.data.modalOrderTypeTitle = 'Order Type';
+			c.data.modalTypeOrderType = true;
+		} else if(idx == 2) {
+			c.data.modalOrderTypeTitle = 'TAX Class';
+			c.data.modalTypeTaxClass = true;
+		} else if(idx == 3) {
+			c.data.modalOrderTypeTitle = 'Industry';
+			c.data.modalTypeIndustry = true;
+		} else if(idx == 4) {
+			c.data.modalOrderTypeTitle = 'Payment Terms';
+			c.data.modalTypePayTerms = true;
+		}
+		
 		c.server.update().then(function(response) {
 			console.log('Server response:', response);
 		});
@@ -49,6 +81,7 @@
 	
 	$scope.btnClickOrdTypeInfo = function(idx) {
 		console.log("BTN : Ord type Info--" + idx);
+		
 		c.server.update().then(function(response) {
 			console.log('Server response:', response);
 		});
@@ -91,6 +124,17 @@
 	
 	$scope.btnClickPrjTypeSearch = function(idx) {
 		console.log("BTN : Project Type Search---"+idx);
+		modalProjectType.style.display = 'block';
+		c.data.modalProjectType = true;
+		c.data.modalProjectTypeTitle = 'Project Type';
+		
+		if(idx == 1) {
+			c.data.modalTypePrjType1 = true;
+		} else if(idx == 2) {
+			c.data.modalTypePrjType2 = true;
+		} else if(idx == 3) {
+			c.data.modalTypePrjType3 = true;
+		}
 		c.server.update().then(function(response) {
 			console.log('Server response:', response);
 		});
@@ -98,6 +142,7 @@
 	
 	$scope.btnClickPrjTypeInfo = function(idx) {
 		console.log("BTN : Project Type Info---"+idx);
+
 		c.server.update().then(function(response) {
 			console.log('Server response:', response);
 		});
@@ -110,11 +155,32 @@
 		});
 	}
 	
-		$scope.btnClickAnsoffTypeInfo = function(idx) {
+	$scope.btnClickAnsoffTypeInfo = function(idx) {
 		console.log("BTN : Ansoff Type Info---"+idx);
 		c.server.update().then(function(response) {
 			console.log('Server response:', response);
 		});
+	}
+	
+	
+	/* Modal Order type */
+	$scope.closeModalOrderType = function() {
+		c.data.modalOrderType = false;
+		c.data.modalTypeOrderType = false;
+		c.data.modalTypeTaxClass = false;
+		c.data.modalTypeIndustry = false;
+		c.data.modalTypePayTerms = false;
+			
+		modalOrderType.style.display = 'none';
+	}
+	
+	$scope.closeModalProjectType = function() {
+		c.data.modalProjectType = false;
+		c.data.modalTypePrjType1 = false;
+		c.data.modalTypePrjType2 = false;
+		c.data.modalTypePrjType3 = false;
+		
+		modalProjectType.style.display = 'none';
 	}
 };]]></client_script>
         <controller_as>c</controller_as>
@@ -325,6 +391,54 @@
 }
 
 
+/* modal */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 3; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.modal-content {
+  background-color: #fefefe;
+  //margin: 5% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%; /* Reduced width to 60% */
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+.container {
+  list-style-type: none;
+  padding: 0;
+}
+.container li {
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  width: 100%; /* Ensure the list items take the full width of the container */
+}
+.highlight-form {
+  border: 2px solid red;
+}
 </css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -346,21 +460,58 @@
   /* e.g., data.table = $sp.getValue('table'); */
 	console.log("USER NAME : " + gs.getUser().getDisplayName());
 	console.log("SYS ID : " + gs.getUser().getID());
+	
+	console.log(input);
 
+	/* Order type Modal */
+	data.itemsOrdertype = [];
+	if(input && input.modalOrderType) {
+		var grOrdType;// = new GlideRecord('x_yergb_bpm_common_code');
+		if(input && input.modalTypeOrderType) {
+			grOrdType = new GlideRecord('x_yergb_bpm_common_code');
+			grOrdType.addQuery('category', 'ORDER TYPE');
+		} else if(input && input.modalTypeTaxClass) {
+			grOrdType = new GlideRecord('x_yergb_bpm_common_code');
+			grOrdType.addQuery('category', 'TAX Classification');
+		} else if(input && input.modalTypeIndustry) {
+			grOrdType = new GlideRecord('x_yergb_bpm_industry_master');
+			//grOrdType .addQuery('active', true);
+		} else if(input && input.modalTypePayTerms) {
+			grOrdType = new GlideRecord('x_yergb_bpm_common_code');
+			grOrdType.addQuery('category', 'PAYMENT TERMS');
+		}
+		
+		grOrdType.query();
+		while(grOrdType.next()) {
+			if(input && input.modalTypeIndustry) {
+				data.itemsOrdertype.push(grOrdType.industry_name.toString());
+			} else {
+				data.itemsOrdertype.push(grOrdType.name.toString());
+			}
+		}
+	}
+	
+	/*
+	if() {
+		itemsProjecttype
+	}*/
+
+
+	console.log('Finish');
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>59</sys_mod_count>
+        <sys_mod_count>105</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-19 05:46:11</sys_updated_on>
+        <sys_updated_on>2024-06-19 08:51:01</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
         <!-- <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div> -->
@@ -902,6 +1053,65 @@
             
         </div>
     </div>
+  
+  	<!-- Modal Order type Structure -->
+    <div id="modalOrderType" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>{{data.modalOrderTypeTitle}}</h2>
+            </div>
+            <div class="modal-body">
+
+                <ul id="container" class="container">
+                    <li ng-repeat="item in c.data.itemsOrdertype">
+                        <!--<span ng-click="c.logSysId(item.column1, item.column2, item.column3) ">{{ item.column1 }}</span>
+                        <span ng-if="false">{{ item.column2 }}</span>
+                        <span>{{ item.column3 }}</span>
+                        <span>{{ item.column4 }}</span>-->
+                      <span>{{item}}</span>
+                    </li>
+                </ul>
+
+
+                <div class="pagination" id="pagination"></div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="closeModalOrderType()">Close</button>
+            </div>
+        </div>
+    </div>
+  
+  	<!-- Modal Order type Structure -->
+    <div id="modalProjectType" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>{{data.modalProjectTypeTitle}}</h2>
+            </div>
+            <div class="modal-body">
+
+                <ul id="container" class="container">
+                    <li ng-repeat="item in c.data.itemsProjecttype">
+                        <!--<span ng-click="c.logSysId(item.column1, item.column2, item.column3) ">{{ item.column1 }}</span>
+                        <span ng-if="false">{{ item.column2 }}</span>
+                        <span>{{ item.column3 }}</span>
+                        <span>{{ item.column4 }}</span>-->
+                      <span>{{item}}</span>
+                    </li>
+                </ul>
+
+
+                <div class="pagination" id="pagination"></div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="closeModalProjectType()">Close</button>
+            </div>
+        </div>
+    </div>
+  
 </div>]]></template>
     </sp_widget>
 </record_update>
