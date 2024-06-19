@@ -32,9 +32,11 @@
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/ ) {
 
-    var mydate = current.plan_gr_date;
-    var mymonth = mydate.split('-')[0] + mydate.split('-')[1];
-    current.yearmonth = mymonth;
+    if (current.plan_gr_date) {
+        var mydate = current.plan_gr_date;
+        var mymonth = mydate.split('-')[0] + mydate.split('-')[1];
+        current.yearmonth = mymonth;
+    }
     var aa = new GlideDateTime(mydate + " 00:00:00");
     aa.addDaysUTC(-1 * current.lead_time);
     current.planned_procurement = aa.toString().split(' ')[0] + " 00:00:00";
@@ -47,7 +49,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>094cacd247264610d254bce5536d438b</sys_id>
-        <sys_mod_count>14</sys_mod_count>
+        <sys_mod_count>15</sys_mod_count>
         <sys_name>set Order Item yearmonth_planned_procure</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
@@ -55,7 +57,7 @@
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_094cacd247264610d254bce5536d438b</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-18 06:08:06</sys_updated_on>
+        <sys_updated_on>2024-06-19 05:45:11</sys_updated_on>
         <template/>
         <when>after</when>
     </sys_script>
