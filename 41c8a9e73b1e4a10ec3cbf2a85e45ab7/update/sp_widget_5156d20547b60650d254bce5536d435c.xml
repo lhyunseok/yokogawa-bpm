@@ -1,49 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller=function($scope, $location, $window) {
-  /* widget controller */
-  var c = this;
-		
-	c.getUrlParameter = function(param) {
-		return $location.search()[param];
-	};
-	
-	var paramValue = c.getUrlParameter('sys_id');
-  console.log('Value of yourParameterName:', paramValue);
-  c.data.paramValue = paramValue;
+        <client_script><![CDATA[api.controller = function($scope, $location, $window) {
+    /* widget controller */
+    var c = this;
 
-	$scope.clickComplete = function() {
-    c.data.newState = 9;
-    c.server.update().then(function(response) {
-    	console.log('Server response:', response);
-    	location.reload();
-		});
-	};
-	
-	$window.addEventListener('message', function(event) {
-		if (event.data.type === 'updateIframeSrc') {
-			location.reload();
-            //var iframe = document.getElementById('myIframe');
-           // iframe.src = event.data.newSrc;
-           // console.log('Iframe src updated to:', event.data.newSrc);
-		}
-  });
-	    // Function to handle click event
-    $scope.handleClick = function() {
-        if (c.data.rfq_entry_id) {
-            window.location.href = "/sp?id=epic_01_ui_rfp&table=x_yergb_bpm_rfq_entry&sys_id=" + c.data.rfq_entry_id; // Redirect to the URL
-        }else{
-					alert('no rfq record')
-				}
+    c.getUrlParameter = function(param) {
+        return $location.search()[param];
     };
+
+    var paramValue = c.getUrlParameter('sys_id');
+    c.data.paramValue = paramValue;
+
+    $scope.btnClickComplete = function() {
+        c.data.operation = 'updateState';
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+            location.reload();
+        }).catch(function(error) {
+            console.error('Error updating state:', error);
+            alert('Error updating state');
+        });
+    };
+
+    // Function to save a single field
+    $scope.saveField = function(fieldName, fieldValue) {
+        if (!fieldValue) {
+            alert('Field value cannot be empty');
+            return;
+        }
+        c.data.operation = 'saveField';
+
+        c.server.update().then(function(response) {
+            location.reload();
+        }).catch(function(error) {
+            console.error('Error saving field:', error);
+            alert('Error saving field');
+        });
+    };
+
+    $window.addEventListener('message', function(event) {
+        if (event.data.type === 'updateIframeSrc') {
+            location.reload();
+            //var iframe = document.getElementById('myIframe');
+            // iframe.src = event.data.newSrc;
+            // console.log('Iframe src updated to:', event.data.newSrc);
+        }
+    });
 	
-	    // Function to dynamically adjust iframe height
+    // Function to handle click event
+    $scope.handleClick = function() {	
+        if (c.data.rfq_entry_id) {
+            window.location.href = "/sp?id=rfqentry&table=x_yergb_bpm_rfq_entry&sys_id=" + c.data.rfq_entry_id; // Redirect to the URL
+        } else {
+            alert('no rfq record')
+        }
+    };
+
+    // Function to dynamically adjust iframe height
     function resizeIframe() {
         var iframe = document.getElementById('myIframe');
         if (iframe) {
             var windowHeight = window.innerHeight;
-            iframe.style.height = Math.max(windowHeight * 0.5, 200) + 'px';
+            iframe.style.height = Math.max(windowHeight * 0.45, 200) + 'px';
         }
     }
 
@@ -59,10 +78,8 @@
 
     // Call resizeIframe on initial load to set the initial height
     resizeIframe();
-	
-};
 
-]]></client_script>
+};]]></client_script>
         <controller_as>c</controller_as>
         <css>@charset "UTF-8";
 
@@ -249,126 +266,120 @@ body {margin: 0;  font-family: "Pretendard"; font-size: 14px; font-weight: 400; 
         <docs/>
         <field_list/>
         <has_preview>false</has_preview>
-        <id>quotation_2</id>
+        <id>quotation</id>
         <internal>false</internal>
         <link><![CDATA[function link(scope, element, attrs, controller) {
   
 }]]></link>
-        <name>quotation_hh</name>
+        <name>quotationWd</name>
         <option_schema/>
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
-  /* populate the 'data' object */
-  /* e.g., data.table = $sp.getValue('table'); */
+
     var userName = gs.getUser().getName();
     data.userName = userName;
-    data.showUpdate = false;
     data.sys_id = $sp.getParameter("sys_id"); //rfq_entry sys_id ? //quotation sys_id?
-	  data.gridUrl = '/x_yergb_bpm_SorinGrid_BPM.do?id_q='+ data.sys_id;
-	  //var grS = new GlideRecord('x_yergb_bpm_quotation'); // Replace with your table name
-    //grS.initialize();
-	
-if(input){
-		var grA = new GlideRecord("x_yergb_bpm_quotation");
-    grA.get(input.paramValue);//data.sys_id
-		if(input.newState){
-			grA.setValue('state', input.newState);
-		}
-		grA.update();
-}
+    data.gridUrl = '/x_yergb_bpm_SorinGrid_BPM.do?id_q=' + data.sys_id;
 
-	
-	if(data.sys_id){
-		
-		var grI = new GlideRecord('x_yergb_bpm_quotation');
-		if (grI.get(data.sys_id)) {
-    // Record found, storing field values in the data object
-			data.active = grI.getValue('active');
-			data.assigned_to = grI.getDisplayValue('assigned_to');
-			data.assignment_group = grI.getDisplayValue('assignment_group');
-			data.gp_amount = grI.getDisplayValue('gp_amount');
-			data.gp_percent = grI.getDisplayValue('gp_percent');
-			data.mp_amount = grI.getDisplayValue('mp_amount');
-			data.mp_gap_percent = grI.getDisplayValue('mp_gap_percent');
-			data.number = grI.getValue('number');
-			data.rfq_entry = grI.getDisplayValue('rfq_entry');
-			data.rfq_entry_id = grI.getValue('rfq_entry');
-			data.ess_sqms_no = grI.getValue('ess_sqms_no');
+    // Retrieve data for rendering
+    if (data.sys_id) {
+        var grI = new GlideRecord('x_yergb_bpm_quotation');
+        if (grI.get(data.sys_id)) {
+            // Populate data object with field values
+            data.active = grI.getValue('active');
+            data.assigned_to = grI.getDisplayValue('assigned_to');
+            data.assignment_group = grI.getDisplayValue('assignment_group');
+            data.gp_amount = grI.getDisplayValue('gp_amount');
+            data.gp_percent = grI.getDisplayValue('gp_percent');
+            data.mp_amount = grI.getDisplayValue('mp_amount');
+            data.mp_gap_percent = grI.getDisplayValue('mp_gap_percent');
+            data.number = grI.getValue('number');
+            data.rfq_entry = grI.getDisplayValue('rfq_entry');
+            data.rfq_entry_id = grI.getValue('rfq_entry');
+            data.ess_sqms_no = grI.getValue('ess_sqms_no');
+            data.state = grI.getDisplayValue('state');
+            data.state_value = grI.getValue('state');
+            data.total_quote_cost = grI.getDisplayValue('total_quote_cost');
+            data.total_quote_price = grI.getDisplayValue('total_quote_price');
+            data.version = grI.getValue('version');
+            data.ess = grI.getDisplayValue('ess');
+        }
+    }
 
-			data.state = grI.getDisplayValue('state');
-			data.state_value = grI.getValue('state');
+    // Retrieve RFQ entry details if rfq_entry_id is provided
+    if (data.rfq_entry_id) {
+        var grRfq = new GlideRecord('x_yergb_bpm_rfq_entry');
+        if (grRfq.get(data.rfq_entry_id)) {
+            data.contract = grRfq.contract.name.toString();
+            data.reason_code = grRfq.getDisplayValue('reason_code');
+            data.request_due_date = grRfq.getDisplayValue('request_due_date');
+            data.remark = grRfq.getDisplayValue('remark');
+            data.currency = grRfq.getDisplayValue('currency');
+        }
+    }
 
-			data.total_quote_cost = grI.getDisplayValue('total_quote_cost');
-			data.total_quote_price = grI.getDisplayValue('total_quote_price');
-			data.version = grI.getValue('version');
-			
-			data.ess = grI.getDisplayValue('mp_amount');
+    // Determine visibility based on state_value
+    if (data.state_value == 1) {
+        data.showNew = false;
+        data.showComplete = false;
+        data.showUpdate = false;
+        data.showSave = true;
+    } else if (data.state_value == 4) {
+        data.showNew = false;
+        data.showComplete = true;
+        data.showUpdate = false;
+        data.showSave = true;
+    } else {
+        data.showNew = true;
+        data.showComplete = false;
+        data.showUpdate = false;
+        data.showSave = false;
+    }
 
-    // Add more logic here as needed
-	} else {
-    // Record not found, handle accordingly
-	}
-	
-//1 - new 4 - in progress 9 - completed 
-        if (data.state_value == 1) {
-            data.showNew = false;
-            data.showComplete = false;
-            data.showUpdate = false;
-            data.showSave = true;
-        } else if (data.state_value == 4) {
-            data.showNew = false;
-            data.showComplete = true;
-            data.showUpdate = false;
-            data.showSave = true;
-				} else {
-					  data.showNew = true;
-            data.showComplete = false;
-            data.showUpdate = false;
-            data.showSave = false;
-				}
-		
-		
-		if(data.rfq_entry_id){
-			var grRfq = new GlideRecord('x_yergb_bpm_rfq_entry');
-			if (grRfq.get(data.rfq_entry_id)) {
-				data.contract = grRfq.getDisplayValue('contract');
-				data.reason_code = grRfq.getDisplayValue('reason_code');
-				data.request_due_date = grRfq.getDisplayValue('request_due_date');
-				data.remark = grRfq.getDisplayValue('remark');
-				data.currency = grRfq.getDisplayValue('currency');
+    // update - button clicked
+    if (input) {
+        var sysId = input.sys_id;
+        var operation = input.operation;
 
-			}
-		}
-		
-		
-	}
-	
-	
-	
+        if (sysId && operation) {
+            var gr = new GlideRecord('x_yergb_bpm_quotation');
+
+            if (gr.get(sysId)) {
+                if (operation === 'saveField') {
+                    gr.setValue('ess_sqms_no', input.ess_sqms_no);
+                } else if (operation === 'updateState') {
+                    gr.setValue('state', 9);
+                }
+                gr.update();
+            }
+        }
+    }
+
+
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>hhkim</sys_created_by>
         <sys_created_on>2024-06-13 10:51:05</sys_created_on>
         <sys_id>5156d20547b60650d254bce5536d435c</sys_id>
-        <sys_mod_count>107</sys_mod_count>
-        <sys_name>quotation_hh</sys_name>
+        <sys_mod_count>134</sys_mod_count>
+        <sys_name>quotationWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_5156d20547b60650d254bce5536d435c</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-18 11:22:48</sys_updated_on>
+        <sys_updated_on>2024-06-19 06:37:17</sys_updated_on>
         <template><![CDATA[    <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > Quotation</div>
         <div class="yoko-title-btn-wrap">
             <h1 class="yoko-title">Quotation</h1>
             <div class="yoko-btn-wrap">
                 <button class="yoko-btn yoko-btn-outline" ng-if="data.showNew" ng-click="clickNew()">Create New</button>
-                <button class="yoko-btn yoko-btn-outline" ng-if="data.showComplete" ng-click="clickComplete()">Complete</button>
-                <button class="yoko-btn yoko-btn-outline" ng-if="data.showUpdate" ng-click="clickUpdate()">Update</button>
-                <button class="yoko-btn yoko-btn-fill" ng-if="data.showSave" ng-click="clickSave()">Save</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showComplete" ng-click="btnClickComplete()">Complete</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showUpdate" ng-click="btnClickUpdate()">Update</button>
+                <button class="yoko-btn yoko-btn-fill" ng-if="data.showSave" ng-click="saveField('ess_sqms_no', c.data.ess_sqms_no)">Save</button>
             </div>
         </div>
         <div class="yoko-content">
@@ -404,7 +415,7 @@ if(input){
                         <div class="yoko-form-col">
                         		<div class="yoko-form-group">
                         			<label for="ess_sqms_no" class="yoko-short-130">ESS/SQMS No.</label>
-                                <input type="text" name="ess_sqms_no" value={{data.ess_sqms_no}} placeholder="" class="yoko-wid140">
+                                <input type="text" name="ess_sqms_no" ng-model="c.data.ess_sqms_no" placeholder="" class="yoko-wid140">
                       			</div>
                             <div class="yoko-form-group">
                                 <label for="currency" class="yoko-short-130">Currency</label>

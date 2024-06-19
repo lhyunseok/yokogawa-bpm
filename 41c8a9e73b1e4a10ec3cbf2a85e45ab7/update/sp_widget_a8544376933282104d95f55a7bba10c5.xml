@@ -5,7 +5,7 @@
 
     /* widget controller */
     var c = this;
-    c.data.readStatus = true;
+    c.data.isRead = true;
 
     // Function to get URL parameters
     /////////////////////////////////////// 파라메터 체크
@@ -13,116 +13,75 @@
         return $location.search()[param];
     };
     // Function to handle click event
-    $scope.handleClick = function() {
+    $scope.btnQuotation = function() {
         if (c.data.quotation) {
-            window.location.href = "/sp?id=epic_01_ui_quote&table=x_yergb_bpm_quotation&sys_id=" + c.data.quotation_sys_id; // Redirect to the URL
+            window.location.href = "/sp?id=quotation&table=x_yergb_bpm_quotation&sys_id=" + c.data.quotation_sys_id; // Redirect to the URL
         }
     };
-    // Example: Retrieve a specific parameter
-    var paramValue = c.getUrlParameter('sys_id');
-    console.log('Value of yourParameterName:', paramValue);
-    c.data.paramValue = paramValue;
-
+    // url 에서 sys_id 가져온다. 
+    var urlSysId = c.getUrlParameter('sys_id');
+    console.log('Value of yourParameterName:', urlSysId);
+    c.data.urlSysId = urlSysId;
     // Call the server script
     c.server.update().then(function(response) {
-        // Handle the server response if needed
         console.log('Server response:', response);
     });
-    /////////////////////////////////////정체성 체크
-    console.log("c 가 뭐야")
-    console.log(c)
 
-    //////////////////////////////////// 클릭하고 데이터 넘기기
-    $scope.clickSave = function() {
+    //////////////////////////////////// 세이브 클릭하고 데이터 넘기기
+    $scope.btnSave = function() {
         // Get the value from the input field using ng-model
-        //var inputValue = c.estOiAmount;
-        c.estimated_order_date = c.data.estimated_order_date
 
-
-
-
-        if (paramValue) { //이거 업데이트임
+        if (urlSysId) { //이거 업데이트임 url 에 sysid가 존재하니까
             //alert("UPDTATETE")
-            c.data.updateFlag = true;
-
-            console.log(c.data.estimated_order_date)
+            c.data.isUpdate = true;
             c.server.update().then(function(response) {
-
                 if (response.data && response.data.result) {
-                    //alert(response.data.result);
                     location.reload();
-
                 }
-
                 location.reload();
             });
-
         } else { // 이거 새로 넣는거임
-            //alert("eawgheawgew")
-            c.data.insertFlag = true;
+            c.data.isInsert = true;
             c.server.update().then(function(response) {
-                console.log("-----")
-                console.log(response)
-                console.log(c.data.redirect_sys_id)
-                window.location.href = "/sp?id=epic_01_ui_rfp&table=x_yergb_bpm_rfq_entry&sys_id=" + c.data.redirect_sys_id;
-                //
+                window.location.href = "/sp?id=reqentry&table=x_yergb_bpm_rfq_entry&sys_id=" + c.data.redirect_sys_id;
                 // Optionally handle the server response if needed
                 if (response.data && response.data.result) {
                     //alert(response.data.result);
-                    console.log("----wgeaegrjiohgrew;jioj;iogewt;jio-")
                 }
             });
         }
 
 
-        // Assign the value to c.data for server-side processing
-        //c.data.estOiAmount = inputValue;
-
-        // Call the server script
-
-
-        // Display the value in an //alert (for client-side confirmation)
-        ////alert('The entered amount is: ' + inputValue);
     };
     /////////////////////////////////   Assess 버튼 클릭
-    $scope.clickAssess = function() {
+    $scope.btnAssess = function() {
         //alert("ASSESS?")
-        // Get the value from the input field using ng-model
-
-        //alert(c.data.quotation_type)
         // Call the server script to update the state
         if (c.data.quotation_type == 'undefined') {
             alert("Mandatory is empty");
-            //document.querySelector('.yoko-search-form-wrap.yoko-project-wrap.yoko-col40 .yoko-search-form .').classList.add('highlight-form');
-
         } else {
-					            c.data.updateFlag = true;
-
+            c.data.isUpdate = true;
             c.data.newState = 2;
-            c.data.buttunflag = true;
+            c.data.isButton = true;
             c.server.update().then(function(response) {
                 // Handle the server response if needed
                 console.log('Server response:', response);
                 location.reload();
             });
         }
-
-
     };
 
-    $scope.clickRequest = function() {
+    $scope.btnRequest = function() {
         //alert("REQUEST?")
         // Get the value from the input field using ng-model
-
         if (!c.data.reason_code || !c.data.request_due_date || !c.data.remark) {
             alert("Mandatory is empty");
-            //document.querySelector('.yoko-search-form-wrap.yoko-project-wrap.yoko-col40 .yoko-search-form .').classList.add('highlight-form');
             const reasonCode = document.querySelector('input[name="reason_code"]');
             reasonCode.classList.add('highlight-form');
         } else {
-            c.data.updateFlag = true;
+            c.data.isUpdate = true;
             c.data.newState = 3;
-            c.data.buttunflag = true;
+            c.data.isButton = true;
             c.server.update().then(function(response) {
                 // Handle the server response if needed
                 console.log('Server response:', response);
@@ -132,43 +91,26 @@
 
     }
 
-    // Call the server script to update the state
-
-
-
-
-
-    $scope.clickSubmit = function() {
+    $scope.btnSubmit = function() {
         //alert("SUBMIT?")
-        // Get the value from the input field using ng-model
-        
-
         // Call the server script to update the state
-				//alert(c.data.quotation_state != "Completed")
-      if (c.data.quotation_state != "Completed") {
+        if (c.data.quotation_state != "Completed") {
             alert("Quotation is Not Completed");
-            //document.querySelector('.yoko-search-form-wrap.yoko-project-wrap.yoko-col40 .yoko-search-form .').classList.add('highlight-form');
-
         } else {
             c.data.newState = 5;
-        		c.data.buttunflag = true;
+            c.data.isButton = true;
             c.server.update().then(function(response) {
                 // Handle the server response if needed
                 console.log('Server response:', response);
                 location.reload();
             });
         }
-
-
     };
-
-    $scope.clickInProgress = function() {
+    $scope.btnInProgress = function() {
         //alert("IN PROGRESS?")
         // Get the value from the input field using ng-model
         c.data.newState = 4;
-        c.data.buttunflag = true;
-
-        // Call the server script to update the state
+        c.data.isButton = true;
 
         c.server.update().then(function(response) {
             // Handle the server response if needed
@@ -179,14 +121,10 @@
         location.reload();
     };
 
-    $scope.clickAccept = function() {
+    $scope.btnAccept = function() {
         //alert("ACCEPT?")
-        // Get the value from the input field using ng-model
         c.data.newState = 4;
-        c.data.buttunflag = true;
-
-        // Call the server script to update the state
-
+        c.data.isButton = true;
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
@@ -194,14 +132,11 @@
         });
 
     };
-    $scope.clickOIReport = function() {
+    $scope.btnOIReport = function() {
         //alert("OI Report?")
-        // Get the value from the input field using ng-model
         c.data.newState = 9;
-        c.data.buttunflag = true;
-
+        c.data.isButton = true;
         // Call the server script to update the state
-
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
@@ -210,14 +145,11 @@
 
     };
 
-    $scope.clickReturn = function() {
+    $scope.btnReturn = function() {
         //alert("RETURN?")
-        // Get the value from the input field using ng-model
         c.data.newState = -5;
-        c.data.buttunflag = true;
-
+        c.data.isButton = true;
         // Call the server script to update the state
-
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
@@ -225,14 +157,11 @@
         });
 
     };
-    $scope.clickCancel = function() {
+    $scope.btnCancel = function() {
         //alert("CANCEL?")
-        // Get the value from the input field using ng-model
         c.data.newState = -8;
-        c.data.buttunflag = true;
-
+        c.data.isButton = true;
         // Call the server script to update the state
-
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
@@ -241,7 +170,6 @@
         });
 
     };
-
     //////////////////////////////////  모달창 관련한 로직
 
     // Get the modal
@@ -268,13 +196,8 @@
         c.data.refer_assigned_to_modal = false
         c.data.refer_contract_modal = false
         c.data.refer_contract_country_modal = false
-
-        console.log(c.data.items)
         c.data.items = ""
         c.data.modalTitle = ""
-        console.log("일해라 핫산, 왜 접시를 닦지 않았지?")
-
-        console.log(c.data.items)
     }
 
     // When the user clicks on close button, close the modal
@@ -287,12 +210,8 @@
         c.data.refer_assigned_to_modal = false
         c.data.refer_contract_modal = false
         c.data.refer_contract_country_modal = false
-        console.log(c.data.items)
         c.data.items = ""
         c.data.modalTitle = ""
-        console.log("일해라 핫산, 왜 접시를 닦지 않았지?")
-
-        console.log(c.data.items)
     }
 
     // When the user clicks anywhere outside of the modal, close it
@@ -306,51 +225,35 @@
             c.data.refer_assigned_to_modal = false
             c.data.refer_contract_modal = false
             c.data.refer_contract_country_modal = false
-            console.log(c.data.items)
             c.data.items = ""
             c.data.modalTitle = ""
-            console.log("일해라 핫산, 왜 접시를 닦지 않았지?")
-
-            console.log(c.data.items)
-
         }
     }
 
 
 
 
-    $scope.clickRequester = function(sys_id) {
+    $scope.btnRefRequester = function(sys_id) {
         c.data.refer_requester_modal = true;
-        c.data.readStatus = false;
-
+        c.data.isRead = false;
         c.server.update().then(function(response) {
-            // Handle the server response if needed
             console.log('Server response:', response);
-            // Function to log the sys_id
             c.logSysId = function(number, sys_id, code) {
-                //alert('Selected sys_id: ' + sys_id + ' ' + number);
                 c.data.requester = number
                 c.data.requester_sys_id = sys_id
-
             };
-
         });
-
-
         var modal = document.getElementById("modalTest");
         modal.style.display = "block";
     };
 
-    $scope.clickQuotation = function(sys_id) {
+    $scope.btnRefQuotation = function(sys_id) {
         c.data.refer_quotation_modal = true;
-        c.data.readStatus = false;
-
+        c.data.isRead = false;
         c.server.update().then(function(response) {
             // Handle the server response if needed
-            console.log('Server response:', response);
             // Function to log the sys_id
             c.logSysId = function(number, sys_id) {
-                //alert('Selected sys_id: ' + sys_id + ' ' + number);
                 c.data.end_user = number
                 c.data.end_user_code = sys_id
             };
@@ -362,14 +265,11 @@
 
     };
 
-    $scope.clickAssignmentGroup = function(sys_id) {
+    $scope.btnRefAssignmentGroup = function(sys_id) {
         c.data.refer_assignment_group_modal = true;
-        c.data.readStatus = false;
+        c.data.isRead = false;
 
         c.server.update().then(function(response) {
-            // Handle the server response if needed
-            console.log('Server response:', response);
-            // Function to log the sys_id
             c.logSysId = function(number, sys_id) {
                 //alert('Selected sys_id: ' + sys_id + ' ' + number);
                 c.data.assignment_group = number
@@ -383,38 +283,28 @@
 
     };
 
-    $scope.clickAssignedTo = function(sys_id) {
+    $scope.btnRefAssignedTo = function(sys_id) {
         c.data.refer_assigned_to_modal = true;
-        c.data.readStatus = false;
+        c.data.isRead = false;
 
         c.server.update().then(function(response) {
-            // Handle the server response if needed
             console.log('Server response:', response);
-            // Function to log the sys_id
             c.logSysId = function(number, sys_id) {
-                //alert('Selected sys_id: ' + sys_id + ' ' + number);
                 c.data.assigned_to = number
                 c.data.assigned_to_sys_id = sys_id
             };
-
         });
-
         var modal = document.getElementById("modalTest");
         modal.style.display = "block";
 
     };
-    $scope.clickEndUser = function() {
+    $scope.btnRefEndUser = function() {
         c.data.refer_end_user_modal = true;
-        c.data.readStatus = false;
-
+        c.data.isRead = false;
         c.server.update().then(function(response) {
-            // Handle the server response if needed
             console.log('Server response:', response);
-            // Function to log the sys_id
         });
-        //debugger
         c.logSysId = function(number, sys_id, code) {
-            //alert('Selected sys_id: ' + sys_id + ' ' + number);
             c.data.end_user = number
             c.data.end_user_sys_id = sys_id
             c.data.end_user_code = code
@@ -423,16 +313,12 @@
         modal.style.display = "block";
     };
 
-    $scope.clickContract = function() {
+    $scope.btnRefContract = function() {
         c.data.refer_contract_modal = true;
-        c.data.readStatus = false;
-
+        c.data.isRead = false;
         c.server.update().then(function(response) {
-            // Handle the server response if needed
             console.log('Server response:', response);
-            // Function to log the sys_id
             c.logSysId = function(number, sys_id, code) {
-                //alert('Selected sys_id: ' + sys_id + ' ' + number);
                 c.data.contract = number
                 c.data.contract_sys_id = sys_id
                 c.data.contract_code = code
@@ -445,16 +331,12 @@
 
     };
 
-    $scope.clickContractCountry = function(sys_id) {
+    $scope.btnRefContractCountry = function(sys_id) {
         c.data.refer_contract_country_modal = true;
-        c.data.readStatus = false;
-
+        c.data.isRead = false;
         c.server.update().then(function(response) {
-            // Handle the server response if needed
             console.log('Server response:', response);
-            // Function to log the sys_id
             c.logSysId = function(number, sys_id) {
-                //alert('Selected sys_id: ' + sys_id + ' ' + number);
                 c.data.contract_country = number
                 c.data.contract_country_sys_id = sys_id
             };
@@ -468,23 +350,18 @@
 
 
     // In your controller
+    // 이거는 어딘가 바뀌는거 감시하는거 
     $scope.$watch('c.data.contract', function(newVal, oldVal) {
         $scope.isContractDummyDisabled = !!newVal; // Set to true if contract has a value, otherwise false
     });
-
-    // Initialize the variable when the controller is first loaded
+    // Initialize the variable when the controller is first loaded.
     $scope.isContractDummyDisabled = !!$scope.c.data.contract;
-
-
     // In your controller
     $scope.$watch('c.data.end_user', function(newVal, oldVal) {
         if (!newVal) {
             $scope.c.data.end_user_code = '';
         }
     });
-
-
-
     // In your controller
     $scope.$watch('c.data.contract', function(newVal, oldVal) {
         if (!newVal) {
@@ -796,56 +673,52 @@
         <docs/>
         <field_list/>
         <has_preview>false</has_preview>
-        <id>portal_function</id>
+        <id>rfqentrywd</id>
         <internal>false</internal>
         <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
-        <name>portal_function</name>
+        <name>rfqEntryWd</name>
         <option_schema/>
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
     /* populate the 'data' object */
     /* e.g., data.table = $sp.getValue('table'); */
+   
+    // 현재 접속한 유저의 sysid 를 가져옴
     var userName = gs.getUser().getDisplayName()
-    var userName_sys_id = gs.getUser().getID();
-    console.log("0000000000000000000000")
-    console.log(userName)
-    console.log(userName_sys_id)
-    // Pass the user's name to the client script
+    var userNameSysId = gs.getUser().getID();
+   
+    // client script를 통해서 넣어준 유저의 이름, sysid 를 server단으로 가져옴
     data.requester = userName;
-    data.requester_sys_id = userName_sys_id;
+    data.requester_sys_id = userNameSysId;
+    
+    // 버튼, 요소 노출
     data.showUpdate = false;
-    data.sys_id = $sp.getParameter("sys_id");
     data.showSave = true
-	data.showQuotationTypeSelect = true;
-    //////gs.addInfoMessage(data.sys_id)
+    data.showQuotationTypeSelect = true;
+
+    // server단에서 파라미터로 sys_id를 가져오기
+    data.sys_id = $sp.getParameter("sys_id");
+
     // Select 가져올건데
     var grS = new GlideRecord('x_yergb_bpm_rfq_entry'); // Replace with your table name
     grS.initialize();
     var choices = grS.getElement('quotation_type').getChoices(); // Replace with your field name
     var choicesValue = grS.getElement('quotation_type').getChoiceValue(); // Replace with your field name
-    console.log("11111111")
-    console.log(choices)
-    console.log(choicesValue)
-    // Prepare the choices for the client script
-    var choiceList = [];
+     var choiceList = [];
     for (var i = 0; i < choices.length; i++) {
         var choice = choices[i];
         console.log(choice)
         choiceList.push(choice)
-        //choiceList.push({
-        //   value: choice[i].getValue(),
-        //  label: choice[i].getLabel()
-        //});
+        
     }
-
     data.choices = choiceList;
+    // Select 가져올건데
 
-    ////gs.addInfoMessage(data.sys_id)
-    if (data.sys_id && input && input.readStatus) { // 이거 업데이트다
-        //gs.addErrorMessage("읽어오는중")
+
+
+    if (data.sys_id && input && input.isRead) { //기존 레코드를 읽어와서 업데이트 할거임
         var grI = new GlideRecord('x_yergb_bpm_rfq_entry');
-
         var requester
         var requester_sys_id
         var number
@@ -879,25 +752,17 @@
         grI.query();
         while (grI.next()) {
             requester = grI.requester.name.toString();
-            ////gs.addErrorMessage(requester)
             requester_sys_id = grI.requester.toString();
-            //quotation_number = grI.quotation_number.toString();
-            ////gs.addInfoMessage(quotation_number)
-            //quotation_sysId = grI.quotation_sysId.toString();
             number = grI.number.toString()
             request_date = grI.request_date.toString()
-
             complete_date = grI.complete_date.toString()
             estimated_oi_amount = grI.estimated_oi_amount.toString()
             estimated_order_date = grI.estimated_order_date.toString()
-            estimated_delivery_date = grI.estimated_delivery_date.toString()
-            //quotation = grI.quotation.toString()
-            //quotation_sys_id  = grI.quotation_sys_id.toString()
+            estimated_delivery_date = grI.estimated_delivery_date.toString()         
             quotation_type = grI.quotation_type.toString()
             quotation_due_date = grI.quotation_due_date.toString()
             yoda_opportunity_no = grI.yoda_opportunity_no.toString()
             assignment_group = grI.assignment_group.name.toString()
-
             assigned_to = grI.assigned_to.name.toString()
             end_user = grI.end_user.name.toString();
             end_user_sys_id = grI.end_user.toString()
@@ -905,22 +770,18 @@
             contract = grI.contract.name.toString()
             contract_sys_id = grI.contract.toString()
             contract_code = grI.contract.u_company_code.toString()
-
-
             contract_name = grI.contract_name.toString()
             contract_address = grI.contract_address.toString()
-            //contract_country = grI.contract_country.toString()
             project_title = grI.project_title.toString()
             project_detail = grI.project_detail.toString()
             caution = grI.caution.toString()
             reason_code = grI.reason_code.toString()
             request_due_date = grI.request_due_date.toString()
             remark = grI.remark.toString()
-				    quotation_type_label = getChoiceLabel('x_yergb_bpm_rfq_entry', 'quotation_type', quotation_type);
-						//gs.addInfoMessage(quotation_type_label)
+            // quotation의 라벨을 가져오는 함수 (하단에 작성 되어있음)
+            quotation_type_label = getChoiceLabel('x_yergb_bpm_rfq_entry', 'quotation_type', quotation_type); 
         }
-        //data.qNum = quotation_number
-        //data.q_sys_id = quotation_sysId
+        // data 로 html 로 보내줌
         data.requester_sys_id = requester_sys_id
         data.requester = requester
         data.number = number
@@ -929,24 +790,18 @@
         data.estimated_oi_amount = estimated_oi_amount
         data.estimated_order_date = estimated_order_date
         data.estimated_delivery_date = estimated_delivery_date
-        //.quotation = quotation
-        //data.quotation_sys_id = quotation_sys_id
         data.quotation_type = quotation_type
         data.quotation_type_label = quotation_type_label
         data.quotation_due_date = quotation_due_date
         data.yoda_opportunity_no = yoda_opportunity_no
         data.assignment_group = assignment_group
         data.assigned_to = assigned_to
-
-
         data.end_user = end_user
         data.end_user_code = end_user_code
         data.end_user_sys_id = end_user_sys_id
         data.contract = contract
         data.contract_code = contract_code
         data.contract_sys_id = contract_sys_id
-
-
         data.contract_name = contract_name
         data.contract_address = contract_address
         data.contract_country = contract_country
@@ -956,55 +811,44 @@
         data.reason_code = reason_code
         data.request_due_date = request_due_date
         data.remark = remark
-        //////gs.addInfoMessage(typeof data.q_number)
-        ////gs.addInfoMessage("aefawefweafw +"+ data.number)
+        // Quotation 을 가져오기 위해 , 현재 sys id 를 quotation 테이블에 넣어서 가져옴
         var grQ = new GlideRecord('x_yergb_bpm_quotation');
         var quotation
         var quotation_sys_id
         var quotation_state
-        ///////////// 여기서는 아마 뿌려주는 로직을 할듯
         grQ.addQuery('rfq_entry', data.sys_id);
         grQ.query();
         while (grQ.next()) {
             quotation = grQ.number.toString();
             quotation_sys_id = grQ.sys_id.toString();
-						quotation_state = grQ.state.getDisplayValue().toString();
+            quotation_state = grQ.state.getDisplayValue().toString();
         }
         data.quotation = quotation
         data.quotation_sys_id = quotation_sys_id
         data.quotation_state = quotation_state
-			
-			
-			
-			//user 의 company를 찾고
-			//그 컴패니의 currency의 display value를 가져와야 하는군
-			
-		  	var grU = new GlideRecord('sys_user');
-     		grU.get(data.requester_sys_id)
-				grUCompany = grU.company
-				var grC = new GlideRecord ('core_company')
-				if (grC.get(grUCompany)){
-		    var currency = grC.u_currency.code
-				gs.addInfoMessage(currency)
-		  	data.currency =  grC.u_currency.code.toString()
-					
-				}
-		}
+
+        //user 의 company를 찾고
+        //그 컴패니의 currency의 display value를 가져와야 하는군
+        var grU = new GlideRecord('sys_user');
+        grU.get(data.requester_sys_id)
+        grUCompany = grU.company
+        var grC = new GlideRecord('core_company')
+        if (grC.get(grUCompany)) {
+            var currency = grC.u_currency.code
+            gs.addInfoMessage(currency)
+            data.currency = grC.u_currency.code.toString()
+
+        }
+    }
 
 
-
-
-    //////////////// 파라미터 있는지 체크 하는거다. 
-    if (input && input.paramValue) {
-        var paramValue = input.paramValue;
-        ////gs.addErrorMessage('Record created with param value: ' + paramValue);
-
+    //////////////// 파라미터에 SYS_ID가 있는지 체크 하는거다. 
+    if (input && input.urlSysId) {
+        var urlSysId = input.urlSysId;
         var gr = new GlideRecord('x_yergb_bpm_rfq_entry');
-
-        ///////////// 여기서는 아마 뿌려주는 로직을 할듯
-        gr.get(input.paramValue);
+        gr.get(input.urlSysId);
         data.state = gr.state.getDisplayValue();
-
+        // 현재 STATE 에 따라서, 버튼들의 노출도를 전부 조절한다 여기서
         if (gr.state.getDisplayValue() == "New") {
             data.showAssess = true;
             data.showRequest = false;
@@ -1016,8 +860,8 @@
             data.showUpdate = true;
             data.showSave = true
             data.showOIReport = false;
-					data.showQuotationTypeSelect = true;
-					data.showQuotationType = false;
+            data.showQuotationTypeSelect = true;
+            data.showQuotationType = false;
         } else if (gr.state.getDisplayValue() == "Assess") {
             data.showAssess = false;
             data.showRequest = true;
@@ -1029,8 +873,8 @@
             data.showUpdate = true;
             data.showSave = true
             data.showOIReport = false;
-					data.showQuotationTypeSelect = false;
-					data.showQuotationType = true;
+            data.showQuotationTypeSelect = false;
+            data.showQuotationType = true;
         } else if (gr.state.getDisplayValue() == "Requested") {
             data.showAssess = false;
             data.showRequest = false;
@@ -1042,8 +886,8 @@
             data.showUpdate = true;
             data.showSave = true
             data.showOIReport = false;
-					data.showQuotationTypeSelect = false;
-					data.showQuotationType = true;
+            data.showQuotationTypeSelect = false;
+            data.showQuotationType = true;
         } else if (gr.state.getDisplayValue() == "Returned") {
             data.showAssess = true;
             data.showRequest = false;
@@ -1055,8 +899,8 @@
             data.showUpdate = true;
             data.showSave = true
             data.showOIReport = false;
-					data.showQuotationTypeSelect = false;
-					data.showQuotationType = true;
+            data.showQuotationTypeSelect = false;
+            data.showQuotationType = true;
         } else if (gr.state.getDisplayValue() == "In Progress") {
             data.showAssess = false;
             data.showRequest = false;
@@ -1068,12 +912,10 @@
             data.showUpdate = true;
             data.showSave = true
             data.showOIReport = false;
-					data.showQuotationTypeSelect = false;
-					data.showQuotationType = true;
-            //가져와서 일단 말 박아주는거 해야함
-            //Return the results to the client script
+            data.showQuotationTypeSelect = false;
+            data.showQuotationType = true;
         } else if (gr.state.getDisplayValue() == "Submitted") {
-					  data.showAssess = false;
+            data.showAssess = false;
             data.showRequest = false;
             data.showSubmit = false;
             data.showInProgress = false;
@@ -1083,12 +925,10 @@
             data.showUpdate = true;
             data.showSave = true;
             data.showOIReport = true;
-					data.showQuotationTypeSelect = false;
-					data.showQuotationType = true;
-            //가져와서 일단 말 박아주는거 해야함
-            //Return the results to the client script
-        }else if (gr.state.getDisplayValue() == "Completed") {
-					  data.showAssess = false;
+            data.showQuotationTypeSelect = false;
+            data.showQuotationType = true;
+        } else if (gr.state.getDisplayValue() == "Completed") {
+            data.showAssess = false;
             data.showRequest = false;
             data.showSubmit = false;
             data.showInProgress = false;
@@ -1098,18 +938,13 @@
             data.showUpdate = false;
             data.showSave = false;
             data.showOIReport = false;
-					data.showQuotationTypeSelect = false;
-					data.showQuotationType = true;
-            //가져와서 일단 말 박아주는거 해야함
-            //Return the results to the client script
+            data.showQuotationTypeSelect = false;
+            data.showQuotationType = true;
         }
-        /////////// 시스아이디 있고, 상태가 new 일때만
 
+        // 이거는 완전히 새로운 상태일때  완전 INSERT
         if (gr.requester != gs.getUser().getID()) {
 
-            //gs.addInfoMessage("gr.requester 달러")
-            //gs.addInfoMessage(gr.requester)
-            //gs.addInfoMessage(gs.getUser().getID())
             data.showAssess = false;
             data.showRequest = false;
             data.showSubmit = false;
@@ -1119,61 +954,26 @@
             data.showCancel = false;
             data.showUpdate = false;
             data.showSave = false
-					data.showQuotationTypeSelect = false;
-					data.showQuotationType = true;
+            data.showQuotationTypeSelect = false;
+            data.showQuotationType = true;
         }
 
 
 
-        /////////// 파라미터 있는 상태에서 만약에 내가 ass를 누름
-        if (input.buttunflag) {
-            ////gs.addInfoMessage("눌렸다 눌렸어")
-
+        /////////// 버튼을 누르면 STATE가 바뀐다. 
+        if (input.isButton) {
             var grA = new GlideRecord('x_yergb_bpm_rfq_entry');
-
-            ///////////// 여기서는 아마 뿌려주는 로직을 할듯
-            grA.get(input.paramValue);
+            grA.get(input.urlSysId);
             grA.setValue('state', input.newState)
-            ////gs.addErrorMessage(input.newState);
             grA.update()
-            ////gs.addInfoMessage("바뀐다 바뀐다")
-
-
         }
 
 
     }
 
 
-    //////////////////////// 버튼 눌렀을때
-    if (input && input.insertFlag) { // 없으면 오류 뜸, 둘다 있어야 함.
-        console.log("여기 되던가?")
-        console.log(input)
-        // Retrieve the input value from the client script
-        //gs.addInfoMessage("집에 왔니")
-        /*
-        var requester = input.requester_sys_id
-        var complete_date = input.complete_date
-        var estimated_oi_amount = input.estimated_oi_amount
-        var estimated_order_date = input.estimated_order_date
-        var estimated_delivery_date = input.estimated_delivery_date
-        var quotation_due_date = input.quotation_due_date
-        var quotation_type = input.quotation_type
-        var yoda_opportunity_no = input.yoda_opportunity_no
-        var assignment_group = input.assignment_group_sys_id
-        var assigned_to = input.assigned_to_sys_id
-        var end_user = input.end_user_sys_id
-        var contract = input.contract_sys_id
-        var contract_name = input.contract_name
-        var contract_address = input.contract_address
-        var contract_country = input.contract_country
-		var project_title = input.project_title
-        var project_detail = getValueOrEmptyString(input.project_detail);
-        var caution = input.caution
-        var reason_code = input.reason_code
-        var request_due_date = input.request_due_date
-        var remark = input.remark
-		*/
+    //////////////////////// SAVE 버튼을 눌렀을때 ---- INSERT거나 UPDATE거나의 분기점
+    if (input && input.isInsert) { // 없으면 오류 뜸, 둘다 있어야 함.
         var requester = input.requester_sys_id
         var request_date = input.request_date
         var complete_date = input.complete_date
@@ -1196,14 +996,8 @@
         var reason_code = getValueOrEmptyString(input.reason_code)
         var request_due_date = input.request_due_date
         var remark = getValueOrEmptyString(input.remark)
-        
-				gs.addErrorMessage("=-=-=-=-=-=-=-")
-gs.addErrorMessage(quotation_type)
 
-
-        //gs.addInfoMessage(estimated_oi_amount)
-        // Create a new record in the specified table 
-        var gr = new GlideRecord('x_yergb_bpm_rfq_entry'); // Replace 'your_table_name' with the actual table name
+        var gr = new GlideRecord('x_yergb_bpm_rfq_entry');
         gr.initialize();
         gr.setValue('requester', requester)
         gr.setValue('request_date', request_date)
@@ -1228,17 +1022,9 @@ gs.addErrorMessage(quotation_type)
         gr.setValue('request_due_date', request_due_date)
         gr.setValue('remark', remark)
         gr.insert();
-        //gs.addInfoMessage("집에 ㄷ멓ㄹㅈㄷㅁ횆돟ㅁㅈㄷ호")
-
-
-        //////gs.addErrorMessage('성공일거야 아마도' + estOiAmount);
         data.redirect_sys_id = gr.getUniqueValue();;
-        // Return a response to the client script
-    } else if (input && input.updateFlag) {
-        //var estOiAmount = input.estOiAmount;
 
-        //gs.addInfoMessage("집에가자")
-        //gs.addInfoMessage(input.quotation_type)
+    } else if (input && input.isUpdate) {
         var requester = input.requester_sys_id
 
         var request_date = input.request_date
@@ -1248,7 +1034,6 @@ gs.addErrorMessage(quotation_type)
         var estimated_delivery_date = input.estimated_delivery_date
         var quotation_due_date = input.quotation_due_date
         var quotation_type = input.quotation_type
-				gs.addInfoMessage(quotation_type)
         var yoda_opportunity_no = getValueOrEmptyString(input.yoda_opportunity_no)
         var assignment_group = input.assignment_group_sys_id
         var assigned_to = input.assigned_to_sys_id
@@ -1264,10 +1049,9 @@ gs.addErrorMessage(quotation_type)
         var request_due_date = input.request_due_date
         var remark = getValueOrEmptyString(input.remark)
         var grU = new GlideRecord('x_yergb_bpm_rfq_entry');
-        //gs.addInfoMessage(estimated_oi_amount)
 
         ///////////// 여기서는 아마 뿌려주는 로직을 할듯
-        grU.get(input.paramValue);
+        grU.get(input.urlSysId);
         grU.setValue('requester', requester)
         grU.setValue('request_date', request_date)
         grU.setValue('complete_date', complete_date)
@@ -1292,11 +1076,10 @@ gs.addErrorMessage(quotation_type)
         grU.setValue('request_due_date', request_due_date)
         grU.setValue('remark', remark)
         grU.update()
-        //gs.addInfoMessage("집에가자??!@#@!$")
 
     }
 
-
+    // 여기서는 전부 REFERENCE 버튼과 관련된 로직
     if (input && input.refer_requester_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
 
         var items = [];
@@ -1388,7 +1171,6 @@ gs.addErrorMessage(quotation_type)
         // Pass data to the client script
         data.items = items;
         data.modalTitle = "END USER"
-        //data.modalType = "end_user"
     }
 
     if (input && input.refer_contract_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
@@ -1409,7 +1191,6 @@ gs.addErrorMessage(quotation_type)
         // Pass data to the client script
         data.items = items;
         data.modalTitle = "CONTRACT COMPANY"
-        //data.modalType = "contact"
 
     }
 
@@ -1436,52 +1217,52 @@ gs.addErrorMessage(quotation_type)
         return typeof value === 'undefined' ? '' : value;
     }
 
-function getChoiceLabel(table, element, value) {
-    var gr = new GlideRecord('sys_choice');
-    gr.addQuery('name', table); // 테이블 이름
-    gr.addQuery('element', element); // 필드 이름
-    gr.addQuery('value', value); // 선택 값
-    gr.query();
+    function getChoiceLabel(table, element, value) {
+        var gr = new GlideRecord('sys_choice');
+        gr.addQuery('name', table); // 테이블 이름
+        gr.addQuery('element', element); // 필드 이름
+        gr.addQuery('value', value); // 선택 값
+        gr.query();
 
-    if (gr.next()) {
-        return gr.getValue('label'); // 선택 필드의 보이는 값 반환
-    } else {
-        return 'none';
+        if (gr.next()) {
+            return gr.getValue('label'); // 선택 필드의 보이는 값 반환
+        } else {
+            return 'none';
+        }
     }
-}
-	
-	
-	
+
+
+
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>lhyunseok</sys_created_by>
-        <sys_created_on>2024-06-12 06:12:28</sys_created_on>
-        <sys_id>d6fc4838933282104d95f55a7bba10e5</sys_id>
-        <sys_mod_count>815</sys_mod_count>
-        <sys_name>portal_function</sys_name>
+        <sys_created_on>2024-06-19 00:41:22</sys_created_on>
+        <sys_id>a8544376933282104d95f55a7bba10c5</sys_id>
+        <sys_mod_count>12</sys_mod_count>
+        <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_update_name>sp_widget_d6fc4838933282104d95f55a7bba10e5</sys_update_name>
+        <sys_update_name>sp_widget_a8544376933282104d95f55a7bba10c5</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-19 00:34:43</sys_updated_on>
+        <sys_updated_on>2024-06-19 06:16:29</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
         <div class="yoko-title-btn-wrap">
             <h1 class="yoko-title">RFQ Entry & Quotation Request</h1>
             <div class="yoko-btn-wrap">
-                <button class="yoko-btn yoko-btn-fill-red" ng-if="data.showCancel" ng-click="clickCancel()">Cancel</button>
-                <button class="yoko-btn yoko-btn-fill-red" ng-if="data.showReturn" ng-click="clickReturn()">Return</button>
-                <button class="yoko-btn yoko-btn-fill-accept" ng-if="data.showAccept" ng-click="clickAccept()">Accept</button>
-                <button class="yoko-btn yoko-btn-outline" ng-if="data.showOIReport" ng-click="clickOIReport()">OI Report</button>
-                <button class="yoko-btn yoko-btn-outline" ng-if="data.showInProgress" ng-click="clickInProgress()">In Progress</button>
-                <button class="yoko-btn yoko-btn-outline" ng-if="data.showSubmit" ng-click="clickSubmit()">Submit Quote</button>
-                <button class="yoko-btn yoko-btn-outline" ng-if="data.showRequest" ng-click="clickRequest()">Request Quote</button>
-                <button class="yoko-btn yoko-btn-outline" id="AssessButton" ng-if="data.showAssess" ng-click="clickAssess()">Assess</button>
+                <button class="yoko-btn yoko-btn-fill-red" ng-if="data.showCancel" ng-click="btnCancel()">Cancel</button>
+                <button class="yoko-btn yoko-btn-fill-red" ng-if="data.showReturn" ng-click="btnReturn()">Return</button>
+                <button class="yoko-btn yoko-btn-fill-accept" ng-if="data.showAccept" ng-click="btnAccept()">Accept</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showOIReport" ng-click="btnOIReport()">OI Report</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showInProgress" ng-click="btnInProgress()">In Progress</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showSubmit" ng-click="btnSubmit()">Submit Quote</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showRequest" ng-click="btnRequest()">Request Quote</button>
+                <button class="yoko-btn yoko-btn-outline" id="AssessButton" ng-if="data.showAssess" ng-click="btnAssess()">Assess</button>
                 <button class="yoko-btn yoko-btn-outline" ng-if="data.showUpdate">Update</button>
-                <button class="yoko-btn yoko-btn-fill" ng-if="data.showSave" id="saveButton" ng-click="clickSave()">Save</button>
+                <button class="yoko-btn yoko-btn-fill" ng-if="data.showSave" id="saveButton" ng-click="btnSave()">Save</button>
             </div>
         </div>
         <div class="yoko-content">
@@ -1499,7 +1280,7 @@ function getChoiceLabel(table, element, value) {
                                 <div class="yoko-form-inline">
                                     <input type="text" name="requester_no" ng-model="c.data.requester" disabled class="yoko-wid140">
                                     <input type="text" name="requester_no_sys_id" value="" disabled class="yoko-wid140" ng-model="c.data.requester_sys_id" ng-style="{'display': 'none'}">
-                                    <!-- button type="button" class="yoko-btn yoko-btn-search" id ="openModalButton"  ng-click="clickRequester()"  ></button-->
+                                    <!-- button type="button" class="yoko-btn yoko-btn-search" id ="openModalButton"  ng-click="btnRefRequester()"  ></button-->
                                 </div>
                             </div>
                         </div>
@@ -1546,11 +1327,11 @@ function getChoiceLabel(table, element, value) {
                             <div class="yoko-form-inline">
 
                                 <!-- input type="text" name="quotation" value={{data.qNum}} placeholder="" class="yoko-wid140" disable -->
-                                <button class="yoko-btn-quotation" ng-click="handleClick()">
+                                <button class="yoko-btn-quotation" ng-click="btnQuotation()">
                                     {{c.data.quotation}}
                                 </button> <input type="text" name="quotation_sysId" ng-model="c.data.quotation_sys_id" placeholder="" class="yoko-wid140" ng-click="handleClick()" ng-style="{'display': 'none'}" readonly>
 
-                                <!--button type="button" class="yoko-btn yoko-btn-search" ng-click="clickQuotation()"></button-->
+                                <!--button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefRequester()"></button-->
                             </div>
                         </div>
                         <div class="yoko-form-group">
@@ -1584,7 +1365,7 @@ function getChoiceLabel(table, element, value) {
                             <div class="yoko-form-inline">
                                 <input type="text" name="assignment_group" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.assignment_group">
                                 <input type="text" name="assignment_group_sys_id" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.assignment_group_sys_id" ng-style="{'display': 'none'}">
-                                <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickAssignmentGroup()"></button>
+                                <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefAssignmentGroup()"></button>
                             </div>
                         </div>
                         <div class="yoko-form-group">
@@ -1592,7 +1373,7 @@ function getChoiceLabel(table, element, value) {
                             <div class="yoko-form-inline">
                                 <input type="text" name="assigned_to" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.assigned_to">
                                 <input type="text" name="assigned_to_sys_id" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.assigned_to_sys_id" ng-style="{'display': 'none'}">
-                                <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickAssignedTo()"></button>
+                                <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefAssignedTo()"></button>
                             </div>
                         </div>
                     </div>
@@ -1612,7 +1393,7 @@ function getChoiceLabel(table, element, value) {
                                 <div class="yoko-form-inline yoko-wid172">
                                     <input type="text" name="end_user" value={{data.end_user}} ng-model="c.data.end_user">
                                     <input type="text" name="end_user_sys_id" value={{data.end_user_sys_id}} ng-model="c.data.end_user_sys_id" ng-style="{'display': 'none'}">
-                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickEndUser()"></button>
+                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefEndUser()"></button>
                                 </div>
                             </div>
                             <div class="yoko-form-group">
@@ -1630,7 +1411,7 @@ function getChoiceLabel(table, element, value) {
                                 <div class="yoko-form-inline yoko-wid172">
                                     <input type="text" name="contract" value={{data.contract}} ng-model="c.data.contract">
                                     <input type="text" name="contract_sys_id" value={{data.contract_sys_id}} ng-model="c.data.contract_sys_id" ng-style="{'display': 'none'}">
-                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickContract()"></button>
+                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefContract()"></button>
                                 </div>
                             </div>
                             <div class="yoko-form-group">
@@ -1656,7 +1437,7 @@ function getChoiceLabel(table, element, value) {
                                 <div class="yoko-form-inline yoko-wid172">
                                     <input type="text" name="contract_country" value="" placeholder="" ng-model="c.data.contract_country" disabled>
                                     <input type="text" name="contract_country_sys_id" value="" placeholder="" ng-model="c.data.contract_country_sys_id" ng-style="{'display': 'none'}">
-                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickContractCountry()" ng-disabled="isContractDummyDisabled"></button>
+                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefContractCountry()" ng-disabled="isContractDummyDisabled"></button>
                                 </div>
                             </div>
                         </div>

@@ -24,37 +24,41 @@ RealGridUtilsBPM.prototype = {
             return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+5kVu6qIimZpJKTWpoOpNFnkmhX0fXje4w7n7/ElITcuCZPJfHzThFk=';
         } else if (instanceUrl.includes('dev178808')) {
             return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+xoV7b+wGal7JKTWpoOpNFnkmhX0fXje4w7n7/ElITcuQU5++nrgCcc=';
-        }else if (instanceUrl.includes('dev260285')) {
+        } else if (instanceUrl.includes('dev260285')) {
             return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+w9HPS02Uro1JKTWpoOpNFnkmhX0fXje4w7n7/ElITcuJBKTc5vuhGc=';
-        }else{
-          gs.addInfoMessage('script include - RealGridUtilsBPM - PDI용 realgrid key 발급받아서 추가하세요~~');
+        } else if (instanceUrl.includes('dev257309')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+3l1JW85tSroJKTWpoOpNFnkmhX0fXje4w7n7/ElITcu25tIywHuN+4=';
+        } else if (instanceUrl.includes('dev208377')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+yzsSo3P4ZrgJKTWpoOpNFnkmhX0fXje4w7n7/ElITcu25tIywHuN+4=';
+        } else {
+            gs.addInfoMessage('script include - RealGridUtils_order_item - PDI용 realgrid key 발급받아서 추가하세요~~');
             return;
         }
     },
-    getIncidentInfo: function(id_q) {
-        var grinc = new GlideRecord("x_yergb_bpm_quote_item");
-        grinc.orderBy("number");
-        grinc.addEncodedQuery('quotation=' + id_q);
-        grinc.query();
-        var incinfo = [];
-        while (grinc.next()) {
-            incinfo.push({
-                'sys_id': grinc.sys_id.getDisplayValue(),
-                'number': grinc.number.getDisplayValue(),
-                'wbs_6': grinc.wbs_6.getDisplayValue(),
-                'ms_code': grinc.ms_code.getDisplayValue(),
-                'description': grinc.description.getDisplayValue(),
-                'quantity': grinc.quantity.getDisplayValue(),
-                'unit_price': grinc.unit_price.getDisplayValue(),
-                'extended_price': grinc.extended_price.getDisplayValue(),
-                'unit_cost': grinc.unit_cost.getDisplayValue(),
-                'extended_cost': grinc.extended_cost.getDisplayValue(),
-                'unit_mp': grinc.unit_mp.getDisplayValue(),
-                'vendor': grinc.vendor.getDisplayValue(),
+    getTableInfo: function(id_q) {
+        var gr = new GlideRecord("x_yergb_bpm_quote_item");
+        gr.orderBy("number");
+        gr.addEncodedQuery('quotation=' + id_q);
+        gr.query();
+        var tableinfo = [];
+        while (gr.next()) {
+            tableinfo.push({
+                'sys_id': gr.sys_id.getDisplayValue(),
+                'number': gr.number.getDisplayValue(),
+                'wbs_6': gr.wbs_6.getDisplayValue(),
+                'ms_code': gr.ms_code.getDisplayValue(),
+                'description': gr.description.getDisplayValue(),
+                'quantity': gr.quantity.getDisplayValue(),
+                'unit_price': gr.unit_price.getDisplayValue(),
+                'extended_price': gr.extended_price.getDisplayValue(),
+                'unit_cost': gr.unit_cost.getDisplayValue(),
+                'extended_cost': gr.extended_cost.getDisplayValue(),
+                'unit_mp': gr.unit_mp.getDisplayValue(),
+                'vendor': gr.vendor.getDisplayValue(),
                 'quotation': id_q
             });
         }
-        return incinfo;
+        return tableinfo;
     },
 
     getFields: function() {
@@ -95,10 +99,6 @@ RealGridUtilsBPM.prototype = {
             'quotation'
         ];
         return layouts;
-    },
-
-    getTestValue: function() {
-        return 234;
     },
 
     getColumns: function() {
@@ -238,13 +238,13 @@ RealGridUtilsBPM.prototype = {
         <sys_created_by>hhkim</sys_created_by>
         <sys_created_on>2024-06-14 08:27:11</sys_created_on>
         <sys_id>73cebe9947be4650d254bce5536d431a</sys_id>
-        <sys_mod_count>19</sys_mod_count>
+        <sys_mod_count>21</sys_mod_count>
         <sys_name>RealGridUtilsBPM</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_include_73cebe9947be4650d254bce5536d431a</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-18 04:22:18</sys_updated_on>
+        <sys_updated_on>2024-06-19 05:04:17</sys_updated_on>
     </sys_script_include>
 </record_update>
