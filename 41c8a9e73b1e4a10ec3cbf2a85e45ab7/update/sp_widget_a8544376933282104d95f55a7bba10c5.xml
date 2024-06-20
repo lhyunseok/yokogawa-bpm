@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller = function($scope, $location) {
+        <client_script><![CDATA[api.controller = function($scope, $location, $rootScope) {
 
     /* widget controller */
     var c = this;
     c.data.isRead = true;
-c.data.reasonCodeMandatory = false
-c.data.reasonCodeRequestDueDateMandatory = false
-c.data.reasonRemarkMandatory = false
-c.data.quotationTypeSelectMandatory = false
-	
-	// Function to get URL parameters
+    c.data.reasonCodeMandatory = false
+    c.data.reasonCodeRequestDueDateMandatory = false
+    c.data.reasonRemarkMandatory = false
+    c.data.quotationTypeSelectMandatory = false
+
     /////////////////////////////////////// 파라메터 체크
     c.getUrlParameter = function(param) {
         return $location.search()[param];
@@ -31,6 +30,28 @@ c.data.quotationTypeSelectMandatory = false
         console.log('Server response:', response);
     });
 
+    var data = {
+        message: "Hello from Sender Widget",
+        timestamp: new Date(),
+        table: "x_yergb_bpm_rfq_entry",
+        sys_id: urlSysId
+    };
+
+    // 이벤트를 발생시켜 데이터를 전송
+    $rootScope.$broadcast('dataFromSenderWidget', data);
+
+
+
+
+    // 오늘 날짜를 변수에 저장
+    var currentDate = getCurrentDate();
+
+    c.data.request_date = currentDate
+    // 예제: 콘솔에 오늘 날짜를 출력
+    //alert('Today is: ' + currentDate);
+    // Function to get URL parameters
+
+
     //////////////////////////////////// 세이브 클릭하고 데이터 넘기기
     $scope.btnSave = function() {
         // Get the value from the input field using ng-model
@@ -47,7 +68,7 @@ c.data.quotationTypeSelectMandatory = false
         } else { // 이거 새로 넣는거임
             c.data.isInsert = true;
             c.server.update().then(function(response) {
-                window.location.href = "/sp?id=rfqentry&table=x_yergb_bpm_rfq_entry&sys_id=" + c.data.redirect_sys_id;
+                window.location.href = "/sp?id=rfqentry&sys_id=" + c.data.redirect_sys_id;
                 // Optionally handle the server response if needed
                 if (response.data && response.data.result) {
                     //alert(response.data.result);
@@ -61,15 +82,15 @@ c.data.quotationTypeSelectMandatory = false
     $scope.btnAssess = function() {
         //alert("ASSESS?")
         // Call the server script to update the state
-			    //var asterik = document.getElementsByName('mandatoryQ')[0];
-    			var quotationTypeSelect = document.getElementsByName('quotation_type_select')[0];
+        //var asterik = document.getElementsByName('mandatoryQ')[0];
+        var quotationTypeSelect = document.getElementsByName('quotation_type_select')[0];
 
         if (c.data.quotation_type == 'undefined') {
             alert("Mandatory is empty");
-										//asterik.style.color = "red";
-c.data.quotationTypeSelectMandatory = true
+            //asterik.style.color = "red";
+            c.data.quotationTypeSelectMandatory = true
 
-					quotationTypeSelect.style.border = "2px solid red";
+            quotationTypeSelect.style.border = "2px solid red";
         } else {
             c.data.isUpdate = true;
             c.data.newState = 2;
@@ -82,55 +103,55 @@ c.data.quotationTypeSelectMandatory = true
         }
     };
 
-   $scope.btnRequest = function() {
-    var reasonCode = document.getElementsByName('reason_code')[0];
-    var requestDueDate = document.getElementsByName('request_due_date')[0];
-    var remark = document.getElementsByName('remark')[0];
-    //var asterik = document.getElementsByName('mandatory')[0];
-    //var asterik1 = document.getElementsByName('mandatory')[1];
-    //var asterik2 = document.getElementsByName('mandatory')[2];
+    $scope.btnRequest = function() {
+        var reasonCode = document.getElementsByName('reason_code')[0];
+        var requestDueDate = document.getElementsByName('request_due_date')[0];
+        var remark = document.getElementsByName('remark')[0];
+        //var asterik = document.getElementsByName('mandatory')[0];
+        //var asterik1 = document.getElementsByName('mandatory')[1];
+        //var asterik2 = document.getElementsByName('mandatory')[2];
 
-    // Reset previous highlights
-    reasonCode.classList.remove('highlight-form');
-    requestDueDate.classList.remove('highlight-form');
-    remark.classList.remove('highlight-form');
+        // Reset previous highlights
+        reasonCode.classList.remove('highlight-form');
+        requestDueDate.classList.remove('highlight-form');
+        remark.classList.remove('highlight-form');
 
-		 
 
-		 
-    // Check for mandatory fields
-    if (!c.data.reason_code || !c.data.request_due_date || !c.data.remark) {
-        alert("Mandatory is empty");
-					c.data.reasonCodeMandatory = true
-c.data.reasonCodeRequestDueDateMandatory = true
-c.data.reasonRemarkMandatory = true
-        if (!c.data.reason_code) {
-            reasonCode.style.border = "2px solid red";
-					//asterik.style.color = "red";
+
+
+        // Check for mandatory fields
+        if (!c.data.reason_code || !c.data.request_due_date || !c.data.remark) {
+            alert("Mandatory is empty");
+            c.data.reasonCodeMandatory = true
+            c.data.reasonCodeRequestDueDateMandatory = true
+            c.data.reasonRemarkMandatory = true
+            if (!c.data.reason_code) {
+                reasonCode.style.border = "2px solid red";
+                //asterik.style.color = "red";
+            }
+
+            if (!c.data.request_due_date) {
+                requestDueDate.style.border = "2px solid red";
+                //asterik1.style.color = "red";
+
+            }
+
+            if (!c.data.remark) {
+                remark.style.border = "2px solid red";
+                //asterik2.style.color = "red";
+
+            }
+        } else {
+            c.data.isUpdate = true;
+            c.data.newState = 3;
+            c.data.isButton = true;
+            c.server.update().then(function(response) {
+                // Handle the server response if needed
+                console.log('Server response:', response);
+                location.reload();
+            });
         }
-
-        if (!c.data.request_due_date) {
-            requestDueDate.style.border = "2px solid red";
-										//asterik1.style.color = "red";
-
-        }
-
-        if (!c.data.remark) {
-            remark.style.border = "2px solid red";
-										//asterik2.style.color = "red";
-
-        }
-    } else {
-        c.data.isUpdate = true;
-        c.data.newState = 3;
-        c.data.isButton = true;
-        c.server.update().then(function(response) {
-            // Handle the server response if needed
-            console.log('Server response:', response);
-            location.reload();
-        });
     }
-}
 
     $scope.btnSubmit = function() {
         //alert("SUBMIT?")
@@ -389,7 +410,22 @@ c.data.reasonRemarkMandatory = true
 
     };
 
+    $scope.btnRefCurrency = function(sys_id) {
+        c.data.refer_currency_modal = true;
+        c.data.isRead = false;
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+            c.logSysId = function(number, sys_id) {
+                c.data.currency = number
+                c.data.currency_sys_id = sys_id
+            };
 
+        });
+
+        var modal = document.getElementById("modalTest");
+        modal.style.display = "block";
+
+    };
     // In your controller
     // 이거는 어딘가 바뀌는거 감시하는거 
     $scope.$watch('c.data.contract', function(newVal, oldVal) {
@@ -411,8 +447,39 @@ c.data.reasonRemarkMandatory = true
     });
 
 
+    // $watchGroup을 사용하여 contract_name, contract_address, contract_country 중 하나라도 값이 들어오면 체크
+    $scope.$watchGroup(['c.data.contract_name', 'c.data.contract_address', 'c.data.contract_country'], function(newValues) {
+        var hasValue = newValues.some(function(value) {
+            return !!value; // 값이 있는지 확인
+        });
+
+        // 값이 있으면 isContractDisabled를 true로 설정하여 입력 필드를 비활성화
+        $scope.isContractDisabled = hasValue;
+    });
+
+    // 초기화 시 체크
+    $scope.isContractDisabled = !!(c.data.contract_name || c.data.contract_address || c.data.contract_country);
 
 
+    // Initialize the variable when the controller is first loaded.
+    $scope.isContractDisabled = !!(c.data.contract_name || c.data.contract_address || c.data.contract_country);
+    // In your controller
+    $scope.$watch(['c.data.contract_name', 'c.data.contract_address', 'c.data.contract_country'], function(newVal, oldVal) {
+        if (!newVal) {
+            $scope.c.data.end_user = '';
+            $scope.c.data.end_user_code = '';
+        }
+    });
+
+}
+
+function getCurrentDate() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var yyyy = today.getFullYear();
+
+    return yyyy + '-' + mm + '-' + dd;
 }]]></client_script>
         <controller_as>c</controller_as>
         <css>.blank {width: 100%; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); }
@@ -724,15 +791,29 @@ c.data.reasonRemarkMandatory = true
         <script><![CDATA[(function() {
     /* populate the 'data' object */
     /* e.g., data.table = $sp.getValue('table'); */
-   
+
     // 현재 접속한 유저의 sysid 를 가져옴
     var userName = gs.getUser().getDisplayName()
     var userNameSysId = gs.getUser().getID();
-   
+
+
+
+    var grU = new GlideRecord('sys_user');
+    grU.get(userNameSysId)
+    grUCompany = grU.company
+    var grC = new GlideRecord('core_company')
+    if (grC.get(grUCompany)) {
+        var currency = grC.u_currency.code
+        gs.addInfoMessage(currency)
+        data.currency = grC.u_currency.code.toString()
+
+    }
+
+
     // client script를 통해서 넣어준 유저의 이름, sysid 를 server단으로 가져옴
     data.requester = userName;
     data.requester_sys_id = userNameSysId;
-    
+
     // 버튼, 요소 노출
     data.showUpdate = false;
     data.showSave = true
@@ -746,12 +827,12 @@ c.data.reasonRemarkMandatory = true
     grS.initialize();
     var choices = grS.getElement('quotation_type').getChoices(); // Replace with your field name
     var choicesValue = grS.getElement('quotation_type').getChoiceValue(); // Replace with your field name
-     var choiceList = [];
+    var choiceList = [];
     for (var i = 0; i < choices.length; i++) {
         var choice = choices[i];
         console.log(choice)
         choiceList.push(choice)
-        
+
     }
     data.choices = choiceList;
     // Select 가져올건데
@@ -766,6 +847,7 @@ c.data.reasonRemarkMandatory = true
         var request_date
         var complete_date
         var estimated_oi_amount
+        var currency
         var estimated_order_date
         var estimated_delivery_date
         var quotation
@@ -798,8 +880,10 @@ c.data.reasonRemarkMandatory = true
             request_date = grI.request_date.toString()
             complete_date = grI.complete_date.toString()
             estimated_oi_amount = grI.estimated_oi_amount.toString()
+            currency = grI.currency.code.toString();
+            currency_sys_id = grI.currency.toString()
             estimated_order_date = grI.estimated_order_date.toString()
-            estimated_delivery_date = grI.estimated_delivery_date.toString()         
+            estimated_delivery_date = grI.estimated_delivery_date.toString()
             quotation_type = grI.quotation_type.toString()
             quotation_due_date = grI.quotation_due_date.toString()
             yoda_opportunity_no = grI.yoda_opportunity_no.toString()
@@ -820,7 +904,7 @@ c.data.reasonRemarkMandatory = true
             request_due_date = grI.request_due_date.toString()
             remark = grI.remark.toString()
             // quotation의 라벨을 가져오는 함수 (하단에 작성 되어있음)
-            quotation_type_label = getChoiceLabel('x_yergb_bpm_rfq_entry', 'quotation_type', quotation_type); 
+            quotation_type_label = getChoiceLabel('x_yergb_bpm_rfq_entry', 'quotation_type', quotation_type);
         }
         // data 로 html 로 보내줌
         data.requester_sys_id = requester_sys_id
@@ -829,6 +913,8 @@ c.data.reasonRemarkMandatory = true
         data.request_date = request_date
         data.complete_date = complete_date
         data.estimated_oi_amount = estimated_oi_amount
+        data.currency_sys_id = currency_sys_id
+        data.currency = currency
         data.estimated_order_date = estimated_order_date
         data.estimated_delivery_date = estimated_delivery_date
         data.quotation_type = quotation_type
@@ -870,6 +956,7 @@ c.data.reasonRemarkMandatory = true
 
         //user 의 company를 찾고
         //그 컴패니의 currency의 display value를 가져와야 하는군
+        /*
         var grU = new GlideRecord('sys_user');
         grU.get(data.requester_sys_id)
         grUCompany = grU.company
@@ -880,6 +967,7 @@ c.data.reasonRemarkMandatory = true
             data.currency = grC.u_currency.code.toString()
 
         }
+            */
     }
 
 
@@ -1019,6 +1107,10 @@ c.data.reasonRemarkMandatory = true
         var request_date = input.request_date
         var complete_date = input.complete_date
         var estimated_oi_amount = getValueOrEmptyString(input.estimated_oi_amount)
+
+
+
+        var currency = input.currency_sys_id
         var estimated_order_date = input.estimated_order_date
         var estimated_delivery_date = input.estimated_delivery_date
         var quotation_due_date = input.quotation_due_date
@@ -1043,6 +1135,7 @@ c.data.reasonRemarkMandatory = true
         gr.setValue('requester', requester)
         gr.setValue('request_date', request_date)
         gr.setValue('complete_date', complete_date)
+        gr.setValue('currency', currency)
         gr.setValue('estimated_oi_amount', estimated_oi_amount)
         gr.setValue('estimated_order_date', estimated_order_date)
         gr.setValue('estimated_delivery_date', estimated_delivery_date)
@@ -1071,6 +1164,8 @@ c.data.reasonRemarkMandatory = true
         var request_date = input.request_date
         var complete_date = input.complete_date
         var estimated_oi_amount = getValueOrEmptyString(input.estimated_oi_amount)
+        var currency = input.currency_sys_id
+
         var estimated_order_date = input.estimated_order_date
         var estimated_delivery_date = input.estimated_delivery_date
         var quotation_due_date = input.quotation_due_date
@@ -1097,6 +1192,8 @@ c.data.reasonRemarkMandatory = true
         grU.setValue('request_date', request_date)
         grU.setValue('complete_date', complete_date)
         grU.setValue('estimated_oi_amount', estimated_oi_amount)
+        grU.setValue('currency', currency)
+
         grU.setValue('estimated_order_date', estimated_order_date)
         grU.setValue('estimated_delivery_date', estimated_delivery_date)
         grU.setValue('quotation_due_date', quotation_due_date)
@@ -1254,6 +1351,27 @@ c.data.reasonRemarkMandatory = true
 
     }
 
+
+    if (input && input.refer_currency_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
+
+        var items = [];
+        var gr = new GlideRecord('fx_currency');
+        gr.addQuery('active', true);
+        gr.query();
+        while (gr.next()) {
+            items.push({
+                column1: gr.getValue('code'),
+                column2: gr.getValue('sys_id'),
+                column3: gr.getValue('name')
+            });
+        }
+
+        // Pass data to the client script
+        data.items = items;
+        data.modalTitle = "CURRENCY"
+
+    }
+
     function getValueOrEmptyString(value) {
         return typeof value === 'undefined' ? '' : value;
     }
@@ -1280,14 +1398,14 @@ c.data.reasonRemarkMandatory = true
         <sys_created_by>lhyunseok</sys_created_by>
         <sys_created_on>2024-06-19 00:41:22</sys_created_on>
         <sys_id>a8544376933282104d95f55a7bba10c5</sys_id>
-        <sys_mod_count>73</sys_mod_count>
+        <sys_mod_count>112</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_a8544376933282104d95f55a7bba10c5</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-20 03:50:40</sys_updated_on>
+        <sys_updated_on>2024-06-20 08:08:59</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
@@ -1345,9 +1463,13 @@ c.data.reasonRemarkMandatory = true
                     <div class="yoko-form-col">
                         <div class="yoko-form-group">
                             <label for="type" class="yoko-short-110">Currency</label>
-                            <input type="text" name="currency" ng-model="c.data.currency" class="yoko-wid140" disabled>
-
+                            <div class="yoko-form-inline">
+                                <input type="text" name="currency" ng-model="c.data.currency" class="yoko-wid140" disabled>
+                                <input type="text" name="currency_sys_id" ng-model="c.data.currency_sys_id" placeholder="" class="yoko-wid140" ng-style="{'display': 'none'}" readonly>
+                                <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefCurrency()"></button>
+                            </div>
                         </div>
+
                         <div class="yoko-form-group">
                             <label for="est_oi_amount" class="yoko-short-110">Est OI Amount</label>
                             <input type="text" name="est_oi_amount" value="" placeholder="" class="yoko-wid140" ng-model="c.data.estimated_oi_amount">
@@ -1376,7 +1498,9 @@ c.data.reasonRemarkMandatory = true
                             </div>
                         </div>
                         <div class="yoko-form-group">
-                            <label for="type"> <h5 name="mandatoryQ" style="display: inline; margin: 0;  color: red" ng-if="c.data.quotationTypeSelectMandatory">✻</h5> Quotation type</label>
+                            <label for="type">
+                                <h5 name="mandatoryQ" style="display: inline; margin: 0;  color: red" ng-if="c.data.quotationTypeSelectMandatory">✻</h5> Quotation type
+                            </label>
                             <div class="yoko-form-inline">
                                 <select id="type" name="quotation_type_select" class="yoko-wid140" ng-model="c.data.quotation_type" ng-class="{'highlight-form': !c.data.quotation_type}" ng-options="option as option for option in c.data.choices" ng-if="data.showQuotationTypeSelect">
                                     <option value="">Select Type</option>
@@ -1450,14 +1574,14 @@ c.data.reasonRemarkMandatory = true
                             <div class="yoko-form-group">
                                 <label for="contract" class="yoko-short">Contract</label>
                                 <div class="yoko-form-inline yoko-wid172">
-                                    <input type="text" name="contract" value={{data.contract}} ng-model="c.data.contract">
-                                    <input type="text" name="contract_sys_id" value={{data.contract_sys_id}} ng-model="c.data.contract_sys_id" ng-style="{'display': 'none'}">
+                                    <input type="text" name="contract" value={{data.contract}} ng-model="c.data.contract" ng-disabled="isContractDisabled">
+                                    <input type="text" name="contract_sys_id" value={{data.contract_sys_id}} ng-model="c.data.contract_sys_id" ng-style="{'display': 'none'}" ng-disabled="isContractDisabled">
                                     <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefContract()"></button>
                                 </div>
                             </div>
                             <div class="yoko-form-group">
                                 <label for="code" class="yoko-short">Code</label>
-                                <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid172" ng-model="c.data.contract_code">
+                                <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid172" ng-model="c.data.contract_code" ng-disabled="isContractDisabled">
                             </div>
                         </div>
                         <div class="yoko-form-col">
@@ -1554,7 +1678,7 @@ c.data.reasonRemarkMandatory = true
                             </div>
                             <div class="yoko-form-group">
                                 <label for="request_due_date" class="yoko-short-110" style="width:12rem">
-                                    <h5 name="mandatory" style="display: inline; margin: 0; color: red"  ng-if="c.data.reasonCodeRequestDueDateMandatory">✻ </h5>Request Due Date
+                                    <h5 name="mandatory" style="display: inline; margin: 0; color: red" ng-if="c.data.reasonCodeRequestDueDateMandatory">✻ </h5>Request Due Date
                                 </label>
                                 <input type="date" name="request_due_date" value={{data.request_due_date}} ng-model="c.data.request_due_date" id="request_due_date" class="yoko-wid140" ng-class="{'highlight-form': !c.data.reason_code || !c.data.request_due_date || !c.data.remark}">
                             </div>
@@ -1562,7 +1686,7 @@ c.data.reasonRemarkMandatory = true
                                 <label for="remark" class="yoko-short-110" style="width:16rem">
                                     <h5 name="mandatory" style="display: inline; margin: 0; color: red" ng-if="c.data.reasonRemarkMandatory">✻ </h5>Remark
                                 </label>
-                                <textarea id="remark" name="remark" rows="8" ng-model="c.data.remark" required placeholder=""  ></textarea>
+                                <textarea id="remark" name="remark" rows="8" ng-model="c.data.remark" required placeholder=""></textarea>
                             </div>
                         </div>
                     </div>
