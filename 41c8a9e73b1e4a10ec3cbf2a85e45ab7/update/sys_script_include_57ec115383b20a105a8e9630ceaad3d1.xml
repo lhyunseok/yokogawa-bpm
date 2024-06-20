@@ -2,13 +2,13 @@
     <sys_script_include action="INSERT_OR_UPDATE">
         <access>package_private</access>
         <active>true</active>
-        <api_name>x_yergb_bpm.RealGridUtils_wbs</api_name>
+        <api_name>x_yergb_bpm.RealGridUtils_item</api_name>
         <caller_access/>
         <client_callable>false</client_callable>
         <description/>
-        <name>RealGridUtils_wbs</name>
-        <script><![CDATA[var RealGridUtils_wbs = Class.create();
-RealGridUtils_wbs.prototype = {
+        <name>RealGridUtils_item</name>
+        <script><![CDATA[var RealGridUtils_item = Class.create();
+RealGridUtils_item.prototype = {
     initialize: function() {},
 
     getRealGridKey: function() {
@@ -33,7 +33,7 @@ RealGridUtils_wbs.prototype = {
         }else if (instanceUrl.includes('dev254942')) {
             return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+4PNdCICED0lJKTWpoOpNFnkmhX0fXje4w7n7/ElITcursW4T4GvNxc=';
         } else {
-            gs.addInfoMessage('script include - RealGridUtils_wbs - PDI용 realgrid key 발급받아서 추가하세요~~');
+            gs.addInfoMessage('script include - RealGridUtils_item - PDI용 realgrid key 발급받아서 추가하세요~~');
             return;
         }
     },
@@ -370,19 +370,19 @@ RealGridUtils_wbs.prototype = {
         return columns;
     },
 
-    type: 'RealGridUtils_wbs'
+    type: 'RealGridUtils_item'
 };]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2024-06-19 15:14:29</sys_created_on>
-        <sys_id>422c82838372c6105a8e9630ceaad3e6</sys_id>
-        <sys_mod_count>3</sys_mod_count>
-        <sys_name>RealGridUtils_wbs</sys_name>
+        <sys_created_on>2024-06-20 06:26:37</sys_created_on>
+        <sys_id>57ec115383b20a105a8e9630ceaad3d1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>RealGridUtils_item</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_update_name>sys_script_include_422c82838372c6105a8e9630ceaad3e6</sys_update_name>
+        <sys_update_name>sys_script_include_57ec115383b20a105a8e9630ceaad3d1</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-20 04:28:22</sys_updated_on>
+        <sys_updated_on>2024-06-20 06:26:37</sys_updated_on>
     </sys_script_include>
 </record_update>

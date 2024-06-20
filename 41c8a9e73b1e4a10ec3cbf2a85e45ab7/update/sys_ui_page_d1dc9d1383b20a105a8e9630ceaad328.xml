@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
     <sys_ui_page action="INSERT_OR_UPDATE">
         <category>general</category>
-        <client_script><![CDATA[function addRow(dp, gridView, qvalue) {
+        <client_script><![CDATA[function addRow(dp, gridView, qvalue, month) {
     var values = {
-        order_item: qvalue
+        project: qvalue,
+        base_month: month
     };
     var dataRow = dp.addRow(values);
     gridView.setCurrent({
@@ -36,7 +37,7 @@ function createRecord(dataSets, fields) {
         var wbsCode = mappedData[1];
         mappedData[1] = wbsMap[wbsCode] || '';
 
-        var newRecord = new GlideRecord('x_yergb_bpm_cost');
+        var newRecord = new GlideRecord('x_yergb_bpm_wbs_budget');
         newRecord.initialize();
 
         fields.forEach(function(field, index) {
@@ -49,7 +50,7 @@ function createRecord(dataSets, fields) {
 }
 
 function deleteRecord(arr) {
-    var grItem = new GlideRecord('x_yergb_bpm_cost');
+    var grItem = new GlideRecord('x_yergb_bpm_wbs_budget');
     for (var i = 0; i < arr.length; i++) {
         var sys_id = arr[i];
         if (grItem.get(sys_id)) {
@@ -84,7 +85,7 @@ function updateRecord(updateSets, fields) {
         var wbsCode = mappedData[1];
         mappedData[1] = wbsMap[wbsCode] || '';
 
-        var newRecord = new GlideRecord('x_yergb_bpm_cost');
+        var newRecord = new GlideRecord('x_yergb_bpm_wbs_budget');
         newRecord.addQuery('sys_id', mappedData[0]); // sys_id 필드의 인덱스는 0
         newRecord.query();
 
@@ -101,21 +102,22 @@ function updateRecord(updateSets, fields) {
 }]]></client_script>
         <description/>
         <direct>false</direct>
-        <endpoint>x_yergb_bpm_SorinGrid_eng.do</endpoint>
+        <endpoint>x_yergb_bpm_SorinGrid_item.do</endpoint>
         <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
 <j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
 
 <g:evaluate>
-   	var item_sysid = RP.getParameterValue('item_sysid');
+   	var project_sysid = RP.getParameterValue('project_sysid');
+    var basemonth = RP.getParameterValue('basemonth');
 </g:evaluate>
 
 <g:evaluate var="jvar_now_GR" object="true">
-   var rgutil = new RealGridUtils_eng();
+   var rgutil = new RealGridUtils_item();
    var rgkey = rgutil.getRealGridKey();
    var gfields = rgutil.getFields();
    var glayouts = rgutil.getLayouts();
    var gcolumns = rgutil.getColumns();
-   var gtable = rgutil.getTableInfo(item_sysid);
+   var gtable = rgutil.getTableInfo(project_sysid, basemonth);
 </g:evaluate>
 
 <script type="text/javascript">
@@ -178,17 +180,16 @@ body[data-formName=ui_page_render] { padding: 0 !important; }
         // 데이터 설정
       	dp.setFields(fields);
       	gridView.setColumns(columns);
-     	gridView.footers.visible = true;
+     	gridView.footers.visible = false;
       	gridView.commitEditor();
       	gridView.undoable = true;
 
       	gridView.columnByName("sys_id").visible =  false;
+	  	gridView.columnByName("project").visible =  false;
 
       	gridView.editOptions.commitWhenLeave = true;
-      	//gridView.displayOptions.fitStyle = 'evenFill'
-		gridView.setFixedOptions({
-  			colCount: 2
-		});
+      	gridView.displayOptions.fitStyle = 'evenFill'
+
       	gridView.setColumnLayout(layouts);
       	dp.softDeleting = false;
       
@@ -235,7 +236,7 @@ body[data-formName=ui_page_render] { padding: 0 !important; }
       	//Add
       	const addData = document.getElementById('bt-add');
       	addData.addEventListener('click', function () {
-        	addRow(dp,gridView,"${item_sysid}");
+        	addRow(dp,gridView,"${project_sysid}","${basemonth}");
       	});
 
       	//SAVE
@@ -297,19 +298,19 @@ body[data-formName=ui_page_render] { padding: 0 !important; }
 </script>
 </j:jelly>
 ]]></html>
-        <name>SorinGrid_eng</name>
+        <name>SorinGrid_item</name>
         <processing_script/>
         <sys_class_name>sys_ui_page</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2024-06-19 16:11:05</sys_created_on>
-        <sys_id>4f19de0783b2c6105a8e9630ceaad3d7</sys_id>
-        <sys_mod_count>7</sys_mod_count>
-        <sys_name>SorinGrid_eng</sys_name>
+        <sys_created_on>2024-06-20 06:26:12</sys_created_on>
+        <sys_id>d1dc9d1383b20a105a8e9630ceaad328</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>SorinGrid_item</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_update_name>sys_ui_page_4f19de0783b2c6105a8e9630ceaad3d7</sys_update_name>
+        <sys_update_name>sys_ui_page_d1dc9d1383b20a105a8e9630ceaad328</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-20 04:51:12</sys_updated_on>
+        <sys_updated_on>2024-06-20 06:32:12</sys_updated_on>
     </sys_ui_page>
 </record_update>
