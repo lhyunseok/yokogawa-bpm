@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller = function($scope, $location) {
+        <client_script><![CDATA[api.controller = function($scope, $location,$window) {
 
     /* widget controller */
     var c = this;
@@ -50,6 +50,33 @@
     $scope.clickMSF = function() {
         alert("Working..... In progress develop..MSF");
     };
+	    //grid save 할 때 전체페이지 reload
+    $window.addEventListener('message', function(event) {
+        if (event.data.type === 'updateIframeSrc') {
+            location.reload();
+        }
+    });
+    // Function to dynamically adjust iframe height
+    function resizeIframe() {
+        var iframe = document.getElementById('myIframe');
+        if (iframe) {
+            var windowHeight = window.innerHeight;
+            iframe.style.height = Math.max(windowHeight * 0.5, 200) + 'px';
+        }
+    }
+
+    // Add event listener to resize iframe when content loads
+    $window.onload = function() {
+        resizeIframe();
+    };
+
+    // Add event listener to window resize event
+    $window.addEventListener('resize', function() {
+        resizeIframe();
+    });
+
+    // Call resizeIframe on initial load to set the initial height
+    resizeIframe();
 };]]></client_script>
         <controller_as>c</controller_as>
         <css>@charset "UTF-8";&#13;
@@ -423,7 +450,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.data_type = grProject.getDisplayValue('u_data_type'); // Data Type
             data.budget_type = grProject.getDisplayValue('u_budget_type'); // Budget Type
             data.customer = grProject.customer.name.toString(); // CustomerName
-
+						data.sys_id = grProject.sys_id.toString(); // Project sys_id
         }
         if (data.project_key) { //Get Budget Plan
             var grBudgetPlan = new GlideRecord('x_yergb_bpm_budget_plan');
@@ -442,6 +469,9 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             }
         }
     }
+	
+	  data.gridUrl = '/x_yergb_bpm_SorinGrid_wbs.do?project_sysid=' + data.sys_id + '&basemonth=' + data.base_month;
+
 
     if (input) { //Update
         var grUpdateBudgetPlan = new GlideRecord("x_yergb_bpm_budget_plan");
@@ -478,14 +508,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-19 01:58:09</sys_created_on>
         <sys_id>95e5d3f283b20210856ceec0deaad3dc</sys_id>
-        <sys_mod_count>66</sys_mod_count>
+        <sys_mod_count>70</sys_mod_count>
         <sys_name>initPlanMngtWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_95e5d3f283b20210856ceec0deaad3dc</sys_update_name>
-        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-20 00:53:53</sys_updated_on>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-20 05:08:36</sys_updated_on>
         <template><![CDATA[  <div class="yoko-container">
         <div class="yoko-title-btn-wrap">
             <div class="yoko-btn-wrap">
@@ -620,6 +650,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                     </div>
                 </div>
             </div>
+          <iframe src={{data.gridUrl}} width='100%' height='500px' style='border:none;' id='myIframe'></iframe>
         </div>
     </div>
 ]]></template>
