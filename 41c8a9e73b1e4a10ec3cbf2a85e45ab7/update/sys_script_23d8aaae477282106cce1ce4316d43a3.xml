@@ -57,9 +57,12 @@
 	gr.state = 1;
 	gr.insert();
 
+
+	
+	gs.info("SSSSS : " + gr.sys_id);
+
 	// Create OI Items
-	var quote_sys_id = '';
-	var groii = new GlideRecord('x_yergb_bpm_oi_items');
+	var groii = new GlideRecord('x_yergb_bpm_oi_item');
 	// var grq = new GlideRecord('x_yergb_bpm_quotation');
 	// grq.get(current.quotation);
 	// quote_sys_id = grq.sys_id;
@@ -94,7 +97,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>23d8aaae477282106cce1ce4316d43a3</sys_id>
-        <sys_mod_count>12</sys_mod_count>
+        <sys_mod_count>15</sys_mod_count>
         <sys_name>RFQ Entry Completed</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
@@ -102,7 +105,7 @@
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_23d8aaae477282106cce1ce4316d43a3</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-18 08:38:23</sys_updated_on>
+        <sys_updated_on>2024-06-20 02:01:05</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>
