@@ -6,8 +6,11 @@
     /* widget controller */
     var c = this;
     c.data.isRead = true;
-
-    // Function to get URL parameters
+c.data.reasonCodeMandatory = false
+c.data.reasonCodeRequestDueDateMandatory = false
+c.data.reasonRemarkMandatory = false
+	
+	// Function to get URL parameters
     /////////////////////////////////////// 파라메터 체크
     c.getUrlParameter = function(param) {
         return $location.search()[param];
@@ -15,7 +18,7 @@
     // Function to handle click event
     $scope.btnQuotation = function() {
         if (c.data.quotation) {
-            window.location.href = "/sp?id=quotation&table=x_yergb_bpm_quotation&sys_id=" + c.data.quotation_sys_id; // Redirect to the URL
+            window.location.href = "/sp?id=quotatione&table=x_yergb_bpm_quotation&sys_id=" + c.data.quotation_sys_id; // Redirect to the URL
         }
     };
     // url 에서 sys_id 가져온다. 
@@ -43,7 +46,7 @@
         } else { // 이거 새로 넣는거임
             c.data.isInsert = true;
             c.server.update().then(function(response) {
-                window.location.href = "/sp?id=reqentry&table=x_yergb_bpm_rfq_entry&sys_id=" + c.data.redirect_sys_id;
+                window.location.href = "/sp?id=rfqentry&table=x_yergb_bpm_rfq_entry&sys_id=" + c.data.redirect_sys_id;
                 // Optionally handle the server response if needed
                 if (response.data && response.data.result) {
                     //alert(response.data.result);
@@ -57,8 +60,13 @@
     $scope.btnAssess = function() {
         //alert("ASSESS?")
         // Call the server script to update the state
+			    var asterik = document.getElementsByName('mandatoryQ')[0];
+    			var quotationTypeSelect = document.getElementsByName('quotation_type_select')[0];
+
         if (c.data.quotation_type == 'undefined') {
             alert("Mandatory is empty");
+										asterik.style.color = "red";
+quotationTypeSelect.style.border = "2px solid red";
         } else {
             c.data.isUpdate = true;
             c.data.newState = 2;
@@ -71,25 +79,55 @@
         }
     };
 
-    $scope.btnRequest = function() {
-        //alert("REQUEST?")
-        // Get the value from the input field using ng-model
-        if (!c.data.reason_code || !c.data.request_due_date || !c.data.remark) {
-            alert("Mandatory is empty");
-            const reasonCode = document.querySelector('input[name="reason_code"]');
-            reasonCode.classList.add('highlight-form');
-        } else {
-            c.data.isUpdate = true;
-            c.data.newState = 3;
-            c.data.isButton = true;
-            c.server.update().then(function(response) {
-                // Handle the server response if needed
-                console.log('Server response:', response);
-                location.reload();
-            });
+   $scope.btnRequest = function() {
+    var reasonCode = document.getElementsByName('reason_code')[0];
+    var requestDueDate = document.getElementsByName('request_due_date')[0];
+    var remark = document.getElementsByName('remark')[0];
+    //var asterik = document.getElementsByName('mandatory')[0];
+    //var asterik1 = document.getElementsByName('mandatory')[1];
+    //var asterik2 = document.getElementsByName('mandatory')[2];
+
+    // Reset previous highlights
+    reasonCode.classList.remove('highlight-form');
+    requestDueDate.classList.remove('highlight-form');
+    remark.classList.remove('highlight-form');
+
+		 
+
+		 
+    // Check for mandatory fields
+    if (!c.data.reason_code || !c.data.request_due_date || !c.data.remark) {
+        alert("Mandatory is empty");
+					c.data.reasonCodeMandatory = true
+c.data.reasonCodeRequestDueDateMandatory = true
+c.data.reasonRemarkMandatory = true
+        if (!c.data.reason_code) {
+            reasonCode.style.border = "2px solid red";
+					//asterik.style.color = "red";
         }
 
+        if (!c.data.request_due_date) {
+            requestDueDate.style.border = "2px solid red";
+										//asterik1.style.color = "red";
+
+        }
+
+        if (!c.data.remark) {
+            remark.style.border = "2px solid red";
+										//asterik2.style.color = "red";
+
+        }
+    } else {
+        c.data.isUpdate = true;
+        c.data.newState = 3;
+        c.data.isButton = true;
+        c.server.update().then(function(response) {
+            // Handle the server response if needed
+            console.log('Server response:', response);
+            location.reload();
+        });
     }
+}
 
     $scope.btnSubmit = function() {
         //alert("SUBMIT?")
@@ -1239,14 +1277,14 @@
         <sys_created_by>lhyunseok</sys_created_by>
         <sys_created_on>2024-06-19 00:41:22</sys_created_on>
         <sys_id>a8544376933282104d95f55a7bba10c5</sys_id>
-        <sys_mod_count>12</sys_mod_count>
+        <sys_mod_count>71</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_a8544376933282104d95f55a7bba10c5</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-19 06:16:29</sys_updated_on>
+        <sys_updated_on>2024-06-20 01:57:06</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
@@ -1335,9 +1373,9 @@
                             </div>
                         </div>
                         <div class="yoko-form-group">
-                            <label for="type">Quotation type</label>
+                            <label for="type"> <h5 name="mandatoryQ" style="display: inline; margin: 0;  color: red" ng-if="c.data.reasonCodeMandatory">✻</h5> Quotation type</label>
                             <div class="yoko-form-inline">
-                                <select id="type" name="type" class="yoko-wid140" ng-model="c.data.quotation_type" ng-options="option as option for option in c.data.choices" ng-if="data.showQuotationTypeSelect">
+                                <select id="type" name="quotation_type_select" class="yoko-wid140" ng-model="c.data.quotation_type" ng-class="{'highlight-form': !c.data.quotation_type}" ng-options="option as option for option in c.data.choices" ng-if="data.showQuotationTypeSelect">
                                     <option value="">Select Type</option>
                                 </select>
                                 <input type="text" name="quotation_type" ng-model="c.data.quotation_type_label" class="yoko-wid140" style="font-size:12px" ng-if="data.showQuotationType">
@@ -1346,7 +1384,7 @@
 
                         <div class="yoko-form-group">
                             <label for="quotation_state">Quotation State</label>
-                            <input type="text" name="quotation_state"  class="yoko-wid140" ng-model="c.data.quotation_state" disabled>
+                            <input type="text" name="quotation_state" class="yoko-wid140" ng-model="c.data.quotation_state" disabled>
                         </div>
 
 
@@ -1507,19 +1545,23 @@
                     <div class="yoko-search-form" style="height: 260px">
                         <div class="yoko-form-col yoko-col100">
                             <div class="yoko-form-group">
-                                <label for="reason_code" class="yoko-short-110" style="width:12rem">* Reason Code</label>
-                                <input type="text" name="reason_code" ng-model="c.data.reason_code" placeholder="" class="yoko-wid140">
+                                <label for="reason_code" class="yoko-short-110" style="width:12rem">
+                                    <h5 name="mandatory" style="display: inline; margin: 0; color: red" ng-if="c.data.reasonCodeMandatory">✻ </h5>Reason Code
+                                </label> <input type="text" name="reason_code" ng-model="c.data.reason_code" placeholder="" class="yoko-wid140 " ng-class="{'highlight-form': !c.data.reason_code || !c.data.request_due_date || !c.data.remark}">
                             </div>
                             <div class="yoko-form-group">
-                                <label for="request_due_date" class="yoko-short-110" style="width:12rem">* Request Due Date</label>
-                                <input type="date" name="request_due_date" value={{data.request_due_date}} ng-model="c.data.request_due_date" id="request_due_date" class="yoko-wid140">
+                                <label for="request_due_date" class="yoko-short-110" style="width:12rem">
+                                    <h5 name="mandatory" style="display: inline; margin: 0; color: red"  ng-if="c.data.reasonCodeRequestDueDateMandatory">✻ </h5>Request Due Date
+                                </label>
+                                <input type="date" name="request_due_date" value={{data.request_due_date}} ng-model="c.data.request_due_date" id="request_due_date" class="yoko-wid140" ng-class="{'highlight-form': !c.data.reason_code || !c.data.request_due_date || !c.data.remark}">
                             </div>
                             <div class="yoko-form-group">
-                                <label for="remark" class="yoko-short-110" style="width:16rem">* Remark</label>
-                                <textarea id="remark" name="remark" rows="8" ng-model="c.data.remark" required placeholder=""></textarea>
+                                <label for="remark" class="yoko-short-110" style="width:16rem">
+                                    <h5 name="mandatory" style="display: inline; margin: 0; color: red" ng-if="c.data.reasonRemarkMandatory">✻ </h5>Remark
+                                </label>
+                                <textarea id="remark" name="remark" rows="8" ng-model="c.data.remark" required placeholder=""  ></textarea>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
