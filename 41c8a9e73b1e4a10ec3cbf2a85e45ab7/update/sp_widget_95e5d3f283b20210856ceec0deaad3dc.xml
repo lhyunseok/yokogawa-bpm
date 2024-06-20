@@ -12,19 +12,13 @@
     };
     // Function to handle click event
     $scope.handleClick = function() {
-        if (c.data.quotation) {
-            window.location.href = "/ybpm?id=epic_03_ui_init&table=x_yergb_bpm_project&sys_id=" + c.data.key; // Redirect to the URL
+        if (c.data.budget_key) {
+            window.location.href = "/ybpm?id=epic_03_ui_init&number="+c.data.number+"&table=x_yergb_bpm_budget_plan&sys_id="+c.data.budget_key; // Redirect to the URL
         }
     };
-
     // Example: Retrieve a specific parameter
     var paramValue = c.getUrlParameter('number');
     c.data.paramValue = paramValue;
-
-    // Call the server script
-    c.server.update().then(function(response) {
-        // Handle the server response if needed
-    });
 
     $scope.clickYProd = function() {
         window.location.href = "/ybpm?id=epic_03_ui_budget_y_product&number=" + c.data.paramValue;
@@ -38,9 +32,18 @@
     $scope.clickOther = function() {
         window.location.href = "/ybpm?id=epic_03_ui_budget_other&number=" + c.data.paramValue;
     };
-    $scope.clickApproval = function() {
-        alert("Working..... In progress develop..Approval");
+    $scope.clickSave = function() {
+
     };
+    $scope.clickApproval = function() {
+        alert("승인관련 팝업 작업 필요");
+        // Call the server script
+        c.server.update($scope).then(function(response) {
+            location.reload();
+        });
+		window.location.href = "/ybpm?id=epic_03_ui_init&number="+c.data.number+"&table=x_yergb_bpm_budget_plan&sys_id="+c.data.budget_key;
+    
+	};
     $scope.clickClose = function() {
         alert("Working..... In progress develop..Close");
     };
@@ -399,18 +402,18 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <script><![CDATA[(function() {
 
     data.number = $sp.getParameter("number");
-    data.planType = 'Initial';
-    data.openedBy = gs.getUser().getDisplayName();
+    data.plan_type = 'Initial';
+    data.sys_created_by = gs.getUser().getName();
     var currentDate = new GlideDate();
-    data.opened = currentDate.getValue().toString();
-    data.baseMonth = currentDate.getByFormat("yyyyMM").toString();
-	
-    if (data.number) { // Update
+    data.sys_created_on = currentDate.getValue().toString();
+    data.base_month = currentDate.getByFormat("yyyyMM").toString();
+
+    if (data.number) { // get Project
         var grProject = new GlideRecord('x_yergb_bpm_project');
         grProject.addQuery('number', data.number);
         grProject.query();
         if (grProject.next()) {
-            data.key = grProject.getUniqueValue();
+            data.project_key = grProject.getUniqueValue();
             data.number = grProject.number.toString(); //Project Number
             data.name = grProject.name.toString(); //Project Name
             data.pm = grProject.getDisplayValue('pm'); //PM Name
@@ -420,21 +423,54 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.data_type = grProject.getDisplayValue('u_data_type'); // Data Type
             data.budget_type = grProject.getDisplayValue('u_budget_type'); // Budget Type
             data.customer = grProject.customer.name.toString(); // CustomerName
-			data.state = grProject.getDisplayValue('state'); // State
-            //data.sys_id = grProject.sys_id;
+
         }
-        if (data.key) {
+        if (data.project_key) { //Get Budget Plan
             var grBudgetPlan = new GlideRecord('x_yergb_bpm_budget_plan');
-            grBudgetPlan.addQuery('project', data.key);
+            grBudgetPlan.addQuery('project', data.project_key);
             grBudgetPlan.query();
             if (grBudgetPlan.next()) {
-                data.baseMonth = grBudgetPlan.base_month.toString();
-                data.planType = "PRF";
-                data.openedBy = grBudgetPlan.getDispalyValue("sys_created_by");
-                data.opened = grBudgetPlan.sys_created_on;
-				data.budgetPlanNumber = grProject.number;
+                data.base_month = grBudgetPlan.base_month.toString(); // Base Month
+                data.plan_type = grBudgetPlan.plan_type.toString(); // Plan Type
+                data.sys_created_by = grBudgetPlan.sys_created_by.toString(); // Create By User
+                data.sys_created_on = grBudgetPlan.sys_created_on.toString(); // Create Date
+                data.budgetPlanNumber = grProject.number.toString(); //Number
+				data.budget_key = grBudgetPlan.getUniqueValue().toString(); // Budget SysId
+				data.dmr = grBudgetPlan.dmr.toString(); // DMR Approve line
+                data.state = grBudgetPlan.getDisplayValue('state'); // State
+				data.project = grBudgetPlan.project; //Project Reference
             }
         }
+    }
+
+    if (input) { //Update
+        var grUpdateBudgetPlan = new GlideRecord("x_yergb_bpm_budget_plan");
+        grUpdateBudgetPlan.get(input.budget_key); //Budget Plan sys_id
+        if (grUpdateBudgetPlan.getRowCount() > 0) {
+            grUpdateBudgetPlan.project = input.project_key;
+			grUpdateBudgetPlan.base_month = input.base_month;
+			grUpdateBudgetPlan.contract = input.contract;
+			grUpdateBudgetPlan.gpa = input.gpa;
+			grUpdateBudgetPlan.gp = input.gp;
+			grUpdateBudgetPlan.dmr = input.dmr;
+			grUpdateBudgetPlan.total_cost = input.total_cost;
+			grUpdateBudgetPlan.data_type = input.data_type;
+			grUpdateBudgetPlan.update();
+        } else { //Insert
+			grUpdateBudgetPlan.initialize();
+            grUpdateBudgetPlan.project = input.project_key;
+			grUpdateBudgetPlan.base_month = input.base_month;
+			grUpdateBudgetPlan.plan_type = input.plan_type;
+			grUpdateBudgetPlan.contract = input.contract;
+			grUpdateBudgetPlan.gpa = input.gpa;
+			grUpdateBudgetPlan.gp = input.gp;
+			grUpdateBudgetPlan.dmr = input.dmr;
+			grUpdateBudgetPlan.state = "0";
+			grUpdateBudgetPlan.total_cost = input.total_cost;
+			grUpdateBudgetPlan.data_type = input.data_type;
+			var grSysId = grUpdateBudgetPlan.insert();
+			data.budget_key_1 = grSysId;
+		}
     }
 })();]]></script>
         <servicenow>false</servicenow>
@@ -442,14 +478,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-19 01:58:09</sys_created_on>
         <sys_id>95e5d3f283b20210856ceec0deaad3dc</sys_id>
-        <sys_mod_count>7</sys_mod_count>
+        <sys_mod_count>66</sys_mod_count>
         <sys_name>initPlanMngtWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_95e5d3f283b20210856ceec0deaad3dc</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-19 04:13:11</sys_updated_on>
+        <sys_updated_on>2024-06-20 00:53:53</sys_updated_on>
         <template><![CDATA[  <div class="yoko-container">
         <div class="yoko-title-btn-wrap">
             <div class="yoko-btn-wrap">
@@ -469,20 +505,20 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                 <div class="yoko-search-form">
                     <div class="yoko-form-group">
                         <label for="base_month" class="yoko-short">Base Month</label>
-                        <input type="text" name="base_month" value={{data.baseMonth}} placeholder="" disabled class="yoko-wid140">
+                        <input type="text" name="base_month" value={{data.base_month}} placeholder="" disabled class="yoko-wid140">
                     </div>
                     <div class="yoko-form-group">
                         <label for="plan_type" class="yoko-short">Plan Type</label>
-                        <input type="text" name="plan_type" value={{data.planType}} placeholder="" disabled class="yoko-wid140">
+                        <input type="text" name="plan_type" value={{data.plan_type}} placeholder="" disabled class="yoko-wid140">
                     </div>
-                    <div class="yoko-form-group">
+                    <!--<div class="yoko-form-group">
                         <label for="opened_by" class="yoko-short">Opened By</label>
-                        <input type="text" name="opened_by" value={{data.openedBy}} placeholder="" disabled class="yoko-wid140">
+                        <input type="text" name="sys_created_by" value={{data.sys_created_by}} placeholder="" disabled class="yoko-wid140">
                     </div>
                     <div class="yoko-form-group">
                         <label for="opened" class="yoko-short">Opened</label>
-                        <input type="text" name="opened" value={{data.opened}} placeholder="" disabled class="yoko-wid140">
-                    </div>
+                        <input type="text" name="sys_created_on" value={{data.sys_created_on}} placeholder="" disabled class="yoko-wid160">
+                    </div> -->
                 </div>
             </div>
             <div class="yoko-search-form-wrapper">
@@ -535,7 +571,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                             <div class="yoko-form-group">
                                 <label for="dmr" class="yoko-short">DMR</label>
                                 <div class="yoko-form-inline">
-                                    <input type="text" name="dmr" value="" placeholder="" class="yoko-wid140">
+                                    <input type="text" name="dmr" ng-model="data.dmr" value="" placeholder="" disabled class="yoko-wid140">
                                     <button type="button" class="yoko-btn yoko-btn-search"></button>
                                 </div>
                             </div>
