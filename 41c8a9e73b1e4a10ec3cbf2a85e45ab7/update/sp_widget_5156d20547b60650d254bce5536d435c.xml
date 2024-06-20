@@ -22,7 +22,19 @@
             alert('Error updating state');
         });
     };
+	
+	    // Create New
+    $scope.btnClickNew = function(fieldName, fieldValue) {
 
+        c.data.operation = 'createNew';
+        c.server.update().then(function(response) {
+        		window.location.href = "/ybpm?id=quotation&table=x_yergb_bpm_quotation&sys_id=" + c.data.redirect_sys_id;
+        }).catch(function(error) {
+            console.error('Error saving field:', error);
+            alert('Error saving field');
+        });
+    };
+	
     // Function to save a single field
     $scope.saveField = function(fieldName, fieldValue) {
         if (!fieldValue) {
@@ -304,6 +316,9 @@ body {margin: 0;  font-family: "Pretendard"; font-size: 14px; font-weight: 400; 
             data.total_quote_price = grI.getDisplayValue('total_quote_price');
             data.version = grI.getValue('version');
             data.ess = grI.getDisplayValue('ess');
+					  data.assignment_group_value = grI.getValue('assignment_group');
+            data.assigned_to_value = grI.getValue('assigned_to');
+
         }
     }
 
@@ -342,7 +357,7 @@ body {margin: 0;  font-family: "Pretendard"; font-size: 14px; font-weight: 400; 
         var sysId = input.sys_id;
         var operation = input.operation;
 
-        if (sysId && operation) {
+        if (operation === 'saveField' || operation === 'updateState') {
             var gr = new GlideRecord('x_yergb_bpm_quotation');
 
             if (gr.get(sysId)) {
@@ -353,7 +368,24 @@ body {margin: 0;  font-family: "Pretendard"; font-size: 14px; font-weight: 400; 
                 }
                 gr.update();
             }
-        }
+        }else if(operation === 'createNew'){
+						var gr2 = new GlideRecord('x_yergb_bpm_quotation');
+					  gr2.initialize();
+       		 	gr2.setValue('number', input.number);
+     		   	gr2.setValue('rfq_entry', input.rfq_entry_id);
+        		gr2.setValue('version', parseInt(input.version) + 1);
+					  gr2.setValue('state', 1);
+						gr2.setValue('assignment_group', input.assignment_group_value);
+						gr2.setValue('assigned_to', input.assigned_to_value);
+						gr2.insert();
+						data.redirect_sys_id = gr2.getUniqueValue();
+					
+					  var grRfq2 = new GlideRecord('x_yergb_bpm_rfq_entry');
+        		if (grRfq2.get(input.rfq_entry_id)) {
+								grRfq2.setValue('quotation', gr2.getUniqueValue());            
+								grRfq2.update();
+        		}				
+				}
     }
 
 
@@ -363,20 +395,20 @@ body {margin: 0;  font-family: "Pretendard"; font-size: 14px; font-weight: 400; 
         <sys_created_by>hhkim</sys_created_by>
         <sys_created_on>2024-06-13 10:51:05</sys_created_on>
         <sys_id>5156d20547b60650d254bce5536d435c</sys_id>
-        <sys_mod_count>134</sys_mod_count>
+        <sys_mod_count>141</sys_mod_count>
         <sys_name>quotationWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_5156d20547b60650d254bce5536d435c</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-19 06:37:17</sys_updated_on>
+        <sys_updated_on>2024-06-20 08:44:20</sys_updated_on>
         <template><![CDATA[    <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > Quotation</div>
         <div class="yoko-title-btn-wrap">
             <h1 class="yoko-title">Quotation</h1>
             <div class="yoko-btn-wrap">
-                <button class="yoko-btn yoko-btn-outline" ng-if="data.showNew" ng-click="clickNew()">Create New</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.showNew" ng-click="btnClickNew()">Create New</button>
                 <button class="yoko-btn yoko-btn-outline" ng-if="data.showComplete" ng-click="btnClickComplete()">Complete</button>
                 <button class="yoko-btn yoko-btn-outline" ng-if="data.showUpdate" ng-click="btnClickUpdate()">Update</button>
                 <button class="yoko-btn yoko-btn-fill" ng-if="data.showSave" ng-click="saveField('ess_sqms_no', c.data.ess_sqms_no)">Save</button>
