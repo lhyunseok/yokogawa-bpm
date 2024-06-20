@@ -7,6 +7,7 @@
         <element label="Vendor" max_length="32" name="vendor" reference="core_company" reference_qual="vendor=true^EQ" reference_qual_condition="vendor=true^EQ" type="reference"/>
         <element label="GP Amount" max_length="40" name="gp_amount" type="decimal"/>
         <element label="Description" max_length="4000" name="description" type="string"/>
+        <element label="OI Report" max_length="32" name="oi_report" reference="x_yergb_bpm_oi_report" type="reference"/>
         <element label="Unit Cost" max_length="40" name="unit_cost" type="decimal"/>
         <element label="Extended Price" max_length="40" name="extended_price" type="decimal"/>
         <element label="Extended Cost" max_length="40" name="extended_cost" type="decimal"/>
@@ -15,6 +16,9 @@
             <element name="vendor"/>
         </index>
         <index name="index2">
+            <element name="oi_report"/>
+        </index>
+        <index name="index3">
             <element name="wbs_6"/>
         </index>
     </element>
