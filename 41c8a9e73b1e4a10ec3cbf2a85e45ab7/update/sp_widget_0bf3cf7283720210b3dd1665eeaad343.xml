@@ -7,7 +7,13 @@
 
 	var modalOrderType = document.getElementById("modalOrderType");
 	var modalProjectType = document.getElementById("modalProjectType");
+	var modalAnsoff = document.getElementById("modalAnsoff");
 	
+	c.data.initScreen = true;
+	c.data.initOiReport = true;
+	c.data.initRfqEntry = true;
+	c.data.initQuotation = true;
+
 	c.data.showAddInfo = true;
 	c.data.showRFQEntry = true;
 	c.data.showQuotation = true;
@@ -18,6 +24,8 @@
 	c.data.checkedDES = false;
 	c.data.checkedSmart = false;
 	
+	c.data.itemsFlagName = [];
+	
 	/* Modal type */
 	c.data.modalOrderType = false;
 	c.data.modalTypeOrderType = false;
@@ -26,9 +34,8 @@
 	c.data.modalTypePayTerms = false;
 	
 	c.data.modalProjectType = false;
-	c.data.modalTypePrjType1 = false;
-	c.data.modalTypePrjType2 = false;
-	c.data.modalTypePrjType3 = false;
+	
+	c.data.modalAnsoff = false;
 	
 	$scope.displayScreen = function(idx) {
 		if(idx == 1) {
@@ -56,7 +63,7 @@
 	}
 	
 	$scope.btnClickOrdTypeSearch = function(idx) {
-		console.log("BTN : Ord type Search : Modal block--" + idx);
+		c.data.itemsOrdertype = [];
 		modalOrderType.style.display = 'block';
 		c.data.modalOrderType = true;
 		
@@ -123,17 +130,16 @@
 	}
 	
 	$scope.btnClickPrjTypeSearch = function(idx) {
-		console.log("BTN : Project Type Search---"+idx);
+		c.data.itemsProjecttype = [];
 		modalProjectType.style.display = 'block';
 		c.data.modalProjectType = true;
-		c.data.modalProjectTypeTitle = 'Project Type';
 		
 		if(idx == 1) {
-			c.data.modalTypePrjType1 = true;
+			c.data.modalProjectTypeTitle = 'Project Type 1';
 		} else if(idx == 2) {
-			c.data.modalTypePrjType2 = true;
+			c.data.modalProjectTypeTitle = 'Project Type 2';
 		} else if(idx == 3) {
-			c.data.modalTypePrjType3 = true;
+			c.data.modalProjectTypeTitle = 'Project Type 3';
 		}
 		c.server.update().then(function(response) {
 			console.log('Server response:', response);
@@ -150,6 +156,17 @@
 	
 	$scope.btnClickAnsoffTypeSearch = function(idx) {
 		console.log("BTN : Ansoff Type Search---"+idx);
+		c.data.itemsAnsoff = [];
+		modalAnsoff.style.display = 'block';
+		c.data.modalAnsoff = true;
+		
+		if(idx == 1){
+			c.data.modalAnsoffTitle = 'Ansoff Type 1';
+		} else if(idx == 2) {
+			c.data.modalAnsoffTitle = 'Ansoff Type 2';
+		} else if(idx == 3) {
+			c.data.modalAnsoffTitle = 'Ansoff Type 3';
+		}
 		c.server.update().then(function(response) {
 			console.log('Server response:', response);
 		});
@@ -158,12 +175,13 @@
 	$scope.btnClickAnsoffTypeInfo = function(idx) {
 		console.log("BTN : Ansoff Type Info---"+idx);
 		c.server.update().then(function(response) {
+					console.log("RESPONSE : Ansoff Type Info---"+idx);
 			console.log('Server response:', response);
 		});
 	}
 	
 	
-	/* Modal Order type */
+	/* Modal Close button */
 	$scope.closeModalOrderType = function() {
 		c.data.modalOrderType = false;
 		c.data.modalTypeOrderType = false;
@@ -176,12 +194,24 @@
 	
 	$scope.closeModalProjectType = function() {
 		c.data.modalProjectType = false;
-		c.data.modalTypePrjType1 = false;
-		c.data.modalTypePrjType2 = false;
-		c.data.modalTypePrjType3 = false;
 		
 		modalProjectType.style.display = 'none';
 	}
+	
+	$scope.closeModalAnsoff = function() {
+		c.data.modalAnsoff = false;
+		
+		modalAnsoff.style.display = 'none';
+	}
+	
+	c.server.update().then(function(response) {
+		console.log('Init screen rsponse:', response);
+		
+		c.data.initScreen = false;
+		c.data.initOiReport = false;
+		c.data.initRfqEntry = false;
+		c.data.initQuotation = false;
+	});
 };]]></client_script>
         <controller_as>c</controller_as>
         <css>@charset "UTF-8";
@@ -461,12 +491,81 @@
 	console.log("USER NAME : " + gs.getUser().getDisplayName());
 	console.log("SYS ID : " + gs.getUser().getID());
 	
-	console.log(input);
+	/* TEST DATA */
+	var oiSysId = '049440b63b3e4210ec3cbf2a85e45afd';
+	var rfqSysId = '';
+	var quotsysId = '';
 
+	if(input && input.initScreen) {
+		data.itemsFlagName = [];
+		var grData = new GlideRecord('x_yergb_bpm_flag_master');
+		grData.addQuery('active', true);
+		grData.addQuery('module', 'OI Report');
+		grData.query();
+		while(grData.next()) {
+			data.itemsFlagName.push(grData.code.toString());
+		}
+	}
+	
+	if(input && input.initOiReport) {
+		var oiReportData = new GlideRecord('x_yergb_bpm_oi_report');
+		oiReportData.addQuery('sys_id', oiSysId);
+		oiReportData.query();
+
+		while(oiReportData.next()) {
+			data.oiNum = oiReportData.number.toString();
+			data.oiState = oiReportData.state.toString();
+			data.oiAmtLC = oiReportData.oi_amount_lc.toString();
+			data.oiAmtTC = oiReportData.oi_amount_tc.toString();
+			data.gpAmt = oiReportData.gp_amount_lc.toString();
+			data.mpAmt = oiReportData.mp_amount_lc.toString();
+			data.gpPerc = oiReportData.gp_percent.toString();
+			data.mpPerc = oiReportData.mp_gap_percent.toString();
+			data.totEstCost = oiReportData.total_extended_cost_tc.toString();
+			data.oiVer = oiReportData.version.toString();
+			rfqSysId = oiReportData.rfq_entry.toString();
+		}
+	}
+
+	if(input && input.initRfqEntry) {
+		if(rfqSysId != '') {
+			var rfqEntryData = new GlideRecord('x_yergb_bpm_rfq_entry');
+			rfqEntryData.addQuery('sys_id', rfqSysId);
+			rfqEntryData.query();
+			while(rfqEntryData.next()) {
+				data.rfqNumber = rfqEntryData.number.toString();
+				data.endUser = rfqEntryData.end_user.name.toString();
+				data.ProjectNm = rfqEntryData.project_title.toString();
+				data.yodaOpportNo = rfqEntryData.yoda_opportunity_no.toString();
+				quotsysId = rfqEntryData.quotation.toString();
+			}
+		}
+	}
+
+	if(input && input.initQuotation) {
+		if(quotsysId != '') {
+			var quotData = new GlideRecord('x_yergb_bpm_quotation');
+			quotData.addQuery('sys_id', quotsysId);
+			quotData.query();
+
+			while(quotData.next()) {
+				data.quotNum = quotData.number.toString();
+				dataEssNo = quotData.ess_sqms_no.toString();
+				data.currency = quotData.currency.toString();
+				data.gpAmount = quotData.gp_amount.toString();
+				data.mpAmount = quotData.mp_amount.toString();
+				data.estimateCost = quotData.total_quote_price.toString();
+				data.mpGapPercent = quotData.mp_gap_percent.toString();
+				data.gpPercent = quotData.gp_percent.toString();
+			}
+		}
+	}
+	
+	
 	/* Order type Modal */
-	data.itemsOrdertype = [];
 	if(input && input.modalOrderType) {
-		var grOrdType;// = new GlideRecord('x_yergb_bpm_common_code');
+		data.itemsOrdertype = [];
+		var grOrdType;
 		if(input && input.modalTypeOrderType) {
 			grOrdType = new GlideRecord('x_yergb_bpm_common_code');
 			grOrdType.addQuery('category', 'ORDER TYPE');
@@ -491,27 +590,40 @@
 		}
 	}
 	
-	/*
-	if() {
-		itemsProjecttype
-	}*/
-
-
-	console.log('Finish');
+	/* Project type Modal */
+	if(input && input.modalProjectType) {
+		data.itemsProjecttype = [];
+		var grPjtType = new GlideRecord('x_yergb_bpm_common_code');
+		grPjtType.addQuery('category', 'PJT TYPE');		
+		grPjtType.query();
+		while(grPjtType.next()) {
+				data.itemsProjecttype.push(grPjtType.name.toString());
+		}
+	}
+	
+	/* Ansoff Modal */
+	if(input && input.modalAnsoff) {
+		data.itemsAnsoff = [];
+		var grAnsoff = new GlideRecord('x_yergb_bpm_ansoff_master');
+		grAnsoff.query();
+		while(grAnsoff.next()) {
+				data.itemsAnsoff.push(grAnsoff.biz_name.toString());
+		}
+	}
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>105</sys_mod_count>
+        <sys_mod_count>178</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-19 08:51:01</sys_updated_on>
+        <sys_updated_on>2024-06-20 05:08:29</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
         <!-- <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div> -->
@@ -534,22 +646,22 @@
                     <div class="yoko-form-col">
                         <div class="yoko-form-group">
                             <label for="lbOINo" class="yoko-short">OI No.</label>
-                            <input type="number" name="inputOINo" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                            <input type="text" name="inputOINo" value="" ng-model="c.data.oiNum" placeholder="" disabled class="yoko-wid140">
                         </div>
                         <div class="yoko-form-group">
                             <label for="lbVersion" class="yoko-short">Version</label>
-                            <input type="number" name="inputVersion" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                            <input type="text" name="inputVersion" value="" ng-model="c.data.oiVer" placeholder="" disabled class="yoko-wid140">
                         </div>
                         <div class="yoko-form-group">
                             <label for="lbOpener" class="yoko-short">opened by</label>
-                            <input type="number" name="inputOpener" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                            <input type="text" name="inputOpener" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
                         </div>
                     </div>
                     
                     <div class="yoko-form-col">
                         <div class="yoko-form-group">
                             <label for="lbState" class="yoko-short-100">State</label>
-                            <input type="text" name="inputState" value="" ng-model="" placeholder="" class="yoko-wid308" disabled>
+                            <input type="text" name="inputState" value="" ng-model="c.data.oiState" placeholder="" class="yoko-wid308" disabled>
                         </div>
                         <div class="yoko-form-group">
                             <label for="lbSalesMng" class="yoko-short-100">Sales Manager</label>
@@ -578,33 +690,33 @@
                     <div class="yoko-form-col">
                         <div class="yoko-form-group">
                             <label for="lbOIAmountTC" class="yoko-short-100">OI Amount(TC)</label>
-                            <input type="number" name="inputOIAmountTC" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                            <input type="number" name="inputOIAmountTC" value="" ng-model="c.data.oiAmtTC" placeholder="" disabled class="yoko-wid140">
                         </div>
                         <div class="yoko-form-group">
                             <label for="lbOIAmountLC" class="yoko-short-100">OI Amount(LC)</label>
-                            <input type="number" name="inputOIAmountLC" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                            <input type="number" name="inputOIAmountLC" value="" ng-model="c.data.oiAmtLC" placeholder="" disabled class="yoko-wid140">
                         </div>
                         <div class="yoko-form-group">
                             <label for="lbTotEstCost" class="yoko-short-100">Total Est. Cost</label>
-                            <input type="number" name="inputTotEstCost" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                            <input type="number" name="inputTotEstCost" value="" ng-model="c.data.totEstCost" placeholder="" disabled class="yoko-wid140">
                         </div>
                     </div>
                     <div class="yoko-form-col">
                         <div class="yoko-form-group">
                             <label for="lbGpAmount" class="yoko-short">GP Amount</label>
-                            <input type="number" name="inputGpAmount" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                            <input type="number" name="inputGpAmount" value="" ng-model="c.data.gpAmt" placeholder="" disabled class="yoko-wid140">
                         </div>
                         <div class="yoko-form-group">
                             <label for="lbMpAmount" class="yoko-short">MP Amount</label>
-                            <input type="number" name="inputMpAmount" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                            <input type="number" name="inputMpAmount" value="" ng-model="c.data.mpAmt" placeholder="" disabled class="yoko-wid140">
                         </div>
                         <div class="yoko-form-group">
                             <label for="lbGPRatio" class="yoko-short">GP %</label>
-                            <input type="number" name="inputGPRatio" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                            <input type="number" name="inputGPRatio" value="" ng-model="c.data.gpPerc" placeholder="" disabled class="yoko-wid140">
                         </div>
                         <div class="yoko-form-group">
                             <label for="lbMPRatio" class="yoko-short">MP Gap %</label>
-                            <input type="number" name="inputMPRatio" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                            <input type="number" name="inputMPRatio" value="" ng-model="c.data.mpPerc" placeholder="" disabled class="yoko-wid140">
                         </div>
                     </div>
                 </div>
@@ -854,7 +966,7 @@
                                                             <input type="checkbox" [checked]="c.data.checkedSDG" />
                                                             <span class="checkmark"></span>
                                                         </div>
-                                                        SDG
+                                                        {{c.data.itemsFlagName[0]}}
                                                     </label>
                                                 </div>
                                                 <div class="yoko-form-group">
@@ -863,7 +975,7 @@
                                                             <input type="checkbox" [checked]="c.data.checkedDXP" />
                                                             <span class="checkmark"></span>
                                                         </div>
-                                                        DXP
+                                                        {{c.data.itemsFlagName[1]}}
                                                     </label>
                                                 </div>
                                             </div>
@@ -874,7 +986,7 @@
                                                             <input type="checkbox" [checked]="c.data.checkedAI" />
                                                             <span class="checkmark"></span>
                                                         </div>
-                                                        AI
+                                                        {{c.data.itemsFlagName[2]}}
                                                     </label>
                                                 </div>
                                                 <div class="yoko-form-group">
@@ -883,7 +995,7 @@
                                                             <input type="checkbox" [checked]="c.data.checkedDES" />
                                                             <span class="checkmark"></span>
                                                         </div>
-                                                        DES Service
+                                                        {{c.data.itemsFlagName[3]}}
                                                     </label>
                                                 </div>
                                             </div>
@@ -894,7 +1006,7 @@
                                                             <input type="checkbox" [checked]="c.data.checkedSmart" />
                                                             <span class="checkmark"></span>
                                                         </div>
-                                                        Smart Manufacturing
+                                                        {{c.data.itemsFlagName[4]}}
                                                     </label>
                                                 </div>
                                             </div>
@@ -916,7 +1028,7 @@
                                 <div class="yoko-form-inline">
                                     <div class="yoko-form-group">
                                         <label for="lbRfqNo" class="yoko-short-110">RFQ No.</label>
-                                        <input type="text" name="inputRfqNo" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                                        <input type="text" name="inputRfqNo" value="" ng-model="c.data.rfqNumber" placeholder="" disabled class="yoko-wid140">
                                     </div>
                                     <div class="yoko-form-group">
                                         <label for="lbCustomerPoNo" class="yoko-short-110">Customer PO No.</label>
@@ -926,18 +1038,18 @@
                             </div>
                             <div class="yoko-form-group">
                                 <label for="lbYodaPportunity" class="yoko-short-110">YODA Opportunity</label>
-                                <input type="text" name="inputYodaPportunity" value="" ng-model="" placeholder="" disabled class="yoko-col100">
+                                <input type="text" name="inputYodaPportunity" value="" ng-model="c.data.yodaOpportNo" placeholder="" disabled class="yoko-col100">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="lbProjectName" class="yoko-short-110">Project Name</label>
-                                <input type="text" name="inputProjectName" value="" ng-model="" placeholder="" disabled class="yoko-col100">
+                                <input type="text" name="inputProjectName" value="" ng-model="c.data.ProjectNm" placeholder="" disabled class="yoko-col100">
                             </div>
                         </div>
                         <div class="yoko-form-col">
                             <div class="yoko-form-group">
                                 <label for="lbEndUser" class="yoko-short-100">End User</label>
                                 <div class="yoko-form-inline">
-                                    <input type="number" name="inputEndUser1" value="" ng-model="" placeholder="" class="yoko-wid100">
+                                    <input type="number" name="inputEndUser1" value="" ng-model="c.data.endUser" placeholder="" class="yoko-wid100">
                                     <input type="text" name="inputEndUser2" value="" ng-model="" placeholder="" disabled class="">
                                 </div>
                             </div>
@@ -981,16 +1093,16 @@
                                 <div class="yoko-form-group">
                                     <div class="yoko-form-group">
                                         <label for="lbQuotationNo" class="yoko-short-110">Quotation No</label>
-                                        <input type="text" name="inputQuotationNo" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                                        <input type="text" name="inputQuotationNo" value="" ng-model="c.data.quotNum" placeholder="" disabled class="yoko-wid140">
                                     </div>
                                 </div>
                                 <div class="yoko-form-group">
                                     <label for="lbEssSqmsNo" class="yoko-short-110">ESS/SQMS No.</label>
-                                    <input type="text" name="inputEssSqmsNo" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                                    <input type="text" name="inputEssSqmsNo" value="" ng-model="c.dataEssNo" placeholder="" disabled class="yoko-wid140">
                                 </div>
                                 <div class="yoko-form-group">
                                     <label for="lbCurrency" class="yoko-short-110">Currency</label>
-                                    <input type="text" name="inputCurrency" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                                    <input type="text" name="inputCurrency" value="" ng-model="c.data.currency" placeholder="" disabled class="yoko-wid140">
                                 </div>
                             </div>
                             <div class="yoko-form-col">
@@ -1021,7 +1133,7 @@
                         <div class="yoko-form-col">
                             <div class="yoko-form-group">
                                 <label for="lbMpAmount2" class="yoko-short">MP Amount</label>
-                                <input type="text" name="inputMpAmount2" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                                <input type="text" name="inputMpAmount2" value="" ng-model="c.data.mpAmount" placeholder="" disabled class="yoko-wid140">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="lbMpGap2" class="yoko-short">MP GAP</label>
@@ -1029,21 +1141,21 @@
                             </div>
                             <div class="yoko-form-group">
                                 <label for="lbMpGap3" class="yoko-short">MP Gap %</label>
-                                <input type="text" name="inputMpGap3" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                                <input type="text" name="inputMpGap3" value="" ng-model="c.data.mpGapPercent" placeholder="" disabled class="yoko-wid140">
                             </div>
                         </div>
                         <div class="yoko-form-col">
                             <div class="yoko-form-group">
                                 <label for="lbTotalEstimatedCost" class="yoko-short-130">Total Estimated Cost</label>
-                                <input type="text" name="inputTotalEstimatedCost" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                                <input type="text" name="inputTotalEstimatedCost" value="" ng-model="c.data.estimateCost" placeholder="" disabled class="yoko-wid140">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="lbGpAmount2" class="yoko-short-130">GP Amount</label>
-                                <input type="text" name="inputGpAmount2" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                                <input type="text" name="inputGpAmount2" value="" ng-model="c.data.gpAmount" placeholder="" disabled class="yoko-wid140">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="lbGp2" class="yoko-short-130">GP %</label>
-                                <input type="text" name="inputGp2" value="" ng-model="" placeholder="" disabled class="yoko-wid140">
+                                <input type="text" name="inputGp2" value="" ng-model="c.data.gpPercent" placeholder="" disabled class="yoko-wid140">
                             </div>
                         </div>
                     </div>
@@ -1059,7 +1171,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
-                <h2>{{data.modalOrderTypeTitle}}</h2>
+                <h2>{{c.data.modalOrderTypeTitle}}</h2>
             </div>
             <div class="modal-body">
 
@@ -1088,7 +1200,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
-                <h2>{{data.modalProjectTypeTitle}}</h2>
+                <h2>{{c.data.modalProjectTypeTitle}}</h2>
             </div>
             <div class="modal-body">
 
@@ -1108,6 +1220,33 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" ng-click="closeModalProjectType()">Close</button>
+            </div>
+        </div>
+    </div>
+  
+  	<!-- Modal Order type Structure -->
+    <div id="modalAnsoff" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>{{c.data.modalAnsoffTitle}}</h2>
+            </div>
+            <div class="modal-body">
+                <ul id="container" class="container">
+                    <li ng-repeat="item in c.data.itemsAnsoff">
+                        <!--<span ng-click="c.logSysId(item.column1, item.column2, item.column3) ">{{ item.column1 }}</span>
+                        <span ng-if="false">{{ item.column2 }}</span>
+                        <span>{{ item.column3 }}</span>
+                        <span>{{ item.column4 }}</span>-->
+                      <span>{{item}}</span>
+                    </li>
+                </ul>
+  
+                <div class="pagination" id="pagination"></div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="closeModalAnsoff()">Close</button>
             </div>
         </div>
     </div>
