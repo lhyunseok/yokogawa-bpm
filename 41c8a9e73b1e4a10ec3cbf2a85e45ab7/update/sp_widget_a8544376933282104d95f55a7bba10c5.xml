@@ -804,8 +804,9 @@ function getCurrentDate() {
     var grC = new GlideRecord('core_company')
     if (grC.get(grUCompany)) {
         var currency = grC.u_currency.code
-        gs.addInfoMessage(currency)
+        //gs.addInfoMessage(currency)
         data.currency = grC.u_currency.code.toString()
+        data.currency_sys_id = grC.u_currency.toString()
 
     }
 
@@ -881,7 +882,7 @@ function getCurrentDate() {
             complete_date = grI.complete_date.toString()
             estimated_oi_amount = grI.estimated_oi_amount.toString()
             currency = grI.currency.code.toString();
-            currency_sys_id = grI.currency.toString()
+            currency_sys_id = grI.currency.sys_id.toString()
             estimated_order_date = grI.estimated_order_date.toString()
             estimated_delivery_date = grI.estimated_delivery_date.toString()
             quotation_type = grI.quotation_type.toString()
@@ -903,6 +904,7 @@ function getCurrentDate() {
             reason_code = grI.reason_code.toString()
             request_due_date = grI.request_due_date.toString()
             remark = grI.remark.toString()
+					//gs.addErrorMessage(currency_sys_id)
             // quotation의 라벨을 가져오는 함수 (하단에 작성 되어있음)
             quotation_type_label = getChoiceLabel('x_yergb_bpm_rfq_entry', 'quotation_type', quotation_type);
         }
@@ -1111,6 +1113,7 @@ function getCurrentDate() {
 
 
         var currency = input.currency_sys_id
+				//gs.addErrorMessage(currency)
         var estimated_order_date = input.estimated_order_date
         var estimated_delivery_date = input.estimated_delivery_date
         var quotation_due_date = input.quotation_due_date
@@ -1398,14 +1401,14 @@ function getCurrentDate() {
         <sys_created_by>lhyunseok</sys_created_by>
         <sys_created_on>2024-06-19 00:41:22</sys_created_on>
         <sys_id>a8544376933282104d95f55a7bba10c5</sys_id>
-        <sys_mod_count>112</sys_mod_count>
+        <sys_mod_count>119</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_a8544376933282104d95f55a7bba10c5</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-20 08:08:59</sys_updated_on>
+        <sys_updated_on>2024-06-20 08:29:14</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
