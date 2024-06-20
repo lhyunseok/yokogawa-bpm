@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_yergb_bpm.RealGridUtils_bop</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>RealGridUtils_bop</name>
+        <script><![CDATA[var RealGridUtils_bop = Class.create();
+RealGridUtils_bop.prototype = {
+    initialize: function() {},
+
+    getRealGridKey: function() {
+        var instanceUrl = gs.getProperty('glide.servlet.uri');
+
+        if (instanceUrl.includes('yokogawabpmdev')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYnPAZ2U443ftFtq1GKyB4jmAL12I5YlRY7nDp96mgkGF1aIR/+OY0FAv/bXcyw/1FAj+gHj1bcIaQ==';
+        } else if (instanceUrl.includes('dev51314')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP++bUn16KUuDYPGjmXkNrgkO9y6iqz39NL2bv3IdPQpJ8IeMqlSWuW04=';
+        } else if (instanceUrl.includes('dev197054')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+xy/pIW0HghIJKTWpoOpNFnkmhX0fXje4w7n7/ElITcuCZPJfHzThFk=';
+        } else if (instanceUrl.includes('dev251919')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+5kVu6qIimZpJKTWpoOpNFnkmhX0fXje4w7n7/ElITcuCZPJfHzThFk=';
+        } else if (instanceUrl.includes('dev178808')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+xoV7b+wGal7JKTWpoOpNFnkmhX0fXje4w7n7/ElITcuQU5++nrgCcc=';
+        } else if (instanceUrl.includes('dev260285')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+w9HPS02Uro1JKTWpoOpNFnkmhX0fXje4w7n7/ElITcuJBKTc5vuhGc=';
+        } else if (instanceUrl.includes('dev257309')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+3l1JW85tSroJKTWpoOpNFnkmhX0fXje4w7n7/ElITcu25tIywHuN+4=';
+        } else if (instanceUrl.includes('dev208377')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+yzsSo3P4ZrgJKTWpoOpNFnkmhX0fXje4w7n7/ElITcu25tIywHuN+4=';
+        } else {
+            gs.addInfoMessage('script include - RealGridUtils_bop - PDI용 realgrid key 발급받아서 추가하세요~~');
+            return;
+        }
+    },
+    getTableInfo: function(project_sysid) {
+        var gritem = new GlideRecord("x_yergb_bpm_order_item");
+        gritem.orderBy("number");
+        gritem.addEncodedQuery('budget_type=bop^project=' + project_sysid);
+        gritem.query();
+        var tableinfo = [];
+        while (gritem.next()) {
+            tableinfo.push({
+                'sys_id': gritem.sys_id.getDisplayValue(),
+                'wbs': gritem.wbs.getDisplayValue(),
+				'vendor': gritem.vendor.getDisplayValue(),
+                'ms_code': gritem.ms_code.getDisplayValue(),
+                'unit_cost_price': gritem.unit_cost_price.getDisplayValue(),
+                'quantity': gritem.quantity.getDisplayValue(),
+                'amount': gritem.amount.getDisplayValue(),
+                'strategy': gritem.strategy.getDisplayValue(),
+                'lead_time': gritem.lead_time.getDisplayValue(),
+                'planned_procurement': gritem.planned_procurement.getDisplayValue(),
+                'plan_gr_date': gritem.plan_gr_date.getDisplayValue(),
+                'project': project_sysid,
+				'budget_type':'prod',
+				'data_type':'item'
+            });
+        }
+        return tableinfo;
+    },
+
+    getFields: function() {
+        var fields = [
+            'sys_id',
+            'wbs',
+			'vendor',
+            'ms_code',
+            'unit_cost_price',
+            'quantity',
+            'amount',
+            'strategy',
+            'lead_time',
+            'planned_procurement',
+            'plan_gr_date',
+            'project',
+			'budget_type',
+			'data_type'
+        ];
+        return fields;
+    },
+
+    getLayouts: function() {
+        var layouts = [
+            'sys_id',
+            'wbs',
+			'vendor',
+            'ms_code',
+            'unit_cost_price',
+            'quantity',
+            'amount',
+            'strategy',
+            'lead_time',
+            'planned_procurement',
+            'plan_gr_date',
+            'project',
+			'budget_type',
+			'data_type'
+        ];
+        return layouts;
+    },
+    getColumns: function() {
+        var columns = [{
+                "name": "sys_id",
+                "fieldName": "sys_id",
+                "type": "data",
+                "width": 0,
+                "header": {
+                    "text": "sysid"
+                },
+            },
+            {
+                "name": "wbs",
+                "fieldName": "wbs",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "WBS"
+                },
+            },
+			{
+                "name": "vendor",
+                "fieldName": "vendor",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Vendor"
+                },
+            },
+            {
+                "name": "ms_code",
+                "fieldName": "ms_code",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "MS Code"
+                },
+            },
+            {
+                "name": "unit_cost_price",
+                "fieldName": "unit_cost_price",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Unit Cost Price"
+                },
+            },
+            {
+                "name": "quantity",
+                "fieldName": "quantity",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Quantity"
+                },
+            },
+            {
+                "name": "amount",
+                "fieldName": "amount",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Amount"
+                },
+            },
+            {
+                "name": "strategy",
+                "fieldName": "strategy",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Strategy"
+                },
+            },
+            {
+                "name": "lead_time",
+                "fieldName": "lead_time",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Lead Time"
+                },
+            },
+            {
+                "name": "planned_procurement",
+                "fieldName": "planned_procurement",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Planned Procurement"
+                },
+            },
+            {
+                "name": "plan_gr_date",
+                "fieldName": "plan_gr_date",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Plan GR Date"
+                },
+            },
+            {
+                "name": "project",
+                "fieldName": "project",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Project"
+                },
+            },
+            {
+                "name": "budget_type",
+                "fieldName": "budget_type",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "budget_type"
+                },
+            },
+			{
+				"name": "data_type",
+				"fieldNAme": "data_type",
+				"type": "data",
+				"width": 100,
+				"header":{
+					"text": "data_type"
+				}
+			}
+        ];
+
+        return columns;
+    },
+
+    type: 'RealGridUtils_bop'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-19 14:34:35</sys_created_on>
+        <sys_id>7103424b8332c6105a8e9630ceaad38d</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>RealGridUtils_bop</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_script_include_7103424b8332c6105a8e9630ceaad38d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-19 15:02:37</sys_updated_on>
+    </sys_script_include>
+</record_update>

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script><![CDATA[function addRow(dp, gridView, qvalue, month) {
+    var values = {
+        order_item: qvalue,
+        base_month: month
+    };
+    var dataRow = dp.addRow(values);
+    gridView.setCurrent({
+        dataRow: dataRow
+    });
+}
+
+function createRecord(dataSets, fields) {
+    var wbsMap = {};
+
+    var wbsCodes = dataSets.map(function(data) {
+        return data[1];
+    }).filter(function(wbsCode) {
+        return wbsCode !== null && wbsCode !== '';
+    });
+
+    if (wbsCodes.length > 0) {
+        var grWBS = new GlideRecord('x_yergb_bpm_wbs_master');
+        grWBS.addQuery('code', 'IN', wbsCodes);
+        grWBS.query();
+
+        while (grWBS.next()) {
+            wbsMap[grWBS.getValue('code')] = grWBS.sys_id.toString();
+        }
+    }
+
+    dataSets.forEach(function(dataSet) {
+        var mappedData = dataSet.slice(); // 데이터 복사
+
+        var wbsCode = mappedData[1];
+        mappedData[1] = wbsMap[wbsCode] || '';
+
+        var newRecord = new GlideRecord('x_yergb_bpm_cost');
+        newRecord.initialize();
+
+        fields.forEach(function(field, index) {
+            if (mappedData[index] !== null) {
+                newRecord.setValue(field, mappedData[index]);
+            }
+        });
+        newRecord.insert();
+    });
+}
+
+function deleteRecord(arr) {
+    var grItem = new GlideRecord('x_yergb_bpm_cost');
+    for (var i = 0; i < arr.length; i++) {
+        var sys_id = arr[i];
+        if (grItem.get(sys_id)) {
+            grItem.deleteRecord();
+        }
+    }
+}
+
+function updateRecord(updateSets, fields) {
+
+    var wbsMap = {};
+
+    var wbsCodes = updateSets.map(function(data) {
+        return data[1];
+    }).filter(function(wbsCode) {
+        return wbsCode !== null && wbsCode !== '';
+    });
+
+    if (wbsCodes.length > 0) {
+        var grWBS = new GlideRecord('x_yergb_bpm_wbs_master');
+        grWBS.addQuery('code', 'IN', wbsCodes);
+        grWBS.query();
+
+        while (grWBS.next()) {
+            wbsMap[grWBS.getValue('code')] = grWBS.sys_id.toString();
+        }
+    }
+
+    updateSets.forEach(function(updateSet) {
+        var mappedData = updateSet.slice(); // 데이터 복사
+
+        var wbsCode = mappedData[1];
+        mappedData[1] = wbsMap[wbsCode] || '';
+
+        var newRecord = new GlideRecord('x_yergb_bpm_cost');
+        newRecord.addQuery('sys_id', mappedData[0]); // sys_id 필드의 인덱스는 0
+        newRecord.query();
+
+        if (newRecord.next()) {
+            // 필드 값 설정
+            fields.forEach(function(field, index) {
+                if (mappedData[index] !== null) {
+                    newRecord.setValue(field, mappedData[index]);
+                }
+            });
+            newRecord.update();
+        }
+    });
+}]]></client_script>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_yergb_bpm_SorinGrid_eng.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+
+<g:evaluate>
+   	var item_sysid = RP.getParameterValue('item_sysid');
+    var basemonth = RP.getParameterValue('basemonth');
+</g:evaluate>
+
+<g:evaluate var="jvar_now_GR" object="true">
+   var rgutil = new RealGridUtils_eng();
+   var rgkey = rgutil.getRealGridKey();
+   var gfields = rgutil.getFields();
+   var glayouts = rgutil.getLayouts();
+   var gcolumns = rgutil.getColumns();
+   var gtable = rgutil.getTableInfo(item_sysid, basemonth);
+</g:evaluate>
+
+<script type="text/javascript">
+    var realGrid2Lic = "${rgkey}";
+</script>
+
+<script type="text/javascript">
+    var mydata = JSON.parse("${JSON.stringify(gtable)}");
+</script>
+
+<style>
+body[data-formName=ui_page_render] { padding: 0 !important; }
+/*리얼그리드 수정*/
+.rg-root {color: #4B5966 !important;  font-family: "Pretendard" !important;   font-size: 14px !important;  font-style: normal !important;  font-weight: 500 !important;  line-height: normal !important;}
+.rg-grid {border: 1px solid #EAEEF3 !important;}
+
+.rg-header {background: #FBFCFF  !important; color:#8B99A6 !important; font-weight: 600 !important; font-weight: 500 !important;}
+.rg-header .rg-table tr td {border-right: 1px solid #EAEEF3 !important; border-bottom: 1px solid #EAEEF3 !important; font-weight: 500 !important;} 
+.rg-head {background: #FBFCFF  !important; color:#8B99A6 !important; font-weight: 600 !important; font-weight: 500 !important;}
+.rg-head .rg-table tr td { border-right: 1px solid #EAEEF3 !important;  border-bottom: 1px solid #EAEEF3 !important; font-weight: 500 !important;}
+
+.rg-body,
+.rg-fixed-body {color: #4B5966 !important;}
+.rg-body .rg-table tr td, 
+.rg-fixed-body .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-bottom: 1px solid #EAEEF3 !important;}
+.rg-rowbarcontainer .rg-table tr td {background-color: transparent !important;    border-right: 1px solid #EAEEF3 !important;    border-bottom: 1px solid #EAEEF3 !important;}
+.rg-alternate-row {background: #fff !important;}
+.rg-footer {color: #606060 !important; background: #FBFCFF  !important;}
+.rg-footer .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-top: 1px solid #EAEEF3 !important;}
+.rg-foot {color: #606060 !important; background: #FBFCFF  !important;}
+.rg-foot .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-top: 1px solid #EAEEF3 !important;}
+.rg-focus {border:  2px solid #68B3FC !important;}
+.rg-header-focus {background: #E5F2FF !important; color: #6F7479 !important;}
+.rg-header .rg-table tr td:hover {background: #68B3FC !important; color: #fff !important;}
+.rg-header-select {background: rgb(232 248 240 / 50%) !important;}
+.rg-selection { background: rgb(232 248 240 / 35%) !important; border: 1px solid #15BD66!important;}
+.rg-editor-container { border: 2px solid #27C382 !important; }
+
+.yoko-grid-btn-wrap-grid {display: flex; gap: 7px; justify-content: right; margin: 2px;}
+
+</style>
+
+<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"></script>
+
+<script type="text/javascript">
+    var gridView;
+    var dp;
+    window.addEventListener('DOMContentLoaded', function () {
+        gridView = new RealGrid.GridView('gridContainer');
+        dp = new RealGrid.LocalDataProvider();
+
+        gridView.setDataSource(dp);
+
+      	const fields = JSON.parse("${JSON.stringify(gfields)}");
+      	const columns = JSON.parse("${JSON.stringify(gcolumns)}");
+      	const layouts = JSON.parse("${JSON.stringify(glayouts)}");
+      	console.log(columns)
+
+        // 데이터 설정
+      	dp.setFields(fields);
+      	gridView.setColumns(columns);
+     	gridView.footers.visible = true;
+      	gridView.commitEditor();
+      	gridView.undoable = true;
+
+      	gridView.columnByName("sys_id").visible =  false;
+
+      	gridView.editOptions.commitWhenLeave = true;
+      	gridView.displayOptions.fitStyle = 'evenFill'
+
+      	gridView.setColumnLayout(layouts);
+      	dp.softDeleting = false;
+      
+      	//Delete
+      	const deleteData = document.getElementById('bt-delete');
+      	deleteData.addEventListener('click', function () {
+         	var rows = gridView.getCheckedRows();
+         	var sysidArr = dp.getFieldValues('sys_id');
+         	var deleteArr = [];
+         	var crows = dp.getStateRows('created');
+
+         	if (rows.length == 0) {
+                alert('삭제할 행을 체크해주세요.');
+              	return;
+          	}
+
+         	// rows 배열의 모든 요소가 crows 배열에 포함되는지 확인
+         	var allIncluded = rows.every(row => crows.includes(row));
+
+         	if (allIncluded) {
+             	dp.removeRows(rows);
+            	return;
+         	}else {
+            	var result = confirm("데이터를 삭제 하시겠습니까");
+         	}
+
+         	if(result){
+             	for (var j = 0; rows.length > j; j++) {
+                 	var row = rows[j];
+               		if(sysidArr[row]){
+                  		deleteArr.push(sysidArr[row]);
+                 	} 
+             	}
+
+            	dp.removeRows(rows);
+            	deleteRecord(deleteArr);
+             	gridView.checkRows(rows, false);
+            	updateParentIframeSrc();
+         	}else{
+            	return;
+         	}
+      });
+
+      	//Add
+      	const addData = document.getElementById('bt-add');
+      	addData.addEventListener('click', function () {
+        	addRow(dp,gridView,"${item_sysid}","${basemonth}");
+      	});
+
+      	//SAVE
+      	const oData = document.getElementById('bt-save');
+      	oData.addEventListener('click', function () {
+         	var dataSets = [];
+         	var updateSets = [];
+
+         	let urows = dp.getStateRows('updated');
+         	let crows = dp.getStateRows('created');
+
+         	for (var i = 0 ;  crows.length > i ;i++){
+            	dataSets.push(dp.getValues(crows[i]));
+         	}
+
+         	if(crows.length || urows.length){
+            	var result = confirm("데이터를 저장 하시겠습니까");
+         	}else{
+            	alert('수정된 데이터가 없습니다.');
+            	return;
+         	}
+
+         	for (var n = 0 ;  urows.length > n ;n++){
+            	updateSets.push(dp.getValues(urows[n]));
+         	}
+
+         	if(result){
+            	if(crows.length){
+               		createRecord(dataSets, fields);      
+            	}
+            	if(urows.length){
+               		updateRecord(updateSets, fields);      
+            	}
+            location.reload();
+			updateParentIframeSrc();
+         	}
+    	});
+
+   		function updateParentIframeSrc() {
+      		var url = new URL(window.location.href);
+        	url.searchParams.set('reload', 'ok');
+         	var newSrc = url.toString();
+       		window.parent.postMessage({ type: 'updateIframeSrc', newSrc: newSrc }, '*');
+    	}
+
+    	dp.setRows(mydata);
+	});
+   
+</script>
+<div class="yoko-grid-btn-wrap-grid">
+   <button id="bt-add">Add</button>
+   <button id="bt-delete">Delete</button>
+   <button id="bt-save">Save</button>
+</div>
+
+<div class="out" id='gridContainer' style="width:100%; height: 70%;"></div>
+<input  type="hidden" name="myparam" value="${id_q}" />
+<script>
+</script>
+</j:jelly>
+]]></html>
+        <name>SorinGrid_eng</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-19 16:11:05</sys_created_on>
+        <sys_id>4f19de0783b2c6105a8e9630ceaad3d7</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>SorinGrid_eng</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_ui_page_4f19de0783b2c6105a8e9630ceaad3d7</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-19 16:47:26</sys_updated_on>
+    </sys_ui_page>
+</record_update>
