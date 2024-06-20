@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller=function() {
+        <client_script><![CDATA[api.controller=function($scope) {
   /* widget controller */
   var c = this;
 	console.log("stepper 12132123")
+	var received;
+ $scope.$on('dataFromSenderWidget', function(event, received) {
+        // 데이터를 받았을 때 수행할 작업
+        console.log('Data received:', received.message);
+        c.data.isReceived = "123"
+        c.data.message = received.message 
+        c.data.sys_id = received.sys_id 
+        c.data.table = received.table 
+        // 서버로 데이터를 전송
+   
+	      c.server.update({data: $scope.receivedData}).then(function(response) {
+            console.log('Server response:', response);
+        });
+
+        $scope.receivedData = received;
+        console.log($scope.receivedData);
+    });
+
+
 };]]></client_script>
         <controller_as>c</controller_as>
         <css>.process-breadcrumb {
@@ -140,9 +159,57 @@
         <roles/>
         <script><![CDATA[(function() {
     data.flow_formatter = [];
+		//gs.addInfoMessage("alcls dlrp ehldigksmsep")
+	var ohshit;
+		 if (input && input.isReceived) {
+        // input.data 객체를 통해 클라이언트에서 전송된 데이터를 접근할 수 있습니다.
+       // gs.addInfoMessage("Received message: " + input.table);
+        //gs.addInfoMessage("Received message: " + input.sys_id);
+       data.table = input.table;
+    data.sys_id = input.sys_id;
+    //data.table = 'change_request';
+    //data.sys_id = 'c83c5e5347c12200e0ef563dbb9a7190';
+    gr = new GlideRecord(data.table);
+    if (!gr.isValid()) {
+        return;
+    }
+    gr.get(data.sys_id);
+    if (!gr.canRead()) {
+        return;
+    }
 
-    // Get table & sys_id
-    data.table = $sp.getParameter("table");
+    var afterCurrent = false;
+	var chkEmpty = 0;
+    var pf = new GlideRecord('sys_process_flow');
+    pf.addQuery('table', data.table);
+    //pf.addQuery('table', 'change_request');
+    pf.addActiveQuery();
+    pf.orderBy('order');
+    pf.query();
+    while (pf.next()) {
+       // if (GlideFilter.checkRecord(gr, pf.u_show_condition)) {
+            var item = {};
+            item.label = pf.getDisplayValue('label');
+            if (GlideFilter.checkRecord(gr, pf.condition) || (gr.getRowCount() < 1 && chkEmpty==0)) {
+                item.state = 'current';
+                item.style = 'active';
+                afterCurrent = true;
+            } else {
+                if (afterCurrent) {
+                    item.state = 'future';
+                    item.style = 'disabled';
+                } else {
+                    item.state = 'past';
+                    item.style = 'completed disabled';
+                }
+            }
+            data.flow_formatter.push(item);
+        //}
+		chkEmpty++;
+    }
+    } 
+		else{
+		data.table = $sp.getParameter("table");
     data.sys_id = $sp.getParameter("sys_id");
     //data.table = 'change_request';
     //data.sys_id = 'c83c5e5347c12200e0ef563dbb9a7190';
@@ -184,20 +251,24 @@
         //}
 		chkEmpty++;
     }
+		}
+    // Get table & sys_id
+
+   
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>hhkim</sys_created_by>
         <sys_created_on>2024-06-13 07:18:33</sys_created_on>
         <sys_id>a495ad4d47720650d254bce5536d43df</sys_id>
-        <sys_mod_count>15</sys_mod_count>
+        <sys_mod_count>71</sys_mod_count>
         <sys_name>stepper</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_a495ad4d47720650d254bce5536d43df</sys_update_name>
-        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-20 00:34:06</sys_updated_on>
+        <sys_updated_by>lhyunseok</sys_updated_by>
+        <sys_updated_on>2024-06-20 06:18:56</sys_updated_on>
         <template><![CDATA[<div class="panel-default" ng-if="data.flow_formatter.length > 0">
   <table style="width: 100%;">
     <tbody>
