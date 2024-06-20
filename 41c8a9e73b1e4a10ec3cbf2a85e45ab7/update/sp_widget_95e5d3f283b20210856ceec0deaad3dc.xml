@@ -469,9 +469,12 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             }
         }
     }
-	
-	  data.gridUrl = '/x_yergb_bpm_SorinGrid_wbs.do?project_sysid=' + data.sys_id + '&basemonth=' + data.base_month;
-
+		
+		if(data.data_type == 'item'){
+				data.gridUrl = '/x_yergb_bpm_SorinGrid_item.do?project_sysid=' + data.sys_id + '&basemonth=' + data.base_month;
+		}else{
+				data.gridUrl = '/x_yergb_bpm_SorinGrid_wbs.do?project_sysid=' + data.sys_id + '&basemonth=' + data.base_month;
+		}
 
     if (input) { //Update
         var grUpdateBudgetPlan = new GlideRecord("x_yergb_bpm_budget_plan");
@@ -508,14 +511,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-19 01:58:09</sys_created_on>
         <sys_id>95e5d3f283b20210856ceec0deaad3dc</sys_id>
-        <sys_mod_count>72</sys_mod_count>
+        <sys_mod_count>73</sys_mod_count>
         <sys_name>initPlanMngtWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_95e5d3f283b20210856ceec0deaad3dc</sys_update_name>
-        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-20 05:44:20</sys_updated_on>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-20 06:36:05</sys_updated_on>
         <template><![CDATA[  <div class="yoko-container">
         <div class="yoko-title-btn-wrap">
             <div class="yoko-btn-wrap">
