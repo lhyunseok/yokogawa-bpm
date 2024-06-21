@@ -102,7 +102,7 @@ function updateRecord(updateSets, fields) {
         }
     }
 
-    var vendorNames = dataSets.map(function(data) {
+    var vendorNames = updateSets.map(function(data) {
         return data[2]; // vendor 필드의 인덱스는 12
     }).filter(function(vendorName) {
         return vendorName !== null && vendorName !== '';
@@ -296,18 +296,17 @@ body[data-formName=ui_page_render] { padding: 0 !important; }
          	for (var i = 0 ;  crows.length > i ;i++){
             	dataSets.push(dp.getValues(crows[i]));
          	}
-
          	if(crows.length || urows.length){
             	var result = confirm("데이터를 저장 하시겠습니까");
          	}else{
             	alert('수정된 데이터가 없습니다.');
             	return;
          	}
-
+			
          	for (var n = 0 ;  urows.length > n ;n++){
             	updateSets.push(dp.getValues(urows[n]));
          	}
-
+			
          	if(result){
             	if(crows.length){
                		createRecord(dataSets, fields);      
@@ -338,7 +337,7 @@ body[data-formName=ui_page_render] { padding: 0 !important; }
 </div>
 
 <div class="out" id='gridContainer' style="width:100%; height: 70%;"></div>
-<input  type="hidden" name="myparam" value="${id_q}" />
+<input  type="hidden" name="myparam" value="${project_sysid}" />
 <script>
 </script>
 </j:jelly>
@@ -349,13 +348,13 @@ body[data-formName=ui_page_render] { padding: 0 !important; }
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 14:34:10</sys_created_on>
         <sys_id>23e2020b8332c6105a8e9630ceaad3e9</sys_id>
-        <sys_mod_count>7</sys_mod_count>
+        <sys_mod_count>11</sys_mod_count>
         <sys_name>SorinGrid_bop</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ui_page_23e2020b8332c6105a8e9630ceaad3e9</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-19 15:04:34</sys_updated_on>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-21 08:24:34</sys_updated_on>
     </sys_ui_page>
 </record_update>
