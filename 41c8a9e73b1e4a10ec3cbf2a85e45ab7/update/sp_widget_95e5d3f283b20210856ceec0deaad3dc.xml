@@ -220,9 +220,9 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .yoko-btn.yoko-btn-fill-red:hover  {background-color: #E35050; border: 1px solid #E35050;}&#13;
 &#13;
 &#13;
-.yoko-btn-search {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(images/icon_search.png) no-repeat center center !important;}&#13;
+.yoko-btn-search {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_search.png) no-repeat center center !important;}&#13;
 .yoko-btn-search:hover {background-color: #eaeaea;}&#13;
-.yoko-btn-add {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(images/icon_add.png) no-repeat center center !important;}&#13;
+.yoko-btn-add {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_add.png) no-repeat center center !important;}&#13;
 .yoko-btn-add:hover {background-color: #eaeaea;}&#13;
 .yoko-btn-delete {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(images/icon_delete.png) no-repeat center center !important;}&#13;
 .yoko-btn-delete:hover {background-color: #eaeaea;}&#13;
@@ -467,6 +467,22 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                 data.state = grBudgetPlan.getDisplayValue('state'); // State
 				data.project = grBudgetPlan.project; //Project Reference
             }
+
+            var totalContract=0;
+			var totalCost=0;
+            var grOrderItem = new GlideRecord('x_yergb_bpm_order_item');
+            grOrderItem.addQuery('project', data.project_key);
+            grOrderItem.query();
+            while (grOrderItem.next()) {
+                totalContract += grOrderItem.extended_price; // Contract
+                totalCost += grOrderItem.extended_cost; // Cost
+            }
+			data.contract = totalContract.toString();
+			data.total_cost = totalCost.toString();
+			var gpa = totalAmount - totalCost;
+			var gp = gpa/totalAmount;
+			data.gpa = gpa.toString();
+			data.gp = gp.toString() +'%';
         }
     }
 		
@@ -511,14 +527,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-19 01:58:09</sys_created_on>
         <sys_id>95e5d3f283b20210856ceec0deaad3dc</sys_id>
-        <sys_mod_count>73</sys_mod_count>
+        <sys_mod_count>79</sys_mod_count>
         <sys_name>initPlanMngtWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_95e5d3f283b20210856ceec0deaad3dc</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-20 06:36:05</sys_updated_on>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-21 08:52:45</sys_updated_on>
         <template><![CDATA[  <div class="yoko-container">
         <div class="yoko-title-btn-wrap">
             <div class="yoko-btn-wrap">
@@ -626,29 +642,29 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                             <div class="yoko-form-group">
                                 <label for="contract1" class="yoko-short">Contract</label>
                                 <div class="yoko-form-inline">
-                                    <input type="text" id="contract1" name="contract1" value="" placeholder="" disabled class="yoko-wid140">
-                                    <input type="text" id="contract2" name="contract2" value="" placeholder="" disabled class="yoko-wid140">
+                                    <input type="text" id="contract1" name="contract1" ng-model="data.contract_last" value="" placeholder="" disabled class="yoko-wid140">
+                                    <input type="text" id="contract2" name="contract2" ng-model="data.contract" value="{{data.contract}}" placeholder="" disabled class="yoko-wid140">
                                 </div>
                             </div>
                             <div class="yoko-form-group">
                                 <label for="cost1" class="yoko-short">Cost</label>
                                 <div class="yoko-form-inline">
-                                    <input type="text" id="cost1" name="cost1" value="" placeholder="" disabled class="yoko-wid140">
-                                    <input type="text" id="cost2" name="cost2" value="" placeholder="" disabled class="yoko-wid140">
+                                    <input type="text" id="cost1" name="cost1" ng-model="data.total_cost_last" value="" placeholder="" disabled class="yoko-wid140">
+                                    <input type="text" id="cost2" name="cost2" ng-model="data.total_cost" value="{{data.total_cost}}" placeholder="" disabled class="yoko-wid140">
                                 </div>
                             </div>
                             <div class="yoko-form-group">
                                 <label for="gpa1" class="yoko-short">GPA</label>
                                 <div class="yoko-form-inline">
-                                    <input type="text" id="gpa1" name="gpa1" value="" placeholder="" disabled class="yoko-wid140">
-                                    <input type="text" id="gpa2" name="gpa2" value="" placeholder="" disabled class="yoko-wid140">
+                                    <input type="text" id="gpa1" name="gpa1" ng-model="data.gpa_last" value="" placeholder="" disabled class="yoko-wid140">
+                                    <input type="text" id="gpa2" name="gpa2" ng-model="data.gpa" value="{{data.gpa}}" placeholder="" disabled class="yoko-wid140">
                                 </div>
                             </div>
                             <div class="yoko-form-group">
                                 <label for="gp1" class="yoko-short">GP(%)</label>
                                 <div class="yoko-form-inline">
-                                    <input type="text" id="gp1" name="gp1" value="" placeholder="" disabled class="yoko-wid140">
-                                    <input type="text" id="gp2" name="gp2" value="" placeholder="" disabled class="yoko-wid140">
+                                    <input type="text" id="gp1" name="gp1" ng-model="data.gp_last" value="" placeholder="" disabled class="yoko-wid140">
+                                    <input type="text" id="gp2" name="gp2" ng-model="data.gp" value="{{data.gp}}" placeholder="" disabled class="yoko-wid140">
                                 </div>
                             </div>
                         </div>
