@@ -8,12 +8,9 @@
         <description/>
         <name>RealGridUtilsBPM</name>
         <script><![CDATA[var RealGridUtilsBPM = Class.create();
-RealGridUtilsBPM.prototype = {
+RealGridUtilsBPM.prototype = Object.extendsObject(RealGridKey,{
     initialize: function() {},
 
-    getRealGridKey: function() {
-        return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYkkSQt0t0CTeCSk1qaDqTRZ5JoV9H143uMO5+/xJSE3Lj4YewEIhlh/';
-    },
     getTableInfo: function(id_q) {
         var gr = new GlideRecord("x_yergb_bpm_quote_item");
         gr.orderBy("number");
@@ -212,18 +209,18 @@ RealGridUtilsBPM.prototype = {
     },
 
     type: 'RealGridUtilsBPM'
-};]]></script>
+});]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>hhkim</sys_created_by>
         <sys_created_on>2024-06-14 08:27:11</sys_created_on>
         <sys_id>73cebe9947be4650d254bce5536d431a</sys_id>
-        <sys_mod_count>23</sys_mod_count>
+        <sys_mod_count>24</sys_mod_count>
         <sys_name>RealGridUtilsBPM</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_include_73cebe9947be4650d254bce5536d431a</sys_update_name>
         <sys_updated_by>yeongink</sys_updated_by>
-        <sys_updated_on>2024-06-21 04:58:08</sys_updated_on>
+        <sys_updated_on>2024-06-21 05:09:53</sys_updated_on>
     </sys_script_include>
 </record_update>
