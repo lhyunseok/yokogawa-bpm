@@ -24,14 +24,6 @@
                 <element inactive_on_update="false" label="CNY" sequence="2" value="cny"/>
             </choice>
         </element>
-        <element attributes="edge_encryption_enabled=true" choice="3" default="y-prod" label="Budget type" max_length="40" name="u_budget_type" type="string">
-            <choice>
-                <element inactive_on_update="false" label="Y-PROD" sequence="0" value="y-prod"/>
-                <element inactive_on_update="false" label="BOP" sequence="1" value="bop"/>
-                <element inactive_on_update="false" label="Man Hour" sequence="2" value="man hour"/>
-                <element inactive_on_update="false" label="Other Cost" sequence="3" value="other cost"/>
-            </choice>
-        </element>
         <element label="Project Code" max_length="40" name="project_code" type="string"/>
         <index name="index">
             <element name="customer"/>
