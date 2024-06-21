@@ -422,7 +422,6 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.region = grProject.getDisplayValue('region'); // Region
             data.currency = grProject.getDisplayValue('currency'); // Currency
             data.data_type = grProject.getDisplayValue('u_data_type'); // Data Type
-            data.budget_type = grProject.getDisplayValue('u_budget_type'); // Budget Type
             data.customer = grProject.customer.name.toString(); // CustomerName
             data.sys_id = grProject.sys_id;
         }
@@ -434,14 +433,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-19 02:06:36</sys_created_on>
         <sys_id>85d793b683b20210856ceec0deaad31c</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>7</sys_mod_count>
         <sys_name>budgetPlanMngtWd03</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_85d793b683b20210856ceec0deaad31c</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-21 05:06:45</sys_updated_on>
+        <sys_updated_on>2024-06-21 09:36:32</sys_updated_on>
         <template><![CDATA[    <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > Project Budget Plan for Man Hour</div>
         <div class="yoko-title-btn-wrap">
@@ -481,7 +480,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                         </div>
                         <div class="yoko-form-group">
                             <label for="budget_type" class="yoko-short">Budget type</label>
-                            <input type="text" name="budget_type" value={{data.budget_type}} placeholder="" disabled class="yoko-wid140">
+                            <input type="text" name="budget_type" value="Man hour" placeholder="" disabled class="yoko-wid140">
                         </div>
                     </div>
                     <div class="yoko-form-col"> 
