@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="DELETE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_yergb_bpm_order_item</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition table="x_yergb_bpm_order_item">plan_gr_dateVALCHANGES^ORlead_timeVALCHANGES^EQ<item endquery="false" field="plan_gr_date" goto="false" newquery="false" operator="VALCHANGES" or="false" value=""/>
+            <item endquery="false" field="lead_time" goto="false" newquery="false" operator="VALCHANGES" or="true" value=""/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter_condition>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>set Order Item yearmonth_planned_procure</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+
+    if (current.plan_gr_date) {
+        var mydate = current.plan_gr_date;
+        var mymonth = mydate.split('-')[0] + mydate.split('-')[1];
+        current.yearmonth = mymonth;
+    }
+    var aa = new GlideDateTime(mydate + " 00:00:00");
+    aa.addDaysUTC(-1 * current.lead_time);
+    current.planned_procurement = aa.toString().split(' ')[0] + " 00:00:00";
+    current.update();
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>hhkim</sys_created_by>
+        <sys_created_on>2024-06-04 14:04:23</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>094cacd247264610d254bce5536d438b</sys_id>
+        <sys_mod_count>15</sys_mod_count>
+        <sys_name>set Order Item yearmonth_planned_procure</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_script_094cacd247264610d254bce5536d438b</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-19 05:45:11</sys_updated_on>
+        <template/>
+        <when>after</when>
+    </sys_script>
+    <sys_translated_text action="DELETE" query="documentkey=094cacd247264610d254bce5536d438b"/>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</application>
+        <file_path/>
+        <instance_id>6a89af531b8542d877c7cb7b234bcb60</instance_id>
+        <instance_name>yokogawabpmdev</instance_name>
+        <name>sys_script_094cacd247264610d254bce5536d438b</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_script"&gt;
+    &lt;sys_script action="INSERT_OR_UPDATE"&gt;
+        &lt;abort_action&gt;false&lt;/abort_action&gt;
+        &lt;access&gt;package_private&lt;/access&gt;
+        &lt;action_delete&gt;false&lt;/action_delete&gt;
+        &lt;action_insert&gt;true&lt;/action_insert&gt;
+        &lt;action_query&gt;false&lt;/action_query&gt;
+        &lt;action_update&gt;true&lt;/action_update&gt;
+        &lt;active&gt;true&lt;/active&gt;
+        &lt;add_message&gt;false&lt;/add_message&gt;
+        &lt;advanced&gt;true&lt;/advanced&gt;
+        &lt;change_fields&gt;false&lt;/change_fields&gt;
+        &lt;client_callable&gt;false&lt;/client_callable&gt;
+        &lt;collection&gt;x_yergb_bpm_order_item&lt;/collection&gt;
+        &lt;condition/&gt;
+        &lt;description/&gt;
+        &lt;execute_function&gt;false&lt;/execute_function&gt;
+        &lt;filter_condition table="x_yergb_bpm_order_item"&gt;plan_gr_dateVALCHANGES^ORlead_timeVALCHANGES^EQ&lt;item endquery="false" field="plan_gr_date" goto="false" newquery="false" operator="VALCHANGES" or="false" value=""/&gt;
+            &lt;item endquery="false" field="lead_time" goto="false" newquery="false" operator="VALCHANGES" or="true" value=""/&gt;
+            &lt;item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/&gt;
+        &lt;/filter_condition&gt;
+        &lt;is_rest&gt;false&lt;/is_rest&gt;
+        &lt;message/&gt;
+        &lt;name&gt;set Order Item yearmonth_planned_procure&lt;/name&gt;
+        &lt;order&gt;100&lt;/order&gt;
+        &lt;priority&gt;100&lt;/priority&gt;
+        &lt;rest_method/&gt;
+        &lt;rest_method_text/&gt;
+        &lt;rest_service/&gt;
+        &lt;rest_service_text/&gt;
+        &lt;rest_variables/&gt;
+        &lt;role_conditions/&gt;
+        &lt;script&gt;&lt;![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+
+    if (current.plan_gr_date) {
+        var mydate = current.plan_gr_date;
+        var mymonth = mydate.split('-')[0] + mydate.split('-')[1];
+        current.yearmonth = mymonth;
+    }
+    var aa = new GlideDateTime(mydate + " 00:00:00");
+    aa.addDaysUTC(-1 * current.lead_time);
+    current.planned_procurement = aa.toString().split(' ')[0] + " 00:00:00";
+    current.update();
+
+})(current, previous);]]&gt;&lt;/script&gt;
+        &lt;sys_class_name&gt;sys_script&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;hhkim&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2024-06-04 14:04:23&lt;/sys_created_on&gt;
+        &lt;sys_domain&gt;global&lt;/sys_domain&gt;
+        &lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;
+        &lt;sys_id&gt;094cacd247264610d254bce5536d438b&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;15&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;set Order Item yearmonth_planned_procure&lt;/sys_name&gt;
+        &lt;sys_overrides/&gt;
+        &lt;sys_package display_value="BPM" source="x_yergb_bpm"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sys_script_094cacd247264610d254bce5536d438b&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2024-06-19 05:45:11&lt;/sys_updated_on&gt;
+        &lt;template/&gt;
+        &lt;when&gt;after&lt;/when&gt;
+    &lt;/sys_script&gt;
+    &lt;sys_translated_text action="delete_multiple" query="documentkey=094cacd247264610d254bce5536d438b"/&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>-524456151</payload_hash>
+        <record_name>set Order Item yearmonth_planned_procure</record_name>
+        <reverted_from/>
+        <source>47cf088b3bb68210ec3cbf2a85e45a05</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>lhyunseok@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-19 06:11:14</sys_created_on>
+        <sys_id>50df488b3bb68210ec3cbf2a85e45a63</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1902f1eef3a0000001</sys_recorded_at>
+        <sys_updated_by>lhyunseok@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-19 06:11:14</sys_updated_on>
+        <type>Business Rule</type>
+        <update_guid>dcdf488ba0b68210c6267af64f721062</update_guid>
+        <update_guid_history>dcdf488ba0b68210c6267af64f721062:0,85ecf3b359a24210f2432203e4b97915:1351753160,9cda9c84fef24210d50c4bf1a0105b55:0,85ecf3b359a24210f2432203e4b97915:1351753160,19a737bf0d6242100b4267eb1c151851:-788557976,f5827bbb7d624210596bca6f489d6f25:139727688,0622f3bb2262421018995f25c08c0622:-1215170847,c9052b334a624210d1e45b6ff7adf3e9:139727688,8914afff13224210ded59c3600fd018a:-1640830852,6b3323ff30224210207e60909570f437:-2007492657,ed0b4f7f1cee02109470a8f8dbebcf1f:-125064318,8a66cc6ef76a0250c137b8a679919c64:-1817491035</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-21 07:08:44</sys_created_on>
+        <sys_db_object display_value="" name="sys_script">sys_script</sys_db_object>
+        <sys_id>15baa2a75ff84d709111c4aa10a09fa1</sys_id>
+        <sys_metadata>094cacd247264610d254bce5536d438b</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>set Order Item yearmonth_planned_procure</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_parent display_value="">f7409f043b224e1046a3934a85e45aff</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_scope_delete display_value="">9ff3e273935a476eab36e9bd65d24759</sys_scope_delete>
+        <sys_update_name>sys_script_094cacd247264610d254bce5536d438b</sys_update_name>
+        <sys_update_version display_value="sys_script_094cacd247264610d254bce5536d438b">50df488b3bb68210ec3cbf2a85e45a63</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-21 07:08:44</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

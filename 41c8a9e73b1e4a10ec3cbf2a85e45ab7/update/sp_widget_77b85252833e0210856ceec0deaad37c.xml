@@ -200,9 +200,9 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .yoko-btn.yoko-btn-fill-red:hover  {background-color: #E35050; border: 1px solid #E35050;}&#13;
 &#13;
 &#13;
-.yoko-btn-search {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(images/icon_search.png) no-repeat center center !important;}&#13;
+.yoko-btn-search {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_search.png) no-repeat center center !important;}&#13;
 .yoko-btn-search:hover {background-color: #eaeaea;}&#13;
-.yoko-btn-add {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(images/icon_add.png) no-repeat center center !important;}&#13;
+.yoko-btn-add {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_add.png) no-repeat center center !important;}&#13;
 .yoko-btn-add:hover {background-color: #eaeaea;}&#13;
 .yoko-btn-delete {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(images/icon_delete.png) no-repeat center center !important;}&#13;
 .yoko-btn-delete:hover {background-color: #eaeaea;}&#13;
@@ -423,7 +423,6 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.region = grProject.getDisplayValue('region'); // Region
             data.currency = grProject.getDisplayValue('currency'); // Currency
             data.data_type = grProject.getDisplayValue('u_data_type'); // Data Type
-            data.budget_type = grProject.getDisplayValue('u_budget_type'); // Budget Type
             data.customer = grProject.customer.name.toString(); // CustomerName
             data.sys_id = grProject.sys_id;
         }
@@ -435,14 +434,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-17 08:14:02</sys_created_on>
         <sys_id>77b85252833e0210856ceec0deaad37c</sys_id>
-        <sys_mod_count>33</sys_mod_count>
+        <sys_mod_count>38</sys_mod_count>
         <sys_name>budgetPlanMngtWd01</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_77b85252833e0210856ceec0deaad37c</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-20 04:13:22</sys_updated_on>
+        <sys_updated_on>2024-06-21 09:35:49</sys_updated_on>
         <template><![CDATA[    <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > Project Budget Plan for Y-Product</div>
         <div class="yoko-title-btn-wrap">
@@ -483,7 +482,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                         </div>
                         <div class="yoko-form-group">
                             <label for="budget_type" class="yoko-short">Budget type</label>
-                            <input type="text" name="budget_type" value={{data.budget_type}} placeholder="" disabled class="yoko-wid140">
+                            <input type="text" name="budget_type" value="Y-Prod" placeholder="" disabled class="yoko-wid140">
                         </div>
                     </div>
                     <div class="yoko-form-col"> 

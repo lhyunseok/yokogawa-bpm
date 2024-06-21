@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller=function($scope, $rootScope, $location) {
+        <client_script><![CDATA[api.controller=function($scope, $rootScope, $window, $location) {
   /* widget controller */
   var c = this;
 
@@ -17,6 +17,12 @@
 	c.data.showAddInfo = true;
 	c.data.showRFQEntry = true;
 	c.data.showQuotation = true;
+	
+	c.data.showBtnItemDetail = false;
+	c.data.showBtnCancel = false;
+	c.data.showBtnSave = false;
+	c.data.showBtnConfirmReq = false;
+	c.data.showBtnApprovalReq = false;
 	
 	c.data.checkedSDG = false;
 	c.data.checkedDXP = false;
@@ -63,6 +69,13 @@
 	
 	$scope.btnClickSOInfo = function() {
 		console.log("BTN : SO Info");
+		c.server.update().then(function(response) {
+			console.log('Server response:', response);
+		});
+	}
+	
+	$scope.btnHeader = function(str) {
+		console.log('HEAD BUTTON : ' + str);
 		c.server.update().then(function(response) {
 			console.log('Server response:', response);
 		});
@@ -292,15 +305,6 @@
 		modalAnsoff.style.display = 'none';
 	}
 	
-	c.server.update().then(function(response) {
-		console.log('Init screen rsponse:', response);
-		
-		c.data.initScreen = false;
-		c.data.initOiReport = false;
-		c.data.initRfqEntry = false;
-		c.data.initQuotation = false;
-	});
-	
 	
 	c.getUrlParameter = function(param) {
 		return $location.search()[param];
@@ -315,11 +319,64 @@
 		message: "Hello from Sender Widget",
 		timestamp: new Date(),
 		table: "x_yergb_bpm_oi_report",
+		//table: "x_yergb_bpm_quotation",
 		sys_id: urlSysId
 	};
 
 	// 이벤트를 발생시켜 데이터를 전송
 	$rootScope.$broadcast('dataFromSenderWidget', data);
+	
+	function resizeIframe() {
+		var iframe = document.getElementById('myIframe');
+		if (iframe) {
+			var windowHeight = window.innerHeight;
+			iframe.style.height = Math.max(windowHeight * 0.45, 200) + 'px';
+		}
+	}
+
+	// Add event listener to resize iframe when content loads
+	$window.onload = function() {
+		resizeIframe();
+	};
+	
+	$window.addEventListener('message', function(event) {
+		if (event.data.type === 'updateIframeSrc') {
+      location.reload();
+    }
+  });
+
+	// Add event listener to window resize event
+	$window.addEventListener('resize', function() {
+		resizeIframe();
+	});
+
+	// Call resizeIframe on initial load to set the initial height
+	resizeIframe();
+	
+	/* 최초 초기화 */
+	c.server.update().then(function(response) {
+		console.log('Init screen rsponse:', response);
+		
+		c.data.initScreen = false;
+		c.data.initOiReport = false;
+		c.data.initRfqEntry = false;
+		c.data.initQuotation = false;
+		
+		c.data.showBtnItemDetail = true;
+		c.data.showBtnCancel = true;
+		c.data.showBtnSave = true;
+
+		if(Number(c.data.oiStateCode) == "1") {
+			console.log("STATE:" + c.data.oiState);
+			c.data.showBtnConfirmReq = false;
+			c.data.showBtnApprovalReq = false;
+		} else {
+			console.log("STATE: NONE");
+			c.data.showBtnConfirmReq = true;
+			c.data.showBtnApprovalReq = true;
+		}
+		
+	});	
 };]]></client_script>
         <controller_as>c</controller_as>
         <css>@charset "UTF-8";
@@ -597,7 +654,6 @@
 	console.log("USER NAME : " + gs.getUser().getDisplayName());
 	console.log("SYS ID : " + gs.getUser().getID());
 	
-	
 	/* TEST DATA */
 	var oiSysId = '049440b63b3e4210ec3cbf2a85e45afd';
 	var rfqSysId = '';
@@ -605,6 +661,10 @@
 	var i;
 
 	if(input && input.initScreen) {
+		data.sys_id = $sp.getParameter("sys_id");
+		//data.sys_id = '9ad1f9813b72061046a3934a85e45a66';
+		data.gridUrl = '/x_yergb_bpm_SorinGrid_OI.do?id_o=' + data.sys_id;
+		
 		data.itemsFlagName = [];
 		var grData = new GlideRecord('x_yergb_bpm_flag_master');
 		grData.addQuery('active', true);
@@ -619,10 +679,12 @@
 		var oiReportData = new GlideRecord('x_yergb_bpm_oi_report');
 		oiReportData.addQuery('sys_id', oiSysId);
 		oiReportData.query();
+		
 
 		while(oiReportData.next()) {
 			data.oiNum = oiReportData.number.toString();
-			data.oiState = oiReportData.state.toString();
+			data.oiState = oiReportData.state.getDisplayValue().toString();
+			data.oiStateCode = oiReportData.state.toString(); 
 			data.oiAmtLC = oiReportData.oi_amount_lc.toString();
 			data.oiAmtTC = oiReportData.oi_amount_tc.toString();
 			data.gpAmt = oiReportData.gp_amount_lc.toString();
@@ -772,29 +834,26 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>213</sys_mod_count>
+        <sys_mod_count>226</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-20 09:40:22</sys_updated_on>
+        <sys_updated_on>2024-06-21 02:13:47</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
         <!-- <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div> -->
         <div class="yoko-title-btn-wrap">
             <h1 class="yoko-title">OI Report Creation & Request</h1>
-            <!--<div class="yoko-btn-wrap">
-                <button class="yoko-btn yoko-btn-outline">Cancel</button>
-                <button class="yoko-btn yoko-btn-outline">Return</button>
-                <button class="yoko-btn yoko-btn-outline">Accept</button>
-                <button class="yoko-btn yoko-btn-outline">Submit Quote</button>
-                <button class="yoko-btn yoko-btn-outline">Request Quote</button>
-                <button class="yoko-btn yoko-btn-outline">Assess</button>
-                <button class="yoko-btn yoko-btn-outline">Update</button>
-                <button class="yoko-btn yoko-btn-fill" ng-click="clickTest()">Save</button>
-            </div>-->
+            <div class="yoko-btn-wrap">
+                <!--<button class="yoko-btn yoko-btn-outline" ng-if='c.data.showBtnItemDetail' ng-click="btnHeader('itemDetail')">Item Detail</button>-->
+                <button class="yoko-btn yoko-btn-outline" ng-if='c.data.showBtnCancel' ng-click="btnHeader('cancel')">Cancel</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if='c.data.showBtnSave' ng-click="btnHeader('save')">Save</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if='c.data.showBtnConfirmReq' ng-click="btnHeader('confReq')">Confirm Request</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if='c.data.showBtnApprovalReq' ng-click="btnHeader('appReq')">Approval Request</button>
+            </div>
         </div>
         <div class="yoko-content">
             <div class="yoko-search-form-wrap">
@@ -1319,6 +1378,7 @@
                 </div>
             </div>
 
+          	<iframe src={{data.gridUrl}} width='100%' height='500px' style='border:none;' id='myIframe'></iframe>
             
         </div>
     </div>

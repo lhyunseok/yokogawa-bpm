@@ -48,9 +48,7 @@
 		gp_amount = grq.gp_amount;
 		oi_amount = grq.total_quote_price;
 		total_extended_cost = grq.total_quote_cost;
-
 	}
-
 
 	var gr = new GlideRecord('x_yergb_bpm_oi_report');
 	gr.addQuery('rfq_entry',current.sys_id);
@@ -74,8 +72,8 @@
 	gr.state = 1;
 	gr.mp_amount_tc = mp_amount;
 	gr.gp_amount_tc = gp_amount;
-	gr.oi_amount = oi_amount;
-	gr.total_extended_cost = total_quote_cost;
+	gr.oi_amount_tc = oi_amount;
+	gr.total_extended_cost_tc = total_extended_cost;
 	gr.insert();
 
 
@@ -83,7 +81,7 @@
 	gs.info("SSSSS : " + gr.sys_id);
 
 	// Create OI Items
-	var groii = new GlideRecord('x_yergb_bpm_oi_item');
+	var groii = new GlideRecord('x_yergb_bpm_order_item');
 	// var grq = new GlideRecord('x_yergb_bpm_quotation');
 	// grq.get(current.quotation);
 	// quote_sys_id = grq.sys_id;
@@ -105,6 +103,8 @@
 		groii.description = grqi.description;
 		groii.extended_price = grqi.extended_price;
 		groii.extended_cost = grqi.extended_cost;
+		groii.mp_amount = grqi.mp_amount;
+		groii.gp_amount = grqi.gp_amount;
 		groii.oi_report = gr.sys_id;
 		groii.insert();
 	}
@@ -118,7 +118,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>23d8aaae477282106cce1ce4316d43a3</sys_id>
-        <sys_mod_count>15</sys_mod_count>
+        <sys_mod_count>20</sys_mod_count>
         <sys_name>RFQ Entry Completed</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
@@ -126,7 +126,7 @@
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_23d8aaae477282106cce1ce4316d43a3</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-20 05:23:39</sys_updated_on>
+        <sys_updated_on>2024-06-21 07:28:28</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>
