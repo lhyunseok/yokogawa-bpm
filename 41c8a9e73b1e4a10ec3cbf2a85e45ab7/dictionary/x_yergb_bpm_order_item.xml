@@ -1,59 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element db_object_id="f7409f043b224e1046a3934a85e45aff" label="Order Item" max_length="40" name="x_yergb_bpm_order_item" type="collection">
-        <element label="PO Date" max_length="40" name="po_date" type="glide_date"/>
-        <element label="Quantity" max_length="40" name="quantity" type="integer"/>
-        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Region" max_length="32" name="region" reference="x_yergb_bpm_region_master" type="reference"/>
-        <element choice="1" label="Budget type" max_length="40" name="budget_type" type="choice">
-            <choice>
-                <element inactive_on_update="false" label="Man hour" sequence="2" value="eng"/>
-                <element inactive_on_update="false" label="Y-Prod" sequence="0" value="prod"/>
-                <element inactive_on_update="false" label="Other Cost" sequence="3" value="cost"/>
-                <element inactive_on_update="false" label="BOP" sequence="1" value="bop"/>
-            </choice>
-        </element>
-        <element label="L/T" max_length="40" name="lead_time" type="integer"/>
+    <element db_object_id="cf30f6ab3bb20610ec3cbf2a85e45a70" extends="x_yergb_bpm_process" label="Order Item" max_length="40" name="x_yergb_bpm_order_item" type="collection">
+        <element label="Quantity" max_length="40" name="quantity" type="decimal"/>
+        <element label="OI Report" max_length="32" name="oi_report" reference="x_yergb_bpm_oi_report" type="reference"/>
         <element label="Plan GR Date" max_length="40" name="plan_gr_date" type="glide_date"/>
-        <element label="YearMonth" max_length="40" name="yearmonth" type="string"/>
-        <element attributes="edge_encryption_enabled=true" label="Amount" max_length="20" name="amount" type="decimal"/>
-        <element label="Target GR Date" max_length="40" name="target_gr_date" type="glide_date"/>
-        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="WBS" max_length="32" name="wbs" reference="x_yergb_bpm_wbs_master" type="reference"/>
-        <element attributes="edge_encryption_enabled=true" label="Unit Cost Price" max_length="20" name="unit_cost_price" type="decimal"/>
-        <element label="Project" max_length="32" name="project" reference="x_yergb_bpm_project" type="reference"/>
-        <element choice="1" label="Currency" max_length="40" name="currency" type="choice">
-            <choice>
-                <element inactive_on_update="false" label="CNY" sequence="2" value="cny"/>
-                <element inactive_on_update="false" label="USD" sequence="0" value="usd"/>
-                <element inactive_on_update="false" label="KRW" sequence="1" value="krw"/>
-            </choice>
-        </element>
-        <element label="Vendor" max_length="32" name="vendor" reference="core_company" type="reference"/>
         <element label="GR Date" max_length="40" name="gr_date" type="glide_date"/>
+        <element label="Unit MP" max_length="40" name="unit_mp" type="decimal"/>
+        <element label="MSA Number" max_length="40" name="msa_number" type="string"/>
+        <element label="MS Code" max_length="100" name="ms_code" type="string"/>
         <element label="Planned Procurement" max_length="40" name="planned_procurement" type="glide_date"/>
-        <element label="Strategy" max_length="40" name="strategy" type="string"/>
-        <element choice="1" label="State" max_length="40" name="state" type="choice">
+        <element label="Project" max_length="32" name="project" reference="x_yergb_bpm_project" type="reference"/>
+        <element label="Target GR Date" max_length="40" name="target_gr_date" type="glide_date"/>
+        <element label="Unit Price" max_length="40" name="unit_price" type="decimal"/>
+        <element label="Vendor" max_length="32" name="vendor" reference="core_company" reference_qual="vendor=true^EQ" reference_qual_condition="vendor=true^EQ" type="reference"/>
+        <element choice="1" label="Data Type" max_length="40" name="data_type" type="choice">
             <choice/>
         </element>
-        <element choice="1" label="Data type" max_length="40" name="data_type" type="choice">
-            <choice>
-                <element inactive_on_update="false" label="WBS6" sequence="0" value="wbs6"/>
-                <element inactive_on_update="false" label="ITEM" sequence="1" value="item"/>
-            </choice>
+        <element label="Description" max_length="4000" name="description" type="string"/>
+        <element label="Extended Price" max_length="40" name="extended_price" type="decimal"/>
+        <element choice="1" dependent="data_type" dependent_on_field="data_type" label="Budget Type" max_length="40" name="budget_type" type="choice" use_dependent_field="true">
+            <choice/>
         </element>
-        <element label="MSA Number" max_length="40" name="msa_number" type="string"/>
-        <element label="Sales Order" max_length="40" name="sales_order" type="string"/>
-        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
-        <element label="MS code" max_length="40" name="ms_code" type="string"/>
+        <element label="MP Amount" max_length="40" name="mp_amount" type="decimal"/>
+        <element label="Unit Cost" max_length="40" name="unit_cost" type="decimal"/>
+        <element label="GP Amount" max_length="40" name="gp_amount" type="decimal"/>
+        <element label="WBS 6" max_length="32" name="wbs_6" reference="x_yergb_bpm_wbs_master" type="reference"/>
+        <element label="Extended Cost" max_length="40" name="extended_cost" type="decimal"/>
+        <element label="PO Date" max_length="40" name="po_date" type="glide_date"/>
         <index name="index">
-            <element name="project"/>
+            <element name="wbs_6"/>
         </index>
         <index name="index2">
-            <element name="region"/>
+            <element name="oi_report"/>
         </index>
         <index name="index3">
-            <element name="vendor"/>
+            <element name="project"/>
         </index>
         <index name="index4">
-            <element name="wbs"/>
+            <element name="vendor"/>
         </index>
     </element>
 </database>
