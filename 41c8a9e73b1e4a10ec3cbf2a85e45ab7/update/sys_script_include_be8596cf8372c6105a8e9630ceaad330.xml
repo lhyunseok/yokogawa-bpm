@@ -8,37 +8,13 @@
         <description>Man Hour</description>
         <name>RealGridUtils_eng</name>
         <script><![CDATA[var RealGridUtils_eng = Class.create();
-RealGridUtils_eng.prototype = {
+RealGridUtils_eng.prototype = Object.extendsObject(RealGridKey,{
     initialize: function() {},
 
-    getRealGridKey: function() {
-        var instanceUrl = gs.getProperty('glide.servlet.uri');
-
-        if (instanceUrl.includes('yokogawabpmdev')) {
-            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYnPAZ2U443ftFtq1GKyB4jmAL12I5YlRY7nDp96mgkGF1aIR/+OY0FAv/bXcyw/1FAj+gHj1bcIaQ==';
-        } else if (instanceUrl.includes('dev51314')) {
-            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP++bUn16KUuDYPGjmXkNrgkO9y6iqz39NL2bv3IdPQpJ8IeMqlSWuW04=';
-        } else if (instanceUrl.includes('dev197054')) {
-            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+xy/pIW0HghIJKTWpoOpNFnkmhX0fXje4w7n7/ElITcuCZPJfHzThFk=';
-        } else if (instanceUrl.includes('dev251919')) {
-            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+5kVu6qIimZpJKTWpoOpNFnkmhX0fXje4w7n7/ElITcuCZPJfHzThFk=';
-        } else if (instanceUrl.includes('dev178808')) {
-            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+xoV7b+wGal7JKTWpoOpNFnkmhX0fXje4w7n7/ElITcuQU5++nrgCcc=';
-        } else if (instanceUrl.includes('dev260285')) {
-            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+w9HPS02Uro1JKTWpoOpNFnkmhX0fXje4w7n7/ElITcuJBKTc5vuhGc=';
-        } else if (instanceUrl.includes('dev257309')) {
-            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+3l1JW85tSroJKTWpoOpNFnkmhX0fXje4w7n7/ElITcu25tIywHuN+4=';
-        } else if (instanceUrl.includes('dev208377')) {
-            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+yzsSo3P4ZrgJKTWpoOpNFnkmhX0fXje4w7n7/ElITcu25tIywHuN+4=';
-        } else {
-            gs.addInfoMessage('script include - RealGridUtils_eng - PDI용 realgrid key 발급받아서 추가하세요~~');
-            return;
-        }
-    },
-    getTableInfo: function(item_sysid, basemonth) {
+    getTableInfo: function(item_sysid) {
         var gritem = new GlideRecord("x_yergb_bpm_cost");
         gritem.orderBy("number");
-        gritem.addEncodedQuery('order_item=' + item_sysid + '^base_month=' + basemonth);
+        gritem.addEncodedQuery('order_item=' + item_sysid);
         gritem.query();
         var tableinfo = [];
         while (gritem.next()) {
@@ -46,8 +22,6 @@ RealGridUtils_eng.prototype = {
                 'sys_id': gritem.sys_id.getDisplayValue(),
                 'wbs': gritem.wbs.getDisplayValue(),
                 'activity_type': gritem.activity_type.getDisplayValue(),
-                'activity_rate': 4000,
-                'total': 3,
                 'month1': gritem.month1.getDisplayValue(),
                 'month2': gritem.month2.getDisplayValue(),
                 'month3': gritem.month3.getDisplayValue(),
@@ -67,8 +41,7 @@ RealGridUtils_eng.prototype = {
                 'month17': gritem.month17.getDisplayValue(),
                 'month18': gritem.month18.getDisplayValue(),
                 'beyond18': gritem.beyond18.getDisplayValue(),
-                'order_item': item_sysid,
-                'base_month': basemonth
+                'order_item': item_sysid
             });
         }
         return tableinfo;
@@ -79,14 +52,6 @@ RealGridUtils_eng.prototype = {
             'sys_id',
             'wbs',
             'activity_type',
-            {
-                fieldName: "activity_rate",
-                dataType: "number",
-            },
-            {
-                fieldName: "total",
-                dataType: "number",
-            },
             'month1',
             'month2',
             'month3',
@@ -106,13 +71,7 @@ RealGridUtils_eng.prototype = {
             'month17',
             'month18',
             'beyond18',
-            'order_item',
-            'base_month',
-            {
-                fieldName: "rate_hour",
-                dataType: "number",
-                valueExpression: "values['activity_rate'] * values['total']"
-            }
+            'order_item'
         ];
         return fields;
     },
@@ -122,8 +81,6 @@ RealGridUtils_eng.prototype = {
             'sys_id',
             'wbs',
             'activity_type',
-            'activity_rate',
-            'total',
             'month1',
             'month2',
             'month3',
@@ -143,9 +100,7 @@ RealGridUtils_eng.prototype = {
             'month17',
             'month18',
             'beyond18',
-            'order_item',
-            'base_month',
-            'rate_hour'
+            'order_item'
         ];
         return layouts;
     },
@@ -176,24 +131,6 @@ RealGridUtils_eng.prototype = {
                 "width": 100,
                 "header": {
                     "text": "Activity Type"
-                },
-            },
-            {
-                "name": "activity_rate",
-                "fieldName": "activity_rate",
-                "type": "data",
-                "width": 100,
-                "header": {
-                    "text": "Activity Rate"
-                },
-            },
-            {
-                "name": "total",
-                "fieldName": "total",
-                "type": "data",
-                "width": 100,
-                "header": {
-                    "text": "Total(H)"
                 },
             },
             {
@@ -368,24 +305,6 @@ RealGridUtils_eng.prototype = {
                 },
             },
             {
-                "name": "forecast_ptc",
-                "fieldName": "forecast_ptc",
-                "type": "data",
-                "width": 100,
-                "header": {
-                    "text": "Forecast PTC"
-                },
-            },
-            {
-                "name": "base_month",
-                "fieldName": "base_month",
-                "type": "data",
-                "width": 100,
-                "header": {
-                    "text": "Base Month"
-                },
-            },
-            {
                 "name": "order_item",
                 "fieldName": "order_item",
                 "type": "data",
@@ -393,30 +312,6 @@ RealGridUtils_eng.prototype = {
                 "header": {
                     "text": "order_item"
                 }
-            },
-            {
-                "name": "base_month",
-                "fieldName": "base_month",
-                "type": "data",
-                "width": 100,
-                "header": {
-                    "text": "Base Month"
-                }
-            },
-            {
-                "name": "rate_hour",
-                "fieldName": "rate_hour",
-                "width": "80",
-                "numberFormat": "#,##0",
-                "header": {
-                    "text": "납입금액",
-                    "styleName": "orange-column"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-                "styleName": "right-column"
             }
         ];
 
@@ -425,18 +320,18 @@ RealGridUtils_eng.prototype = {
     },
 
     type: 'RealGridUtils_eng'
-};]]></script>
+});]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 15:55:30</sys_created_on>
         <sys_id>be8596cf8372c6105a8e9630ceaad330</sys_id>
-        <sys_mod_count>10</sys_mod_count>
+        <sys_mod_count>15</sys_mod_count>
         <sys_name>RealGridUtils_eng</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_include_be8596cf8372c6105a8e9630ceaad330</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-19 16:46:31</sys_updated_on>
+        <sys_updated_by>yeongink</sys_updated_by>
+        <sys_updated_on>2024-06-21 05:10:36</sys_updated_on>
     </sys_script_include>
 </record_update>
