@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_yergb_bpm.RealGridUtils_hour</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Man Hour</description>
+        <name>RealGridUtils_hour</name>
+        <script><![CDATA[var RealGridUtils_hour = Class.create();
+RealGridUtils_hour.prototype = {
+    initialize: function() {},
+
+    getRealGridKey: function() {
+        var instanceUrl = gs.getProperty('glide.servlet.uri');
+
+        if (instanceUrl.includes('yokogawabpmdev')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYnPAZ2U443ftFtq1GKyB4jmAL12I5YlRY7nDp96mgkGF1aIR/+OY0FAv/bXcyw/1FAj+gHj1bcIaQ==';
+        } else if (instanceUrl.includes('dev51314')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP++bUn16KUuDYPGjmXkNrgkO9y6iqz39NL2bv3IdPQpJ8IeMqlSWuW04=';
+        } else if (instanceUrl.includes('dev197054')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+xy/pIW0HghIJKTWpoOpNFnkmhX0fXje4w7n7/ElITcuCZPJfHzThFk=';
+        } else if (instanceUrl.includes('dev251919')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+5kVu6qIimZpJKTWpoOpNFnkmhX0fXje4w7n7/ElITcuCZPJfHzThFk=';
+        } else if (instanceUrl.includes('dev178808')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+xoV7b+wGal7JKTWpoOpNFnkmhX0fXje4w7n7/ElITcuQU5++nrgCcc=';
+        } else if (instanceUrl.includes('dev260285')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+w9HPS02Uro1JKTWpoOpNFnkmhX0fXje4w7n7/ElITcuJBKTc5vuhGc=';
+        } else if (instanceUrl.includes('dev257309')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+3l1JW85tSroJKTWpoOpNFnkmhX0fXje4w7n7/ElITcu25tIywHuN+4=';
+        } else if (instanceUrl.includes('dev208377')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+yzsSo3P4ZrgJKTWpoOpNFnkmhX0fXje4w7n7/ElITcu25tIywHuN+4=';
+        } else if (instanceUrl.includes('dev254942')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+4PNdCICED0lJKTWpoOpNFnkmhX0fXje4w7n7/ElITcursW4T4GvNxc=';
+        } else {
+            gs.addInfoMessage('script include - RealGridUtils_hour - PDI용 realgrid key 발급받아서 추가하세요~~');
+            return;
+        }
+    },
+    getTableInfo: function(item_sysid, basemonth) {
+        var gritem = new GlideRecord("x_yergb_bpm_cost");
+        gritem.orderBy("number");
+        gritem.query();
+        var tableinfo = [];
+		var prevWbs = '';
+        while (gritem.next()) {
+			if (prevWbs && prevWbs !== gritem.wbs.getDisplayValue()) {
+				tableinfo.push({
+					'sys_id': null,
+					'wbs': prevWbs,
+					'__type': '2',
+				});
+			}
+            tableinfo.push({
+                'sys_id': gritem.sys_id.getDisplayValue(),
+                'wbs': gritem.wbs.getDisplayValue(),
+				'__type': '1',
+                'in_charge': gritem.in_charge.getDisplayValue(),
+                'activity_type': gritem.activity_type.getDisplayValue(),
+                'activity_rate': parseInt(gritem.activity_rate.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'total_amount': parseInt(gritem.total_amount.getDisplayValue(), 10) || 0,
+                'month1': parseInt(gritem.month1.getDisplayValue(), 10) || 0,
+                'month2': parseInt(gritem.month2.getDisplayValue(), 10) || 0,
+                'month3': parseInt(gritem.month3.getDisplayValue(), 10) || 0,
+                'month4': parseInt(gritem.month4.getDisplayValue(), 10) || 0,
+                'month5': parseInt(gritem.month5.getDisplayValue(), 10) || 0,
+                'month6': parseInt(gritem.month6.getDisplayValue(), 10) || 0,
+                'month7': parseInt(gritem.month7.getDisplayValue(), 10) || 0,
+                'month8': parseInt(gritem.month8.getDisplayValue(), 10) || 0,
+                'month9': parseInt(gritem.month9.getDisplayValue(), 10) || 0,
+                'month10': parseInt(gritem.month10.getDisplayValue(), 10) || 0,
+                'month11': parseInt(gritem.month11.getDisplayValue(), 10) || 0,
+                'month12': parseInt(gritem.month12.getDisplayValue(), 10) || 0,
+                'month13': parseInt(gritem.month13.getDisplayValue(), 10) || 0,
+                'month14': parseInt(gritem.month14.getDisplayValue(), 10) || 0,
+                'month15': parseInt(gritem.month15.getDisplayValue(), 10) || 0,
+                'month16': parseInt(gritem.month16.getDisplayValue(), 10) || 0,
+                'month17': parseInt(gritem.month17.getDisplayValue(), 10) || 0,
+                'month18': parseInt(gritem.month18.getDisplayValue(), 10) || 0,
+                'beyond18': parseInt(gritem.beyond18.getDisplayValue(), 10) || 0
+            });
+			prevWbs = gritem.wbs.getDisplayValue();
+        }
+		if (prevWbs) {
+			tableinfo.push({
+				'sys_id': null,
+				'wbs': prevWbs,
+				'__type': '2',
+			});
+		}
+        return tableinfo;
+    },
+
+    getFields: function() {
+        var fields = [
+            'sys_id',
+			'__type',
+            'wbs',
+            'in_charge',
+            'activity_type',
+            {
+                fieldName: "activity_rate",
+                dataType: "number",
+            },
+            {
+                fieldName: "rate_hour",
+                dataType: "number",
+                valueExpression: "values['activity_rate'] * values['total_amount']"
+            },
+            {
+                fieldName: "total_amount",
+                dataType: "number",
+            },
+            {
+                fieldName: "month1",
+                dataType: "number"
+            },
+            {
+                fieldName: "month1_amt",
+                dataType: "number",
+				valueExpression: "values['activity_rate'] * values['month1']"
+            },
+            {
+                fieldName: "month2",
+                dataType: "number"
+            },
+            {
+                fieldName: "month3",
+                dataType: "number"
+            },
+            {
+                fieldName: "month4",
+                dataType: "number"
+            },
+            {
+                fieldName: "month5",
+                dataType: "number"
+            },
+            {
+                fieldName: "month6",
+                dataType: "number"
+            },
+            {
+                fieldName: "month7",
+                dataType: "number"
+            },
+            {
+                fieldName: "month8",
+                dataType: "number"
+            },
+            {
+                fieldName: "month9",
+                dataType: "number"
+            },
+            {
+                fieldName: "month10",
+                dataType: "number"
+            },
+            {
+                fieldName: "month11",
+                dataType: "number"
+            },
+            {
+                fieldName: "month12",
+                dataType: "number"
+            },
+            {
+                fieldName: "month13",
+                dataType: "number"
+            },
+            {
+                fieldName: "month14",
+                dataType: "number"
+            },
+            {
+                fieldName: "month15",
+                dataType: "number"
+            },
+            {
+                fieldName: "month16",
+                dataType: "number"
+            },
+            {
+                fieldName: "month17",
+                dataType: "number"
+            },
+            {
+                fieldName: "month18",
+                dataType: "number"
+            },
+            {
+                fieldName: "beyond18",
+                dataType: "number"
+            }
+        ];
+        return fields;
+    },
+
+    getLayouts: function() {
+        var layouts = [
+            'sys_id',
+            'wbs',
+			'__type',
+            'in_charge',
+            'activity_type',
+            'activity_rate',
+            'rate_hour',
+            'total_amount',
+            'month1',
+			'month1_amt',
+            'month2',
+            'month3',
+            'month4',
+            'month5',
+            'month6',
+            'month7',
+            'month8',
+            'month9',
+            'month10',
+            'month11',
+            'month12',
+            'month13',
+            'month14',
+            'month15',
+            'month16',
+            'month17',
+            'month18',
+            'beyond18'
+        ];
+        return layouts;
+    },
+    getColumns: function() {
+
+        var columns = [{
+                "name": "sys_id",
+                "fieldName": "sys_id",
+                "type": "data",
+                "width": 30,
+                "header": {
+                    "text": "sysid"
+                },
+				"visible" : false,
+
+            },
+			{
+                "name": "__type",
+                "fieldName": "__type",
+                "type": "data",
+                "width": 10,
+                "header": {
+                    "text": "sysid"
+                },
+            },
+            {
+                "name": "wbs",
+                "fieldName": "wbs",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "WBS"
+                },
+            },
+            {
+                "name": "in_charge",
+                "fieldName": "in_charge",
+                "type": "data",
+                "width": 150,
+                "header": {
+                    "text": "In Charge"
+                },
+            },
+            {
+                "name": "activity_type",
+                "fieldName": "activity_type",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Activity Type"
+                },
+            },
+            {
+                "name": "activity_rate",
+                "fieldName": "activity_rate",
+                "type": "number",
+                "numberFormat": "#,##0",
+                "width": 120,
+                "header": {
+                    "text": "Activity Rate"
+                },
+            },
+            {
+                "name": "rate_hour",
+                "fieldName": "rate_hour",
+                "width": 100,
+                "numberFormat": "#,##0",
+                "header": {
+                    "text": "Rate * Hour",
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                }
+            },
+            {
+                "name": "total_amount",
+                "fieldName": "total_amount",
+                "type": "number",
+                "numberFormat": "#,##0",
+                "width": 100,
+                "header": {
+                    "text": "Total(H)"
+                },
+            },
+            {
+                "name": "month1",
+                "fieldName": "month1",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 1"
+                },
+
+            },
+            {
+                "name": "month1_amt",
+                "fieldName": "month1_amt",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 1 AMT"
+                },
+				"groupFooters" : [ 
+					{ "text": " ", "expression" : "sum", "numberFormat" : "#,###.00" },
+				]
+            },
+            {
+                "name": "month2",
+                "fieldName": "month2",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 2"
+                }
+            },
+            {
+                "name": "month3",
+                "fieldName": "month3",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 3"
+                }
+            },
+            {
+                "name": "month4",
+                "fieldName": "month4",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 4"
+                }
+            },
+            {
+                "name": "month5",
+                "fieldName": "month5",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 5"
+                }
+            },
+            {
+                "name": "month6",
+                "fieldName": "month6",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 6"
+                }
+            },
+            {
+                "name": "month7",
+                "fieldName": "month7",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 7"
+                }
+            },
+            {
+                "name": "month8",
+                "fieldName": "month8",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 8"
+                }
+            },
+            {
+                "name": "month9",
+                "fieldName": "month9",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 9"
+                }
+            },
+            {
+                "name": "month10",
+                "fieldName": "month10",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 10"
+                }
+            },
+            {
+                "name": "month11",
+                "fieldName": "month11",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 11"
+                }
+            },
+            {
+                "name": "month12",
+                "fieldName": "month12",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 12"
+                }
+            },
+            {
+                "name": "month13",
+                "fieldName": "month13",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 13"
+                }
+            },
+            {
+                "name": "month14",
+                "fieldName": "month14",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 14"
+                }
+            },
+            {
+                "name": "month15",
+                "fieldName": "month15",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 15"
+                }
+            },
+            {
+                "name": "month16",
+                "fieldName": "month16",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 16"
+                }
+            },
+            {
+                "name": "month17",
+                "fieldName": "month17",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 17"
+                }
+            },
+            {
+                "name": "month18",
+                "fieldName": "month18",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 60,
+                "header": {
+                    "text": "Month 18"
+                }
+            },
+            {
+                "name": "beyond18",
+                "fieldName": "beyond18",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 100,
+                "header": {
+                    "text": "Beyond 18"
+                }
+            }
+        ];
+
+
+        return columns;
+    },
+
+    type: 'RealGridUtils_hour'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-20 16:06:25</sys_created_on>
+        <sys_id>60a16f1fc3f64210be6bfdac050131d8</sys_id>
+        <sys_mod_count>29</sys_mod_count>
+        <sys_name>RealGridUtils_hour</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_script_include_60a16f1fc3f64210be6bfdac050131d8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-21 07:57:35</sys_updated_on>
+    </sys_script_include>
+</record_update>
