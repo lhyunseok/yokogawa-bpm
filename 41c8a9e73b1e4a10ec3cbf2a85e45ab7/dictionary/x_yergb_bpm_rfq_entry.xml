@@ -5,7 +5,6 @@
         <element default="javascript:gs.nowDateTime();" dynamic_default_value="79cb83a85f220100a9ad2572f2b4773c" label="Request Date" mandatory="true" max_length="40" name="request_date" type="glide_date" use_dynamic_default="true"/>
         <element label="End User" max_length="32" name="end_user" reference="core_company" type="reference"/>
         <element label="Contract Name" max_length="40" name="contract_name" type="string"/>
-        <element attributes="edge_encryption_enabled=true,encode_utf8=false" dependent="assignment_group" dependent_on_field="assignment_group" label="Assigned to" max_length="32" name="assigned_to" reference="sys_user" type="reference" use_dependent_field="true"/>
         <element label="Reason Code" max_length="40" name="reason_code" type="string"/>
         <element label="Remark" max_length="4000" name="remark" type="string"/>
         <element label="YODA Opportunity No" max_length="40" name="yoda_opportunity_no" type="string"/>
@@ -28,7 +27,6 @@
         <element label="Contract" max_length="32" name="contract" reference="core_company" type="reference"/>
         <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="OI Report" max_length="32" name="oi_report" reference="x_yergb_bpm_oi_report" type="reference"/>
         <element attributes="edge_encryption_enabled=true" default="true" label="Active" max_length="40" name="active" read_only="true" type="boolean"/>
-        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Assignment group" max_length="32" name="assignment_group" reference="sys_user_group" type="reference"/>
         <element label="Quotation" max_length="40" name="quotation" reference="x_yergb_bpm_quotation" type="reference"/>
         <element label="Request Due Date" max_length="40" name="request_due_date" type="glide_date"/>
         <element label="Credit Assessment" max_length="32" name="credit_assessment" reference="x_yergb_bpm_credit_assessment" type="reference"/>
@@ -42,30 +40,24 @@
             <element name="quotation"/>
         </index>
         <index name="index3">
-            <element name="assigned_to"/>
-        </index>
-        <index name="index4">
             <element name="territory_review"/>
         </index>
-        <index name="index5">
+        <index name="index4">
             <element name="contract"/>
         </index>
-        <index name="index6">
+        <index name="index5">
             <element name="oi_report"/>
         </index>
-        <index name="index7">
+        <index name="index6">
             <element name="risk_management"/>
         </index>
-        <index name="index8">
+        <index name="index7">
             <element name="t_cas"/>
         </index>
-        <index name="index9">
+        <index name="index8">
             <element name="end_user"/>
         </index>
-        <index name="index10">
-            <element name="assignment_group"/>
-        </index>
-        <index name="index11">
+        <index name="index9">
             <element name="credit_assessment"/>
         </index>
     </element>
