@@ -13,6 +13,7 @@
         <element attributes="edge_encryption_enabled=true" label="OI Amount (TC)" max_length="40" name="oi_amount_tc" type="decimal"/>
         <element label="E-Draft Maturity Days" max_length="40" name="e_draft_maturity_days" type="integer"/>
         <element attributes="edge_encryption_enabled=true" label="GP Amount (TC)" max_length="40" name="gp_amount_tc" type="decimal"/>
+        <element label="Sales Manager" max_length="32" name="sales_manager" reference="sys_user" type="reference"/>
         <element attributes="edge_encryption_enabled=true" label="GP Amount (LC)" max_length="40" name="gp_amount_lc" type="decimal"/>
         <element attributes="edge_encryption_enabled=true" label="OI Amount (LC)" max_length="40" name="oi_amount_lc" type="decimal"/>
         <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="RFQ Entry" max_length="32" name="rfq_entry" reference="x_yergb_bpm_rfq_entry" type="reference"/>
@@ -20,7 +21,6 @@
         <element label="MP Gap %" max_length="40" name="mp_gap_percent" type="decimal"/>
         <element attributes="edge_encryption_enabled=true" label="MP Amount (TC)" max_length="40" name="mp_amount_tc" type="decimal"/>
         <element attributes="edge_encryption_enabled=true" label="MP Gap (TC)" max_length="40" name="mp_gap_tc" type="decimal"/>
-        <element label="Sales Manager" max_length="32" name="sales_manager" reference="sys_user" type="reference"/>
         <index name="index">
             <element name="oi_amount_tc"/>
         </index>
