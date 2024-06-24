@@ -11,10 +11,11 @@
     c.getUrlParameter = function(param) {
         return $location.search()[param];
     };
+	debugger;
     // Function to handle click event
     $scope.handleClick = function() {
         if (c.data.quotation) {
-            window.location.href = "/ybpm?id=epic_03_ui_budget_y_product&number=" + c.data.key; // Redirect to the URL
+            window.location.href = "/ybpm?id=epic_03_ui_budget_y_product&number=" + c.data.paramValue; // Redirect to the URL
         }
     };
     // Example: Retrieve a specific parameter
@@ -408,12 +409,11 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <roles/>
         <script><![CDATA[(function() {
 
-    data.key = $sp.getParameter("number");
-    data.gridUrl = '/x_yergb_bpm_SorinGrid_BPM.do?id_q=' + data.number;
+    data.number = $sp.getParameter("number");
 
-    if (data.key && input && input.readStatus) { // Update
+    if (data.number) { // Update
         var grProject = new GlideRecord('x_yergb_bpm_project');
-        grProject.addQuery('number', data.key);
+        grProject.addQuery('number', data.number);
         grProject.query();
         if (grProject.next()) {
             data.number = grProject.number.toString(); //Project Number
@@ -434,14 +434,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-17 08:14:02</sys_created_on>
         <sys_id>77b85252833e0210856ceec0deaad37c</sys_id>
-        <sys_mod_count>38</sys_mod_count>
+        <sys_mod_count>42</sys_mod_count>
         <sys_name>budgetPlanMngtWd01</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_77b85252833e0210856ceec0deaad37c</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-21 09:35:49</sys_updated_on>
+        <sys_updated_on>2024-06-24 07:03:22</sys_updated_on>
         <template><![CDATA[    <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > Project Budget Plan for Y-Product</div>
         <div class="yoko-title-btn-wrap">
