@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element audit="true" db_object_id="0d73e7843be2ca10ec3cbf2a85e45a29" extends="x_yergb_bpm_process" label="Quotation" max_length="40" name="x_yergb_bpm_quotation" type="collection">
         <element label="Active" max_length="40" name="active" type="boolean"/>
-        <element label="Assigned to" max_length="32" name="assigned_to" reference="sys_user" type="reference"/>
         <element label="MP Gap %" max_length="40" name="mp_gap_percent" type="decimal"/>
         <element label="GP Amount" max_length="40" name="gp_amount" type="decimal"/>
         <element label="Total Quote Cost" max_length="40" name="total_quote_cost" type="decimal"/>
@@ -9,21 +8,14 @@
         <element label="ESS/SQMS No." max_length="40" name="ess_sqms_no" type="string"/>
         <element label="GP %" max_length="40" name="gp_percent" type="decimal"/>
         <element label="Currency" max_length="32" name="currency" reference="fx_currency" type="reference"/>
-        <element label="Assignment group" max_length="32" name="assignment_group" reference="sys_user_group" type="reference"/>
         <element label="Total Quote Price" max_length="40" name="total_quote_price" type="decimal"/>
         <element label="Version" max_length="40" name="version" read_only="true" type="integer"/>
         <element label="MP Amount" max_length="40" name="mp_amount" type="decimal"/>
         <index name="index">
-            <element name="assigned_to"/>
-        </index>
-        <index name="index2">
             <element name="rfq_entry"/>
         </index>
-        <index name="index3">
+        <index name="index2">
             <element name="currency"/>
-        </index>
-        <index name="index4">
-            <element name="assignment_group"/>
         </index>
     </element>
 </database>
