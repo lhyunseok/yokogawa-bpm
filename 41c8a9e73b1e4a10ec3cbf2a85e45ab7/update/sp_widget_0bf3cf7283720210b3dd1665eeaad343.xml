@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller=function($scope, $rootScope, $window, $location) {
+        <client_script><![CDATA[api.controller=function($scope, $rootScope, $window, $location, testService) {
   /* widget controller */
   var c = this;
 
@@ -37,6 +37,9 @@
 	c.data.checkedSmart = false;
 	
 	c.data.itemsFlagName = [];
+	
+	/* GRID */
+	c.data.gridBtnType = '';
 	
 	/* Modal type */
 	c.data.modalOrderType = false;
@@ -378,6 +381,257 @@
 	// Call resizeIframe on initial load to set the initial height
 	resizeIframe();
 	
+	
+	
+
+
+	function checkRealGrid() {
+		if(RealGrid) {
+			return true;
+		} 
+		
+		return false;
+	}
+	
+	var dpDetail;
+	var gvDetail;
+	var containerDetail;
+	function drawRealGrid() {
+		containerDetail = document.getElementById('gridContainer');
+		dpDetail = new RealGrid.LocalDataProvider(false);
+		gvDetail = new RealGrid.GridView(containerDetail);
+		gvDetail.setDataSource(dpDetail);
+		
+		dpDetail.setFields([
+			/*{
+				fieldName: 'KorName',
+				dataType: 'text',
+			},
+			{
+				fieldName: 'Age',
+				dataType: 'number',
+			},*/
+
+			'sys_id',
+			'number',
+			'wbs_6',
+			'ms_code',
+			'description',
+			'quantity',
+			'unit_price',
+			'extended_price',
+			'unit_cost',
+			'extended_cost',
+			'unit_mp',
+			'mp_amount',
+			'vendor',
+			'oi_report_num',
+			'oi_report_sys_Id'
+		]);
+		
+		gvDetail.setColumns([
+			/*{
+				"name": "sys_id",
+				"fieldName": "sys_id",
+				"type": "data",
+				"width": 0,
+				"header": {
+					"text": "sysid"
+				},
+			},*/
+			{
+				"name": "number",
+				"fieldName": "number",
+				"type": "data",
+				"width": 100,
+				"header": {
+					"text": "Number"
+				},
+			},
+			{
+				"name": "wbs_6",
+				"fieldName": "wbs_6",
+				"type": "data",
+				"width": 100,
+				"header": {
+					"text": "WBS 6"
+				},
+			},
+			{
+				"name": "ms_code",
+				"fieldName": "ms_code",
+				"type": "data",
+				"width": 100,
+				"header": {
+					"text": "MS Code"
+				},
+			},
+			{
+				"name": "description",
+				"fieldName": "description",
+				"type": "data",
+				"width": 120,
+				"header": {
+					"text": "Description"
+				},
+			},
+			{
+				"name": "quantity",
+				"fieldName": "quantity",
+				"type": "data",
+				"width": 120,
+				"header": {
+					"text": "Quantity"
+				},
+			},
+			{
+				"name": "unit_price",
+				"fieldName": "unit_price",
+				"type": "data",
+				"width": 120,
+				"header": {
+					"text": "Unit Price"
+				},
+			},
+			{
+				"name": "extended_price",
+				"fieldName": "extended_price",
+				"type": "data",
+				"width": 120,
+				"header": {
+					"text": "Extended Price"
+				},
+			},
+			{
+				"name": "unit_cost",
+				"fieldName": "unit_cost",
+				"type": "data",
+				"width": 120,
+				"header": {
+					"text": "Unit Cost"
+				},
+			},
+			{
+				"name": "extended_cost",
+				"fieldName": "extended_cost",
+				"type": "data",
+				"width": 120,
+				"header": {
+					"text": "Extended Cost"
+				},
+			},
+			{
+				"name": "unit_mp",
+				"fieldName": "unit_mp",
+				"type": "data",
+				"width": 120,
+				"header": {
+					"text": "Unit MP"
+				},
+			},
+			{
+				"name": "mp_amount",
+				"fieldName": "mp_amount",
+				"type": "data",
+				"width": 120,
+				"header": {
+					"text": "MP Amount"
+				},
+			},
+			{
+				"name": "vendor",
+				"fieldName": "vendor",
+				"type": "data",
+				"width": 120,
+				"header": {
+					"text": "Vendor"
+				},
+			},
+			{
+				"name": "oi_report_num",
+				"fieldName": "oi_report_num",
+				"type": "data",
+				"width": 120,
+				"header": {
+					"text": "OI report Number"
+				},
+			}
+		]);
+		
+		gvDetail.setColumnLayout([
+			//'sys_id',
+			'number',
+			'wbs_6',
+			'ms_code',
+			'description',
+			'quantity',
+			'unit_price',
+			'extended_price',
+			'unit_cost',
+			'extended_cost',
+			'unit_mp',
+			'mp_amount',
+			'vendor',
+			'oi_report_num'
+		]);
+		
+	  gvDetail.footers.visible = false;
+		gvDetail.commitEditor();
+		gvDetail.undoable = true;
+		gvDetail.editOptions.commitByCell = true;
+		gvDetail.editOptions.insertable = true;
+		
+		//gvDetail.checkBar.visible = false;
+		//gvDetail.stateBar.visible = false;
+		
+		dpDetail.setRows(c.data.gridDetailData);
+	}
+	
+	$scope.gridDetailBtnClick = function(idx) {
+		var v = {
+			'sys_id' : '', 
+			'number' : '', 
+			'wbs_6' : '', 
+			'ms_code' : '', 
+			'description' : 'test description', 
+			'quantity' :'', 
+			'unit_price' :'', 
+			'extended_price' : '', 
+			'unit_cost' : '',
+			'extended_cost' : '',
+			'unit_mp' : '', 
+			'mp_amount' : '', 
+			'vendor' : '', 
+			'oi_report_num' : '',
+			'oi_report_sys_Id' :data.oiSysId
+		}
+		
+		c.data.gridBtnType = '';
+		if(idx == 1) {
+			c.data.gridBtnType = 'add';
+			dpDetail.addRow(v);
+		} else if(idx == 2) {
+			c.data.gridBtnType = 'insert';
+			dpDetail.insertRow(0, v);
+		} else if(idx == 3) {
+			c.data.gridBtnType = 'delete';
+			//gvDetail.deleteSelection(true);
+			var curr = gvDetail.getCurrent();
+  		dpDetail.removeRow(curr.dataRow);
+		} else if(idx == 4) {
+			c.data.gridBtnType = 'save';
+		}
+		
+		
+		
+		console.log(dpDetail.getRowCount());
+		
+		
+		c.server.update().then(function(response) {
+			console.log('Server response:', response);
+		});
+	}
+
 	/* 최초 초기화 */
 	c.server.update().then(function(response) {
 		console.log('Init screen rsponse:', response);
@@ -401,6 +655,22 @@
 			c.data.showBtnApprovalReq = true;
 		}
 		
+		var loopCnt = 0;
+		var timerid = setInterval(function() {
+			loopCnt = loopCnt + 1;
+			if(loopCnt > 30) {
+				clearTimeout(timerid);
+				alert('Can not load REALGRID');
+			}
+			
+			if (checkRealGrid()) {
+				clearTimeout(timerid);
+				drawRealGrid();
+			} 
+		}, 100);
+		
+		//$scope.serviceCall = testService.showResult();
+		//console.log("$scope.serviceCall: "+$scope.serviceCall);
 	});	
 };]]></client_script>
         <controller_as>c</controller_as>
@@ -657,6 +927,72 @@
 .highlight-form {
   border: 2px solid red;
 }
+
+
+/* REAL GRID */
+/*리얼그리드 수정*/
+.rg-root {color: #4B5966 !important;  font-family: "Pretendard" !important;   font-size: 14px !important;  font-style: normal !important;  font-weight: 500 !important;  line-height: normal !important;}
+.rg-grid {border: 1px solid #EAEEF3 !important;}
+
+.rg-header {background: #FBFCFF  !important; color:#8B99A6 !important; font-weight: 600 !important; font-weight: 500 !important;}
+.rg-header .rg-table tr td {border-right: 1px solid #EAEEF3 !important; border-bottom: 1px solid #EAEEF3 !important; font-weight: 500 !important;} 
+.rg-head {background: #FBFCFF  !important; color:#8B99A6 !important; font-weight: 600 !important; font-weight: 500 !important;}
+.rg-head .rg-table tr td { border-right: 1px solid #EAEEF3 !important;  border-bottom: 1px solid #EAEEF3 !important; font-weight: 500 !important;}
+
+.rg-body,
+.rg-fixed-body {color: #4B5966 !important;}
+.rg-fixed-body .rg-data-row {background: #fff !important;}
+.rg-body .rg-table tr td, 
+.rg-fixed-body .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-bottom: 1px solid #EAEEF3 !important;}
+.rg-rowbarcontainer .rg-table tr td {background-color: transparent !important;    border-right: 1px solid #EAEEF3 !important;    border-bottom: 1px solid #EAEEF3 !important;}
+.rg-alternate-row {background: #fff !important;}
+.rg-footer {color: #606060 !important; background: #FBFCFF  !important;}
+.rg-footer .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-top: 1px solid #EAEEF3 !important;}
+.rg-foot {color: #606060 !important; background: #FBFCFF  !important;}
+.rg-foot .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-top: 1px solid #EAEEF3 !important;}
+.rg-focus {border:  2px solid #68B3FC !important;}
+.rg-header-focus {background: #E5F2FF !important; color: #6F7479 !important;}
+.rg-header .rg-table tr td:hover {background: #68B3FC !important; color: #fff !important;}
+.rg-header-select {background: rgb(232 248 240 / 50%) !important;}
+.rg-selection { background: rgb(232 248 240 / 35%) !important; border: 1px solid #15BD66!important;}
+.rg-editor-container { border: 2px solid #27C382 !important; }
+
+
+
+/* -------- MOONC ----------------------------------- */
+.yoko-grid-btn-wrap-grid {display: flex; gap: 7px; justify-content: right; margin: 2px;}
+.yoko-container .yoko-content {display: flex; gap: 5px; flex-direction: column;}
+
+
+/* ----------------------------------------------- */
+/* column style
+/* ----------------------------------------------- */
+.ni-rg-readonly {
+  bbackground-color: hsla(0, 0%, 0%, 0.05) !important;
+}
+.ni-rg-required {
+  background-color: hsla(0, 100%, 50%, 0.05) !important;
+}
+.ni-rg-readonly input[type=checkbox] {
+  accent-color: hsl(24, 20%, 80%);
+}
+
+/* ----------------------------------------------- */
+/* align
+/* ----------------------------------------------- */
+
+.ni-rg-align-left     { text-align: left !important; }
+.ni-rg-align-right    { text-align: right !important; }
+.ni-rg-align-center   { text-align: center !important; }
+
+.__ni-rg-col-wbs { color: transparent;}
+.ni-rg-col-type-ref { __background: gray }
+.ni-rg-col-type-input { background: yellow }
+.ni-rg-col-button div { padding: 0px; }
+
+.ni-rg-height-0_____ { height : 0 !important; background-color: red; display: contents}   /* TODO : !!!*/
+.ni-rg-height-0 { height : 0 !important; background-color: red; visibility: hidden}   /* TODO : !!!*/
+
 </css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -680,10 +1016,7 @@
 	console.log("SYS ID : " + gs.getUser().getID());
 	
 	/* TEST DATA */
-	/*var oiSysId = '049440b63b3e4210ec3cbf2a85e45afd';
-	//data.sys_id = '9ad1f9813b72061046a3934a85e45a66';
-	var rfqSysId = '';
-	var quotsysId = '';*/
+	/* var oiSysId = '049440b63b3e4210ec3cbf2a85e45afd'; */
 	var i;
 
 	if(input && input.initScreen) {
@@ -698,6 +1031,8 @@
 		while(grData.next()) {
 			data.itemsFlagName.push(grData.code.toString());
 		}
+		
+		getDetailGridData();
 	}
 	
 	if(input && input.initOiReport && data.oiSysId != '') {
@@ -856,6 +1191,40 @@
 		return typeof value === 'undefined' ? '' : value;
 	}
 	
+	/* Detail grid data */
+	function getDetailGridData() {
+		var oiDetail = new GlideRecord('x_yergb_bpm_order_item');
+		oiDetail.addQuery('oi_report', data.oiSysId);
+		oiDetail.query();
+
+		var gridDetailData = [];
+		while(oiDetail.next()) {
+			gridDetailData.push( {
+				'sys_id' : oiDetail.sys_id.toString(), 
+				'number' : oiDetail.number.toString(), 
+				'wbs_6' : oiDetail.wbs_6.toString(), 
+				'ms_code' : oiDetail.ms_code.toString(), 
+				'description' : oiDetail.description.toString(), 
+				'quantity' :oiDetail.quantity.toString(), 
+				'unit_price' :oiDetail.unit_price.toString(), 
+				'extended_price' : oiDetail.extended_price.toString(), 
+				'unit_cost' : oiDetail.unit_cost.toString(),
+				'extended_cost' : oiDetail.extended_cost.toString(),
+				'unit_mp' : oiDetail.unit_mp.toString(), 
+				'mp_amount' : oiDetail.mp_amount.toString(), 
+				'vendor' : oiDetail.vendor.toString(), 
+				'oi_report_num' : oiDetail.oi_report.number.toString(),
+				'oi_report_sys_Id' : oiDetail.oi_report.toString()
+			});
+		} 
+		
+		data.gridDetailData = gridDetailData;
+	}
+	
+	if(input && input.gridBtnType) {
+		console.log('SERVER GRID BTN : ' + input.gridBtnType);
+	}
+	
 	/* Order type Modal */
 	if(input && input.modalOrderType) {
 		data.itemsOrdertype = [];
@@ -958,15 +1327,21 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>316</sys_mod_count>
+        <sys_mod_count>464</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-24 05:15:46</sys_updated_on>
-        <template><![CDATA[<div>
+        <sys_updated_on>2024-06-24 11:55:26</sys_updated_on>
+        <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
+<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
+<script defer>
+  var realGrid2Lic = 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYkkSQt0t0CTeCSk1qaDqTRZ5JoV9H143uMO5+/xJSE3Lj4YewEIhlh/';
+</script>
+
+<div>
     <div class="yoko-container">
         <!-- <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div> -->
         <div class="yoko-title-btn-wrap">
@@ -1501,7 +1876,15 @@
                 </div>
             </div>
 
-          	<iframe src={{data.gridUrl}} width='100%' height='500px' style='border:none;' id='myIframe'></iframe>
+          	<!--<iframe src={{data.gridUrl}} width='100%' height='500px' style='border:none;' id='myIframe'></iframe>-->
+          	<div class="yoko-grid-btn-wrap-grid">
+              <button id="bt-add" ng-click='gridDetailBtnClick(1)'>Add</button>
+              <button id="bt-insert" ng-click='gridDetailBtnClick(2)'>Insert</button>
+              <button id="bt-delete" ng-click='gridDetailBtnClick(3)'>Delete</button>
+              <button id="bt-save" ng-click='gridDetailBtnClick(4)'>Save</button>
+            </div>
+          	<div id='gridContainer' style="width:100%; height: 450px; "></div>
+        	</div>
             
         </div>
     </div>
@@ -1572,6 +1955,8 @@
         </div>
     </div>
   
-</div>]]></template>
+</div>
+
+]]></template>
     </sp_widget>
 </record_update>
