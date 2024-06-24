@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="909a82283b8b8610ec3cbf2a85e45a10" label="BPM Exchange Rate" max_length="40" name="x_yergb_bpm_bpm_exchange_rate" type="collection">
         <element label="Active" max_length="40" name="active" type="boolean"/>
-        <element label="Exchange Rate" max_length="40" name="exchange_rate" type="decimal"/>
         <element label="Source Currency" max_length="32" name="source_currency" reference="fx_currency" reference_qual="active=true^EQ" reference_qual_condition="active=true^EQ" type="reference"/>
         <element label="Country" max_length="32" name="country" reference="core_country" type="reference"/>
         <element label="Target Currency" max_length="32" name="target_currency" reference="fx_currency" reference_qual="active=true^EQ" reference_qual_condition="active=true^EQ" type="reference"/>
