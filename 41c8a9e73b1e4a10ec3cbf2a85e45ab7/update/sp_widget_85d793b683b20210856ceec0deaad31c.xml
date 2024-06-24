@@ -926,8 +926,6 @@
     font-display: swap;&#13;
   }&#13;
 &#13;
-@charset "UTF-8";&#13;
-&#13;
 &#13;
 body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; line-height: normal;}&#13;
 &#13;
@@ -956,13 +954,13 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .yoko-btn.yoko-btn-fill-red:hover  {background-color: #E35050; border: 1px solid #E35050;}&#13;
 &#13;
 &#13;
-.yoko-btn-search {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(images/icon_search.png) no-repeat center center !important;}&#13;
+.yoko-btn-search {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_search.png) no-repeat center center !important;}&#13;
 .yoko-btn-search:hover {background-color: #eaeaea;}&#13;
-.yoko-btn-add {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(images/icon_add.png) no-repeat center center !important;}&#13;
+.yoko-btn-add {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_add.png) no-repeat center center !important;}&#13;
 .yoko-btn-add:hover {background-color: #eaeaea;}&#13;
-.yoko-btn-delete {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(images/icon_delete.png) no-repeat center center !important;}&#13;
+.yoko-btn-delete {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_delete.png) no-repeat center center !important;}&#13;
 .yoko-btn-delete:hover {background-color: #eaeaea;}&#13;
-.yoko-btn-info-fill {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(images/icon_info_fill.png) no-repeat center center !important;}&#13;
+.yoko-btn-info-fill {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_info_fill.png) no-repeat center center !important;}&#13;
 .yoko-btn-info-fill:hover {background-color: #eaeaea;}&#13;
 &#13;
 .yoko-search-form {display: flex; gap: 30px; padding: 16px 30px; max-width: 1600px;  background-color: #F7F7F7; border: 1px solid #EDEDED; border-radius: 4px;}&#13;
@@ -988,13 +986,13 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .yoko-search-form textarea {max-height: none; width: 100%; padding: 10px 10px 10px 10px; }&#13;
 /* .yoko-search-form input[type=date] {width: 140px; } */&#13;
 .yoko-search-form input[type=date]::-webkit-calendar-picker-indicator,&#13;
-.yoko-search-form input[type=date]::-webkit-inner-spin-button {background: url('images/icon_calendar.png') no-repeat right center; }&#13;
+.yoko-search-form input[type=date]::-webkit-inner-spin-button {background: url('/icon_calendar.png') no-repeat right center; }&#13;
 &#13;
 .yoko-search-form select {&#13;
   -moz-appearance:none; /* Firefox */&#13;
   -webkit-appearance:none; /* Safari and Chrome */&#13;
   appearance:none;&#13;
-  background-image: url(images/icon_arrow_down.png);&#13;
+  background-image: url(/icon_arrow_down.png);&#13;
   background-repeat: no-repeat;&#13;
   background-position-x: 100%;&#13;
   background-position-y: 1px;&#13;
@@ -1026,11 +1024,11 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .custom-checkbox:hover input ~ .checkmark {background-color: #FFF;}&#13;
 .custom-checkbox input:checked ~ .checkmark {  background-color: #68B3FC;  border-radius: 2px;  border: 1px solid #68B3FC;}&#13;
 .custom-checkbox .checkmark:after {  content: "";  position: absolute;  display: none;}&#13;
-.custom-checkbox input:checked ~ .checkmark:after {  display: block;  left: 50%; top: 50%;  height: 16px;  width: 18px;  transform: translate(-50%, -50%);  background: url(images/icon_checkbox.png) no-repeat center center;}&#13;
+.custom-checkbox input:checked ~ .checkmark:after {  display: block;  left: 50%; top: 50%;  height: 16px;  width: 18px;  transform: translate(-50%, -50%);  background: url(/icon_checkbox.png) no-repeat center center;}&#13;
 &#13;
 .custom-checkbox input:disabled ~ .checkmark {border: 1px solid #D1D1D1; background: #E2E2E2; cursor: not-allowed; }&#13;
-.custom-checkbox input:checked:disabled ~ .checkmark {background:#E2E2E2 url(images/icon_checkbox_dis.png) no-repeat center center; }&#13;
-.custom-checkbox input:disabled ~ .checkmark:after {background: url(images/icon_checkbox_dis.png) no-repeat center center;}&#13;
+.custom-checkbox input:checked:disabled ~ .checkmark {background:#E2E2E2 url(/icon_checkbox_dis.png) no-repeat center center; }&#13;
+.custom-checkbox input:disabled ~ .checkmark:after {background: url(/icon_checkbox_dis.png) no-repeat center center;}&#13;
 &#13;
 .yoko-wid127 {width: 127px !important;}&#13;
 .yoko-wid134 {width: 134px !important;}&#13;
@@ -1070,13 +1068,13 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .yoko-search-table textarea {font-family: "Pretendard"; font-size: 13px; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); border-radius: 4px; border: 1px solid #E1E8F0; color: #7A8692;}&#13;
 .yoko-search-table textarea {max-height: none; width: 100%; padding: 10px 10px 10px 10px; }&#13;
 .yoko-search-table input[type=date]::-webkit-calendar-picker-indicator,&#13;
-.yoko-search-table input[type=date]::-webkit-inner-spin-button {background: url('images/icon_calendar.png') no-repeat right center; }&#13;
+.yoko-search-table input[type=date]::-webkit-inner-spin-button {background: url('/icon_calendar.png') no-repeat right center; }&#13;
 &#13;
 .yoko-search-table select {&#13;
   -moz-appearance:none; /* Firefox */&#13;
   -webkit-appearance:none; /* Safari and Chrome */&#13;
   appearance:none;&#13;
-  background-image: url(images/icon_arrow_down.png);&#13;
+  background-image: url(/icon_arrow_down.png);&#13;
   background-repeat: no-repeat;&#13;
   background-position-x: 100%;&#13;
   background-position-y: 1px;&#13;
@@ -1305,14 +1303,14 @@ function sf1(a, b) {
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-19 02:06:36</sys_created_on>
         <sys_id>85d793b683b20210856ceec0deaad31c</sys_id>
-        <sys_mod_count>236</sys_mod_count>
+        <sys_mod_count>237</sys_mod_count>
         <sys_name>budgetPlanMngtWd03</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_85d793b683b20210856ceec0deaad31c</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-24 02:11:20</sys_updated_on>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-24 10:58:49</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 

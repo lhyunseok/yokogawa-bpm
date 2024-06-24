@@ -58,6 +58,7 @@
             location.reload();
         }
     });
+
     // Function to dynamically adjust iframe height
     function resizeIframe() {
         var iframe = document.getElementById('myIframe');
@@ -79,126 +80,571 @@
 
     // Call resizeIframe on initial load to set the initial height
     resizeIframe();
-};]]></client_script>
+
+
+    // --------------------------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------------
+    var gv;
+    var dp;
+
+    function grid() {
+        const gvFields = [
+			{
+				fieldName: "sys_id",
+				dataType: "text",
+			},
+			{
+				fieldName: "wbs",
+				dataType: "text",
+			},
+			{
+				fieldName: "wbs_description",
+				dataType: "text",
+			},
+			{
+				fieldName: "month1",
+				dataType: "text",
+			},
+			{
+				fieldName: "month2",
+				dataType: "text",
+			},
+			{
+				fieldName: "month3",
+				dataType: "text",
+			},
+			{
+				fieldName: "month4",
+				dataType: "text",
+			},
+			{
+				fieldName: "month5",
+				dataType: "text",
+			},
+			{
+				fieldName: "month6",
+				dataType: "text",
+			},
+			{
+				fieldName: "month7",
+				dataType: "text",
+			},
+			{
+				fieldName: "month8",
+				dataType: "text",
+			},
+			{
+				fieldName: "month9",
+				dataType: "text",
+			},
+			{
+				fieldName: "month10",
+				dataType: "text",
+			},
+			{
+				fieldName: "month11",
+				dataType: "text",
+			},
+			{
+				fieldName: "month12",
+				dataType: "text",
+			},
+            {
+				fieldName: "month13",
+				dataType: "text",
+			},
+			{
+				fieldName: "month14",
+				dataType: "text",
+			},
+			{
+				fieldName: "month15",
+				dataType: "text",
+			},
+			{
+				fieldName: "month16",
+				dataType: "text",
+			},
+			{
+				fieldName: "month17",
+				dataType: "text",
+			},
+			{
+				fieldName: "month18",
+				dataType: "text",
+			},
+			{
+				fieldName: "beyond18",
+				dataType: "text",
+			},
+			{
+				fieldName: "forecast_ptc",
+				dataType: "text",
+			},
+			{
+				fieldName: "base_month",
+				dataType: "text",
+			},
+			{
+				fieldName: "project",
+				dataType: "text",
+			},
+        ];
+
+        const gvColumns = [{
+                "name": "sys_id",
+                "fieldName": "sys_id",
+                "type": "data",
+                "width": 0,
+                "header": {
+                    "text": "sysid"
+                },
+            },
+            {
+                "name": "wbs",
+                "fieldName": "wbs",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "WBS"
+                },
+            },
+            {
+                "name": "wbs_description",
+                "fieldName": "wbs_description",
+                "type": "data",
+                "width": 200,
+                "header": {
+                    "text": "WBS Description"
+                },
+            },
+            {
+                "name": "month1",
+                "fieldName": "month1",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Month 1"
+                },
+            },
+            {
+                "name": "month2",
+                "fieldName": "month2",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Month 2"
+                },
+            },
+            {
+                "name": "month3",
+                "fieldName": "month3",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Month 3"
+                },
+            },
+            {
+                "name": "month4",
+                "fieldName": "month4",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Month 4"
+                },
+            },
+            {
+                "name": "month5",
+                "fieldName": "month5",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Month 5"
+                },
+            },
+            {
+                "name": "month6",
+                "fieldName": "month6",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Month 6"
+                },
+            },
+            {
+                "name": "month7",
+                "fieldName": "month7",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Month 7"
+                },
+            },
+            {
+                "name": "month8",
+                "fieldName": "month8",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Month 8"
+                },
+            },
+            {
+                "name": "month9",
+                "fieldName": "month9",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Month 9"
+                },
+            },
+            {
+                "name": "month10",
+                "fieldName": "month10",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Month 10"
+                },
+            },
+            {
+                "name": "month11",
+                "fieldName": "month11",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Month 11"
+                },
+            },
+            {
+                "name": "month12",
+                "fieldName": "month12",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Month 12"
+                },
+            },
+            {
+                "name": "month13",
+                "fieldName": "month13",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Month 13"
+                },
+            },
+            {
+                "name": "month14",
+                "fieldName": "month14",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Month 14"
+                },
+            },
+            {
+                "name": "month15",
+                "fieldName": "month15",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Month 15"
+                },
+            },
+            {
+                "name": "month16",
+                "fieldName": "month16",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Month 16"
+                },
+            },
+            {
+                "name": "month17",
+                "fieldName": "month17",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Month 17"
+                },
+            },
+            {
+                "name": "month18",
+                "fieldName": "month18",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Month 18"
+                },
+            },
+            {
+                "name": "beyond18",
+                "fieldName": "beyond18",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Beyond 18"
+                },
+            },
+            {
+                "name": "forecast_ptc",
+                "fieldName": "forecast_ptc",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Forecast PTC"
+                },
+            },
+            {
+                "name": "base_month",
+                "fieldName": "base_month",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Base Month"
+                },
+            },
+            {
+                "name": "project",
+                "fieldName": "project",
+                "type": "data",
+                "width": 0,
+                "header": {
+                    "text": "Project"
+                }
+            }
+        ];
+
+        const gvLayouts = [
+            'sys_id',
+            'wbs',
+            'wbs_description',
+            'month1',
+            'month2',
+            'month3',
+            'month4',
+            'month5',
+            'month6',
+            'month7',
+            'month8',
+            'month9',
+            'month10',
+            'month11',
+            'month12',
+            'month13',
+            'month14',
+            'month15',
+            'month16',
+            'month17',
+            'month18',
+            'beyond18',
+            'forecast_ptc',
+            'base_month',
+            'project'
+
+        ];
+
+        function initGrid() {
+            console.log(RealGrid);
+            gv = new RealGrid.GridView('gridContainer');
+            dp = new RealGrid.LocalDataProvider();
+
+            dp.setFields(gvFields);
+            gv.setDataSource(dp);
+            gv.setColumns(gvColumns);
+            gv.setColumnLayout(gvLayouts);
+
+            gv.commitEditor();
+            gv.undoable = true;
+
+            //gv.columnByName("sys_id").visible =  false;
+            //gv.editOptions.commitWhenLeave = true;
+            gv.editOptions.commitByCell = true;
+            gv.editOptions.insertable = true;
+            gv.setFixedOptions({
+                colCount: 3,
+                rightCount: 4,
+
+            });
+
+            dp.softDeleting = false;
+
+
+
+            dp.setRows(c.data.gridData);
+
+        }
+
+        initGrid();
+    }
+
+    function initFormEtc() {
+        $scope.closeDlgActivityType = function() {
+            dlgActivityType.close();
+        }
+        $scope.setActivityType = function() {
+            const curr = gv.getCurrent();
+            dp.setValue(curr.dataRow, 'activity_type', moonc_at_data1.value);
+            dp.setValue(curr.dataRow, 'in_charge', moonc_at_data2.value);
+            dlgActivityType.close();
+        }
+    }
+
+
+    function gridSetColumnTitle(y, m) {
+        var i = 0;
+        var _y = y;
+        var _m = m;
+        for (var col of gv.getColumns()) {
+            if (col.name.startsWith('month') && !col.name.includes("_amt")) {
+                col.header.text = "" + _y + "/" + _m;
+                _m++;
+                if (_m > 12) {
+                    _y++;
+                    _m = 1;
+                }
+            }
+        }
+    }
+
+    function doGrid() {
+        grid();
+        gridSetColumnTitle(c.data.base_month_y, c.data.base_month_m);
+        initGridEtc();
+        initFormEtc();
+    }
+
+    // 초기화 여러번 시도
+    const gridTry = [200, 300, 400, 500, 750, 1000, 1250, 1500, 2000, 2500, 3000, 3500, 4000];
+    for (const ms of gridTry) {
+        setTimeout(function() {
+            const logStr = 'doGrid[' + ms + 'ms]';
+            console.log(logStr + ' : start');
+            const g = document.querySelector('#gridContainer .rg-grid');
+            if (g) {
+                console.log(logStr + ' : already completed');
+            } else {
+                try {
+                    console.log(logStr + ' : try');
+                    doGrid();
+                    console.log(logStr + ' : done');
+                } catch (e) {
+                    console.log(logStr + ' : fail');
+                }
+            }
+        }, ms);
+    }
+
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const buttons = document.querySelectorAll('.yoko-title-btn-wrap .yoko-btn-wrap button');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            this.classList.add('active');
+        });
+    });
+
+    var wrapper = document.querySelector('.yoko-search-form-wrapper');
+    if (wrapper) {
+        var forms = wrapper.querySelectorAll('.yoko-search-form-wrap > .yoko-search-form');
+        var maxHeight = 0;
+        // 모든 .yoko-search-form 요소의 높이를 확인하여 최대 높이를 찾습니다.
+        forms.forEach(function(form) {
+            if (form.offsetHeight > maxHeight) {
+                maxHeight = form.offsetHeight;
+            }
+        });
+        // 최대 높이로 모든 .yoko-search-form 요소의 높이를 설정합니다.
+        forms.forEach(function(form) {
+            form.style.height = maxHeight + 'px';
+        });
+    }
+
+
+    const toggleButtons = document.querySelectorAll(".yoko-btn-fold");
+
+    toggleButtons.forEach(button => {
+        button.addEventListener("click", function() {
+            const targetId = this.getAttribute("data-target");
+            const content = document.getElementById(targetId);
+            if (content.style.display === "block" || content.style.display === "") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+            
+            this.classList.toggle("active");
+        });
+    });
+
+    
+    // 슬림스크롤
+    $(".yoko-scroll").slimscroll({
+        height: 'auto',
+        alwaysVisible: true
+      }); 
+
+
+});
+
+
+$(document).ready(function() {
+    // 상위 메뉴에 호버시 하위 메뉴 표시
+    $('.yoko-menu').hover(function() {
+        $(this).find('.yoko-depth').stop(true, true).slideDown(200);
+    }, function() {
+        $(this).find('.yoko-depth').stop(true, true).slideUp(200);
+    });
+
+
+    // 하위메뉴 펼침
+    $('.yoko-dep-1').click(function(e) {
+        e.preventDefault();
+
+        const $targetWrap = $(this).children('.yoko-dep-2-wrap');
+        $('.yoko-dep-2-wrap').not($targetWrap).slideUp('fast');
+        $targetWrap.slideToggle('fast');
+        $(this).find('a').toggleClass('rotate');
+    });
+
+    $('.yoko-depth').mouseleave(function() {
+    $('.yoko-dep-2-wrap').slideUp('fast');
+    });
+
+
+    // 모달 열기
+    $('.yoko-btn-upload').click(function() {
+        $('.yoko-modal-normal').show();
+    });
+
+    // 모달 닫기
+    $('.yoko-btn-cancel').click(function() {
+        $('.yoko-modal-normal').hide();
+    });
+    
+    
+});
+]]></client_script>
         <controller_as>c</controller_as>
         <css>@charset "UTF-8";&#13;
-&#13;
-@font-face {&#13;
-    font-family: "Pretendard";&#13;
-    font-weight: 100;&#13;
-    font-style: normal;&#13;
-    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
-    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
-        format("embedded-opentype"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
-    font-display: swap;&#13;
-  }&#13;
-  @font-face {&#13;
-    font-family: "Pretendard";&#13;
-    font-weight: 200;&#13;
-    font-style: normal;&#13;
-    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
-    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
-        format("embedded-opentype"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
-    font-display: swap;&#13;
-  }&#13;
-  @font-face {&#13;
-    font-family: "Pretendard";&#13;
-    font-weight: 300;&#13;
-    font-style: normal;&#13;
-    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
-    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
-        format("embedded-opentype"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
-    font-display: swap;&#13;
-  }&#13;
-  @font-face {&#13;
-    font-family: "Pretendard";&#13;
-    font-weight: 400;&#13;
-    font-style: normal;&#13;
-    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
-    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
-        format("embedded-opentype"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
-    font-display: swap;&#13;
-  }&#13;
-  @font-face {&#13;
-    font-family: "Pretendard";&#13;
-    font-weight: 500;&#13;
-    font-style: normal;&#13;
-    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
-    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
-        format("embedded-opentype"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
-    font-display: swap;&#13;
-  }&#13;
-  @font-face {&#13;
-    font-family: "Pretendard";&#13;
-    font-weight: 600;&#13;
-    font-style: normal;&#13;
-    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
-    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
-        format("embedded-opentype"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
-    font-display: swap;&#13;
-  }&#13;
-  @font-face {&#13;
-    font-family: "Pretendard";&#13;
-    font-weight: 700;&#13;
-    font-style: normal;&#13;
-    /*src: url("./fonts/pretendard/Pretendard-Bold.eot");&#13;
-    src: url("./fonts/pretendard/Pretendard-Bold.eot?#iefix")&#13;
-        format("embedded-opentype"),&#13;
-      url("./fonts/pretendard/Pretendard-Bold.woff2") format("woff2"),&#13;
-      url("./fonts/pretendard/Pretendard-Bold.woff") format("woff"),&#13;
-      url("./fonts/pretendard/Pretendard-Bold.ttf") format("truetype");*/&#13;
-    font-display: swap;&#13;
-  }&#13;
-  @font-face {&#13;
-    font-family: "Pretendard";&#13;
-    font-weight: 800;&#13;
-    font-style: normal;&#13;
-    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
-    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
-        format("embedded-opentype"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
-    font-display: swap;&#13;
-  }&#13;
-  @font-face {&#13;
-    font-family: "Pretendard";&#13;
-    font-weight: 900;&#13;
-    font-style: normal;&#13;
-    /*src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
-    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
-        format("embedded-opentype"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
-      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");*/&#13;
-    font-display: swap;&#13;
-  }&#13;
-&#13;
-@charset "UTF-8";&#13;
 &#13;
 &#13;
 body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; line-height: normal;}&#13;
 &#13;
+ul {margin: 0; padding: 0;}&#13;
+ul li {list-style: none; margin: 0; padding: 0;}&#13;
+a {text-decoration: none;}&#13;
 .blank {width: 100%; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); }&#13;
-.yoko-container {margin: 40px auto 0; min-width: 1400px; max-width: 1600px; font-family: "Pretendard"; font-size: 14px; font-weight: 400; letter-spacing: 0;}&#13;
+.yoko-container {margin: 40px auto 100px; min-width: 1400px; max-width: 1600px; font-family: "Pretendard"; font-size: 14px; font-weight: 400; letter-spacing: 0;}&#13;
 .yoko-container * {box-sizing: border-box;}&#13;
 .yoko-container .yoko-content {display: flex; gap: 30px; flex-direction: column;}&#13;
 .yoko-breadcrumb {color: #425D78;}&#13;
@@ -212,7 +658,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .yoko-btn {cursor: pointer; border-radius: 4px; text-align: center; font-family: "Pretendard";font-size: 14px;  font-style: normal; font-weight: 400;  padding: 8px 20px 8px 20px;}&#13;
 .yoko-btn:disabled  {border: 1px solid #AABBD1; color: #C8CED4;}&#13;
 &#13;
-.yoko-btn.yoko-btn-outline {background: #fff; border: 1px solid #EAEEF3;  color: #4B5E70; }&#13;
+.yoko-btn.yoko-btn-outline {background: #fff; border: 1px solid #B2B2B2;  color: #4B5E70; }&#13;
 .yoko-btn.yoko-btn-outline:hover  {border: 1px solid #AABBD1;}&#13;
 &#13;
 .yoko-btn.yoko-btn-fill {background-color: #68B3FC; border: 1px solid #4193E2; color: #fff;}&#13;
@@ -222,26 +668,39 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .yoko-btn.yoko-btn-fill-red:hover  {background-color: #E35050; border: 1px solid #E35050;}&#13;
 &#13;
 &#13;
-.yoko-btn-search {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_search.png) no-repeat center center !important;}&#13;
+.yoko-btn-search {border: 1px solid #B2B2B2; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_search.png) no-repeat center center !important;}&#13;
 .yoko-btn-search:hover {background-color: #eaeaea;}&#13;
-.yoko-btn-add {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_add.png) no-repeat center center !important;}&#13;
+.yoko-btn-add {border: 1px solid #B2B2B2; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_add.png) no-repeat center center !important;}&#13;
 .yoko-btn-add:hover {background-color: #eaeaea;}&#13;
-.yoko-btn-delete {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(images/icon_delete.png) no-repeat center center !important;}&#13;
+.yoko-btn-delete {border: 1px solid #B2B2B2; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_delete.png) no-repeat center center !important;}&#13;
 .yoko-btn-delete:hover {background-color: #eaeaea;}&#13;
-.yoko-btn-info-fill {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(images/icon_info_fill.png) no-repeat center center !important;}&#13;
+.yoko-btn-info-fill {border: 1px solid #B2B2B2; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_info_fill.png) no-repeat center center !important;}&#13;
 .yoko-btn-info-fill:hover {background-color: #eaeaea;}&#13;
+.yoko-btn-attach {border: 1px solid #B2B2B2; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_attach.png) no-repeat center center !important;}&#13;
+.yoko-btn-attach:hover {background-color: #eaeaea;}&#13;
+.yoko-btn-load {border: 1px solid #4193E2; font-weight: 400; padding: 0; min-width: 58px; width: 28px; height: 28px; color: #fff; background-color: #68B3FC;}&#13;
+.yoko-btn-load:hover {background-color: #4193E2; border: 1px solid #4193E2;}&#13;
+.yoko-btn-fold {border: 1px solid #B2B2B2; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_arrow_fold.png) no-repeat center center !important;}&#13;
+.yoko-btn-fold:hover {background-color: #eaeaea;}&#13;
+.yoko-btn-fold.active {background:#fff url(/icon_arrow_unfold.png) no-repeat center center !important;}&#13;
 &#13;
-.yoko-search-form {display: flex; gap: 30px; padding: 16px 30px; max-width: 1600px;  background-color: #F7F7F7; border: 1px solid #EDEDED; border-radius: 4px;}&#13;
+&#13;
+.yoko-search-form {display: flex; gap: 30px; padding: 16px 30px; max-width: 1600px;  background-color: #F7F7F7; border: 1px solid #B2B2B2; border-radius: 4px;}&#13;
+&#13;
+.yoko-fold-btn-wrap {display: flex; align-items: center; gap: 10px;}&#13;
 &#13;
 .yoko-form-group .yoko-btn {padding: 5px 10px 5px 10px;}&#13;
 .yoko-search-form .yoko-form-group {display: flex; align-items: center; gap: 20px; /*width: 100%; min-width: 240px;*/}&#13;
 .yoko-search-form .yoko-form-group label {width:130px; min-width: 130px; text-align: right;}&#13;
-.yoko-search-form label {color: #4B5E70; font-family: 'Pretendard'; font-size: 13px; font-style: normal; font-weight: 500; line-height: normal;}&#13;
+.yoko-search-form label {color: #1F3B55; font-family: 'Pretendard'; font-size: 14px; font-style: normal; font-weight: 500; line-height: normal;}&#13;
 .yoko-search-form label.yoko-short {width: 80px; min-width: 80px;}&#13;
+.yoko-search-form label.yoko-short-90 {width: 90px; min-width: 100px;}&#13;
 .yoko-search-form label.yoko-short-100 {width: 100px; min-width: 100px;}&#13;
 .yoko-search-form label.yoko-short-110 {width: 110px; min-width: 110px;}&#13;
 .yoko-search-form label.yoko-short-120 {width: 120px; min-width: 120px;}&#13;
 .yoko-search-form label.yoko-short-130 {width: 130px; min-width: 130px;}&#13;
+.yoko-search-form label.yoko-short-135 {width: 135px; min-width: 130px;}&#13;
+.yoko-search-form label.yoko-short-142 {width: 142px; min-width: 130px;}&#13;
 .yoko-search-form label.yoko-middle {width: 170px; min-width: 170px;}&#13;
 .yoko-search-form label.yoko-long {width: 200px; min-width: 200px;}&#13;
 .yoko-search-form label.yoko-btn-fill {background-color: #68B3FC;text-align: center; color: #fff; font-weight: 400;  padding: 5px 10px 6px 10px; border-radius: 4px;}&#13;
@@ -250,17 +709,17 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 &#13;
 .yoko-search-form input,&#13;
 .yoko-search-form select,&#13;
-.yoko-search-form textarea {font-family: "Pretendard"; font-size: 13px; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); border-radius: 4px; border: 1px solid #E1E8F0; color: #7A8692;}&#13;
+.yoko-search-form textarea {font-family: "Pretendard"; font-size: 14px; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); border-radius: 4px; border: 1px solid #B2B2B2; color: #7A8692;}&#13;
 .yoko-search-form textarea {max-height: none; width: 100%; padding: 10px 10px 10px 10px; }&#13;
 /* .yoko-search-form input[type=date] {width: 140px; } */&#13;
 .yoko-search-form input[type=date]::-webkit-calendar-picker-indicator,&#13;
-.yoko-search-form input[type=date]::-webkit-inner-spin-button {background: url('images/icon_calendar.png') no-repeat right center; }&#13;
+.yoko-search-form input[type=date]::-webkit-inner-spin-button {background: url('/icon_calendar.png') no-repeat right center; }&#13;
 &#13;
 .yoko-search-form select {&#13;
   -moz-appearance:none; /* Firefox */&#13;
   -webkit-appearance:none; /* Safari and Chrome */&#13;
   appearance:none;&#13;
-  background-image: url(images/icon_arrow_down.png);&#13;
+  background-image: url(/icon_arrow_down.png);&#13;
   background-repeat: no-repeat;&#13;
   background-position-x: 100%;&#13;
   background-position-y: 1px;&#13;
@@ -285,19 +744,21 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .yoko-col15 {width: 15%} &#13;
 .yoko-col10 {width: 10%} &#13;
 &#13;
-.yoko-search-form label.checkbox-label {text-align: left;width: auto; min-width: auto; cursor: pointer; display: flex; gap: 10px; align-items: center; justify-content: flex-start; color: #4B5E70; font-family: "Pretendard";  font-size: 13px; font-style: normal; font-weight: 400; line-height: normal;}&#13;
+.yoko-search-form label.checkbox-label {text-align: left;width: auto; min-width: auto; cursor: pointer; display: flex; gap: 10px; align-items: flex-start; justify-content: flex-start; color: #1F3B55; font-family: "Pretendard";  font-size: 14px; font-style: normal; font-weight: 400; line-height: normal;}&#13;
 .custom-checkbox {position: relative;}&#13;
 .custom-checkbox input { position: absolute;  opacity: 0;  cursor: pointer;  width: 18px; height: 18px; z-index: 1;}&#13;
 .custom-checkbox .checkmark {position: relative;  top: 0;  left: 0;  display: block;  height: 18px;  width: 18px;  border-radius: 2px;border: 1px solid #DCE3EB;background: #FFF; overflow: hidden;}&#13;
 .custom-checkbox:hover input ~ .checkmark {background-color: #FFF;}&#13;
 .custom-checkbox input:checked ~ .checkmark {  background-color: #68B3FC;  border-radius: 2px;  border: 1px solid #68B3FC;}&#13;
 .custom-checkbox .checkmark:after {  content: "";  position: absolute;  display: none;}&#13;
-.custom-checkbox input:checked ~ .checkmark:after {  display: block;  left: 50%; top: 50%;  height: 16px;  width: 18px;  transform: translate(-50%, -50%);  background: url(images/icon_checkbox.png) no-repeat center center;}&#13;
+.custom-checkbox input:checked ~ .checkmark:after {  display: block;  left: 50%; top: 50%;  height: 16px;  width: 18px;  transform: translate(-50%, -50%);  background: url(/icon_checkbox.png) no-repeat center center;}&#13;
 &#13;
 .custom-checkbox input:disabled ~ .checkmark {border: 1px solid #D1D1D1; background: #E2E2E2; cursor: not-allowed; }&#13;
-.custom-checkbox input:checked:disabled ~ .checkmark {background:#E2E2E2 url(images/icon_checkbox_dis.png) no-repeat center center; }&#13;
-.custom-checkbox input:disabled ~ .checkmark:after {background: url(images/icon_checkbox_dis.png) no-repeat center center;}&#13;
+.custom-checkbox input:checked:disabled ~ .checkmark {background:#E2E2E2 url(/icon_checkbox_dis.png) no-repeat center center; }&#13;
+.custom-checkbox input:disabled ~ .checkmark:after {background: url(/icon_checkbox_dis.png) no-repeat center center;}&#13;
 &#13;
+.yoko-wid100 {width: 100px !important;}&#13;
+.yoko-wid103 {width: 103px !important;}&#13;
 .yoko-wid127 {width: 127px !important;}&#13;
 .yoko-wid134 {width: 134px !important;}&#13;
 .yoko-wid140 {width: 140px !important;}&#13;
@@ -306,10 +767,22 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .yoko-wid158 {width: 158px !important;}&#13;
 .yoko-wid172 {width: 172px !important;}&#13;
 .yoko-wid247 {width: 247px !important;}&#13;
+.yoko-wid308 {width: 308px !important;}&#13;
+.yoko-wid425 {width: 425px !important;}&#13;
 .yoko-wid559 {width: 559px !important;}&#13;
 .yoko-wid717 {width: 717px !important;}&#13;
+&#13;
+.yoko-ht100 {height: 100px !important;}&#13;
+.yoko-ht200 {height: 200px !important;}&#13;
+&#13;
+.yoko-mt-20 {margin-top: 20px;}&#13;
+.yoko-mb-80 {margin-bottom: 80px;}&#13;
+&#13;
+.yoko-padding-r20 {padding: 16px 20px 16px 30px;}&#13;
+.yoko-scroll {padding-right: 15px;}&#13;
 /* .yoko-form-inline select {width: calc(100% - 28px);} */&#13;
 .yoko-btn-spacing {width: calc(100% - 32px);}&#13;
+.yoko-text-right {text-align: right;}&#13;
 &#13;
 .yoko-search-form-wrapper {display: flex; gap: 20px; }&#13;
 .yoko-search-form-wrap .yoko-search-form-heading {margin-top: 10px; margin-bottom: 5px; font-size: 16px; font-weight: 600; color: #1F3B55;}&#13;
@@ -325,10 +798,53 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 &#13;
 .yoko-project-wrap {height: 255px;}&#13;
 .yoko-project-wrap .yoko-search-form {height: 100%;}&#13;
+.yoko-middle-text {width: 10px; text-align: center; color: #4B5E70;}&#13;
+&#13;
+/* 헤더 */&#13;
+.yoko-header-container {width: 100%; height: 59px; background-color: #00488D;}&#13;
+.yoko-header-inner {margin: 0 auto; padding: 8px 30px 8px 16px; max-width: 1920px; min-width: 1280px;}&#13;
+.yoko-nav-wrap {display: flex; align-items: center; gap: 97px;}&#13;
+.yoko-nav ul {display: flex; gap: 60px;}&#13;
+.yoko-menu a {display: block; height: 43px; line-height: 43px; font-size: 14px; font-weight: 600; color: #fff;}&#13;
+.yoko-depth-arrow {position: relative;}&#13;
+.yoko-depth-arrow::after {content: ''; display: block; width: 7px; height: 4px; background: url(.//icon_header_arrow.svg) no-repeat center center; background-size: contain; position: absolute; top: 50%; right: -12px; transform: translateY(-50%);}&#13;
+.yoko-header-right {display: flex; margin-left: auto; align-items: center; gap: 24px;}&#13;
+.yoko-header-icon-wrap {display: flex; align-items: center; gap: 15px;}&#13;
+.yoko-header-user {display: flex; justify-content: center; align-items: center; width: 35px; height: 35px; border-radius: 50%; background-color: #fff; overflow: hidden;}&#13;
+.yoko-header-search {display: flex; align-items: center;}&#13;
+.yoko-header-search input {padding: 8px 10px; width: 156px; font-size: 14px; border: none; border-radius: 4px 0 0 4px; outline: none;}&#13;
+.yoko-header-search input::placeholder {color: #A7B9CA;}&#13;
+.yoko-header-search .yoko-arrow button {border: none; background-color: none; display: flex; align-items: center; width: 34px; height: 32px; background-color: #fff; border-radius: 0 4px 4px 0; cursor: pointer;}&#13;
+&#13;
+&#13;
+.yoko-nav ul.yoko-depth {display: none; position: absolute; background-color: #fff; padding: 20px 16px; width: 267px; height: auto; border-radius: 4px; border: 1px solid #00488D; box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);}&#13;
+.yoko-nav ul.yoko-depth a {font-size: 14px; font-weight: 500; color: #425D78;}&#13;
+.yoko-nav ul.yoko-dep-2-wrap {display: none; flex-direction: column; padding: 14px 12px; gap: 0; background-color: #F6F6F6;}&#13;
+.yoko-nav .yoko-dep-1 &gt; a {position: relative; padding: 0 12px;}&#13;
+.yoko-nav .yoko-dep-1 &gt; a::after {content: ''; display: block; width: 24px; height: 24px; background: url(.//icon_arrow_search.svg) no-repeat center center; background-size: contain; position: absolute; top: 50%; right: 5px; transform: translateY(-50%);}&#13;
+.yoko-nav .yoko-dep-1 &gt; a.rotate::after {transform: rotate(180deg) translateY(50%);}&#13;
+.yoko-nav .yoko-dep-1 &gt; a:hover {background-color: #ececec;}&#13;
+.yoko-nav .yoko-dep-2 &gt; a {padding: 0 12px;}&#13;
+.yoko-nav .yoko-dep-2 &gt; a:hover {background-color: #fff;}&#13;
 &#13;
 &#13;
 &#13;
 &#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+/* 모달창 */&#13;
+.yoko-modal-normal {padding: 32px 30px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 768px; height: 240px; background-color: #fff; box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.1); z-index: 100;}&#13;
+.yoko-modal-content {position: relative; width: 100%; height: 100%;}&#13;
+.yoko-modal-content .yoko-btn-wrap {position: absolute; top: 0; right: 0;}&#13;
+.yoko-modal-content .yoko-btn-group {margin-top: 32px;}&#13;
+.yoko-modal-content .yoko-btn-group button {padding: 8px 20px;}&#13;
+.yoko-modal-content .yoko-btn-wrap button {padding: 6px 10px;}&#13;
 &#13;
 /* 테이블 형식 */&#13;
 .yoko-search-table input,&#13;
@@ -336,13 +852,13 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .yoko-search-table textarea {font-family: "Pretendard"; font-size: 13px; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); border-radius: 4px; border: 1px solid #E1E8F0; color: #7A8692;}&#13;
 .yoko-search-table textarea {max-height: none; width: 100%; padding: 10px 10px 10px 10px; }&#13;
 .yoko-search-table input[type=date]::-webkit-calendar-picker-indicator,&#13;
-.yoko-search-table input[type=date]::-webkit-inner-spin-button {background: url('images/icon_calendar.png') no-repeat right center; }&#13;
+.yoko-search-table input[type=date]::-webkit-inner-spin-button {background: url('/icon_calendar.png') no-repeat right center; }&#13;
 &#13;
 .yoko-search-table select {&#13;
   -moz-appearance:none; /* Firefox */&#13;
   -webkit-appearance:none; /* Safari and Chrome */&#13;
   appearance:none;&#13;
-  background-image: url(images/icon_arrow_down.png);&#13;
+  background-image: url(/icon_arrow_down.png);&#13;
   background-repeat: no-repeat;&#13;
   background-position-x: 100%;&#13;
   background-position-y: 1px;&#13;
@@ -375,6 +891,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
   .yoko-container {width: 1280px; min-width: 1280px;}&#13;
   .yoko-search-form {gap: 15px;}&#13;
   .yoko-flex-responsive {flex-direction: column; gap: 8px;}&#13;
+  .yoko-flex-responsive-row {flex-direction: row; gap: 20px;}&#13;
   .yoko-search-form-company.yoko-col60 {width: 888px;}&#13;
   .yoko-search-form-company .yoko-padding24 {padding: 14px;}&#13;
   .yoko-search-form-company .yoko-search-form {gap: 7px;}&#13;
@@ -384,6 +901,13 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
   .yoko-project-wrap .yoko-search-form {padding: 18px;}&#13;
 &#13;
   .yoko-form-amount-wrap label.yoko-short {width: 130px;}&#13;
+  .quotation-responsive label.yoko-short-110 {width: 142px;}&#13;
+  .yoko-flag-wrap {margin-top: 15px; height: 100px !important;}&#13;
+  .yoko-flag-wrap.yoko-search-form .yoko-form-group {gap: 40px;}&#13;
+  .yoko-flag-wrap .yoko-flex-responsive-row {flex-direction: row; gap: 40px;}&#13;
+&#13;
+  .yoko-nav-wrap {gap: 30px;}&#13;
+  .yoko-nav ul {gap: 55px;}&#13;
 }&#13;
 &#13;
 &#13;
@@ -414,7 +938,121 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 .rg-header .rg-table tr td:hover {background: #68B3FC !important; color: #fff !important;}&#13;
 .rg-header-select {background: rgb(232 248 240 / 50%) !important;}&#13;
 .rg-selection { background: rgb(232 248 240 / 35%) !important; border: 1px solid #15BD66!important;}&#13;
-.rg-editor-container { border: 2px solid #27C382 !important; }</css>
+.rg-editor-container { border: 2px solid #27C382 !important; }&#13;
+&#13;
+&#13;
+@charset "UTF-8";&#13;
+&#13;
+/*&#13;
+@font-face {&#13;
+    font-family: "Pretendard";&#13;
+    font-weight: 100;&#13;
+    font-style: normal;&#13;
+    src: url("./fonts/pretendard/Pretendard-Thin.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")&#13;
+        format("embedded-opentype"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");&#13;
+    font-display: swap;&#13;
+  }&#13;
+  @font-face {&#13;
+    font-family: "Pretendard";&#13;
+    font-weight: 200;&#13;
+    font-style: normal;&#13;
+    src: url("./fonts/pretendard/Pretendard-ExtraLight.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-ExtraLight.eot?#iefix")&#13;
+        format("embedded-opentype"),&#13;
+      url("./fonts/pretendard/Pretendard-ExtraLight.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-ExtraLight.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-ExtraLight.ttf") format("truetype");&#13;
+    font-display: swap;&#13;
+  }&#13;
+  @font-face {&#13;
+    font-family: "Pretendard";&#13;
+    font-weight: 300;&#13;
+    font-style: normal;&#13;
+    src: url("./fonts/pretendard/Pretendard-Light.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Light.eot?#iefix")&#13;
+        format("embedded-opentype"),&#13;
+      url("./fonts/pretendard/Pretendard-Light.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Light.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Light.ttf") format("truetype");&#13;
+    font-display: swap;&#13;
+  }&#13;
+  @font-face {&#13;
+    font-family: "Pretendard";&#13;
+    font-weight: 400;&#13;
+    font-style: normal;&#13;
+    src: url("./fonts/pretendard/Pretendard-Regular.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Regular.eot?#iefix")&#13;
+        format("embedded-opentype"),&#13;
+      url("./fonts/pretendard/Pretendard-Regular.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Regular.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Regular.ttf") format("truetype");&#13;
+    font-display: swap;&#13;
+  }&#13;
+  @font-face {&#13;
+    font-family: "Pretendard";&#13;
+    font-weight: 500;&#13;
+    font-style: normal;&#13;
+    src: url("./fonts/pretendard/Pretendard-Medium.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Medium.eot?#iefix")&#13;
+        format("embedded-opentype"),&#13;
+      url("./fonts/pretendard/Pretendard-Medium.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Medium.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Medium.ttf") format("truetype");&#13;
+    font-display: swap;&#13;
+  }&#13;
+  @font-face {&#13;
+    font-family: "Pretendard";&#13;
+    font-weight: 600;&#13;
+    font-style: normal;&#13;
+    src: url("./fonts/pretendard/Pretendard-SemiBold.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-SemiBold.eot?#iefix")&#13;
+        format("embedded-opentype"),&#13;
+      url("./fonts/pretendard/Pretendard-SemiBold.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-SemiBold.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-SemiBold.ttf") format("truetype");&#13;
+    font-display: swap;&#13;
+  }&#13;
+  @font-face {&#13;
+    font-family: "Pretendard";&#13;
+    font-weight: 700;&#13;
+    font-style: normal;&#13;
+    src: url("./fonts/pretendard/Pretendard-Bold.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Bold.eot?#iefix")&#13;
+        format("embedded-opentype"),&#13;
+      url("./fonts/pretendard/Pretendard-Bold.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Bold.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Bold.ttf") format("truetype");&#13;
+    font-display: swap;&#13;
+  }&#13;
+  @font-face {&#13;
+    font-family: "Pretendard";&#13;
+    font-weight: 800;&#13;
+    font-style: normal;&#13;
+    src: url("./fonts/pretendard/Pretendard-ExtraBold.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-ExtraBold.eot?#iefix")&#13;
+        format("embedded-opentype"),&#13;
+      url("./fonts/pretendard/Pretendard-ExtraBold.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-ExtraBold.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-ExtraBold.ttf") format("truetype");&#13;
+    font-display: swap;&#13;
+  }&#13;
+  @font-face {&#13;
+    font-family: "Pretendard";&#13;
+    font-weight: 900;&#13;
+    font-style: normal;&#13;
+    src: url("./fonts/pretendard/Pretendard-Black.eot");&#13;
+    src: url("./fonts/pretendard/Pretendard-Black.eot?#iefix")&#13;
+        format("embedded-opentype"),&#13;
+      url("./fonts/pretendard/Pretendard-Black.woff2") format("woff2"),&#13;
+      url("./fonts/pretendard/Pretendard-Black.woff") format("woff"),&#13;
+      url("./fonts/pretendard/Pretendard-Black.ttf") format("truetype");&#13;
+    font-display: swap;&#13;
+  }&#13;
+*/</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description>Init Plan Management Widget</description>
@@ -436,6 +1074,8 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
     var currentDate = new GlideDate();
     data.sys_created_on = currentDate.getValue().toString();
     data.base_month = currentDate.getByFormat("yyyyMM").toString();
+	  data.base_month_y = currentDate.getYearNoTZ().toString();
+	  data.base_month_m = currentDate.getMonthNoTZ().toString();
 
     if (data.number) { // get Project
         var grProject = new GlideRecord('x_yergb_bpm_project');
@@ -460,6 +1100,10 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             grBudgetPlan.query();
             if (grBudgetPlan.next()) {
                 data.base_month = grBudgetPlan.base_month.toString(); // Base Month
+							  if(data.base_month.length > 5) {
+									data.base_month_y = data.base_month.substring(0,4);
+									data.base_month_m = data.base_month.substring(4,6);
+								}
                 data.plan_type = grBudgetPlan.plan_type.toString(); // Plan Type
                 data.sys_created_by = grBudgetPlan.sys_created_by.toString(); // Create By User
                 data.sys_created_on = grBudgetPlan.sys_created_on.toString(); // Create Date
@@ -518,11 +1162,9 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             var wbs = gr.getValue('wbs_6');
             var amount = parseInt(gr.getValue('extended_cost'), 10); //Net Amount 값 .WBS가 같고 Base Month가 같은것을 합치는 로직에 필요
             var planGrDate = gr.getValue('plan_gr_date');
-			gs.info("kms wbs="+wbs+", amount="+amount+", planGrDate="+planGrDate);
             var planDate = new GlideDate();
-            var yearmonth = planDate.setValue(planGrDate).getByFormat("yyyyMM").toString();
-			gs.info("kms planDate="+planDate+", yearmonth="+yearmonth);
-            //var yearmonth = parseInt(mymonth); //(gr.getValue('yearmonth'), 10);//Plan GR Data가 없으면 에러처리 _plan_gr_date
+            planDate.setValue(planGrDate);
+            var yearmonth = planDate.getByFormat("yyyyMM");
 
             if (!myresult[wbs]) {
                 myresult[wbs] = {};
@@ -611,21 +1253,70 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 
         return newResult;
     }
-})();]]></script>
+	
+    function getGridData(project_key) {
+		gs.info("KMS data.project_key="+project_key);
+        var gritem = new GlideRecord("x_yergb_bpm_wbs_budget");
+        gritem.orderBy("number");
+        gritem.addEncodedQuery('project=' + project_key);
+        gritem.query();
+        var tableinfo = [];
+        while (gritem.next()) {
+            tableinfo.push({
+                'sys_id': gritem.sys_id.getDisplayValue(),
+                'wbs': gritem.wbs.getDisplayValue(),
+                'wbs_description': gritem.wbs.description.toString(),
+                'month1': gritem.month1.getDisplayValue(),
+                'month2': gritem.month2.getDisplayValue(),
+                'month3': gritem.month3.getDisplayValue(),
+                'month4': gritem.month4.getDisplayValue(),
+                'month5': gritem.month5.getDisplayValue(),
+                'month6': gritem.month6.getDisplayValue(),
+                'month7': gritem.month7.getDisplayValue(),
+                'month8': gritem.month8.getDisplayValue(),
+                'month9': gritem.month9.getDisplayValue(),
+                'month10': gritem.month10.getDisplayValue(),
+                'month11': gritem.month11.getDisplayValue(),
+                'month12': gritem.month12.getDisplayValue(),
+                'month13': gritem.month13.getDisplayValue(),
+                'month14': gritem.month14.getDisplayValue(),
+                'month15': gritem.month15.getDisplayValue(),
+                'month16': gritem.month16.getDisplayValue(),
+                'month17': gritem.month17.getDisplayValue(),
+                'month18': gritem.month18.getDisplayValue(),
+                'beyond18': gritem.beyond18.getDisplayValue(),
+                'forecast_ptc': gritem.forecast_ptc.getDisplayValue(),
+                'base_month': gritem.base_month.getDisplayValue(),
+                'project': project_key
+            });
+        }
+        return tableinfo;
+    }
+    data.gridData = getGridData(data.project_key);
+    data.gridDataStr = JSON.stringify(data.gridData);
+	
+})();
+
+function sf1(a, b) {
+
+}]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-19 01:58:09</sys_created_on>
         <sys_id>95e5d3f283b20210856ceec0deaad3dc</sys_id>
-        <sys_mod_count>92</sys_mod_count>
+        <sys_mod_count>118</sys_mod_count>
         <sys_name>initPlanMngtWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_95e5d3f283b20210856ceec0deaad3dc</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-24 06:33:14</sys_updated_on>
-        <template><![CDATA[  <div class="yoko-container">
+        <sys_updated_on>2024-06-24 12:11:55</sys_updated_on>
+        <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
+	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
+
+<div class="yoko-container">
         <div class="yoko-title-btn-wrap">
             <div class="yoko-btn-wrap">
               <div ng-if='data.data_type == "ITEM"'>
@@ -762,7 +1453,15 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                     </div>
                 </div>
             </div>
-         <iframe src={{data.gridUrl}} width='100%' height='500px' style='border:none;' id='myIframe'></iframe>
-    </div>]]></template>
+            <div class="out" id='gridContainer' style="width:100%; height: 450px;"></div>
+          	 <input id="" type="hidden" value="{{data.gridUrl}}">
+           	 <input id="gridData" type="hidden" value="{{data.gridData}}">
+          	 <input id="" type="hidden" value="{{data.gridDataStr}}">
+            </div>
+         <!--<iframe src={{data.gridUrl}} width='100%' height='500px' style='border:none;' id='myIframe'></iframe>-->
+    </div>
+<script defer>
+  var realGrid2Lic = 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYkkSQt0t0CTeCSk1qaDqTRZ5JoV9H143uMO5+/xJSE3Lj4YewEIhlh/';
+</script>]]></template>
     </sp_widget>
 </record_update>
