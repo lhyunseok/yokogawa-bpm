@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller = function($scope, $location,$window) {
+        <client_script><![CDATA[api.controller = function($scope, $location, $window) {
 
     /* widget controller */
     var c = this;
@@ -13,7 +13,7 @@
     // Function to handle click event
     $scope.handleClick = function() {
         if (c.data.budget_key) {
-            window.location.href = "/ybpm?id=epic_03_ui_init&number="+c.data.number+"&table=x_yergb_bpm_budget_plan&sys_id="+c.data.budget_key; // Redirect to the URL
+            window.location.href = "/ybpm?id=epic_03_ui_init&number=" + c.data.number + "&table=x_yergb_bpm_budget_plan&sys_id=" + c.data.budget_key; // Redirect to the URL
         }
     };
     // Example: Retrieve a specific parameter
@@ -35,22 +35,24 @@
     $scope.clickSave = function() {
 
     };
-    $scope.clickApproval = function() {
-        alert("승인관련 팝업 작업 필요");
+
+    $scope.clickLoadData = function() {
         // Call the server script
         c.server.update($scope).then(function(response) {
             location.reload();
         });
-		window.location.href = "/ybpm?id=epic_03_ui_init&number="+c.data.number+"&table=x_yergb_bpm_budget_plan&sys_id="+c.data.budget_key;
-    
-	};
+        window.location.href = "/ybpm?id=epic_03_ui_init&number=" + c.data.number + "&table=x_yergb_bpm_budget_plan&sys_id=" + c.data.budget_key;
+    };
+    $scope.clickApproval = function() {
+        alert("승인관련 팝업 작업 개발중...");
+    };
     $scope.clickClose = function() {
         alert("Working..... In progress develop..Close");
     };
     $scope.clickMSF = function() {
         alert("Working..... In progress develop..MSF");
     };
-	    //grid save 할 때 전체페이지 reload
+    //grid save 할 때 전체페이지 reload
     $window.addEventListener('message', function(event) {
         if (event.data.type === 'updateIframeSrc') {
             location.reload();
@@ -450,7 +452,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
             data.data_type = grProject.getDisplayValue('u_data_type'); // Data Type
             data.budget_type = grProject.getDisplayValue('u_budget_type'); // Budget Type
             data.customer = grProject.customer.name.toString(); // CustomerName
-						data.sys_id = grProject.sys_id.toString(); // Project sys_id
+            data.sys_id = grProject.sys_id.toString(); // Project sys_id
         }
         if (data.project_key) { //Get Budget Plan
             var grBudgetPlan = new GlideRecord('x_yergb_bpm_budget_plan');
@@ -462,14 +464,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                 data.sys_created_by = grBudgetPlan.sys_created_by.toString(); // Create By User
                 data.sys_created_on = grBudgetPlan.sys_created_on.toString(); // Create Date
                 data.budgetPlanNumber = grBudgetPlan.number.toString(); //Number
-				data.budget_key = grBudgetPlan.getUniqueValue().toString(); // Budget SysId
-				data.dmr = grBudgetPlan.dmr.toString(); // DMR Approve line
+                data.budget_key = grBudgetPlan.getUniqueValue().toString(); // Budget SysId
+                data.dmr = grBudgetPlan.dmr.toString(); // DMR Approve line
                 data.state = grBudgetPlan.getDisplayValue('state'); // State
-				data.project = grBudgetPlan.project; //Project Reference
+                data.project = grBudgetPlan.project; //Project Reference
             }
 
-            var totalContract=0;
-			var totalCost=0;
+            var totalContract = 0;
+            var totalCost = 0;
             var grOrderItem = new GlideRecord('x_yergb_bpm_order_item');
             grOrderItem.addQuery('project', data.project_key);
             grOrderItem.query();
@@ -477,49 +479,137 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                 totalContract += grOrderItem.extended_price; // Contract
                 totalCost += grOrderItem.extended_cost; // Cost
             }
-			data.contract = totalContract.toString();
-			data.total_cost = totalCost.toString();
-			var gpa = totalContract - totalCost;
-			var gp = gpa/totalContract;
-			data.gpa = gpa.toString();
-			data.gp = gp.toString() +'%';
+            data.contract = totalContract.toString();
+            data.total_cost = totalCost.toString();
+            var gpa = totalContract - totalCost;
+            var gp = gpa / totalContract;
+            data.gpa = gpa.toString();
+            data.gp = gp.toString() + '%';
         }
     }
-		
-		if(data.data_type == 'item'){
-				data.gridUrl = '/x_yergb_bpm_SorinGrid_item.do?project_sysid=' + data.sys_id + '&basemonth=' + data.base_month;
-		}else{
-				data.gridUrl = '/x_yergb_bpm_SorinGrid_wbs.do?project_sysid=' + data.sys_id + '&basemonth=' + data.base_month;
-		}
+
+    if (data.data_type === 'ITEM') {
+        data.gridUrl = '/x_yergb_bpm_SorinGrid_item.do?project_sysid=' + data.sys_id + '&basemonth=' + data.base_month;
+    } else {
+        data.gridUrl = '/x_yergb_bpm_SorinGrid_wbs.do?project_sysid=' + data.sys_id + '&basemonth=' + data.base_month;
+    }
 
     if (input) { //Update
+
+        var mymonth = input.base_month;
+        var numMonths = 18; // Number of months to generate
+        var currentMonth = parseInt(mymonth);
+        var yearmonths = []; //202406,202407 ~ 18개
+
+        for (var i = 0; i < numMonths; i++) {
+            yearmonths.push(currentMonth.toString());
+            currentMonth++;
+            if (currentMonth % 100 > 12) {
+                currentMonth += 88;
+            }
+        }
+
+        var gr = new GlideRecord('x_yergb_bpm_order_item');
+        gr.addQuery('project', input.project_key);
+        gr.query();
+        var myresult = {};
+
+        while (gr.next()) {
+            var wbs = gr.getValue('wbs_6');
+            var amount = parseInt(gr.getValue('extended_cost'), 10); //Net Amount 값 .WBS가 같고 Base Month가 같은것을 합치는 로직에 필요
+            var planGrDate = gr.getValue('plan_gr_date');
+			gs.info("kms wbs="+wbs+", amount="+amount+", planGrDate="+planGrDate);
+            var planDate = new GlideDate();
+            var yearmonth = planDate.setValue(planGrDate).getByFormat("yyyyMM").toString();
+			gs.info("kms planDate="+planDate+", yearmonth="+yearmonth);
+            //var yearmonth = parseInt(mymonth); //(gr.getValue('yearmonth'), 10);//Plan GR Data가 없으면 에러처리 _plan_gr_date
+
+            if (!myresult[wbs]) {
+                myresult[wbs] = {};
+            }
+
+            if (!myresult[wbs][yearmonth]) {
+                myresult[wbs][yearmonth] = 0;
+            }
+            myresult[wbs][yearmonth] += amount;
+        }
+
+        var myarr = ['month1', 'month2', 'month3', 'month4', 'month5', 'month6', 'month7', 'month8', 'month9', 'month10', 'month11', 'month12', 'month13', 'month14', 'month15', 'month16', 'month17', 'month18'];
+
+        var updatedResult = replaceYearMonthKeys(myresult, yearmonths, myarr);
+
+        for (var wbs1 in updatedResult) {
+            var myquery = 'wbs=' + wbs1;
+            var monthData = updatedResult[wbs1];
+            var gr2 = new GlideRecord('x_yergb_bpm_wbs_budget');
+            gr2.addEncodedQuery(myquery);
+            gr2.query();
+
+            if (gr2.next()) {
+                for (var month in monthData) {
+                    gr2.setValue(month, monthData[month]);
+                }
+                gr2.setValue("project", input.project_key);
+                gr2.update();
+
+            } else {
+                var newRecord = new GlideRecord('x_yergb_bpm_wbs_budget');
+                newRecord.initialize();
+                newRecord.setValue('wbs', wbs1);
+                newRecord.setValue('project', input.project_key);
+
+                for (var month2 in monthData) {
+                    newRecord.setValue(month2, monthData[month2]);
+                }
+                newRecord.insert();
+            }
+        }
+
         var grUpdateBudgetPlan = new GlideRecord("x_yergb_bpm_budget_plan");
         grUpdateBudgetPlan.get(input.budget_key); //Budget Plan sys_id
         if (grUpdateBudgetPlan.getRowCount() > 0) {
             grUpdateBudgetPlan.project = input.project_key;
-			grUpdateBudgetPlan.base_month = input.base_month;
-			grUpdateBudgetPlan.contract = input.contract;
-			grUpdateBudgetPlan.gpa = input.gpa;
-			grUpdateBudgetPlan.gp = input.gp;
-			grUpdateBudgetPlan.dmr = input.dmr;
-			grUpdateBudgetPlan.total_cost = input.total_cost;
-			grUpdateBudgetPlan.data_type = input.data_type;
-			grUpdateBudgetPlan.update();
+            grUpdateBudgetPlan.base_month = input.base_month;
+            grUpdateBudgetPlan.contract = input.contract;
+            grUpdateBudgetPlan.gpa = input.gpa;
+            grUpdateBudgetPlan.gp = input.gp;
+            grUpdateBudgetPlan.dmr = input.dmr;
+            grUpdateBudgetPlan.total_cost = input.total_cost;
+            grUpdateBudgetPlan.data_type = input.data_type;
+            grUpdateBudgetPlan.update();
         } else { //Insert
-			grUpdateBudgetPlan.initialize();
+            grUpdateBudgetPlan.initialize();
             grUpdateBudgetPlan.project = input.project_key;
-			grUpdateBudgetPlan.base_month = input.base_month;
-			grUpdateBudgetPlan.plan_type = input.plan_type;
-			grUpdateBudgetPlan.contract = input.contract;
-			grUpdateBudgetPlan.gpa = input.gpa;
-			grUpdateBudgetPlan.gp = input.gp;
-			grUpdateBudgetPlan.dmr = input.dmr;
-			grUpdateBudgetPlan.state = "0";
-			grUpdateBudgetPlan.total_cost = input.total_cost;
-			grUpdateBudgetPlan.data_type = input.data_type;
-			var grSysId = grUpdateBudgetPlan.insert();
-			data.budget_key_1 = grSysId;
-		}
+            grUpdateBudgetPlan.base_month = input.base_month;
+            grUpdateBudgetPlan.plan_type = input.plan_type;
+            grUpdateBudgetPlan.contract = input.contract;
+            grUpdateBudgetPlan.gpa = input.gpa;
+            grUpdateBudgetPlan.gp = input.gp;
+            grUpdateBudgetPlan.dmr = input.dmr;
+            grUpdateBudgetPlan.state = "1";
+            grUpdateBudgetPlan.total_cost = input.total_cost;
+            grUpdateBudgetPlan.data_type = input.data_type;
+            var grSysId = grUpdateBudgetPlan.insert();
+            data.budget_key_1 = grSysId;
+        }
+    }
+
+    function replaceYearMonthKeys(result, monthArray, arrArray) {
+        var newResult = {};
+
+        for (var wbs1 in result) {
+            newResult[wbs1] = {};
+
+            for (var ym in result[wbs1]) {
+                var index = monthArray.indexOf(ym);
+                if (index !== -1) {
+                    var newKey = arrArray[index];
+                    newResult[wbs1][newKey] = result[wbs1][ym];
+                }
+            }
+        }
+
+        return newResult;
     }
 })();]]></script>
         <servicenow>false</servicenow>
@@ -527,14 +617,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-19 01:58:09</sys_created_on>
         <sys_id>95e5d3f283b20210856ceec0deaad3dc</sys_id>
-        <sys_mod_count>80</sys_mod_count>
+        <sys_mod_count>92</sys_mod_count>
         <sys_name>initPlanMngtWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_95e5d3f283b20210856ceec0deaad3dc</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-21 09:01:32</sys_updated_on>
+        <sys_updated_on>2024-06-24 06:33:14</sys_updated_on>
         <template><![CDATA[  <div class="yoko-container">
         <div class="yoko-title-btn-wrap">
             <div class="yoko-btn-wrap">
@@ -546,6 +636,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
               </div>
             </div>
             <div class="yoko-btn-wrap">
+                <button class="yoko-btn yoko-btn-outline" ng-click="clickLoadData()">Load Data</button>
                 <button class="yoko-btn yoko-btn-outline" ng-click="clickApproval()">Approval Request</button>
                 <button class="yoko-btn yoko-btn-outline" ng-click="clickClose()">Close</button>
                 <button class="yoko-btn yoko-btn-fill" ng-click="clickMSF()">Make SAP File</button>

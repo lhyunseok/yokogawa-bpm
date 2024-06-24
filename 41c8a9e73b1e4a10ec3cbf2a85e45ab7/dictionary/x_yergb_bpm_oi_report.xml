@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="7920694947f20a10a4863b12d16d439d" extends="x_yergb_bpm_process" label="OI Report" max_length="40" name="x_yergb_bpm_oi_report" type="collection">
         <element label="Currency" max_length="32" name="currency" reference="fx_currency" type="reference"/>
+        <element label="Job Type" max_length="32" name="job_type" reference="x_yergb_bpm_common_code" reference_qual="category=Job Type^EQ" reference_qual_condition="category=Job Type^EQ" type="reference"/>
         <element attributes="edge_encryption_enabled=true" label="MP Amount (LC)" max_length="40" name="mp_amount_lc" type="decimal"/>
         <element attributes="edge_encryption_enabled=true" label="Total Extended Cost (LC)" max_length="40" name="total_extended_cost_lc" type="decimal"/>
         <element attributes="edge_encryption_enabled=true" label="Version" max_length="40" name="version" type="integer"/>
@@ -58,15 +59,18 @@
             <element name="tax_classification"/>
         </index>
         <index name="index13">
-            <element name="currency"/>
+            <element name="job_type"/>
         </index>
         <index name="index14">
-            <element name="sales_manager"/>
+            <element name="currency"/>
         </index>
         <index name="index15">
-            <element name="payment_terms"/>
+            <element name="sales_manager"/>
         </index>
         <index name="index16">
+            <element name="payment_terms"/>
+        </index>
+        <index name="index17">
             <element name="rfq_entry"/>
         </index>
     </element>

@@ -46,13 +46,13 @@ RealGridUtils_order_item.prototype = {
         while (gritem.next()) {
             tableinfo.push({
                 'sys_id': gritem.sys_id.getDisplayValue(),
-                'wbs': gritem.wbs.getDisplayValue(),
+                'wbs': gritem.wbs_6.getDisplayValue(),
                 'ms_code': gritem.ms_code.getDisplayValue(),
-                'unit_cost_price': gritem.unit_cost_price.getDisplayValue(),
+                'extended_price': gritem.extended_price.getDisplayValue(),
                 'quantity': gritem.quantity.getDisplayValue(),
-                'amount': gritem.amount.getDisplayValue(),
-                'strategy': gritem.strategy.getDisplayValue(),
-                'lead_time': gritem.lead_time.getDisplayValue(),
+                'extended_cost': gritem.extended_cost.getDisplayValue(),
+                //'strategy': gritem.strategy.getDisplayValue(),
+                //'lead_time': gritem.lead_time.getDisplayValue(),
                 'planned_procurement': gritem.planned_procurement.getDisplayValue(),
                 'plan_gr_date': gritem.plan_gr_date.getDisplayValue(),
                 'project': id_q,
@@ -67,9 +67,9 @@ RealGridUtils_order_item.prototype = {
             'sys_id',
             'wbs',
             'ms_code',
-            'unit_cost_price',
+            'extended_price',
             'quantity',
-            'amount',
+            'extended_cost',
             'strategy',
             'lead_time',
             'planned_procurement',
@@ -85,9 +85,9 @@ RealGridUtils_order_item.prototype = {
             'sys_id',
             'wbs',
             'ms_code',
-            'unit_cost_price',
+            'extended_price',
             'quantity',
-            'amount',
+            'extended_cost',
             'strategy',
             'lead_time',
             'planned_procurement',
@@ -131,8 +131,8 @@ RealGridUtils_order_item.prototype = {
                 },
             },
             {
-                "name": "unit_cost_price",
-                "fieldName": "unit_cost_price",
+                "name": "extended_price",
+                "fieldName": "extended_price",
                 "type": "data",
                 "width": 100,
                 "header": {
@@ -149,8 +149,8 @@ RealGridUtils_order_item.prototype = {
                 },
             },
             {
-                "name": "amount",
-                "fieldName": "amount",
+                "name": "extended_cost",
+                "fieldName": "extended_cost",
                 "type": "data",
                 "width": 100,
                 "header": {
@@ -222,13 +222,13 @@ RealGridUtils_order_item.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-18 04:48:10</sys_created_on>
         <sys_id>3d337ee247ba0e502b397d7ba26d4319</sys_id>
-        <sys_mod_count>7</sys_mod_count>
+        <sys_mod_count>10</sys_mod_count>
         <sys_name>RealGridUtils_order_item</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_include_3d337ee247ba0e502b397d7ba26d4319</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-20 01:35:51</sys_updated_on>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-24 07:37:35</sys_updated_on>
     </sys_script_include>
 </record_update>
