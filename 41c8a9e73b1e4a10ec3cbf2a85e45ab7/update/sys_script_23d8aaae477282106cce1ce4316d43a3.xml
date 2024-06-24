@@ -37,6 +37,8 @@
 	var mp_amount = 0;
 	var gp_amount = 0;
 	var oi_amount = 0;
+	var gp_percent = 0;
+	var mp_percent = 0;
 	var total_extended_cost = 0;
 
 	var grq = new GlideRecord('x_yergb_bpm_quotation');
@@ -48,6 +50,8 @@
 		gp_amount = grq.gp_amount;
 		oi_amount = grq.total_quote_price;
 		total_extended_cost = grq.total_quote_cost;
+		gp_percent = grq.gp_percent;
+		mp_percent = grq.mp_gap_percent;
 	}
 
 	var gr = new GlideRecord('x_yergb_bpm_oi_report');
@@ -67,12 +71,15 @@
 	// Create OI Report
 	gr.newRecord();
 	gr.rfq_entry = current.sys_id;
+	gr.requestor = current.requestor;
 	gr.number = oi_no;
 	gr.version = version;
 	gr.state = 1;
 	gr.mp_amount_tc = mp_amount;
 	gr.gp_amount_tc = gp_amount;
 	gr.oi_amount_tc = oi_amount;
+	gr.gp_percent = gp_percent;
+	gr.mp_gap_percent = mp_percent;
 	gr.total_extended_cost_tc = total_extended_cost;
 	gr.insert();
 
@@ -118,7 +125,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>23d8aaae477282106cce1ce4316d43a3</sys_id>
-        <sys_mod_count>20</sys_mod_count>
+        <sys_mod_count>22</sys_mod_count>
         <sys_name>RFQ Entry Completed</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
@@ -126,7 +133,7 @@
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_23d8aaae477282106cce1ce4316d43a3</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-21 07:28:28</sys_updated_on>
+        <sys_updated_on>2024-06-24 01:14:17</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>
