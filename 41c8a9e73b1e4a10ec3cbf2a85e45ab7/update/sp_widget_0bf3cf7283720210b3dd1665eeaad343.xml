@@ -244,17 +244,17 @@
 	
 	$scope.clickOrderType = function(item) {
 		if(item.type == 1) {
-			c.data.OrderTypeNm = item.name;
-			c.data.OrderTypeCode = item.code;
+			c.data.orderTypeNm = item.name;
+			c.data.orderTypeCode = item.code;
 		} else if(item.type == 2) {
-			c.data.TaxClassNm = item.name;
-			c.data.TaxClassCode = item.code;
+			c.data.taxClassNm = item.name;
+			c.data.taxClassCode = item.code;
 		} else if(item.type == 3) {
-			c.data.IndustryNm = item.name;
-			c.data.IndustryCode = item.code;
+			c.data.industryNm = item.name;
+			c.data.industryCode = item.code;
 		} else if(item.type == 4) {
-			c.data.PayTermsNm = item.name;
-			c.data.PayTermsCode = item.code;
+			c.data.payTermsNm = item.name;
+			c.data.payTermsCode = item.code;
 		}
 		
 		c.data.modalOrderType = false;
@@ -705,6 +705,9 @@
 		oiReportData.addQuery('sys_id', data.oiSysId);
 		oiReportData.query();
 
+		var ordTpCode = '';
+		var taxCode = '';
+		var payCode = '';
 		while(oiReportData.next()) {
 			data.oiNum = oiReportData.number.toString();
 			data.oiState = oiReportData.state.getDisplayValue().toString();
@@ -719,18 +722,56 @@
 			data.oiVer = oiReportData.version.toString();
 			
 			data.PONo = oiReportData.customer_po_no.toString();
-			data.orderTypeNm = oiReportData.order_type.code.toString();
-			data.orderTypeSysId = oiReportData.order_type.sys_id.toString();
-			data.taxClassNm = oiReportData.tax_classification.code.toString();
-			data.taxClassSysId = oiReportData.tax_classification.sys_id.toString();
 			
-			data.payTermsNm = oiReportData.payment_terms.code.toString();
-			data.payTermsSysId = oiReportData.payment_terms.sys_id.toString();
+			ordTpCode = oiReportData.order_type.toString();
+			taxCode = oiReportData.tax_classification.toString();
+			payCode = oiReportData.payment_terms.toString();
+			console.log('PAY CODE : ' + payCode);
+			
+			var grC;
+			if(ordTpCode != '') {
+				grC = new GlideRecord('x_yergb_bpm_common_code');
+				grC.initialize();
+				grC.addQuery('category', 'ORDER TYPE');
+				grC.addQuery('code', ordTpCode);
+				grC.query();
+				while(grC.next()) {
+					data.orderTypeNm = grC.name.toString();
+					data.orderTypeCode = grC.code.toString();
+				}
+			}
+			
+			if(taxCode != '') {
+				grC = new GlideRecord('x_yergb_bpm_common_code');
+				grC.initialize();
+				grC.addQuery('category', 'TAX Classification');
+				grC.addQuery('code', taxCode);
+				grC.query();
+				while(grC.next()) {
+					data.taxClassNm = grC.name.toString();
+					data.taxClassCode = grC.code.toString();
+				}
+			}
+			
+			if(payCode != '') {
+				grC = new GlideRecord('x_yergb_bpm_common_code');
+				grC.initialize();
+				grC.addQuery('category', 'PAYMENT TERMS');
+				grC.addQuery('code', payCode);
+				grC.query();
+				while(grC.next()) {
+					data.payTermsNm = grC.name.toString();
+					data.payTermsCode = grC.code.toString();
+				}
+			}
+			
+			
 			
 			// get Project type
 			// get Ansoff type
 			
 			data.rfqSysId = oiReportData.rfq_entry.toString();
+			
 		}
 		
 		// if(Project type) get list
@@ -789,6 +830,7 @@
 			data.redirect_sys_id = oiRptTr.getUniqueValue();
 		} else if(input.btnHeaderType == 'oiUpdate') {
 			console.log('SERVER BTN :: OI UPDATE');
+			console.log(input);
 			oiRptTr.get(input.oiSysId);
 			oiRptTr.setValue('oi_amount_lc', getValueOrEmptyString(input.oiAmtLC));
 			oiRptTr.setValue('oi_amount_tc', getValueOrEmptyString(input.oiAmtTC));
@@ -798,10 +840,14 @@
 			oiRptTr.setValue('mp_gap_percent', getValueOrEmptyString(input.mpPerc));
 			oiRptTr.setValue('total_extended_cost_tc', getValueOrEmptyString(input.totEstCost));
 			oiRptTr.setValue('customer_po_no', getValueOrEmptyString(input.PONo));
-			oiRptTr.setValue('version', String(Number(input.oiVer) + 1));
+			oiRptTr.setValue('order_type', getValueOrEmptyString(input.orderTypeCode));
+			oiRptTr.setValue('tax_classification', getValueOrEmptyString(input.taxClassCode));
+			oiRptTr.setValue('payment_terms', getValueOrEmptyString(input.payTermsCode));	
+			//oiRptTr.setValue('version', /*String(Number(input.oiVer) + 1)*/ '1');
 			oiRptTr.update();
 			// Update status.
 			// Update version.
+			
 			data.redirect_sys_id = input.oiSysId;
 		}
 	}
@@ -912,14 +958,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>286</sys_mod_count>
+        <sys_mod_count>316</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-24 03:40:41</sys_updated_on>
+        <sys_updated_on>2024-06-24 05:15:46</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
         <!-- <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div> -->
@@ -1032,8 +1078,7 @@
                                         <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickOrdTypeSearch(1)"></button>
                                         <button type="button" class="yoko-btn yoko-btn-info-fill" ng-click="btnClickOrdTypeInfo(1)"></button>
                                     </div>
-                                    <input type="text" name="inputOrderTypeDesc" value="" ng-model="c.data.orderTypeDesc" placeholder="" disabled class="yoko-wid140">
-                                  	<input type='hidden' name='inputOrderTypeSysId' ng-model='c.data.orderTypeSysId'>
+                                    <input type="text" name="inputOrderTypeDesc" value="" ng-model="c.data.orderTypeCode" placeholder="" disabled class="yoko-wid140">
                                 </div>
                             </div>
                             <div class="yoko-form-group">
@@ -1044,8 +1089,7 @@
                                         <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickOrdTypeSearch(2)"></button>
                                         <button type="button" class="yoko-btn yoko-btn-info-fill" ng-click="btnClickOrdTypeInfo(2)"></button>
                                     </div>
-                                    <input type="text" name="inputTaxClassDesc" value="" ng-model="c.data.taxClassDesc" placeholder="" disabled class="yoko-wid140">
-                                  	<input type='hidden' name='inputTaxClassSysId' ng-model='c.data.taxClassSysId'>
+                                    <input type="text" name="inputTaxClassDesc" value="" ng-model="c.data.taxClassCode" placeholder="" disabled class="yoko-wid140">
                                 </div>
                             </div>
                             <div class="yoko-form-group">
@@ -1056,8 +1100,7 @@
                                         <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickOrdTypeSearch(3)"></button>
                                         <button type="button" class="yoko-btn yoko-btn-info-fill" ng-click="btnClickOrdTypeInfo(3)"></button>
                                     </div>
-                                    <input type="text" name="inputIndustryDesc" value="" ng-model="c.data.industryDesc" placeholder="" disabled class="yoko-wid140">
-                                  	<input type='hidden' name='inputIndustryCode' ng-model='c.data.industrySysId'>
+                                    <input type="text" name="inputIndustryDesc" value="" ng-model="c.data.industryCode" placeholder="" disabled class="yoko-wid140">
                                 </div>
                             </div>
                             <div class="yoko-form-group">
@@ -1068,8 +1111,7 @@
                                         <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickOrdTypeSearch(4)"></button>
                                         <button type="button" class="yoko-btn yoko-btn-info-fill" ng-click="btnClickOrdTypeInfo(4)"></button>
                                     </div>
-                                    <input type="text" name="inputPaymentTermsDesc" value="" ng-model="c.data.payTermsDesc" placeholder="" disabled class="yoko-wid140">
-                                  	<input type='hidden' name='inputPaymentTermsCode' ng-model='c.data.payTermsSysId'>
+                                    <input type="text" name="inputPaymentTermsCode" value="" ng-model="c.data.payTermsCode" placeholder="" disabled class="yoko-wid140">
                                 </div>
                             </div>
                             <div class="yoko-form-group">
