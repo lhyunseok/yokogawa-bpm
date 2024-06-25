@@ -413,6 +413,7 @@
 				dataType: 'number',
 			},*/
 
+			'rowStat',
 			'sys_id',
 			'number',
 			'wbs_6',
@@ -581,6 +582,9 @@
 		gvDetail.undoable = true;
 		gvDetail.editOptions.commitByCell = true;
 		gvDetail.editOptions.insertable = true;
+		gvDetail.hideDeletedRows = false;
+		
+		dpDetail.softDeleting = true;
 		
 		//gvDetail.checkBar.visible = false;
 		//gvDetail.stateBar.visible = false;
@@ -590,11 +594,12 @@
 	
 	$scope.gridDetailBtnClick = function(idx) {
 		var v = {
+			'rowStat' : '',
 			'sys_id' : '', 
 			'number' : '', 
 			'wbs_6' : '', 
 			'ms_code' : '', 
-			'description' : 'test description', 
+			'description' : '', 
 			'quantity' :'', 
 			'unit_price' :'', 
 			'extended_price' : '', 
@@ -607,27 +612,27 @@
 			'oi_report_sys_Id' :data.oiSysId
 		}
 		
-		c.data.gridBtnType = '';
+		c.data.gridBtnTransact = '';
 		if(idx == 1) {
-			c.data.gridBtnType = 'add';
+			//c.data.gridBtnType = 'add';
 			dpDetail.addRow(v);
 		} else if(idx == 2) {
-			c.data.gridBtnType = 'insert';
+			//c.data.gridBtnType = 'insert';
 			dpDetail.insertRow(0, v);
 		} else if(idx == 3) {
-			c.data.gridBtnType = 'delete';
+			//c.data.gridBtnType = 'delete';
 			//gvDetail.deleteSelection(true);
 			var curr = gvDetail.getCurrent();
   		dpDetail.removeRow(curr.dataRow);
 		} else if(idx == 4) {
-			c.data.gridBtnType = 'save';
+			//c.data.gridBtnType = 'save';	
+			c.data.gridBtnTransact = 'T';
+			c.data.gridDetailData = dpDetail.getJsonRows();
+			for(var x=0; x<c.data.gridDetailData.length; x++) {
+				c.data.gridDetailData[x].rowStat = dpDetail.getRowState(x);
+			}
 		}
-		
-		
-		
-		console.log(dpDetail.getRowCount());
-		
-		
+
 		c.server.update().then(function(response) {
 			console.log('Server response:', response);
 		});
@@ -649,16 +654,16 @@
 
 		console.log("STATE:" + c.data.oiState);
 		if(Number(c.data.oiStateCode) == "1") {
-			c.data.disSONm = false;
-			c.data.disSONmSearch = false;
-			c.data.disSONmInfo = false;
-			c.data.disOiAmtTC = false;
-			c.data.disOiAmtLC = false;
-			c.data.disTotEstCost = false;
-			c.data.disGpAmt = false;
-			c.data.disMpAmt = false;
-			c.data.disGpPerc = false;
-			c.data.disMpPerc = false;
+			c.data.disSONm = true;
+			c.data.disSONmSearch = true;
+			c.data.disSONmInfo = true;
+			c.data.disOiAmtTC = true;
+			c.data.disOiAmtLC = true;
+			c.data.disTotEstCost = true;
+			c.data.disGpAmt = true;
+			c.data.disMpAmt = true;
+			c.data.disGpPerc = true;
+			c.data.disMpPerc = true;
 			c.data.disOrdType = false;
 			c.data.disTaxClass = false;
 			c.data.disIndustry = false;
@@ -680,6 +685,11 @@
 		} else {
 			c.data.showBtnConfirmReq = true;
 			c.data.showBtnApprovalReq = true;
+		}
+
+		if(c.data.salesCompanyNm == 'YCN') {
+			c.data.showBtnAuthorize = true;
+			c.data.showBtnRequest = false;
 		}
 		
 		var loopCnt = 0;
@@ -1136,6 +1146,8 @@ a {text-decoration: none;}
 			data.ProjectNm = rfqEntryData.project_title.toString();
 			data.yodaOpportNo = rfqEntryData.yoda_opportunity_no.toString();
 			data.quotSysId = rfqEntryData.quotation.toString();
+			data.salesMngNm = rfqEntryData.sales_manager.user_name.toString();
+			data.salesCompanyNm = rfqEntryData.sales_manager.company.name.toString();
 		}
 	}
 
@@ -1146,8 +1158,8 @@ a {text-decoration: none;}
 
 		while(quotData.next()) {
 			data.quotNum = quotData.number.toString();
-			dataEssNo = quotData.ess_sqms_no.toString();
-			data.currency = quotData.currency.toString();
+			data.essNo = quotData.ess_sqms_no.toString();
+			//data.currency = quotData.currency.toString();
 			data.gpAmount = quotData.gp_amount.toString();
 			data.mpAmount = quotData.mp_amount.toString();
 			data.estimateCost = quotData.total_quote_price.toString();
@@ -1212,6 +1224,7 @@ a {text-decoration: none;}
 		var gridDetailData = [];
 		while(oiDetail.next()) {
 			gridDetailData.push( {
+				'rowStat' : '',
 				'sys_id' : oiDetail.sys_id.toString(), 
 				'number' : oiDetail.number.toString(), 
 				'wbs_6' : oiDetail.wbs_6.toString(), 
@@ -1233,8 +1246,14 @@ a {text-decoration: none;}
 		data.gridDetailData = gridDetailData;
 	}
 	
-	if(input && input.gridBtnType) {
-		console.log('SERVER GRID BTN : ' + input.gridBtnType);
+	if(input && input.gridBtnTransact) {
+		if(input.gridBtnTransact == 'T') {
+			console.log('SERVER GRID SAVE : ' + input.gridDetailData);
+			var gData = input.gridDetailData;
+			for(var x=0; x<gData.length; x++) {
+				console.log('ROW STAT:' + gData[x].rowStat); 
+			}
+		}
 	}
 	
 	/* Order type Modal */
@@ -1339,14 +1358,14 @@ a {text-decoration: none;}
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>528</sys_mod_count>
+        <sys_mod_count>567</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-25 07:27:29</sys_updated_on>
+        <sys_updated_on>2024-06-25 11:35:02</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -1391,8 +1410,9 @@ a {text-decoration: none;}
                         <div class="yoko-form-group">
                             <label for="sales_manager" class="yoko-short-110">Sales Manager</label>
                             <div class="yoko-form-inline yoko-wid308">
-                                <input type="text" name="inputSalesMngNum" value="" ng-model="c.data.SalesMngNum" placeholder="" disabled class="yoko-wid100">
-                                <input type="text" name="inputSalesMngNm" value="" ng-model="c.data.SalesMngNn" placeholder="" disabled class="">
+                                <input type="text" name="inputSalesMngNm" value="" ng-model="c.data.salesMngNm" placeholder="" disabled class="yoko-wid100">
+                                <input type="text" name="inputSalesMngNum" value="" ng-model="c.data.salesMngNum" placeholder="" disabled class="">
+                              	<input type='hidden' value='' ng-model='c.data.salesCompanyNm' > 
                             </div>
                         </div>
                         <div class="yoko-form-group">
@@ -1400,7 +1420,7 @@ a {text-decoration: none;}
                             <div class="yoko-form-inline yoko-wid308">
                                 <div class="yoko-form-inline">
                                     <input type="text" name="inputSalesOffice" value="" ng-model="c.data.SONm" ng-disabled='c.data.disSONm' placeholder="" class="yoko-wid100">
-                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickSOSearch()" ng-disabled='c.data.disSONmSearch'></button>
+                                    <button type="button" class="yoko-btn yoko-btn-search" hidden ng-click="btnClickSOSearch()" ng-disabled='c.data.disSONmSearch'></button>
                                     <button type="button" class="yoko-btn yoko-btn-info-fill" ng-click="btnClickSOInfo()" ng-disabled='c.data.disSONmInfo'></button>
                                 </div>
                                 <input type="text" name="inputSONum" value="" ng-model='c.data.SONum' placeholder="" disabled class="">
@@ -1790,13 +1810,13 @@ a {text-decoration: none;}
                             <div class="yoko-form-group">
                                 <label for="lbEndUser" class="yoko-short-100">End User</label>
                                 <div class="yoko-form-inline">
-                                    <input type="text" name="inputEndUserNm" value="" ng-model="c.data.endUserNm" placeholder="" class="yoko-wid100">
+                                    <input type="text" name="inputEndUserNm" value="" ng-model="c.data.endUserNm" placeholder="" disabled class="yoko-wid100">
                                     <input type="text" name="inputEndUserNum" value="" ng-model="c.data.endUserNum" placeholder="" disabled class="">
                                 </div>
                             </div>
                             <div class="yoko-form-group">
                                 <label for="lbContractor" class="yoko-short-100">Contractor</label>
-                                <input type="text" name="inputContractor" value="" ng-model="c.data.constrator" placeholder="" class="yoko-col100">
+                                <input type="text" name="inputContractor" value="" ng-model="c.data.constrator" placeholder="" disabled class="yoko-col100">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="lbDummyAccount" class="yoko-short-100">Dummy Account</label>
@@ -1810,11 +1830,11 @@ a {text-decoration: none;}
                             </div>
                             <div class="yoko-form-group">
                                 <label for="lbTCAS" class="yoko-short-130">T-CAS</label>
-                                <input type="text" name="inputTCAS" value="" ng-model="c.data.tcas" placeholder="" class="yoko-wid140">
+                                <input type="text" name="inputTCAS" value="" ng-model="c.data.tcas" placeholder="" disabled class="yoko-wid140">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="lbRiskMgmtCategory" class="yoko-short-130">Risk Mgmt Category</label>
-                                <input type="text" name="inputRiskMgmtCategory" value="" ng-model="c.data.ristMgnt" placeholder="" class="yoko-wid140">
+                                <input type="text" name="inputRiskMgmtCategory" value="" ng-model="c.data.ristMgnt" placeholder="" disabled class="yoko-wid140">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="lbCreditAssessment" class="yoko-short-130">Credit Assessment</label>
@@ -1853,11 +1873,11 @@ a {text-decoration: none;}
                             <div class="yoko-form-col">
                                 <div class="yoko-form-group">
                                     <label for="industry_security_fee" class="yoko-short-142 ">Industry Security Fee</label>
-                                    <input type="text" name="industry_security_fee" value="" ng-model="c.data.industrySec" placeholder="" class="yoko-wid140 yoko-text-right">
+                                    <input type="text" name="industry_security_fee" value="" ng-model="c.data.industrySec" placeholder="" disabled class="yoko-wid140 yoko-text-right">
                                 </div>
                                 <div class="yoko-form-group">
                                     <label for="lbIndustrySecurityFee" class="yoko-short-142">Liability Insurance Fee</label>
-                                    <input type="text" name="inputIndustrySecurityFee" value="" ng-model="c.data.liabilityInsu" placeholder="" class="yoko-wid140 yoko-text-right">
+                                    <input type="text" name="inputIndustrySecurityFee" value="" ng-model="c.data.liabilityInsu" placeholder="" disabled class="yoko-wid140 yoko-text-right">
                                 </div>
                             </div>
                         </div>
@@ -1907,13 +1927,13 @@ a {text-decoration: none;}
                 </div>
             </div>
 
-						<div class="yoko-grid-btn-wrap-grid" style='display:none;'>
+						<div class="yoko-grid-btn-wrap-grid">
               <button id="bt-add" ng-click='gridDetailBtnClick(1)'>Add</button>
               <button id="bt-insert" ng-click='gridDetailBtnClick(2)'>Insert</button>
               <button id="bt-delete" ng-click='gridDetailBtnClick(3)'>Delete</button>
               <button id="bt-save" ng-click='gridDetailBtnClick(4)'>Save</button>
             </div>
-          	<div id='gridContainer' style="width:100%; height: 450px; "></div>
+          	<div id='gridContainer' style="width:100%; height: 400px; "></div>
             
         </div>
     </div>
