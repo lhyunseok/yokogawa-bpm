@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>standard</category>
-        <client_script><![CDATA[function ($scope, spUtil, $location, spAriaFocusManager) {
+        <client_script><![CDATA[function ($scope, spUtil, $location, spAriaFocusManager, $window) {
+	  var c = this;
     $scope.$on('data_table.click', function(e, parms) {
         var p = $scope.data.page_id || 'form';
         //var s = {id: p, table: parms.table, sys_id: parms.sys_id, view: 'sp'};
@@ -14,9 +15,15 @@
         var newURL = $location.search(s);
         spAriaFocusManager.navigateToLink(newURL.url());
     });
+	
+		$scope.handleButtonClick = function() {
+			window.location.href = c.data.newUrl;
+    };
 }]]></client_script>
         <controller_as>c</controller_as>
-        <css/>
+        <css>.yoko-btn-fill {background-color: #68B3FC; border: 1px solid #4193E2; color: #fff; float: right; margin: 10px 20px 0px 0px ; width:60px; height:25px}
+.yoko-btn-fill:hover  {background-color: #4193E2; border: 1px solid #4193E2;}
+</css>
         <data_table>sp_instance_table</data_table>
         <demo_data/>
         <description/>
@@ -37,6 +44,9 @@
 	var pageGR = new GlideRecord('sp_page');
 	pageGR.get(sp_page);
 	data.page_id = pageGR.getValue("id");
+	data.newUrl = '/ybpm?id=rfqentry';
+	
+	
 	$sp.getValues(data);
 	if (data.field_list) {
 		data.fields_array = data.field_list.split(',');
@@ -92,18 +102,21 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-16 11:47:08</sys_created_on>
         <sys_id>6bef314e47ba4a502b397d7ba26d4379</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>34</sys_mod_count>
         <sys_name>Data Table from Instance Definit BPM</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_6bef314e47ba4a502b397d7ba26d4379</sys_update_name>
-        <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-17 10:03:34</sys_updated_on>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-25 08:24:55</sys_updated_on>
         <template><![CDATA[<div>
   <div class="alert alert-danger" ng-if="data.invalid_table">
     ${Table not defined} '{{data.table_label}}'
   </div>
+  <button class="yoko-btn-fill" ng-click="handleButtonClick()">
+    New
+  </button>
   <sp-widget ng-if="data.dataTableWidget" widget="data.dataTableWidget"></sp-widget>
 </div>]]></template>
     </sp_widget>

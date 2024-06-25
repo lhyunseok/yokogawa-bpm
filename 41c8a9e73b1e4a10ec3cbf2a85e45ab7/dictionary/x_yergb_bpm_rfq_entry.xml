@@ -3,6 +3,7 @@
         <element label="Quotation Due Date" max_length="40" name="quotation_due_date" type="glide_date"/>
         <element label="Caution" max_length="4000" name="caution" type="string"/>
         <element default="javascript:gs.nowDateTime();" dynamic_default_value="79cb83a85f220100a9ad2572f2b4773c" label="Request Date" mandatory="true" max_length="40" name="request_date" type="glide_date" use_dynamic_default="true"/>
+        <element label="Sales Manager" max_length="32" name="sales_manager" reference="sys_user" type="reference"/>
         <element label="End User" max_length="32" name="end_user" reference="core_company" type="reference"/>
         <element label="Contract Name" max_length="40" name="contract_name" type="string"/>
         <element label="Reason Code" max_length="40" name="reason_code" type="string"/>
@@ -49,18 +50,21 @@
             <element name="oi_report"/>
         </index>
         <index name="index6">
-            <element name="risk_management"/>
+            <element name="sales_manager"/>
         </index>
         <index name="index7">
-            <element name="t_cas"/>
+            <element name="risk_management"/>
         </index>
         <index name="index8">
-            <element name="end_user"/>
+            <element name="t_cas"/>
         </index>
         <index name="index9">
-            <element name="sales_order"/>
+            <element name="end_user"/>
         </index>
         <index name="index10">
+            <element name="sales_order"/>
+        </index>
+        <index name="index11">
             <element name="credit_assessment"/>
         </index>
     </element>
