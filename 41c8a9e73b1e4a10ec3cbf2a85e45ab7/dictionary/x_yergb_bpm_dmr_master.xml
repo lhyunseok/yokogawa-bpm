@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="620143783bc7c610ec3cbf2a85e45a17" label="DMR Master" max_length="40" name="x_yergb_bpm_dmr_master" type="collection">
         <element choice="1" label="Type" max_length="40" name="type" type="choice">
-            <choice/>
+            <choice>
+                <element inactive_on_update="false" label="Amount" sequence="10" value="amount"/>
+                <element inactive_on_update="false" label="GP" sequence="30" value="gp"/>
+                <element inactive_on_update="false" label="MP" sequence="20" value="mp"/>
+            </choice>
         </element>
         <element label="Level" max_length="40" name="level" type="integer"/>
         <element label="Company" max_length="32" name="company" reference="core_company" type="reference"/>
