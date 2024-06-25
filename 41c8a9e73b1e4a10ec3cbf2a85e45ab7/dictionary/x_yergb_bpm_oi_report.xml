@@ -9,12 +9,24 @@
         <element label="TAX Classification" max_length="32" name="tax_classification" reference="x_yergb_bpm_common_code" reference_qual="category=TAX CLASSIFICATION^EQ" reference_qual_condition="category=TAX CLASSIFICATION^EQ" type="reference"/>
         <element label="GP %" max_length="40" name="gp_percent" type="decimal"/>
         <element label="MP Gap (LC)" max_length="40" name="mp_gap_lc" type="decimal"/>
+        <element choice="1" label="DMR Class" max_length="40" name="dmr_class" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="20" sequence="2" value="20"/>
+                <element inactive_on_update="false" label="30" sequence="3" value="30"/>
+                <element inactive_on_update="false" label="40" sequence="4" value="40"/>
+                <element inactive_on_update="false" label="10" sequence="1" value="10"/>
+                <element inactive_on_update="false" label="50" sequence="5" value="50"/>
+            </choice>
+        </element>
         <element attributes="edge_encryption_enabled=true" label="Total Extended Cost (TC)" max_length="40" name="total_extended_cost_tc" type="decimal"/>
         <element attributes="edge_encryption_enabled=true" label="OI Amount (TC)" max_length="40" name="oi_amount_tc" type="decimal"/>
         <element label="E-Draft Maturity Days" max_length="40" name="e_draft_maturity_days" type="integer"/>
+        <element label="DMR GP Level" max_length="40" name="dmr_gp_level" type="integer"/>
+        <element label="DMR Amount Level" max_length="40" name="dmr_amount_level" type="integer"/>
         <element attributes="edge_encryption_enabled=true" label="GP Amount (TC)" max_length="40" name="gp_amount_tc" type="decimal"/>
         <element attributes="edge_encryption_enabled=true" label="GP Amount (LC)" max_length="40" name="gp_amount_lc" type="decimal"/>
         <element attributes="edge_encryption_enabled=true" label="OI Amount (LC)" max_length="40" name="oi_amount_lc" type="decimal"/>
+        <element label="DMR MP Level" max_length="40" name="dmr_mp_level" type="integer"/>
         <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="RFQ Entry" max_length="32" name="rfq_entry" reference="x_yergb_bpm_rfq_entry" type="reference"/>
         <element label="Customer PO No." max_length="40" name="customer_po_no" type="string"/>
         <element label="MP Gap %" max_length="40" name="mp_gap_percent" type="decimal"/>
