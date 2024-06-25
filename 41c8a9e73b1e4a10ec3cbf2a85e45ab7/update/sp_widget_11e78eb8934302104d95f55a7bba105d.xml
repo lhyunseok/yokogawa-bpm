@@ -68,7 +68,7 @@
 					 alert("INSERT")
             c.data.isInsert = true;
             c.server.update().then(function(response) {
-                window.location.href = "/sp?id=rfqentry2&sys_id=" + c.data.redirect_sys_id;
+                window.location.href = "/sp?id=rfqentry&sys_id=" + c.data.redirect_sys_id;
                 // Optionally handle the server response if needed
                 if (response.data && response.data.result) {
                     //alert(response.data.result);
@@ -974,10 +974,10 @@ border: 2px solid red;
         <docs/>
         <field_list/>
         <has_preview>false</has_preview>
-        <id>rfqentrywd2</id>
+        <id>rfqentrywd</id>
         <internal>false</internal>
         <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
-        <name>rfqEntryWd2</name>
+        <name>rfqEntryWd</name>
         <option_schema/>
         <public>false</public>
         <roles/>
@@ -1852,19 +1852,19 @@ while(grLabel.next()) {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>23</sys_mod_count>
-        <sys_name>rfqEntryWd2</sys_name>
+        <sys_mod_count>27</sys_mod_count>
+        <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-25 04:07:06</sys_updated_on>
+        <sys_updated_by>lhyunseok</sys_updated_by>
+        <sys_updated_on>2024-06-25 06:19:35</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
           <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
           <div class="yoko-title-btn-wrap">
-              <h1 class="yoko-title">RFQ Entry & Quotation Request</h1>
+              <h1 class="yoko-title">Quotation Request</h1>
               <div class="yoko-btn-wrap">
                   <button class="yoko-btn yoko-btn-fill-red" ng-if="data.showCancel" ng-click="btnCancel()">Cancel</button>
                   <button class="yoko-btn yoko-btn-fill-red" ng-if="data.showReturn" ng-click="btnReturn()">Return</button>
