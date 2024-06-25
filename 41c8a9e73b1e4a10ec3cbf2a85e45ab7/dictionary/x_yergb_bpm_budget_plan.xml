@@ -7,15 +7,15 @@
         <element attributes="edge_encryption_enabled=true" label="Contract" max_length="20" name="contract" type="decimal"/>
         <element choice="1" label="Data Type" max_length="40" name="data_type" type="choice">
             <choice>
-                <element inactive_on_update="false" label="WBS6" sequence="0" value="wbs6"/>
                 <element inactive_on_update="false" label="ITEM" sequence="1" value="item"/>
+                <element inactive_on_update="false" label="WBS6" sequence="0" value="wbs6"/>
             </choice>
         </element>
         <element label="Project" max_length="32" name="project" reference="x_yergb_bpm_project" type="reference"/>
         <element attributes="edge_encryption_enabled=true" label="GPA" max_length="20" name="gpa" type="decimal"/>
         <element choice="1" label="State" max_length="40" name="state" type="choice">
             <choice>
-                <element inactive_on_update="false" label="Approval Reuested" sequence="2" value="6"/>
+                <element inactive_on_update="false" label="Authorize" sequence="2" value="6"/>
                 <element inactive_on_update="false" label="Completed" sequence="3" value="9"/>
                 <element inactive_on_update="false" label="New" sequence="1" value="1"/>
             </choice>
@@ -28,18 +28,18 @@
         <element attributes="edge_encryption_enabled=true" label="GP" max_length="20" name="gp" type="decimal"/>
         <element choice="3" default="not requested" label="Approval" max_length="40" name="approval" type="string">
             <choice>
+                <element inactive_on_update="false" label="Approved" sequence="2" value="approved"/>
+                <element inactive_on_update="false" label="Not Yet Requested" sequence="0" value="not requested"/>
                 <element inactive_on_update="false" label="Requested" sequence="1" value="requested"/>
                 <element inactive_on_update="false" label="Rejected" sequence="3" value="rejected"/>
-                <element inactive_on_update="false" label="Not Yet Requested" sequence="0" value="not requested"/>
-                <element inactive_on_update="false" label="Approved" sequence="2" value="approved"/>
             </choice>
         </element>
         <element default="Initial" label="Plan Type" max_length="40" name="plan_type" type="string"/>
         <element label="Sum WBS" max_length="40" name="sum_wbs" type="glide_date_time"/>
         <element choice="1" label="Currency" max_length="40" name="currency" type="choice">
             <choice>
-                <element inactive_on_update="false" label="CNY" sequence="2" value="cny"/>
                 <element inactive_on_update="false" label="USD" sequence="0" value="usd"/>
+                <element inactive_on_update="false" label="CNY" sequence="2" value="cny"/>
                 <element inactive_on_update="false" label="KRW" sequence="1" value="krw"/>
             </choice>
         </element>
