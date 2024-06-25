@@ -7,15 +7,11 @@
         <element label="RFQ Entry" max_length="32" name="rfq_entry" reference="x_yergb_bpm_rfq_entry" type="reference"/>
         <element label="ESS/SQMS No." max_length="40" name="ess_sqms_no" type="string"/>
         <element label="GP %" max_length="40" name="gp_percent" type="decimal"/>
-        <element label="Currency" max_length="32" name="currency" reference="fx_currency" type="reference"/>
         <element label="Total Quote Price" max_length="40" name="total_quote_price" type="decimal"/>
         <element label="Version" max_length="40" name="version" read_only="true" type="integer"/>
         <element label="MP Amount" max_length="40" name="mp_amount" type="decimal"/>
         <index name="index">
             <element name="rfq_entry"/>
-        </index>
-        <index name="index2">
-            <element name="currency"/>
         </index>
     </element>
 </database>
