@@ -78,6 +78,7 @@
 	gr.mp_amount_tc = mp_amount;
 	gr.gp_amount_tc = gp_amount;
 	gr.oi_amount_tc = oi_amount;
+	gr.mp_gap_tc = oi_amount - mp_amount;
 	gr.gp_percent = gp_percent;
 	gr.mp_gap_percent = mp_percent;
 	gr.total_extended_cost_tc = total_extended_cost;
@@ -125,7 +126,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>23d8aaae477282106cce1ce4316d43a3</sys_id>
-        <sys_mod_count>22</sys_mod_count>
+        <sys_mod_count>23</sys_mod_count>
         <sys_name>RFQ Entry Completed</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
@@ -133,7 +134,7 @@
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_23d8aaae477282106cce1ce4316d43a3</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-24 01:14:17</sys_updated_on>
+        <sys_updated_on>2024-06-25 06:37:15</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>
