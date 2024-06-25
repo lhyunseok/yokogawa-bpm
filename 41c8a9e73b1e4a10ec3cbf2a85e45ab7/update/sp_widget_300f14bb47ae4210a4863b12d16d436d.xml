@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[window.onload = function() {
-	api.controller=function() {
+        <client_script><![CDATA[api.controller = function($scope, $location, $rootScope) {
   /* widget controller */
   var c = this;
+	/*	  
+	c.server.update().then(function(response) {
+        console.log('Server response:', response);
+    });
+	*/
+	//c.data.test1 = "12312311111111111111"
+	 // 서버에서 데이터를 가져옵니다.
+   $scope.message = c.data.message;
+    $scope.test1 = c.data.test1;
+	
+	console.log("faweghaweghweagheawtg")
+	console.log($scope.test1)
 };
-}]]></client_script>
+]]></client_script>
         <controller_as>c</controller_as>
         <css>@charset "UTF-8";&#13;
 &#13;
@@ -159,25 +170,29 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <script><![CDATA[(function() {
   /* populate the 'data' object */
   /* e.g., data.table = $sp.getValue('table'); */
-
+    data.message = "Hello from Server Script!";
+		data.test1 = "냥냐이 냥냥"
+	
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-09 04:58:07</sys_created_on>
         <sys_id>300f14bb47ae4210a4863b12d16d436d</sys_id>
-        <sys_mod_count>10</sys_mod_count>
+        <sys_mod_count>43</sys_mod_count>
         <sys_name>ypsample2</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_300f14bb47ae4210a4863b12d16d436d</sys_update_name>
-        <sys_updated_by>yeongink@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-11 08:47:31</sys_updated_on>
+        <sys_updated_by>lhyunseok</sys_updated_by>
+        <sys_updated_on>2024-06-22 02:48:35</sys_updated_on>
         <template><![CDATA[    <div class="yoko-container">
-        <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
+        <div class="yoko-breadcrumb">Home >234324 RFQ Entry & Quotation Request</div>
         <div class="yoko-title-btn-wrap">
             <h1 class="yoko-title">${RFQ Entry & Quotation Request}</h1>
+              <p>{{data.message}}</p>
+
             <div class="yoko-btn-wrap">
                 <button class="yoko-btn yoko-btn-outline">Update</button>
                 <button class="yoko-btn yoko-btn-fill">SAVE</button>
@@ -189,7 +204,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                     <div class="yoko-form-col yoko-col30">
                         <div class="yoko-form-group">
                             <label for="request_no">Request No</label>
-                            <input type="number" name="request_no" value="20240120110" placeholder="">
+                            <input type="text" name="request_no"  ng-model="c.data.test1" placeholder="">
                         </div>
                         <div class="yoko-form-group">
                             <label for="requester_no">Requester</label>
@@ -362,52 +377,24 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
                             <textarea id="caution" name="caution" rows="4" required placeholder="1.Due to the high security level of this project, future engineering activities are planned to take place at the Gunsan factory site.&#10;2.To coordinate detailed site surveys with the client, we kindly request a response regarding the designated personnel by next Monday morning."></textarea>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script type="text/javascript">
-      document.getElementById("cmd").addEventListener("click", function () {
-
-        var doc = new jsPDF("p", "pt", "a4");
-        var source = window.document.getElementById('content').innerHTML;
-        doc.fromHTML(source, 30, 30);  
-        doc.save("cv-a4.pdf");
-      });
+<script>
+        // AngularJS 데이터를 스크립트 내에서 사용
+        var message = "{{data.message}}";
+        var test1 = "{{data.test1}}";
+        
+        // 데이터를 출력
+        console.log("Message: " + message);
+        console.log("Test1: " + test1);
+        
+        // 알림으로 데이터 표시
+        alert("Message: " + message);
+        alert("Test1: " + test1);
     </script>
 
-		<script>
-        const buttons = document.querySelectorAll('.yoko-title-btn-wrap .yoko-btn-wrap button');
-
-        buttons.forEach(button => {
-            button.addEventListener('click', function() {
-                buttons.forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                this.classList.add('active');
-            });
-        });
-
-        window.onload = function() {
-            var wrapper = document.querySelector('.yoko-search-form-wrapper');
-            if (wrapper) {
-                var forms = wrapper.querySelectorAll('.yoko-search-form-wrap > .yoko-search-form');
-                var maxHeight = 0;
-                // 모든 .yoko-search-form 요소의 높이를 확인하여 최대 높이를 찾습니다.
-                forms.forEach(function(form) {
-                    if (form.offsetHeight > maxHeight) {
-                        maxHeight = form.offsetHeight;
-                    }
-                });
-                // 최대 높이로 모든 .yoko-search-form 요소의 높이를 설정합니다.
-                forms.forEach(function(form) {
-                    form.style.height = maxHeight + 'px';
-                });
-            }
-        };
-
-    </script>]]></template>
+	]]></template>
     </sp_widget>
 </record_update>
