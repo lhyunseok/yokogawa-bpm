@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="DELETE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_yergb_bpm.RealGridUtilsBPM</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>RealGridUtilsBPM</name>
+        <script><![CDATA[var RealGridUtilsBPM = Class.create();
+RealGridUtilsBPM.prototype = {
+    initialize: function() {},
+
+    getRealGridKey: function() {
+        var instanceUrl = gs.getProperty('glide.servlet.uri');
+
+        if (instanceUrl.includes('yokogawabpmdev')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYnPAZ2U443ftFtq1GKyB4jmAL12I5YlRY7nDp96mgkGF1aIR/+OY0FAv/bXcyw/1FAj+gHj1bcIaQ==';
+        } else if (instanceUrl.includes('dev51314')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP++bUn16KUuDYPGjmXkNrgkO9y6iqz39NL2bv3IdPQpJ8IeMqlSWuW04=';
+        } else if (instanceUrl.includes('dev197054')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+xy/pIW0HghIJKTWpoOpNFnkmhX0fXje4w7n7/ElITcuCZPJfHzThFk=';
+        } else if (instanceUrl.includes('dev251919')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+5kVu6qIimZpJKTWpoOpNFnkmhX0fXje4w7n7/ElITcuCZPJfHzThFk=';
+        } else if (instanceUrl.includes('dev178808')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+xoV7b+wGal7JKTWpoOpNFnkmhX0fXje4w7n7/ElITcuQU5++nrgCcc=';
+        } else if (instanceUrl.includes('dev260285')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+w9HPS02Uro1JKTWpoOpNFnkmhX0fXje4w7n7/ElITcuJBKTc5vuhGc=';
+        } else if (instanceUrl.includes('dev257309')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+3l1JW85tSroJKTWpoOpNFnkmhX0fXje4w7n7/ElITcu25tIywHuN+4=';
+        } else if (instanceUrl.includes('dev208377')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+yzsSo3P4ZrgJKTWpoOpNFnkmhX0fXje4w7n7/ElITcu25tIywHuN+4=';
+        } else if (instanceUrl.includes('dev254942')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+4PNdCICED0lJKTWpoOpNFnkmhX0fXje4w7n7/ElITcursW4T4GvNxc=';
+        } else {
+            gs.addInfoMessage('script include - RealGridUtils_order_item - PDI용 realgrid key 발급받아서 추가하세요~~');
+            return;
+        }
+    },
+    getTableInfo: function(id_q) {
+        var gr = new GlideRecord("x_yergb_bpm_quote_item");
+        gr.orderBy("number");
+        gr.addEncodedQuery('quotation=' + id_q);
+        gr.query();
+        var tableinfo = [];
+        while (gr.next()) {
+            tableinfo.push({
+                'sys_id': gr.sys_id.getDisplayValue(),
+                'number': gr.number.getDisplayValue(),
+                'wbs_6': gr.wbs_6.getDisplayValue(),
+                'ms_code': gr.ms_code.getDisplayValue(),
+                'description': gr.description.getDisplayValue(),
+                'quantity': gr.quantity.getDisplayValue(),
+                'unit_price': gr.unit_price.getDisplayValue(),
+                'extended_price': gr.extended_price.getDisplayValue(),
+                'unit_cost': gr.unit_cost.getDisplayValue(),
+                'extended_cost': gr.extended_cost.getDisplayValue(),
+                'unit_mp': gr.unit_mp.getDisplayValue(),
+                'vendor': gr.vendor.getDisplayValue(),
+                'quotation': id_q
+            });
+        }
+        return tableinfo;
+    },
+
+    getFields: function() {
+        var fields = [
+            'sys_id',
+            'number',
+            'wbs_6',
+            'ms_code',
+            'description',
+            'quantity',
+            'unit_price',
+            'extended_price',
+            'unit_cost',
+            'extended_cost',
+            'unit_mp',
+            'mp_amount',
+            'vendor',
+            'quotation'
+        ];
+        return fields;
+    },
+
+    getLayouts: function() {
+        var layouts = [
+            'sys_id',
+            'number',
+            'wbs_6',
+            'ms_code',
+            'description',
+            'quantity',
+            'unit_price',
+            'extended_price',
+            'unit_cost',
+            'extended_cost',
+            'unit_mp',
+            'mp_amount',
+            'vendor',
+            'quotation'
+        ];
+        return layouts;
+    },
+
+    getColumns: function() {
+        var columns = [{
+                "name": "sys_id",
+                "fieldName": "sys_id",
+                "type": "data",
+                "width": 0,
+                "header": {
+                    "text": "sysid"
+                },
+            },
+            {
+                "name": "number",
+                "fieldName": "number",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Number"
+                },
+            },
+            {
+                "name": "wbs_6",
+                "fieldName": "wbs_6",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "WBS 6"
+                },
+            },
+            {
+                "name": "ms_code",
+                "fieldName": "ms_code",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "MS Code"
+                },
+            },
+            {
+                "name": "description",
+                "fieldName": "description",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Description"
+                },
+            },
+            {
+                "name": "quantity",
+                "fieldName": "quantity",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Quantity"
+                },
+            },
+            {
+                "name": "unit_price",
+                "fieldName": "unit_price",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Unit Price"
+                },
+            },
+            {
+                "name": "extended_price",
+                "fieldName": "extended_price",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Extended Price"
+                },
+            },
+            {
+                "name": "unit_cost",
+                "fieldName": "unit_cost",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Unit Cost"
+                },
+            },
+            {
+                "name": "extended_cost",
+                "fieldName": "extended_cost",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Extended Cost"
+                },
+            },
+            {
+                "name": "unit_mp",
+                "fieldName": "unit_mp",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Unit MP"
+                },
+            },
+            {
+                "name": "mp_amount",
+                "fieldName": "mp_amount",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "MP Amount"
+                },
+            },
+            {
+                "name": "vendor",
+                "fieldName": "vendor",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Vendor"
+                },
+            },
+            {
+                "name": "quotation",
+                "fieldName": "quotation",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "quotation"
+                },
+            }
+        ];
+        return columns;
+    },
+
+    type: 'RealGridUtilsBPM'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>hhkim</sys_created_by>
+        <sys_created_on>2024-06-14 08:27:11</sys_created_on>
+        <sys_id>73cebe9947be4650d254bce5536d431a</sys_id>
+        <sys_mod_count>22</sys_mod_count>
+        <sys_name>RealGridUtilsBPM</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_script_include_73cebe9947be4650d254bce5536d431a</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-20 01:35:39</sys_updated_on>
+    </sys_script_include>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</application>
+        <file_path/>
+        <instance_id>4bfbf0ee1b06469477c7cb7b234bcbab</instance_id>
+        <instance_name>dev267820</instance_name>
+        <name>sys_script_include_73cebe9947be4650d254bce5536d431a</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_include"&gt;
+    &lt;sys_script_include action="INSERT_OR_UPDATE"&gt;
+        &lt;access&gt;package_private&lt;/access&gt;
+        &lt;active&gt;true&lt;/active&gt;
+        &lt;api_name&gt;x_yergb_bpm.RealGridUtilsBPM&lt;/api_name&gt;
+        &lt;caller_access/&gt;
+        &lt;client_callable&gt;false&lt;/client_callable&gt;
+        &lt;description/&gt;
+        &lt;name&gt;RealGridUtilsBPM&lt;/name&gt;
+        &lt;script&gt;&lt;![CDATA[var RealGridUtilsBPM = Class.create();
+RealGridUtilsBPM.prototype = {
+    initialize: function() {},
+
+    getRealGridKey: function() {
+        var instanceUrl = gs.getProperty('glide.servlet.uri');
+
+        if (instanceUrl.includes('yokogawabpmdev')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYnPAZ2U443ftFtq1GKyB4jmAL12I5YlRY7nDp96mgkGF1aIR/+OY0FAv/bXcyw/1FAj+gHj1bcIaQ==';
+        } else if (instanceUrl.includes('dev51314')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP++bUn16KUuDYPGjmXkNrgkO9y6iqz39NL2bv3IdPQpJ8IeMqlSWuW04=';
+        } else if (instanceUrl.includes('dev197054')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+xy/pIW0HghIJKTWpoOpNFnkmhX0fXje4w7n7/ElITcuCZPJfHzThFk=';
+        } else if (instanceUrl.includes('dev251919')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+5kVu6qIimZpJKTWpoOpNFnkmhX0fXje4w7n7/ElITcuCZPJfHzThFk=';
+        } else if (instanceUrl.includes('dev178808')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+xoV7b+wGal7JKTWpoOpNFnkmhX0fXje4w7n7/ElITcuQU5++nrgCcc=';
+        } else if (instanceUrl.includes('dev260285')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+w9HPS02Uro1JKTWpoOpNFnkmhX0fXje4w7n7/ElITcuJBKTc5vuhGc=';
+        } else if (instanceUrl.includes('dev257309')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+3l1JW85tSroJKTWpoOpNFnkmhX0fXje4w7n7/ElITcu25tIywHuN+4=';
+        } else if (instanceUrl.includes('dev208377')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+yzsSo3P4ZrgJKTWpoOpNFnkmhX0fXje4w7n7/ElITcu25tIywHuN+4=';
+        } else if (instanceUrl.includes('dev254942')) {
+            return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYl7CwX6ItpP+4PNdCICED0lJKTWpoOpNFnkmhX0fXje4w7n7/ElITcursW4T4GvNxc=';
+        } else {
+            gs.addInfoMessage('script include - RealGridUtils_order_item - PDI용 realgrid key 발급받아서 추가하세요~~');
+            return;
+        }
+    },
+    getTableInfo: function(id_q) {
+        var gr = new GlideRecord("x_yergb_bpm_quote_item");
+        gr.orderBy("number");
+        gr.addEncodedQuery('quotation=' + id_q);
+        gr.query();
+        var tableinfo = [];
+        while (gr.next()) {
+            tableinfo.push({
+                'sys_id': gr.sys_id.getDisplayValue(),
+                'number': gr.number.getDisplayValue(),
+                'wbs_6': gr.wbs_6.getDisplayValue(),
+                'ms_code': gr.ms_code.getDisplayValue(),
+                'description': gr.description.getDisplayValue(),
+                'quantity': gr.quantity.getDisplayValue(),
+                'unit_price': gr.unit_price.getDisplayValue(),
+                'extended_price': gr.extended_price.getDisplayValue(),
+                'unit_cost': gr.unit_cost.getDisplayValue(),
+                'extended_cost': gr.extended_cost.getDisplayValue(),
+                'unit_mp': gr.unit_mp.getDisplayValue(),
+                'vendor': gr.vendor.getDisplayValue(),
+                'quotation': id_q
+            });
+        }
+        return tableinfo;
+    },
+
+    getFields: function() {
+        var fields = [
+            'sys_id',
+            'number',
+            'wbs_6',
+            'ms_code',
+            'description',
+            'quantity',
+            'unit_price',
+            'extended_price',
+            'unit_cost',
+            'extended_cost',
+            'unit_mp',
+            'mp_amount',
+            'vendor',
+            'quotation'
+        ];
+        return fields;
+    },
+
+    getLayouts: function() {
+        var layouts = [
+            'sys_id',
+            'number',
+            'wbs_6',
+            'ms_code',
+            'description',
+            'quantity',
+            'unit_price',
+            'extended_price',
+            'unit_cost',
+            'extended_cost',
+            'unit_mp',
+            'mp_amount',
+            'vendor',
+            'quotation'
+        ];
+        return layouts;
+    },
+
+    getColumns: function() {
+        var columns = [{
+                "name": "sys_id",
+                "fieldName": "sys_id",
+                "type": "data",
+                "width": 0,
+                "header": {
+                    "text": "sysid"
+                },
+            },
+            {
+                "name": "number",
+                "fieldName": "number",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Number"
+                },
+            },
+            {
+                "name": "wbs_6",
+                "fieldName": "wbs_6",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "WBS 6"
+                },
+            },
+            {
+                "name": "ms_code",
+                "fieldName": "ms_code",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "MS Code"
+                },
+            },
+            {
+                "name": "description",
+                "fieldName": "description",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Description"
+                },
+            },
+            {
+                "name": "quantity",
+                "fieldName": "quantity",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Quantity"
+                },
+            },
+            {
+                "name": "unit_price",
+                "fieldName": "unit_price",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Unit Price"
+                },
+            },
+            {
+                "name": "extended_price",
+                "fieldName": "extended_price",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Extended Price"
+                },
+            },
+            {
+                "name": "unit_cost",
+                "fieldName": "unit_cost",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Unit Cost"
+                },
+            },
+            {
+                "name": "extended_cost",
+                "fieldName": "extended_cost",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Extended Cost"
+                },
+            },
+            {
+                "name": "unit_mp",
+                "fieldName": "unit_mp",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Unit MP"
+                },
+            },
+            {
+                "name": "mp_amount",
+                "fieldName": "mp_amount",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "MP Amount"
+                },
+            },
+            {
+                "name": "vendor",
+                "fieldName": "vendor",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Vendor"
+                },
+            },
+            {
+                "name": "quotation",
+                "fieldName": "quotation",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "quotation"
+                },
+            }
+        ];
+        return columns;
+    },
+
+    type: 'RealGridUtilsBPM'
+};]]&gt;&lt;/script&gt;
+        &lt;sys_class_name&gt;sys_script_include&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;hhkim&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2024-06-14 08:27:11&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;73cebe9947be4650d254bce5536d431a&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;22&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;RealGridUtilsBPM&lt;/sys_name&gt;
+        &lt;sys_package display_value="BPM" source="x_yergb_bpm"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_package&gt;
+        &lt;sys_policy&gt;read&lt;/sys_policy&gt;
+        &lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sys_script_include_73cebe9947be4650d254bce5536d431a&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2024-06-20 01:35:39&lt;/sys_updated_on&gt;
+    &lt;/sys_script_include&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>-448035880</payload_hash>
+        <record_name>RealGridUtilsBPM</record_name>
+        <reverted_from/>
+        <source>bdd035e88347021099decf50ceaad35c</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>current</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-24 05:06:20</sys_created_on>
+        <sys_id>aee0f9e88347021099decf50ceaad3fa</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19048a34e190000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-24 05:06:20</sys_updated_on>
+        <type>Script Include</type>
+        <update_guid>6ae0f9e88a47021000f466a6b64410fa</update_guid>
+        <update_guid_history>6ae0f9e88a47021000f466a6b64410fa:0,c8d8a520064702101e16357df7393367:0,9d65c1e02d83021082cfdeac7c422c2e:0,15f45e2b1c760210ee7f2b35cd3c25c6:1410196631,19425aa3c07602105da92cd4650191ff:1687291924,dc6112e393760210a3bed2d4c61f7af1:0,566e466f1b3602101bf3dc17b7a275b4:1410196631,1f1e8e2f21360210441c2c927188ce24:1123181254,c8cd822f7f3602107959d5adcdd78518:-196529867,bf6d8a2f54360210ea2ccb2e867af174:1687291924,77fc86ab893602102769290da666f4a4:-1634385228,6afb86ab1b36021069d35cedb5d603ea:-245932507,1fe9ca5ba2724210f19716a0db0159e7:0,a764585b5a3a0210880c1daff2c82943:-1183434172</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-25 03:44:34</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_include">sys_script_include</sys_db_object>
+        <sys_id>05c425118a96403882c6c034617c8510</sys_id>
+        <sys_metadata>73cebe9947be4650d254bce5536d431a</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>RealGridUtilsBPM</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_parent/>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_scope_delete display_value="">9ff3e273935a476eab36e9bd65d24759</sys_scope_delete>
+        <sys_update_name>sys_script_include_73cebe9947be4650d254bce5536d431a</sys_update_name>
+        <sys_update_version display_value="sys_script_include_73cebe9947be4650d254bce5536d431a">aee0f9e88347021099decf50ceaad3fa</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-25 03:44:34</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

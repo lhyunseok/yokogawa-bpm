@@ -13,7 +13,11 @@ RealGridKey.prototype = {
     },
 
 	getRealGridKey: function() {
-        return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYkkSQt0t0CTeCSk1qaDqTRZ5JoV9H143uMO5+/xJSE3Lj4YewEIhlh/';
+		var instanceUrl = gs.getProperty('glide.servlet.uri');
+		//service.now 도메인이 아닌 경우 RealGrid 기능 사용불가. RealGrid에서 라이선스키를 도메인으로 확인
+		if (instanceUrl.startsWith('https://dev') || instanceUrl.startsWith('https://yokogawabpmdev')) return 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYkkSQt0t0CTeCSk1qaDqTRZ5JoV9H143uMO5+/xJSE3Lj4YewEIhlh/';
+        gs.addInfoMessage('script include - ' + key.type + ' - 운영용 realgrid key 발급받아서 추가하세요~~');
+		return;
     },
 
     type: 'RealGridKey'
@@ -22,13 +26,13 @@ RealGridKey.prototype = {
         <sys_created_by>yeongink</sys_created_by>
         <sys_created_on>2024-06-21 05:09:25</sys_created_on>
         <sys_id>84a4962b8376021099decf50ceaad3b2</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>RealGridKey</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_include_84a4962b8376021099decf50ceaad3b2</sys_update_name>
         <sys_updated_by>yeongink</sys_updated_by>
-        <sys_updated_on>2024-06-21 05:09:25</sys_updated_on>
+        <sys_updated_on>2024-06-21 06:09:37</sys_updated_on>
     </sys_script_include>
 </record_update>
