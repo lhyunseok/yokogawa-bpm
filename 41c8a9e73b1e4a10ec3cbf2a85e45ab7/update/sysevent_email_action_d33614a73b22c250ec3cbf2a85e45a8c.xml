@@ -49,7 +49,7 @@
 <p>Quotation type: ${quotation_type}</p>
 <p>Quotation Due Date: ${quotation_due_date}</p>
 <p>-------------------------------------------------------------------------------------</p>
-<p>Click here ${URI} to open RFQ Entry&nbsp;</p>
+<p>To open Quotation Request information in details, please Click here : <a href="https://yokogawabpmdev.service-now.com/ybpm?id=rfqentry&amp;sys_id=${sys_id}">${number}</a></p>
 <p>&nbsp;</p>
 <p>Thank you.</p>]]></message_html>
         <message_list/>
@@ -73,7 +73,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>d33614a73b22c250ec3cbf2a85e45a8c</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>Notice to Requestor for in progress</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
@@ -81,7 +81,7 @@
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sysevent_email_action_d33614a73b22c250ec3cbf2a85e45a8c</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-24 01:23:22</sys_updated_on>
+        <sys_updated_on>2024-06-26 07:42:19</sys_updated_on>
         <sys_version>2</sys_version>
         <template display_value="Unsubscribe and Preferences">7ed0481f3b0b2200c869c2c703efc487</template>
         <type>email</type>
