@@ -25,7 +25,7 @@
         </filter_condition>
         <is_rest>false</is_rest>
         <message/>
-        <name>Calculate total price and cost</name>
+        <name>Calculate total price and cost (Update)</name>
         <order>100</order>
         <priority>100</priority>
         <rest_method/>
@@ -48,10 +48,6 @@
 	current.extended_cost = total_cost;
 	current.mp_amount = mp_amt;
 	current.gp_amount = gp_amt;
-	current.extended_price_lc = total_price * exchange_rate;
-	current.extended_cost_lc = total_cost * exchange_rate;
-	current.mp_amount_lc = mp_amt * exchange_rate;
-	current.gp_amount_lc = gp_amt * exchange_rate;
 
 	var order_price = total_price;
 	var order_cost = total_cost;
@@ -71,15 +67,15 @@
 	var mp_gap_percent = ((order_price - order_mp) / order_price ) * 100;
 
 	var grq = new GlideRecord('x_yergb_bpm_oi_report');
-	grq.addQuery('sys_id', current.ordertation);
+	grq.addQuery('sys_id', current.oi_report);
 	grq.query();
 	if (grq.next()) {
-		grq.setValue('total_orderte_price', order_price);
-		grq.setValue('total_orderte_cost', order_cost);
-		grq.setValue('mp_amount',order_mp);
-		grq.setValue('gp_amount',order_gp);
-		grq.setValue('total_orderte_price_lc', order_price * exchange_rate);
-		grq.setValue('total_orderte_cost_lc', order_cost * exchange_rate);
+		grq.setValue('total_extended_price_tc', order_price);
+		grq.setValue('total_extended_cost_tc', order_cost);
+		grq.setValue('mp_amount_tc',order_mp);
+		grq.setValue('gp_amount_tc',order_gp);
+		grq.setValue('total_extended_price_lc', order_price * exchange_rate);
+		grq.setValue('total_extended_cost_lc', order_cost * exchange_rate);
 		grq.setValue('mp_amount_lc',order_mp * exchange_rate);
 		grq.setValue('gp_amount_lc',order_gp * exchange_rate);
 		grq.setValue('gp_percent',gp_percent.toFixed(2));
@@ -96,15 +92,15 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>0baf481147cf42106cce1ce4316d4366</sys_id>
-        <sys_mod_count>1</sys_mod_count>
-        <sys_name>Calculate total price and cost</sys_name>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>Calculate total price and cost (Update)</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_0baf481147cf42106cce1ce4316d4366</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-26 05:57:30</sys_updated_on>
+        <sys_updated_on>2024-06-26 06:55:32</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>
