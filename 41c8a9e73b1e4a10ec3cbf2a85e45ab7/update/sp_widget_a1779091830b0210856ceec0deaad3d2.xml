@@ -21,7 +21,7 @@
     c.data.paramValue = paramValue;
 
     $scope.clickYProd = function() {
-        window.location.href = "/ybpm?id=epic_03_ui_budget_y_product&number=" + c.data.paramValue;
+        window.location.href = "/ybpm?id=epic_03_ui_budget_y_product&number=" + c.data.paramValue+"&baseMonth=" + c.data.base_month;
     };
     $scope.clickBOP = function() {
         window.location.href = "/ybpm?id=epic_03_ui_budget_bop&number=" + c.data.paramValue;
@@ -44,7 +44,15 @@
         window.location.href = "/ybpm?id=epic_03_ui_init&number=" + c.data.number + "&table=x_yergb_bpm_budget_plan&sys_id=" + c.data.budget_key;
     };
     $scope.clickApproval = function() {
-        alert("승인관련 팝업 작업 개발중...");
+        c.data.approve = 'Requested';
+        // Call the server script
+        c.server.update($scope).then(function(response) {
+            alert("승인요청을 보냈습니다.");
+        });
+        window.location.href = "/ybpm?id=epic_03_ui_init&number=" + c.data.number + "&table=x_yergb_bpm_budget_plan&sys_id=" + c.data.budget_key;
+    };
+    $scope.clickClose = function() {
+        alert("Working..... In progress develop..Close");
     };
     $scope.clickMSF = function() {
         alert("Working..... In progress develop..MSF");
@@ -1175,14 +1183,14 @@ th {&#13;
 */</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
-        <description>Init Plan Management WBS Widget</description>
+        <description>Project Cost Management WBS Widget</description>
         <docs/>
         <field_list/>
         <has_preview>false</has_preview>
-        <id>initplanmngtwbswd</id>
+        <id>prjmngtwbswd</id>
         <internal>false</internal>
         <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
-        <name>initPlanMngtWbsWd</name>
+        <name>prjMngtWbsWd</name>
         <option_schema/>
         <public>false</public>
         <roles/>
@@ -1219,6 +1227,7 @@ th {&#13;
         if (data.project_key) { //Get Budget Plan
             var grBudgetPlan = new GlideRecord('x_yergb_bpm_budget_plan');
             grBudgetPlan.addQuery('project', data.project_key);
+			grBudgetPlan.addQuery('plan_type', "PRF");
             grBudgetPlan.query();
 
             if (grBudgetPlan.next()) {
@@ -1309,6 +1318,9 @@ th {&#13;
             grUpdateBudgetPlan.dmr = input.dmr;
             grUpdateBudgetPlan.total_cost = input.total_cost;
             grUpdateBudgetPlan.data_type = input.data_type;
+            if (input.approve == 'Requested') {
+                grUpdateBudgetPlan.state = '6';
+            }
             grUpdateBudgetPlan.update();
         } else { //Insert
             grUpdateBudgetPlan.initialize();
@@ -1551,17 +1563,17 @@ th {&#13;
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
-        <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2024-06-24 14:34:40</sys_created_on>
-        <sys_id>7ff2f76c830f42100a5ce360ceaad32a</sys_id>
-        <sys_mod_count>66</sys_mod_count>
-        <sys_name>initPlanMngtWbsWd</sys_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-26 06:30:58</sys_created_on>
+        <sys_id>a1779091830b0210856ceec0deaad3d2</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>prjMngtWbsWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_update_name>sp_widget_7ff2f76c830f42100a5ce360ceaad32a</sys_update_name>
+        <sys_update_name>sp_widget_a1779091830b0210856ceec0deaad3d2</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-26 07:06:05</sys_updated_on>
+        <sys_updated_on>2024-06-26 10:03:08</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 
@@ -1578,7 +1590,6 @@ th {&#13;
             <div class="yoko-btn-wrap">
                 <button class="yoko-btn yoko-btn-outline" ng-click="clickLoadData()">Load Data</button>
                 <button class="yoko-btn yoko-btn-outline" ng-click="clickApproval()">Approval Request</button>
-                <button class="yoko-btn yoko-btn-fill" ng-click="clickMSF()">Make SAP File</button>
             </div>
         </div>
         <div class="yoko-content">
