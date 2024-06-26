@@ -1180,32 +1180,37 @@ a {text-decoration: none;}
 			}
 			
 			// get Ansoff type
-			/*var ansR = new GlideRecord('x_yergb_bpm_oi_ansoff_type');
+			var ansR = new GlideRecord('x_yergb_bpm_oi_ansoff_type');
 			ansR.initialize();
 			ansR.addQuery('oi_report', data.oiSysId);
-			ansR.query('sys_id', ansR.sys_id.toString());
+			ansR.query();
 			loopCnt = 1; 
 			while(ansR.next()){
 				var aR = new GlideRecord('x_yergb_bpm_ansoff_master');
 				aR.initialize();
-				aR.addQuery();
-				if(loopCnt == 1) {
-					data.ansoff1Desc = aR.biz_name.toString();
-					data.ansoff1Nm = aR.biz_type.toString();
-					data.ansoff1Code = aR.mu_code.toString();
-					data.ansoff1SysId = aR.sys_id.toString();
-				} else if(loopCnt == 2) {
-					data.ansoff2Desc = aR.biz_name.toString();
-					data.ansoff2Nm = aR.biz_type.toString();
-					data.ansoff2Code = aR.mu_code.toString();
-					data.ansoff2SysId = aR.sys_id.toString();
-				} else if(loopCnt == 3) {
-					data.ansoff2Desc = aR.biz_name.toString();
-					data.ansoff2Nm = aR.biz_type.toString();
-					data.ansoff2Code = aR.mu_code.toString();
-					data.ansoff2SysId = aR.sys_id.toString();
+				aR.addQuery('sys_id', ansR.ansoff_type.toString());
+				aR.query();
+				while(aR.next()) {
+					if(loopCnt == 1) {
+						data.ansoff1Desc = aR.biz_name.toString();
+						data.ansoff1Nm = aR.biz_type.toString();
+						data.ansoff1Code = aR.mu_code.toString();
+						data.ansoff1SysId = aR.sys_id.toString();
+					} else if(loopCnt == 2) {
+						data.ansoff2Desc = aR.biz_name.toString();
+						data.ansoff2Nm = aR.biz_type.toString();
+						data.ansoff2Code = aR.mu_code.toString();
+						data.ansoff2SysId = aR.sys_id.toString();
+					} else if(loopCnt == 3) {
+						data.ansoff3Desc = aR.biz_name.toString();
+						data.ansoff3Nm = aR.biz_type.toString();
+						data.ansoff3Code = aR.mu_code.toString();
+						data.ansoff3SysId = aR.sys_id.toString();
+					}
+					
+					loopCnt = loopCnt +1;
 				}
-			}*/
+			}
 			
 			data.rfqSysId = oiReportData.rfq_entry.toString();
 			
@@ -1321,21 +1326,21 @@ a {text-decoration: none;}
 			if( !isEmpty(input.ansoff1SysId) ) {
 				ansTR.initialize();
 				ansTR.setValue('oi_report', input.oiSysId)
-				ansTR.setValue('ansoff_type', input.prjType1SysId);
+				ansTR.setValue('ansoff_type', input.ansoff1SysId);
 				ansTR.insert();
 			} 
 			
 			if( !isEmpty(input.ansoff2SysId) ) {
 				ansTR.initialize();
 				ansTR.setValue('oi_report', input.oiSysId)
-				ansTR.setValue('ansoff_type', input.prjType2SysId);
+				ansTR.setValue('ansoff_type', input.ansoff2SysId);
 				ansTR.insert();
 			} 
 			
 			if( !isEmpty(input.ansoff3SysId) ) {
 				ansTR.initialize();
 				ansTR.setValue('oi_report', input.oiSysId)
-				ansTR.setValue('ansoff_type', input.prjType3SysId);
+				ansTR.setValue('ansoff_type', input.ansoff3SysId);
 				ansTR.insert();
 			}
 			
@@ -1538,14 +1543,14 @@ a {text-decoration: none;}
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>633</sys_mod_count>
+        <sys_mod_count>638</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-26 05:56:47</sys_updated_on>
+        <sys_updated_on>2024-06-26 06:24:07</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
