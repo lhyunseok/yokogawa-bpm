@@ -1,30 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="7920694947f20a10a4863b12d16d439d" extends="x_yergb_bpm_process" label="OI Report" max_length="40" name="x_yergb_bpm_oi_report" type="collection">
-        <element label="TAX Classification" max_length="32" name="tax_classification" reference="x_yergb_bpm_common_code" reference_qual="category=TAX CLASSIFICATION^EQ" reference_qual_condition="category=TAX CLASSIFICATION^EQ" type="reference"/>
-        <element label="Customer PO No." max_length="40" name="customer_po_no" type="string"/>
-        <element attributes="edge_encryption_enabled=true" label="Total Extended Cost (TC)" max_length="40" name="total_extended_cost_tc" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true" label="MP Gap (TC)" max_length="40" name="mp_gap_tc" type="decimal"/>
-        <element label="Payment Terms" max_length="32" name="payment_terms" reference="x_yergb_bpm_common_code" reference_qual="category=Payment Terms^code_type=AR^EQ" reference_qual_condition="category=Payment Terms^code_type=AR^EQ" type="reference"/>
-        <element attributes="edge_encryption_enabled=true" label="GP Amount (TC)" max_length="40" name="gp_amount_tc" type="decimal"/>
-        <element label="E-Draft Maturity Days" max_length="40" name="e_draft_maturity_days" type="integer"/>
-        <element label="GP %" max_length="40" name="gp_percent" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true" label="Version" max_length="40" name="version" type="integer"/>
-        <element attributes="edge_encryption_enabled=true" label="OI Amount (TC)" max_length="40" name="oi_amount_tc" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true" label="Total Extended Cost (LC)" max_length="40" name="total_extended_cost_lc" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true" label="OI Amount (LC)" max_length="40" name="oi_amount_lc" type="decimal"/>
-        <element label="MP Gap (LC)" max_length="40" name="mp_gap_lc" type="decimal"/>
-        <element label="Order Type" max_length="32" name="order_type" reference="x_yergb_bpm_common_code" reference_qual="category=ORDER TYPE^EQ" reference_qual_condition="category=ORDER TYPE^EQ" type="reference"/>
+        <element label="Job Type" max_length="32" name="job_type" reference="x_yergb_bpm_common_code" reference_qual="category=Job Type^EQ" reference_qual_condition="category=Job Type^EQ" type="reference"/>
         <element attributes="edge_encryption_enabled=true" label="MP Amount (LC)" max_length="40" name="mp_amount_lc" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true" label="Total Extended Cost (LC)" max_length="40" name="total_extended_cost_lc" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true" label="Version" max_length="40" name="version" type="integer"/>
+        <element label="Payment Terms" max_length="32" name="payment_terms" reference="x_yergb_bpm_common_code" reference_qual="category=Payment Terms^code_type=AR^EQ" reference_qual_condition="category=Payment Terms^code_type=AR^EQ" type="reference"/>
+        <element label="Order Type" max_length="32" name="order_type" reference="x_yergb_bpm_common_code" reference_qual="category=ORDER TYPE^EQ" reference_qual_condition="category=ORDER TYPE^EQ" type="reference"/>
+        <element label="TAX Classification" max_length="32" name="tax_classification" reference="x_yergb_bpm_common_code" reference_qual="category=TAX CLASSIFICATION^EQ" reference_qual_condition="category=TAX CLASSIFICATION^EQ" type="reference"/>
+        <element label="GP %" max_length="40" name="gp_percent" type="decimal"/>
+        <element label="MP Gap (LC)" max_length="40" name="mp_gap_lc" type="decimal"/>
+        <element choice="1" label="DMR Class" max_length="40" name="dmr_class" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="20" sequence="2" value="20"/>
+                <element inactive_on_update="false" label="30" sequence="3" value="30"/>
+                <element inactive_on_update="false" label="40" sequence="4" value="40"/>
+                <element inactive_on_update="false" label="10" sequence="1" value="10"/>
+                <element inactive_on_update="false" label="50" sequence="5" value="50"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" label="Total Extended Cost (TC)" max_length="40" name="total_extended_cost_tc" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true" label="OI Amount (TC)" max_length="40" name="oi_amount_tc" type="decimal"/>
+        <element label="E-Draft Maturity Days" max_length="40" name="e_draft_maturity_days" type="integer"/>
+        <element label="DMR GP Level" max_length="40" name="dmr_gp_level" type="integer"/>
+        <element label="DMR Amount Level" max_length="40" name="dmr_amount_level" type="integer"/>
+        <element attributes="edge_encryption_enabled=true" label="GP Amount (TC)" max_length="40" name="gp_amount_tc" type="decimal"/>
         <element attributes="edge_encryption_enabled=true" label="GP Amount (LC)" max_length="40" name="gp_amount_lc" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true" label="MP Amount (TC)" max_length="40" name="mp_amount_tc" type="decimal"/>
-        <element label="MP Gap %" max_length="40" name="mp_gap_percent" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true" label="OI Amount (LC)" max_length="40" name="oi_amount_lc" type="decimal"/>
+        <element label="DMR MP Level" max_length="40" name="dmr_mp_level" type="integer"/>
         <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="RFQ Entry" max_length="32" name="rfq_entry" reference="x_yergb_bpm_rfq_entry" type="reference"/>
-        <element label="Currency" max_length="32" name="currency" reference="fx_currency" type="reference"/>
+        <element label="Customer PO No." max_length="40" name="customer_po_no" type="string"/>
+        <element label="MP Gap %" max_length="40" name="mp_gap_percent" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true" label="MP Amount (TC)" max_length="40" name="mp_amount_tc" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true" label="MP Gap (TC)" max_length="40" name="mp_gap_tc" type="decimal"/>
         <index name="index">
-            <element name="gp_amount_lc"/>
+            <element name="oi_amount_tc"/>
         </index>
         <index name="index2">
-            <element name="gp_amount_tc"/>
+            <element name="oi_amount_lc"/>
         </index>
         <index name="index3">
             <element name="mp_amount_lc"/>
@@ -36,34 +48,34 @@
             <element name="mp_gap_lc"/>
         </index>
         <index name="index6">
-            <element name="mp_gap_tc"/>
+            <element name="total_extended_cost_lc"/>
         </index>
         <index name="index7">
-            <element name="oi_amount_lc"/>
+            <element name="gp_amount_lc"/>
         </index>
         <index name="index8">
-            <element name="oi_amount_tc"/>
+            <element name="gp_amount_tc"/>
         </index>
         <index name="index9">
-            <element name="order_type"/>
+            <element name="total_extended_cost_tc"/>
         </index>
         <index name="index10">
-            <element name="payment_terms"/>
+            <element name="mp_gap_tc"/>
         </index>
         <index name="index11">
-            <element name="rfq_entry"/>
+            <element name="order_type"/>
         </index>
         <index name="index12">
             <element name="tax_classification"/>
         </index>
         <index name="index13">
-            <element name="total_extended_cost_lc"/>
+            <element name="job_type"/>
         </index>
         <index name="index14">
-            <element name="total_extended_cost_tc"/>
+            <element name="payment_terms"/>
         </index>
         <index name="index15">
-            <element name="currency"/>
+            <element name="rfq_entry"/>
         </index>
     </element>
 </database>

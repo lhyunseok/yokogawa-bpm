@@ -7,7 +7,7 @@
 
 }]]></client_script_v2>
         <comments/>
-        <condition>current.state==4 &amp;&amp; current.requester==gs.getUserID()</condition>
+        <condition>current.state==4 &amp;&amp; (gs.hasRole('admin') || current.requestor==gs.getUserID())</condition>
         <form_action>true</form_action>
         <form_button>true</form_button>
         <form_button_v2>false</form_button_v2>
@@ -44,7 +44,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>7f1eb39647a60210a4863b12d16d43fd</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>5</sys_mod_count>
         <sys_name>Submit Quote</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
@@ -52,7 +52,7 @@
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_ui_action_7f1eb39647a60210a4863b12d16d43fd</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-09 09:46:11</sys_updated_on>
+        <sys_updated_on>2024-06-25 06:27:41</sys_updated_on>
         <table>x_yergb_bpm_rfq_entry</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>

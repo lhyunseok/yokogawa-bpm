@@ -37,7 +37,10 @@
 	var mp_amount = 0;
 	var gp_amount = 0;
 	var oi_amount = 0;
+	var gp_percent = 0;
+	var mp_percent = 0;
 	var total_extended_cost = 0;
+	var exchange_rate = 1;
 
 	var grq = new GlideRecord('x_yergb_bpm_quotation');
 	grq.addQuery('rfq_entry',current.sys_id);
@@ -48,6 +51,8 @@
 		gp_amount = grq.gp_amount;
 		oi_amount = grq.total_quote_price;
 		total_extended_cost = grq.total_quote_cost;
+		gp_percent = grq.gp_percent;
+		mp_percent = grq.mp_gap_percent;
 	}
 
 	var gr = new GlideRecord('x_yergb_bpm_oi_report');
@@ -64,16 +69,36 @@
 
 	//gs.info("SSS : " + current.sys_id + " : " + oi_no);
 
+	if(current.currency != current.sales_manager.company.u_currency) {
+		var grrate = new GlideRecord('x_yergb_bpm_bpm_exchange_rate');
+		grrate.addQuery('source_currency',current.currency);
+		grrate.addQuery('target_currency',current.sales_manager.company.u_currency);
+		grrate.query();
+		if(grrate.next()) {
+			exchange_rate = grrate.exchange_rate;
+			gs.info("Exchange_rate is not 1 : "+ exchange_rate + ", source:target = " + current.currency + " : " +  current.sales_manager.company.u_currency);
+		}
+	}
+
 	// Create OI Report
 	gr.newRecord();
 	gr.rfq_entry = current.sys_id;
+	gr.requestor = current.requestor;
 	gr.number = oi_no;
 	gr.version = version;
 	gr.state = 1;
 	gr.mp_amount_tc = mp_amount;
 	gr.gp_amount_tc = gp_amount;
 	gr.oi_amount_tc = oi_amount;
+	gr.mp_gap_tc = oi_amount - mp_amount;
 	gr.total_extended_cost_tc = total_extended_cost;
+	gr.mp_amount_lc = mp_amount * exchange_rate;
+	gr.gp_amount_lc = gp_amount * exchange_rate;
+	gr.oi_amount_lc = oi_amount * exchange_rate;
+	gr.mp_gap_lc = (oi_amount - mp_amount) * exchange_rate;
+	gr.total_extended_cost_lc = total_extended_cost * exchange_rate;
+	gr.gp_percent = gp_percent;
+	gr.mp_gap_percent = mp_percent;
 	gr.insert();
 
 
@@ -81,7 +106,7 @@
 	gs.info("SSSSS : " + gr.sys_id);
 
 	// Create OI Items
-	var groii = new GlideRecord('x_yergb_bpm_oi_item');
+	var groii = new GlideRecord('x_yergb_bpm_order_item');
 	// var grq = new GlideRecord('x_yergb_bpm_quotation');
 	// grq.get(current.quotation);
 	// quote_sys_id = grq.sys_id;
@@ -118,7 +143,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>23d8aaae477282106cce1ce4316d43a3</sys_id>
-        <sys_mod_count>19</sys_mod_count>
+        <sys_mod_count>24</sys_mod_count>
         <sys_name>RFQ Entry Completed</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
@@ -126,7 +151,7 @@
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_23d8aaae477282106cce1ce4316d43a3</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-20 06:15:27</sys_updated_on>
+        <sys_updated_on>2024-06-25 07:36:43</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

@@ -1,0 +1,1199 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function($scope, $location, $window) {
+
+    /* widget controller */
+    var c = this;
+    c.data.readStatus = true;
+    // Function to get URL parameters
+    c.getUrlParameter = function(param) {
+        return $location.search()[param];
+    };
+    // Function to handle click event
+    $scope.handleClick = function() {
+        if (c.data.quotation) {
+            window.location.href = "/ybpm?id=epic_03_ui_budget_y_product&number=" + c.data.paramValue; // Redirect to the URL
+        }
+    };
+    // Example: Retrieve a specific parameter
+    var paramValue = c.getUrlParameter('number');
+    c.data.paramValue = paramValue;
+
+    // Call the server script
+    c.server.update().then(function(response) {
+        // Handle the server response if needed
+    });
+
+    $scope.clickCreateMSA = function() {
+        alert("Working..... In progress develop");
+    };
+ 
+ 	  var result;
+    $scope.gridDetailBtnClick = function(idx) {
+        var v = {
+            'sys_id' : '',
+            'wbs' : '',
+            'ms_code' : '',
+            'extended_price' : '',
+            'quantity' : '',
+            'extended_cost' : '',
+            'strategy' : '',
+            'lead_time' : '',
+            'planned_procurement' : '',
+            'plan_gr_date' : '',
+            'project' : c.data.sys_id,
+		        'budget_type' : 'prod'
+        }
+
+	  c.data.gridBtnType = '';
+        if (idx == 1) {
+            c.data.gridBtnType = 'add';
+            dp.addRow(v);
+        } else if (idx == 2) {
+            c.data.gridBtnType = 'insert';
+            dp.insertRow(0, v);
+        } else if (idx == 3) {
+            c.data.gridBtnType = 'delete';
+            var rows = gv.getCheckedRows();
+            var sysidArr = dp.getFieldValues('sys_id');
+            var deleteArr = [];
+            var newRows = dp.getStateRows('created');
+
+            if (rows.length == 0) {
+                alert('삭제할 행을 체크해주세요.');
+                return;
+            }
+            var allIncluded = true;
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                if (!newRows.includes(row)) {
+                    allIncluded = false;
+                    break;
+                }
+            }
+
+            if (allIncluded) {
+                dp.removeRows(rows);
+                return;
+            } else {
+                result = confirm("데이터를 삭제 하시겠습니까");
+            }
+
+            if (result) {
+                for (var j = 0; rows.length > j; j++) {
+                    var row2 = rows[j];
+                    if (sysidArr[row2]) {
+                        deleteArr.push(sysidArr[row2]);
+                    }
+                }
+
+                dp.removeRows(rows);
+                gv.checkRows(rows, false);
+                c.data.deleteSets = deleteArr;
+                c.data.btn_grid_delete = true;
+                c.server.update().then(function(response) {
+                    location.reload();
+                    console.log('Server response:', response);
+                });
+            } else {
+                return;
+            }
+
+        } else if (idx == 4) {
+            c.data.gridBtnType = 'save';
+            var dataSets = [];
+            var updateSets = [];
+            var crows = dp.getStateRows('created');
+            var urows = dp.getStateRows('updated');
+
+            for (var k = 0; crows.length > k; k++) {
+                dataSets.push(dp.getValues(crows[k]));
+            }
+
+            for (var n = 0; urows.length > n; n++) {
+                updateSets.push(dp.getValues(urows[n]));
+            }
+            if (crows.length || urows.length) {
+                result = confirm("데이터를 저장 하시겠습니까");
+            } else {
+                alert('수정된 데이터가 없습니다.');
+                return;
+            }
+
+            if (result) {
+                c.data.btn_grid_save = true;
+                c.data.dataSets = dataSets;
+                c.data.updateSets = updateSets;
+                c.server.update().then(function(response) {
+                    location.reload();
+                    console.log('Server response:', response);
+                });
+            }
+        }
+		}
+	  // --------------------------------------------------------------------------------------------------
+    var gv;
+    var dp;
+
+    function grid() {
+        var gvFields = [
+			{
+				fieldName: "sys_id",
+				dataType: "text",
+			},
+			{
+				fieldName: "wbs_id",
+				dataType: "text",
+			},
+			{
+				fieldName: "wbs",
+				dataType: "text",
+			},
+			{
+				fieldName: "ms_code",
+				dataType: "text",
+			},
+			{
+				fieldName: "extended_price",
+				dataType: "text",
+			},
+			{
+				fieldName: "quantity",
+				dataType: "text",
+			},
+			{
+				fieldName: "extended_cost",
+				dataType: "number",
+			},
+			{
+				fieldName: "strategy",
+				dataType: "text",
+			},
+			{
+				fieldName: "lead_time",
+				dataType: "text",
+			},
+			{
+				fieldName: "planned_procurement",
+				dataType: "text",
+			},
+			{
+				fieldName: "plan_gr_date",
+				dataType: "text",
+			},
+			{
+				fieldName: "project",
+				dataType: "text",
+			},
+			{
+				fieldName: "budget_type",
+				dataType: "text",
+			},
+        ];
+
+        var gvColumns = [{
+                "name": "sys_id",
+                "fieldName": "sys_id",
+                "type": "data",
+                "width": 0,
+                "header": {
+                    "text": "sysid"
+                },
+				},
+            {
+                "name": "wbs_id",
+                "fieldName": "wbs_id",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "wbs_id"
+                },
+            },
+            {
+                "name": "wbs",
+                "fieldName": "wbs",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "WBS"
+                },
+                "styleName": "ni-rg-align-left ni-rg-readonly",
+                "readOnly": true,
+                "editable": false,
+                //button: "action",
+                //buttonVisibility: "always",
+            },
+            {
+                "name": "ms_code",
+                "fieldName": "ms_code",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "MS Code"
+                },
+							  "readOnly": true,
+                "editable": false,
+            },
+            {
+                "name": "extended_price",
+                "fieldName": "extended_price",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Unit Cost Price"
+                },
+  							"readOnly": true,
+                "editable": false,
+            },
+            {
+                "name": "quantity",
+                "fieldName": "quantity",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Quantity"
+                },
+  							"readOnly": true,
+                "editable": false,
+            },
+            {
+                "name": "extended_cost",
+                "fieldName": "extended_cost",
+				        "numberFormat": "#,##0",
+				        "type": "number",
+                "width": 100,
+                "header": {
+                    "text": "Amount"
+                },
+  							"readOnly": true,
+                "editable": false,
+								"footer": { "expression": "sum", "numberFormat": "#,##0" },
+            },
+            {
+                "name": "strategy",
+                "fieldName": "strategy",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Strategy"
+                },
+            },
+            {
+                "name": "lead_time",
+                "fieldName": "lead_time",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Lead Time"
+                },
+            },
+            {
+                "name": "planned_procurement",
+                "fieldName": "planned_procurement",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Planned Procurement"
+                },
+  							"readOnly": true,
+                "editable": false,
+            },
+            {
+                "name": "plan_gr_date",
+                "fieldName": "plan_gr_date",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Plan GR Date"
+                },
+            },
+            {
+                "name": "project",
+                "fieldName": "project",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Project"
+                },
+            },
+            {
+                "name": "budget_type",
+                "fieldName": "budget_type",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "budget_type"
+                },
+            }
+        ];
+
+       var gvLayouts = [
+            'sys_id',
+				    'wbs_id',
+            'wbs',
+            'ms_code',
+            'extended_price',
+            'quantity',
+            'extended_cost',
+            'strategy',
+            'lead_time',
+            'planned_procurement',
+            'plan_gr_date',
+            'project',
+		        'budget_type'
+        ];
+
+		function initGrid() {
+			
+			gv = new RealGrid.GridView('gridContainer');
+			dp = new RealGrid.LocalDataProvider();
+
+			dp.setFields(gvFields);
+			gv.setDataSource(dp);
+			gv.setColumns(gvColumns);
+			gv.setColumnLayout(gvLayouts);
+
+			gv.footers.visible = true;
+			gv.commitEditor();
+			gv.undoable = true;
+
+			gv.columnByName("sys_id").visible =  false;
+			gv.columnByName("wbs_id").visible =  false;
+			gv.columnByName("project").visible =  false;
+			gv.columnByName("budget_type").visible =  false;
+			gv.editOptions.commitByCell = true;
+			gv.editOptions.insertable = true;
+			dp.softDeleting = false;
+      gv.displayOptions.fitStyle = "fill";
+			gv.checkBar.visible = false;
+			gv.stateBar.visible = false;
+
+			dp.setRows(c.data.gridData);
+
+		}
+		
+		initGrid();
+	}
+
+    function initFormEtc() {
+        $scope.closeDlgActivityType = function() {
+            dlgActivityType.close();
+        }
+    }
+
+    c.setActivityType = function(index) {
+        var curr = gv.getCurrent();
+        dp.setValue(curr.dataRow, 'wbs_id', c.data.items[index].sys_id);
+        dp.setValue(curr.dataRow, 'wbs', c.data.items[index].code);
+        dlgActivityType.close();
+    };
+	
+    function initGridEtc() {
+
+        gv.onCellButtonClicked = function(grid, index, column) {
+            if (['wbs', ].includes(index.column)) {
+                c.data.refer_wbs_modal = true;
+                c.server.update().then(function(response) {
+                    console.log('Server response:', response);
+                });
+
+                //dlgActivityType.showModal(); //dont modify
+            }
+        };
+
+        //refer_wbs_modal
+        var btnIns = document.getElementById('bt-insert');
+    };
+	
+    function doGrid() {
+        grid();
+			  initGridEtc();
+        initFormEtc();
+    }
+	
+    // 초기화 여러번 시도
+    var gridTry = [200, 300, 400, 500, 750, 1000, 1250, 1500, 2000, 2500, 3000, 3500, 4000];
+    for (var ms of gridTry) {
+        setTimeout(function() {
+            var logStr = 'doGrid[' + ms + 'ms]';
+            console.log(logStr + ' : start');
+            var g = document.querySelector('#gridContainer .rg-grid');
+            if (g) {
+                console.log(logStr + ' : already completed');
+            } else {
+                try {
+                    console.log(logStr + ' : try');
+                    doGrid();
+                    console.log(logStr + ' : done');
+                } catch (e) {
+                    console.log(logStr + ' : fail, why='+e.message);
+                }
+            }
+        }, ms);
+    }
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>@charset "UTF-8";
+
+
+body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; line-height: normal;}
+
+ul {margin: 0; padding: 0;}
+ul li {list-style: none; margin: 0; padding: 0;}
+a {text-decoration: none;}
+.blank {width: 100%; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); }
+.yoko-container {margin: 40px auto 100px; min-width: 1400px; max-width: 1600px; font-family: "Pretendard"; font-size: 14px; font-weight: 400; letter-spacing: 0;}
+.yoko-container * {box-sizing: border-box;}
+.yoko-container .yoko-content {display: flex; gap: 30px; flex-direction: column;}
+.yoko-breadcrumb {color: #425D78;}
+.yoko-title-btn-wrap {display: flex; justify-content: space-between; align-items: center; margin: 8px 0 25px 0;}
+.yoko-title-btn-wrap .yoko-title {margin:0; color: #1C3956; font-family: "Pretendard";font-size: 24px;  font-style: normal;  font-weight: 700; line-height: normal;}
+.yoko-title-btn-wrap .yoko-btn-wrap {display: flex; gap: 4px; margin-bottom: 0;}
+
+.yoko-btn-wrap {display: flex; justify-content: space-between; margin-bottom: 8px;}
+.yoko-btn-wrap &gt; div {display: flex; gap: 4px;}
+
+.yoko-btn {cursor: pointer; border-radius: 4px; text-align: center; font-family: "Pretendard";font-size: 14px;  font-style: normal; font-weight: 400;  padding: 8px 20px 8px 20px;}
+.yoko-btn:disabled  {border: 1px solid #AABBD1; color: #C8CED4;}
+
+.yoko-btn.yoko-btn-outline {background: #fff; border: 1px solid #B2B2B2;  color: #4B5E70; }
+.yoko-btn.yoko-btn-outline:hover  {border: 1px solid #AABBD1;}
+
+.yoko-btn.yoko-btn-fill {background-color: #68B3FC; border: 1px solid #4193E2; color: #fff;}
+.yoko-btn.yoko-btn-fill:hover  {background-color: #4193E2; border: 1px solid #4193E2;}
+
+.yoko-btn.yoko-btn-fill-red {background-color: #FF6D6D; border: 1px solid #E35050; color: #fff;}
+.yoko-btn.yoko-btn-fill-red:hover  {background-color: #E35050; border: 1px solid #E35050;}
+
+
+.yoko-btn-search {border: 1px solid #B2B2B2; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_search.png) no-repeat center center !important;}
+.yoko-btn-search:hover {background-color: #eaeaea;}
+.yoko-btn-add {border: 1px solid #B2B2B2; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_add.png) no-repeat center center !important;}
+.yoko-btn-add:hover {background-color: #eaeaea;}
+.yoko-btn-delete {border: 1px solid #B2B2B2; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_delete.png) no-repeat center center !important;}
+.yoko-btn-delete:hover {background-color: #eaeaea;}
+.yoko-btn-info-fill {border: 1px solid #B2B2B2; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_info_fill.png) no-repeat center center !important;}
+.yoko-btn-info-fill:hover {background-color: #eaeaea;}
+.yoko-btn-attach {border: 1px solid #B2B2B2; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_attach.png) no-repeat center center !important;}
+.yoko-btn-attach:hover {background-color: #eaeaea;}
+.yoko-btn-load {border: 1px solid #4193E2; font-weight: 400; padding: 0; min-width: 58px; width: 28px; height: 28px; color: #fff; background-color: #68B3FC;}
+.yoko-btn-load:hover {background-color: #4193E2; border: 1px solid #4193E2;}
+.yoko-btn-fold {border: 1px solid #B2B2B2; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(/icon_arrow_fold.png) no-repeat center center !important;}
+.yoko-btn-fold:hover {background-color: #eaeaea;}
+.yoko-btn-fold.active {background:#fff url(/icon_arrow_unfold.png) no-repeat center center !important;}
+
+
+.yoko-search-form {display: flex; gap: 30px; padding: 16px 30px; max-width: 1600px;  background-color: #F7F7F7; border: 1px solid #B2B2B2; border-radius: 4px;}
+
+.yoko-fold-btn-wrap {display: flex; align-items: center; gap: 10px;}
+
+.yoko-form-group .yoko-btn {padding: 5px 10px 5px 10px;}
+.yoko-search-form .yoko-form-group {display: flex; align-items: center; gap: 20px; /*width: 100%; min-width: 240px;*/}
+.yoko-search-form .yoko-form-group label {width:130px; min-width: 130px; text-align: right;}
+.yoko-search-form label {color: #1F3B55; font-family: 'Pretendard'; font-size: 14px; font-style: normal; font-weight: 500; line-height: normal;}
+.yoko-search-form label.yoko-short {width: 80px; min-width: 80px;}
+.yoko-search-form label.yoko-short-90 {width: 90px; min-width: 100px;}
+.yoko-search-form label.yoko-short-100 {width: 100px; min-width: 100px;}
+.yoko-search-form label.yoko-short-110 {width: 110px; min-width: 110px;}
+.yoko-search-form label.yoko-short-120 {width: 120px; min-width: 120px;}
+.yoko-search-form label.yoko-short-130 {width: 130px; min-width: 130px;}
+.yoko-search-form label.yoko-short-135 {width: 135px; min-width: 130px;}
+.yoko-search-form label.yoko-short-142 {width: 142px; min-width: 130px;}
+.yoko-search-form label.yoko-middle {width: 170px; min-width: 170px;}
+.yoko-search-form label.yoko-long {width: 200px; min-width: 200px;}
+.yoko-search-form label.yoko-btn-fill {background-color: #68B3FC;text-align: center; color: #fff; font-weight: 400;  padding: 5px 10px 6px 10px; border-radius: 4px;}
+.yoko-search-form label.yoko-long.yoko-btn-fill {width: calc(200px - 10px);}
+.yoko-search-form label.yoko-middle.yoko-btn-fill {width: calc(170px - 10px);}
+
+.yoko-search-form input,
+.yoko-search-form select,
+.yoko-search-form textarea {font-family: "Pretendard"; font-size: 14px; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); border-radius: 4px; border: 1px solid #B2B2B2; color: #7A8692;}
+.yoko-search-form textarea {max-height: none; width: 100%; padding: 10px 10px 10px 10px; }
+/* .yoko-search-form input[type=date] {width: 140px; } */
+.yoko-search-form input[type=date]::-webkit-calendar-picker-indicator,
+.yoko-search-form input[type=date]::-webkit-inner-spin-button {background: url('/icon_calendar.png') no-repeat right center; }
+
+.yoko-search-form select {
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
+  background-image: url(/icon_arrow_down.png);
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: 1px;
+  line-height: 15px;
+  padding: 6px 30px 5px 10px;
+
+}
+
+.yoko-form-inline {display: flex;gap: 4px; width: calc(100% - 4px); align-items: center;}
+.yoko-form-group-title {padding: 4px 0 8px 0; color: #1C3956; font-family: "Pretendard"; font-size: 14px;font-style: normal;font-weight: 700; line-height: normal;}
+.yoko-form-group-hori  {display: flex;gap: 0; /*width:100%;*/}
+.yoko-flex-responsive {display: flex; gap: 30px;}
+.yoko-form-col {/*width: 100%;*/ display: flex; gap: 8px; flex-direction: column;}
+.yoko-form-col.yoko-gap7 {gap:7px ;}
+.yoko-col100 {width: 100%;}
+.yoko-col60 {width: 60%;}
+.yoko-col50 {width: 50%;}
+.yoko-col40 {width: 40%}
+.yoko-col35 {width: 35%}
+.yoko-col30 {width: 30%}
+.yoko-col20 {width: 20%} 
+.yoko-col15 {width: 15%} 
+.yoko-col10 {width: 10%} 
+
+.yoko-search-form label.checkbox-label {text-align: left;width: auto; min-width: auto; cursor: pointer; display: flex; gap: 10px; align-items: flex-start; justify-content: flex-start; color: #1F3B55; font-family: "Pretendard";  font-size: 14px; font-style: normal; font-weight: 400; line-height: normal;}
+.custom-checkbox {position: relative;}
+.custom-checkbox input { position: absolute;  opacity: 0;  cursor: pointer;  width: 18px; height: 18px; z-index: 1;}
+.custom-checkbox .checkmark {position: relative;  top: 0;  left: 0;  display: block;  height: 18px;  width: 18px;  border-radius: 2px;border: 1px solid #DCE3EB;background: #FFF; overflow: hidden;}
+.custom-checkbox:hover input ~ .checkmark {background-color: #FFF;}
+.custom-checkbox input:checked ~ .checkmark {  background-color: #68B3FC;  border-radius: 2px;  border: 1px solid #68B3FC;}
+.custom-checkbox .checkmark:after {  content: "";  position: absolute;  display: none;}
+.custom-checkbox input:checked ~ .checkmark:after {  display: block;  left: 50%; top: 50%;  height: 16px;  width: 18px;  transform: translate(-50%, -50%);  background: url(/icon_checkbox.png) no-repeat center center;}
+
+.custom-checkbox input:disabled ~ .checkmark {border: 1px solid #D1D1D1; background: #E2E2E2; cursor: not-allowed; }
+.custom-checkbox input:checked:disabled ~ .checkmark {background:#E2E2E2 url(/icon_checkbox_dis.png) no-repeat center center; }
+.custom-checkbox input:disabled ~ .checkmark:after {background: url(/icon_checkbox_dis.png) no-repeat center center;}
+
+.yoko-wid100 {width: 100px !important;}
+.yoko-wid103 {width: 103px !important;}
+.yoko-wid127 {width: 127px !important;}
+.yoko-wid134 {width: 134px !important;}
+.yoko-wid140 {width: 140px !important;}
+.yoko-wid147 {width: 147px !important;}
+.yoko-wid154 {width: 154px !important;}
+.yoko-wid158 {width: 158px !important;}
+.yoko-wid172 {width: 172px !important;}
+.yoko-wid247 {width: 247px !important;}
+.yoko-wid308 {width: 308px !important;}
+.yoko-wid425 {width: 425px !important;}
+.yoko-wid559 {width: 559px !important;}
+.yoko-wid717 {width: 717px !important;}
+
+.yoko-ht100 {height: 100px !important;}
+.yoko-ht200 {height: 200px !important;}
+
+.yoko-mt-20 {margin-top: 20px;}
+.yoko-mb-80 {margin-bottom: 80px;}
+
+.yoko-padding-r20 {padding: 16px 20px 16px 30px;}
+.yoko-scroll {padding-right: 15px;}
+/* .yoko-form-inline select {width: calc(100% - 28px);} */
+.yoko-btn-spacing {width: calc(100% - 32px);}
+.yoko-text-right {text-align: right;}
+
+.yoko-search-form-wrapper {display: flex; gap: 20px; }
+.yoko-search-form-wrap .yoko-search-form-heading {margin-top: 10px; margin-bottom: 5px; font-size: 16px; font-weight: 600; color: #1F3B55;}
+
+.yoko-governance-wrap .yoko-search-form button {width: 100%; min-width: 140px;}
+.yoko-project-wrap .yoko-search-form input[type=text] {width: 100%;}
+
+.yoko-form-group-heading-wrap {display: flex; gap: 9px; justify-content: space-between; align-items: center;}
+.yoko-form-group-heading {font-size: 14px; font-weight: 700; color: #1F3B55;}
+.yoko-form-group-line {flex-grow: 1; height: 1px; background-color: #E1E1E1;}
+.yoko-padding24 {padding: 24px;}
+.yoko-grid-btn-wrap {display: flex; gap: 7px; justify-content: right;}
+
+.yoko-project-wrap {height: 255px;}
+.yoko-project-wrap .yoko-search-form {height: 100%;}
+.yoko-middle-text {width: 10px; text-align: center; color: #4B5E70;}
+
+/* 헤더 */
+.yoko-header-container {width: 100%; height: 59px; background-color: #00488D;}
+.yoko-header-inner {margin: 0 auto; padding: 8px 30px 8px 16px; max-width: 1920px; min-width: 1280px;}
+.yoko-nav-wrap {display: flex; align-items: center; gap: 97px;}
+.yoko-nav ul {display: flex; gap: 60px;}
+.yoko-menu a {display: block; height: 43px; line-height: 43px; font-size: 14px; font-weight: 600; color: #fff;}
+.yoko-depth-arrow {position: relative;}
+.yoko-depth-arrow::after {content: ''; display: block; width: 7px; height: 4px; background: url(/icon_header_arrow.svg) no-repeat center center; background-size: contain; position: absolute; top: 50%; right: -12px; transform: translateY(-50%);}
+.yoko-header-right {display: flex; margin-left: auto; align-items: center; gap: 24px;}
+.yoko-header-icon-wrap {display: flex; align-items: center; gap: 15px;}
+.yoko-header-user {display: flex; justify-content: center; align-items: center; width: 35px; height: 35px; border-radius: 50%; background-color: #fff; overflow: hidden;}
+.yoko-header-search {display: flex; align-items: center;}
+.yoko-header-search input {padding: 8px 10px; width: 156px; font-size: 14px; border: none; border-radius: 4px 0 0 4px; outline: none;}
+.yoko-header-search input::placeholder {color: #A7B9CA;}
+.yoko-header-search .yoko-arrow button {border: none; background-color: none; display: flex; align-items: center; width: 34px; height: 32px; background-color: #fff; border-radius: 0 4px 4px 0; cursor: pointer;}
+
+
+.yoko-nav ul.yoko-depth {display: none; position: absolute; background-color: #fff; padding: 20px 16px; width: 267px; height: auto; border-radius: 4px; border: 1px solid #00488D; box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);}
+.yoko-nav ul.yoko-depth a {font-size: 14px; font-weight: 500; color: #425D78;}
+.yoko-nav ul.yoko-dep-2-wrap {display: none; flex-direction: column; padding: 14px 12px; gap: 0; background-color: #F6F6F6;}
+.yoko-nav .yoko-dep-1 &gt; a {position: relative; padding: 0 12px;}
+.yoko-nav .yoko-dep-1 &gt; a::after {content: ''; display: block; width: 24px; height: 24px; background: url(/icon_arrow_search.svg) no-repeat center center; background-size: contain; position: absolute; top: 50%; right: 5px; transform: translateY(-50%);}
+.yoko-nav .yoko-dep-1 &gt; a.rotate::after {transform: rotate(180deg) translateY(50%);}
+.yoko-nav .yoko-dep-1 &gt; a:hover {background-color: #ececec;}
+.yoko-nav .yoko-dep-2 &gt; a {padding: 0 12px;}
+.yoko-nav .yoko-dep-2 &gt; a:hover {background-color: #fff;}
+
+
+
+
+
+
+
+
+
+
+
+
+/* 모달창 */
+.yoko-modal-normal {padding: 32px 30px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 768px; height: 240px; background-color: #fff; box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.1); z-index: 100;}
+.yoko-modal-content {position: relative; width: 100%; height: 100%;}
+.yoko-modal-content .yoko-btn-wrap {position: absolute; top: 0; right: 0;}
+.yoko-modal-content .yoko-btn-group {margin-top: 32px;}
+.yoko-modal-content .yoko-btn-group button {padding: 8px 20px;}
+.yoko-modal-content .yoko-btn-wrap button {padding: 6px 10px;}
+
+/* 테이블 형식 */
+.yoko-search-table input,
+.yoko-search-table select,
+.yoko-search-table textarea {font-family: "Pretendard"; font-size: 13px; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); border-radius: 4px; border: 1px solid #E1E8F0; color: #7A8692;}
+.yoko-search-table textarea {max-height: none; width: 100%; padding: 10px 10px 10px 10px; }
+.yoko-search-table input[type=date]::-webkit-calendar-picker-indicator,
+.yoko-search-table input[type=date]::-webkit-inner-spin-button {background: url('/icon_calendar.png') no-repeat right center; }
+
+.yoko-search-table select {
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
+  background-image: url(/icon_arrow_down.png);
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: 1px;
+  line-height: 15px;
+  padding: 6px 30px 5px 10px;
+}
+
+.yoko-search-table-wrap {display: flex; gap: 0;}
+.yoko-search-table tr.yoko-height-short {height: 39px;} 
+.yoko-search-table {border-spacing: 0; border-collapse: collapse;}
+.yoko-search-table tr th {padding-right: 16px; text-align: right; background-color: #F7F7F7; border-top: 1px solid #EDEDED; border-bottom: 1px solid #EDEDED;}
+.yoko-search-table tr th.yoko-bg-none {background-color: #fff;}
+.yoko-search-table tr th label {color: #4B5E70; font-family: 'Pretendard'; font-size: 13px; font-style: normal; font-weight: 500; line-height: normal;}
+.yoko-search-table tr td {padding: 5px 10px; border-top: 1px solid #EDEDED; border-bottom: 1px solid #EDEDED;}
+.yoko-search-table tr td input {padding: 5px 10px; width: 100%; height: 100%;}
+.yoko-search-table tr td input:disabled {border: 1px solid #E1E8F0; background: #F1F1F1;}
+.yoko-search-table .yoko-form-inline {width: 100%;}
+
+.yoko-search-table-wrapper {display: flex; gap: 30px;}
+.yoko-search-table-heading {margin-top: 12px; margin-bottom: 5px; font-size: 16px; font-weight: 600; color: #1F3B55;}
+.yoko-table-heading {text-align: left !important; font-size: 14px; font-weight: 700; color: #1F3B55;}
+.yoko-search-table.yoko-empty-col {flex: 1;}
+
+
+
+
+
+
+@media (max-width: 1719px) {
+  .yoko-container {width: 1280px; min-width: 1280px;}
+  .yoko-search-form {gap: 15px;}
+  .yoko-flex-responsive {flex-direction: column; gap: 8px;}
+  .yoko-flex-responsive-row {flex-direction: row; gap: 20px;}
+  .yoko-search-form-company.yoko-col60 {width: 888px;}
+  .yoko-search-form-company .yoko-padding24 {padding: 14px;}
+  .yoko-search-form-company .yoko-search-form {gap: 7px;}
+  .yoko-search-form-governance.yoko-col40 {width: 381px;}
+  .yoko-project-wrap.yoko-col60 {width: 888px;}
+  .yoko-project-wrap.yoko-col40 {width: 381px;}
+  .yoko-project-wrap .yoko-search-form {padding: 18px;}
+
+  .yoko-form-amount-wrap label.yoko-short {width: 130px;}
+  .quotation-responsive label.yoko-short-110 {width: 142px;}
+  .yoko-flag-wrap {margin-top: 15px; height: 100px !important;}
+  .yoko-flag-wrap.yoko-search-form .yoko-form-group {gap: 40px;}
+  .yoko-flag-wrap .yoko-flex-responsive-row {flex-direction: row; gap: 40px;}
+
+  .yoko-nav-wrap {gap: 30px;}
+  .yoko-nav ul {gap: 55px;}
+}
+
+
+#dlgActivityType {
+    width: 500px;
+    min-height: 300px;
+  	max-height: 500px;
+    overflow-y: auto; /* 세로 스크롤바 자동 표시 */
+}
+
+#dlgActivityType article {
+    height: 90%;
+  	padding: 10px; /* 내부 여백 설정 */
+}
+
+#dlgActivityType h4 {
+   margin-left: 20px; /* 내부 여백 설정 */
+}
+/* 테이블 스타일 */
+table {
+    width: 100%;
+    border-collapse: collapse; /* 테이블 경계를 합침 */
+    margin-bottom: 10px; /* 테이블 아래 여백 설정 */
+}
+
+th, td {
+    border: 1px solid #ccc; /* 테두리 설정 */
+    padding: 5px; /* 셀 안 여백 설정 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+th {
+    background-color: #f2f2f2; /* 헤더 배경색 설정 */
+    text-align: center; /* 텍스트 왼쪽 정렬 */
+}
+
+/* 닫기 버튼 스타일 */
+.close-btn {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 0;
+    position: absolute;
+    right: 20px; /* 오른쪽 여백 설정 */
+    top: 10px; /* 상단 여백 설정 */
+}
+
+.close-btn:hover {
+    color: #666; /* 호버 시 색상 변경 */
+}
+/* 클릭 가능한 링크 스타일 */
+#wbs_data1 {
+  color: #1c88f4;
+  cursor: pointer; /* 커서 모양 설정 */
+  text-align: center;
+}
+
+#wbs_data1:hover {
+  font-weight: bold; /* 텍스트 굵게 */
+  text-decoration: underline; /* 호버 시 밑줄 유지 */
+}
+
+#wbs_data2 {
+  padding: 5px 5px 5px 15px; /* 셀 안 여백 설정 */
+}
+
+
+/*리얼그리드 수정*/
+.rg-root {color: #4B5966 !important;  font-family: "Pretendard" !important;   font-size: 14px !important;  font-style: normal !important;  font-weight: 500 !important;  line-height: normal !important;}
+.rg-grid {border: 1px solid #EAEEF3 !important;}
+
+.rg-header {background: #FBFCFF  !important; color:#8B99A6 !important; font-weight: 600 !important; font-weight: 500 !important;}
+.rg-header .rg-table tr td {border-right: 1px solid #EAEEF3 !important; border-bottom: 1px solid #EAEEF3 !important; font-weight: 500 !important;} 
+.rg-head {background: #FBFCFF  !important; color:#8B99A6 !important; font-weight: 600 !important; font-weight: 500 !important;}
+.rg-head .rg-table tr td { border-right: 1px solid #EAEEF3 !important;  border-bottom: 1px solid #EAEEF3 !important; font-weight: 500 !important;}
+
+.rg-body,
+.rg-fixed-body {color: #4B5966 !important;}
+.rg-body .rg-table tr td, 
+.rg-fixed-body .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-bottom: 1px solid #EAEEF3 !important;}
+.rg-rowbarcontainer .rg-table tr td {background-color: transparent !important;    border-right: 1px solid #EAEEF3 !important;    border-bottom: 1px solid #EAEEF3 !important;}
+.rg-alternate-row {background: #fff !important;}
+.rg-footer {color: #606060 !important; background: #FBFCFF  !important;}
+.rg-footer .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-top: 1px solid #EAEEF3 !important;}
+.rg-foot {color: #606060 !important; background: #FBFCFF  !important;}
+.rg-foot .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-top: 1px solid #EAEEF3 !important;}
+.rg-focus {border:  2px solid #68B3FC !important;}
+.rg-header-focus {background: #E5F2FF !important; color: #6F7479 !important;}
+.rg-header .rg-table tr td:hover {background: #68B3FC !important; color: #fff !important;}
+.rg-header-select {background: rgb(232 248 240 / 50%) !important;}
+.rg-selection { background: rgb(232 248 240 / 35%) !important; border: 1px solid #15BD66!important;}
+.rg-editor-container { border: 2px solid #27C382 !important; }
+
+
+@charset "UTF-8";
+
+/*
+@font-face {
+    font-family: "Pretendard";
+    font-weight: 100;
+    font-style: normal;
+    src: url("./fonts/pretendard/Pretendard-Thin.eot");
+    src: url("./fonts/pretendard/Pretendard-Thin.eot?#iefix")
+        format("embedded-opentype"),
+      url("./fonts/pretendard/Pretendard-Thin.woff2") format("woff2"),
+      url("./fonts/pretendard/Pretendard-Thin.woff") format("woff"),
+      url("./fonts/pretendard/Pretendard-Thin.ttf") format("truetype");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Pretendard";
+    font-weight: 200;
+    font-style: normal;
+    src: url("./fonts/pretendard/Pretendard-ExtraLight.eot");
+    src: url("./fonts/pretendard/Pretendard-ExtraLight.eot?#iefix")
+        format("embedded-opentype"),
+      url("./fonts/pretendard/Pretendard-ExtraLight.woff2") format("woff2"),
+      url("./fonts/pretendard/Pretendard-ExtraLight.woff") format("woff"),
+      url("./fonts/pretendard/Pretendard-ExtraLight.ttf") format("truetype");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Pretendard";
+    font-weight: 300;
+    font-style: normal;
+    src: url("./fonts/pretendard/Pretendard-Light.eot");
+    src: url("./fonts/pretendard/Pretendard-Light.eot?#iefix")
+        format("embedded-opentype"),
+      url("./fonts/pretendard/Pretendard-Light.woff2") format("woff2"),
+      url("./fonts/pretendard/Pretendard-Light.woff") format("woff"),
+      url("./fonts/pretendard/Pretendard-Light.ttf") format("truetype");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Pretendard";
+    font-weight: 400;
+    font-style: normal;
+    src: url("./fonts/pretendard/Pretendard-Regular.eot");
+    src: url("./fonts/pretendard/Pretendard-Regular.eot?#iefix")
+        format("embedded-opentype"),
+      url("./fonts/pretendard/Pretendard-Regular.woff2") format("woff2"),
+      url("./fonts/pretendard/Pretendard-Regular.woff") format("woff"),
+      url("./fonts/pretendard/Pretendard-Regular.ttf") format("truetype");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Pretendard";
+    font-weight: 500;
+    font-style: normal;
+    src: url("./fonts/pretendard/Pretendard-Medium.eot");
+    src: url("./fonts/pretendard/Pretendard-Medium.eot?#iefix")
+        format("embedded-opentype"),
+      url("./fonts/pretendard/Pretendard-Medium.woff2") format("woff2"),
+      url("./fonts/pretendard/Pretendard-Medium.woff") format("woff"),
+      url("./fonts/pretendard/Pretendard-Medium.ttf") format("truetype");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Pretendard";
+    font-weight: 600;
+    font-style: normal;
+    src: url("./fonts/pretendard/Pretendard-SemiBold.eot");
+    src: url("./fonts/pretendard/Pretendard-SemiBold.eot?#iefix")
+        format("embedded-opentype"),
+      url("./fonts/pretendard/Pretendard-SemiBold.woff2") format("woff2"),
+      url("./fonts/pretendard/Pretendard-SemiBold.woff") format("woff"),
+      url("./fonts/pretendard/Pretendard-SemiBold.ttf") format("truetype");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Pretendard";
+    font-weight: 700;
+    font-style: normal;
+    src: url("./fonts/pretendard/Pretendard-Bold.eot");
+    src: url("./fonts/pretendard/Pretendard-Bold.eot?#iefix")
+        format("embedded-opentype"),
+      url("./fonts/pretendard/Pretendard-Bold.woff2") format("woff2"),
+      url("./fonts/pretendard/Pretendard-Bold.woff") format("woff"),
+      url("./fonts/pretendard/Pretendard-Bold.ttf") format("truetype");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Pretendard";
+    font-weight: 800;
+    font-style: normal;
+    src: url("./fonts/pretendard/Pretendard-ExtraBold.eot");
+    src: url("./fonts/pretendard/Pretendard-ExtraBold.eot?#iefix")
+        format("embedded-opentype"),
+      url("./fonts/pretendard/Pretendard-ExtraBold.woff2") format("woff2"),
+      url("./fonts/pretendard/Pretendard-ExtraBold.woff") format("woff"),
+      url("./fonts/pretendard/Pretendard-ExtraBold.ttf") format("truetype");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Pretendard";
+    font-weight: 900;
+    font-style: normal;
+    src: url("./fonts/pretendard/Pretendard-Black.eot");
+    src: url("./fonts/pretendard/Pretendard-Black.eot?#iefix")
+        format("embedded-opentype"),
+      url("./fonts/pretendard/Pretendard-Black.woff2") format("woff2"),
+      url("./fonts/pretendard/Pretendard-Black.woff") format("woff"),
+      url("./fonts/pretendard/Pretendard-Black.ttf") format("truetype");
+    font-display: swap;
+  }
+*/</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description>PRF Y Product</description>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>budgetplanprjmngtwd01</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>budgetPlanPrjMngtWd01</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+
+    data.number = $sp.getParameter("number");
+
+    if (data.number) { // Update
+        var grProject = new GlideRecord('x_yergb_bpm_project');
+        grProject.addQuery('number', data.number);
+        grProject.query();
+        if (grProject.next()) {
+            data.number = grProject.number.toString(); //Project Number
+            data.name = grProject.name.toString(); //Project Name
+            data.pm = grProject.getDisplayValue('pm'); //PM Name
+            data.user = grProject.pm.user_name.toString(); // PM ID
+            data.region = grProject.getDisplayValue('region'); // Region
+            data.currency = grProject.getDisplayValue('currency'); // Currency
+            data.data_type = grProject.getDisplayValue('u_data_type'); // Data Type
+            data.customer = grProject.customer.name.toString(); // CustomerName
+            data.sys_id = grProject.getUniqueValue();
+        }
+        data.gridUrl = '/x_yergb_bpm_SorinGrid_prod.do?id_q=' + data.sys_id;
+    }
+	
+    function getGridData(id_q) {
+
+        var gritem = new GlideRecord("x_yergb_bpm_order_item");
+        gritem.orderBy("number");
+        gritem.addEncodedQuery('budget_type=prod^project=' + id_q);
+        gritem.query();
+        var tableinfo = [];
+        while (gritem.next()) {
+            tableinfo.push({
+                'sys_id': gritem.sys_id.getDisplayValue(),
+							  'wbs_id': gritem.getValue('wbs_6'),
+                'wbs': gritem.wbs_6.getDisplayValue(),
+                'ms_code': gritem.ms_code.getDisplayValue(),
+                'extended_price': gritem.extended_price.getDisplayValue(),
+                'quantity': gritem.quantity.getDisplayValue(),
+							  'extended_cost': parseInt(gritem.extended_cost.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'strategy': gritem.strategy.getDisplayValue(),
+                'lead_time': gritem.lead_time.getDisplayValue(),
+                'planned_procurement': gritem.planned_procurement.getDisplayValue(),
+                'plan_gr_date': gritem.plan_gr_date.getDisplayValue(),
+                'project': gritem.getValue('project'),
+				        'budget_type':gritem.getValue('budget_type')
+            });
+        }
+        return tableinfo;
+    }
+	
+    data.gridData = getGridData(data.sys_id);
+    data.gridDataStr = JSON.stringify(data.gridData);
+	
+	    if (input && input.refer_wbs_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
+
+        var items = [];
+        var gr = new GlideRecord('x_yergb_bpm_wbs_master'); //x_yergb_bpm_wbs_master_list
+        gr.query();
+        while (gr.next()) {
+            items.push({
+                sys_id: gr.getValue('sys_id'),
+                code: gr.getValue('code'),
+                description: gr.getValue('description'),
+            });
+        }
+
+        data.items = items;
+    }
+	
+		if (input && input.btn_grid_delete) {
+			
+			var deleteArr= input.deleteSets;
+    	var grItem = new GlideRecord('x_yergb_bpm_order_item');
+    	for (var i = 0; i < deleteArr.length; i++) {
+      	var sys_id = deleteArr[i];
+      	if (grItem.get(sys_id)) {
+        	grItem.deleteRecord();
+       	}
+   		}
+			
+		}
+
+    if (input && input.btn_grid_save) {
+			  var myFields = [
+            '',
+					  'wbs_6',
+            '',
+            'ms_code',
+					  'extended_price',
+            'quantity',
+            'extended_cost',
+            'strategy',
+            'lead_time',
+            'planned_procurement',
+            'plan_gr_date',
+            'project',
+		        'budget_type'
+        ];
+			
+			if(input.dataSets.length){
+				insertData();
+			}
+			if(input.updateSets.length){
+				updateData();
+			}
+			
+			function insertData() {
+				var insertArr= input.dataSets;  
+
+				for (var i = 0; i < insertArr.length; i++) {
+					var gr = new GlideRecord('x_yergb_bpm_order_item'); // GlideRecord 객체 생성
+					// 필드 설정
+					gr.initialize(); // 새 레코드 초기화
+
+					for (var m = 0; m < myFields.length; m++) {
+						if(myFields[m]){
+							gr.setValue(myFields[m], insertArr[i][m]);
+						}	
+					}
+					gr.insert();
+				}
+			}
+
+			function updateData() {
+				var updateArr= input.updateSets;  
+
+				for (var i = 0; i < updateArr.length; i++) {
+					var gr2 = new GlideRecord('x_yergb_bpm_order_item'); // GlideRecord 객체 생성
+					gr2.addQuery('sys_id', updateArr[i][0]); // sys_id 필드의 인덱스는 0
+					gr2.query();
+					if (gr2.next()) {
+						for (var m = 0; m < myFields.length; m++) {
+							if(myFields[m]){
+								gr2.setValue(myFields[m], updateArr[i][m]);
+							}	
+						}
+					}
+					gr2.update();
+				}
+			}
+
+    }
+
+})();
+
+function sf1(a, b) {
+
+}]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-26 00:21:26</sys_created_on>
+        <sys_id>a0e2cbc183030210856ceec0deaad39c</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>budgetPlanPrjMngtWd01</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sp_widget_a0e2cbc183030210856ceec0deaad39c</sys_update_name>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-26 00:21:50</sys_updated_on>
+        <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
+	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
+
+<div class="yoko-container">
+        <div class="yoko-breadcrumb">Home > Project Budget Plan for Y-Product</div>
+        <div class="yoko-title-btn-wrap">
+            <h1 class="yoko-title">Project Budget Plan for Y-Product</h1>
+            <div class="yoko-btn-wrap">
+                <button class="yoko-btn yoko-btn-fill" ng-click="clickCreateMSA()" id="bt-save">Create MSA</button>
+            </div>
+        </div>
+        <div class="yoko-content">
+            <div class="yoko-search-form-wrap">
+                <div class="yoko-search-form">
+                    <div class="yoko-form-col">
+                        <div class="yoko-form-group">
+                            <label for="project_number" class="yoko-short-100">Project Number</label>
+                            <input type="text" name="project_number" value={{data.number}} placeholder="" disabled class="yoko-wid247">
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="customer" class="yoko-short-100">Customer</label>
+                            <input type="text" name="customer" value={{data.customer}} placeholder="" disabled class="yoko-wid247">
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="pm_name" class="yoko-short-100">PM Name</label>
+                            <div class="yoko-form-inline yoko-wid247">
+                                <input type="text" name="pm_number" value={{data.user}} placeholder="" disabled class="yoko-col40">
+                                <input type="text" name="pm_name" value={{data.pm}} placeholder="" disabled class="yoko-col60">
+                            </div>
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="project_name" class="yoko-short-100">Project Name</label>
+                            <input type="text" name="project_name" value={{data.name}} placeholder="" disabled class="yoko-wid247">
+                        </div>  
+                    </div>
+
+                    <div class="yoko-form-col">
+                        <div class="yoko-form-group">
+                            <label for="data_type" class="yoko-short">Data type</label>
+                            <input type="text" name="data_type" value={{data.data_type}} placeholder="" disabled class="yoko-wid140">
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="budget_type" class="yoko-short">Budget type</label>
+                            <input type="text" name="budget_type" value="Y-Prod" placeholder="" disabled class="yoko-wid140">
+                        </div>
+                    </div>
+                    <div class="yoko-form-col"> 
+                        <div class="yoko-form-group">
+                            <label for="region" class="yoko-short">Region</label>
+                            <input type="text" name="region" value={{data.region}} placeholder="" disabled class="yoko-wid140">
+                        </div>
+                        <div class="yoko-form-group">
+                            <label for="currency" class="yoko-short">Currency</label>
+                            <input type="text" name="currency" value={{data.currency}} placeholder="" disabled class="yoko-wid140">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="yoko-grid-btn-wrap">
+              <!--<button type="button" id="bt-add" title='Add ROW' ng-click='gridDetailBtnClick(1)' class="yoko-btn yoko-btn-add"></button>
+              <button type="button" id="bt-delete" title='Delete ROW' ng-click='gridDetailBtnClick(3)' class="yoko-btn yoko-btn-delete"></button>
+              <button id="bt-insert" ng-click='gridDetailBtnClick(2)'>Insert</button> -->
+              <button id="bt-save" ng-click='gridDetailBtnClick(4)'>Save</button>
+            </div>
+            <div class="out" id='gridContainer' style="width:100%; height: 450px;"></div>
+          	 <input id="" type="hidden" value="{{data.gridUrl}}">
+           	 <input id="gridData" type="hidden" value="{{data.gridData}}">
+          	 <input id="" type="hidden" value="{{data.gridDataStr}}">
+            </div>
+         <!--<iframe src={{data.gridUrl}} width='100%' height='500px' style='border:none;' id='myIframe'></iframe>-->
+    </div>
+
+<dialog id="dlgActivityType" class="ni-backdrop" >
+  <form method="dialog">
+    <header>
+      <h4>WBS Master</h4>
+      <button class="close-btn" ng-click="closeDlgActivityType()">X</button>
+    </header>
+    <article>
+			<table>
+    		<thead>
+        	<tr>
+            <th>Code</th>
+            <th>Description</th>
+        	</tr>
+    	</thead>
+    	<tbody>
+        	<tr ng-repeat="item in c.data.items">
+            <td id="wbs_data1" ng-click="c.setActivityType($index)">
+                {{ item.code }}
+            </td>
+            <td id="wbs_data2">
+                {{ item.description }}
+            </td>
+            <td id="wbs_data3" style="display: none;">
+                {{ item.sys_id }}
+            </td>
+        </tr>
+   	 	</tbody>
+		</table>     
+   </article>
+ </form>
+</dialog>
+
+<script defer>
+  var realGrid2Lic = 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYkkSQt0t0CTeCSk1qaDqTRZ5JoV9H143uMO5+/xJSE3Lj4YewEIhlh/';
+</script>]]></template>
+    </sp_widget>
+</record_update>

@@ -20,18 +20,18 @@ RealGridUtils_bop.prototype = Object.extendsObject(RealGridKey, {
         while (gritem.next()) {
             tableinfo.push({
                 'sys_id': gritem.sys_id.getDisplayValue(),
-                'wbs': gritem.wbs.getDisplayValue(),
+                'wbs': gritem.wbs_6.getDisplayValue(),
 				'vendor': gritem.vendor.getDisplayValue(),
                 'ms_code': gritem.ms_code.getDisplayValue(),
-                'unit_cost_price': gritem.unit_cost_price.getDisplayValue(),
+                'extended_price': gritem.extended_price.getDisplayValue(),
                 'quantity': gritem.quantity.getDisplayValue(),
-                'amount': gritem.amount.getDisplayValue(),
+                'extended_cost': gritem.extended_cost.getDisplayValue(),
                 'strategy': gritem.strategy.getDisplayValue(),
                 'lead_time': gritem.lead_time.getDisplayValue(),
                 'planned_procurement': gritem.planned_procurement.getDisplayValue(),
                 'plan_gr_date': gritem.plan_gr_date.getDisplayValue(),
                 'project': project_sysid,
-				'budget_type':'prod',
+				'budget_type':'bop',
 				'data_type':'item'
             });
         }
@@ -44,9 +44,9 @@ RealGridUtils_bop.prototype = Object.extendsObject(RealGridKey, {
             'wbs',
 			'vendor',
             'ms_code',
-            'unit_cost_price',
+            'extended_price',
             'quantity',
-            'amount',
+            'extended_cost',
             'strategy',
             'lead_time',
             'planned_procurement',
@@ -64,9 +64,9 @@ RealGridUtils_bop.prototype = Object.extendsObject(RealGridKey, {
             'wbs',
 			'vendor',
             'ms_code',
-            'unit_cost_price',
+            'extended_price',
             'quantity',
-            'amount',
+            'extended_cost',
             'strategy',
             'lead_time',
             'planned_procurement',
@@ -115,8 +115,8 @@ RealGridUtils_bop.prototype = Object.extendsObject(RealGridKey, {
                 },
             },
             {
-                "name": "unit_cost_price",
-                "fieldName": "unit_cost_price",
+                "name": "extended_price",
+                "fieldName": "extended_price",
                 "type": "data",
                 "width": 100,
                 "header": {
@@ -133,8 +133,8 @@ RealGridUtils_bop.prototype = Object.extendsObject(RealGridKey, {
                 },
             },
             {
-                "name": "amount",
-                "fieldName": "amount",
+                "name": "extended_cost",
+                "fieldName": "extended_cost",
                 "type": "data",
                 "width": 100,
                 "header": {
@@ -221,7 +221,7 @@ RealGridUtils_bop.prototype = Object.extendsObject(RealGridKey, {
         <sys_policy>read</sys_policy>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_include_7103424b8332c6105a8e9630ceaad38d</sys_update_name>
-        <sys_updated_by>yeongink</sys_updated_by>
-        <sys_updated_on>2024-06-21 05:10:43</sys_updated_on>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-24 08:03:58</sys_updated_on>
     </sys_script_include>
 </record_update>
