@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>true</action_delete>
+        <action_insert>false</action_insert>
+        <action_query>false</action_query>
+        <action_update>false</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_yergb_bpm_order_item</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Calculate amt when delete</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+
+	var exchange_rate = current.oi_report.exchange_rate;
+	var order_price = 0;
+	var order_cost = 0;
+	var order_mp = 0;
+	var gr = new GlideRecord('x_yergb_bpm_order_item');
+	gr.addQuery('oi_report', current.oi_report);
+	gr.query();
+	while (gr.next()) {
+		order_price += gr.extended_price;
+		order_cost += gr.extended_cost;
+		order_mp += gr.mp_amount;
+	}
+
+	var order_gp = order_price - order_cost;
+
+	var gp_percent = (order_gp / order_price) * 100;
+	var mp_gap_percent = ((order_price - order_mp) / order_price ) * 100;
+
+	var grq = new GlideRecord('x_yergb_bpm_oi_report');
+	grq.addQuery('sys_id', current.oi_report);
+	grq.query();
+	if (grq.next()) {
+		grq.setValue('total_orderte_price', order_price);
+		grq.setValue('total_orderte_cost', order_cost);
+		grq.setValue('mp_amount',order_mp);
+		grq.setValue('gp_amount',order_gp);
+		grq.setValue('total_orderte_price_lc', order_price * exchange_rate);
+		grq.setValue('total_orderte_cost_lc', order_cost * exchange_rate);
+		grq.setValue('mp_amount_lc',order_mp * exchange_rate);
+		grq.setValue('gp_amount_lc',order_gp * exchange_rate);
+		grq.setValue('gp_percent',gp_percent.toFixed(2));
+		grq.setValue('mp_gap_percent',mp_gap_percent.toFixed(2));
+		grq.update();
+	}
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-26 05:56:03</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>10ce481547cf42106cce1ce4316d43e6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Calculate amt when delete</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_script_10ce481547cf42106cce1ce4316d43e6</sys_update_name>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-26 05:56:03</sys_updated_on>
+        <template/>
+        <when>after</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=10ce481547cf42106cce1ce4316d43e6"/>
+</record_update>
