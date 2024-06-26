@@ -46,9 +46,6 @@
     $scope.clickApproval = function() {
         alert("승인관련 팝업 작업 개발중...");
     };
-    $scope.clickClose = function() {
-        alert("Working..... In progress develop..Close");
-    };
     $scope.clickMSF = function() {
         alert("Working..... In progress develop..MSF");
     };
@@ -1191,10 +1188,12 @@ th {&#13;
         <roles/>
         <script><![CDATA[(function() {
 
+    var currentDate = new GlideDate();
+    var myresult = {};
+
     data.number = $sp.getParameter("number");
     data.plan_type = 'Initial';
     data.sys_created_by = gs.getUser().getName();
-    var currentDate = new GlideDate();
     data.sys_created_on = currentDate.getValue().toString();
     data.base_month = currentDate.getByFormat("yyyyMM").toString();
     data.base_month_y = currentDate.getYearNoTZ().toString();
@@ -1221,6 +1220,7 @@ th {&#13;
             var grBudgetPlan = new GlideRecord('x_yergb_bpm_budget_plan');
             grBudgetPlan.addQuery('project', data.project_key);
             grBudgetPlan.query();
+
             if (grBudgetPlan.next()) {
                 data.base_month = grBudgetPlan.base_month.toString(); // Base Month
                 if (data.base_month.length > 5) {
@@ -1241,17 +1241,35 @@ th {&#13;
             var totalCost = 0;
             var grOrderItem = new GlideRecord('x_yergb_bpm_order_item');
             grOrderItem.addQuery('project', data.project_key);
+            grOrderItem.addQuery("project.u_data_type", "!=", "wbs-6");
+            grOrderItem.addNotNullQuery('plan_gr_date');
             grOrderItem.query();
+
             while (grOrderItem.next()) {
-                totalContract += grOrderItem.extended_price; // Contract
-                totalCost += grOrderItem.extended_cost; // Cost
+                totalContract += grOrderItem.extended_price; // Contract SUM
+                totalCost += grOrderItem.extended_cost; // Cost SUM
+                //Sum value by base month and WBS
+                var wbs = grOrderItem.getValue('wbs_6');
+                var amount = parseInt(grOrderItem.getValue('extended_cost'), 10);
+                var planGrDate = grOrderItem.getValue('plan_gr_date');
+                var planDate = new GlideDate();
+                planDate.setValue(planGrDate);
+                var yearmonth = planDate.getByFormat("yyyyMM");
+
+                if (!myresult[wbs]) {
+                    myresult[wbs] = {};
+                }
+                if (!myresult[wbs][yearmonth]) {
+                    myresult[wbs][yearmonth] = 0;
+                }
+                myresult[wbs][yearmonth] += amount;
             }
+            var gpa = totalContract - totalCost;
+            const gp = gpa / totalContract * 100;
             data.contract = totalContract.toString();
             data.total_cost = totalCost.toString();
-            var gpa = totalContract - totalCost;
-            var gp = gpa / totalContract;
             data.gpa = gpa.toString();
-            data.gp = gp.toString() + '%';
+            data.gp = gp.toFixed(2).toString();
         }
     }
 
@@ -1262,7 +1280,6 @@ th {&#13;
     }
 
     if (input) { //Update
-
         var mymonth = input.base_month;
         var numMonths = 18; // Number of months to generate
         var currentMonth = parseInt(mymonth);
@@ -1276,62 +1293,13 @@ th {&#13;
             }
         }
 
-        var gr = new GlideRecord('x_yergb_bpm_order_item');
-        gr.addQuery('project', input.project_key);
-        gr.query();
-        var myresult = {};
-
-        while (gr.next()) {
-            var wbs = gr.getValue('wbs_6');
-            var amount = parseInt(gr.getValue('extended_cost'), 10); //Net Amount 값 .WBS가 같고 Base Month가 같은것을 합치는 로직에 필요
-            var planGrDate = gr.getValue('plan_gr_date');
-            var planDate = new GlideDate();
-            planDate.setValue(planGrDate);
-            var yearmonth = planDate.getByFormat("yyyyMM");
-
-            if (!myresult[wbs]) {
-                myresult[wbs] = {};
-            }
-
-            if (!myresult[wbs][yearmonth]) {
-                myresult[wbs][yearmonth] = 0;
-            }
-            myresult[wbs][yearmonth] += amount;
-        }
-
         var myarr = ['month1', 'month2', 'month3', 'month4', 'month5', 'month6', 'month7', 'month8', 'month9', 'month10', 'month11', 'month12', 'month13', 'month14', 'month15', 'month16', 'month17', 'month18'];
 
         var updatedResult = replaceYearMonthKeys(myresult, yearmonths, myarr);
 
-        for (var wbs1 in updatedResult) {
-            var myquery = 'wbs=' + wbs1;
-            var monthData = updatedResult[wbs1];
-            var gr2 = new GlideRecord('x_yergb_bpm_wbs_budget');
-            gr2.addEncodedQuery(myquery);
-            gr2.query();
-
-            if (gr2.next()) {
-                for (var month in monthData) {
-                    gr2.setValue(month, monthData[month]);
-                }
-                gr2.setValue("project", input.project_key);
-                gr2.update();
-
-            } else {
-                var newRecord = new GlideRecord('x_yergb_bpm_wbs_budget');
-                newRecord.initialize();
-                newRecord.setValue('wbs', wbs1);
-                newRecord.setValue('project', input.project_key);
-
-                for (var month2 in monthData) {
-                    newRecord.setValue(month2, monthData[month2]);
-                }
-                newRecord.insert();
-            }
-        }
-
         var grUpdateBudgetPlan = new GlideRecord("x_yergb_bpm_budget_plan");
         grUpdateBudgetPlan.get(input.budget_key); //Budget Plan sys_id
+
         if (grUpdateBudgetPlan.getRowCount() > 0) {
             grUpdateBudgetPlan.project = input.project_key;
             grUpdateBudgetPlan.base_month = input.base_month;
@@ -1354,8 +1322,66 @@ th {&#13;
             grUpdateBudgetPlan.state = "1";
             grUpdateBudgetPlan.total_cost = input.total_cost;
             grUpdateBudgetPlan.data_type = input.data_type;
-            var grSysId = grUpdateBudgetPlan.insert();
-            data.budget_key_1 = grSysId;
+            grUpdateBudgetPlan.insert();
+        }
+
+        //Beyond18 Calulate Data start
+        var strMonth = currentMonth.toString();
+
+        if (strMonth.length > 5) {
+            strMonth = strMonth.substring(0, 4) + '-' + strMonth.substring(4, 6) + '-01';
+        }
+
+        var dt = new GlideDate();
+        dt.setValue(strMonth);
+        var beyondDate = dt.getByFormat("yyyy-MM-dd");
+        //Beyond18 Calulate Data End
+
+        for (var wbs1 in updatedResult) {
+            //Beyond18 Calulate End
+            var queryOIBeyondCalulator = "plan_gr_date>javascript:gs.dateGenerate('" + beyondDate + "','end')^project=" + input.project_key + "^wbs_6=" + wbs1 + "^project.u_data_type!=wbs-6";
+            var queryWBSBudget = "project=" + input.project_key + "^wbs=" + wbs1;
+            var dataBeyond18 = 0;
+            var grOIBeyondCalulator = new GlideRecord('x_yergb_bpm_order_item');
+            grOIBeyondCalulator.addEncodedQuery(queryOIBeyondCalulator);
+            grOIBeyondCalulator.query();
+            while (grOIBeyondCalulator.next()) {
+                dataBeyond18 += grOIBeyondCalulator.extended_cost;
+            }
+            //Beyond18 Calulate End
+
+            var monthData = updatedResult[wbs1];
+            var forecastPTC = 0;
+            var calforecastPTC = 0;
+            var grWBSBudget = new GlideRecord('x_yergb_bpm_wbs_budget');
+            grWBSBudget.addEncodedQuery(queryWBSBudget);
+            grWBSBudget.query();
+
+            if (grWBSBudget.next()) {
+                for (var upMonth in monthData) {
+                    grWBSBudget.setValue(upMonth, monthData[upMonth]);
+                    calforecastPTC += parseInt(monthData[upMonth]);
+                }
+                forecastPTC = calforecastPTC + dataBeyond18;
+                grWBSBudget.setValue("project", input.project_key);
+                grWBSBudget.setValue("beyond18", dataBeyond18);
+                grWBSBudget.setValue("forecast_ptc", forecastPTC);
+                grWBSBudget.update();
+
+            } else {
+                var insertWBSBudget = new GlideRecord('x_yergb_bpm_wbs_budget');
+                insertWBSBudget.initialize();
+                insertWBSBudget.setValue('wbs', wbs1);
+                insertWBSBudget.setValue('project', input.project_key);
+
+                for (var inMonth in monthData) {
+                    insertWBSBudget.setValue(inMonth, monthData[inMonth]);
+                    calforecastPTC += parseInt(monthData[inMonth]);
+                }
+                insertWBSBudget.setValue("beyond18", dataBeyond18);
+                insertWBSBudget.setValue("forecast_ptc", forecastPTC);
+                insertWBSBudget.insert();
+            }
         }
     }
 
@@ -1378,8 +1404,6 @@ th {&#13;
     }
 
     function getGridData(project_key) {
-
-
         var gritem = new GlideRecord("x_yergb_bpm_wbs_budget");
         gritem.orderBy("number");
         gritem.addEncodedQuery('project=' + project_key);
@@ -1388,37 +1412,34 @@ th {&#13;
         while (gritem.next()) {
             tableinfo.push({
                 'sys_id': gritem.sys_id.getDisplayValue(),
-                'wbs_id': gritem.wbs.sys_id.toString(),
                 'wbs': gritem.wbs.getDisplayValue(),
                 'wbs_description': gritem.wbs.description.toString(),
-                'month1': gritem.month1.getDisplayValue(),
-                'month2': gritem.month2.getDisplayValue(),
-                'month3': gritem.month3.getDisplayValue(),
-                'month4': gritem.month4.getDisplayValue(),
-                'month5': gritem.month5.getDisplayValue(),
-                'month6': gritem.month6.getDisplayValue(),
-                'month7': gritem.month7.getDisplayValue(),
-                'month8': gritem.month8.getDisplayValue(),
-                'month9': gritem.month9.getDisplayValue(),
-                'month10': gritem.month10.getDisplayValue(),
-                'month11': gritem.month11.getDisplayValue(),
-                'month12': gritem.month12.getDisplayValue(),
-                'month13': gritem.month13.getDisplayValue(),
-                'month14': gritem.month14.getDisplayValue(),
-                'month15': gritem.month15.getDisplayValue(),
-                'month16': gritem.month16.getDisplayValue(),
-                'month17': gritem.month17.getDisplayValue(),
-                'month18': gritem.month18.getDisplayValue(),
-                'beyond18': gritem.beyond18.getDisplayValue(),
-                'forecast_ptc': gritem.forecast_ptc.getDisplayValue(),
-                'base_month': data.base_month,
+                'month1': parseInt(gritem.month1.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month2': parseInt(gritem.month2.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month3': parseInt(gritem.month3.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month4': parseInt(gritem.month4.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month5': parseInt(gritem.month5.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month6': parseInt(gritem.month6.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month7': parseInt(gritem.month7.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month8': parseInt(gritem.month8.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month9': parseInt(gritem.month9.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month10': parseInt(gritem.month10.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month11': parseInt(gritem.month11.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month12': parseInt(gritem.month12.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month13': parseInt(gritem.month13.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month14': parseInt(gritem.month14.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month15': parseInt(gritem.month15.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month16': parseInt(gritem.month16.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month17': parseInt(gritem.month17.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month18': parseInt(gritem.month18.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'beyond18': parseInt(gritem.beyond18.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'forecast_ptc': parseInt(gritem.forecast_ptc.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'base_month': gritem.base_month.getDisplayValue(),
                 'project': project_key
             });
         }
         return tableinfo;
     }
-
-
     data.gridData = getGridData(data.project_key);
     data.gridDataStr = JSON.stringify(data.gridData);
 
@@ -1437,23 +1458,23 @@ th {&#13;
 
         data.items = items;
     }
-	
-		if (input && input.btn_grid_delete) {
-			
-			var deleteArr= input.deleteSets;
-    	var grItem = new GlideRecord('x_yergb_bpm_wbs_budget');
-    	for (var i = 0; i < deleteArr.length; i++) {
-      	var sys_id = deleteArr[i];
-      	if (grItem.get(sys_id)) {
-        	grItem.deleteRecord();
-       	}
-   		}
-			
-		}
+
+    if (input && input.btn_grid_delete) {
+
+        var deleteArr = input.deleteSets;
+        var grItem = new GlideRecord('x_yergb_bpm_wbs_budget');
+        for (var i = 0; i < deleteArr.length; i++) {
+            var sys_id = deleteArr[i];
+            if (grItem.get(sys_id)) {
+                grItem.deleteRecord();
+            }
+        }
+
+    }
 
 
     if (input && input.btn_grid_save) {
-			  var myFields = [
+        var myFields = [
             '',
             'wbs',
             '',
@@ -1482,50 +1503,47 @@ th {&#13;
             'project'
         ];
 
-        console.log('dataSets====='+ input.dataSets);
-				console.log('updateSets====='+ input.updateSets);
-			
-			if(input.dataSets.length){
-				insertData();
-			}
-			if(input.updateSets.length){
-				updateData();
-			}
-			
-			function insertData() {
-				var insertArr= input.dataSets;  
+        if (input.dataSets.length) {
+            insertData();
+        }
+        if (input.updateSets.length) {
+            updateData();
+        }
 
-				for (var i = 0; i < insertArr.length; i++) {
-					var gr = new GlideRecord('x_yergb_bpm_wbs_budget'); // GlideRecord 객체 생성
-					// 필드 설정
-					gr.initialize(); // 새 레코드 초기화
+        function insertData() {
+            var insertArr = input.dataSets;
 
-					for (var m = 0; m < myFields.length; m++) {
-						if(myFields[m]){
-							gr.setValue(myFields[m], insertArr[i][m]);
-						}	
-					}
-					gr.insert();
-				}
-			}
+            for (var i = 0; i < insertArr.length; i++) {
+                var gr = new GlideRecord('x_yergb_bpm_wbs_budget'); // GlideRecord 객체 생성
+                // 필드 설정
+                gr.initialize(); // 새 레코드 초기화
 
-			function updateData() {
-				var updateArr= input.updateSets;  
+                for (var m = 0; m < myFields.length; m++) {
+                    if (myFields[m]) {
+                        gr.setValue(myFields[m], insertArr[i][m]);
+                    }
+                }
+                gr.insert();
+            }
+        }
 
-				for (var i = 0; i < updateArr.length; i++) {
-					var gr2 = new GlideRecord('x_yergb_bpm_wbs_budget'); // GlideRecord 객체 생성
-					gr2.addQuery('sys_id', updateArr[i][0]); // sys_id 필드의 인덱스는 0
-					gr2.query();
-					if (gr2.next()) {
-						for (var m = 0; m < myFields.length; m++) {
-							if(myFields[m]){
-								gr2.setValue(myFields[m], updateArr[i][m]);
-							}	
-						}
-					}
-					gr2.update();
-				}
-			}
+        function updateData() {
+            var updateArr = input.updateSets;
+
+            for (var i = 0; i < updateArr.length; i++) {
+                var gr2 = new GlideRecord('x_yergb_bpm_wbs_budget'); // GlideRecord 객체 생성
+                gr2.addQuery('sys_id', updateArr[i][0]); // sys_id 필드의 인덱스는 0
+                gr2.query();
+                if (gr2.next()) {
+                    for (var m = 0; m < myFields.length; m++) {
+                        if (myFields[m]) {
+                            gr2.setValue(myFields[m], updateArr[i][m]);
+                        }
+                    }
+                }
+                gr2.update();
+            }
+        }
 
     }
 
@@ -1536,14 +1554,14 @@ th {&#13;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-24 14:34:40</sys_created_on>
         <sys_id>7ff2f76c830f42100a5ce360ceaad32a</sys_id>
-        <sys_mod_count>63</sys_mod_count>
+        <sys_mod_count>66</sys_mod_count>
         <sys_name>initPlanMngtWbsWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_7ff2f76c830f42100a5ce360ceaad32a</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-25 06:51:16</sys_updated_on>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-26 07:06:05</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 
@@ -1560,7 +1578,6 @@ th {&#13;
             <div class="yoko-btn-wrap">
                 <button class="yoko-btn yoko-btn-outline" ng-click="clickLoadData()">Load Data</button>
                 <button class="yoko-btn yoko-btn-outline" ng-click="clickApproval()">Approval Request</button>
-                <button class="yoko-btn yoko-btn-outline" ng-click="clickClose()">Close</button>
                 <button class="yoko-btn yoko-btn-fill" ng-click="clickMSF()">Make SAP File</button>
             </div>
         </div>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_transform_script">
+    <sys_transform_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <map display_value="Header File to Budget Plan Table">dbff0c118347021099decf50ceaad379</map>
+        <order>100</order>
+        <script><![CDATA[(function runTransformScript(source, map, log, target /*undefined onStart*/ ) {
+
+	target.base_month = new Date(dateStr.slice(0, 4) + '-' + dateStr.slice(4));;
+	// target.total_cost;
+	if (target.inintake_current && target.total_cost) target.gpa = target.intake_current - target.total_cost;
+	if (target.gp && target.intake_current) target.gp = target.gpa / target.intake_current * 100;
+	target.update();
+
+
+})(source, map, log, target);]]></script>
+        <sys_class_name>sys_transform_script</sys_class_name>
+        <sys_created_by>yeongink</sys_created_by>
+        <sys_created_on>2024-06-26 08:50:15</sys_created_on>
+        <sys_id>80663059834b021099decf50ceaad3ec</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>onAfter</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_transform_script_80663059834b021099decf50ceaad3ec</sys_update_name>
+        <sys_updated_by>yeongink</sys_updated_by>
+        <sys_updated_on>2024-06-26 08:50:15</sys_updated_on>
+        <when>onAfter</when>
+    </sys_transform_script>
+</record_update>
