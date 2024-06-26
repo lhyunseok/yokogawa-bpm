@@ -21,6 +21,8 @@
         <element attributes="edge_encryption_enabled=true" label="Total Extended Cost (TC)" max_length="40" name="total_extended_cost_tc" type="decimal"/>
         <element attributes="edge_encryption_enabled=true" label="OI Amount (TC)" max_length="40" name="oi_amount_tc" type="decimal"/>
         <element label="E-Draft Maturity Days" max_length="40" name="e_draft_maturity_days" type="integer"/>
+        <element attributes="Scale=11" label="Exchange Rate" max_length="26" name="exchange_rate" type="decimal"/>
+        <element label="Currency (LC)" max_length="32" name="currency_lc" reference="fx_currency" type="reference"/>
         <element label="DMR GP Level" max_length="40" name="dmr_gp_level" type="integer"/>
         <element label="DMR Amount Level" max_length="40" name="dmr_amount_level" type="integer"/>
         <element attributes="edge_encryption_enabled=true" label="GP Amount (TC)" max_length="40" name="gp_amount_tc" type="decimal"/>
@@ -72,9 +74,12 @@
             <element name="job_type"/>
         </index>
         <index name="index14">
-            <element name="payment_terms"/>
+            <element name="currency_lc"/>
         </index>
         <index name="index15">
+            <element name="payment_terms"/>
+        </index>
+        <index name="index16">
             <element name="rfq_entry"/>
         </index>
     </element>
