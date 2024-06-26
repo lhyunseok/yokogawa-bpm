@@ -87,6 +87,7 @@
 	$scope.btnHeader = function(str) {
 		console.log('HEAD BUTTON : ' + str);
 		c.data.redirect_sys_id = '';
+		c.data.btnHeaderType = '';
 		if(str=='save') {
 			if(c.data.oiSysId=='') {
 				c.data.btnHeaderType = 'oiInsert';
@@ -95,7 +96,11 @@
 			}
 		} else if(str == 'cancel') {
 			c.data.btnHeaderType = 'cancel';
-		} 
+		} else if(str == 'request') {
+			c.data.btnHeaderType = 'request';
+		} else if(str == 'autorize') {
+			c.data.btnHeaderType = 'autorize';
+		}
 		
 		console.log('CLIENT HD BTN : ' + c.data.btnHeaderType) ;
 		c.server.update().then(function(response) {
@@ -614,18 +619,13 @@
 		
 		c.data.gridBtnTransact = '';
 		if(idx == 1) {
-			//c.data.gridBtnType = 'add';
 			dpDetail.addRow(v);
 		} else if(idx == 2) {
-			//c.data.gridBtnType = 'insert';
 			dpDetail.insertRow(0, v);
 		} else if(idx == 3) {
-			//c.data.gridBtnType = 'delete';
-			//gvDetail.deleteSelection(true);
 			var curr = gvDetail.getCurrent();
   		dpDetail.removeRow(curr.dataRow);
 		} else if(idx == 4) {
-			//c.data.gridBtnType = 'save';	
 			c.data.gridBtnTransact = 'T';
 			c.data.gridDetailData = dpDetail.getJsonRows();
 			for(var x=0; x<c.data.gridDetailData.length; x++) {
@@ -1208,6 +1208,10 @@ a {text-decoration: none;}
 			// Update version.
 			
 			data.redirect_sys_id = input.oiSysId;
+		} else if(input.btnHeaderType == 'request') {
+			
+		} else if(input.btnHeaderType == 'autorize') {
+			
 		}
 	}
 	
@@ -1252,6 +1256,38 @@ a {text-decoration: none;}
 			var gData = input.gridDetailData;
 			for(var x=0; x<gData.length; x++) {
 				console.log('ROW STAT:' + gData[x].rowStat); 
+				var ordItem = new GlideRecord('x_yergb_bpm_order_item');
+				ordItem.initialize();
+				var rStat = gData[x].rowStat;
+				if(rStat == 'deleted') {
+					ordItem.get(gData[x].sys_id);
+					ordItem.deleteRecord();
+				} else if(rStat == 'updated') {
+					ordItem.get(gData[x].sys_id);
+					ordItem.setValue('ms_code', gData[x].ms_code);
+					ordItem.setValue('description', gData[x].description);
+					ordItem.setValue('quantity', gData[x].quantity);
+					ordItem.setValue('unit_price', gData[x].unit_price);
+					ordItem.setValue('extended_price', gData[x].extended_price);
+					ordItem.setValue('unit_cost', gData[x].unit_cost);
+					ordItem.setValue('extended_cost', gData[x].extended_cost);
+					ordItem.setValue('unit_mp', gData[x].unit_mp);
+					ordItem.setValue('mp_amount', gData[x].mp_amount);
+					ordItem.setValue('vendor', gData[x].vendor);
+					ordItem.update();
+				} else if(rStat == 'inserted') {
+					ordItem.setValue('ms_code', gData[x].ms_code);
+					ordItem.setValue('description', gData[x].description);
+					ordItem.setValue('quantity', gData[x].quantity);
+					ordItem.setValue('unit_price', gData[x].unit_price);
+					ordItem.setValue('extended_price', gData[x].extended_price);
+					ordItem.setValue('unit_cost', gData[x].unit_cost);
+					ordItem.setValue('extended_cost', gData[x].extended_cost);
+					ordItem.setValue('unit_mp', gData[x].unit_mp);
+					ordItem.setValue('mp_amount', gData[x].mp_amount);
+					ordItem.setValue('vendor', gData[x].vendor);
+					ordItem.insert();
+				}
 			}
 		}
 	}
@@ -1358,14 +1394,14 @@ a {text-decoration: none;}
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>567</sys_mod_count>
+        <sys_mod_count>568</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:35:02</sys_updated_on>
+        <sys_updated_on>2024-06-25 12:19:28</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
