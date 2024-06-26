@@ -28,25 +28,25 @@
     $scope.clickCreateMSA = function() {
         alert("Working..... In progress develop");
     };
- 
- 	  var result;
+
+    var result;
     $scope.gridDetailBtnClick = function(idx) {
         var v = {
-            'sys_id' : '',
-            'wbs' : '',
-            'ms_code' : '',
-            'extended_price' : '',
-            'quantity' : '',
-            'extended_cost' : '',
-            'strategy' : '',
-            'lead_time' : '',
-            'planned_procurement' : '',
-            'plan_gr_date' : '',
-            'project' : c.data.sys_id,
-		        'budget_type' : 'prod'
+            'sys_id': '',
+            'wbs': '',
+            'ms_code': '',
+            'unit_cost': '',
+            'quantity': '',
+            'extended_cost': '',
+            'strategy': '',
+            'lead_time': '',
+            'planned_procurement': '',
+            'plan_gr_date': '',
+            'project': c.data.sys_id,
+            'budget_type': 'prod'
         }
 
-	  c.data.gridBtnType = '';
+        c.data.gridBtnType = '';
         if (idx == 1) {
             c.data.gridBtnType = 'add';
             dp.addRow(v);
@@ -131,65 +131,64 @@
                 });
             }
         }
-		}
-	  // --------------------------------------------------------------------------------------------------
+    }
+    // --------------------------------------------------------------------------------------------------
     var gv;
     var dp;
 
     function grid() {
-        var gvFields = [
-			{
-				fieldName: "sys_id",
-				dataType: "text",
-			},
-			{
-				fieldName: "wbs_id",
-				dataType: "text",
-			},
-			{
-				fieldName: "wbs",
-				dataType: "text",
-			},
-			{
-				fieldName: "ms_code",
-				dataType: "text",
-			},
-			{
-				fieldName: "extended_price",
-				dataType: "text",
-			},
-			{
-				fieldName: "quantity",
-				dataType: "text",
-			},
-			{
-				fieldName: "extended_cost",
-				dataType: "number",
-			},
-			{
-				fieldName: "strategy",
-				dataType: "text",
-			},
-			{
-				fieldName: "lead_time",
-				dataType: "text",
-			},
-			{
-				fieldName: "planned_procurement",
-				dataType: "text",
-			},
-			{
-				fieldName: "plan_gr_date",
-				dataType: "text",
-			},
-			{
-				fieldName: "project",
-				dataType: "text",
-			},
-			{
-				fieldName: "budget_type",
-				dataType: "text",
-			},
+        var gvFields = [{
+                fieldName: "sys_id",
+                dataType: "text",
+            },
+            {
+                fieldName: "wbs_id",
+                dataType: "text",
+            },
+            {
+                fieldName: "wbs",
+                dataType: "text",
+            },
+            {
+                fieldName: "ms_code",
+                dataType: "text",
+            },
+            {
+                fieldName: "unit_cost",
+                dataType: "text",
+            },
+            {
+                fieldName: "quantity",
+                dataType: "text",
+            },
+            {
+                fieldName: "extended_cost",
+                dataType: "number",
+            },
+            {
+                fieldName: "strategy",
+                dataType: "text",
+            },
+            {
+                fieldName: "lead_time",
+                dataType: "text",
+            },
+            {
+                fieldName: "planned_procurement",
+                dataType: "text",
+            },
+            {
+                fieldName: "plan_gr_date",
+                dataType: "text",
+            },
+            {
+                fieldName: "project",
+                dataType: "text",
+            },
+            {
+                fieldName: "budget_type",
+                dataType: "text",
+            },
         ];
 
         var gvColumns = [{
@@ -200,7 +199,7 @@
                 "header": {
                     "text": "sysid"
                 },
-				},
+            },
             {
                 "name": "wbs_id",
                 "fieldName": "wbs_id",
@@ -232,18 +231,18 @@
                 "header": {
                     "text": "MS Code"
                 },
-							  "readOnly": true,
+                "readOnly": true,
                 "editable": false,
             },
             {
-                "name": "extended_price",
-                "fieldName": "extended_price",
+                "name": "unit_cost",
+                "fieldName": "unit_cost",
                 "type": "data",
                 "width": 100,
                 "header": {
                     "text": "Unit Cost Price"
                 },
-  							"readOnly": true,
+                "readOnly": true,
                 "editable": false,
             },
             {
@@ -254,21 +253,24 @@
                 "header": {
                     "text": "Quantity"
                 },
-  							"readOnly": true,
+                "readOnly": true,
                 "editable": false,
             },
             {
                 "name": "extended_cost",
                 "fieldName": "extended_cost",
-				        "numberFormat": "#,##0",
-				        "type": "number",
+                "numberFormat": "#,##0",
+                "type": "number",
                 "width": 100,
                 "header": {
                     "text": "Amount"
                 },
-  							"readOnly": true,
+                "readOnly": true,
                 "editable": false,
-								"footer": { "expression": "sum", "numberFormat": "#,##0" },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
             },
             {
                 "name": "strategy",
@@ -296,7 +298,7 @@
                 "header": {
                     "text": "Planned Procurement"
                 },
-  							"readOnly": true,
+                "readOnly": true,
                 "editable": false,
             },
             {
@@ -328,12 +330,12 @@
             }
         ];
 
-       var gvLayouts = [
+        var gvLayouts = [
             'sys_id',
-				    'wbs_id',
+            'wbs_id',
             'wbs',
             'ms_code',
-            'extended_price',
+            'unit_cost',
             'quantity',
             'extended_cost',
             'strategy',
@@ -341,40 +343,40 @@
             'planned_procurement',
             'plan_gr_date',
             'project',
-		        'budget_type'
+            'budget_type'
         ];
 
-		function initGrid() {
-			
-			gv = new RealGrid.GridView('gridContainer');
-			dp = new RealGrid.LocalDataProvider();
+        function initGrid() {
 
-			dp.setFields(gvFields);
-			gv.setDataSource(dp);
-			gv.setColumns(gvColumns);
-			gv.setColumnLayout(gvLayouts);
+            gv = new RealGrid.GridView('gridContainer');
+            dp = new RealGrid.LocalDataProvider();
 
-			gv.footers.visible = true;
-			gv.commitEditor();
-			gv.undoable = true;
+            dp.setFields(gvFields);
+            gv.setDataSource(dp);
+            gv.setColumns(gvColumns);
+            gv.setColumnLayout(gvLayouts);
 
-			gv.columnByName("sys_id").visible =  false;
-			gv.columnByName("wbs_id").visible =  false;
-			gv.columnByName("project").visible =  false;
-			gv.columnByName("budget_type").visible =  false;
-			gv.editOptions.commitByCell = true;
-			gv.editOptions.insertable = true;
-			dp.softDeleting = false;
-      gv.displayOptions.fitStyle = "fill";
-			gv.checkBar.visible = false;
-			gv.stateBar.visible = false;
+            gv.footers.visible = true;
+            gv.commitEditor();
+            gv.undoable = true;
 
-			dp.setRows(c.data.gridData);
+            gv.columnByName("sys_id").visible = false;
+            gv.columnByName("wbs_id").visible = false;
+            gv.columnByName("project").visible = false;
+            gv.columnByName("budget_type").visible = false;
+            gv.editOptions.commitByCell = true;
+            gv.editOptions.insertable = true;
+            dp.softDeleting = false;
+            gv.displayOptions.fitStyle = "fill";
+            gv.checkBar.visible = false;
+            gv.stateBar.visible = false;
 
-		}
-		
-		initGrid();
-	}
+            dp.setRows(c.data.gridData);
+
+        }
+
+        initGrid();
+    }
 
     function initFormEtc() {
         $scope.closeDlgActivityType = function() {
@@ -388,7 +390,7 @@
         dp.setValue(curr.dataRow, 'wbs', c.data.items[index].code);
         dlgActivityType.close();
     };
-	
+
     function initGridEtc() {
 
         gv.onCellButtonClicked = function(grid, index, column) {
@@ -405,13 +407,13 @@
         //refer_wbs_modal
         var btnIns = document.getElementById('bt-insert');
     };
-	
+
     function doGrid() {
         grid();
-			  initGridEtc();
+        initGridEtc();
         initFormEtc();
     }
-	
+
     // 초기화 여러번 시도
     var gridTry = [200, 300, 400, 500, 750, 1000, 1250, 1500, 2000, 2500, 3000, 3500, 4000];
     for (var ms of gridTry) {
@@ -427,7 +429,7 @@
                     doGrid();
                     console.log(logStr + ' : done');
                 } catch (e) {
-                    console.log(logStr + ' : fail, why='+e.message);
+                    console.log(logStr + ' : fail, why=' + e.message);
                 }
             }
         }, ms);
@@ -949,7 +951,7 @@ th {
         }
         data.gridUrl = '/x_yergb_bpm_SorinGrid_prod.do?id_q=' + data.sys_id;
     }
-	
+
     function getGridData(id_q) {
 
         var gritem = new GlideRecord("x_yergb_bpm_order_item");
@@ -960,27 +962,27 @@ th {
         while (gritem.next()) {
             tableinfo.push({
                 'sys_id': gritem.sys_id.getDisplayValue(),
-							  'wbs_id': gritem.getValue('wbs_6'),
+                'wbs_id': gritem.getValue('wbs_6'),
                 'wbs': gritem.wbs_6.getDisplayValue(),
                 'ms_code': gritem.ms_code.getDisplayValue(),
-                'extended_price': gritem.extended_price.getDisplayValue(),
+                'unit_cost': gritem.unit_cost.getDisplayValue(),
                 'quantity': gritem.quantity.getDisplayValue(),
-							  'extended_cost': parseInt(gritem.extended_cost.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'extended_cost': parseInt(gritem.extended_cost.getDisplayValue().replace(/,/g, ''), 10) || 0,
                 'strategy': gritem.strategy.getDisplayValue(),
                 'lead_time': gritem.lead_time.getDisplayValue(),
                 'planned_procurement': gritem.planned_procurement.getDisplayValue(),
                 'plan_gr_date': gritem.plan_gr_date.getDisplayValue(),
                 'project': gritem.getValue('project'),
-				        'budget_type':gritem.getValue('budget_type')
+                'budget_type': gritem.getValue('budget_type')
             });
         }
         return tableinfo;
     }
-	
+
     data.gridData = getGridData(data.sys_id);
     data.gridDataStr = JSON.stringify(data.gridData);
-	
-	    if (input && input.refer_wbs_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
+
+    if (input && input.refer_wbs_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
 
         var items = [];
         var gr = new GlideRecord('x_yergb_bpm_wbs_master'); //x_yergb_bpm_wbs_master_list
@@ -995,27 +997,27 @@ th {
 
         data.items = items;
     }
-	
-		if (input && input.btn_grid_delete) {
-			
-			var deleteArr= input.deleteSets;
-    	var grItem = new GlideRecord('x_yergb_bpm_order_item');
-    	for (var i = 0; i < deleteArr.length; i++) {
-      	var sys_id = deleteArr[i];
-      	if (grItem.get(sys_id)) {
-        	grItem.deleteRecord();
-       	}
-   		}
-			
-		}
+
+    if (input && input.btn_grid_delete) {
+
+        var deleteArr = input.deleteSets;
+        var grItem = new GlideRecord('x_yergb_bpm_order_item');
+        for (var i = 0; i < deleteArr.length; i++) {
+            var sys_id = deleteArr[i];
+            if (grItem.get(sys_id)) {
+                grItem.deleteRecord();
+            }
+        }
+
+    }
 
     if (input && input.btn_grid_save) {
-			  var myFields = [
+        var myFields = [
             '',
-					  'wbs_6',
+            'wbs_6',
             '',
             'ms_code',
-					  'extended_price',
+            'unit_cost',
             'quantity',
             'extended_cost',
             'strategy',
@@ -1023,50 +1025,50 @@ th {
             'planned_procurement',
             'plan_gr_date',
             'project',
-		        'budget_type'
+            'budget_type'
         ];
-			
-			if(input.dataSets.length){
-				insertData();
-			}
-			if(input.updateSets.length){
-				updateData();
-			}
-			
-			function insertData() {
-				var insertArr= input.dataSets;  
 
-				for (var i = 0; i < insertArr.length; i++) {
-					var gr = new GlideRecord('x_yergb_bpm_order_item'); // GlideRecord 객체 생성
-					// 필드 설정
-					gr.initialize(); // 새 레코드 초기화
+        if (input.dataSets.length) {
+            insertData();
+        }
+        if (input.updateSets.length) {
+            updateData();
+        }
 
-					for (var m = 0; m < myFields.length; m++) {
-						if(myFields[m]){
-							gr.setValue(myFields[m], insertArr[i][m]);
-						}	
-					}
-					gr.insert();
-				}
-			}
+        function insertData() {
+            var insertArr = input.dataSets;
 
-			function updateData() {
-				var updateArr= input.updateSets;  
+            for (var i = 0; i < insertArr.length; i++) {
+                var gr = new GlideRecord('x_yergb_bpm_order_item'); // GlideRecord 객체 생성
+                // 필드 설정
+                gr.initialize(); // 새 레코드 초기화
 
-				for (var i = 0; i < updateArr.length; i++) {
-					var gr2 = new GlideRecord('x_yergb_bpm_order_item'); // GlideRecord 객체 생성
-					gr2.addQuery('sys_id', updateArr[i][0]); // sys_id 필드의 인덱스는 0
-					gr2.query();
-					if (gr2.next()) {
-						for (var m = 0; m < myFields.length; m++) {
-							if(myFields[m]){
-								gr2.setValue(myFields[m], updateArr[i][m]);
-							}	
-						}
-					}
-					gr2.update();
-				}
-			}
+                for (var m = 0; m < myFields.length; m++) {
+                    if (myFields[m]) {
+                        gr.setValue(myFields[m], insertArr[i][m]);
+                    }
+                }
+                gr.insert();
+            }
+        }
+
+        function updateData() {
+            var updateArr = input.updateSets;
+
+            for (var i = 0; i < updateArr.length; i++) {
+                var gr2 = new GlideRecord('x_yergb_bpm_order_item'); // GlideRecord 객체 생성
+                gr2.addQuery('sys_id', updateArr[i][0]); // sys_id 필드의 인덱스는 0
+                gr2.query();
+                if (gr2.next()) {
+                    for (var m = 0; m < myFields.length; m++) {
+                        if (myFields[m]) {
+                            gr2.setValue(myFields[m], updateArr[i][m]);
+                        }
+                    }
+                }
+                gr2.update();
+            }
+        }
 
     }
 
@@ -1080,14 +1082,14 @@ function sf1(a, b) {
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-17 08:14:02</sys_created_on>
         <sys_id>77b85252833e0210856ceec0deaad37c</sys_id>
-        <sys_mod_count>86</sys_mod_count>
+        <sys_mod_count>90</sys_mod_count>
         <sys_name>budgetPlanMngtWd01</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_77b85252833e0210856ceec0deaad37c</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 10:19:44</sys_updated_on>
+        <sys_updated_on>2024-06-26 02:00:48</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 

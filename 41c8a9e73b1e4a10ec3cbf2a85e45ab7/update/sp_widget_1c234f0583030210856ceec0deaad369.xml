@@ -37,7 +37,7 @@
             'sys_id': '',
             'wbs': '',
             'ms_code': '',
-            'extended_price': '',
+            'unit_cost': '',
             'quantity': '',
             'extended_cost': '',
             'strategy': '',
@@ -160,7 +160,7 @@
                 dataType: "text",
             },
             {
-                fieldName: "extended_price",
+                fieldName: "unit_cost",
                 dataType: "text",
             },
             {
@@ -252,8 +252,8 @@
                 "editable": false,
             },
             {
-                "name": "extended_price",
-                "fieldName": "extended_price",
+                "name": "unit_cost",
+                "fieldName": "unit_cost",
                 "type": "data",
                 "width": 100,
                 "header": {
@@ -351,7 +351,7 @@
             'wbs',
             'vendor',
             'ms_code',
-            'extended_price',
+            'unit_cost',
             'quantity',
             'extended_cost',
             'strategy',
@@ -982,7 +982,7 @@ th {
                 'wbs_id': gritem.getValue('wbs_6'),
                 'wbs': gritem.wbs_6.getDisplayValue(),
                 'ms_code': gritem.ms_code.getDisplayValue(),
-                'extended_price': gritem.extended_price.getDisplayValue(),
+                'unit_cost': gritem.unit_cost.getDisplayValue(),
                 'quantity': gritem.quantity.getDisplayValue(),
                 'extended_cost': parseInt(gritem.extended_cost.getDisplayValue().replace(/,/g, ''), 10) || 0,
                 'strategy': gritem.strategy.getDisplayValue(),
@@ -1035,7 +1035,7 @@ th {
             'wbs_6',
             '',
             'ms_code',
-            'extended_price',
+            'unit_cost',
             'quantity',
             'extended_cost',
             'strategy',
@@ -1045,9 +1045,6 @@ th {
             'project',
             'budget_type'
         ];
-
-        console.log('dataSets=====' + input.dataSets);
-        console.log('updateSets=====' + input.updateSets);
 
         if (input.dataSets.length) {
             insertData();
@@ -1103,14 +1100,14 @@ function sf1(a, b) {
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-26 00:22:30</sys_created_on>
         <sys_id>1c234f0583030210856ceec0deaad369</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>budgetPlanprjMngtWd02</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_1c234f0583030210856ceec0deaad369</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-26 00:22:48</sys_updated_on>
+        <sys_updated_on>2024-06-26 02:03:27</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 
