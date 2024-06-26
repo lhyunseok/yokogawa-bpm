@@ -37,17 +37,18 @@
             c.data.gridDetailData = dpDetail.getJsonRows();
             for (var x = 0; x < c.data.gridDetailData.length; x++) {
 								console.log(c.data.gridDetailData[x])
+								console.log(dpDetail.getRowState(x))
                 c.data.gridDetailData[x].rowStat = dpDetail.getRowState(x);
             }
 			
-			/*
+			
         c.server.update().then(function(response) {
             location.reload();
         }).catch(function(error) {
             console.error('Error saving field:', error);
             alert('Error saving field');
         });
-			*/
+			
 			
 			
 			
@@ -757,14 +758,19 @@ a {text-decoration: none;}
 					//gs.addErrorMessage("hihi")
 					gs.addErrorMessage(input.gridBtnTransact)
             if(input.gridBtnTransact == 'T') {
+								
                 console.log('SERVER GRID SAVE : ' + input.gridDetailData);
+                console.log(input.gridDetailData);
                 var gData = input.gridDetailData;
                 for(var x=0; x<gData.length; x++) {
+										gs.addInfoMessage("들어오긴함" + x)
                     console.log('ROW STAT:' + gData[x].rowStat); 
                     gs.addErrorMessage('ROW STAT:' + gData[x].rowStat); 
                     var ordItem = new GlideRecord('x_yergb_bpm_quote_item');
                     ordItem.initialize();
                     var rStat = gData[x].rowStat;
+										gs.addErrorMessage(rStat + " " + x); 
+
                     if(rStat == 'deleted') {
                         ordItem.get(gData[x].sys_id);
                         ordItem.deleteRecord();
@@ -781,7 +787,7 @@ a {text-decoration: none;}
                         ordItem.setValue('unit_mp', gData[x].unit_mp);
                         ordItem.setValue('mp_amount', gData[x].mp_amount);
                         ordItem.setValue('vendor', gData[x].vendor);
-                        ordItem.setValue('quotation', gData[x].quotation);
+                        ordItem.setValue('quotation', qSysId);
                         ordItem.update();
                     } else if(rStat == 'created') {
                         ordItem.setValue('wbs_6', gData[x].wbs_6);
@@ -795,9 +801,12 @@ a {text-decoration: none;}
                         ordItem.setValue('unit_mp', gData[x].unit_mp);
                         ordItem.setValue('mp_amount', gData[x].mp_amount);
                         ordItem.setValue('vendor', gData[x].vendor);
-                        ordItem.setValue('quotation', gData[x].quotation);
+                        ordItem.setValue('quotation',qSysId);
                         ordItem.insert();
                     }
+									else{
+										gs.addErrorMessage("믱 뭐에요")
+									}
                 }
             }
         }
@@ -907,14 +916,14 @@ a {text-decoration: none;}
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 04:53:32</sys_created_on>
         <sys_id>38973e74934702104d95f55a7bba1056</sys_id>
-        <sys_mod_count>79</sys_mod_count>
+        <sys_mod_count>92</sys_mod_count>
         <sys_name>quotationWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_38973e74934702104d95f55a7bba1056</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-26 06:09:41</sys_updated_on>
+        <sys_updated_on>2024-06-26 08:37:32</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
