@@ -6,36 +6,59 @@
     /* widget controller */
     var c = this;
     c.data.readStatus = true;
-
     // Function to get URL parameters
     c.getUrlParameter = function(param) {
         return $location.search()[param];
     };
     // Function to handle click event
     $scope.handleClick = function() {
-        if (c.data.quotation) {
-            window.location.href = "/ybpm?id=epic_03_ui_budget_y_product&number=" + c.data.key; // Redirect to the URL
+        if (c.data.budget_key) {
+            window.location.href = "/ybpm?id=epic_09_ui_prj&number=" + c.data.number + "&table=x_yergb_bpm_budget_plan&sys_id=" + c.data.budget_key; // Redirect to the URL
         }
     };
     // Example: Retrieve a specific parameter
     var paramValue = c.getUrlParameter('number');
     c.data.paramValue = paramValue;
 
-    // Call the server script
-    c.server.update().then(function(response) {
-        // Handle the server response if needed
-    });
+    $scope.clickYProd = function() {
+        window.location.href = "/ybpm?id=epic_09_ui_budget_y_product&number=" + c.data.paramValue;
+    };
+    $scope.clickBOP = function() {
+        window.location.href = "/ybpm?id=epic_09_ui_budget_bop&number=" + c.data.paramValue;
+    };
+    $scope.clickManHour = function() {
+        window.location.href = "/ybpm?id=epic_09_ui_budget_man_hour&number=" + c.data.paramValue;
+    };
+    $scope.clickOther = function() {
+        window.location.href = "/ybpm?id=epic_09_ui_budget_other&number=" + c.data.paramValue;
+    };
+    $scope.clickSave = function() {
 
-    $scope.clickCreateMSA = function() {
-        alert("Working..... In progress develop");
     };
 
+    $scope.clickLoadData = function() {
+        // Call the server script
+        c.server.update($scope).then(function(response) {
+            location.reload();
+        });
+        window.location.href = "/ybpm?id=epic_09_ui_prj&number=" + c.data.number + "&table=x_yergb_bpm_budget_plan&sys_id=" + c.data.budget_key;
+    };
+    $scope.clickApproval = function() {
+        alert("승인관련 팝업 작업 개발중...");
+    };
+    $scope.clickClose = function() {
+        alert("Working..... In progress develop..Close");
+    };
+    $scope.clickMSF = function() {
+        alert("Working..... In progress develop..MSF");
+    };
     //grid save 할 때 전체페이지 reload
     $window.addEventListener('message', function(event) {
         if (event.data.type === 'updateIframeSrc') {
             location.reload();
         }
     });
+
     // Function to dynamically adjust iframe height
     function resizeIframe() {
         var iframe = document.getElementById('myIframe');
@@ -65,11 +88,7 @@
     var dp;
 
     function grid() {
-        // async, import 지원안함
-        //import('https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js').then(s => console.log(s)).catch(console.log);
-        //console.log('mc-1 : grid');
-
-        const gvFields = [{
+        var gvFields = [{
                 fieldName: "sys_id",
                 dataType: "text",
             },
@@ -78,147 +97,107 @@
                 dataType: "text",
             },
             {
-                fieldName: "__type",
+                fieldName: "wbs_description",
                 dataType: "text",
-            },
-            {
-                fieldName: "in_charge",
-                dataType: "text",
-            },
-            {
-                fieldName: "activity_type",
-                dataType: "text",
-            },
-            {
-                fieldName: "activity_rate",
-                dataType: "number",
-            },
-            {
-                fieldName: "rate_hour",
-                dataType: "number",
-                //valueExpression: "values['activity_rate'] * values['total_amount']",
-                valueCallback: function(provider, dataRow, fieldName, fieldNames, values) {
-                    if (values[fieldNames.indexOf('__type')] == '참고') {
-                        return values[fieldNames.indexOf('activity_rate')] * values[fieldNames.indexOf('total_amount')];
-                    } else {
-                        let v = 0;
-                        for (let i = 0; i <= 18; i++) {
-                            v += values[fieldNames.indexOf('month' + i)] || 0;
-                        }
-                        v += values[fieldNames.indexOf('beyond18')] || 0;
-                        return v;
-                    }
-                }
-            },
-            {
-                fieldName: "total_amount",
-                dataType: "number",
             },
             {
                 fieldName: "month1",
-                dataType: "number"
+                dataType: "number",
             },
             {
                 fieldName: "month2",
-                dataType: "number"
+                dataType: "number",
             },
             {
                 fieldName: "month3",
-                dataType: "number"
+                dataType: "number",
             },
             {
                 fieldName: "month4",
-                dataType: "number"
+                dataType: "number",
             },
             {
                 fieldName: "month5",
-                dataType: "number"
+                dataType: "number",
             },
             {
                 fieldName: "month6",
-                dataType: "number"
+                dataType: "number",
             },
             {
                 fieldName: "month7",
-                dataType: "number"
+                dataType: "number",
             },
             {
                 fieldName: "month8",
-                dataType: "number"
+                dataType: "number",
             },
             {
                 fieldName: "month9",
-                dataType: "number"
+                dataType: "number",
             },
             {
                 fieldName: "month10",
-                dataType: "number"
+                dataType: "number",
             },
             {
                 fieldName: "month11",
-                dataType: "number"
+                dataType: "number",
             },
             {
                 fieldName: "month12",
-                dataType: "number"
+                dataType: "number",
             },
             {
                 fieldName: "month13",
-                dataType: "number"
+                dataType: "number",
             },
             {
                 fieldName: "month14",
-                dataType: "number"
+                dataType: "number",
             },
             {
                 fieldName: "month15",
-                dataType: "number"
+                dataType: "number",
             },
             {
                 fieldName: "month16",
-                dataType: "number"
+                dataType: "number",
             },
             {
                 fieldName: "month17",
-                dataType: "number"
+                dataType: "number",
             },
             {
                 fieldName: "month18",
-                dataType: "number"
+                dataType: "number",
             },
             {
                 fieldName: "beyond18",
-                dataType: "number"
+                dataType: "number",
             },
             {
-                fieldName: "__insert",
-                dataType: "text"
+                fieldName: "forecast_ptc",
+                dataType: "number",
             },
             {
-                fieldName: "__delete",
-                dataType: "text"
+                fieldName: "base_month",
+                dataType: "text",
+            },
+            {
+                fieldName: "project",
+                dataType: "text",
             },
         ];
 
-        const gvColumns = [{
+        var gvColumns = [{
                 "name": "sys_id",
                 "fieldName": "sys_id",
                 "type": "data",
-                "width": 30,
+                "width": 0,
                 "header": {
                     "text": "sysid"
                 },
-                "visible": false,
-            },
-            {
-                "name": "__type",
-                "fieldName": "__type",
-                "type": "data",
-                "width": 40,
-                "header": {
-                    "text": "TYPE"
-                },
-                //"visible" : false,
             },
             {
                 "name": "wbs",
@@ -228,123 +207,28 @@
                 "header": {
                     "text": "WBS"
                 },
-                "groupFooter": {
-                    "text": " ",
-                    "expression": "max",
-                },
-                //mergeRule: {criteria: "value"},
-                "readOnly": true,
-                "editable": false,
-                styleName: "ni-rg-col-wbs",
             },
             {
-                "name": "in_charge",
-                "fieldName": "in_charge",
+                "name": "wbs_description",
+                "fieldName": "wbs_description",
                 "type": "data",
-                "width": 150,
+                "width": 200,
                 "header": {
-                    "text": "In Charge"
+                    "text": "WBS Description"
                 },
-                "styleName": "ni-rg-align-left ni-rg-readonly",
-                "readOnly": true,
-                "editable": false,
-            },
-            {
-                "name": "activity_type",
-                "fieldName": "activity_type",
-                "type": "data",
-                "width": 120,
-                "header": {
-                    "text": "Activity Type"
-                },
-                groupFooter: {
-                    "styleName": "ni-rg-align-center",
-                    "numberFormat": "#,###",
-                    valueCallback: function(grid, column, groupFooterIndex, group, value) {
-                        if (group.level == 2) {
-                            if (group.groupValue == "참고") {
-                                return " --- SUM ---";
-                            } else {
-                                return null;
-                            }
-                        }
-                    }
-                },
-                "styleName": "ni-rg-align-left ni-rg-readonly",
-                "readOnly": true,
-                "editable": false,
-                button: "action",
-                buttonVisibility: "always",
-            },
-            {
-                "name": "activity_rate",
-                "fieldName": "activity_rate",
-                "type": "number",
-                "numberFormat": "#,##0",
-                "width": 80,
-                "header": {
-                    "text": "Activity Rate"
-                },
-                "styleName": "ni-rg-align-right ni-rg-readonly",
-                "readOnly": true,
-                "editable": false,
-            },
-            {
-                "name": "rate_hour",
-                "fieldName": "rate_hour",
-                "width": 100,
-                "numberFormat": "#,##0",
-                "header": {
-                    "text": "Rate * Hour",
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-                "groupFooter": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-                "styleName": "ni-rg-align-right ni-rg-readonly",
-                "readOnly": true,
-                "editable": false,
-            },
-            {
-                "name": "total_amount",
-                "fieldName": "total_amount",
-                "type": "number",
-                "numberFormat": "#,##0",
-                "width": 60,
-                "header": {
-                    "text": "Total(H)"
-                },
-                "groupFooter": {
-                    "text": "",
-                    "expression": "sum",
-                    "numberFormat": "#,###",
-                    "styleName": "ni-rg-align-right"
-                },
-                "styleName": "ni-rg-align-right ni-rg-readonly",
-                "readOnly": true,
-                "editable": false,
             },
             {
                 "name": "month1",
                 "fieldName": "month1",
                 "numberFormat": "#,##0",
                 "type": "number",
-                "width": 60,
+                "width": 100,
                 "header": {
                     "text": "Month 1"
                 },
-                groupFooter: {
-                    "numberFormat": "#,###",
-                    valueCallback: function(grid, column, groupFooterIndex, group, value) {
-                        //debugger;
-                        const gm = grid.getGroupModel(group.index + 1);
-                        const d = grid.getGroupSummary(gm, "month1_amt", true).sum;
-                        return d;
-                    },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
                 },
             },
             {
@@ -352,170 +236,238 @@
                 "fieldName": "month2",
                 "numberFormat": "#,##0",
                 "type": "number",
-                "width": 60,
+                "width": 100,
                 "header": {
                     "text": "Month 2"
-                }
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
             },
             {
                 "name": "month3",
                 "fieldName": "month3",
                 "numberFormat": "#,##0",
                 "type": "number",
-                "width": 60,
+                "width": 100,
                 "header": {
                     "text": "Month 3"
-                }
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
             },
             {
                 "name": "month4",
                 "fieldName": "month4",
                 "numberFormat": "#,##0",
                 "type": "number",
-                "width": 60,
+                "width": 100,
                 "header": {
                     "text": "Month 4"
-                }
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
             },
             {
                 "name": "month5",
                 "fieldName": "month5",
                 "numberFormat": "#,##0",
                 "type": "number",
-                "width": 60,
+                "width": 100,
                 "header": {
                     "text": "Month 5"
-                }
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
             },
             {
                 "name": "month6",
                 "fieldName": "month6",
                 "numberFormat": "#,##0",
                 "type": "number",
-                "width": 60,
+                "width": 100,
                 "header": {
                     "text": "Month 6"
-                }
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
             },
             {
                 "name": "month7",
                 "fieldName": "month7",
                 "numberFormat": "#,##0",
                 "type": "number",
-                "width": 60,
+                "width": 100,
                 "header": {
                     "text": "Month 7"
-                }
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
             },
             {
                 "name": "month8",
                 "fieldName": "month8",
                 "numberFormat": "#,##0",
                 "type": "number",
-                "width": 60,
+                "width": 100,
                 "header": {
                     "text": "Month 8"
-                }
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
             },
             {
                 "name": "month9",
                 "fieldName": "month9",
                 "numberFormat": "#,##0",
                 "type": "number",
-                "width": 60,
+                "width": 100,
                 "header": {
                     "text": "Month 9"
-                }
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
             },
             {
                 "name": "month10",
                 "fieldName": "month10",
                 "numberFormat": "#,##0",
                 "type": "number",
-                "width": 60,
+                "width": 100,
                 "header": {
                     "text": "Month 10"
-                }
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
             },
             {
                 "name": "month11",
                 "fieldName": "month11",
                 "numberFormat": "#,##0",
                 "type": "number",
-                "width": 60,
+                "width": 100,
                 "header": {
                     "text": "Month 11"
-                }
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
             },
             {
                 "name": "month12",
                 "fieldName": "month12",
                 "numberFormat": "#,##0",
                 "type": "number",
-                "width": 60,
+                "width": 100,
                 "header": {
                     "text": "Month 12"
-                }
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
             },
             {
                 "name": "month13",
                 "fieldName": "month13",
                 "numberFormat": "#,##0",
                 "type": "number",
-                "width": 60,
+                "width": 100,
                 "header": {
                     "text": "Month 13"
-                }
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
             },
             {
                 "name": "month14",
                 "fieldName": "month14",
                 "numberFormat": "#,##0",
                 "type": "number",
-                "width": 60,
+                "width": 100,
                 "header": {
                     "text": "Month 14"
-                }
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
             },
             {
                 "name": "month15",
                 "fieldName": "month15",
                 "numberFormat": "#,##0",
                 "type": "number",
-                "width": 60,
+                "width": 100,
                 "header": {
                     "text": "Month 15"
-                }
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
             },
             {
                 "name": "month16",
                 "fieldName": "month16",
                 "numberFormat": "#,##0",
                 "type": "number",
-                "width": 60,
+                "width": 100,
                 "header": {
                     "text": "Month 16"
-                }
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
             },
             {
                 "name": "month17",
                 "fieldName": "month17",
                 "numberFormat": "#,##0",
                 "type": "number",
-                "width": 60,
+                "width": 100,
                 "header": {
                     "text": "Month 17"
-                }
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
             },
             {
                 "name": "month18",
                 "fieldName": "month18",
                 "numberFormat": "#,##0",
                 "type": "number",
-                "width": 60,
+                "width": 100,
                 "header": {
                     "text": "Month 18"
-                }
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
             },
             {
                 "name": "beyond18",
@@ -525,49 +477,50 @@
                 "width": 100,
                 "header": {
                     "text": "Beyond 18"
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
+            },
+            {
+                "name": "forecast_ptc",
+                "fieldName": "forecast_ptc",
+                "numberFormat": "#,##0",
+                "type": "number",
+                "width": 100,
+                "header": {
+                    "text": "Forecast PTC"
+                },
+                "footer": {
+                    "expression": "sum",
+                    "numberFormat": "#,##0"
+                },
+            },
+            {
+                "name": "base_month",
+                "fieldName": "base_month",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Base Month"
+                },
+            },
+            {
+                "name": "project",
+                "fieldName": "project",
+                "type": "data",
+                "width": 0,
+                "header": {
+                    "text": "Project"
                 }
-            },
-            {
-                "name": "__insert",
-                "fieldName": "__insert",
-                "type": "button",
-                "width": 40,
-                "header": {
-                    "text": "Insert"
-                },
-                styleName: 'ni-rg-col-button',
-                renderer: {
-                    "type": "button",
-                    "hideWhenEmpty": true
-                },
-                editable: false,
-            },
-            {
-                "name": "__delete",
-                "fieldName": "__delete",
-                "type": "button",
-                "width": 45,
-                "header": {
-                    "text": "Delete"
-                },
-                styleName: 'ni-rg-col-button',
-                renderer: {
-                    "type": "button",
-                    "hideWhenEmpty": true
-                },
-                editable: false,
-            },
+            }
         ];
 
-        const gvLayouts = [
+        var gvLayouts = [
             'sys_id',
             'wbs',
-            '__type',
-            'in_charge',
-            'activity_type',
-            'activity_rate',
-            'rate_hour',
-            'total_amount',
+            'wbs_description',
             'month1',
             'month2',
             'month3',
@@ -587,81 +540,11 @@
             'month17',
             'month18',
             'beyond18',
-            '__insert',
-            '__delete',
+            'forecast_ptc',
+            'base_month',
+            'project'
+
         ];
-
-        const gvFilesAmt = [];
-        for (const field of gvFields) {
-            if (field.fieldName.startsWith('month') || field.fieldName == 'beyond18') {
-                const amt_nm = field.fieldName + "_amt";
-                gvFilesAmt.push({
-                    fieldName: amt_nm,
-                    dataType: "number",
-                    valueExpression: "values['activity_rate'] * values['" + field.fieldName + "']",
-                });
-                gvColumns.push({
-                    "name": amt_nm,
-                    "fieldName": amt_nm,
-                    "numberFormat": "#,##0",
-                    "type": "number",
-                    "width": 60,
-                });
-                gvLayouts.push(amt_nm);
-            }
-        }
-        gvFields.push(...gvFilesAmt);
-
-        for (const col of gvColumns) {
-            if (col.name.startsWith('month') || col.name.startsWith('beyond18')) {
-                col.styleName = col.styleName || '' + ' ni-rg-align-right';
-                col.numberFormat = "#,###";
-                col.width = 90;
-                if (col.name.includes("_amt")) {
-                    col.visible = false;
-                    col.groupFooters = [{
-                        "text": " ",
-                        "expression": "sum",
-                        "numberFormat": "#,###"
-                    }];
-                } else {
-                    col.styleCallback = function(grid, cell) {
-                        const __type = grid.getValue(cell.index.itemIndex, "__type");
-                        if (__type == "입력") {
-                            return {
-                                styleName: col.styleName + " ni-rg-col-type-input",
-                            };
-                        } else {
-                            return {
-                                readOnly: true,
-                                editable: false,
-                                styleName: col.styleName + " ni-rg-col-type-ref"
-                            };
-                        }
-                    };
-                    col.groupFooters = [{
-                        numberFormat: "#,###",
-                        valueCallback: function(grid, column, groupFooterIndex, group, value) {
-                            //debugger;
-                            //  const gm = grid.getGroupModel(group.index+1);
-                            //  const d = grid.getGroupSummary(gm, col.name + "_amt", true).sum;
-                            //  return d;
-                            //if (group.level == 2) {
-                            //  if (group.groupValue == "참고") {
-                            //const gm = grid.getGroupModel(group.index);
-                            //const v = grid.getGroupSummary(gm, col.name + "_amt", true).sum;
-                            const v = grid.getGroupSummary(group, col.name + "_amt", true).sum;
-
-                            return v;
-                            //  } else {
-                            //    return null;
-                            //  }
-                            //}
-                        }
-                    }];
-                }
-            }
-        }
 
         function initGrid() {
             console.log(RealGrid);
@@ -673,57 +556,25 @@
             gv.setColumns(gvColumns);
             gv.setColumnLayout(gvLayouts);
 
-            gv.footers.visible = true;
             gv.commitEditor();
-            gv.undoable = true;
+            gv.undoable = false; //Item type is readOnly
 
-            //gv.columnByName("sys_id").visible =  false;
+            gv.columnByName("sys_id").visible = false;
+            gv.columnByName("project").visible = false;
             //gv.editOptions.commitWhenLeave = true;
-            gv.editOptions.commitByCell = true;
-            gv.editOptions.insertable = true;
+            gv.editOptions.commitByCell = false; //Item type is readOnly
+            gv.editOptions.insertable = false; //Item type is readOnly
             gv.setFixedOptions({
-                colCount: 7,
+                colCount: 2,
                 rightCount: 3,
-                resizable: true,
-                editable: true,
-                movable: true,
+                editable: false,
             });
-
             dp.softDeleting = false;
-
-            gv.groupBy(["wbs", "__type"], false);
-
-            gv.setRowGroup({
-                expandedAdornments: 'footer',
-                //collapsedAdornments : 'footer',
-                //headerStatement: '$' + "{" + "groupValue" +  "}",
-
-                expanderVisibility: 'none',
-                indentVisible: false,
-                mergeMode: true,
-                createFooterCallback: function(grid, group) {
-                    if (group.level == 1) {
-                        return false;
-                    }
-                    if (group.descendantCount > 1) return true;
-                },
-
-            });
-
-
-            //gv.rowGroup.setFooters([{styleCallback: function(grid, itemIndex, footerIndex) {
-            //  var dataRow = grid.getGroupModel(itemIndex, true).firstDataItem.dataRow;
-            //  var value = grid.getDataSource().getValue(dataRow, "__type");
-            //  return value && value.indexOf("입력") >= 0 ? "ni-rg-height-0" : "";
-            //}
-            //}]);
-
-            gv.checkBar.visible = false;
-            gv.stateBar.visible = false;
-
-            //const eleData = document.getElementById('gridData');
-            //const gridData = JSON.parse(eleData.value);
-            //dp.setRows(gridData);
+            gv.checkBar.visible = false; //Item type is readOnly
+            gv.stateBar.visible = false; //Item type is readOnly
+            gv.setEditOptions({
+                editable: false
+            }) //Item type is readOnly
 
             dp.setRows(c.data.gridData);
 
@@ -737,60 +588,13 @@
             dlgActivityType.close();
         }
         $scope.setActivityType = function() {
-            const curr = gv.getCurrent();
+            var curr = gv.getCurrent();
             dp.setValue(curr.dataRow, 'activity_type', moonc_at_data1.value);
             dp.setValue(curr.dataRow, 'in_charge', moonc_at_data2.value);
             dlgActivityType.close();
         }
     }
 
-    function initGridEtc() {
-        const _fnInsert = function() {
-            const curr = gv.getCurrent();
-            if (curr.dataRow < 0) {
-                // 데이터 행이 아님. (그룹핑 등)
-            } else {
-                const currIndex = Math.max(0, (curr.itemIndex));
-                const wbs = gv.getValue(currIndex, 'wbs');
-                const __type = gv.getValue(currIndex, '__type');
-                if (__type == "참고") {
-                    gv.beginInsertRow(currIndex, true);
-                    gv.setValue(currIndex + 1, 'wbs', wbs);
-                    gv.setValue(currIndex + 1, '__type', '참고');
-                    gv.setValue(currIndex + 1, '__insert', 'Ins');
-                    gv.setValue(currIndex + 1, '__delete', 'Del');
-                } else {
-                    gv.beginInsertRow(currIndex, false);
-                    gv.setValue(currIndex, 'wbs', wbs);
-                    gv.setValue(currIndex, '__type', '참고');
-                    gv.setValue(currIndex, '__insert', 'Ins');
-                    gv.setValue(currIndex, '__delete', 'Del');
-                }
-                gv.showEditor();
-                gv.setFocus();
-                gv.commit(true);
-            }
-        }
-
-        gv.onCellButtonClicked = function(grid, index, column) {
-            if (['activity_type', ].includes(index.column)) {
-                dlgActivityType.showModal();
-            }
-        };
-
-        gv.onCellItemClicked = function(grid, index, clickData) {
-            if (['__delete', ].includes(index.column.name)) {
-                if (index.dataRow >= 0) {
-                    dp.removeRow(index.dataRow);
-                }
-            } else if (['__insert', ].includes(index.column.name)) {
-                _fnInsert();
-            }
-        };
-
-        const btnIns = document.getElementById('bt-insert');
-        btnIns.addEventListener('click', _fnInsert);
-    };
 
     function gridSetColumnTitle(y, m) {
         var i = 0;
@@ -810,18 +614,18 @@
 
     function doGrid() {
         grid();
-        gridSetColumnTitle(2023, 4);
-        initGridEtc();
+        gridSetColumnTitle(c.data.base_month_y, c.data.base_month_m);
+        //initGridEtc();
         initFormEtc();
     }
 
     // 초기화 여러번 시도
-    const gridTry = [200, 300, 400, 500, 750, 1000, 1250, 1500, 2000, 2500, 3000, 3500, 4000];
-    for (const ms of gridTry) {
+    var gridTry = [200, 300, 400, 500, 750, 1000, 1250, 1500, 2000, 2500, 3000, 3500, 4000];
+    for (var ms of gridTry) {
         setTimeout(function() {
-            const logStr = 'doGrid[' + ms + 'ms]';
+            var logStr = 'doGrid[' + ms + 'ms]';
             console.log(logStr + ' : start');
-            const g = document.querySelector('#gridContainer .rg-grid');
+            var g = document.querySelector('#gridContainer .rg-grid');
             if (g) {
                 console.log(logStr + ' : already completed');
             } else {
@@ -830,13 +634,107 @@
                     doGrid();
                     console.log(logStr + ' : done');
                 } catch (e) {
-                    console.log(logStr + ' : fail');
+                    console.log(logStr + ' : fail why=' + e.message);
                 }
             }
         }, ms);
     }
 
-}]]></client_script>
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var buttons = document.querySelectorAll('.yoko-title-btn-wrap .yoko-btn-wrap button');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            this.classList.add('active');
+        });
+    });
+
+    var wrapper = document.querySelector('.yoko-search-form-wrapper');
+    if (wrapper) {
+        var forms = wrapper.querySelectorAll('.yoko-search-form-wrap > .yoko-search-form');
+        var maxHeight = 0;
+        // 모든 .yoko-search-form 요소의 높이를 확인하여 최대 높이를 찾습니다.
+        forms.forEach(function(form) {
+            if (form.offsetHeight > maxHeight) {
+                maxHeight = form.offsetHeight;
+            }
+        });
+        // 최대 높이로 모든 .yoko-search-form 요소의 높이를 설정합니다.
+        forms.forEach(function(form) {
+            form.style.height = maxHeight + 'px';
+        });
+    }
+
+
+    var toggleButtons = document.querySelectorAll(".yoko-btn-fold");
+
+    toggleButtons.forEach(button => {
+        button.addEventListener("click", function() {
+            const targetId = this.getAttribute("data-target");
+            const content = document.getElementById(targetId);
+            if (content.style.display === "block" || content.style.display === "") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+
+            this.classList.toggle("active");
+        });
+    });
+
+
+    // 슬림스크롤
+    $(".yoko-scroll").slimscroll({
+        height: 'auto',
+        alwaysVisible: true
+    });
+
+
+});
+
+
+$(document).ready(function() {
+    // 상위 메뉴에 호버시 하위 메뉴 표시
+    $('.yoko-menu').hover(function() {
+        $(this).find('.yoko-depth').stop(true, true).slideDown(200);
+    }, function() {
+        $(this).find('.yoko-depth').stop(true, true).slideUp(200);
+    });
+
+
+    // 하위메뉴 펼침
+    $('.yoko-dep-1').click(function(e) {
+        e.preventDefault();
+
+        const $targetWrap = $(this).children('.yoko-dep-2-wrap');
+        $('.yoko-dep-2-wrap').not($targetWrap).slideUp('fast');
+        $targetWrap.slideToggle('fast');
+        $(this).find('a').toggleClass('rotate');
+    });
+
+    $('.yoko-depth').mouseleave(function() {
+        $('.yoko-dep-2-wrap').slideUp('fast');
+    });
+
+
+    // 모달 열기
+    $('.yoko-btn-upload').click(function() {
+        $('.yoko-modal-normal').show();
+    });
+
+    // 모달 닫기
+    $('.yoko-btn-cancel').click(function() {
+        $('.yoko-modal-normal').hide();
+    });
+
+
+});]]></client_script>
         <controller_as>c</controller_as>
         <css>@charset "UTF-8";
 
@@ -1321,27 +1219,36 @@ th {
 */</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
-        <description>Man Hour</description>
+        <description>PRJ Cost Management Widget</description>
         <docs/>
         <field_list/>
         <has_preview>false</has_preview>
-        <id>budgetplanmngtwd03</id>
+        <id>prjcostmngtwd</id>
         <internal>false</internal>
-        <link><![CDATA[function link(scope, element, attrs, controller) {}]]></link>
-        <name>budgetPlanMngtWd03</name>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>prjCostMngtWd</name>
         <option_schema/>
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
 
-    data.key = $sp.getParameter("number");
-    data.gridUrl = '/x_yergb_bpm_SorinGrid_BPM.do?id_q=' + data.number;
+    var currentDate = new GlideDate();
+    var myresult = {};
 
-    if (data.key && input && input.readStatus) { // Update
+    data.number = $sp.getParameter("number");
+    data.plan_type = 'PRF';
+    data.sys_created_by = gs.getUser().getName();
+    data.sys_created_on = currentDate.getValue().toString();
+    data.base_month = currentDate.getByFormat("yyyyMM").toString();
+    data.base_month_y = currentDate.getYearNoTZ().toString();
+    data.base_month_m = currentDate.getMonthNoTZ().toString();
+
+    if (data.number) { // get Project
         var grProject = new GlideRecord('x_yergb_bpm_project');
-        grProject.addQuery('number', data.key);
+        grProject.addQuery('number', data.number);
         grProject.query();
         if (grProject.next()) {
+            data.project_key = grProject.getUniqueValue();
             data.number = grProject.number.toString(); //Project Number
             data.name = grProject.name.toString(); //Project Name
             data.pm = grProject.getDisplayValue('pm'); //PM Name
@@ -1351,81 +1258,234 @@ th {
             data.data_type = grProject.getDisplayValue('u_data_type'); // Data Type
             data.budget_type = grProject.getDisplayValue('u_budget_type'); // Budget Type
             data.customer = grProject.customer.name.toString(); // CustomerName
-            data.sys_id = grProject.sys_id;
+            data.sys_id = grProject.sys_id.toString(); // Project sys_id
+        }
+        if (data.project_key) { //Get Budget Plan
+            var grBudgetPlan = new GlideRecord('x_yergb_bpm_budget_plan');
+            grBudgetPlan.addQuery('project', data.project_key);
+            grBudgetPlan.query();
+
+            if (grBudgetPlan.next()) {
+                data.base_month = grBudgetPlan.base_month.toString(); // Base Month
+                if (data.base_month.length > 5) {
+                    data.base_month_y = data.base_month.substring(0, 4);
+                    data.base_month_m = data.base_month.substring(4, 6);
+                }
+                data.plan_type = grBudgetPlan.plan_type.toString(); // Plan Type
+                data.sys_created_by = grBudgetPlan.sys_created_by.toString(); // Create By User
+                data.sys_created_on = grBudgetPlan.sys_created_on.toString(); // Create Date
+                data.budgetPlanNumber = grBudgetPlan.number.toString(); //Number
+                data.budget_key = grBudgetPlan.getUniqueValue().toString(); // Budget SysId
+                data.dmr = grBudgetPlan.dmr.toString(); // DMR Approve line
+                data.state = grBudgetPlan.getDisplayValue('state'); // State
+                data.project = grBudgetPlan.project; //Project Reference
+            }
+
+            var totalContract = 0;
+            var totalCost = 0;
+            var grOrderItem = new GlideRecord('x_yergb_bpm_order_item');
+            grOrderItem.addQuery('project', data.project_key);
+            grOrderItem.addNotNullQuery('plan_gr_date');
+            grOrderItem.query();
+
+            while (grOrderItem.next()) {
+                totalContract += grOrderItem.extended_price; // Contract SUM
+                totalCost += grOrderItem.extended_cost; // Cost SUM
+                //Sum value by base month and WBS
+                var wbs = grOrderItem.getValue('wbs_6');
+                var amount = parseInt(grOrderItem.getValue('extended_cost'), 10);
+                var planGrDate = grOrderItem.getValue('plan_gr_date');
+                var planDate = new GlideDate();
+                planDate.setValue(planGrDate);
+                var yearmonth = planDate.getByFormat("yyyyMM");
+
+                if (!myresult[wbs]) {
+                    myresult[wbs] = {};
+                }
+                if (!myresult[wbs][yearmonth]) {
+                    myresult[wbs][yearmonth] = 0;
+                }
+                myresult[wbs][yearmonth] += amount;
+            }
+            var gpa = totalContract - totalCost;
+            var gp = gpa / totalContract;
+            data.contract = totalContract.toString();
+            data.total_cost = totalCost.toString();
+            data.gpa = gpa.toString();
+            data.gp = gp.toString() + '%';
         }
     }
-    data.gridUrl = '/x_yergb_bpm_SorinGrid_prod.do?id_q=' + data.sys_id;
 
+    if (data.data_type === 'ITEM') {
+        data.gridUrl = '/x_yergb_bpm_SorinGrid_item.do?project_sysid=' + data.sys_id + '&basemonth=' + data.base_month;
+    } else {
+        data.gridUrl = '/x_yergb_bpm_SorinGrid_wbs.do?project_sysid=' + data.sys_id + '&basemonth=' + data.base_month;
+    }
 
+    if (input) { //Update
+        var mymonth = input.base_month;
+        var numMonths = 18; // Number of months to generate
+        var currentMonth = parseInt(mymonth);
+        var yearmonths = []; //202406,202407 ~ 18개
 
+        for (var i = 0; i < numMonths; i++) {
+            yearmonths.push(currentMonth.toString());
+            currentMonth++;
+            if (currentMonth % 100 > 12) {
+                currentMonth += 88;
+            }
+        }
 
+        var myarr = ['month1', 'month2', 'month3', 'month4', 'month5', 'month6', 'month7', 'month8', 'month9', 'month10', 'month11', 'month12', 'month13', 'month14', 'month15', 'month16', 'month17', 'month18'];
 
+        var updatedResult = replaceYearMonthKeys(myresult, yearmonths, myarr);
 
-    function getGridData(item_sysid, basemonth) {
-        var gritem = new GlideRecord("x_yergb_bpm_cost");
+        var grUpdateBudgetPlan = new GlideRecord("x_yergb_bpm_budget_plan");
+        grUpdateBudgetPlan.get(input.budget_key); //Budget Plan sys_id
+
+        if (grUpdateBudgetPlan.getRowCount() > 0) {
+            grUpdateBudgetPlan.project = input.project_key;
+            grUpdateBudgetPlan.base_month = input.base_month;
+            grUpdateBudgetPlan.contract = input.contract;
+            grUpdateBudgetPlan.gpa = input.gpa;
+            grUpdateBudgetPlan.gp = input.gp;
+            grUpdateBudgetPlan.dmr = input.dmr;
+            grUpdateBudgetPlan.total_cost = input.total_cost;
+            grUpdateBudgetPlan.data_type = input.data_type;
+            grUpdateBudgetPlan.update();
+        } else { //Insert
+            grUpdateBudgetPlan.initialize();
+            grUpdateBudgetPlan.project = input.project_key;
+            grUpdateBudgetPlan.base_month = input.base_month;
+            grUpdateBudgetPlan.plan_type = input.plan_type;
+            grUpdateBudgetPlan.contract = input.contract;
+            grUpdateBudgetPlan.gpa = input.gpa;
+            grUpdateBudgetPlan.gp = input.gp;
+            grUpdateBudgetPlan.dmr = input.dmr;
+            grUpdateBudgetPlan.state = "1";
+            grUpdateBudgetPlan.total_cost = input.total_cost;
+            grUpdateBudgetPlan.data_type = input.data_type;
+            grUpdateBudgetPlan.insert();
+        }
+
+        //Beyond18 Calulate Data start
+        var strMonth = currentMonth.toString();
+
+        if (strMonth.length > 5) {
+            strMonth = strMonth.substring(0, 4) + '-' + strMonth.substring(4, 6) + '-01';
+        }
+
+        var dt = new GlideDate();
+        dt.setValue(strMonth);
+        var beyondDate = dt.getByFormat("yyyy-MM-dd");
+        //Beyond18 Calulate Data End
+
+        for (var wbs1 in updatedResult) {
+            //Beyond18 Calulate End
+            var queryOIBeyondCalulator = "plan_gr_date>javascript:gs.dateGenerate('" + beyondDate + "','end')^project=" + input.project_key + "^wbs_6=" + wbs1;
+            var queryWBSBudget = "project=" + input.project_key + "^wbs=" + wbs1;
+            var dataBeyond18 = 0;
+            var grOIBeyondCalulator = new GlideRecord('x_yergb_bpm_order_item');
+            grOIBeyondCalulator.addEncodedQuery(queryOIBeyondCalulator);
+            grOIBeyondCalulator.query();
+            while (grOIBeyondCalulator.next()) {
+                dataBeyond18 += grOIBeyondCalulator.extended_cost;
+            }
+            //Beyond18 Calulate End
+            gs.info("KMS dataBeyond18=" + dataBeyond18);
+
+            var monthData = updatedResult[wbs1];
+            var forecastPTC = 0;
+            var calforecastPTC = 0;
+            var grWBSBudget = new GlideRecord('x_yergb_bpm_wbs_budget');
+            grWBSBudget.addEncodedQuery(queryWBSBudget);
+            grWBSBudget.query();
+
+            if (grWBSBudget.next()) {
+                for (var upMonth in monthData) {
+                    grWBSBudget.setValue(upMonth, monthData[upMonth]);
+                    calforecastPTC += parseInt(monthData[upMonth]);
+                }
+                forecastPTC = calforecastPTC + dataBeyond18;
+                grWBSBudget.setValue("project", input.project_key);
+                grWBSBudget.setValue("beyond18", dataBeyond18);
+                grWBSBudget.setValue("forecast_ptc", forecastPTC);
+                grWBSBudget.update();
+
+            } else {
+                var insertWBSBudget = new GlideRecord('x_yergb_bpm_wbs_budget');
+                insertWBSBudget.initialize();
+                insertWBSBudget.setValue('wbs', wbs1);
+                insertWBSBudget.setValue('project', input.project_key);
+
+                for (var inMonth in monthData) {
+                    insertWBSBudget.setValue(inMonth, monthData[inMonth]);
+                    calforecastPTC += parseInt(monthData[inMonth]);
+                }
+                insertWBSBudget.setValue("beyond18", dataBeyond18);
+                insertWBSBudget.setValue("forecast_ptc", forecastPTC);
+                insertWBSBudget.insert();
+            }
+        }
+    }
+
+    function replaceYearMonthKeys(result, monthArray, arrArray) {
+        var newResult = {};
+
+        for (var wbs1 in result) {
+            newResult[wbs1] = {};
+
+            for (var ym in result[wbs1]) {
+                var index = monthArray.indexOf(ym);
+                if (index !== -1) {
+                    var newKey = arrArray[index];
+                    newResult[wbs1][newKey] = result[wbs1][ym];
+                }
+            }
+        }
+
+        return newResult;
+    }
+
+    function getGridData(project_key) {
+        var gritem = new GlideRecord("x_yergb_bpm_wbs_budget");
         gritem.orderBy("number");
+        gritem.addEncodedQuery('project=' + project_key);
         gritem.query();
         var tableinfo = [];
-        var prevWbs = '';
         while (gritem.next()) {
-            if (prevWbs && prevWbs !== gritem.wbs.getDisplayValue()) {
-                tableinfo.push({
-                    'sys_id': null,
-                    'wbs': prevWbs,
-                    '__type': '입력',
-                    'activity_type': '***INPUT***',
-                    '__insert': 'Ins',
-                });
-            }
             tableinfo.push({
                 'sys_id': gritem.sys_id.getDisplayValue(),
                 'wbs': gritem.wbs.getDisplayValue(),
-                '__type': '참고',
-                'in_charge': gritem.in_charge.getDisplayValue(),
-                'activity_type': gritem.activity_type.getDisplayValue(),
-                'activity_rate': parseInt(gritem.activity_rate.getDisplayValue().replace(/,/g, ''), 10) || 0,
-                'total_amount': parseInt(gritem.total_amount.getDisplayValue(), 10) || 0,
-                'month1': parseInt(gritem.month1.getDisplayValue(), 10) || 0,
-                'month2': parseInt(gritem.month2.getDisplayValue(), 10) || 0,
-                'month3': parseInt(gritem.month3.getDisplayValue(), 10) || 0,
-                'month4': parseInt(gritem.month4.getDisplayValue(), 10) || 0,
-                'month5': parseInt(gritem.month5.getDisplayValue(), 10) || 0,
-                'month6': parseInt(gritem.month6.getDisplayValue(), 10) || 0,
-                'month7': parseInt(gritem.month7.getDisplayValue(), 10) || 0,
-                'month8': parseInt(gritem.month8.getDisplayValue(), 10) || 0,
-                'month9': parseInt(gritem.month9.getDisplayValue(), 10) || 0,
-                'month10': parseInt(gritem.month10.getDisplayValue(), 10) || 0,
-                'month11': parseInt(gritem.month11.getDisplayValue(), 10) || 0,
-                'month12': parseInt(gritem.month12.getDisplayValue(), 10) || 0,
-                'month13': parseInt(gritem.month13.getDisplayValue(), 10) || 0,
-                'month14': parseInt(gritem.month14.getDisplayValue(), 10) || 0,
-                'month15': parseInt(gritem.month15.getDisplayValue(), 10) || 0,
-                'month16': parseInt(gritem.month16.getDisplayValue(), 10) || 0,
-                'month17': parseInt(gritem.month17.getDisplayValue(), 10) || 0,
-                'month18': parseInt(gritem.month18.getDisplayValue(), 10) || 0,
-                'beyond18': parseInt(gritem.beyond18.getDisplayValue(), 10) || 0,
-                '__delete': 'Del',
-                '__insert': 'Ins',
-            });
-            prevWbs = gritem.wbs.getDisplayValue();
-        }
-        if (prevWbs) {
-            tableinfo.push({
-                'sys_id': null,
-                'wbs': prevWbs,
-                '__type': '입력',
-                'activity_type': '***INPUT***',
-                '__insert': 'Ins',
+                'wbs_description': gritem.wbs.description.toString(),
+                'month1': parseInt(gritem.month1.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month2': parseInt(gritem.month2.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month3': parseInt(gritem.month3.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month4': parseInt(gritem.month4.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month5': parseInt(gritem.month5.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month6': parseInt(gritem.month6.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month7': parseInt(gritem.month7.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month8': parseInt(gritem.month8.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month9': parseInt(gritem.month9.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month10': parseInt(gritem.month10.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month11': parseInt(gritem.month11.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month12': parseInt(gritem.month12.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month13': parseInt(gritem.month13.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month14': parseInt(gritem.month14.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month15': parseInt(gritem.month15.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month16': parseInt(gritem.month16.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month17': parseInt(gritem.month17.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'month18': parseInt(gritem.month18.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'beyond18': parseInt(gritem.beyond18.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'forecast_ptc': parseInt(gritem.forecast_ptc.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'base_month': gritem.base_month.getDisplayValue(),
+                'project': project_key
             });
         }
         return tableinfo;
     }
-
-    data.gridData = getGridData();
+    data.gridData = getGridData(data.project_key);
     data.gridDataStr = JSON.stringify(data.gridData);
-
-
-
 
 })();
 
@@ -1435,133 +1495,165 @@ function sf1(a, b) {
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-19 02:06:36</sys_created_on>
-        <sys_id>85d793b683b20210856ceec0deaad31c</sys_id>
-        <sys_mod_count>241</sys_mod_count>
-        <sys_name>budgetPlanMngtWd03</sys_name>
+        <sys_created_on>2024-06-25 11:13:23</sys_created_on>
+        <sys_id>498e0cc183878210856ceec0deaad342</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>prjCostMngtWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_update_name>sp_widget_85d793b683b20210856ceec0deaad31c</sys_update_name>
+        <sys_update_name>sp_widget_498e0cc183878210856ceec0deaad342</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:08:10</sys_updated_on>
+        <sys_updated_on>2024-06-25 12:14:02</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 
-
-	<div class="yoko-container">
-        <div class="yoko-breadcrumb">Home > Project Budget Plan for Man Hour</div>
+<div class="yoko-container">
         <div class="yoko-title-btn-wrap">
-            <h1 class="yoko-title">Project Budget Plan for Man Hour</h1>
             <div class="yoko-btn-wrap">
+              <div ng-if='data.data_type == "ITEM"'>
+                <button class="yoko-btn yoko-btn-outline" ng-click="clickYProd()">Y-Prod</button>
+                <button class="yoko-btn yoko-btn-outline" ng-click="clickBOP()">BOP</button>
+                <button class="yoko-btn yoko-btn-outline" ng-click="clickManHour()">Man hour</button>
+                <button class="yoko-btn yoko-btn-outline" ng-click="clickOther()">Other</button>
+              </div>
+            </div>
+            <div class="yoko-btn-wrap">
+                <button class="yoko-btn yoko-btn-outline" ng-click="clickLoadData()">Load Data</button>
+                <button class="yoko-btn yoko-btn-outline" ng-click="clickApproval()">Approval Request</button>
+                <button class="yoko-btn yoko-btn-outline" ng-click="clickClose()">Close</button>
+                <button class="yoko-btn yoko-btn-fill" ng-click="clickMSF()">Make SAP File</button>
             </div>
         </div>
         <div class="yoko-content">
             <div class="yoko-search-form-wrap">
                 <div class="yoko-search-form">
-                    <div class="yoko-form-col">
-                        <div class="yoko-form-group">
-                            <label for="project_number" class="yoko-short-100">Project Number</label>
-                            <input type="text" name="project_number" value={{data.number}} placeholder="" disabled class="yoko-wid247">
-                        </div>
-                        <div class="yoko-form-group">
-                            <label for="customer" class="yoko-short-100">Customer</label>
-                            <input type="text" name="customer" value={{data.customer}} placeholder="" disabled class="yoko-wid247">
-                        </div>
-                        <div class="yoko-form-group">
-                            <label for="pm_name" class="yoko-short-100">PM Name</label>
-                            <div class="yoko-form-inline yoko-wid247">
-                                <input type="text" name="pm_number" value={{data.user}} placeholder="" disabled class="yoko-col40">
-                                <input type="text" name="pm_name" value={{data.pm}} placeholder="" disabled class="yoko-col60">
-                            </div>
-                        </div>
-                        <div class="yoko-form-group">
-                            <label for="project_name" class="yoko-short-100">Project Name</label>
-                            <input type="text" name="project_name" value={{data.name}} placeholder="" disabled class="yoko-wid247">
-                        </div>  
+                    <div class="yoko-form-group">
+                        <label for="base_month" class="yoko-short">Base Month</label>
+                        <input type="text" name="base_month" value={{data.base_month}} placeholder="" disabled class="yoko-wid140">
                     </div>
-
-                    <div class="yoko-form-col">
-                        <div class="yoko-form-group">
-                            <label for="data_type" class="yoko-short">Data type</label>
-                            <input type="text" name="data_type" value={{data.data_type}} placeholder="" disabled class="yoko-wid140">
-                        </div>
-                        <div class="yoko-form-group">
-                            <label for="budget_type" class="yoko-short">Budget type</label>
-                            <input type="text" name="budget_type" value="Man hour" placeholder="" disabled class="yoko-wid140">
-                        </div>
+                    <div class="yoko-form-group">
+                        <label for="plan_type" class="yoko-short">Plan Type</label>
+                        <input type="text" name="plan_type" value={{data.plan_type}} placeholder="" disabled class="yoko-wid140">
                     </div>
-                    <div class="yoko-form-col"> 
-                        <div class="yoko-form-group">
-                            <label for="region" class="yoko-short">Region</label>
-                            <input type="text" name="region" value={{data.region}} placeholder="" disabled class="yoko-wid140">
-                        </div>
-                        <div class="yoko-form-group">
-                            <label for="currency" class="yoko-short">Currency</label>
-                            <input type="text" name="currency" value={{data.currency}} placeholder="" disabled class="yoko-wid140">
-                        </div>
+                    <!--<div class="yoko-form-group">
+                        <label for="opened_by" class="yoko-short">Opened By</label>
+                        <input type="text" name="sys_created_by" value={{data.sys_created_by}} placeholder="" disabled class="yoko-wid140">
                     </div>
-                    
+                    <div class="yoko-form-group">
+                        <label for="opened" class="yoko-short">Opened</label>
+                        <input type="text" name="sys_created_on" value={{data.sys_created_on}} placeholder="" disabled class="yoko-wid160">
+                    </div> -->
                 </div>
             </div>
-          	<div class="yoko-grid-btn-wrap-grid">
-               <button id="bt-add" disabled>Add</button>
-               <button id="bt-insert">Insert</button>
-               <button id="bt-delete" disabled>Delete</button>
-               <button id="bt-save" disabled>Save</button>
+            <div class="yoko-search-form-wrapper">
+                <div class="yoko-search-form-wrap yoko-col60">
+                    <div class="yoko-search-form">
+                        <div class="yoko-form-col">
+                            <div class="yoko-form-group">
+                                <label for="project_number" class="yoko-short-100">Project Number</label>
+                                <input type="text" name="project_number" value={{data.number}} placeholder="" disabled class="yoko-wid247">
+                            </div>
+                            <div class="yoko-form-group" id="budgetPlanNumber" ng-if="data.budgetPlanNumber">
+                                <label for="Budget_plan_number" class="yoko-short-100">Budget Plan Number</label>
+                                <input type="text" name="Budget_plan_number" value={{data.budgetPlanNumber}} placeholder="" disabled class="yoko-wid247">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="customer" class="yoko-short-100">Customer</label>
+                                <input type="text" name="customer" value={{data.customer}} placeholder="" disabled class="yoko-wid247">
+                            </div>
+
+                            <div class="yoko-form-group">
+                                <label for="pm_name" class="yoko-short-100">PM Name</label>
+                                <div class="yoko-form-inline yoko-wid247">
+                                <input type="text" name="pm_number" value={{data.user}} placeholder="" disabled class="yoko-col40">
+                                <input type="text" name="pm_name" value={{data.pm}} placeholder="" disabled class="yoko-col60">
+                              </div>
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="project_name" class="yoko-short-100">Project Name</label>
+                                <input type="text" name="project_name" value={{data.name}} placeholder="" disabled class="yoko-wid247">
+                            </div>  
+                        </div>
+
+                        <div class="yoko-form-col">
+                            <div class="yoko-form-group">
+                                <label for="state" class="yoko-short">State</label>
+                                <input type="text" name="state" value={{data.state}} placeholder="" disabled class="yoko-wid140">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="date_type" class="yoko-short">Date type</label>
+                                <input type="text" name="date_type" value={{data.data_type}} placeholder="" disabled class="yoko-wid140">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="region" class="yoko-short">Region</label>
+                                <input type="text" name="region" value={{data.region}} placeholder="" disabled class="yoko-wid140">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="currency" class="yoko-short">Currency</label>
+                                <input type="text" name="currency" value={{data.currency}} placeholder="" disabled class="yoko-wid140">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="dmr" class="yoko-short">DMR</label>
+                                <div class="yoko-form-inline">
+                                    <input type="text" name="dmr" ng-model="data.dmr" value="" placeholder="" disabled class="yoko-wid140">
+                                    <button type="button" class="yoko-btn yoko-btn-search" disabled></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="yoko-search-form-wrap yoko-col40">
+                    <div class="yoko-search-form">
+                        <div class="yoko-form-col">
+                            <div class="yoko-form-group">
+                                <label class="yoko-short"></label>
+                                <div class="yoko-form-group-heading-wrap">
+                                    <div class="yoko-form-group-heading yoko-wid140">Last Month</div>
+                                    <div class="yoko-form-group-heading yoko-wid140">Current Month</div>
+                                </div>
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="contract1" class="yoko-short">Contract</label>
+                                <div class="yoko-form-inline">
+                                    <input type="text" id="contract1" name="contract1" ng-model="data.contract_last" value="" placeholder="" disabled class="yoko-wid140">
+                                    <input type="text" id="contract2" name="contract2" ng-model="data.contract" value="{{data.contract}}" placeholder="" disabled class="yoko-wid140">
+                                </div>
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="cost1" class="yoko-short">Cost</label>
+                                <div class="yoko-form-inline">
+                                    <input type="text" id="cost1" name="cost1" ng-model="data.total_cost_last" value="" placeholder="" disabled class="yoko-wid140">
+                                    <input type="text" id="cost2" name="cost2" ng-model="data.total_cost" value="{{data.total_cost}}" placeholder="" disabled class="yoko-wid140">
+                                </div>
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="gpa1" class="yoko-short">GPA</label>
+                                <div class="yoko-form-inline">
+                                    <input type="text" id="gpa1" name="gpa1" ng-model="data.gpa_last" value="" placeholder="" disabled class="yoko-wid140">
+                                    <input type="text" id="gpa2" name="gpa2" ng-model="data.gpa" value="{{data.gpa}}" placeholder="" disabled class="yoko-wid140">
+                                </div>
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="gp1" class="yoko-short">GP(%)</label>
+                                <div class="yoko-form-inline">
+                                    <input type="text" id="gp1" name="gp1" ng-model="data.gp_last" value="" placeholder="" disabled class="yoko-wid140">
+                                    <input type="text" id="gp2" name="gp2" ng-model="data.gp" value="{{data.gp}}" placeholder="" disabled class="yoko-wid140">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="out" id='gridContainer' style="width:100%; height: 450px;"></div>
-          	<input id="" type="hidden" value="{{data.gridUrl}}">
-          	<input id="gridData" type="hidden" value="{{data.gridData}}">
-          	<input id="" type="hidden" value="{{data.gridDataStr}}">
-          
-        </div>
+          	 <input id="" type="hidden" value="{{data.gridUrl}}">
+           	 <input id="gridData" type="hidden" value="{{data.gridData}}">
+          	 <input id="" type="hidden" value="{{data.gridDataStr}}">
+            </div>
+         <!--<iframe src={{data.gridUrl}} width='100%' height='500px' style='border:none;' id='myIframe'></iframe>-->
     </div>
-
-<dialog id="dlgActivityType" class="ni-backdrop" style="min-width:max(50vw, 300px);" >
-  <form method="dialog">
-    <header>
-      <h3>Header</h3>
-      <button class="" ng-click="closeDlgActivityType()"> Close </button>
-    </header>
-    <article class="" style="min-height: min(85vh, 300px); ">
-        Activity Type 가져오는 팝업구현<br>
-        Activity Type 가져오는 팝업구현<br>
-        Activity Type 가져오는 팝업구현<br>
-        Activity Type 가져오는 팝업구현<br>
-        <p><p>
-      <h3>Sample</h3>
-      	<div class="yoko-form-col">
-          <div class="yoko-form-group">
-            <label for="data_type" class="yoko-short">activity type</label>
-            <input type="text" id="moonc_at_data1" name="at_data1" value="TEST:ACT-TYPE" placeholder="" class="yoko-wid140">
-          </div>
-          <div class="yoko-form-group">
-            <label for="budget_type" class="yoko-short">in charge</label>
-            <input type="text" id="moonc_at_data2" name="at_data2" value="TEST:in-charge" placeholder="" class="yoko-wid140">
-          </div>
-        </div>
-      	<button ng-click="setActivityType()"> Set </button>
-       
-    </article>
-  </form>
-</dialog>
-
 <script defer>
-  //<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
-	//<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </---script>
-
-  //<link id="style-link" href="https://cdn.wooritech.com/realgrid/realgrid.2.8.2/realgrid-style.css" rel="stylesheet"/>
-  //<script defer type="text/javascript" src="https://cdn.wooritech.com/realgrid/realgrid.2.8.2/realgrid.2.8.2.min.js"></---script>
-
-	
-  
-  console.log('Html Template --------------------------');
-
-  console.log('mc-1');
   var realGrid2Lic = 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYkkSQt0t0CTeCSk1qaDqTRZ5JoV9H143uMO5+/xJSE3Lj4YewEIhlh/';
- 	
-  
 </script>]]></template>
     </sp_widget>
 </record_update>
