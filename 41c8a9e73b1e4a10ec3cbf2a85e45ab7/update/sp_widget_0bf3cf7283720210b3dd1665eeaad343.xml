@@ -8,6 +8,7 @@
 	var modalOrderType = document.getElementById("modalOrderType");
 	var modalProjectType = document.getElementById("modalProjectType");
 	var modalAnsoff = document.getElementById("modalAnsoff");
+	var modalJobType = document.getElementById('modalJobType');
 	
 	/* Server master values */
 	c.data.oiSysId = '';
@@ -29,11 +30,11 @@
 	c.data.showBtnRequest = false;
 	c.data.showBtnAuthorize = false;
 	
-	c.data.checkedSDG = false;
+	/*c.data.checkedSDG = false;
 	c.data.checkedDXP = false;
 	c.data.checkedAI = false;
 	c.data.checkedDES = false;
-	c.data.checkedSmart = false;
+	c.data.checkedSmart = false;*/
 	
 	c.data.itemsFlagName = [];
 	
@@ -149,8 +150,16 @@
 	
 	$scope.btnClickDMRSearch = function(idx) {
 		console.log("BTN : DMR Search--" + idx);
+		
+
+		if(idx == 1) {
+					modalJobType.style.display = 'block';
+			c.data.modalDmrType = 'JOB';
+		}
 		c.server.update().then(function(response) {
 			console.log('Server response:', response);
+			
+			c.data.modalDmrType = '';
 		});
 	}
 	
@@ -344,7 +353,17 @@
 
 		modalAnsoff.style.display = 'none';
 	}
+
+	$scope.clickDmrClass = function(item) {
+		c.data.jobTypeNm = item.name;
+		c.data.jobTypeSysId = item.sysId;
+		
+		modalJobType.style.display = 'none';
+	}
 	
+	$scope.closeDmrClass = function() {
+		modalJobType.style.display = 'none';
+	}
 	
 	c.getUrlParameter = function(param) {
 		return $location.search()[param];
@@ -712,6 +731,35 @@
 			}
 		} else if( (Number(c.data.oiStateCode) == "3") || 
 			(Number(c.data.oiStateCode) == "6") ) {
+			c.data.disSONm = true;
+			c.data.disSONmSearch = true;
+			c.data.disSONmInfo = true;
+			c.data.disOiAmtTC = true;
+			c.data.disOiAmtLC = true;
+			c.data.disTotEstCost = true;
+			c.data.disGpAmt = true;
+			c.data.disMpAmt = true;
+			c.data.disGpPerc = true;
+			c.data.disMpPerc = true;
+			c.data.disOrdType = true;
+			c.data.disTaxClass = true;
+			c.data.disIndustry = true;
+			c.data.disPayTerm = true;
+			c.data.disMaturDays = true;
+			c.data.disJobType = true;
+			c.data.disDmrClass = true;
+			c.data.disAttPO = true;
+			c.data.disAttBOM = true;
+			c.data.disAttESS = true;
+			c.data.disAttEtc = true;
+			c.data.disPrjType1 = true;
+			c.data.disPrjType2 = true;
+			c.data.disPrjType3 = true;
+			c.data.disAnsoff1 = true;
+			c.data.disAnsoff2 = true;
+			c.data.disAnsoff3 = true;
+			c.data.disChkFlag = true;
+			
 			c.data.showBtnAuthorize = false;
 			c.data.showBtnRequest = false;
 		}
@@ -1068,13 +1116,18 @@ a {text-decoration: none;}
 		data.oiSysId = $sp.getParameter("sys_id");
 		data.gridUrl = '/x_yergb_bpm_SorinGrid_OI.do?id_o=' + data.oiSysId;
 		
-		data.itemsFlagName = [];
+		data.itemsFlag = [];
 		var grData = new GlideRecord('x_yergb_bpm_flag_master');
-		grData.addQuery('active', true);
+		//grData.addQuery('active', true);
 		grData.addQuery('module', 'OI Report');
 		grData.query();
 		while(grData.next()) {
-			data.itemsFlagName.push(grData.code.toString());
+			console.log(grData.active.toString());
+			data.itemsFlag.push({
+				name : grData.code.toString(), 
+				checked : grData.active.toString(),
+				sysid : grData.sys_id.toString()			
+			});
 		}
 		
 		getDetailGridData();
@@ -1093,6 +1146,10 @@ a {text-decoration: none;}
 			data.oiState = oiReportData.state.getDisplayValue().toString();
 			data.oiStateCode = oiReportData.state.toString(); 
 			data.opener = oiReportData.requestor.user_name.toString();
+			data.jobTypeSysId = oiReportData.job_type.toString();
+			data.dmrAmt = oiReportData.dmr_amount_level.toString();
+			data.dmrMP = oiReportData.dmr_mp_level.toString();
+			data.dmrGP = oiReportData.dmr_gp_level.toString();
 			data.oiAmtLC = oiReportData.oi_amount_lc.toString();
 			data.oiAmtTC = oiReportData.oi_amount_tc.toString();
 			data.gpAmt = oiReportData.gp_amount_lc.toString();
@@ -1107,7 +1164,6 @@ a {text-decoration: none;}
 			ordTpCode = oiReportData.order_type.toString();
 			taxCode = oiReportData.tax_classification.toString();
 			payCode = oiReportData.payment_terms.toString();
-			console.log('PAY CODE : ' + payCode);
 			
 			var grC;
 			if(ordTpCode != '') {
@@ -1144,6 +1200,18 @@ a {text-decoration: none;}
 					data.payTermsNm = grC.name.toString();
 					data.payTermsCode = grC.code.toString();
 				}
+			}
+			
+			/* Job Type */
+			if( !isEmpty(data.jobTypeSysId) ) {
+				var grJ = new GlideRecord('x_yergb_bpm_common_code');
+				grJ.initialize();
+				grJ.addQuery('category', 'Job Type');
+				grJ.addQuery('sys_id', data.jobTypeSysId);
+				grJ.query();
+				while(grJ.next()) {
+					data.jobTypeNm = grJ.name.toString();
+				}	
 			}
 			
 			// get Project type
@@ -1213,7 +1281,6 @@ a {text-decoration: none;}
 			}
 			
 			data.rfqSysId = oiReportData.rfq_entry.toString();
-			
 		}
 
 	}
@@ -1230,6 +1297,41 @@ a {text-decoration: none;}
 			data.quotSysId = rfqEntryData.quotation.toString();
 			data.salesMngNm = rfqEntryData.sales_manager.user_name.toString();
 			data.salesCompanyNm = rfqEntryData.sales_manager.company.name.toString();
+		}
+		
+		var rStp = new GlideRecord('sys_process_flow');
+		rStp.initialize();
+		rStp.addQuery('table', 'x_yergb_bpm_oi_report');
+		rStp.query();
+		var reqSys = '';
+		var reqOrd = '';
+		var autSys = '';
+		var autOrd = '';
+		while(rStp.next()){
+			if(rStp.name.toString() == 'requested') {
+				reqSys = rStp.sys_id.toString();
+				reqOrd = rStp.order.toString();
+			} else if(rStp.name.toString() == 'authorize'){
+				autSys = rStp.sys_id.toString();
+				autOrd = rStp.order.toString();
+			}
+		}
+		
+		
+		if(data.salesCompanyNm == 'YCN') {
+			if(Number(reqOrd) < Number(autOrd)) {
+				rStp.initialize();
+				rStp.get(reqSys);
+				rStp.setValue('order', autOrd);
+				rStp.update();
+				
+				rStp.initialize();
+				rStp.get(autSys);
+				rStp.setValue('order', reqOrd);
+				rStp.update();
+				
+				data.redirect_sys_id = input.oiSysId;
+			}
 		}
 	}
 
@@ -1271,7 +1373,12 @@ a {text-decoration: none;}
 			data.redirect_sys_id = oiRptTr.getUniqueValue();
 		} else if(input.btnHeaderType == 'oiUpdate') {
 			console.log('SERVER BTN :: OI UPDATE');
+			console.log('JOB:' + getValueOrEmptyString(input.jobTypeSysId));
 			oiRptTr.get(input.oiSysId);
+			oiRptTr.setValue('job_type', getValueOrEmptyString(input.jobTypeSysId));
+			oiRptTr.setValue('dmr_amount_level', getValueOrEmptyString(input.dmrAmt));
+			oiRptTr.setValue('dmr_mp_level', getValueOrEmptyString(input.dmrMP));
+			oiRptTr.setValue('dmr_gp_level', getValueOrEmptyString(input.dmrGP));
 			oiRptTr.setValue('oi_amount_lc', getValueOrEmptyString(input.oiAmtLC));
 			oiRptTr.setValue('oi_amount_tc', getValueOrEmptyString(input.oiAmtTC));
 			oiRptTr.setValue('gp_amount_lc', getValueOrEmptyString(input.gpAmt));
@@ -1289,7 +1396,6 @@ a {text-decoration: none;}
 			// Update version.
 			
 			// Update Project type list
-			console.log('SERV:PRJ TYPE PROCESS');
 			var prjTR = new GlideRecord('x_yergb_bpm_oi_project_type');
 			prjTR.initialize();
 			prjTR.addQuery('oi_report', input.oiSysId);
@@ -1317,7 +1423,6 @@ a {text-decoration: none;}
 			}
 			
 			// Update Ansoff type list
-			console.log('SERV:ANSOFF TYPE PROCESS');
 			var ansTR = new GlideRecord('x_yergb_bpm_oi_ansoff_type');
 			ansTR.initialize();
 			ansTR.addQuery('oi_report', input.oiSysId);
@@ -1345,6 +1450,20 @@ a {text-decoration: none;}
 			}
 			
 			// Update Flag list
+			var flagR = new GlideRecord('x_yergb_bpm_flag_master')
+			//console.log('checked length :' + input.itemsFlag.length);
+			for(var k = 0; k<input.itemsFlag.length; k++) {
+				console.log('checked:' + input.itemsFlag[k].sysid);
+				console.log('checked:' + input.itemsFlag[k].checked);
+				flagR.initialize();
+				flagR.get(input.itemsFlag[k].sysid);
+				if(input.itemsFlag[k].checked == true) {
+					flagR.setValue('active', true);
+				} else {
+					flagR.setValue('active', false);
+				}
+				flagR.update();
+			}
 		} else if(input.btnHeaderType == 'request') {
 			oiRptTr.get(input.oiSysId);
 			oiRptTr.setValue('state', '3');
@@ -1487,6 +1606,25 @@ a {text-decoration: none;}
 		}
 	}
 	
+	/* Job type Modal */
+	if(input && input.modalDmrType=='JOB') {
+		console.log('SERVER:JOB=' + input.modalDmrType);
+		data.itemsJobType = [];
+		var rJob = new GlideRecord('x_yergb_bpm_common_code');
+		rJob.initialize();
+		rJob.addQuery('category', 'Job Type');
+		rJob.query();
+		while(rJob.next()) {
+			console.log('SERVER JOB : ' + rJob.name.toString());
+			data.itemsJobType.push({
+				name : rJob.name.toString(),
+				code : rJob.code.toString(),
+				desc : rJob.description.toString(),
+				sysId : rJob.sys_id.toString()
+			});
+		}
+	}
+	
 	/* Project type Modal */
 	if(input && input.modalProjectType) {
 		data.itemsProjecttype = [];
@@ -1543,14 +1681,14 @@ a {text-decoration: none;}
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>638</sys_mod_count>
+        <sys_mod_count>740</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-26 06:24:07</sys_updated_on>
+        <sys_updated_on>2024-06-26 11:48:35</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -1730,7 +1868,8 @@ a {text-decoration: none;}
                                         <input type="text" name="inputJobType" value="" ng-model='c.data.jobTypeNm' ng-disabled='c.data.disJobType' placeholder="" class="yoko-wid100">
                                         <button type="button" class="yoko-btn yoko-btn-search" ng-disabled='c.data.disJobType' ng-click="btnClickDMRSearch(1)"></button>
                                         <button type="button" class="yoko-btn yoko-btn-info-fill" ng-disabled='c.data.disJobType' ng-click="btnClickDMRInfo(1)"></button>
-                                        <button type="button" class="yoko-btn yoko-btn-load" ng-disabled='c.data.disJobType' ng-click="btnClickDMRLoad()">Load</button>
+                                       <!-- <button type="button" class="yoko-btn yoko-btn-load" ng-disabled='c.data.disJobType' ng-click="btnClickDMRLoad()">Load</button> -->
+                                      	<input type='hidden' value='' ng-model='c.data.jobTypeSysId'>
                                     </div>
                                 </div>
                             </div>
@@ -1743,6 +1882,30 @@ a {text-decoration: none;}
                                         <button type="button" class="yoko-btn yoko-btn-info-fill" ng-disabled='c.data.disDmrClass' ng-click="btnClickDMRInfo(2)"></button>
                                     </div>
                                     <input type="text" name="inputDmrClassNm" value="" ng-model="c.data.DmrClassCode" placeholder="" disabled class="yoko-wid140">
+                                </div>
+                            </div>
+                          	<div class="yoko-form-group">
+                                <label for="lbDmrClass" class="yoko-short">Amount Level</label>
+                                <div class="yoko-form-inline">
+                                    <div class="yoko-form-inline">
+                                        <input type="text" name="inputDmrAmt" value="" ng-model="c.data.dmrAmt" ng-disabled='c.data.disDmrClass' placeholder="" class="yoko-wid300">
+                                    </div>
+                                </div>
+                            </div>
+                          	<div class="yoko-form-group">
+                                <label for="lbDmrClass" class="yoko-short">MP Level</label>
+                                <div class="yoko-form-inline">
+                                    <div class="yoko-form-inline">
+                                        <input type="text" name="inputDmrMP" value="" ng-model="c.data.dmrMP" ng-disabled='c.data.disDmrClass' placeholder="" class="yoko-wid300">
+                                    </div>
+                                </div>
+                            </div>
+                          	<div class="yoko-form-group">
+                                <label for="lbDmrClass" class="yoko-short">GP Level</label>
+                                <div class="yoko-form-inline">
+                                    <div class="yoko-form-inline">
+                                        <input type="text" name="inputDmrGP" value="" ng-model="c.data.dmrGP" ng-disabled='c.data.disDmrClass' placeholder="" class="yoko-wid300">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1915,19 +2078,19 @@ a {text-decoration: none;}
                                                 <div class="yoko-form-group">
                                                     <label class="checkbox-label">
                                                         <div class="custom-checkbox">
-                                                            <input type="checkbox" ng-disabled='c.data.disChkFlag' [checked]="c.data.checkedSDG" />
+                                                            <input type="checkbox" ng-disabled='c.data.disChkFlag' ng-checked='c.data.itemsFlag[0].checked' />
                                                             <span class="checkmark"></span>
                                                         </div>
-                                                        {{c.data.itemsFlagName[0]}}
+                                                        {{c.data.itemsFlag[0].name}}
                                                     </label>
                                                 </div>
                                                 <div class="yoko-form-group">
                                                     <label class="checkbox-label">
                                                         <div class="custom-checkbox">
-                                                            <input type="checkbox" ng-disabled='c.data.disChkFlag' [checked]="c.data.checkedDXP" />
+                                                            <input type="checkbox" ng-disabled='c.data.disChkFlag' ng-checked='c.data.itemsFlag[1].checked' />
                                                             <span class="checkmark"></span>
                                                         </div>
-                                                        {{c.data.itemsFlagName[1]}}
+                                                        {{c.data.itemsFlag[1].name}}
                                                     </label>
                                                 </div>
                                             </div>
@@ -1935,19 +2098,19 @@ a {text-decoration: none;}
                                                 <div class="yoko-form-group">
                                                     <label class="checkbox-label">
                                                         <div class="custom-checkbox">
-                                                            <input type="checkbox" ng-disabled='c.data.disChkFlag' [checked]="c.data.checkedAI" />
+                                                            <input type="checkbox" ng-disabled='c.data.disChkFlag' ng-checked='c.data.itemsFlag[2].checked' />
                                                             <span class="checkmark"></span>
                                                         </div>
-                                                        {{c.data.itemsFlagName[2]}}
+                                                        {{c.data.itemsFlag[2].name}}
                                                     </label>
                                                 </div>
                                                 <div class="yoko-form-group">
                                                     <label class="checkbox-label">
                                                         <div class="custom-checkbox">
-                                                            <input type="checkbox" ng-disabled='c.data.disChkFlag' [checked]="c.data.checkedDES" />
+                                                            <input type="checkbox" ng-disabled='c.data.disChkFlag' ng-checked='c.data.itemsFlag[3].checked' />
                                                             <span class="checkmark"></span>
                                                         </div>
-                                                        {{c.data.itemsFlagName[3]}}
+                                                        {{c.data.itemsFlag[3].name}}
                                                     </label>
                                                 </div>
                                             </div>
@@ -1955,10 +2118,10 @@ a {text-decoration: none;}
                                                 <div class="yoko-form-group">
                                                     <label class="checkbox-label">
                                                         <div class="custom-checkbox">
-                                                            <input type="checkbox" ng-disabled='c.data.disChkFlag' [checked]="c.data.checkedSmart" />
+                                                            <input type="checkbox" ng-disabled='c.data.disChkFlag' ng-checked='c.data.itemsFlag[4].checked' />
                                                             <span class="checkmark"></span>
                                                         </div>
-                                                        {{c.data.itemsFlagName[4]}}
+                                                        {{c.data.itemsFlag[4].name}}
                                                     </label>
                                                 </div>
                                             </div>
@@ -2122,13 +2285,14 @@ a {text-decoration: none;}
                 </div>
             </div>
 
-						<div class="yoko-grid-btn-wrap-grid">
-              <button id="bt-add" ng-click='gridDetailBtnClick(1)'>Add</button>
-              <button id="bt-insert" ng-click='gridDetailBtnClick(2)'>Insert</button>
-              <button id="bt-delete" ng-click='gridDetailBtnClick(3)'>Delete</button>
-              <button id="bt-save" ng-click='gridDetailBtnClick(4)'>Save</button>
+						<div class="yoko-grid-btn-wrap-grid" style='margin-'>
+              <button class="yoko-btn yoko-btn-outline" id="bt-add" ng-click='gridDetailBtnClick(1)'>Add</button>
+              <button class="yoko-btn yoko-btn-outline" id="bt-insert" ng-click='gridDetailBtnClick(2)'>Insert</button>
+              <button class="yoko-btn yoko-btn-outline" id="bt-delete" ng-click='gridDetailBtnClick(3)'>Delete</button>
+              <button class="yoko-btn yoko-btn-outline" id="bt-save" ng-click='gridDetailBtnClick(4)'>Save</button>
+              <div id='gridContainer' style="width:100%; height: 400px; margin-top:5px;"></div>
             </div>
-          	<div id='gridContainer' style="width:100%; height: 400px; "></div>
+          	
             
         </div>
     </div>
@@ -2195,6 +2359,29 @@ a {text-decoration: none;}
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" ng-click="closeModalAnsoff()">Close</button>
+            </div>
+        </div>
+    </div>
+  
+  	<!-- Modal JOB TYPE -->
+    <div id="modalJobType" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>JOB Type</h2>
+            </div>
+            <div class="modal-body">
+                <ul id="container" class="container">
+                    <li ng-repeat="item in c.data.itemsJobType">
+                      <span ng-click="clickDmrClass(item)">{{item.name}}</span>
+                    </li>
+                </ul>
+  
+                <div class="pagination" id="pagination"></div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="closeDmrClass()">Close</button>
             </div>
         </div>
     </div>
