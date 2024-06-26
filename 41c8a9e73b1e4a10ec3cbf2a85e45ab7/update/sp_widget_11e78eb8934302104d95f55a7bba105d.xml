@@ -10,7 +10,7 @@
     c.data.reasonCodeRequestDueDateMandatory = false
     c.data.reasonRemarkMandatory = false
     c.data.quotationTypeSelectMandatory = false
-		//c.data.copy_sys_id = false	
+    //c.data.copy_sys_id = false	
 
     /////////////////////////////////////// 파라메터 체크
     c.getUrlParameter = function(param) {
@@ -27,7 +27,7 @@
     console.log('Value of yourParameterName:', urlSysId);
     c.data.urlSysId = urlSysId;
     // Call the server script
-   
+
 
     var data = {
         message: "Hello from Sender Widget",
@@ -54,18 +54,27 @@
     //////////////////////////////////// 세이브 클릭하고 데이터 넘기기
     $scope.btnSave = function() {
         // Get the value from the input field using ng-model
+			var inputCurrency = document.getElementsByName('currency')[0];
 
-        if (urlSysId) { //이거 업데이트임 url 에 sysid가 존재하니까
-            alert("UPDTATETE")
+			if (c.data.currency == 'undefined' || !c.data.currency) {
+            alert("Mandatory is empty");
+            //asterik.style.color = "red";
+            c.data.currencyMandatory = true
+
+            inputCurrency.style.border = "2px solid red";
+        }
+			else{
+				if (urlSysId) { //이거(=) 업데이트임 url 에 sysid가 존재하니까
+           //alert("UPDTATETE")
             c.data.isUpdate = true;
             c.server.update().then(function(response) {
-							//location.reload();
+                //location.reload();
                 if (response.data && response.data.result) {
                     //location.reload();
                 }
             });
         } else { // 이거 새로 넣는거임
-					 alert("INSERT")
+           // alert("INSERT")
             c.data.isInsert = true;
             c.server.update().then(function(response) {
                 window.location.href = "/sp?id=rfqentry&sys_id=" + c.data.redirect_sys_id;
@@ -75,10 +84,16 @@
                 }
             });
         }
+			}
+			
+			
+			
+			
+        
 
 
     };
-	
+
     /////////////////////////////////   Assess 버튼 클릭
     $scope.btnAssess = function() {
         //alert("ASSESS?")
@@ -233,8 +248,8 @@
         });
 
     };
-	
-	
+
+
     //////////////////////////////////  모달창 관련한 로직
 
     // Get the modal
@@ -261,6 +276,7 @@
         c.data.refer_assigned_to_modal = false
         c.data.refer_contract_modal = false
         c.data.refer_contract_country_modal = false
+			c.data.refer_copy_modal = false;
         c.data.items = ""
         c.data.modalTitle = ""
     }
@@ -275,6 +291,7 @@
         c.data.refer_assigned_to_modal = false
         c.data.refer_contract_modal = false
         c.data.refer_contract_country_modal = false
+			c.data.refer_copy_modal = false;
         c.data.items = ""
         c.data.modalTitle = ""
     }
@@ -290,6 +307,7 @@
             c.data.refer_assigned_to_modal = false
             c.data.refer_contract_modal = false
             c.data.refer_contract_country_modal = false
+					c.data.refer_copy_modal = false;
             c.data.items = ""
             c.data.modalTitle = ""
         }
@@ -306,10 +324,13 @@
             c.logSysId = function(number, sys_id, code) {
                 c.data.requester = number
                 c.data.requester_sys_id = sys_id
+                modal.style.display = "none";
+
             };
         });
         var modal = document.getElementById("modalTest");
         modal.style.display = "block";
+
     };
 
     $scope.btnRefQuotation = function(sys_id) {
@@ -339,6 +360,21 @@
                 //alert('Selected sys_id: ' + sys_id + ' ' + number);
                 c.data.assignment_group = number
                 c.data.assignment_group_sys_id = sys_id
+
+
+                modal.style.display = "none";
+                c.data.refer_end_user_modal = false
+                c.data.refer_requester_modal = false
+                c.data.refer_quotation_modal = false
+                c.data.refer_assignment_group_modal = false
+                c.data.refer_assigned_to_modal = false
+                c.data.refer_contract_modal = false
+                c.data.refer_contract_country_modal = false
+							c.data.refer_copy_modal = false;
+                c.data.items = ""
+                c.data.modalTitle = ""
+
+
             };
 
         });
@@ -357,6 +393,19 @@
             c.logSysId = function(number, sys_id) {
                 c.data.assigned_to = number
                 c.data.assigned_to_sys_id = sys_id
+
+
+                modal.style.display = "none";
+                c.data.refer_end_user_modal = false
+                c.data.refer_requester_modal = false
+                c.data.refer_quotation_modal = false
+                c.data.refer_assignment_group_modal = false
+                c.data.refer_assigned_to_modal = false
+                c.data.refer_contract_modal = false
+                c.data.refer_contract_country_modal = false
+							c.data.refer_copy_modal = false;
+                c.data.items = ""
+                c.data.modalTitle = ""
             };
         });
         var modal = document.getElementById("modalTest");
@@ -373,6 +422,24 @@
             c.data.end_user = number
             c.data.end_user_sys_id = sys_id
             c.data.end_user_code = code
+
+
+            modal.style.display = "none";
+            c.data.refer_end_user_modal = false
+            c.data.refer_requester_modal = false
+            c.data.refer_quotation_modal = false
+            c.data.refer_assignment_group_modal = false
+            c.data.refer_assigned_to_modal = false
+            c.data.refer_contract_modal = false
+            c.data.refer_contract_country_modal = false
+					c.data.refer_copy_modal = false;
+            c.data.items = ""
+            c.data.modalTitle = ""
+
+
+
+
+
         };
         var modal = document.getElementById("modalTest");
         modal.style.display = "block";
@@ -387,6 +454,19 @@
                 c.data.contract = number
                 c.data.contract_sys_id = sys_id
                 c.data.contract_code = code
+
+
+                modal.style.display = "none";
+                c.data.refer_end_user_modal = false
+                c.data.refer_requester_modal = false
+                c.data.refer_quotation_modal = false
+                c.data.refer_assignment_group_modal = false
+                c.data.refer_assigned_to_modal = false
+                c.data.refer_contract_modal = false
+                c.data.refer_contract_country_modal = false
+							c.data.refer_copy_modal = false;
+                c.data.items = ""
+                c.data.modalTitle = ""
             };
 
         });
@@ -404,6 +484,19 @@
             c.logSysId = function(number, sys_id) {
                 c.data.contract_country = number
                 c.data.contract_country_sys_id = sys_id
+
+
+                modal.style.display = "none";
+                c.data.refer_end_user_modal = false
+                c.data.refer_requester_modal = false
+                c.data.refer_quotation_modal = false
+                c.data.refer_assignment_group_modal = false
+                c.data.refer_assigned_to_modal = false
+                c.data.refer_contract_modal = false
+                c.data.refer_contract_country_modal = false
+							c.data.refer_copy_modal = false;
+                c.data.items = ""
+                c.data.modalTitle = ""
             };
 
         });
@@ -421,6 +514,19 @@
             c.logSysId = function(number, sys_id) {
                 c.data.currency = number
                 c.data.currency_sys_id = sys_id
+
+
+                modal.style.display = "none";
+                c.data.refer_end_user_modal = false
+                c.data.refer_requester_modal = false
+                c.data.refer_quotation_modal = false
+                c.data.refer_assignment_group_modal = false
+                c.data.refer_assigned_to_modal = false
+                c.data.refer_contract_modal = false
+                c.data.refer_contract_country_modal = false
+							c.data.refer_copy_modal = false;
+                c.data.items = ""
+                c.data.modalTitle = ""
             };
 
         });
@@ -429,28 +535,45 @@
         modal.style.display = "block";
 
     };
-	
-	
-		$scope.btnCopy = function() {
+
+
+    $scope.btnCopy = function() {
         //alert(c.data.isRead)
-			  c.data.refer_copy_modal = true;
+        c.data.refer_copy_modal = true;
         c.data.isCopy = true;
         c.data.isRead = false;
-  
-			c.server.update().then(function(response) {
-				            	  alert("we start copying now")
+
+        c.server.update().then(function(response) {
+           // alert("we start copying now")
             console.log('Server response:', response);
             c.logSysId = function(number, sys_id) {
-            		c.data.isRead = false;
-								c.data.copy_sys_id = sys_id	
-									
-								c.server.update().then(function(response) {
-            	  alert("we are copying now")
-        c.data.isCopy = false;
+                c.data.isRead = false;
+                c.data.copy_sys_id = sys_id
 
-									
-        });
-								
+
+
+
+                c.server.update().then(function(response) {
+                    //alert("we are copying now")
+                    c.data.isCopy = false;
+
+
+
+                    modal.style.display = "none";
+                    c.data.refer_end_user_modal = false
+                    c.data.refer_requester_modal = false
+                    c.data.refer_quotation_modal = false
+                    c.data.refer_assignment_group_modal = false
+                    c.data.refer_assigned_to_modal = false
+                    c.data.refer_contract_modal = false
+                    c.data.refer_contract_country_modal = false
+						        c.data.refer_copy_modal = false;
+
+                    c.data.items = ""
+                    c.data.modalTitle = ""
+
+                });
+
             };
 
         });
@@ -460,8 +583,8 @@
 
 
     };
-	
-	
+
+
     // In your controller
     // 이거는 어딘가 바뀌는거 감시하는거 
     $scope.$watch('c.data.contract', function(newVal, oldVal) {
@@ -510,10 +633,8 @@
 
 
     c.server.update().then(function(response) {
-       //c.data.isRead = false;
-			
-			
-			
+        //c.data.isRead = false;
+
     });
 }
 
@@ -1087,9 +1208,11 @@ while(grLabel.next()) {
     var grC = new GlideRecord('core_company')
     if (grC.get(grUCompany)) {
         var currency = grC.u_currency.code
-        //gs.addInfoMessage(currency)
+       // gs.addInfoMessage(currency)
         data.currency = grC.u_currency.code.toString()
         data.currency_sys_id = grC.u_currency.toString()
+       // gs.addInfoMessage( data.currency)
+       // gs.addInfoMessage(data.currency_sys_id)
 
     }
 
@@ -1262,8 +1385,8 @@ while(grLabel.next()) {
             */
     }
 		else if (input && input.isCopy) { //기존 레코드를 읽어와서 업데이트 할거임
-      	gs.addErrorMessage("miraclufaiewhglweahg")  
-			   var grI = new GlideRecord('x_yergb_bpm_rfq_entry');
+      	//gs.addErrorMessage("miraclufaiewhglweahg")  
+			  var grI = new GlideRecord('x_yergb_bpm_rfq_entry');
         var requestor
         var requestor_sys_id
         var number
@@ -1304,7 +1427,7 @@ while(grLabel.next()) {
         while (grI.next()) {
             requestor = grI.requestor.name.toString();
             requestor_sys_id = grI.requestor.toString();
-            number = grI.number.toString()
+            //number = grI.number.toString()
             request_date = grI.request_date.toString()
             complete_date = grI.complete_date.toString()
             estimated_oi_amount = grI.estimated_oi_amount.toString()
@@ -1338,7 +1461,7 @@ while(grLabel.next()) {
         // data 로 html 로 보내줌
         data.requestor_sys_id = requestor_sys_id
         data.requestor = requestor
-        data.number = number
+        //data.number = number
         data.request_date = request_date
         data.complete_date = complete_date
         data.estimated_oi_amount = estimated_oi_amount
@@ -1368,7 +1491,8 @@ while(grLabel.next()) {
         data.request_due_date = request_due_date
         data.remark = remark
         // Quotation 을 가져오기 위해 , 현재 sys id 를 quotation 테이블에 넣어서 가져옴
-        var grQ = new GlideRecord('x_yergb_bpm_quotation');
+       /*
+			  var grQ = new GlideRecord('x_yergb_bpm_quotation');
         var quotation
         var quotation_sys_id
         var quotation_state
@@ -1382,7 +1506,7 @@ while(grLabel.next()) {
         data.quotation = quotation
         data.quotation_sys_id = quotation_sys_id
         data.quotation_state = quotation_state
-
+				*/
         //user 의 company를 찾고
         //그 컴패니의 currency의 display value를 가져와야 하는군
         /*
@@ -1533,7 +1657,7 @@ while(grLabel.next()) {
 
     //////////////////////// SAVE 버튼을 눌렀을때 ---- INSERT거나 UPDATE거나의 분기점
     if (input && input.isInsert) { // 없으면 오류 뜸, 둘다 있어야 함.
-      gs.addErrorMessage("야 정신차려봐 isInsert") 
+      //gs.addErrorMessage("야 정신차려봐 isInsert") 
 			var requestor = input.requestor_sys_id
         var request_date = input.request_date
         var complete_date = input.complete_date
@@ -1585,11 +1709,11 @@ while(grLabel.next()) {
         gr.setValue('remark', remark)
         gr.insert();
         data.redirect_sys_id = gr.getUniqueValue();;
-        gs.addErrorMessage("quotation_type")
-        gs.addErrorMessage(quotation_type)
+       // gs.addErrorMessage("quotation_type")
+       // gs.addErrorMessage(quotation_type)
 
     } else if (input && input.isUpdate) {
-     gs.addErrorMessage("야 정신차려봐 isUpdate")
+     //gs.addErrorMessage("야 정신차려봐 isUpdate")
 			var requestor = input.requestor_sys_id
 
         var request_date = input.request_date
@@ -1645,8 +1769,8 @@ while(grLabel.next()) {
         grU.setValue('request_due_date', request_due_date)
         grU.setValue('remark', remark)
         grU.update()
-        gs.addErrorMessage("quotation_type")
-        gs.addErrorMessage(quotation_type)
+       // gs.addErrorMessage("quotation_type")
+       // gs.addErrorMessage(quotation_type)
 
     }
 
@@ -1852,17 +1976,17 @@ while(grLabel.next()) {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>28</sys_mod_count>
+        <sys_mod_count>50</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-25 09:58:31</sys_updated_on>
+        <sys_updated_on>2024-06-26 05:46:16</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
-          <div class="yoko-breadcrumb">Home > RFQ Entry & Quotation Request</div>
+          <div class="yoko-breadcrumb">Home > Quotation Request</div>
           <div class="yoko-title-btn-wrap">
               <h1 class="yoko-title">Quotation Request</h1>
               <div class="yoko-btn-wrap">
@@ -1908,14 +2032,14 @@ while(grLabel.next()) {
                               </div>
                               <div class="yoko-form-group">
                                   <label for="comp_date" class="yoko-short">{{data.labelCompleteDate}}</label>
-                                  <input type="date" name="comp_date" class="yoko-wid140" value={{data.complete_date}} ng-model="c.data.complete_date">
+                                  <input type="date" name="comp_date" class="yoko-wid140" value={{data.complete_date}} ng-model="c.data.complete_date" disabled>
                               </div>
                           </div>
                       </div>
   
                       <div class="yoko-form-col">
                           <div class="yoko-form-group">
-                              <label for="type" class="yoko-short-120">{{data.labelCurrency}}</label>
+                              <label for="type" class="yoko-short-120"> <h5 name="mandatoryCurrency" style="display: inline; margin: 0;  color: red" ng-if="c.data.currencyMandatory">✻</h5>  {{data.labelCurrency}}</label>
                               <div class="yoko-form-inline">
                                   <input type="text" name="currency" ng-model="c.data.currency" class="yoko-wid140" disabled>
                                   <input type="text" name="currency_sys_id" ng-model="c.data.currency_sys_id" placeholder="" class="yoko-wid140" ng-style="{'display': 'none'}" readonly>
@@ -2027,7 +2151,7 @@ while(grLabel.next()) {
                               </div>
                               <div class="yoko-form-group">
                                   <label for="code" class="yoko-short">{{data.labelCode}}</label>
-                                  <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.contract_code" ng-disabled="isContractDisabled">
+                                  <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.contract_code" ng-disabled="isContractDisabled" diabled>
                               </div>
                           </div>
                           <div class="yoko-form-col"> 
