@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller = function($scope, $location, $window, $realgridkey, $realgrid) {
+        <client_script><![CDATA[api.controller = function($scope, $location, $window, $http, $realgridkey, $realgrid) {
     /* widget controller */
     var c = this;
     c.data.readStatus = true;
     $window.realGrid2Lic = $realgridkey.getKey();
     $window.RealGrid = $realgrid.getRealGrid();
+    let headFile, detailFile;
     // Function to get URL parameters
     c.getUrlParameter = function(param) {
         return $location.search()[param];
@@ -17,235 +18,227 @@
     }
     
     $scope.btnClickAddFile  = function() {
+        console.log('AddFile Clicked');
         modal.style.display = 'none';
+        if (headFile && detailFile) {
+            postHeaderFile(headFile);
+            postDetailFile(detailFile);
+        }
+        clearModal();
     }
 
-    $scope.btnClickAddFile = function (obj){
-        var maxFileCnt = 2;   // 첨부파일 최대 개수
-        var attFileCnt = document.querySelectorAll('.filebox').length;    // 기존 추가된 첨부파일 개수
-        var remainFileCnt = maxFileCnt - attFileCnt;    // 추가로 첨부가능한 개수
-        var curFileCnt = obj.files.length;  // 현재 선택된 첨부파일 개수
-        let fileNo = 0;
+    $scope.btnClickCancel = function() {
+        modal.style.display = 'none';
+        clearModal();
+    }
 
-        // 첨부파일 개수 확인
-        if (curFileCnt > remainFileCnt) {
-                alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
-        } else {
-                for (const file of obj.files) {
-                        // 첨부파일 검증
-                        if (validation(file)) {
-                                // 파일 배열에 담기
-                                var reader = new FileReader();
-                                reader.onload = function () {
-                                        filesArr.push(file);
-                                };
-                                reader.readAsDataURL(file);
-
-                                // 헤드파일 디테일 파일 추가
-                                if (file.name.includes('_H')) {
-                                    $('#projectHeader').val(file.name);
-                                }
-                                else if (file.name.includes('_D')) {
-                                    $('#projectDetail').val(file.name);
-
-                                }
-                        }
+    $scope.valueChangeAddFile = async function(obj) {
+        let files = obj.files;
+        // Check if files are selected
+        if (files && files.length) {
+            for (let i = 0; i < files.length; i++) {
+                let file = files[i];
+                if (validation(file)) {
+                    if (file.name.includes("_H")) {
+                        $("#projectHeader").val(file.name);
+                        headFile = await readFile(file);
+                        headFile = addHeaderFileValues(headFile);
+    
+                    } else if (file.name.includes("_D")) {
+                        $("#projectDetail").val(file.name);
+                        detailFile = await readFile(file);
+                        detailFile = addDetailFileValues(detailFile);
+                    }
                 }
+            }
         }
-        // 초기화
+    }
+
+    function clearModal() {
         document.querySelector("input[type=file]").value = "";
+        $("#projectHeader").val('');
+        $("#projectDetail").val('');
+        headFile, detailFile = '';
+    }
+
+    /** read txt File */
+    async function readFile(file) {
+        return new Promise((resolve, reject) => {
+        let reader = new FileReader();
+        reader.onload = (function(theFile) {
+            return function(e) {
+                // Access the file content using e.target.result
+                let fileContent = e.target.result;
+                resolve(parseJson(fileContent))
+            };
+        })(file);
+        reader.readAsText(file, /* optional */ "euc-kr");
+        });
+    }
+
+    function addHeaderFileValues(json) {
+        let records = json["records"];
+        let currentBaseMonth = new Date(dateStr.slice(0, 4) + '-' + dateStr.slice(4));
+        for (let key in records) {
+            let record = records[key];
+            record['Base Month'] = currentBaseMonth;
+            records[key] = record;
+        }
+    }
+
+    function addDetailFileValues(json) {
+        let records = json["records"];
+        let currentBaseMonth = new Date(dateStr.slice(0, 4) + '-' + dateStr.slice(4));
+        for (let key in records) {
+            let record = records[key];
+            record['Base Month'] = currentBaseMonth;
+            record['WBS Code'] = record['WBS element'].slice(-4);
+            record['Month'] = record['Period'];
+            records[key] = record;
+        }
+
+    }
+
+    /*** string to json */
+    function parseJson(str) {
+        /***split by new line and split by whitespace */
+        let cells = str.split('\n').map(function (el) { return el.split(/\t/); });
+
+        let headings = cells.shift();
+
+        let regex =  /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"\r]/g
+
+        // Function to remove non-alphanumeric characters from a string
+        const removeNonAlphanumeric = str => str.replace(regex, '');
+
+        // Use map to create a new array with modified strings
+        const modifiedHeadings = headings.map(removeNonAlphanumeric);
+        
+        cells = cells.filter((cell) => {
+            //if there is only empty string in there filter it out
+            if (cell.length > 1) return cell;
+        });
+
+        let obj = cells.map(function (el) {
+            let obj = {};
+            for (var i = 0, l = el.length; i < l; i++) {
+                if (!el[i]) break;
+                obj[modifiedHeadings[i]] = isNaN(Number(el[i])) ? el[i] : +el[i];
+            }
+            return obj;
+        });
+        let result = {};
+        result['records'] = obj;
+        return JSON.stringify(result);
+    }
+
+    function postHeaderFile(json) {
+        let url = location.origin + '/api/now/import/x_yergb_bpm_pjt_sum_h/insertMultiple';
+        postJsonToImportSet(url, json);
+    }
+
+    function postDetailFile(json) {
+        let url = location.origin + '/api/now/import/x_yergb_bpm_pjt_sum_d/insertMultiple';
+        postJsonToImportSet(url, json);
+    }
+
+    
+
+    function postJsonToImportSet(url, json) {
+        $http({
+            method: 'POST',
+            url: url,
+            data: json
+        }).then(function successCallback(response) {
+            console.log(response);
+        }, function errorCallback(response) {
+            console.log('error');
+        });
     }
 
     /* 첨부파일 검증 */
     function validation(obj){
-        const fileTypes = ['application/pdf', 'image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif', 'application/haansofthwp', 'application/x-hwp'];
+        const fileTypes = ['text/plain'];
         if (obj.name.length > 35) {
-            alert("파일명이 35자 이상인 파일은 제외되었습니다.");
+            gs.addInfoMessage("파일명이 35자 이하여야 합니다.");
             return false;
+        } else if (!obj.name.includes('PJTSUM')) {
+            gs.addInfoMessage("PJTSUM 파일을 올려주세요.")
         } else if (obj.size > (100 * 1024 * 1024)) {
-            alert("최대 파일 용량인 100MB를 초과한 파일은 제외되었습니다.");
+            gs.addInfoMessage("최대 파일 용량인 100MB를 초과한 파일을 올릴 수 없습니다.");
             return false;
         } else if (obj.name.lastIndexOf('.txt') == -1) {
-            alert("확장자 txt가 아닌 파일은 제외되었습니다.");
+            gs.addInfoMessage("파일의 확장자를 txt로 해주세요.");
             return false;
         } else if (!fileTypes.includes(obj.type)) {
-            alert("첨부가 불가능한 파일은 제외되었습니다.");
+            gs.addInfoMessage("첨부가 불가능한 파일 입니다.");
             return false;
         } else {
             return true;
         }
     }
 
-
-
-
     var gv;
     var dp;
 
     function grid() {
         const gvFields = [
-            { fieldName: "sys_id",         dataType: "text" },
-            { fieldName: "wbs",            dataType: "text" },
-            { fieldName: "__type",         dataType: "text" },
-            { fieldName: "in_charge",      dataType: "text" },
-            { fieldName: "activity_type",  dataType: "text" },
-            { fieldName: "activity_rate",  dataType: "number" },
-            { fieldName: "rate_hour",      dataType: "number" },
-            { fieldName: "total_amount",   dataType: "number" },
-            { fieldName: "__insert",       dataType: "text" },
-            { fieldName: "__delete",       dataType: "text" }
+            { fieldName: "sys_id",          dataType: "text" },
+            { fieldName: "project_no",      dataType: "text" },
+            { fieldName: "contractor",      dataType: "text" },
+            { fieldName: "project_name",    dataType: "text" },
+            { fieldName: "pm",              dataType: "text" },
+            { fieldName: "contract_amt",    dataType: "number" },
+            { fieldName: "ptc_last_month",  dataType: "number" },
+            { fieldName: "forecast_ptc",    dataType: "number" },
+            { fieldName: "variance",        dataType: "text" },
+            { fieldName: "poc_percentage",  dataType: "text" },
+            { fieldName: "state",           dataType: "text" },
         ];
+        
 
         const sumFooter = { "expression": "sum", "numberFormat": "#,##0" };
 
         const gvColumns = [
-            { name: "sys_id",         fieldName: "sys_id",         type: "data",   width: 30,  header: { text: "sysid" },         visible: false },
-            { name: "wbs",            fieldName: "wbs",            type: "data",   width: 100, header: { text: "WBS" },           visible: true, readOnly: true,  editable: false, styleName: "ni-rg-col-wbs", groupFooter: { text: " ", expression: "max" } },
-            { name: "__type",         fieldName: "__type",         type: "data",   width: 40,  header: { text: "TYPE" },          visible: true },
-            { name: "in_charge",      fieldName: "in_charge",      type: "data",   width: 150, header: { text: "In Charge" },     visible: true, readOnly: true,  editable: false, styleName: "ni-rg-align-left ni-rg-readonly" },
-            { name: "activity_type",  fieldName: "activity_type",  type: "data",   width: 120, header: { text: "Activity Type" }, visible: true, readOnly: true,  editable: false, styleName: "ni-rg-align-left ni-rg-readonly", groupFooter: sumFooter, button: "action", buttonVisibility: "always" },
-            { name: "activity_rate",  fieldName: "activity_rate",  type: "number", width: 80,  header: { text: "Activity Rate" }, visible: true, readOnly: true,  editable: false, styleName: "ni-rg-align-right ni-rg-readonly", numberFormat: "#,##0", },
-            { name: "rate_hour",      fieldName: "rate_hour",                      width: 100, header: { text: "Rate * Hour" },   visible: true, readOnly: true,  editable: false, styleName: "ni-rg-align-right ni-rg-readonly", numberFormat: "#,##0", footer: { expression: "sum", numberFormat: "#,##0" }, groupFooter: sumFooter, },
-            { name: "total_amount",   fieldName: "total_amount",   type: "number", width: 60,  header: { text: "Total(H)" },      visible: true, readOnly: true,  editable: false, styleName: "ni-rg-align-right ni-rg-readonly", numberFormat: "#,##0", groupFooter: { text: "", expression: "sum", numberFormat: "#,###", styleName: "ni-rg-align-right" }, },
-            { name: "__insert",       fieldName: "__insert",       type: "button", width: 40,  header: { text: "Insert" },        visible: true, readOnly: false, editable: false, styleName: 'ni-rg-col-button', renderer: { type: "button", hideWhenEmpty: true } },
-            { name: "__delete",       fieldName: "__delete",       type: "button", width: 45,  header: { text: "Delete" },        visible: true, readOnly: false, editable: false, styleName: 'ni-rg-col-button', renderer: { type: "button", hideWhenEmpty: true } }
+            { name: "sys_id",           fieldName: "sys_id",            type: "data",   width: 100,  header: { text: "sysid" },              visible: false, readOnly: true,  editable: false },
+            { name: "project_no",       fieldName: "project_no",        type: "data",   width: 100,  header: { text: "Project No." },        visible: true,  readOnly: true,  editable: false, styleName: "ni-rg-col-project_no",             groupFooter: { text: " ", expression: "max" } },
+            { name: "contractor",       fieldName: "contractor",        type: "data",   width: 200,  header: { text: "Contractor" },         visible: true,  readOnly: true,  editable: false },
+            { name: "project_name",     fieldName: "project_name",      type: "data",   width: 150,  header: { text: "Project Name" },       visible: true,  readOnly: true,  editable: false, styleName: "ni-rg-align-left ni-rg-readonly" },
+            { name: "pm",               fieldName: "pm",                type: "data",   width: 150,  header: { text: "PM" },                 visible: true,  readOnly: true,  editable: false, styleName: "ni-rg-align-left ni-rg-readonly",  groupFooter: sumFooter, button: "action", buttonVisibility: "always" },
+            { name: "contract_amt",     fieldName: "contract_amt",      type: "number", width: 130,  header: { text: "Contract Amt" },       visible: true,  readOnly: true,  editable: false, styleName: "ni-rg-align-right ni-rg-readonly", numberFormat: "#,##0" },
+            { name: "ptc_last_month",   fieldName: "ptc_last_month",    type: "data",   width: 130,  header: { text: "PTC last Mon" },       visible: true,  readOnly: true,  editable: false, styleName: "ni-rg-align-right ni-rg-readonly", numberFormat: "#,##0", footer: { expression: "sum", numberFormat: "#,##0" }, groupFooter: sumFooter },
+            { name: "forecast_ptc",     fieldName: "forecast_ptc",      type: "data",   width: 130,  header: { text: "Forecast PTC" },       visible: true,  readOnly: true,  editable: false, styleName: "ni-rg-align-right ni-rg-readonly", numberFormat: "#,##0", groupFooter: { text: "", expression: "sum", numberFormat: "#,###", styleName: "ni-rg-align-right" } },
+            { name: "variance",         fieldName: "variance",          type: "data",   width: 130,  header: { text: "Variance" },           visible: true,  readOnly: false, editable: false, styleName: "ni-rg-col-button" },
+            { name: "poc_percentage",   fieldName: "poc_percentage",    type: "data",   width: 110,  header: { text: "POC%" },               visible: true,  readOnly: false, editable: false, styleName: "ni-rg-col-button" },
+            { name: "state",            fieldName: "state",             type: "data",   width: 120,  header: { text: "State" },              visible: true,  readOnly: false, editable: false, styleName: "ni-rg-col-button" }
         ];
+        
+        
 
-        const gvLayouts = [ 'sys_id', 'wbs', '__type', 'in_charge', 'activity_type', 'activity_rate', 'rate_hour', 'total_amount', '__insert', '__delete' ];
-
-        const gvFilesAmt = [];
-        for (const field of gvFields) {
-            // Dynamic field handling if needed
-        }
-        gvFields.push(...gvFilesAmt);
-
-        for (const col of gvColumns) {
-            // Dynamic column handling if needed
-        }
+        const gvLayouts = [ 'sys_id', 'project_no', 'contractor', 'project_name', 'pm', 'contract_amt', 'ptc_last_month', 'forecast_ptc', 'variance', 'poc_percentage', 'state' ];
 
         function initGrid() {
             gv = new RealGrid.GridView('gridContainer');
-            dp = new RealGrid.LocalDataProvider();
-
-            dp.setFields(gvFields);
             gv.setDataSource(dp);
             gv.setColumns(gvColumns);
             gv.setColumnLayout(gvLayouts);
-
             gv.footers.visible = true;
             gv.commitEditor();
-            gv.undoable = true;
-
             gv.editOptions.commitByCell = true;
             gv.editOptions.insertable = true;
-            gv.setFixedOptions({
-                colCount: 7,
-                rightCount: 3,
-                resizable: true,
-                editable: true,
-                movable: true
-            });
-
-            dp.softDeleting = false;
-
-            gv.groupBy(["wbs", "__type"], false);
-
-            gv.setRowGroup({
-                expandedAdornments: 'footer',
-                indentVisible: false,
-                mergeMode: true,
-                createFooterCallback: function(grid, group) {
-                    if (group.level == 1) {
-                        return false;
-                    }
-                    if (group.descendantCount > 1) return true;
-                }
-            });
-
             gv.checkBar.visible = false;
             gv.stateBar.visible = false;
 
+            dp = new RealGrid.LocalDataProvider();
+            dp.setFields(gvFields);
+            dp.softDeleting = false;
             dp.setRows(c.data.gridData);
         }
 
         initGrid();
     }
 
-    function initFormEtc() {
-        $scope.closeDlgActivityType = function() {
-            dlgActivityType.close();
-        };
-
-        $scope.setActivityType = function() {
-            const curr = gv.getCurrent();
-            dp.setValue(curr.dataRow, 'activity_type', moonc_at_data1.value);
-            dp.setValue(curr.dataRow, 'in_charge', moonc_at_data2.value);
-            dlgActivityType.close();
-        };
-    }
-
-    function initGridEtc() {
-        const _fnInsert = function () {
-            const curr = gv.getCurrent();
-            if (curr.dataRow < 0) {
-                // Not a data row (e.g., grouping)
-            } else {
-                const currIndex = Math.max(0, (curr.itemIndex));
-                const wbs = gv.getValue(currIndex, 'wbs');
-                const __type = gv.getValue(currIndex, '__type');
-                if (__type == "참고") {
-                    gv.beginInsertRow(currIndex, true);
-                    gv.setValue(currIndex + 1, 'wbs', wbs);
-                    gv.setValue(currIndex + 1, '__type', '참고');
-                    gv.setValue(currIndex + 1, '__insert', 'Ins');
-                    gv.setValue(currIndex + 1, '__delete', 'Del');
-                } else {
-                    gv.beginInsertRow(currIndex, false);
-                    gv.setValue(currIndex, 'wbs', wbs);
-                    gv.setValue(currIndex, '__type', '참고');
-                    gv.setValue(currIndex, '__insert', 'Insert');
-                    gv.setValue(currIndex, '__delete', 'Delete');
-                }
-                gv.showEditor();
-                gv.setFocus();
-                gv.commit(true);
-            }
-        };
-
-        gv.onCellButtonClicked = function(grid, index, column) {
-            if (['activity_type'].includes(index.column)) {
-                dlgActivityType.showModal();
-            }
-        };
-
-        gv.onCellItemClicked = function(grid, index, clickData) {
-            if (['__delete'].includes(index.column.name)) {
-                if (index.dataRow >= 0) {
-                    dp.removeRow(index.dataRow);
-                }
-            } else if (['__insert'].includes(index.column.name)) {
-                _fnInsert();
-            }
-        };
-
-    }
-
-    function checkRealGrid() {
-		if(RealGrid) {
-			return true;
-		} 
-		
-		return false;
-	}
-
-    function drawRealGrid() {
-        grid();
-        initGridEtc();
-        initFormEtc();
-    }
-    drawRealGrid();
-
-
+    grid();
 }]]></client_script>
         <controller_as>c</controller_as>
         <css>@charset "UTF-8";&#13;
@@ -562,14 +555,14 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>yeongink</sys_created_by>
         <sys_created_on>2024-06-24 05:11:44</sys_created_on>
         <sys_id>48e1f96c8347021099decf50ceaad3f1</sys_id>
-        <sys_mod_count>159</sys_mod_count>
+        <sys_mod_count>293</sys_mod_count>
         <sys_name>prfManagement</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_48e1f96c8347021099decf50ceaad3f1</sys_update_name>
         <sys_updated_by>yeongink</sys_updated_by>
-        <sys_updated_on>2024-06-25 05:22:48</sys_updated_on>
+        <sys_updated_on>2024-06-26 04:00:07</sys_updated_on>
         <template><![CDATA[<div class="yoko-container">
   <div class="yoko-breadcrumb">Home > Project Management > PRF Management</div>
   <div class="yoko-title-btn-wrap">
@@ -623,20 +616,20 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
           <label for="f_year_month" class="yoko-short-100">F.Year, Month</label>
           <input type="text" name="f_year_month" value="202405" placeholder="" disabled class="yoko-wid140">
         </div>
-        <input type="file" id="files" multiple style="display: none">
+        <input type="file" id="files" onchange="angular.element(this).scope().valueChangeAddFile(this)"style="display: none" multiple>
         <div class="yoko-form-group">
           <label for="project_header" class="yoko-short-100">Project Header</label>
-          <input type="text" name="project_header" value="" placeholder="" class="yoko-wid425">
+          <input type="text" id="projectHeader" name="project_header" value="" placeholder="" class="yoko-wid425" disabled>
         </div>
         <div class="yoko-form-group">
           <label for="project_detail" class="yoko-short-100">Project Detail</label>
-          <input type="text" name="project_detail" value="" placeholder="" class="yoko-wid425">
+          <input type="text" id="projectDetail" name="project_detail" value="" placeholder="" class="yoko-wid425" disabled>
         </div>
         <div class="yoko-form-group yoko-btn-group">
           <label for="state" class="yoko-short-100"></label>
           <div class="yoko-form-inline">
             <button id="cancel" class="yoko-btn yoko-btn-outline" ng-click="btnClickCancel()">Cancel</button>
-            <input type = "submit" class="yoko-btn yoko-btn-fill">Upload</input>
+            <input type = "submit" class="yoko-btn yoko-btn-fill" ng-click="btnClickAddFile()" value = "Upload">
         </div>
       </div>
       <div class="yoko-btn-wrap">

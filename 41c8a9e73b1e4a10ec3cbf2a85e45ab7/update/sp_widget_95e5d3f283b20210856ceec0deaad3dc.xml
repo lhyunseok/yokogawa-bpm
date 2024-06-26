@@ -44,10 +44,12 @@
         window.location.href = "/ybpm?id=epic_03_ui_init&number=" + c.data.number + "&table=x_yergb_bpm_budget_plan&sys_id=" + c.data.budget_key;
     };
     $scope.clickApproval = function() {
-        alert("승인관련 팝업 작업 개발중...");
-    };
-    $scope.clickClose = function() {
-        alert("Working..... In progress develop..Close");
+        c.data.approve = 'Requested';
+        // Call the server script
+        c.server.update($scope).then(function(response) {
+            alert("승인요청을 보냈습니다.");
+        });
+        window.location.href = "/ybpm?id=epic_03_ui_init&number=" + c.data.number + "&table=x_yergb_bpm_budget_plan&sys_id=" + c.data.budget_key;
     };
     $scope.clickMSF = function() {
         alert("Working..... In progress develop..MSF");
@@ -560,13 +562,14 @@
             gv.undoable = false; //Item type is readOnly
 
             gv.columnByName("sys_id").visible = false;
+            gv.columnByName("base_month").visible = false;
             gv.columnByName("project").visible = false;
             //gv.editOptions.commitWhenLeave = true;
             gv.editOptions.commitByCell = false; //Item type is readOnly
             gv.editOptions.insertable = false; //Item type is readOnly
             gv.setFixedOptions({
                 colCount: 2,
-                rightCount: 3,
+                rightCount: 2,
                 editable: false,
             });
             dp.softDeleting = false;
@@ -1263,6 +1266,7 @@ th {
         if (data.project_key) { //Get Budget Plan
             var grBudgetPlan = new GlideRecord('x_yergb_bpm_budget_plan');
             grBudgetPlan.addQuery('project', data.project_key);
+            grBudgetPlan.addQuery('plan_type', "Initial");
             grBudgetPlan.query();
 
             if (grBudgetPlan.next()) {
@@ -1285,6 +1289,7 @@ th {
             var totalCost = 0;
             var grOrderItem = new GlideRecord('x_yergb_bpm_order_item');
             grOrderItem.addQuery('project', data.project_key);
+            grOrderItem.addQuery("project.u_data_type", "!=", "wbs-6");
             grOrderItem.addNotNullQuery('plan_gr_date');
             grOrderItem.query();
 
@@ -1308,11 +1313,11 @@ th {
                 myresult[wbs][yearmonth] += amount;
             }
             var gpa = totalContract - totalCost;
-            var gp = gpa / totalContract;
+            const gp = gpa / totalContract * 100;
             data.contract = totalContract.toString();
             data.total_cost = totalCost.toString();
             data.gpa = gpa.toString();
-            data.gp = gp.toString();
+            data.gp = gp.toFixed(2).toString();
         }
     }
 
@@ -1352,6 +1357,9 @@ th {
             grUpdateBudgetPlan.dmr = input.dmr;
             grUpdateBudgetPlan.total_cost = input.total_cost;
             grUpdateBudgetPlan.data_type = input.data_type;
+            if (input.approve == 'Requested') {
+                grUpdateBudgetPlan.state = '6';
+            }
             grUpdateBudgetPlan.update();
         } else { //Insert
             grUpdateBudgetPlan.initialize();
@@ -1382,7 +1390,7 @@ th {
 
         for (var wbs1 in updatedResult) {
             //Beyond18 Calulate End
-            var queryOIBeyondCalulator = "plan_gr_date>javascript:gs.dateGenerate('" + beyondDate + "','end')^project=" + input.project_key + "^wbs_6=" + wbs1;
+            var queryOIBeyondCalulator = "plan_gr_date>javascript:gs.dateGenerate('" + beyondDate + "','end')^project=" + input.project_key + "^wbs_6=" + wbs1 + "^project.u_data_type!=wbs-6";
             var queryWBSBudget = "project=" + input.project_key + "^wbs=" + wbs1;
             var dataBeyond18 = 0;
             var grOIBeyondCalulator = new GlideRecord('x_yergb_bpm_order_item');
@@ -1496,14 +1504,14 @@ function sf1(a, b) {
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-19 01:58:09</sys_created_on>
         <sys_id>95e5d3f283b20210856ceec0deaad3dc</sys_id>
-        <sys_mod_count>168</sys_mod_count>
+        <sys_mod_count>184</sys_mod_count>
         <sys_name>initPlanMngtWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_95e5d3f283b20210856ceec0deaad3dc</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-26 04:06:21</sys_updated_on>
+        <sys_updated_on>2024-06-26 08:58:58</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 
@@ -1520,7 +1528,6 @@ function sf1(a, b) {
             <div class="yoko-btn-wrap">
                 <button class="yoko-btn yoko-btn-outline" ng-click="clickLoadData()">Load Data</button>
                 <button class="yoko-btn yoko-btn-outline" ng-click="clickApproval()">Approval Request</button>
-                <button class="yoko-btn yoko-btn-outline" ng-click="clickClose()">Close</button>
                 <button class="yoko-btn yoko-btn-fill" ng-click="clickMSF()">Make SAP File</button>
             </div>
         </div>
