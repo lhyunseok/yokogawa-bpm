@@ -312,16 +312,16 @@ a {text-decoration: none;}&#13;
 .rg-editor-container { border: 2px solid #27C382 !important; }</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
-        <description/>
+        <description>Job WF management</description>
         <docs/>
         <field_list/>
         <has_preview>false</has_preview>
-        <id/>
+        <id>jobwfmngwd</id>
         <internal>false</internal>
         <link><![CDATA[function link(scope, element, attrs, controller) {
   
 }]]></link>
-        <name>Copy of bpmIndexWd</name>
+        <name>jobWFMngtWd</name>
         <option_schema/>
         <public>false</public>
         <roles/>
@@ -335,14 +335,14 @@ a {text-decoration: none;}&#13;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:27:59</sys_created_on>
         <sys_id>7d88c634830b82100a5ce360ceaad3b1</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_name>Copy of bpmIndexWd</sys_name>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>jobWFMngtWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_7d88c634830b82100a5ce360ceaad3b1</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-25 01:27:59</sys_updated_on>
+        <sys_updated_on>2024-06-26 00:51:15</sys_updated_on>
         <template><![CDATA[<!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -363,90 +363,6 @@ a {text-decoration: none;}&#13;
 
       </head>
 <body>
-    <div class="yoko-header-container" id="yoko-header">
-        <div class="yoko-header-inner">
-            <div class="yoko-nav-wrap">
-                <div class="yoko-logo">
-                    <img src="./images/logo.png" alt="">
-                </div>
-                <div class="yoko-nav">
-                    <ul>
-                        <li class="yoko-menu yoko-depth-arrow"><a href="javascript:void(0)">MY MENU</a>
-                            <ul class="yoko-depth">
-                                <li class="yoko-dep-1"><a href="javascript:void(0)">1_depth Menu_01</a>
-                                </li>
-                                <li class="yoko-dep-1"><a href="javascript:void(0)">1_depth Menu_02</a>
-                                </li>
-                                <li class="yoko-dep-1"><a href="javascript:void(0)">1_depth Menu_03</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="yoko-menu yoko-depth-arrow"><a href="javascript:void(0)">WORK SPACE</a>
-                            <ul class="yoko-depth">
-                                <li class="yoko-dep-1"><a href="javascript:void(0)">1_depth Menu_01</a>
-                                <ul class="yoko-dep-2-wrap">
-                                    <li class="yoko-dep-2"><a href="javascript:void(0)">2_depth Menu_01</a></li>
-                                    <li class="yoko-dep-2"><a href="javascript:void(0)">2_depth Menu_02</a></li>
-                                    <li class="yoko-dep-2"><a href="javascript:void(0)">2_depth Menu_03</a></li>
-                                </ul>
-                                </li>
-                                <li class="yoko-dep-1"><a href="javascript:void(0)">1_depth Menu_02</a>
-                                    <ul class="yoko-dep-2-wrap">
-                                        <li class="yoko-dep-2"><a href="javascript:void(0)">2_depth Menu_01</a></li>
-                                        <li class="yoko-dep-2"><a href="javascript:void(0)">2_depth Menu_02</a></li>
-                                        <li class="yoko-dep-2"><a href="javascript:void(0)">2_depth Menu_03</a></li>
-                                    </ul>
-                                </li>
-                                <li class="yoko-dep-1"><a href="javascript:void(0)">1_depth Menu_03</a>
-                                    <ul class="yoko-dep-2-wrap">
-                                        <li class="yoko-dep-2"><a href="javascript:void(0)">2_depth Menu_01</a></li>
-                                        <li class="yoko-dep-2"><a href="javascript:void(0)">2_depth Menu_02</a></li>
-                                        <li class="yoko-dep-2"><a href="javascript:void(0)">2_depth Menu_03</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="yoko-menu yoko-depth-arrow"><a href="javascript:void(0)">DASH BOARD</a>
-                            <ul class="yoko-depth">
-                                <li class="yoko-dep-1"><a href="javascript:void(0)">1_depth Menu_01</a>
-                                <ul class="yoko-dep-2-wrap">
-                                    <li class="yoko-dep-2"><a href="javascript:void(0)">2_depth Menu_01</a></li>
-                                    <li class="yoko-dep-2"><a href="javascript:void(0)">2_depth Menu_02</a></li>
-                                    <li class="yoko-dep-2"><a href="javascript:void(0)">2_depth Menu_03</a></li>
-                                </ul>
-                                </li>
-                                <li class="yoko-dep-1"><a href="javascript:void(0)">1_depth Menu_02</a>
-                                    <ul class="yoko-dep-2-wrap">
-                                        <li class="yoko-dep-2"><a href="javascript:void(0)">2_depth Menu_01</a></li>
-                                        <li class="yoko-dep-2"><a href="javascript:void(0)">2_depth Menu_02</a></li>
-                                        <li class="yoko-dep-2"><a href="javascript:void(0)">2_depth Menu_03</a></li>
-                                    </ul>
-                                </li>
-                                <li class="yoko-dep-1"><a href="javascript:void(0)">1_depth Menu_03</a>
-                                    <ul class="yoko-dep-2-wrap">
-                                        <li class="yoko-dep-2"><a href="javascript:void(0)">2_depth Menu_01</a></li>
-                                        <li class="yoko-dep-2"><a href="javascript:void(0)">2_depth Menu_02</a></li>
-                                        <li class="yoko-dep-2"><a href="javascript:void(0)">2_depth Menu_03</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <div class="yoko-header-right">
-                    <div class="yoko-header-icon-wrap">
-                        <img src="./images/icon_header_1.svg" alt="">
-                        <img src="./images/icon_header_2.svg" alt="">
-                        <img src="./images/icon_header_3.svg" alt="">
-                        <img src="./images/icon_header_4.svg" alt="">
-                    </div>
-                    <div class="yoko-header-user">
-                        <img src="./images/img_header.png" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > JOB WF Management</div>
         <div class="yoko-title-btn-wrap">

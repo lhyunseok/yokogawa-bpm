@@ -454,6 +454,7 @@
 				"header": {
 					"text": "Number"
 				},
+				"editable": false,
 			},
 			{
 				"name": "wbs_6",
@@ -508,6 +509,7 @@
 				"header": {
 					"text": "Extended Price"
 				},
+				"editable": false,
 			},
 			{
 				"name": "unit_cost",
@@ -526,6 +528,7 @@
 				"header": {
 					"text": "Extended Cost"
 				},
+				"editable": false,
 			},
 			{
 				"name": "unit_mp",
@@ -544,6 +547,7 @@
 				"header": {
 					"text": "MP Amount"
 				},
+				"editable": false,
 			},
 			{
 				"name": "vendor",
@@ -562,6 +566,7 @@
 				"header": {
 					"text": "OI report Number"
 				},
+				"editable": false,
 			}
 		]);
 		
@@ -631,11 +636,17 @@
 			for(var x=0; x<c.data.gridDetailData.length; x++) {
 				c.data.gridDetailData[x].rowStat = dpDetail.getRowState(x);
 			}
-		}
+			
+			c.server.update().then(function(response) {
+				console.log('Server response:', response);
 
-		c.server.update().then(function(response) {
-			console.log('Server response:', response);
-		});
+				if( c.data.redirect_sys_id != '' ) {
+					window.location.href = "/sp?id=orderintakereport&sys_id=" + c.data.redirect_sys_id;
+				}
+
+				c.data.redirect_sys_id = '';
+			});
+		}
 	}
 
 	/* 최초 초기화 */
@@ -682,16 +693,20 @@
 			c.data.disAnsoff2 = true;
 			c.data.disAnsoff3 = true;
 			c.data.disChkFlag = false;
-		} else {
-			c.data.showBtnConfirmReq = true;
-			c.data.showBtnApprovalReq = true;
-		}
-
-		if(c.data.salesCompanyNm == 'YCN') {
-			c.data.showBtnAuthorize = true;
+			
+			if(c.data.salesCompanyNm == 'YCN') {
+				c.data.showBtnAuthorize = true;
+				c.data.showBtnRequest = false;
+			} else {
+				c.data.showBtnAuthorize = false;
+				c.data.showBtnRequest = true;
+			}
+		} else if( (Number(c.data.oiStateCode) == "3") || 
+			(Number(c.data.oiStateCode) == "6") ) {
+			c.data.showBtnAuthorize = false;
 			c.data.showBtnRequest = false;
 		}
-		
+
 		var loopCnt = 0;
 		var timerid = setInterval(function() {
 			loopCnt = loopCnt + 1;
@@ -1122,8 +1137,6 @@ a {text-decoration: none;}
 				}
 			}
 			
-			
-			
 			// get Project type
 			// get Ansoff type
 			
@@ -1189,7 +1202,6 @@ a {text-decoration: none;}
 			data.redirect_sys_id = oiRptTr.getUniqueValue();
 		} else if(input.btnHeaderType == 'oiUpdate') {
 			console.log('SERVER BTN :: OI UPDATE');
-			console.log(input);
 			oiRptTr.get(input.oiSysId);
 			oiRptTr.setValue('oi_amount_lc', getValueOrEmptyString(input.oiAmtLC));
 			oiRptTr.setValue('oi_amount_tc', getValueOrEmptyString(input.oiAmtTC));
@@ -1209,10 +1221,17 @@ a {text-decoration: none;}
 			
 			data.redirect_sys_id = input.oiSysId;
 		} else if(input.btnHeaderType == 'request') {
-			
+			oiRptTr.get(input.oiSysId);
+			oiRptTr.setValue('state', '3');
+			oiRptTr.update();
 		} else if(input.btnHeaderType == 'autorize') {
-			
+			console.log('SERVER BTN AUTHORIZE');
+			oiRptTr.get(input.oiSysId);
+			oiRptTr.setValue('state', '6');
+			oiRptTr.update();
 		}
+		
+		data.redirect_sys_id = input.oiSysId;
 	}
 	
 	function getValueOrEmptyString(value) {
@@ -1255,7 +1274,6 @@ a {text-decoration: none;}
 			console.log('SERVER GRID SAVE : ' + input.gridDetailData);
 			var gData = input.gridDetailData;
 			for(var x=0; x<gData.length; x++) {
-				console.log('ROW STAT:' + gData[x].rowStat); 
 				var ordItem = new GlideRecord('x_yergb_bpm_order_item');
 				ordItem.initialize();
 				var rStat = gData[x].rowStat;
@@ -1268,27 +1286,24 @@ a {text-decoration: none;}
 					ordItem.setValue('description', gData[x].description);
 					ordItem.setValue('quantity', gData[x].quantity);
 					ordItem.setValue('unit_price', gData[x].unit_price);
-					ordItem.setValue('extended_price', gData[x].extended_price);
 					ordItem.setValue('unit_cost', gData[x].unit_cost);
-					ordItem.setValue('extended_cost', gData[x].extended_cost);
 					ordItem.setValue('unit_mp', gData[x].unit_mp);
-					ordItem.setValue('mp_amount', gData[x].mp_amount);
 					ordItem.setValue('vendor', gData[x].vendor);
 					ordItem.update();
-				} else if(rStat == 'inserted') {
+				} else if(rStat == 'created') {
 					ordItem.setValue('ms_code', gData[x].ms_code);
 					ordItem.setValue('description', gData[x].description);
 					ordItem.setValue('quantity', gData[x].quantity);
 					ordItem.setValue('unit_price', gData[x].unit_price);
-					ordItem.setValue('extended_price', gData[x].extended_price);
 					ordItem.setValue('unit_cost', gData[x].unit_cost);
-					ordItem.setValue('extended_cost', gData[x].extended_cost);
 					ordItem.setValue('unit_mp', gData[x].unit_mp);
-					ordItem.setValue('mp_amount', gData[x].mp_amount);
 					ordItem.setValue('vendor', gData[x].vendor);
+					ordItem.setValue('oi_report', input.oiSysId);
 					ordItem.insert();
-				}
+				} 
 			}
+			
+			data.redirect_sys_id = input.oiSysId;
 		}
 	}
 	
@@ -1394,14 +1409,14 @@ a {text-decoration: none;}
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>568</sys_mod_count>
+        <sys_mod_count>592</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-25 12:19:28</sys_updated_on>
+        <sys_updated_on>2024-06-26 02:11:58</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -1441,7 +1456,7 @@ a {text-decoration: none;}
                         <div class="yoko-form-group">
                             <label for="state" class="yoko-short-110">State</label>
                             <input type="text" name="inputState" value="" ng-model="c.data.oiState" placeholder="" class="yoko-wid308" disabled>
-                          	<input type='hidden' name='inppuStateCode' ng-model=''
+                          	<input type='hidden' name='inppuStateCode' ng-model='c.data.oiStateCode'>
                         </div>
                         <div class="yoko-form-group">
                             <label for="sales_manager" class="yoko-short-110">Sales Manager</label>
