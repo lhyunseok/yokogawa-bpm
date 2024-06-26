@@ -934,7 +934,8 @@ th {
 
     data.number = $sp.getParameter("number");
 
-    if (data.number) { // Update
+    if (data.number) {
+		
         var grProject = new GlideRecord('x_yergb_bpm_project');
         grProject.addQuery('number', data.number);
         grProject.query();
@@ -949,7 +950,6 @@ th {
             data.customer = grProject.customer.name.toString(); // CustomerName
             data.sys_id = grProject.getUniqueValue();
         }
-        data.gridUrl = '/x_yergb_bpm_SorinGrid_prod.do?id_q=' + data.sys_id;
     }
 
     function getGridData(id_q) {
@@ -1082,14 +1082,14 @@ function sf1(a, b) {
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-26 00:21:26</sys_created_on>
         <sys_id>a0e2cbc183030210856ceec0deaad39c</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>budgetPlanPrjMngtWd01</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_a0e2cbc183030210856ceec0deaad39c</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-26 02:02:31</sys_updated_on>
+        <sys_updated_on>2024-06-26 09:57:20</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 
