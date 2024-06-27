@@ -39,6 +39,7 @@
     $scope.clickLoadData = function() {
         // Call the server script
         c.server.update($scope).then(function(response) {
+			alert("Load the data...");
             if (!c.data.budget_key) {
                 location.reload();
             } else {
@@ -50,7 +51,7 @@
         c.data.approve = 'Requested';
         // Call the server script
         c.server.update($scope).then(function(response) {
-            alert("승인요청을 보냈습니다.");
+            alert("Requested Approval...");
         });
         window.location.href = "/ybpm?id=epic_03_ui_init&number=" + c.data.number + "&table=x_yergb_bpm_budget_plan&sys_id=" + c.data.budget_key;
     };
@@ -738,7 +739,6 @@ $(document).ready(function() {
     $('.yoko-btn-cancel').click(function() {
         $('.yoko-modal-normal').hide();
     });
-
 
 });]]></client_script>
         <controller_as>c</controller_as>
@@ -1508,14 +1508,14 @@ function sf1(a, b) {
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-19 01:58:09</sys_created_on>
         <sys_id>95e5d3f283b20210856ceec0deaad3dc</sys_id>
-        <sys_mod_count>195</sys_mod_count>
+        <sys_mod_count>224</sys_mod_count>
         <sys_name>initPlanMngtWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_95e5d3f283b20210856ceec0deaad3dc</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-26 11:39:26</sys_updated_on>
+        <sys_updated_on>2024-06-27 05:38:44</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 
@@ -1523,16 +1523,16 @@ function sf1(a, b) {
         <div class="yoko-title-btn-wrap">
             <div class="yoko-btn-wrap">
               <div ng-if='data.data_type == "ITEM"'>
-                <button class="yoko-btn yoko-btn-outline" ng-click="clickYProd()">Y-Prod</button>
-                <button class="yoko-btn yoko-btn-outline" ng-click="clickBOP()">BOP</button>
-                <button class="yoko-btn yoko-btn-outline" ng-click="clickManHour()">Man hour</button>
-                <button class="yoko-btn yoko-btn-outline" ng-click="clickOther()">Other</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="!data.state || data.state === 'New'" ng-click="clickYProd()">Y-Prod</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="!data.state || data.state === 'New'" ng-click="clickBOP()">BOP</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="!data.state || data.state === 'New'" ng-click="clickManHour()">Man hour</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="!data.state || data.state === 'New'" ng-click="clickOther()">Other</button>
               </div>
             </div>
             <div class="yoko-btn-wrap">
-                <button class="yoko-btn yoko-btn-outline" ng-click="clickLoadData()">Load Data</button>
-                <button class="yoko-btn yoko-btn-outline" ng-if="data.state" ng-click="clickApproval()">Approval Request</button>
-                <button class="yoko-btn yoko-btn-fill" ng-click="clickMSF()">Make SAP File</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="!data.state || data.state === 'New'" ng-click="clickLoadData()">Load Data</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.state === 'New'" ng-click="clickApproval()">Approval Request</button>
+                <button class="yoko-btn yoko-btn-fill" ng-if="data.state === 'Completed'" ng-click="clickMSF()">Make SAP File</button>
             </div>
         </div>
         <div class="yoko-content">
