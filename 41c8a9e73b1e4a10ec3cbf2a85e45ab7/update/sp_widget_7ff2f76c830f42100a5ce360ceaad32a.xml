@@ -39,9 +39,12 @@
     $scope.clickLoadData = function() {
         // Call the server script
         c.server.update($scope).then(function(response) {
-            location.reload();
+            if (!c.data.budget_key) {
+                location.reload();
+            } else {
+                window.location.href = "/ybpm?id=epic_03_ui_init&number=" + c.data.number + "&table=x_yergb_bpm_budget_plan&sys_id=" + c.data.budget_key;
+            }
         });
-        window.location.href = "/ybpm?id=epic_03_ui_init&number=" + c.data.number + "&table=x_yergb_bpm_budget_plan&sys_id=" + c.data.budget_key;
     };
     $scope.clickApproval = function() {
         alert("승인관련 팝업 작업 개발중...");
@@ -1246,11 +1249,11 @@ th {&#13;
             grOrderItem.query();
 
             while (grOrderItem.next()) {
-                totalContract += grOrderItem.extended_price; // Contract SUM
-                totalCost += grOrderItem.extended_cost; // Cost SUM
+                totalContract += grOrderItem.extended_price_lc; // Contract SUM
+                totalCost += grOrderItem.extended_cost_lc; // Cost SUM
                 //Sum value by base month and WBS
                 var wbs = grOrderItem.getValue('wbs_6');
-                var amount = parseInt(grOrderItem.getValue('extended_cost'), 10);
+                var amount = parseInt(grOrderItem.getValue('extended_cost_lc'), 10);
                 var planGrDate = grOrderItem.getValue('plan_gr_date');
                 var planDate = new GlideDate();
                 planDate.setValue(planGrDate);
@@ -1346,7 +1349,7 @@ th {&#13;
             grOIBeyondCalulator.addEncodedQuery(queryOIBeyondCalulator);
             grOIBeyondCalulator.query();
             while (grOIBeyondCalulator.next()) {
-                dataBeyond18 += grOIBeyondCalulator.extended_cost;
+                dataBeyond18 += grOIBeyondCalulator.extended_cost_lc;
             }
             //Beyond18 Calulate End
 
@@ -1378,6 +1381,7 @@ th {&#13;
                     insertWBSBudget.setValue(inMonth, monthData[inMonth]);
                     calforecastPTC += parseInt(monthData[inMonth]);
                 }
+				forecastPTC = calforecastPTC + dataBeyond18;
                 insertWBSBudget.setValue("beyond18", dataBeyond18);
                 insertWBSBudget.setValue("forecast_ptc", forecastPTC);
                 insertWBSBudget.insert();
@@ -1554,14 +1558,14 @@ th {&#13;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-24 14:34:40</sys_created_on>
         <sys_id>7ff2f76c830f42100a5ce360ceaad32a</sys_id>
-        <sys_mod_count>66</sys_mod_count>
+        <sys_mod_count>68</sys_mod_count>
         <sys_name>initPlanMngtWbsWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_7ff2f76c830f42100a5ce360ceaad32a</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-26 07:06:05</sys_updated_on>
+        <sys_updated_on>2024-06-26 11:45:44</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 
@@ -1577,7 +1581,7 @@ th {&#13;
             </div>
             <div class="yoko-btn-wrap">
                 <button class="yoko-btn yoko-btn-outline" ng-click="clickLoadData()">Load Data</button>
-                <button class="yoko-btn yoko-btn-outline" ng-click="clickApproval()">Approval Request</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.state" ng-click="clickApproval()">Approval Request</button>
                 <button class="yoko-btn yoko-btn-fill" ng-click="clickMSF()">Make SAP File</button>
             </div>
         </div>

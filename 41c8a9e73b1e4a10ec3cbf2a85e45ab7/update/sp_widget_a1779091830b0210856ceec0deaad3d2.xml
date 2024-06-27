@@ -13,7 +13,7 @@
     // Function to handle click event
     $scope.handleClick = function() {
         if (c.data.budget_key) {
-            window.location.href = "/ybpm?id=epic_03_ui_init&number=" + c.data.number + "&table=x_yergb_bpm_budget_plan&sys_id=" + c.data.budget_key; // Redirect to the URL
+            window.location.href = "/ybpm?id=epic_09_ui_init&number=" + c.data.number + "&table=x_yergb_bpm_budget_plan&sys_id=" + c.data.budget_key; // Redirect to the URL
         }
     };
     // Example: Retrieve a specific parameter
@@ -21,16 +21,16 @@
     c.data.paramValue = paramValue;
 
     $scope.clickYProd = function() {
-        window.location.href = "/ybpm?id=epic_03_ui_budget_y_product&number=" + c.data.paramValue+"&baseMonth=" + c.data.base_month;
+        window.location.href = "/ybpm?id=epic_09_ui_budget_y_product&number=" + c.data.paramValue+"&baseMonth=" + c.data.base_month;
     };
     $scope.clickBOP = function() {
-        window.location.href = "/ybpm?id=epic_03_ui_budget_bop&number=" + c.data.paramValue;
+        window.location.href = "/ybpm?id=epic_09_ui_budget_bop&number=" + c.data.paramValue;
     };
     $scope.clickManHour = function() {
-        window.location.href = "/ybpm?id=epic_03_ui_budget_man_hour&number=" + c.data.paramValue;
+        window.location.href = "/ybpm?id=epic_09_ui_budget_man_hour&number=" + c.data.paramValue;
     };
     $scope.clickOther = function() {
-        window.location.href = "/ybpm?id=epic_03_ui_budget_other&number=" + c.data.paramValue;
+        window.location.href = "/ybpm?id=epic_09_ui_budget_other&number=" + c.data.paramValue;
     };
     $scope.clickSave = function() {
 
@@ -39,9 +39,12 @@
     $scope.clickLoadData = function() {
         // Call the server script
         c.server.update($scope).then(function(response) {
-            location.reload();
+            if (!c.data.budget_key) {
+                location.reload();
+            } else {
+                window.location.href = "/ybpm?id=epic_09_ui_prj_wbs&number=" + c.data.number + "&table=x_yergb_bpm_budget_plan&sys_id=" + c.data.budget_key;
+            }
         });
-        window.location.href = "/ybpm?id=epic_03_ui_init&number=" + c.data.number + "&table=x_yergb_bpm_budget_plan&sys_id=" + c.data.budget_key;
     };
     $scope.clickApproval = function() {
         c.data.approve = 'Requested';
@@ -49,13 +52,10 @@
         c.server.update($scope).then(function(response) {
             alert("승인요청을 보냈습니다.");
         });
-        window.location.href = "/ybpm?id=epic_03_ui_init&number=" + c.data.number + "&table=x_yergb_bpm_budget_plan&sys_id=" + c.data.budget_key;
+        window.location.href = "/ybpm?id=epic_09_ui_prj_wbs&number=" + c.data.number + "&table=x_yergb_bpm_budget_plan&sys_id=" + c.data.budget_key;
     };
     $scope.clickClose = function() {
         alert("Working..... In progress develop..Close");
-    };
-    $scope.clickMSF = function() {
-        alert("Working..... In progress develop..MSF");
     };
 
     $scope.gridDetailBtnClick = function(idx) {
@@ -1187,10 +1187,10 @@ th {&#13;
         <docs/>
         <field_list/>
         <has_preview>false</has_preview>
-        <id>prjmngtwbswd</id>
+        <id>prjcostmngtwbswd</id>
         <internal>false</internal>
         <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
-        <name>prjMngtWbsWd</name>
+        <name>prjCostMngWbsWd</name>
         <option_schema/>
         <public>false</public>
         <roles/>
@@ -1227,7 +1227,7 @@ th {&#13;
         if (data.project_key) { //Get Budget Plan
             var grBudgetPlan = new GlideRecord('x_yergb_bpm_budget_plan');
             grBudgetPlan.addQuery('project', data.project_key);
-			grBudgetPlan.addQuery('plan_type', "PRF");
+            grBudgetPlan.addQuery('plan_type', "PRF");
             grBudgetPlan.query();
 
             if (grBudgetPlan.next()) {
@@ -1255,11 +1255,11 @@ th {&#13;
             grOrderItem.query();
 
             while (grOrderItem.next()) {
-                totalContract += grOrderItem.extended_price; // Contract SUM
-                totalCost += grOrderItem.extended_cost; // Cost SUM
+                totalContract += grOrderItem.extended_price_lc; // Contract SUM
+                totalCost += grOrderItem.extended_cost_lc; // Cost SUM
                 //Sum value by base month and WBS
                 var wbs = grOrderItem.getValue('wbs_6');
-                var amount = parseInt(grOrderItem.getValue('extended_cost'), 10);
+                var amount = parseInt(grOrderItem.getValue('extended_cost_lc'), 10);
                 var planGrDate = grOrderItem.getValue('plan_gr_date');
                 var planDate = new GlideDate();
                 planDate.setValue(planGrDate);
@@ -1358,7 +1358,7 @@ th {&#13;
             grOIBeyondCalulator.addEncodedQuery(queryOIBeyondCalulator);
             grOIBeyondCalulator.query();
             while (grOIBeyondCalulator.next()) {
-                dataBeyond18 += grOIBeyondCalulator.extended_cost;
+                dataBeyond18 += grOIBeyondCalulator.extended_cost_lc;
             }
             //Beyond18 Calulate End
 
@@ -1390,6 +1390,7 @@ th {&#13;
                     insertWBSBudget.setValue(inMonth, monthData[inMonth]);
                     calforecastPTC += parseInt(monthData[inMonth]);
                 }
+                forecastPTC = calforecastPTC + dataBeyond18;
                 insertWBSBudget.setValue("beyond18", dataBeyond18);
                 insertWBSBudget.setValue("forecast_ptc", forecastPTC);
                 insertWBSBudget.insert();
@@ -1566,14 +1567,14 @@ th {&#13;
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-26 06:30:58</sys_created_on>
         <sys_id>a1779091830b0210856ceec0deaad3d2</sys_id>
-        <sys_mod_count>6</sys_mod_count>
-        <sys_name>prjMngtWbsWd</sys_name>
+        <sys_mod_count>11</sys_mod_count>
+        <sys_name>prjCostMngWbsWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_a1779091830b0210856ceec0deaad3d2</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-26 10:03:08</sys_updated_on>
+        <sys_updated_on>2024-06-26 11:46:23</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 
@@ -1589,7 +1590,7 @@ th {&#13;
             </div>
             <div class="yoko-btn-wrap">
                 <button class="yoko-btn yoko-btn-outline" ng-click="clickLoadData()">Load Data</button>
-                <button class="yoko-btn yoko-btn-outline" ng-click="clickApproval()">Approval Request</button>
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.state" ng-click="clickApproval()">Approval Request</button>
             </div>
         </div>
         <div class="yoko-content">
