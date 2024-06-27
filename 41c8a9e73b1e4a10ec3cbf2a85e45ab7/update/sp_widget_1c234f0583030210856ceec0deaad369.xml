@@ -20,6 +20,8 @@
     // Example: Retrieve a specific parameter
     var paramValue = c.getUrlParameter('number');
     c.data.paramValue = paramValue;
+    var baseMonth = c.getUrlParameter('base_month');
+    c.data.base_month = baseMonth;
 
     // Call the server script
     c.server.update().then(function(response) {
@@ -44,6 +46,9 @@
             'lead_time': '',
             'planned_procurement': '',
             'plan_gr_date': '',
+            'po_date': '',
+            'target_gr_date': '',
+            'gr_date': '',
             'project': c.data.sys_id,
             'budget_type': 'bop'
         }
@@ -185,6 +190,18 @@
             },
             {
                 fieldName: "plan_gr_date",
+                dataType: "text",
+            },
+            {
+                fieldName: "po_date",
+                dataType: "text",
+            },
+            {
+                fieldName: "target_gr_date",
+                dataType: "text",
+            },
+            {
+                fieldName: "gr_date",
                 dataType: "text",
             },
             {
@@ -334,6 +351,40 @@
 				"styleName": "rg-header-cell",
             },
             {
+                "name": "po_date",
+                "fieldName": "po_date",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "PO Date"
+                },
+                "readOnly": true,
+                "editable": false,
+                "styleName": "rg-header-cell",
+            },
+            {
+                "name": "target_gr_date",
+                "fieldName": "target_gr_date",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Target GR Date"
+                },
+                "readOnly": true,
+                "editable": false,
+                "styleName": "rg-header-cell",
+            },
+            {
+                "name": "gr_date",
+                "fieldName": "gr_date",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "GR Date"
+                },
+                "styleName": "rg-header-cell",
+            },
+            {
                 "name": "project",
                 "fieldName": "project",
                 "type": "data",
@@ -366,6 +417,9 @@
             'lead_time',
             'planned_procurement',
             'plan_gr_date',
+            'po_date',
+            'target_gr_date',
+            'gr_date',
             'project',
             'budget_type'
         ];
@@ -1044,6 +1098,9 @@ th {&#13;
                 'lead_time': gritem.lead_time.getDisplayValue(),
                 'planned_procurement': gritem.planned_procurement.getDisplayValue(),
                 'plan_gr_date': gritem.plan_gr_date.getDisplayValue(),
+                'po_date': gritem.po_date.getDisplayValue(),
+                'target_gr_date': gritem.target_gr_date.getDisplayValue(),
+                'gr_date': gritem.gr_date.getDisplayValue(),
                 'project': gritem.getValue('project'),
                 'budget_type': gritem.getValue('budget_type')
             });
@@ -1098,6 +1155,9 @@ th {&#13;
             'lead_time',
             'planned_procurement',
             'plan_gr_date',
+            'po_date',
+            'target_gr_date',
+            'gr_date',
             'project',
             'budget_type'
         ];
@@ -1156,14 +1216,14 @@ function sf1(a, b) {
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-26 00:22:30</sys_created_on>
         <sys_id>1c234f0583030210856ceec0deaad369</sys_id>
-        <sys_mod_count>8</sys_mod_count>
+        <sys_mod_count>10</sys_mod_count>
         <sys_name>budgetPlanprjMngtWd02</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_1c234f0583030210856ceec0deaad369</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-27 08:37:32</sys_updated_on>
+        <sys_updated_on>2024-06-27 10:15:12</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 
@@ -1176,6 +1236,18 @@ function sf1(a, b) {
             </div>
         </div>
         <div class="yoko-content">
+            <div class="yoko-search-form-wrap">
+                <div class="yoko-search-form">
+                    <div class="yoko-form-group">
+                        <label for="base_month" class="yoko-short">Base Month</label>
+                        <input type="text" name="base_month" value={{data.base_month}} placeholder="" disabled class="yoko-wid140">
+                    </div>
+                    <div class="yoko-form-group">
+                        <label for="plan_type" class="yoko-short">Plan Type</label>
+                        <input type="text" name="plan_type" value="PRF" placeholder="" disabled class="yoko-wid140">
+                    </div>
+                </div>
+            </div>
             <div class="yoko-search-form-wrap">
                 <div class="yoko-search-form">
                     <div class="yoko-form-col">

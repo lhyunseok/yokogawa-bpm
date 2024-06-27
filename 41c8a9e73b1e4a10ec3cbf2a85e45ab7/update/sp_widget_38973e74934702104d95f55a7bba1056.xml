@@ -37,7 +37,6 @@
             c.data.gridDetailData = dpDetail.getJsonRows();
             for (var x = 0; x < c.data.gridDetailData.length; x++) {
 								console.log(c.data.gridDetailData[x])
-								console.log(dpDetail.getRowState(x))
                 c.data.gridDetailData[x].rowStat = dpDetail.getRowState(x);
             }
 			
@@ -67,7 +66,7 @@
     // Function to handle click event
     $scope.handleClick = function() {
         if (c.data.rfq_entry_id) {
-            window.location.href = "/sp?id=rfqentry&table=x_yergb_bpm_rfq_entry&sys_id=" + c.data.rfq_entry_id; // Redirect to the URL
+            window.location.href = "/ybpm?id=rfqentry&table=x_yergb_bpm_rfq_entry&sys_id=" + c.data.rfq_entry_id; // Redirect to the URL
         } else {
             alert('no rfq record')
         }
@@ -146,9 +145,9 @@
                 "header": {
                     "text": "Number"
                 },
-								"visible" : false
+							"visible" : false
 
-            },
+						},
             {
                 "name": "wbs_6",
                 "fieldName": "wbs_6",
@@ -760,19 +759,14 @@ a {text-decoration: none;}
 					//gs.addErrorMessage("hihi")
 					gs.addErrorMessage(input.gridBtnTransact)
             if(input.gridBtnTransact == 'T') {
-								
                 console.log('SERVER GRID SAVE : ' + input.gridDetailData);
-                console.log(input.gridDetailData);
                 var gData = input.gridDetailData;
                 for(var x=0; x<gData.length; x++) {
-										gs.addInfoMessage("들어오긴함" + x)
                     console.log('ROW STAT:' + gData[x].rowStat); 
                     gs.addErrorMessage('ROW STAT:' + gData[x].rowStat); 
                     var ordItem = new GlideRecord('x_yergb_bpm_quote_item');
                     ordItem.initialize();
                     var rStat = gData[x].rowStat;
-										gs.addErrorMessage(rStat + " " + x); 
-
                     if(rStat == 'deleted') {
                         ordItem.get(gData[x].sys_id);
                         ordItem.deleteRecord();
@@ -789,7 +783,7 @@ a {text-decoration: none;}
                         ordItem.setValue('unit_mp', gData[x].unit_mp);
                         ordItem.setValue('mp_amount', gData[x].mp_amount);
                         ordItem.setValue('vendor', gData[x].vendor);
-                        ordItem.setValue('quotation', qSysId);
+                        ordItem.setValue('quotation',qSysId);
                         ordItem.update();
                     } else if(rStat == 'created') {
                         ordItem.setValue('wbs_6', gData[x].wbs_6);
@@ -803,12 +797,9 @@ a {text-decoration: none;}
                         ordItem.setValue('unit_mp', gData[x].unit_mp);
                         ordItem.setValue('mp_amount', gData[x].mp_amount);
                         ordItem.setValue('vendor', gData[x].vendor);
-                        ordItem.setValue('quotation',qSysId);
+                        ordItem.setValue('quotation', qSysId);
                         ordItem.insert();
                     }
-									else{
-										gs.addErrorMessage("믱 뭐에요")
-									}
                 }
             }
         }
@@ -918,14 +909,14 @@ a {text-decoration: none;}
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 04:53:32</sys_created_on>
         <sys_id>38973e74934702104d95f55a7bba1056</sys_id>
-        <sys_mod_count>93</sys_mod_count>
+        <sys_mod_count>101</sys_mod_count>
         <sys_name>quotationWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_38973e74934702104d95f55a7bba1056</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-27 01:49:45</sys_updated_on>
+        <sys_updated_on>2024-06-27 11:14:52</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -990,7 +981,7 @@ a {text-decoration: none;}
                             </div>
                             <div class="yoko-form-group">
                                 <label for="total_estimated_cost" class="yoko-short-135">Total Quote Cost</label>
-                                <input type="text" name="total_quote_cost" value={{data.total_quote_price}} placeholder="" disabled class="yoko-wid140" style = "text-align:right;">
+                                <input type="text" name="total_quote_cost" value={{data.total_quote_cost}} placeholder="" disabled class="yoko-wid140" style = "text-align:right;">
                             </div>
             
                         </div>
@@ -998,7 +989,7 @@ a {text-decoration: none;}
                         <div class="yoko-form-col yoko-form-amount-wrap">
                             <div class="yoko-form-group">
                                 <label for="gp_amount" class="yoko-short">GP Amount</label>
-                                <input type="text" name="gp_amount" value={{data.gp_amount}} placeholder="" disabledclass="yoko-wid140 yoko-text-right">
+                                <input type="text" name="gp_amount" value={{data.gp_amount}} placeholder="" disabled class="yoko-wid140 yoko-text-right">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="mp_amount" class="yoko-short">MP Amount</label>
@@ -1022,7 +1013,7 @@ a {text-decoration: none;}
                                     <div class="yoko-form-group">
                                         <label for="rfq_entry" class="yoko-short">RFQ Entry</label>
                                         <div class="yoko-form-inline">
-                                          	<button class="yoko-btn-link yoko-wid140 yoko-short" ng-click="handleClick()">
+                                          	<button class="yoko-btn-link yoko-wid140 yoko-short" ng-click="handleClick()" style="background-color: #f0f0f0; border: 1px solid #ccc; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); padding: 10px 20px; border-radius: 5px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
                                     {{c.data.rfq_entry}}</button> 
                                         </div>
                                     </div>

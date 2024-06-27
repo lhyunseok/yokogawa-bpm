@@ -1678,14 +1678,14 @@ th {&#13;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-24 14:34:40</sys_created_on>
         <sys_id>7ff2f76c830f42100a5ce360ceaad32a</sys_id>
-        <sys_mod_count>73</sys_mod_count>
+        <sys_mod_count>74</sys_mod_count>
         <sys_name>initPlanMngtWbsWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_7ff2f76c830f42100a5ce360ceaad32a</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-27 07:37:47</sys_updated_on>
+        <sys_updated_on>2024-06-27 10:39:03</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 
@@ -1735,10 +1735,10 @@ th {&#13;
                                 <label for="project_number" class="yoko-short-100">Project Number</label>
                                 <input type="text" name="project_number" value={{data.number}} placeholder="" disabled class="yoko-wid247">
                             </div>
-                            <div class="yoko-form-group" id="budgetPlanNumber" ng-if="data.budgetPlanNumber">
+                            <!--<div class="yoko-form-group" id="budgetPlanNumber" ng-if="data.budgetPlanNumber">
                                 <label for="Budget_plan_number" class="yoko-short-100">Budget Plan Number</label>
                                 <input type="text" name="Budget_plan_number" value={{data.budgetPlanNumber}} placeholder="" disabled class="yoko-wid247">
-                            </div>
+                            </div>-->
                             <div class="yoko-form-group">
                                 <label for="customer" class="yoko-short-100">Customer</label>
                                 <input type="text" name="customer" value={{data.customer}} placeholder="" disabled class="yoko-wid247">
