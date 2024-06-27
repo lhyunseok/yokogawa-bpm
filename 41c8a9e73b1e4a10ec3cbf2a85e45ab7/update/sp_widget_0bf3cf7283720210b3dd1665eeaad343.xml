@@ -30,6 +30,8 @@
 	c.data.showBtnRequest = false;
 	c.data.showBtnAuthorize = false;
 	
+	c.data.disPerc = true;
+	
 	/* GRID */
 	c.data.gridBtnType = '';
 	
@@ -77,6 +79,22 @@
 		});
 	}
 	
+	function validation() {
+		var sumPrj = Number(c.data.prjType1Perc) + Number(c.data.prjType2Perc) + Number(c.data.prjType3Perc);
+		if(sumPrj != 100) {
+			alert("Project Type's total value is not 100");
+			return false;
+		}
+		
+		var sumAns = Number(c.data.ansoff1Perc) + Number(c.data.ansoff2Perc) + Number(c.data.ansoff3Perc);
+		if(sumAns != 100) {
+			alert("Ansoff Type's total value is not 100");
+			return false;
+		}
+		
+		return true;
+	}
+	
 	$scope.btnHeader = function(str) {
 		console.log('HEAD BUTTON : ' + str);
 		c.data.redirect_sys_id = '';
@@ -90,22 +108,32 @@
 		} else if(str == 'cancel') {
 			c.data.btnHeaderType = 'cancel';
 		} else if(str == 'request') {
-			c.data.btnHeaderType = 'request';
+			if(validation()) {
+				c.data.btnHeaderType = 'request';
+			} else {
+				c.data.btnHeaderType = '';
+			}
 		} else if(str == 'autorize') {
-			c.data.btnHeaderType = 'autorize';
+			if(validation()) {
+				c.data.btnHeaderType = 'autorize';
+			} else {
+				c.data.btnHeaderType = '';
+			}
 		}
 		
-		console.log('CLIENT HD BTN : ' + c.data.btnHeaderType) ;
-		c.server.update().then(function(response) {
-			console.log('Server response:', response);
-			
-			if( c.data.redirect_sys_id != '' ) {
-				window.location.href = "/sp?id=orderintakereport&sys_id=" + c.data.redirect_sys_id;
-			}
-			
-			c.data.btnHeaderType = '';
-			c.data.redirect_sys_id = '';
-		});
+		if(c.data.btnHeaderType != '') {
+			console.log('CLIENT HD BTN : ' + c.data.btnHeaderType) ;
+			c.server.update().then(function(response) {
+				console.log('Server response:', response);
+
+				if( c.data.redirect_sys_id != '' ) {
+					window.location.href = "/sp?id=orderintakereport&sys_id=" + c.data.redirect_sys_id;
+				}
+
+				c.data.btnHeaderType = '';
+				c.data.redirect_sys_id = '';
+			});
+		}
 	}
 	
 	$scope.btnClickOrdTypeSearch = function(idx) {
@@ -288,17 +316,17 @@
 	$scope.clickProjectType = function(item) {
 		if(item.type == 1) {
 			c.data.prjType1Nm = item.name;
-			c.data.prjType1Desc = item.desc;
+			c.data.prjType1Perc = '0'/*item.perc*/;
 			c.data.prjType1Code = item.code;
 			c.data.prjType1SysId = item.sysid;
 		} else if(item.type == 2) {
 			c.data.prjType2Nm = item.name;
-			c.data.prjType2Desc = item.desc;
+			c.data.prjType2Perc = '0'/*item.perc*/;
 			c.data.prjType2Code = item.code;
 			c.data.prjType2SysId = item.sysid;
 		} else if(item.type == 3) {
 			c.data.prjType3Nm = item.name;
-			c.data.prjType3Desc = item.desc;
+			c.data.prjType3Perc = '0'/*item.perc*/;
 			c.data.prjType3Code = item.code;
 			c.data.prjType3SysId = item.sysid;
 		}
@@ -324,17 +352,17 @@
 		if(item.type == 1) {
 			c.data.ansoff1Nm = item.name;
 			c.data.ansoff1Desc = item.desc;
-			c.data.ansoff1Code = item.code;
+			c.data.ansoff1Perc = '0'/*item.perc*/;
 			c.data.ansoff1SysId = item.sysid;
 		} else if(item.type == 2) {
 			c.data.ansoff2Nm = item.name;
 			c.data.ansoff2Desc = item.desc;
-			c.data.ansoff2Code = item.code;
+			c.data.ansoff2Perc = '0'/*item.perc*/;
 			c.data.ansoff2SysId = item.sysid;
 		} else if(item.type == 3) {
 			c.data.ansoff3Nm = item.name;
 			c.data.ansoff3Desc = item.desc;
-			c.data.ansoff3Code = item.code
+			c.data.ansoff3Perc = '0'/*item.perc*/;
 			c.data.ansoff3SysId = item.sysid;
 		}
 		
@@ -425,32 +453,71 @@
 		gvDetail = new RealGrid.GridView(containerDetail);
 		gvDetail.setDataSource(dpDetail);
 		
-		dpDetail.setFields([
-			/*{
-				fieldName: 'KorName',
+		dpDetail.setFields([			
+			{
+				fieldName: 'rowStat',
 				dataType: 'text',
 			},
 			{
-				fieldName: 'Age',
+				fieldName: 'sys_id',
+				dataType: 'text',
+			},
+			{
+				fieldName: 'number',
+				dataType: 'text',
+			},
+			{
+				fieldName: 'wbs_6',
+				dataType: 'text',
+			},
+			{
+				fieldName: 'ms_code',
+				dataType: 'text',
+			},
+			{
+				fieldName: 'description',
+				dataType: 'text',
+			},
+			{
+				fieldName: 'quantity',
 				dataType: 'number',
-			},*/
-
-			'rowStat',
-			'sys_id',
-			'number',
-			'wbs_6',
-			'ms_code',
-			'description',
-			'quantity',
-			'unit_price',
-			'extended_price',
-			'unit_cost',
-			'extended_cost',
-			'unit_mp',
-			'mp_amount',
-			'vendor',
-			'oi_report_num',
-			'oi_report_sys_Id'
+			},
+			{
+				fieldName: 'unit_price',
+				dataType: 'number',
+			},
+			{
+				fieldName: 'extended_price',
+				dataType: 'number',
+			},
+			{
+				fieldName: 'unit_cost',
+				dataType: 'number',
+			},
+			{
+				fieldName: 'extended_cost',
+				dataType: 'number',
+			},
+			{
+				fieldName: 'unit_mp',
+				dataType: 'number',
+			},
+			{
+				fieldName: 'mp_amount',
+				dataType: 'number',
+			},
+			{
+				fieldName: 'vendor',
+				dataType: 'text',
+			},
+			{
+				fieldName: 'oi_report_num',
+				dataType: 'text',
+			},
+			{
+				fieldName: 'oi_report_sys_Id',
+				dataType: 'text',
+			},
 		]);
 		
 		gvDetail.setColumns([
@@ -491,6 +558,7 @@
 				"header": {
 					"text": "MS Code"
 				},
+				"styleName" : "left-column"
 			},
 			{
 				"name": "description",
@@ -500,6 +568,7 @@
 				"header": {
 					"text": "Description"
 				},
+				"styleName" : "left-column"
 			},
 			{
 				"name": "quantity",
@@ -509,6 +578,8 @@
 				"header": {
 					"text": "Quantity"
 				},
+				"styleName" : "right-column",
+				"numberFormat": "#,##0",
 			},
 			{
 				"name": "unit_price",
@@ -518,6 +589,8 @@
 				"header": {
 					"text": "Unit Price"
 				},
+				"styleName" : "right-column",
+				"numberFormat": "#,##0",
 			},
 			{
 				"name": "extended_price",
@@ -526,11 +599,10 @@
 				"width": 120,
 				"header": {
 					"text": "Extended Price"
-				},
-				'styles': {
-            'background': "#CCCCCC"
-        }, 
+				}, 
 				"editable": false,
+				"styleName" : "right-column non-editable",
+				"numberFormat": "#,##0",
 			},
 			{
 				"name": "unit_cost",
@@ -540,6 +612,8 @@
 				"header": {
 					"text": "Unit Cost"
 				},
+				"styleName" : "right-column",
+				"numberFormat": "#,##0",
 			},
 			{
 				"name": "extended_cost",
@@ -550,6 +624,8 @@
 					"text": "Extended Cost"
 				},
 				"editable": false,
+				"styleName" : "right-column non-editable",
+				"numberFormat": "#,##0",
 			},
 			{
 				"name": "unit_mp",
@@ -559,6 +635,8 @@
 				"header": {
 					"text": "Unit MP"
 				},
+				"styleName" : "right-column",
+				"numberFormat": "#,##0",
 			},
 			{
 				"name": "mp_amount",
@@ -569,6 +647,8 @@
 					"text": "MP Amount"
 				},
 				"editable": false,
+				"styleName" : "right-column non-editable",
+				"numberFormat": "#,##0",
 			},
 			{
 				"name": "vendor",
@@ -578,6 +658,7 @@
 				"header": {
 					"text": "Vendor"
 				},
+				"styleName" : "left-column"
 			},
 			{
 				"name": "oi_report_num",
@@ -587,9 +668,6 @@
 				"header": {
 					"text": "OI report Number"
 				},
-				'styles': {
-            'background-color': "#00CCCC"
-        }, 
 				"editable": false,
 				'visible' : false,
 			}
@@ -708,7 +786,7 @@
 			c.data.disPayTerm = false;
 			c.data.disMaturDays = false;
 			c.data.disJobType = false;
-			c.data.disDmrClass = false;
+			c.data.disDmrClass = true;
 			c.data.disAttPO = true;
 			c.data.disAttBOM = true;
 			c.data.disAttESS = true;
@@ -720,6 +798,7 @@
 			c.data.disAnsoff2 = false;
 			c.data.disAnsoff3 = false;
 			c.data.disChkFlag = false;
+			c.data.disPerc = false;
 			
 			if(c.data.salesCompanyNm == 'YCN') {
 				c.data.showBtnAuthorize = true;
@@ -758,9 +837,12 @@
 			c.data.disAnsoff2 = true;
 			c.data.disAnsoff3 = true;
 			c.data.disChkFlag = true;
+			c.data.disPerc = true;
 			
 			c.data.showBtnAuthorize = false;
 			c.data.showBtnRequest = false;
+			c.data.showBtnCancel = false;
+			c.data.showBtnSave = false;
 		}
 
 		var loopCnt = 0;
@@ -1144,9 +1226,13 @@ width: 100%; /* Ensure the list items take the full width of the container */
 }
 .highlight-form {
 border: 2px solid red;
+}
 
+.rg-header-cell {text-align: center !important;}
+.right-column { text-align: right !important;}
+.left-column { text-align: left !important;}
 
-
+.non-editable { background: #dddddd !important}
 
 /*리얼그리드 수정*/
 /*.rg-root {color: #4B5966 !important;  font-family: "Pretendard" !important;   font-size: 14px !important;  font-style: normal !important;  font-weight: 500 !important;  line-height: normal !important;}
@@ -1227,13 +1313,14 @@ border: 2px solid red;
 		var ordTpCode = '';
 		var taxCode = '';
 		var payCode = '';
-		while(oiReportData.next()) {
+		while(oiReportData.next()) { 
 			data.oiNum = oiReportData.number.toString();
 			data.oiState = oiReportData.state.getDisplayValue().toString();
 			data.oiStateCode = oiReportData.state.toString(); 
 			data.opener = oiReportData.requestor.user_name.toString();
 			data.ExRate = oiReportData.exchange_rate.toString(); 
 			data.jobTypeSysId = oiReportData.job_type.toString();
+			data.dmrClassNm = oiReportData.dmr_class.toString();
 			data.dmrAmt = oiReportData.dmr_amount_level.toString();
 			data.dmrMP = oiReportData.dmr_mp_level.toString();
 			data.dmrGP = oiReportData.dmr_gp_level.toString();
@@ -1308,6 +1395,8 @@ border: 2px solid red;
 			prjTpR.query();
 			var loopCnt = 1;
 			while(prjTpR.next()) {
+				var pSeq = prjTpR.sequence;
+				var pRate = prjTpR.rate_percent.toString();
 				var cR = new GlideRecord('x_yergb_bpm_common_code');
 				cR.initialize();
 				cR.addQuery('category', 'PJT TYPE');
@@ -1317,21 +1406,29 @@ border: 2px solid red;
 					if(loopCnt == 1) {
 						data.prjType1Nm = cR.name.toString();
 						data.prjType1Code = cR.code.toString();
-						data.prjType1Desc = cR.description.toString();
+						//data.prjType1Perc = pRate;
 						data.prjType1SysId = cR.sys_id.toString();
 					} else if(loopCnt == 2) {
 						data.prjType2Nm = cR.name.toString();
 						data.prjType2Code = cR.code.toString();
-						data.prjType2Desc = cR.description.toString();
+						//data.prjType2Perc = cR.rate_percent.toString();
 						data.prjType2SysId = cR.sys_id.toString();
 					} else if(loopCnt == 3) {
 						data.prjType3Nm = cR.name.toString();
 						data.prjType3Code = cR.code.toString();
-						data.prjType3Desc = cR.description.toString();
+						//data.prjType3Perc = cR.rate_percent.toString();
 						data.prjType3SysId = cR.sys_id.toString();
 					}
 				}
 				loopCnt = loopCnt + 1;
+				
+				if(pSeq == 1) {
+					data.prjType1Perc = pRate;
+				} else if(pSeq == 2) {
+					data.prjType2Perc = pRate;
+				} else if(pSeq == 3) {
+					data.prjType3Perc = pRate;
+				}
 			}
 			
 			// get Ansoff type
@@ -1341,6 +1438,8 @@ border: 2px solid red;
 			ansR.query();
 			loopCnt = 1; 
 			while(ansR.next()){
+				var aSeq = ansR.sequence;
+				var aRate = ansR.rate_percent.toString();
 				var aR = new GlideRecord('x_yergb_bpm_ansoff_master');
 				aR.initialize();
 				aR.addQuery('sys_id', ansR.ansoff_type.toString());
@@ -1349,21 +1448,29 @@ border: 2px solid red;
 					if(loopCnt == 1) {
 						data.ansoff1Desc = aR.biz_name.toString();
 						data.ansoff1Nm = aR.biz_type.toString();
-						data.ansoff1Code = aR.mu_code.toString();
+						//data.ansoff1Perc = aR.rate_percent.toString();
 						data.ansoff1SysId = aR.sys_id.toString();
 					} else if(loopCnt == 2) {
 						data.ansoff2Desc = aR.biz_name.toString();
 						data.ansoff2Nm = aR.biz_type.toString();
-						data.ansoff2Code = aR.mu_code.toString();
+						//data.ansoff2Perc = aR.rate_percent.toString();
 						data.ansoff2SysId = aR.sys_id.toString();
 					} else if(loopCnt == 3) {
 						data.ansoff3Desc = aR.biz_name.toString();
 						data.ansoff3Nm = aR.biz_type.toString();
-						data.ansoff3Code = aR.mu_code.toString();
+						//data.ansoff3Perc = aR.rate_percent.toString();
 						data.ansoff3SysId = aR.sys_id.toString();
 					}
 					
 					loopCnt = loopCnt +1;
+					
+					if(aSeq == 1) {
+						data.ansoff1Perc = aRate;
+					} else if(aSeq == 2) {
+						data.ansoff2Perc = aRate;
+					} else if(aSeq == 3) {
+						data.ansoff3Perc = aRate;
+					}
 				}
 			}
 			
@@ -1492,6 +1599,8 @@ border: 2px solid red;
 				prjTR.initialize();
 				prjTR.setValue('oi_report', input.oiSysId)
 				prjTR.setValue('project_type', input.prjType1SysId);
+				prjTR.setValue('rate_percent', input.prjType1Perc);
+				prjTR.setValue('sequence', 1);
 				prjTR.insert();
 			} 
 			
@@ -1499,6 +1608,8 @@ border: 2px solid red;
 				prjTR.initialize();
 				prjTR.setValue('oi_report', input.oiSysId)
 				prjTR.setValue('project_type', input.prjType2SysId);
+				prjTR.setValue('rate_percent', input.prjType2Perc);
+				prjTR.setValue('sequence', 2);
 				prjTR.insert();
 			} 
 			
@@ -1506,6 +1617,8 @@ border: 2px solid red;
 				prjTR.initialize();
 				prjTR.setValue('oi_report', input.oiSysId)
 				prjTR.setValue('project_type', input.prjType3SysId);
+				prjTR.setValue('rate_percent', input.prjType3Perc);
+				prjTR.setValue('sequence', 3);
 				prjTR.insert();
 			}
 			
@@ -1519,6 +1632,8 @@ border: 2px solid red;
 				ansTR.initialize();
 				ansTR.setValue('oi_report', input.oiSysId)
 				ansTR.setValue('ansoff_type', input.ansoff1SysId);
+				ansTR.setValue('rate_percent', input.ansoff1Perc);
+				ansTR.setValue('sequence', 1);
 				ansTR.insert();
 			} 
 			
@@ -1526,6 +1641,8 @@ border: 2px solid red;
 				ansTR.initialize();
 				ansTR.setValue('oi_report', input.oiSysId)
 				ansTR.setValue('ansoff_type', input.ansoff2SysId);
+				ansTR.setValue('rate_percent', input.ansoff2Perc);
+				ansTR.setValue('sequence', 2);
 				ansTR.insert();
 			} 
 			
@@ -1533,6 +1650,8 @@ border: 2px solid red;
 				ansTR.initialize();
 				ansTR.setValue('oi_report', input.oiSysId)
 				ansTR.setValue('ansoff_type', input.ansoff3SysId);
+				ansTR.setValue('rate_percent', input.ansoff3Perc);
+				ansTR.setValue('sequence', 3);
 				ansTR.insert();
 			}
 			
@@ -1738,7 +1857,7 @@ border: 2px solid red;
 				type : prjType,
 				name : grPjtType.name.toString(),
 				code : grPjtType.code.toString(), 
-				desc : grPjtType.description.toString(),
+				//perc : grPjtType.rate_percent.toString(),
 				sysid : grPjtType.sys_id.toString()
 			});
 		}
@@ -1763,7 +1882,7 @@ border: 2px solid red;
 					type : ansOff,
 					desc : grAnsoff.biz_name.toString(),
 					name : grAnsoff.biz_type.toString(),
-					code : grAnsoff.mu_code.toString(),
+					//perc : grAnsoff.rate_percent.toString(),
 					sysid : grAnsoff.sys_id.toString()
 				});
 		}
@@ -1774,14 +1893,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>791</sys_mod_count>
+        <sys_mod_count>853</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-27 05:35:10</sys_updated_on>
+        <sys_updated_on>2024-06-27 10:38:23</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2213,8 +2332,8 @@ border: 2px solid red;
                                                                 <button type="button" class="yoko-btn yoko-btn-search" ng-disabled='c.data.disPrjType1' ng-click="btnClickPrjTypeSearch(1)"></button>
                                                                 <button type="button" class="yoko-btn yoko-btn-info-fill" ng-disabled='c.data.disPrjType1' ng-click="btnClickPrjTypeInfo(1)"></button>
                                                             </div>
-                                                            <input type="text" name="inputPrjType1Desc" value="" ng-model="c.data.prjType1Desc" placeholder="" disabled class="yoko-wid100">
-                                                            <input type="text" name="inputPrjType1Code" value="" ng-model="c.data.prjType1DCode" placeholder="" disabled class="yoko-wid100">
+                                                            <input type="text" name="inputPrjType1Code" value="" ng-model="c.data.prjType1Code" placeholder="" disabled class="yoko-wid100">
+                                                            <input type="text" name="inputPrjType1Perc" value="" ng-model="c.data.prjType1Perc" placeholder="" ng-disabled='c.data.disPerc' class="yoko-wid100">
                                                           	<input type="hidden" value="" ng-model="c.data.prjType1SysId">
                                                         </div>
                                                     </div>
@@ -2226,8 +2345,8 @@ border: 2px solid red;
                                                                 <button type="button" class="yoko-btn yoko-btn-search" ng-disabled='c.data.disPrjType2' ng-click="btnClickPrjTypeSearch(2)"></button>
                                                                 <button type="button" class="yoko-btn yoko-btn-info-fill" ng-disabled='c.data.disPrjType2' ng-click="btnClickPrjTypeInfo(2)"></button>
                                                             </div>
-                                                            <input type="text" name="inputPrjType2Desc" value="" ng-model="c.data.prjType2Desc" placeholder="" disabled class="yoko-wid100">
-                                                            <input type="text" name="inputPrjType2Code" value="" ng-model="c.data.prjType2Code" placeholder="" disabled class="yoko-wid100">
+                                                            <input type="text" name="inputPrjType2Desc" value="" ng-model="c.data.prjType2Code" placeholder="" disabled class="yoko-wid100">
+                                                            <input type="text" name="inputPrjType2Code" value="" ng-model="c.data.prjType2Perc" placeholder="" ng-disabled='c.data.disPerc' class="yoko-wid100">
                                                             <input type="hidden" value="" ng-model="c.data.prjType2SysId">
                                                         </div>
                                                     </div>
@@ -2239,8 +2358,8 @@ border: 2px solid red;
                                                                 <button type="button" class="yoko-btn yoko-btn-search" ng-disabled='c.data.disPrjType3' ng-click="btnClickPrjTypeSearch(3)"></button>
                                                                 <button type="button" class="yoko-btn yoko-btn-info-fill" ng-disabled='c.data.disPrjType3' ng-click="btnClickPrjTypeInfo(3)"></button>
                                                             </div>
-                                                            <input type="text" name="inputPrjType3Desc" value="" ng-model="c.data.prjType3Desc" placeholder="" disabled class="yoko-wid100">
-                                                            <input type="text" name="inputPrjType3Code" value="" ng-model="c.data.prjType3Code" placeholder="" disabled class="yoko-wid100">
+                                                            <input type="text" name="inputPrjType3Desc" value="" ng-model="c.data.prjType3Code" placeholder="" disabled class="yoko-wid100">
+                                                            <input type="text" name="inputPrjType3Code" value="" ng-model="c.data.prjType3Perc" placeholder="" ng-disabled='c.data.disPerc' class="yoko-wid100">
                                                           	<input type="hidden" value="" ng-model="c.data.prjType3SysId">
                                                         </div>
                                                     </div>
@@ -2268,7 +2387,7 @@ border: 2px solid red;
                                                               	<input type="hidden" value="" ng-model="c.data.ansoff1SysId">
                                                             </div>
                                                             <input type="text" name="inputAnsoffType1Desc" value="" ng-model="c.data.ansoff1Desc" placeholder="" disabled class="yoko-wid100">
-                                                            <input type="text" name="inputAnsoffType1Code" value="" ng-model="c.data.ansoff1Code" placeholder="" disabled class="yoko-wid100">
+                                                            <input type="text" name="inputAnsoffType1Perc" value="" ng-model="c.data.ansoff1Perc" placeholder="" ng-disabled='c.data.disPerc' class="yoko-wid100">
                                                         </div>
                                                     </div>
                                                     <div class="yoko-form-group">
@@ -2281,7 +2400,7 @@ border: 2px solid red;
                                                               	<input type="hidden" value="" ng-model="c.data.ansoff2SysId">
                                                             </div>
                                                             <input type="text" name="inputAnsoffType2Desc" value="" ng-model="c.data.ansoff2Desc" placeholder="" disabled class="yoko-wid100">
-                                                            <input type="text" name="inputAnsoffType2Code" value="" ng-model="c.data.ansoff2Code" placeholder="" disabled class="yoko-wid100">
+                                                            <input type="text" name="inputAnsoffType2Perc" value="" ng-model="c.data.ansoff2Perc" placeholder="" ng-disabled='c.data.disPerc' class="yoko-wid100">
                                                         </div>
                                                     </div>
                                                     <div class="yoko-form-group">
@@ -2291,9 +2410,10 @@ border: 2px solid red;
                                                                 <input type="text" name="inputAnsoffType3Nm" value="" ng-model="c.data.ansoff3Nm" ng-disabled='c.data.disAnsoff3' placeholder="" class="yoko-wid100">
                                                                 <button type="button" class="yoko-btn yoko-btn-search" ng-disabled='c.data.disAnsoff3' ng-click="btnClickAnsoffTypeSearch(3)"></button>
                                                                 <button type="button" class="yoko-btn yoko-btn-info-fill" ng-disabled='c.data.disAnsoff3' ng-click="btnClickAnsoffTypeInfo(3)"></button>
+                                                              	<input type="hidden" value="" ng-model="c.data.ansoff3SysId">
                                                             </div>
                                                             <input type="text" name="inputAnsoffType3Desc" value="" ng-model="c.data.ansoff3Desc" placeholder="" disabled class="yoko-wid100">
-                                                            <input type="text" name="inputAnsoffType3Code" value="" ng-model="c.data.ansoff3Code" placeholder="" disabled class="yoko-wid100">
+                                                            <input type="text" name="inputAnsoffType3Perc" value="" ng-model="c.data.ansoff3Perc" placeholder="" ng-disabled='c.data.disPerc' class="yoko-wid100">
                                                           	<input type="hidden" value="" ng-model="c.data.ansoff3SysId">
                                                         </div>
                                                     </div>
