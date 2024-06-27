@@ -273,6 +273,7 @@
         c.data.refer_requester_modal = false
         c.data.refer_quotation_modal = false
         c.data.refer_assignment_group_modal = false
+			c.data.refer_currency_modal = false
         c.data.refer_assigned_to_modal = false
         c.data.refer_contract_modal = false
         c.data.refer_contract_country_modal = false
@@ -288,6 +289,7 @@
         c.data.refer_requester_modal = false
         c.data.refer_quotation_modal = false
         c.data.refer_assignment_group_modal = false
+			c.data.refer_currency_modal = false
         c.data.refer_assigned_to_modal = false
         c.data.refer_contract_modal = false
         c.data.refer_contract_country_modal = false
@@ -303,6 +305,7 @@
             c.data.refer_end_user_modal = false
             c.data.refer_requester_modal = false
             c.data.refer_quotation_modal = false
+					c.data.refer_currency_modal = false
             c.data.refer_assignment_group_modal = false
             c.data.refer_assigned_to_modal = false
             c.data.refer_contract_modal = false
@@ -365,6 +368,7 @@
                 modal.style.display = "none";
                 c.data.refer_end_user_modal = false
                 c.data.refer_requester_modal = false
+							c.data.refer_currency_modal = false
                 c.data.refer_quotation_modal = false
                 c.data.refer_assignment_group_modal = false
                 c.data.refer_assigned_to_modal = false
@@ -399,6 +403,7 @@
                 c.data.refer_end_user_modal = false
                 c.data.refer_requester_modal = false
                 c.data.refer_quotation_modal = false
+							c.data.refer_currency_modal = false
                 c.data.refer_assignment_group_modal = false
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
@@ -428,6 +433,7 @@
             c.data.refer_end_user_modal = false
             c.data.refer_requester_modal = false
             c.data.refer_quotation_modal = false
+					c.data.refer_currency_modal = false
             c.data.refer_assignment_group_modal = false
             c.data.refer_assigned_to_modal = false
             c.data.refer_contract_modal = false
@@ -459,6 +465,7 @@
                 modal.style.display = "none";
                 c.data.refer_end_user_modal = false
                 c.data.refer_requester_modal = false
+							c.data.refer_currency_modal = false
                 c.data.refer_quotation_modal = false
                 c.data.refer_assignment_group_modal = false
                 c.data.refer_assigned_to_modal = false
@@ -488,6 +495,7 @@
 
                 modal.style.display = "none";
                 c.data.refer_end_user_modal = false
+                c.data.refer_currency_modal = false
                 c.data.refer_requester_modal = false
                 c.data.refer_quotation_modal = false
                 c.data.refer_assignment_group_modal = false
@@ -519,12 +527,14 @@
                 modal.style.display = "none";
                 c.data.refer_end_user_modal = false
                 c.data.refer_requester_modal = false
+							c.data.refer_currency_modal = false
+                c.data.refer_currency_modal = false
                 c.data.refer_quotation_modal = false
                 c.data.refer_assignment_group_modal = false
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
                 c.data.refer_contract_country_modal = false
-							c.data.refer_copy_modal = false;
+							  c.data.refer_copy_modal = false;
                 c.data.items = ""
                 c.data.modalTitle = ""
             };
@@ -554,7 +564,7 @@
 
 
                 c.server.update().then(function(response) {
-                    alert("we are copying now")
+                    //alert("we are copying now")
                     c.data.isCopy = false;
 
 
@@ -562,6 +572,7 @@
                     modal.style.display = "none";
                     c.data.refer_end_user_modal = false
                     c.data.refer_requester_modal = false
+									c.data.refer_currency_modal = false
                     c.data.refer_quotation_modal = false
                     c.data.refer_assignment_group_modal = false
                     c.data.refer_assigned_to_modal = false
@@ -1105,6 +1116,7 @@ border: 2px solid red;
         <script><![CDATA[(function() {
 	var userLanguage =  gs.getSession().getLanguage() 
 	//gs.addInfoMessage('User Language: ' + userLanguage);
+
 	
 var grLabel = new GlideRecord('sys_documentation');
 grLabel.addQuery('name', 'x_yergb_bpm_rfq_entry');
@@ -1114,7 +1126,7 @@ if(userLanguage == 'en') {
 } else if(userLanguage == 'zh') {
     grLabel.addQuery('language', 'zh');
 } else {
-    alert("what have you done");
+    //alert("what have you done");
     return;
 }
 
@@ -1626,7 +1638,8 @@ while(grLabel.next()) {
         }
 
         // 이거는 완전히 새로운 상태일때  완전 INSERT
-        if (gr.requestor != gs.getUser().getID()) {
+/*
+			if (gr.requestor != gs.getUser().getID()) {
 
             data.showAssess = false;
             data.showRequest = false;
@@ -1640,7 +1653,7 @@ while(grLabel.next()) {
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
         }
-
+*/
 
 
         /////////// 버튼을 누르면 STATE가 바뀐다. 
@@ -1976,14 +1989,14 @@ while(grLabel.next()) {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>55</sys_mod_count>
+        <sys_mod_count>64</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
-        <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-26 06:53:27</sys_updated_on>
+        <sys_updated_by>lhyunseok@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-26 11:52:52</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
           <div class="yoko-breadcrumb">Home > Quotation Request</div>
