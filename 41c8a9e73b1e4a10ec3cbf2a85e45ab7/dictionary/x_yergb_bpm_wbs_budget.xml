@@ -6,9 +6,9 @@
         <element attributes="edge_encryption_enabled=true" label="Month17" max_length="20" name="month17" type="decimal"/>
         <element label="Forecast PTC" max_length="20" name="forecast_ptc" type="decimal"/>
         <element attributes="edge_encryption_enabled=true" label="Month5" max_length="20" name="month5" type="decimal"/>
-        <element default="202406" label="Base Month" max_length="40" name="base_month" type="string"/>
+        <element label="Base Month" max_length="40" name="base_month" type="string"/>
         <element attributes="edge_encryption_enabled=true" label="Beyond18" max_length="20" name="beyond18" type="decimal"/>
-        <element label="Version" max_length="40" name="version" type="string"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Budget Plan" max_length="40" name="version" reference="x_yergb_bpm_budget_plan" type="reference"/>
         <element attributes="edge_encryption_enabled=true" label="Month8" max_length="20" name="month8" type="decimal"/>
         <element label="WBS Description" max_length="40" name="wbs_desc" type="string"/>
         <element attributes="edge_encryption_enabled=true" label="Month7" max_length="20" name="month7" type="decimal"/>
