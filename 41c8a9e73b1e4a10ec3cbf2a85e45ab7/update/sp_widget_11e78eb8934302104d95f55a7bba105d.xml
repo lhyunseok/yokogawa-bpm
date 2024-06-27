@@ -89,7 +89,7 @@
     // Function to handle click event
     $scope.btnQuotation = function() {
         if (c.data.quotation) {
-            window.location.href = "/sp?id=quotation&table=x_yergb_bpm_quotation&sys_id=" + c.data.quotation_sys_id; // Redirect to the URL
+            window.location.href = "/ybpm?id=quotation&table=x_yergb_bpm_quotation&sys_id=" + c.data.quotation_sys_id; // Redirect to the URL
         }
     };
     // url 에서 sys_id 가져온다. 
@@ -147,7 +147,7 @@
            // alert("INSERT")
             c.data.isInsert = true;
             c.server.update().then(function(response) {
-                window.location.href = "/sp?id=rfqentry&sys_id=" + c.data.redirect_sys_id;
+                window.location.href = "/ybpm?id=rfqentry&sys_id=" + c.data.redirect_sys_id;
                 // Optionally handle the server response if needed
                 if (response.data && response.data.result) {
                     //alert(response.data.result);
@@ -297,12 +297,26 @@
         //alert("RETURN?")
         c.data.newState = -5;
         c.data.isButton = true;
-        // Call the server script to update the state
+			
+			
+					 var confirmed = confirm("Do you really want to reject?");
+        if (confirmed) {
+            // 사용자가 확인을 클릭했을 때 수행할 작업
+            alert("Returned.");
+					// Call the server script to update the state
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
             location.reload();
         });
+            // 여기서 서버에 요청을 보내거나 다른 작업을 수행할 수 있습니다.
+        } else {
+            // 사용자가 취소를 클릭했을 때 수행할 작업
+        }
+			
+			
+			
+        
 
     };
     $scope.btnCancel = function() {
@@ -2154,14 +2168,14 @@ while(grLabel.next()) {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>181</sys_mod_count>
+        <sys_mod_count>185</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-27 10:48:52</sys_updated_on>
+        <sys_updated_on>2024-06-27 11:16:56</sys_updated_on>
         <template><![CDATA[<div  ng-controller="PopoverController as c" >
     <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > Quotation Request</div>
@@ -2258,7 +2272,7 @@ while(grLabel.next()) {
                         <div class="yoko-form-group">
                             <label for="quotation">{{data.labelQuotation}}</label>
                             <div class="yoko-form-inline">
-                                <button class="yoko-btn-quotation" ng-click="btnQuotation()">
+																<button class="yoko-btn-quotation" ng-click="btnQuotation()" style="background-color: #f0f0f0; border: 1px solid #ccc; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); padding: 10px 20px; border-radius: 5px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
                                     {{c.data.quotation}}
                                 </button>
                                 <input type="text" name="quotation_sysId" ng-model="c.data.quotation_sys_id" placeholder="" class="yoko-wid140" ng-click="handleClick()" ng-style="{'display': 'none'}" readonly>
