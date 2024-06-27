@@ -8,29 +8,99 @@
     $window.realGrid2Lic = $realgridkey.getKey();
     $window.RealGrid = $realgrid.getRealGrid();
     let headFile, detailFile;
+    let currentBaseMonth = new Date();
+
+    
+    var modalProjectNumber = document.getElementById("modalProjectNumber");
+	var modalPMName = document.getElementById("modalPMName");
+	var modalState = document.getElementById("modalState");
     // Function to get URL parameters
     c.getUrlParameter = function(param) {
         return $location.search()[param];
     };
 
     $scope.uploadPrfFiles = function() {
-        modal.style.display = 'block';
+        modalUpload.style.display = 'block';
     }
     
     $scope.btnClickAddFile  = function() {
-        console.log('AddFile Clicked');
-        modal.style.display = 'none';
+        modalUpload.style.display = 'none';
         if (headFile && detailFile) {
             postHeaderFile(headFile);
             postDetailFile(detailFile);
         }
-        clearModal();
+        clearModalUpload();
     }
 
     $scope.btnClickCancel = function() {
-        modal.style.display = 'none';
-        clearModal();
+        modalUpload.style.display = 'none';
+        clearModalUpload();
     }
+	
+
+    $scope.btnClickProjectNumberSearch = function(idx) {
+		c.data.itemsProjectNumbers = [];
+		modalProjectNumber.style.display = 'block';
+		c.data.modalProjectNumber = true;
+		c.data.modalProjectNumberTitle = 'Project Number';
+        c.data.modalProjectNumberType = true;
+		c.server.update().then(function(response) {
+			console.log('Server response:', response);
+		});
+	}
+
+    $scope.closeModalProjectNumber = function() {
+        modalProjectNumber.style.display = 'none';
+    }
+
+    $scope.clickProjectNumber = function(item) {
+        modalProjectNumber.style.display = 'none';
+        c.data.ProjectNumberNm = item.name;
+        c.data.ProjectNumberCode = item.code;
+        c.data.modalProjectNumber = false;
+        c.data.modalProjectNumberType = false;
+
+	}
+
+    $scope.btnClickPMNameSearch = function(idx) {
+		c.data.itemsPMNames = [];
+		modalPMName.style.display = 'block';
+		c.data.modalPMName = true;
+		c.data.modalPMNameTitle = 'PM Name';
+        c.data.modalPMNameType = true;
+		c.server.update().then(function(response) {
+			console.log('Server response:', response);
+		});
+	}
+
+    $scope.clickPMName = function(item) {
+        modalPMName.style.display = 'none';
+        c.data.PMNameNm = item.name;
+        c.data.PMNameCode = item.code;
+        c.data.modalPMName = false;
+        c.data.modalPMNameType = false;
+
+	}
+
+    $scope.btnClickStateSearch = function(idx) {
+		c.data.itemsStates = [];
+		modalState.style.display = 'block';
+		c.data.modalState = true;
+		c.data.modalStateTitle = 'State';
+        c.data.modalStateType = true;
+		c.server.update().then(function(response) {
+			console.log('Server response:', response);
+		});
+	}
+
+    $scope.clickState = function(item) {
+        modalState.style.display = 'none';
+        c.data.StateNm = item.name;
+        c.data.StateCode = item.code;
+        c.data.modalState= false;
+        c.data.modalStateType = false;
+
+	}
 
     $scope.valueChangeAddFile = async function(obj) {
         let files = obj.files;
@@ -39,22 +109,24 @@
             for (let i = 0; i < files.length; i++) {
                 let file = files[i];
                 if (validation(file)) {
-                    if (file.name.includes("_H")) {
+                    if (file.name.includes("PJTSUM_H")) {
                         $("#projectHeader").val(file.name);
                         headFile = await readFile(file);
-                        headFile = addHeaderFileValues(headFile);
     
-                    } else if (file.name.includes("_D")) {
+                    } else if (file.name.includes("PJTSUM_D")) {
                         $("#projectDetail").val(file.name);
                         detailFile = await readFile(file);
-                        detailFile = addDetailFileValues(detailFile);
                     }
                 }
             }
         }
     }
 
-    function clearModal() {
+    $scope.btnClickLoadData = function() {
+        loadDataProvider();
+    }
+
+    function clearModalUpload() {
         document.querySelector("input[type=file]").value = "";
         $("#projectHeader").val('');
         $("#projectDetail").val('');
@@ -76,28 +148,6 @@
         });
     }
 
-    function addHeaderFileValues(json) {
-        let records = json["records"];
-        let currentBaseMonth = new Date(dateStr.slice(0, 4) + '-' + dateStr.slice(4));
-        for (let key in records) {
-            let record = records[key];
-            record['Base Month'] = currentBaseMonth;
-            records[key] = record;
-        }
-    }
-
-    function addDetailFileValues(json) {
-        let records = json["records"];
-        let currentBaseMonth = new Date(dateStr.slice(0, 4) + '-' + dateStr.slice(4));
-        for (let key in records) {
-            let record = records[key];
-            record['Base Month'] = currentBaseMonth;
-            record['WBS Code'] = record['WBS element'].slice(-4);
-            record['Month'] = record['Period'];
-            records[key] = record;
-        }
-
-    }
 
     /*** string to json */
     function parseJson(str) {
@@ -111,19 +161,35 @@
         // Function to remove non-alphanumeric characters from a string
         const removeNonAlphanumeric = str => str.replace(regex, '');
 
+        function camelToSnakeWithPrefix(input) {
+            // Replace CamelCase with spaces to snake_case
+            let snakeCase = input.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase();
+            
+            // Add 'u_' prefix
+            snakeCase = 'u_' + snakeCase;
+            
+            return snakeCase;
+        }
+
         // Use map to create a new array with modified strings
-        const modifiedHeadings = headings.map(removeNonAlphanumeric);
+        const modifiedHeadings = headings.map(removeNonAlphanumeric).map(str => camelToSnakeWithPrefix(str)).map(str => str.replace(/\s+/g, '_'));
+
         
         cells = cells.filter((cell) => {
             //if there is only empty string in there filter it out
             if (cell.length > 1) return cell;
         });
 
+
+        let specialChRegex = /[\'\"\r]/g;
         let obj = cells.map(function (el) {
             let obj = {};
-            for (var i = 0, l = el.length; i < l; i++) {
-                if (!el[i]) break;
-                obj[modifiedHeadings[i]] = isNaN(Number(el[i])) ? el[i] : +el[i];
+            for (let i = 0, l = el.length; i < l; i++) {
+                if (typeof el[i] == 'string') {
+                    let value = el[i] ? el[i].replace(specialChRegex, '') : '';
+                    obj[modifiedHeadings[i]] = value;
+                }
+                else if (typeof el[i] == 'number') obj[modifiedHeadings[i]] = isNaN(Number(el[i])) ? el[i] : +el[i];
             }
             return obj;
         });
@@ -178,11 +244,30 @@
         }
     }
 
-    var gv;
-    var dp;
+    $(document).ready(function() {
+        
+    	var toggleButtons = document.querySelectorAll(".yoko-btn-fold");
+      toggleButtons.forEach(button => {
+        button.addEventListener("click", function() {
+          var targetId = this.getAttribute("data-target");
+          var content = document.getElementById(targetId);
+          if (content.style.display === "block" || content.style.display === "") {
+            content.style.display = "none";
+          } else {
+            content.style.display = "block";
+          }
+
+          this.classList.toggle("active");
+        });
+      });
+    });
+
+
+    var gridView;
+    var dataProvider;
 
     function grid() {
-        const gvFields = [
+        const gridViewFields = [
             { fieldName: "sys_id",          dataType: "text" },
             { fieldName: "project_no",      dataType: "text" },
             { fieldName: "contractor",      dataType: "text" },
@@ -199,7 +284,7 @@
 
         const sumFooter = { "expression": "sum", "numberFormat": "#,##0" };
 
-        const gvColumns = [
+        const gridViewColumns = [
             { name: "sys_id",           fieldName: "sys_id",            type: "data",   width: 100,  header: { text: "sysid" },              visible: false, readOnly: true,  editable: false },
             { name: "project_no",       fieldName: "project_no",        type: "data",   width: 100,  header: { text: "Project No." },        visible: true,  readOnly: true,  editable: false, styleName: "ni-rg-col-project_no",             groupFooter: { text: " ", expression: "max" } },
             { name: "contractor",       fieldName: "contractor",        type: "data",   width: 200,  header: { text: "Contractor" },         visible: true,  readOnly: true,  editable: false },
@@ -215,24 +300,30 @@
         
         
 
-        const gvLayouts = [ 'sys_id', 'project_no', 'contractor', 'project_name', 'pm', 'contract_amt', 'ptc_last_month', 'forecast_ptc', 'variance', 'poc_percentage', 'state' ];
+        const gridViewLayouts = [ 'sys_id', 'project_no', 'contractor', 'project_name', 'pm', 'contract_amt', 'ptc_last_month', 'forecast_ptc', 'variance', 'poc_percentage', 'state' ];
 
         function initGrid() {
-            gv = new RealGrid.GridView('gridContainer');
-            gv.setDataSource(dp);
-            gv.setColumns(gvColumns);
-            gv.setColumnLayout(gvLayouts);
-            gv.footers.visible = true;
-            gv.commitEditor();
-            gv.editOptions.commitByCell = true;
-            gv.editOptions.insertable = true;
-            gv.checkBar.visible = false;
-            gv.stateBar.visible = false;
+            gridView = new RealGrid.GridView('gridContainer');
+            gridView.setDataSource(dataProvider);
+            gridView.setColumns(gridViewColumns);
+            gridView.setColumnLayout(gridViewLayouts);
+            gridView.footers.visible = true;
+            gridView.commitEditor();
+            gridView.editOptions.commitByCell = true;
+            gridView.editOptions.insertable = true;
+            gridView.checkBar.visible = false;
+            gridView.stateBar.visible = false;
 
-            dp = new RealGrid.LocalDataProvider();
-            dp.setFields(gvFields);
-            dp.softDeleting = false;
-            dp.setRows(c.data.gridData);
+            dataProvider = new RealGrid.LocalDataProvider();
+            dataProvider.setFields(gridViewFields);
+            dataProvider.softDeleting = false;
+            dataProvider.setRows(c.data.gridData);
+        }
+
+        console.log(c.data.gridData);
+
+        function loadDataProvider() {
+            dataProvider.fillJsonData(data, { fillMode: "set" });
         }
 
         initGrid();
@@ -456,6 +547,95 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
   .yoko-flag-wrap .yoko-flex-responsive-row {flex-direction: row; gap: 40px;}&#13;
 }&#13;
 &#13;
+/*모달커스텀 모달*/&#13;
+.modal {&#13;
+  display: none;&#13;
+  position: fixed;&#13;
+  z-index: 1;&#13;
+  padding-top: 60px;&#13;
+  left: 0;&#13;
+  top: 0;&#13;
+  width: 100%;&#13;
+  height: 100%;&#13;
+  overflow: auto;&#13;
+  background-color: rgb(0,0,0);&#13;
+  background-color: rgba(0,0,0,0.4);&#13;
+}&#13;
+&#13;
+.modal-content {&#13;
+  background-color: #fefefe;&#13;
+  margin: 5% auto;&#13;
+  padding: 20px;&#13;
+  border: 1px solid #888;&#13;
+  width: 80%;&#13;
+}&#13;
+&#13;
+.close {&#13;
+  color: #aaa;&#13;
+  float: right;&#13;
+  font-size: 28px;&#13;
+  font-weight: bold;&#13;
+}&#13;
+&#13;
+.close:hover,&#13;
+.close:focus {&#13;
+  color: black;&#13;
+  text-decoration: none;&#13;
+  cursor: pointer;&#13;
+}&#13;
+&#13;
+&#13;
+/*  &#13;
+TEST Modal CSS&#13;
+*/&#13;
+.modal {&#13;
+display: none; /* Hidden by default */&#13;
+position: fixed; /* Stay in place */&#13;
+z-index: 3; /* Sit on top */&#13;
+left: 0;&#13;
+top: 0;&#13;
+width: 100%; /* Full width */&#13;
+height: 100%; /* Full height */&#13;
+overflow: auto; /* Enable scroll if needed */&#13;
+background-color: rgb(0,0,0); /* Fallback color */&#13;
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */&#13;
+}&#13;
+.modal-content {&#13;
+background-color: #fefefe;&#13;
+//margin: 5% auto; /* 15% from the top and centered */&#13;
+padding: 20px;&#13;
+border: 1px solid #888;&#13;
+width: 50%; /* Reduced width to 60% */&#13;
+}&#13;
+.close {&#13;
+color: #aaa;&#13;
+float: right;&#13;
+font-size: 28px;&#13;
+font-weight: bold;&#13;
+}&#13;
+.close:hover,&#13;
+.close:focus {&#13;
+color: black;&#13;
+text-decoration: none;&#13;
+cursor: pointer;&#13;
+}&#13;
+.container {&#13;
+list-style-type: none;&#13;
+padding: 0;&#13;
+}&#13;
+.container li {&#13;
+padding: 8px 0;&#13;
+border-bottom: 1px solid #ddd;&#13;
+display: flex;&#13;
+justify-content: space-between;&#13;
+margin-bottom: 10px;&#13;
+box-sizing: border-box; /* Include padding and border in element's total width and height */&#13;
+width: 100%; /* Ensure the list items take the full width of the container */&#13;
+}&#13;
+.highlight-form {&#13;
+border: 2px solid red;&#13;
+}&#13;
+&#13;
 &#13;
 &#13;
 &#13;
@@ -506,17 +686,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         gritem.orderBy("number");
         gritem.query();
         var tableinfo = [];
-		var prevWbs = '';
         while (gritem.next()) {
-			if (prevWbs && prevWbs !== gritem.wbs.getDisplayValue()) {
-				tableinfo.push({
-					'sys_id': null,
-					'wbs': prevWbs,
-					'__type': '입력',
-					'activity_type': '***INPUT***',
-					'__insert' : 'Ins',
-				});
-			}
 			tableinfo.push({
 				'sys_id': gritem.sys_id.getDisplayValue(),
 				'wbs': gritem.wbs.getDisplayValue(),
@@ -528,26 +698,40 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
 				'__delete' : 'Del',
 				'__insert' : 'Ins',
 			});
-			prevWbs = gritem.wbs.getDisplayValue();
         }
-		if (prevWbs) {
-			tableinfo.push({
-				'sys_id': null,
-				'wbs': prevWbs,
-				'__type': '입력',
-				'activity_type': '***INPUT***',
-				'__insert' : 'Ins',
-			});
-		}
         return tableinfo;
 	}
 
-	data.gridData = getGridData();
+	function getData(basemonth) {
+		var gritem = new GlideRecord("x_yergb_bpm_budget_plan");
+		// gritem.addJoinQuery('x_yergb_bpm_wbs_budget', 'project');
+		gritem.addEncodedQuery('base_month', basemonth);
+		// gritem.orderBy("project");
+		gritem.query();
+		var tableinfo = [];
+		while (gritem.next()) {
+			tableinfo.push({
+				'sys_id' : gritem.sys_id.getDisplayValue(),
+				'project_no' : gritem.sys_id.getDisplayValue(),
+			    'contractor' : gritem.sys_id.getDisplayValue(),
+				'project_name' : gritem.sys_id.getDisplayValue(), 
+				'pm' : gritem.sys_id.getDisplayValue(), 
+				'contract_amt' : gritem.sys_id.getDisplayValue(), 
+				'ptc_last_month' : gritem.sys_id.getDisplayValue(), 
+				'forecast_ptc' : gritem.sys_id.getDisplayValue(), 
+				'variance' : gritem.sys_id.getDisplayValue(), 
+				'poc_percentage' : gritem.sys_id.getDisplayValue(), 
+				'state': gritem.sys_id.getDisplayValue(),
+			})
+		}
+		return tableinfo;
+    }
+
+
+	// data.gridData = getGridData();
+	data.gridData = getData('202406');
 	data.gridDataStr = JSON.stringify(data.gridData);
-	
-	
-	
-	
+
 })();
 ]]></script>
         <servicenow>false</servicenow>
@@ -555,20 +739,20 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <sys_created_by>yeongink</sys_created_by>
         <sys_created_on>2024-06-24 05:11:44</sys_created_on>
         <sys_id>48e1f96c8347021099decf50ceaad3f1</sys_id>
-        <sys_mod_count>293</sys_mod_count>
+        <sys_mod_count>365</sys_mod_count>
         <sys_name>prfManagement</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_48e1f96c8347021099decf50ceaad3f1</sys_update_name>
         <sys_updated_by>yeongink</sys_updated_by>
-        <sys_updated_on>2024-06-26 04:00:07</sys_updated_on>
+        <sys_updated_on>2024-06-27 05:31:49</sys_updated_on>
         <template><![CDATA[<div class="yoko-container">
   <div class="yoko-breadcrumb">Home > Project Management > PRF Management</div>
   <div class="yoko-title-btn-wrap">
     <h1 class="yoko-title">PRF Management</h1>
     <div class="yoko-btn-wrap">
-      <button class="yoko-btn yoko-btn-outline">Load Data</button>
+      <button class="yoko-btn yoko-btn-outline" ng-click="btnClickLoadData()">Load Data</button>
       <button class="yoko-btn yoko-btn-fill" ng-click="uploadPrfFiles()">Upload PRF Files</button>
     </div>
   </div>
@@ -583,7 +767,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
           <label for="project_number" class="yoko-short-100">Project Number</label>
           <div class="yoko-form-inline">
             <input type="text" name="project_number" value="" placeholder="" class="yoko-wid140">
-            <button type="button" class="yoko-btn yoko-btn-search"></button>
+            <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickProjectNumberSearch()"></button>
           </div>
         </div>
         <div class="yoko-form-group">
@@ -609,7 +793,7 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
       <input id="gridData" type="hidden" value="{{data.gridData}}">
       <input id="" type="hidden" value="{{data.gridDataStr}}">
   </div>
-  <div class="yoko-modal-normal yoko-search-form" id="modal" style="display:none">
+  <div class="yoko-modal-normal yoko-search-form" id="modalUpload" style="display:none">
     <form class="yoko-modal-content">
       <div class="yoko-form-col">
         <div class="yoko-form-group">
@@ -636,6 +820,26 @@ body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; l
         <label for="files" class="yoko-btn yoko-btn-fill">Open Files</label>
       </div>
     </form>
+  </div>
+</div>
+<!-- Modal Order type Structure -->
+<div id="modalProjectNumber" class="modal" style="display:none;">
+  <div class="modal-content">
+      <div class="modal-header">
+          <span class="close" ng-click="closeModalProjectNumber()">&times;</span>
+          <h2>{{c.data.modalProjectNumberTitle}}</h2>
+      </div>
+      <div class="modal-body">
+          <ul id="container" class="container">
+              <li ng-repeat="item in c.data.itemsProjectNumber">
+                <span ng-click="clickProjectNumber(item)">{{item.name}}</span>
+              </li>
+          </ul>
+          <div class="pagination" id="pagination"></div>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-primary" ng-click="closeModalProjectNumber()">Close</button>
+      </div>
   </div>
 </div>
 ]]></template>

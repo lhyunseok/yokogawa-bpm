@@ -354,14 +354,14 @@ a {text-decoration: none;}&#13;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-26 06:43:42</sys_created_on>
         <sys_id>8b0a505983c706100a5ce360ceaad301</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>6</sys_mod_count>
         <sys_name>bpm Header</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_header_footer_8b0a505983c706100a5ce360ceaad301</sys_update_name>
         <sys_updated_by>hahyun@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-27 01:30:01</sys_updated_on>
+        <sys_updated_on>2024-06-27 04:14:09</sys_updated_on>
         <template><![CDATA[<!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -385,7 +385,7 @@ a {text-decoration: none;}&#13;
     <div class="yoko-header-container" id="yoko-header">
         <div class="yoko-header-inner">
             <div class="yoko-nav-wrap">
-                <a class="yoko-logo" href="/ybpm?id=bpm_index">
+                <a class="yoko-logo" href="/ybpm">
                     <img src="x_yergb_bpm.yokogawa.png" alt="">
                 </a>
                 <div class="yoko-nav">
@@ -400,11 +400,9 @@ a {text-decoration: none;}&#13;
                                 </li>
                                 <li class="yoko-dep-1"><a href="/ybpm?id=oilist">Order Intake</a>
                                 </li>
-                                <li class="yoko-dep-1"><a href="javascript:void(0)">Initial Plan</a>
-                                <ul class="yoko-dep-2-wrap">
-                                    <li class="yoko-dep-2"><a href="/ybpm?id=ilist">ITEM</a></li>
-                                    <li class="yoko-dep-2"><a href="/ybpm?id=iwlist">WBS</a></li>
-                                </ul>
+                                <li class="yoko-dep-1"><a href="/ybpm?id=epic_03_ui_init">Initial Plan - Item</a>
+                                </li>
+                                <li class="yoko-dep-1"><a href="/ybpm?id=epic_03_ui_init_wbs">Initial Plan - WBS</a>
                                 </li>
                                 <li class="yoko-dep-1"><a href="javascript:void(0)">PRF</a>
                                 </li>

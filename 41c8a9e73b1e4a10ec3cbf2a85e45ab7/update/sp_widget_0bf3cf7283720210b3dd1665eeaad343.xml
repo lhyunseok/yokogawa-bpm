@@ -472,6 +472,7 @@
 					"text": "Number"
 				},
 				"editable": false,
+				'visible': false
 			},
 			{
 				"name": "wbs_6",
@@ -590,6 +591,7 @@
             'background-color': "#00CCCC"
         }, 
 				"editable": false,
+				'visible' : false,
 			}
 		]);
 		
@@ -791,7 +793,7 @@ a {text-decoration: none;}
 .blank {width: 100%; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); }
 .yoko-container {margin: 40px auto 100px; min-width: 1400px; max-width: 1600px; font-family: "Pretendard"; font-size: 14px; font-weight: 400; letter-spacing: 0;}
 .yoko-container * {box-sizing: border-box;}
-.yoko-container .yoko-content {display: flex; gap: 30px; flex-direction: column;}
+.yoko-container .yoko-content {display: flex; gap: 10px; flex-direction: column;}
 .yoko-breadcrumb {color: #425D78;}
 .yoko-title-btn-wrap {display: flex; justify-content: space-between; align-items: center; margin: 8px 0 25px 0;}
 .yoko-title-btn-wrap .yoko-title {margin:0; color: #1C3956; font-family: "Pretendard";font-size: 24px;  font-style: normal;  font-weight: 700; line-height: normal;}
@@ -1230,6 +1232,7 @@ border: 2px solid red;
 			data.oiState = oiReportData.state.getDisplayValue().toString();
 			data.oiStateCode = oiReportData.state.toString(); 
 			data.opener = oiReportData.requestor.user_name.toString();
+			data.ExRate = oiReportData.exchange_rate.toString(); 
 			data.jobTypeSysId = oiReportData.job_type.toString();
 			data.dmrAmt = oiReportData.dmr_amount_level.toString();
 			data.dmrMP = oiReportData.dmr_mp_level.toString();
@@ -1549,6 +1552,7 @@ border: 2px solid red;
 				flagR.update();
 			}
 		} else if(input.btnHeaderType == 'request') {
+			console.log('SERVER BTN REQUEST');
 			oiRptTr.get(input.oiSysId);
 			oiRptTr.setValue('state', '3');
 			oiRptTr.update();
@@ -1557,7 +1561,12 @@ border: 2px solid red;
 			oiRptTr.get(input.oiSysId);
 			oiRptTr.setValue('state', '6');
 			oiRptTr.update();
-		}
+		} else if(input.btnHeaderType == 'cancel') {
+			console.log('SERVER BTN CANCEL');
+			oiRptTr.get(input.oiSysId);
+			oiRptTr.setValue('state', '-8');
+			oiRptTr.update();
+		} 
 		
 		data.redirect_sys_id = input.oiSysId;
 	}
@@ -1765,14 +1774,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>778</sys_mod_count>
+        <sys_mod_count>791</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-27 01:59:01</sys_updated_on>
+        <sys_updated_on>2024-06-27 05:35:10</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -1881,9 +1890,8 @@ border: 2px solid red;
             
           	<div class="yoko-search-form-wrap">
                 <div class="yoko-search-form-heading yoko-fold-btn-wrap">
-                    Quotation
                     <button type="button" data-target="Quotation" class="yoko-btn yoko-btn-fold"></button>
-                    <!-- 화면접기 버튼추가 -->
+                  	Quotation
                 </div>
                 <div class="quotation_wrap" id="Quotation">
                     <div class="yoko-search-form yoko-padding24">
@@ -1916,10 +1924,6 @@ border: 2px solid red;
                             </div>
                         </div>
                         <div class="yoko-form-col">
-                            <!--<div class="yoko-form-group">
-                                <label for="lbExRate" class="yoko-short-110">Ex. Rate</label>
-                                <input type="text" name="inputExRate" value="" ng-model="c.data.ExRate" laceholder="" disabled class="yoko-wid140 yoko-text-right">
-                            </div>-->
                             <div class="yoko-form-group">
                                 <label for="lbOiAmountTc" class="yoko-short-110">OI Amount(TC)</label>
                                 <input type="text" name="inputOiAmountTc" value="" ng-model="c.data.oiAmtTC" placeholder="" disabled class="yoko-wid140 yoko-text-right">
@@ -1963,9 +1967,8 @@ border: 2px solid red;
           
             <div class="yoko-search-form-wrap">
                 <div class="yoko-search-form-heading yoko-fold-btn-wrap">
-                    Quotation Request
                     <button type="button" data-target="RFQEntry" class="yoko-btn yoko-btn-fold"></button> 
-                    <!-- 화면접기 버튼추가 -->
+                  	Quotation Request
                 </div>
                 <div class="RFQ-entry-wrap" id="RFQEntry">
                     <div class="yoko-search-form yoko-padding24">
@@ -2032,9 +2035,8 @@ border: 2px solid red;
 
             <div class="yoko-search-form-wrap">
                 <div class="yoko-search-form-heading yoko-fold-btn-wrap">
-                    Additional Information
                     <button type="button" data-target="additionalInformation" class="yoko-btn yoko-btn-fold"></button>
-                    <!-- 화면접기 버튼추가 -->
+                  	Additional Information
                 </div>
                 <div class="additional-information-wrap" id="additionalInformation">
                     <div class="yoko-search-form yoko-padding24">
@@ -2104,7 +2106,6 @@ border: 2px solid red;
                                         <input type="text" name="inputJobType" value="" ng-model='c.data.jobTypeNm' ng-disabled='c.data.disJobType' placeholder="" class="yoko-wid100">
                                         <button type="button" class="yoko-btn yoko-btn-search" ng-disabled='c.data.disJobType' ng-click="btnClickDMRSearch(1)"></button>
                                         <button type="button" class="yoko-btn yoko-btn-info-fill" ng-disabled='c.data.disJobType' ng-click="btnClickDMRInfo(1)"></button>
-                                       <!-- <button type="button" class="yoko-btn yoko-btn-load" ng-disabled='c.data.disJobType' ng-click="btnClickDMRLoad()">Load</button> -->
                                       	<input type='hidden' value='' ng-model='c.data.jobTypeSysId'>
                                     </div>
                                 </div>
@@ -2202,7 +2203,7 @@ border: 2px solid red;
                                                 <div class="yoko-form-group-heading">Project Type</div>
                                                 <div class="yoko-form-group-line"></div>
                                             </div>
-                                            <div class="yoko-ht100 yoko-scroll"> <!-- 높이고정값/스크롤추가 -->
+                                            <div class="yoko-ht100 yoko-scroll">
                                                 <div class="yoko-form-col yoko-mb-80">
                                                     <div class="yoko-form-group">
                                                         <label for="lbPrjType1" class="yoko-short-100">Project Type1</label>
@@ -2255,7 +2256,7 @@ border: 2px solid red;
                                                 <div class="yoko-form-group-heading">Ansoff Type</div>
                                                 <div class="yoko-form-group-line"></div>
                                             </div>
-                                            <div class="yoko-ht100 yoko-scroll"> <!-- 높이고정값/스크롤추가 -->
+                                            <div class="yoko-ht100 yoko-scroll">
                                                 <div class="yoko-form-col yoko-mb-80">
                                                     <div class="yoko-form-group">
                                                         <label for="lbAnsoffType1" class="yoko-short-90">Ansoff Type1</label>
