@@ -273,7 +273,6 @@
         c.data.refer_requester_modal = false
         c.data.refer_quotation_modal = false
         c.data.refer_assignment_group_modal = false
-			c.data.refer_currency_modal = false
         c.data.refer_assigned_to_modal = false
         c.data.refer_contract_modal = false
         c.data.refer_contract_country_modal = false
@@ -289,7 +288,6 @@
         c.data.refer_requester_modal = false
         c.data.refer_quotation_modal = false
         c.data.refer_assignment_group_modal = false
-			c.data.refer_currency_modal = false
         c.data.refer_assigned_to_modal = false
         c.data.refer_contract_modal = false
         c.data.refer_contract_country_modal = false
@@ -305,7 +303,6 @@
             c.data.refer_end_user_modal = false
             c.data.refer_requester_modal = false
             c.data.refer_quotation_modal = false
-					c.data.refer_currency_modal = false
             c.data.refer_assignment_group_modal = false
             c.data.refer_assigned_to_modal = false
             c.data.refer_contract_modal = false
@@ -368,7 +365,6 @@
                 modal.style.display = "none";
                 c.data.refer_end_user_modal = false
                 c.data.refer_requester_modal = false
-							c.data.refer_currency_modal = false
                 c.data.refer_quotation_modal = false
                 c.data.refer_assignment_group_modal = false
                 c.data.refer_assigned_to_modal = false
@@ -403,7 +399,6 @@
                 c.data.refer_end_user_modal = false
                 c.data.refer_requester_modal = false
                 c.data.refer_quotation_modal = false
-							c.data.refer_currency_modal = false
                 c.data.refer_assignment_group_modal = false
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
@@ -433,7 +428,6 @@
             c.data.refer_end_user_modal = false
             c.data.refer_requester_modal = false
             c.data.refer_quotation_modal = false
-					c.data.refer_currency_modal = false
             c.data.refer_assignment_group_modal = false
             c.data.refer_assigned_to_modal = false
             c.data.refer_contract_modal = false
@@ -465,7 +459,6 @@
                 modal.style.display = "none";
                 c.data.refer_end_user_modal = false
                 c.data.refer_requester_modal = false
-							c.data.refer_currency_modal = false
                 c.data.refer_quotation_modal = false
                 c.data.refer_assignment_group_modal = false
                 c.data.refer_assigned_to_modal = false
@@ -495,7 +488,6 @@
 
                 modal.style.display = "none";
                 c.data.refer_end_user_modal = false
-                c.data.refer_currency_modal = false
                 c.data.refer_requester_modal = false
                 c.data.refer_quotation_modal = false
                 c.data.refer_assignment_group_modal = false
@@ -527,14 +519,12 @@
                 modal.style.display = "none";
                 c.data.refer_end_user_modal = false
                 c.data.refer_requester_modal = false
-							c.data.refer_currency_modal = false
-                c.data.refer_currency_modal = false
                 c.data.refer_quotation_modal = false
                 c.data.refer_assignment_group_modal = false
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
                 c.data.refer_contract_country_modal = false
-							  c.data.refer_copy_modal = false;
+							c.data.refer_copy_modal = false;
                 c.data.items = ""
                 c.data.modalTitle = ""
             };
@@ -564,7 +554,7 @@
 
 
                 c.server.update().then(function(response) {
-                    //alert("we are copying now")
+                    alert("we are copying now")
                     c.data.isCopy = false;
 
 
@@ -572,7 +562,6 @@
                     modal.style.display = "none";
                     c.data.refer_end_user_modal = false
                     c.data.refer_requester_modal = false
-									c.data.refer_currency_modal = false
                     c.data.refer_quotation_modal = false
                     c.data.refer_assignment_group_modal = false
                     c.data.refer_assigned_to_modal = false
@@ -645,7 +634,12 @@
 
     c.server.update().then(function(response) {
         //c.data.isRead = false;
-
+        //alert(c.data.state)
+        if(c.data.state == "Cancelled"){
+            $scope.isCancelledDisabled = true;
+            $scope.isContractDisabled = true;
+            $scope.isContractDummyDisabled = true;
+        }
     });
 }
 
@@ -1125,6 +1119,8 @@ if(userLanguage == 'en') {
     grLabel.addQuery('language', 'en');
 } else if(userLanguage == 'zh') {
     grLabel.addQuery('language', 'zh');
+}  else if(userLanguage == 'ko') {
+    grLabel.addQuery('language', 'ko');
 } else {
     //alert("what have you done");
     return;
@@ -1557,7 +1553,7 @@ while(grLabel.next()) {
             data.showOIReport = false;
             data.showQuotationTypeSelect = true;
             data.showQuotationType = false;
-        } else if (gr.state.getDisplayValue() == "Assess") {
+        } else if (gr.state.getDisplayValue() == "Assess" && gs.getUser().isMemberOf('YCN Sales Group')) {
             data.showAssess = false;
             data.showRequest = true;
             data.showSubmit = false;
@@ -1567,10 +1563,11 @@ while(grLabel.next()) {
             data.showCancel = false;
             data.showUpdate = true;
             data.showSave = true
+            data.showCopy = false
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "Requested") {
+        } else if (gr.state.getDisplayValue() == "Requested" && gs.getUser().isMemberOf('YCN Sales Group') ) {
             data.showAssess = false;
             data.showRequest = false;
             data.showSubmit = false;
@@ -1580,10 +1577,11 @@ while(grLabel.next()) {
             data.showCancel = false;
             data.showUpdate = true;
             data.showSave = true
+            data.showCopy = false
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "Returned") {
+        } else if (gr.state.getDisplayValue() == "Returned" && gs.getUser().isMemberOf('YCN Sales Group')) {
             data.showAssess = true;
             data.showRequest = false;
             data.showSubmit = false;
@@ -1593,6 +1591,7 @@ while(grLabel.next()) {
             data.showCancel = true;
             data.showUpdate = true;
             data.showSave = true
+            data.showCopy = false
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
@@ -1606,10 +1605,11 @@ while(grLabel.next()) {
             data.showCancel = false;
             data.showUpdate = true;
             data.showSave = true
+            data.showCopy = false
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "Submitted") {
+        } else if (gr.state.getDisplayValue() == "Submitted" ) {
             data.showAssess = false;
             data.showRequest = false;
             data.showSubmit = false;
@@ -1619,10 +1619,11 @@ while(grLabel.next()) {
             data.showCancel = false;
             data.showUpdate = true;
             data.showSave = true;
+            data.showCopy = false
             data.showOIReport = true;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "Completed") {
+        } else if (gr.state.getDisplayValue() == "Completed" ||gs.getUser().isMemberOf('YCN_Sales_Engineer_Group') ) {
             data.showAssess = false;
             data.showRequest = false;
             data.showSubmit = false;
@@ -1632,6 +1633,21 @@ while(grLabel.next()) {
             data.showCancel = false;
             data.showUpdate = false;
             data.showSave = false;
+            data.showCopy = false
+            data.showOIReport = false;
+            data.showQuotationTypeSelect = false;
+            data.showQuotationType = true;
+        }else {
+            data.showAssess = false;
+            data.showRequest = false;
+            data.showSubmit = false;
+            data.showInProgress = false;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = false;
+            data.showUpdate = false;
+            data.showSave = false;
+            data.showCopy = false
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
@@ -1654,6 +1670,49 @@ while(grLabel.next()) {
             data.showQuotationType = true;
         }
 */
+		if(gs.getUser().isMemberOf('YCN Sales Group') &&  gr.state.getDisplayValue() == "In Progress" && input.quotation_state != 'Completed'){ // 세일즈 그룹이고, in progress 이고, q type 이 complete 가 아니면 버튼들 
+            gs.addErrorMessage("여기 되나?")
+            data.showAssess = false;
+            data.showRequest = false;
+            data.showSubmit = false;
+            data.showInProgress = false;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = false;
+            data.showUpdate = false;
+            data.showSave = false;
+            data.showOIReport = false;
+            data.showQuotationTypeSelect = false;
+            data.showQuotationType = true;
+        }  
+        
+        if(gs.getUser().isMemberOf('YCN_Sales_Engineer_Group') &&  gr.state.getDisplayValue() == "In Progress"&& input.quotation_state != 'Completed'){  //엔지니어 그룹이고, in progress 이고 
+            data.showAssess = false;
+            data.showRequest = false;
+            data.showSubmit = true;
+            data.showInProgress = false;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = false;
+            data.showUpdate = true;
+            data.showSave = true
+            data.showOIReport = false;
+            data.showQuotationTypeSelect = false;
+            data.showQuotationType = true;
+        }else if(gs.getUser().isMemberOf('YCN_Sales_Engineer_Group')){
+            data.showAssess = false;
+            data.showRequest = false;
+            data.showSubmit = false;
+            data.showInProgress = false;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = false;
+            data.showUpdate = false;
+            data.showSave = false;
+            data.showOIReport = false;
+            data.showQuotationTypeSelect = false;
+            data.showQuotationType = true;
+        }
 
 
         /////////// 버튼을 누르면 STATE가 바뀐다. 
@@ -1989,14 +2048,14 @@ while(grLabel.next()) {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>64</sys_mod_count>
+        <sys_mod_count>84</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
-        <sys_updated_by>lhyunseok@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-26 11:52:52</sys_updated_on>
+        <sys_updated_by>lhyunseok</sys_updated_by>
+        <sys_updated_on>2024-06-27 01:50:23</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
           <div class="yoko-breadcrumb">Home > Quotation Request</div>
@@ -2028,7 +2087,7 @@ while(grLabel.next()) {
                               <div class="yoko-form-group">
                                   <label for="requester_no" class="yoko-short">{{data.labelRequestor}}</label>
                                   <div class="yoko-form-inline">
-                                      <input type="text" name="requester_no" ng-model="c.data.requestor" disabled class="yoko-wid140">
+                                      <input type="text" name="requester_no" ng-model="c.data.requestor" disabled class="yoko-wid140" ng-disabled="isCancelledDisabled">
                                       <input type="text" name="requestor_no_sys_id" value="" disabled class="yoko-wid140" ng-model="c.data.requestor_sys_id" ng-style="{'display': 'none'}">
                                   </div>
                               </div>
@@ -2041,7 +2100,7 @@ while(grLabel.next()) {
                               </div>
                               <div class="yoko-form-group">
                                   <label for="req_date" class="yoko-short">{{data.labelRequestDate}}</label>
-                                  <input type="date" value={{data.request_date}} name="req_date" class="yoko-wid140" ng-model="c.data.request_date">
+                                  <input type="date" value={{data.request_date}} name="req_date" class="yoko-wid140" ng-model="c.data.request_date" ng-disabled="isCancelledDisabled">
                               </div>
                               <div class="yoko-form-group">
                                   <label for="comp_date" class="yoko-short">{{data.labelCompleteDate}}</label>
@@ -2056,21 +2115,21 @@ while(grLabel.next()) {
                               <div class="yoko-form-inline">
                                   <input type="text" name="currency" ng-model="c.data.currency" class="yoko-wid140" disabled>
                                   <input type="text" name="currency_sys_id" ng-model="c.data.currency_sys_id" placeholder="" class="yoko-wid140" ng-style="{'display': 'none'}" readonly>
-                                  <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefCurrency()"></button>
+                                  <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefCurrency()" ng-disabled="isCancelledDisabled"></button>
                               </div>
                           </div>
                           <div class="yoko-form-group">
                               <label for="est_oi_amount" class="yoko-short-120">{{data.labelEstimatedOIAmount}}</label>
-                              <input type="text" name="est_oi_amount" value="" placeholder="" class="yoko-wid140" ng-model="c.data.estimated_oi_amount">
+                              <input type="text" name="est_oi_amount" value="" placeholder="" class="yoko-wid140" ng-model="c.data.estimated_oi_amount" ng-disabled="isCancelledDisabled">
                           </div>
           
                           <div class="yoko-form-group">
                               <label for="orderdate" class="yoko-short-120">{{data.labelEstimatedOrderDate}}</label>
-                              <input type="date" name="orderdate" id="orderdate" class="yoko-wid140" value={{data.estimated_order_date}} ng-model="c.data.estimated_order_date">
+                              <input type="date" name="orderdate" id="orderdate" class="yoko-wid140" value={{data.estimated_order_date}} ng-model="c.data.estimated_order_date" ng-disabled="isCancelledDisabled">
                           </div>
                           <div class="yoko-form-group">
                               <label for="deliverydate" class="yoko-short-120">{{data.labelEstimatedDeliveryDate}}</label>
-                              <input type="date" name="deliverydate" id="deliverydate" class="yoko-wid140" value={{data.estimated_delivery_date}} ng-model="c.data.estimated_delivery_date">
+                              <input type="date" name="deliverydate" id="deliverydate" class="yoko-wid140" value={{data.estimated_delivery_date}} ng-model="c.data.estimated_delivery_date" ng-disabled="isCancelledDisabled">
                           </div>
                       </div>
                       <div class="yoko-form-col">
@@ -2091,7 +2150,7 @@ while(grLabel.next()) {
                                   <select id="type" name="quotation_type_select" class="yoko-wid140" ng-model="c.data.quotation_type" ng-class="{'highlight-form': !c.data.quotation_type}" ng-options="option as option for option in c.data.choices" ng-if="data.showQuotationTypeSelect">
                                       <option value="">Select Type</option>
                                   </select>
-                                  <input type="text" name="quotation_type" ng-model="c.data.quotation_type_label" class="yoko-wid140" style="font-size:12px" ng-if="data.showQuotationType">
+                                  <input type="text" name="quotation_type" ng-model="c.data.quotation_type_label" class="yoko-wid140" style="font-size:12px" ng-if="data.showQuotationType" ng-disabled="isCancelledDisabled">
                               </div>
                           </div>
                           <div class="yoko-form-group">
@@ -2100,28 +2159,28 @@ while(grLabel.next()) {
                           </div>
                           <div class="yoko-form-group">
                               <label for="quotationdate">{{data.labelQuotationDueDate}}</label>
-                              <input type="date" name="quotationdate" id="quotationdate" class="yoko-wid140" value={{data.quotation_due_date}} ng-model="c.data.quotation_due_date">
+                              <input type="date" name="quotationdate" id="quotationdate" class="yoko-wid140" value={{data.quotation_due_date}} ng-model="c.data.quotation_due_date" ng-disabled="isCancelledDisabled">
                           </div>
                       </div>
                       <div class="yoko-form-col">
                           <div class="yoko-form-group">
                               <label for="oppt_no" class="yoko-short-110">{{data.labelYodaOpportunityNo}}</label>
-                              <input type="text" name="oppt_no" value="" placeholder="" class="yoko-wid172" ng-model="c.data.yoda_opportunity_no">
+                              <input type="text" name="oppt_no" value="" placeholder="" class="yoko-wid172" ng-model="c.data.yoda_opportunity_no" ng-disabled="isCancelledDisabled">
                           </div>
                           <div class="yoko-form-group">
                               <label for="assignment_group" class="yoko-short-110">{{data.labelAssignmentGroup}}</label>
                               <div class="yoko-form-inline">
-                                  <input type="text" name="assignment_group" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.assignment_group">
+                                  <input type="text" name="assignment_group" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.assignment_group" ng-disabled="isCancelledDisabled">
                                   <input type="text" name="assignment_group_sys_id" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.assignment_group_sys_id" ng-style="{'display': 'none'}">
-                                  <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefAssignmentGroup()"></button>
+                                  <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefAssignmentGroup()" ng-disabled="isCancelledDisabled"></button>
                               </div>
                           </div>
                           <div class="yoko-form-group">
                               <label for="assigned_to" class="yoko-short-110">{{data.labelAssignedTo}}</label>
                               <div class="yoko-form-inline">
-                                  <input type="text" name="assigned_to" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.assigned_to">
+                                  <input type="text" name="assigned_to" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.assigned_to" ng-disabled="isCancelledDisabled">
                                   <input type="text" name="assigned_to_sys_id" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.assigned_to_sys_id" ng-style="{'display': 'none'}">
-                                  <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefAssignedTo()"></button>
+                                  <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefAssignedTo()" ng-disabled="isCancelledDisabled"></button>
                               </div>
                           </div>
                       </div>
@@ -2139,14 +2198,14 @@ while(grLabel.next()) {
                               <div class="yoko-form-group">
                                   <label for="end_user" class="yoko-short">{{data.labelEndUser}}</label>
                                   <div class="yoko-form-inline yoko-wid140">
-                                      <input type="text" name="end_user" value={{data.end_user}} ng-model="c.data.end_user">
+                                      <input type="text" name="end_user" value={{data.end_user}} ng-model="c.data.end_user" ng-disabled="isCancelledDisabled">
                                       <input type="text" name="end_user_sys_id" value={{data.end_user_sys_id}} ng-model="c.data.end_user_sys_id" ng-style="{'display': 'none'}">
-                                      <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefEndUser()"></button>
+                                      <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefEndUser()" ng-disabled="isCancelledDisabled"></button>
                                   </div>
                               </div>
                               <div class="yoko-form-group">
                                   <label for="code" class="yoko-short">{{data.labelCode}}</label>
-                                  <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.end_user_code">
+                                  <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.end_user_code" ng-disabled="isCancelledDisabled">
                               </div>
                           </div>
                           <div class="yoko-form-col">
@@ -2157,14 +2216,14 @@ while(grLabel.next()) {
                               <div class="yoko-form-group">
                                   <label for="contract" class="yoko-short">{{data.labelContract}}</label>
                                   <div class="yoko-form-inline yoko-wid140">
-                                      <input type="text" name="contract" value={{data.contract}} ng-model="c.data.contract" ng-disabled="isContractDisabled">
-                                      <input type="text" name="contract_sys_id" value={{data.contract_sys_id}} ng-model="c.data.contract_sys_id" ng-style="{'display': 'none'}" ng-disabled="isContractDisabled">
-                                      <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefContract()"></button>
+                                      <input type="text" name="contract" value={{data.contract}} ng-model="c.data.contract" ng-disabled="isCancelledDisabled || isContractDisabled">
+                                      <input type="text" name="contract_sys_id" value={{data.contract_sys_id}} ng-model="c.data.contract_sys_id" ng-style="{'display': 'none'}" ng-disabled="isCancelledDisabled || isContractDisabled">
+                                      <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefContract()"  ng-disabled="isCancelledDisabled || isContractDisabled"></button>
                                   </div>
                               </div>
                               <div class="yoko-form-group">
                                   <label for="code" class="yoko-short">{{data.labelCode}}</label>
-                                  <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.contract_code" ng-disabled="isContractDisabled" diabled>
+                                  <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.contract_code" ng-disabled="isCancelledDisabled || isContractDisabled" diabled>
                               </div>
                           </div>
                           <div class="yoko-form-col"> 
@@ -2174,18 +2233,18 @@ while(grLabel.next()) {
                               </div>
                               <div class="yoko-form-group">
                                   <label for="contract_name" class="yoko-short-120">{{data.labelContractName}}</label>
-                                  <input type="text" name="contract_name" value="" placeholder="" class="yoko-col100" ng-model="c.data.contract_name" ng-disabled="isContractDummyDisabled">
+                                  <input type="text" name="contract_name" value="" placeholder="" class="yoko-col100" ng-model="c.data.contract_name" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
                               </div>
                               <div class="yoko-form-group">
                                   <label for="contract_address" class="yoko-short-120">{{data.labelContractAddress}}</label>
-                                  <input type="text" name="contract_address" value="" placeholder="" class="yoko-col100" ng-model="c.data.contract_address" ng-disabled="isContractDummyDisabled">
+                                  <input type="text" name="contract_address" value="" placeholder="" class="yoko-col100" ng-model="c.data.contract_address" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
                               </div>
                               <div class="yoko-form-group">
                                   <label for="contract_country" class="yoko-short-120">{{data.labelContractCountry}}</label>
                                   <div class="yoko-form-inline yoko-col100">
                                       <input type="text" name="contract_country" value={{data.contract_country}} placeholder="" ng-model="c.data.contract_country" disabled>
                                       <input type="text" name="contract_country_sys_id" value="" placeholder="" ng-model="c.data.contract_country_sys_id" ng-style="{'display': 'none'}">
-                                      <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefContractCountry()" ng-disabled="isContractDummyDisabled"></button>
+                                      <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefContractCountry()" ng-disabled="isCancelledDisabled || isContractDummyDisabled"></button>
                                   </div>
                               </div>
                           </div>
@@ -2198,28 +2257,28 @@ while(grLabel.next()) {
                               <div class="yoko-form-group">
                                   <label for="t-cas" class="yoko-short-130">{{data.labelTCAS}}</label>
                                   <div class="yoko-form-inline">
-                                      <input type="text" name="t-cas" value="" placeholder="" class="yoko-wid140" ng-model="c.data.tcas">
+                                      <input type="text" name="t-cas" value="" placeholder="" class="yoko-wid140" ng-model="c.data.tcas" ng-disabled="isCancelledDisabled">
                                       <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefTCAS()"></button>
                                   </div>
                               </div>
                               <div class="yoko-form-group">
                                   <label for="territory_review" class="yoko-short-130">{{data.labelTerritoryReview}}</label>
                                   <div class="yoko-form-inline">
-                                      <input type="text" name="territory_review" value="" placeholder="" class="yoko-wid140" ng-model="c.data.territory_review">
+                                      <input type="text" name="territory_review" value="" placeholder="" class="yoko-wid140" ng-model="c.data.territory_review" ng-disabled="isCancelledDisabled">
                                       <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefTerritoryReview()"></button>
                                   </div>
                               </div>
                               <div class="yoko-form-group">
                                   <label for="risk_management" class="yoko-short-130">{{data.labelRiskManagement}}</label>
                                   <div class="yoko-form-inline">
-                                      <input type="text" name="risk_management" value="" placeholder="" class="yoko-wid140" ng-model="c.data.risk_management">
+                                      <input type="text" name="risk_management" value="" placeholder="" class="yoko-wid140" ng-model="c.data.risk_management" ng-disabled="isCancelledDisabled">
                                       <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefRiskManagement()"></button>
                                   </div>
                               </div>
                               <div class="yoko-form-group">
                                   <label for="credit_assessment" class="yoko-short-130">{{data.labelCreditAssessment}}</label>
                                   <div class="yoko-form-inline">
-                                      <input type="text" name="credit_assessment" value="" placeholder="" class="yoko-wid140" ng-model="c.data.credit_assessment">
+                                      <input type="text" name="credit_assessment" value="" placeholder="" class="yoko-wid140" ng-model="c.data.credit_assessment" ng-disabled="isCancelledDisabled">
                                       <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefCreditAssessment()"></button>
                                   </div>
                               </div>
@@ -2235,16 +2294,16 @@ while(grLabel.next()) {
                           <div class="yoko-form-col yoko-col100">
                               <div class="yoko-form-group">
                                   <label for="title" class="yoko-short-90">{{data.labelProjectTitle}}</label>
-                                  <input type="text" name="title" id="title" placeholder="" ng-model="c.data.project_title">
+                                  <input type="text" name="title" id="title" placeholder="" ng-model="c.data.project_title" ng-disabled="isCancelledDisabled">
                               </div>
   
                               <div class="yoko-form-group">
                                   <label for="detail" class="yoko-short-90">{{data.labelProjectDetail}}</label>
-                                  <textarea id="detail" name="detail" rows="4" required placeholder="" ng-model="c.data.project_detail"></textarea>
+                                  <textarea id="detail" name="detail" rows="4" required placeholder="" ng-model="c.data.project_detail" ng-disabled="isCancelledDisabled"></textarea>
                               </div>
                               <div class="yoko-form-group">
                                   <label for="caution" class="yoko-short-90">{{data.labelCaution}}</label>
-                                  <textarea id="caution" name="caution" rows="4" required placeholder="" ng-model="c.data.caution"></textarea>
+                                  <textarea id="caution" name="caution" rows="4" required placeholder="" ng-model="c.data.caution" ng-disabled="isCancelledDisabled"></textarea>
                               </div>
                           </div>
   
@@ -2258,19 +2317,19 @@ while(grLabel.next()) {
                                   <label for="reason_code" class="yoko-short-120">
                                       <h5 name="mandatory" style="display: inline; margin: 0; color: red" ng-if="c.data.reasonCodeMandatory">✻ </h5>{{data.labelReasonCode}}
                                   </label>
-                                  <input type="text" name="reason_code" ng-model="c.data.reason_code" placeholder="" class="yoko-wid140" ng-class="{'highlight-form': !c.data.reason_code || !c.data.request_due_date || !c.data.remark}">
+                                  <input type="text" name="reason_code" ng-model="c.data.reason_code" placeholder="" class="yoko-wid140" ng-class="{'highlight-form': !c.data.reason_code || !c.data.request_due_date || !c.data.remark}" ng-disabled="isCancelledDisabled">
                               </div>
                               <div class="yoko-form-group">
                                   <label for="request_due_date" class="yoko-short-120">
                                       <h5 name="mandatory" style="display: inline; margin: 0; color: red" ng-if="c.data.reasonCodeRequestDueDateMandatory">✻ </h5>{{data.labelRequestDate}}
                                   </label>
-                                  <input type="date" name="request_due_date" value={{data.request_due_date}} ng-model="c.data.request_due_date" id="request_due_date" class="yoko-wid140" ng-class="{'highlight-form': !c.data.reason_code || !c.data.request_due_date || !c.data.remark}">
+                                  <input type="date" name="request_due_date" value={{data.request_due_date}} ng-model="c.data.request_due_date" id="request_due_date" class="yoko-wid140" ng-class="{'highlight-form': !c.data.reason_code || !c.data.request_due_date || !c.data.remark}" ng-disabled="isCancelledDisabled">
                               </div>
                               <div class="yoko-form-group">
                                   <label for="remark" class="yoko-short-120">
                                       <h5 name="mandatory" style="display: inline; margin: 0; color: red" ng-if="c.data.reasonRemarkMandatory">✻ </h5>{{data.labelRemark}}
                                   </label>
-                                  <textarea id="remark" name="remark" rows="8" ng-model="c.data.remark" required placeholder=""></textarea>
+                                  <textarea id="remark" name="remark" rows="8" ng-model="c.data.remark" required placeholder="" ng-disabled="isCancelledDisabled"></textarea>
                               </div>
                           </div>
                       </div>
