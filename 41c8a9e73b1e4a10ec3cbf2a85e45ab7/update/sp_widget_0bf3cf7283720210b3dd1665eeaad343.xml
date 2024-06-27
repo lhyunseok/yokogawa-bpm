@@ -82,13 +82,13 @@
 	function validation() {
 		var sumPrj = Number(c.data.prjType1Perc) + Number(c.data.prjType2Perc) + Number(c.data.prjType3Perc);
 		if(sumPrj != 100) {
-			alert("Check Project Type's total value");
+			alert("Project Type's total value is not 100");
 			return false;
 		}
 		
 		var sumAns = Number(c.data.ansoff1Perc) + Number(c.data.ansoff2Perc) + Number(c.data.ansoff3Perc);
 		if(sumAns != 100) {
-			alert("Check Ansoff Type's total value");
+			alert("Ansoff Type's total value is not 100");
 			return false;
 		}
 		
@@ -108,16 +108,17 @@
 		} else if(str == 'cancel') {
 			c.data.btnHeaderType = 'cancel';
 		} else if(str == 'request') {
-			//c.data.btnHeaderType = 'request';
-			if(!validation()) {
-				
+			if(validation()) {
+				c.data.btnHeaderType = 'request';
+			} else {
+				c.data.btnHeaderType = '';
 			}
-			c.data.btnHeaderType = '';
 		} else if(str == 'autorize') {
-			//c.data.btnHeaderType = 'autorize';
-			if(!validation()) {
+			if(validation()) {
+				c.data.btnHeaderType = 'autorize';
+			} else {
+				c.data.btnHeaderType = '';
 			}
-			c.data.btnHeaderType = '';
 		}
 		
 		if(c.data.btnHeaderType != '') {
@@ -452,32 +453,71 @@
 		gvDetail = new RealGrid.GridView(containerDetail);
 		gvDetail.setDataSource(dpDetail);
 		
-		dpDetail.setFields([
-			/*{
-				fieldName: 'KorName',
+		dpDetail.setFields([			
+			{
+				fieldName: 'rowStat',
 				dataType: 'text',
 			},
 			{
-				fieldName: 'Age',
+				fieldName: 'sys_id',
+				dataType: 'text',
+			},
+			{
+				fieldName: 'number',
+				dataType: 'text',
+			},
+			{
+				fieldName: 'wbs_6',
+				dataType: 'text',
+			},
+			{
+				fieldName: 'ms_code',
+				dataType: 'text',
+			},
+			{
+				fieldName: 'description',
+				dataType: 'text',
+			},
+			{
+				fieldName: 'quantity',
 				dataType: 'number',
-			},*/
-
-			'rowStat',
-			'sys_id',
-			'number',
-			'wbs_6',
-			'ms_code',
-			'description',
-			'quantity',
-			'unit_price',
-			'extended_price',
-			'unit_cost',
-			'extended_cost',
-			'unit_mp',
-			'mp_amount',
-			'vendor',
-			'oi_report_num',
-			'oi_report_sys_Id'
+			},
+			{
+				fieldName: 'unit_price',
+				dataType: 'number',
+			},
+			{
+				fieldName: 'extended_price',
+				dataType: 'number',
+			},
+			{
+				fieldName: 'unit_cost',
+				dataType: 'number',
+			},
+			{
+				fieldName: 'extended_cost',
+				dataType: 'number',
+			},
+			{
+				fieldName: 'unit_mp',
+				dataType: 'number',
+			},
+			{
+				fieldName: 'mp_amount',
+				dataType: 'number',
+			},
+			{
+				fieldName: 'vendor',
+				dataType: 'text',
+			},
+			{
+				fieldName: 'oi_report_num',
+				dataType: 'text',
+			},
+			{
+				fieldName: 'oi_report_sys_Id',
+				dataType: 'text',
+			},
 		]);
 		
 		gvDetail.setColumns([
@@ -518,6 +558,7 @@
 				"header": {
 					"text": "MS Code"
 				},
+				"styleName" : "left-column"
 			},
 			{
 				"name": "description",
@@ -527,6 +568,7 @@
 				"header": {
 					"text": "Description"
 				},
+				"styleName" : "left-column"
 			},
 			{
 				"name": "quantity",
@@ -536,6 +578,8 @@
 				"header": {
 					"text": "Quantity"
 				},
+				"styleName" : "right-column",
+				"numberFormat": "#,##0",
 			},
 			{
 				"name": "unit_price",
@@ -545,6 +589,8 @@
 				"header": {
 					"text": "Unit Price"
 				},
+				"styleName" : "right-column",
+				"numberFormat": "#,##0",
 			},
 			{
 				"name": "extended_price",
@@ -553,11 +599,10 @@
 				"width": 120,
 				"header": {
 					"text": "Extended Price"
-				},
-				'styles': {
-            'background': "#CCCCCC"
-        }, 
+				}, 
 				"editable": false,
+				"styleName" : "right-column non-editable",
+				"numberFormat": "#,##0",
 			},
 			{
 				"name": "unit_cost",
@@ -567,6 +612,8 @@
 				"header": {
 					"text": "Unit Cost"
 				},
+				"styleName" : "right-column",
+				"numberFormat": "#,##0",
 			},
 			{
 				"name": "extended_cost",
@@ -577,6 +624,8 @@
 					"text": "Extended Cost"
 				},
 				"editable": false,
+				"styleName" : "right-column non-editable",
+				"numberFormat": "#,##0",
 			},
 			{
 				"name": "unit_mp",
@@ -586,6 +635,8 @@
 				"header": {
 					"text": "Unit MP"
 				},
+				"styleName" : "right-column",
+				"numberFormat": "#,##0",
 			},
 			{
 				"name": "mp_amount",
@@ -596,6 +647,8 @@
 					"text": "MP Amount"
 				},
 				"editable": false,
+				"styleName" : "right-column non-editable",
+				"numberFormat": "#,##0",
 			},
 			{
 				"name": "vendor",
@@ -605,6 +658,7 @@
 				"header": {
 					"text": "Vendor"
 				},
+				"styleName" : "left-column"
 			},
 			{
 				"name": "oi_report_num",
@@ -614,9 +668,6 @@
 				"header": {
 					"text": "OI report Number"
 				},
-				'styles': {
-            'background-color': "#00CCCC"
-        }, 
 				"editable": false,
 				'visible' : false,
 			}
@@ -790,6 +841,8 @@
 			
 			c.data.showBtnAuthorize = false;
 			c.data.showBtnRequest = false;
+			c.data.showBtnCancel = false;
+			c.data.showBtnSave = false;
 		}
 
 		var loopCnt = 0;
@@ -1173,9 +1226,13 @@ width: 100%; /* Ensure the list items take the full width of the container */
 }
 .highlight-form {
 border: 2px solid red;
+}
 
+.rg-header-cell {text-align: center !important;}
+.right-column { text-align: right !important;}
+.left-column { text-align: left !important;}
 
-
+.non-editable { background: #dddddd !important}
 
 /*리얼그리드 수정*/
 /*.rg-root {color: #4B5966 !important;  font-family: "Pretendard" !important;   font-size: 14px !important;  font-style: normal !important;  font-weight: 500 !important;  line-height: normal !important;}
@@ -1256,13 +1313,14 @@ border: 2px solid red;
 		var ordTpCode = '';
 		var taxCode = '';
 		var payCode = '';
-		while(oiReportData.next()) {
+		while(oiReportData.next()) { 
 			data.oiNum = oiReportData.number.toString();
 			data.oiState = oiReportData.state.getDisplayValue().toString();
 			data.oiStateCode = oiReportData.state.toString(); 
 			data.opener = oiReportData.requestor.user_name.toString();
 			data.ExRate = oiReportData.exchange_rate.toString(); 
 			data.jobTypeSysId = oiReportData.job_type.toString();
+			data.dmrClassNm = oiReportData.dmr_class.toString();
 			data.dmrAmt = oiReportData.dmr_amount_level.toString();
 			data.dmrMP = oiReportData.dmr_mp_level.toString();
 			data.dmrGP = oiReportData.dmr_gp_level.toString();
@@ -1835,14 +1893,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>838</sys_mod_count>
+        <sys_mod_count>853</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-27 09:10:37</sys_updated_on>
+        <sys_updated_on>2024-06-27 10:38:23</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
