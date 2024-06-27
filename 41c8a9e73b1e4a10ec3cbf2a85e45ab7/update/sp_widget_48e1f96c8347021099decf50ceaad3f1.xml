@@ -318,12 +318,13 @@
             dataProvider.setFields(gridViewFields);
             dataProvider.softDeleting = false;
             dataProvider.setRows(c.data.gridData);
+            dataProvider.fillJsonData(c.data.gridData, { fillMode: "set" });
         }
 
         console.log(c.data.gridData);
 
         function loadDataProvider() {
-            dataProvider.fillJsonData(data, { fillMode: "set" });
+            dataProvider.fillJsonData(c.data.gridData, { fillMode: "set" });
         }
 
         initGrid();
@@ -704,24 +705,25 @@ border: 2px solid red;&#13;
 
 	function getData(basemonth) {
 		var gritem = new GlideRecord("x_yergb_bpm_budget_plan");
-		// gritem.addJoinQuery('x_yergb_bpm_wbs_budget', 'project');
-		gritem.addEncodedQuery('base_month', basemonth);
-		// gritem.orderBy("project");
+		gritem.addJoinQuery('x_yergb_bpm_wbs_budget', "project", "project");
+		gritem.addQuery('base_month', basemonth);
+		gritem.orderBy("project");
 		gritem.query();
+
 		var tableinfo = [];
 		while (gritem.next()) {
 			tableinfo.push({
 				'sys_id' : gritem.sys_id.getDisplayValue(),
-				'project_no' : gritem.sys_id.getDisplayValue(),
-			    'contractor' : gritem.sys_id.getDisplayValue(),
-				'project_name' : gritem.sys_id.getDisplayValue(), 
-				'pm' : gritem.sys_id.getDisplayValue(), 
-				'contract_amt' : gritem.sys_id.getDisplayValue(), 
-				'ptc_last_month' : gritem.sys_id.getDisplayValue(), 
-				'forecast_ptc' : gritem.sys_id.getDisplayValue(), 
-				'variance' : gritem.sys_id.getDisplayValue(), 
-				'poc_percentage' : gritem.sys_id.getDisplayValue(), 
-				'state': gritem.sys_id.getDisplayValue(),
+				'project_no' : gritem.project.getDisplayValue(),
+			    'contractor' : gritem.customername.getDisplayValue(),
+				'project_name' : gritem.project_name.getDisplayValue(), 
+				'pm' : gritem.pm_name.getDisplayValue(), 
+				'contract_amt' : gritem.contract.getDisplayValue(), 
+				'ptc_last_month' : gritem.intake_last_month.getDisplayValue(), 
+				'forecast_ptc' : isNaN(gritem.forecast_ptc) ? 0 : gritem.forecast_ptc.getDisplayValue(), 
+				'state': gritem.state.getDisplayValue(),
+				'variance' : 0, 
+				'poc_percentage' : 'N/A',
 			})
 		}
 		return tableinfo;
@@ -739,14 +741,14 @@ border: 2px solid red;&#13;
         <sys_created_by>yeongink</sys_created_by>
         <sys_created_on>2024-06-24 05:11:44</sys_created_on>
         <sys_id>48e1f96c8347021099decf50ceaad3f1</sys_id>
-        <sys_mod_count>365</sys_mod_count>
+        <sys_mod_count>377</sys_mod_count>
         <sys_name>prfManagement</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_48e1f96c8347021099decf50ceaad3f1</sys_update_name>
         <sys_updated_by>yeongink</sys_updated_by>
-        <sys_updated_on>2024-06-27 05:31:49</sys_updated_on>
+        <sys_updated_on>2024-06-27 06:31:45</sys_updated_on>
         <template><![CDATA[<div class="yoko-container">
   <div class="yoko-breadcrumb">Home > Project Management > PRF Management</div>
   <div class="yoko-title-btn-wrap">
