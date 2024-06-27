@@ -7,8 +7,8 @@
         <element attributes="edge_encryption_enabled=true" label="Total cost" max_length="20" name="total_cost" type="decimal"/>
         <element choice="3" default="not requested" label="Approval" max_length="40" name="approval" type="string">
             <choice>
-                <element inactive_on_update="false" label="Not Yet Requested" sequence="0" value="not requested"/>
                 <element inactive_on_update="false" label="Approved" sequence="2" value="approved"/>
+                <element inactive_on_update="false" label="Not Yet Requested" sequence="0" value="not requested"/>
                 <element inactive_on_update="false" label="Requested" sequence="1" value="requested"/>
                 <element inactive_on_update="false" label="Rejected" sequence="3" value="rejected"/>
             </choice>
@@ -20,9 +20,9 @@
         <element label="Is changed" max_length="40" name="is_changed" type="boolean"/>
         <element choice="1" label="State" max_length="40" name="state" type="choice">
             <choice>
+                <element inactive_on_update="false" label="Authorize" sequence="2" value="6"/>
                 <element inactive_on_update="false" label="Completed" sequence="3" value="9"/>
                 <element inactive_on_update="false" label="New" sequence="1" value="1"/>
-                <element inactive_on_update="false" label="Authorize" sequence="2" value="6"/>
             </choice>
         </element>
         <element label="PRF Change reason" max_length="40" name="prf_change_reason" type="string"/>
@@ -34,21 +34,21 @@
         <element attributes="edge_encryption_enabled=true" label="Contract" max_length="20" name="contract" type="decimal"/>
         <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
         <element label="CustomerName" max_length="40" name="customername" type="string"/>
-        <element label="Intake Current Single Month" max_length="40" name="intake_current_single_month" type="integer"/>
+        <element attributes="edge_encryption_enabled=true" label="Intake Current Single Month" max_length="100" name="intake_current_single_month" type="integer"/>
         <element label="Project Status" max_length="40" name="project_status" type="string"/>
         <element choice="1" label="Data Type" max_length="40" name="data_type" type="choice">
             <choice>
-                <element inactive_on_update="false" label="ITEM" sequence="1" value="item"/>
                 <element inactive_on_update="false" label="WBS6" sequence="0" value="wbs6"/>
+                <element inactive_on_update="false" label="ITEM" sequence="1" value="item"/>
             </choice>
         </element>
         <element label="Approval history" max_length="4000" name="approval_history" type="journal"/>
         <element attributes="edge_encryption_enabled=true" label="GP" max_length="20" name="gp" type="decimal"/>
         <element choice="1" label="Currency" max_length="40" name="currency" type="choice">
             <choice>
+                <element inactive_on_update="false" label="KRW" sequence="1" value="krw"/>
                 <element inactive_on_update="false" label="CNY" sequence="2" value="cny"/>
                 <element inactive_on_update="false" label="USD" sequence="0" value="usd"/>
-                <element inactive_on_update="false" label="KRW" sequence="1" value="krw"/>
             </choice>
         </element>
         <element label="DMR" max_length="40" name="dmr" type="string"/>
