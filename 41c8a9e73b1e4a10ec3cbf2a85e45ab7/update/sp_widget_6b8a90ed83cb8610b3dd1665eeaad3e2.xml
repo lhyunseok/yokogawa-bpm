@@ -88,7 +88,32 @@
 	// 이벤트를 발생시켜 데이터를 전송
 	$rootScope.$broadcast('dataFromSenderWidget', data);
 	
+	function resizeIframe() {
+		var iframe = document.getElementById('myIframe');
+		if (iframe) {
+			var windowHeight = window.innerHeight;
+			iframe.style.height = Math.max(windowHeight * 0.45, 200) + 'px';
+		}
+	}
+
+	// Add event listener to resize iframe when content loads
+	$window.onload = function() {
+		resizeIframe();
+	};
 	
+	$window.addEventListener('message', function(event) {
+		if (event.data.type === 'updateIframeSrc') {
+      location.reload();
+    }
+  });
+
+	// Add event listener to window resize event
+	$window.addEventListener('resize', function() {
+		resizeIframe();
+	});
+
+	// Call resizeIframe on initial load to set the initial height
+	resizeIframe();
 	
 	/* 최초 초기화 */
 	c.server.update().then(function(response) {
@@ -421,8 +446,9 @@ a {text-decoration: none;}
 	console.log("USER NAME : " + gs.getUser().getDisplayName());
 	console.log("SYS ID : " + gs.getUser().getID());
 	
-	data.oiSysId = $sp.getParameter("sys_id");
-	if(input && ($input.initScreen==true)) {
+	
+	if(input && (input.initScreen==true)) {
+		data.oiSysId = $sp.getParameter("sys_id");
 		
 	}
 	
@@ -454,8 +480,7 @@ a {text-decoration: none;}
 			data.oiVer = oiReportData.version.toString();
 			
 			data.PONo = oiReportData.customer_po_no.toString();
-			
-			data.rfqNum = oiReportData.rfq_entry.toString();
+
 			data.rfqSysId = oiReportData.rfq_entry.toString();
 		}
 	}
@@ -467,6 +492,8 @@ a {text-decoration: none;}
 		rfqEntryData.addQuery('sys_id', data.rfqSysId);
 		rfqEntryData.query();
 		while(rfqEntryData.next()) {
+			data.rfqNum = rfqEntryData.number.toString();
+			
 			data.quotSysId = rfqEntryData.quotation.toString();
 		}
 	}
@@ -502,14 +529,14 @@ a {text-decoration: none;}
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-27 01:26:09</sys_created_on>
         <sys_id>6b8a90ed83cb8610b3dd1665eeaad3e2</sys_id>
-        <sys_mod_count>19</sys_mod_count>
+        <sys_mod_count>25</sys_mod_count>
         <sys_name>orderIntakeReportApprovalWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_6b8a90ed83cb8610b3dd1665eeaad3e2</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-27 03:37:24</sys_updated_on>
+        <sys_updated_on>2024-06-27 05:10:49</sys_updated_on>
         <template><![CDATA[<div>
 	<div class="yoko-container">
         <!--<div class="yoko-breadcrumb">Home >  Approval - OI Cancel Report</div>-->
