@@ -8,6 +8,7 @@
 	var modalOrderType = document.getElementById("modalOrderType");
 	var modalProjectType = document.getElementById("modalProjectType");
 	var modalAnsoff = document.getElementById("modalAnsoff");
+	var modalJobType = document.getElementById('modalJobType');
 	
 	/* Server master values */
 	c.data.oiSysId = '';
@@ -28,14 +29,6 @@
 	c.data.showBtnSave = false;
 	c.data.showBtnRequest = false;
 	c.data.showBtnAuthorize = false;
-	
-	c.data.checkedSDG = false;
-	c.data.checkedDXP = false;
-	c.data.checkedAI = false;
-	c.data.checkedDES = false;
-	c.data.checkedSmart = false;
-	
-	c.data.itemsFlagName = [];
 	
 	/* GRID */
 	c.data.gridBtnType = '';
@@ -149,8 +142,16 @@
 	
 	$scope.btnClickDMRSearch = function(idx) {
 		console.log("BTN : DMR Search--" + idx);
+		
+
+		if(idx == 1) {
+					modalJobType.style.display = 'block';
+			c.data.modalDmrType = 'JOB';
+		}
 		c.server.update().then(function(response) {
 			console.log('Server response:', response);
+			
+			c.data.modalDmrType = '';
 		});
 	}
 	
@@ -344,7 +345,17 @@
 
 		modalAnsoff.style.display = 'none';
 	}
+
+	$scope.clickDmrClass = function(item) {
+		c.data.jobTypeNm = item.name;
+		c.data.jobTypeSysId = item.sysId;
+		
+		modalJobType.style.display = 'none';
+	}
 	
+	$scope.closeDmrClass = function() {
+		modalJobType.style.display = 'none';
+	}
 	
 	c.getUrlParameter = function(param) {
 		return $location.search()[param];
@@ -515,6 +526,9 @@
 				"header": {
 					"text": "Extended Price"
 				},
+				'styles': {
+            'background': "#CCCCCC"
+        }, 
 				"editable": false,
 			},
 			{
@@ -572,9 +586,9 @@
 				"header": {
 					"text": "OI report Number"
 				},
-				"style" : {
-					"background": "#cccccc",
-				}, 
+				'styles': {
+            'background-color': "#00CCCC"
+        }, 
 				"editable": false,
 			}
 		]);
@@ -602,6 +616,8 @@
 		gvDetail.editOptions.commitByCell = true;
 		gvDetail.editOptions.insertable = true;
 		gvDetail.hideDeletedRows = false;
+		gvDetail.header.height = 40;
+		gvDetail.displayOptions.rowHeight = 30;
 		
 		dpDetail.softDeleting = true;
 		
@@ -712,6 +728,35 @@
 			}
 		} else if( (Number(c.data.oiStateCode) == "3") || 
 			(Number(c.data.oiStateCode) == "6") ) {
+			c.data.disSONm = true;
+			c.data.disSONmSearch = true;
+			c.data.disSONmInfo = true;
+			c.data.disOiAmtTC = true;
+			c.data.disOiAmtLC = true;
+			c.data.disTotEstCost = true;
+			c.data.disGpAmt = true;
+			c.data.disMpAmt = true;
+			c.data.disGpPerc = true;
+			c.data.disMpPerc = true;
+			c.data.disOrdType = true;
+			c.data.disTaxClass = true;
+			c.data.disIndustry = true;
+			c.data.disPayTerm = true;
+			c.data.disMaturDays = true;
+			c.data.disJobType = true;
+			c.data.disDmrClass = true;
+			c.data.disAttPO = true;
+			c.data.disAttBOM = true;
+			c.data.disAttESS = true;
+			c.data.disAttEtc = true;
+			c.data.disPrjType1 = true;
+			c.data.disPrjType2 = true;
+			c.data.disPrjType3 = true;
+			c.data.disAnsoff1 = true;
+			c.data.disAnsoff2 = true;
+			c.data.disAnsoff3 = true;
+			c.data.disChkFlag = true;
+			
 			c.data.showBtnAuthorize = false;
 			c.data.showBtnRequest = false;
 		}
@@ -985,8 +1030,6 @@ a {text-decoration: none;}
 
 
 
-
-
 @media (max-width: 1719px) {
   .yoko-container {width: 1280px; min-width: 1280px;}
   .yoko-search-form {gap: 15px;}
@@ -1010,6 +1053,95 @@ a {text-decoration: none;}
   .yoko-nav ul {gap: 55px;}
 }
 
+
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+/*  
+TEST Modal CSS
+*/
+.modal {
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index: 3; /* Sit on top */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.modal-content {
+background-color: #fefefe;
+//margin: 5% auto; /* 15% from the top and centered */
+padding: 20px;
+border: 1px solid #888;
+width: 50%; /* Reduced width to 60% */
+}
+.close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+.close:hover,
+.close:focus {
+color: black;
+text-decoration: none;
+cursor: pointer;
+}
+.container {
+list-style-type: none;
+padding: 0;
+}
+.container li {
+padding: 8px 0;
+border-bottom: 1px solid #ddd;
+display: flex;
+justify-content: space-between;
+margin-bottom: 10px;
+box-sizing: border-box; /* Include padding and border in element's total width and height */
+width: 100%; /* Ensure the list items take the full width of the container */
+}
+.highlight-form {
+border: 2px solid red;
 
 
 
@@ -1068,13 +1200,18 @@ a {text-decoration: none;}
 		data.oiSysId = $sp.getParameter("sys_id");
 		data.gridUrl = '/x_yergb_bpm_SorinGrid_OI.do?id_o=' + data.oiSysId;
 		
-		data.itemsFlagName = [];
+		data.itemsFlag = [];
 		var grData = new GlideRecord('x_yergb_bpm_flag_master');
-		grData.addQuery('active', true);
 		grData.addQuery('module', 'OI Report');
 		grData.query();
+		var idxF = 0;
 		while(grData.next()) {
-			data.itemsFlagName.push(grData.code.toString());
+			console.log(grData.code.toString());	
+			data.itemsFlag.push({
+				name : grData.code.toString(), 
+				checked : grData.active.toString()=='true' ? true : false,
+				sysid : grData.sys_id.toString()			
+			});
 		}
 		
 		getDetailGridData();
@@ -1093,6 +1230,10 @@ a {text-decoration: none;}
 			data.oiState = oiReportData.state.getDisplayValue().toString();
 			data.oiStateCode = oiReportData.state.toString(); 
 			data.opener = oiReportData.requestor.user_name.toString();
+			data.jobTypeSysId = oiReportData.job_type.toString();
+			data.dmrAmt = oiReportData.dmr_amount_level.toString();
+			data.dmrMP = oiReportData.dmr_mp_level.toString();
+			data.dmrGP = oiReportData.dmr_gp_level.toString();
 			data.oiAmtLC = oiReportData.oi_amount_lc.toString();
 			data.oiAmtTC = oiReportData.oi_amount_tc.toString();
 			data.gpAmt = oiReportData.gp_amount_lc.toString();
@@ -1107,7 +1248,6 @@ a {text-decoration: none;}
 			ordTpCode = oiReportData.order_type.toString();
 			taxCode = oiReportData.tax_classification.toString();
 			payCode = oiReportData.payment_terms.toString();
-			console.log('PAY CODE : ' + payCode);
 			
 			var grC;
 			if(ordTpCode != '') {
@@ -1144,6 +1284,18 @@ a {text-decoration: none;}
 					data.payTermsNm = grC.name.toString();
 					data.payTermsCode = grC.code.toString();
 				}
+			}
+			
+			/* Job Type */
+			if( !isEmpty(data.jobTypeSysId) ) {
+				var grJ = new GlideRecord('x_yergb_bpm_common_code');
+				grJ.initialize();
+				grJ.addQuery('category', 'Job Type');
+				grJ.addQuery('sys_id', data.jobTypeSysId);
+				grJ.query();
+				while(grJ.next()) {
+					data.jobTypeNm = grJ.name.toString();
+				}	
 			}
 			
 			// get Project type
@@ -1213,7 +1365,6 @@ a {text-decoration: none;}
 			}
 			
 			data.rfqSysId = oiReportData.rfq_entry.toString();
-			
 		}
 
 	}
@@ -1230,6 +1381,41 @@ a {text-decoration: none;}
 			data.quotSysId = rfqEntryData.quotation.toString();
 			data.salesMngNm = rfqEntryData.sales_manager.user_name.toString();
 			data.salesCompanyNm = rfqEntryData.sales_manager.company.name.toString();
+		}
+		
+		var rStp = new GlideRecord('sys_process_flow');
+		rStp.initialize();
+		rStp.addQuery('table', 'x_yergb_bpm_oi_report');
+		rStp.query();
+		var reqSys = '';
+		var reqOrd = '';
+		var autSys = '';
+		var autOrd = '';
+		while(rStp.next()){
+			if(rStp.name.toString() == 'requested') {
+				reqSys = rStp.sys_id.toString();
+				reqOrd = rStp.order.toString();
+			} else if(rStp.name.toString() == 'authorize'){
+				autSys = rStp.sys_id.toString();
+				autOrd = rStp.order.toString();
+			}
+		}
+		
+		
+		if(data.salesCompanyNm == 'YCN') {
+			if(Number(reqOrd) < Number(autOrd)) {
+				rStp.initialize();
+				rStp.get(reqSys);
+				rStp.setValue('order', autOrd);
+				rStp.update();
+				
+				rStp.initialize();
+				rStp.get(autSys);
+				rStp.setValue('order', reqOrd);
+				rStp.update();
+				
+				data.redirect_sys_id = input.oiSysId;
+			}
 		}
 	}
 
@@ -1271,7 +1457,12 @@ a {text-decoration: none;}
 			data.redirect_sys_id = oiRptTr.getUniqueValue();
 		} else if(input.btnHeaderType == 'oiUpdate') {
 			console.log('SERVER BTN :: OI UPDATE');
+			console.log('JOB:' + getValueOrEmptyString(input.jobTypeSysId));
 			oiRptTr.get(input.oiSysId);
+			oiRptTr.setValue('job_type', getValueOrEmptyString(input.jobTypeSysId));
+			oiRptTr.setValue('dmr_amount_level', getValueOrEmptyString(input.dmrAmt));
+			oiRptTr.setValue('dmr_mp_level', getValueOrEmptyString(input.dmrMP));
+			oiRptTr.setValue('dmr_gp_level', getValueOrEmptyString(input.dmrGP));
 			oiRptTr.setValue('oi_amount_lc', getValueOrEmptyString(input.oiAmtLC));
 			oiRptTr.setValue('oi_amount_tc', getValueOrEmptyString(input.oiAmtTC));
 			oiRptTr.setValue('gp_amount_lc', getValueOrEmptyString(input.gpAmt));
@@ -1289,7 +1480,6 @@ a {text-decoration: none;}
 			// Update version.
 			
 			// Update Project type list
-			console.log('SERV:PRJ TYPE PROCESS');
 			var prjTR = new GlideRecord('x_yergb_bpm_oi_project_type');
 			prjTR.initialize();
 			prjTR.addQuery('oi_report', input.oiSysId);
@@ -1317,7 +1507,6 @@ a {text-decoration: none;}
 			}
 			
 			// Update Ansoff type list
-			console.log('SERV:ANSOFF TYPE PROCESS');
 			var ansTR = new GlideRecord('x_yergb_bpm_oi_ansoff_type');
 			ansTR.initialize();
 			ansTR.addQuery('oi_report', input.oiSysId);
@@ -1345,6 +1534,20 @@ a {text-decoration: none;}
 			}
 			
 			// Update Flag list
+			var flagR = new GlideRecord('x_yergb_bpm_flag_master')
+			//console.log('checked length :' + input.itemsFlag.length);
+			for(var k = 0; k<input.itemsFlag.length; k++) {
+				console.log('checked:' + input.itemsFlag[k].sysid);
+				console.log('checked:' + input.itemsFlag[k].checked);
+				flagR.initialize();
+				flagR.get(input.itemsFlag[k].sysid);
+				if(input.itemsFlag[k].checked == true) {
+					flagR.setValue('active', true);
+				} else {
+					flagR.setValue('active', false);
+				}
+				flagR.update();
+			}
 		} else if(input.btnHeaderType == 'request') {
 			oiRptTr.get(input.oiSysId);
 			oiRptTr.setValue('state', '3');
@@ -1487,6 +1690,25 @@ a {text-decoration: none;}
 		}
 	}
 	
+	/* Job type Modal */
+	if(input && input.modalDmrType=='JOB') {
+		console.log('SERVER:JOB=' + input.modalDmrType);
+		data.itemsJobType = [];
+		var rJob = new GlideRecord('x_yergb_bpm_common_code');
+		rJob.initialize();
+		rJob.addQuery('category', 'Job Type');
+		rJob.query();
+		while(rJob.next()) {
+			console.log('SERVER JOB : ' + rJob.name.toString());
+			data.itemsJobType.push({
+				name : rJob.name.toString(),
+				code : rJob.code.toString(),
+				desc : rJob.description.toString(),
+				sysId : rJob.sys_id.toString()
+			});
+		}
+	}
+	
 	/* Project type Modal */
 	if(input && input.modalProjectType) {
 		data.itemsProjecttype = [];
@@ -1543,14 +1765,14 @@ a {text-decoration: none;}
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>638</sys_mod_count>
+        <sys_mod_count>777</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-26 06:24:07</sys_updated_on>
+        <sys_updated_on>2024-06-27 00:32:22</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -1656,6 +1878,158 @@ a {text-decoration: none;}
                 </div>
             </div>
 
+            
+          	<div class="yoko-search-form-wrap">
+                <div class="yoko-search-form-heading yoko-fold-btn-wrap">
+                    Quotation
+                    <button type="button" data-target="Quotation" class="yoko-btn yoko-btn-fold"></button>
+                    <!-- 화면접기 버튼추가 -->
+                </div>
+                <div class="quotation_wrap" id="Quotation">
+                    <div class="yoko-search-form yoko-padding24">
+                        <div class="yoko-flex-responsive quotation-responsive">
+                            <div class="yoko-form-col">
+                                <div class="yoko-form-group">
+                                    <div class="yoko-form-group">
+                                        <label for="lbQuotationNo" class="yoko-short-110">Quotation No</label>
+                                        <input type="text" name="inputQuotationNo" value="" ng-model="c.data.quotNum" placeholder="" disabled class="yoko-wid140">
+                                    </div>
+                                </div>
+                                <div class="yoko-form-group">
+                                    <label for="lbEssSqmsNo" class="yoko-short-110">ESS/SQMS No.</label>
+                                    <input type="text" name="inputEssSqmsNo" value="" ng-model="c.dataEssNo" placeholder="" disabled class="yoko-wid140">
+                                </div>
+                                <div class="yoko-form-group">
+                                    <label for="lbCurrency" class="yoko-short-110">Currency</label>
+                                    <input type="text" name="inputCurrency" value="" ng-model="c.data.currency" placeholder="" disabled class="yoko-wid140">
+                                </div>
+                            </div>
+                            <div class="yoko-form-col">
+                                <div class="yoko-form-group">
+                                    <label for="industry_security_fee" class="yoko-short-142 ">Industry Security Fee</label>
+                                    <input type="text" name="industry_security_fee" value="" ng-model="c.data.industrySec" placeholder="" disabled class="yoko-wid140 yoko-text-right">
+                                </div>
+                                <div class="yoko-form-group">
+                                    <label for="lbIndustrySecurityFee" class="yoko-short-142">Liability Insurance Fee</label>
+                                    <input type="text" name="inputIndustrySecurityFee" value="" ng-model="c.data.liabilityInsu" placeholder="" disabled class="yoko-wid140 yoko-text-right">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="yoko-form-col">
+                            <!--<div class="yoko-form-group">
+                                <label for="lbExRate" class="yoko-short-110">Ex. Rate</label>
+                                <input type="text" name="inputExRate" value="" ng-model="c.data.ExRate" laceholder="" disabled class="yoko-wid140 yoko-text-right">
+                            </div>-->
+                            <div class="yoko-form-group">
+                                <label for="lbOiAmountTc" class="yoko-short-110">OI Amount(TC)</label>
+                                <input type="text" name="inputOiAmountTc" value="" ng-model="c.data.oiAmtTC" placeholder="" disabled class="yoko-wid140 yoko-text-right">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="lbOiAmountLc" class="yoko-short-110">OI Amount(LC)</label>
+                                <input type="text" name="inputOiAmountLc" value="" ng-model="c.data.oiAmtLC" placeholder="" disabled class="yoko-wid140 yoko-text-right">
+                            </div>
+                        </div>
+                        <div class="yoko-form-col">
+                            <div class="yoko-form-group">
+                                <label for="lbQuotMpAmt" class="yoko-short">MP Amount</label>
+                                <input type="text" name="inputQuotMpAmt" value="" ng-model="c.data.quotMpAmt" placeholder="" disabled class="yoko-wid140 yoko-text-right">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="lbQuotMpGap" class="yoko-short">MP GAP</label>
+                                <input type="text" name="inputQuotMpGap" value="" ng-model="c.data.quotMpGap" placeholder="" disabled class="yoko-wid140 yoko-text-right">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="lbQuotMpGapPerc" class="yoko-short">MP Gap %</label>
+                                <input type="text" name="inputQuotMpGapPerc" value="" ng-model="c.data.quotMpGapPerc" placeholder="" disabled class="yoko-wid140 yoko-text-right">
+                            </div>
+                        </div>
+                        <div class="yoko-form-col">
+                            <div class="yoko-form-group">
+                                <label for="lbQuotTotEstCost" class="yoko-short-135">Total Estimated Cost</label>
+                                <input type="text" name="inputQuotTotEstCost" value="" ng-model="c.data.quotTotEstCost" placeholder="" disabled class="yoko-wid140 yoko-text-right">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="lbQuotGpAmt" class="yoko-short-135">GP Amount</label>
+                                <input type="text" name="inputQuotGpAmt" value="" ng-model="c.data.quotGpAmt" placeholder="" disabled class="yoko-wid140 yoko-text-right">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="lbQuotGpPerc" class="yoko-short-135">GP %</label>
+                                <input type="text" name="inputQuotGpPerc" value="" ng-model="c.data.quotGpPerc" placeholder="" disabled class="yoko-wid140 yoko-text-right">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+            <div class="yoko-search-form-wrap">
+                <div class="yoko-search-form-heading yoko-fold-btn-wrap">
+                    Quotation Request
+                    <button type="button" data-target="RFQEntry" class="yoko-btn yoko-btn-fold"></button> 
+                    <!-- 화면접기 버튼추가 -->
+                </div>
+                <div class="RFQ-entry-wrap" id="RFQEntry">
+                    <div class="yoko-search-form yoko-padding24">
+                        <div class="yoko-form-col">
+                            <div class="yoko-form-group">
+                                <div class="yoko-form-inline">
+                                    <div class="yoko-form-group">
+                                        <label for="lbRfqNo" class="yoko-short-90">RFQ No.</label>
+                                        <input type="text" name="inputRfqNo" value="" ng-model="c.data.rfqNumber" placeholder="" disabled class="yoko-wid140">
+                                    </div>
+                                    <div class="yoko-form-group">
+                                        <label for="lbCustomerPoNo" class="yoko-short-120">Customer PO No.</label>
+                                        <input type="text" name="inputCustomerPoNo" value="" ng-model="c.data.custPONo" placeholder="" disabled class="yoko-wid140">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="lbYodaPportunity" class="yoko-short-90">YODA Opportunity</label>
+                                <input type="text" name="inputYodaPportunity" value="" ng-model="c.data.yodaOpportNo" placeholder="" disabled class="yoko-col100">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="lbProjectName" class="yoko-short-90">Project Name</label>
+                                <input type="text" name="inputProjectName" value="" ng-model="c.data.ProjectNm" placeholder="" disabled class="yoko-col100">
+                            </div>
+                        </div>
+                        <div class="yoko-form-col">
+                            <div class="yoko-form-group">
+                                <label for="lbEndUser" class="yoko-short-100">End User</label>
+                                <div class="yoko-form-inline">
+                                    <input type="text" name="inputEndUserNm" value="" ng-model="c.data.endUserNm" placeholder="" disabled class="yoko-wid100">
+                                    <input type="text" name="inputEndUserNum" value="" ng-model="c.data.endUserNum" placeholder="" disabled class="">
+                                </div>
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="lbContractor" class="yoko-short-100">Contractor</label>
+                                <input type="text" name="inputContractor" value="" ng-model="c.data.constrator" placeholder="" disabled class="yoko-col100">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="lbDummyAccount" class="yoko-short-100">Dummy Account</label>
+                                <input type="text" name="inputDummyAccount" value="" ng-model="c.data.dummyAccount" placeholder="" disabled class="yoko-col100">
+                            </div>
+                        </div>
+                        <div class="yoko-form-col">
+                            <div class="yoko-form-group">
+                                <label for="lbSalesTerritory" class="yoko-short-130">Sales Territory</label>
+                                <input type="text" name="inputSalesTerritory" value="" ng-model="c.data.salesTerrit" placeholder="" disabled class="yoko-wid140">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="lbTCAS" class="yoko-short-130">T-CAS</label>
+                                <input type="text" name="inputTCAS" value="" ng-model="c.data.tcas" placeholder="" disabled class="yoko-wid140">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="lbRiskMgmtCategory" class="yoko-short-130">Risk Mgmt Category</label>
+                                <input type="text" name="inputRiskMgmtCategory" value="" ng-model="c.data.ristMgnt" placeholder="" disabled class="yoko-wid140">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="lbCreditAssessment" class="yoko-short-130">Credit Assessment</label>
+                                <input type="text" name="inputCreditAssessment" value="" ng-model="c.data.creditAss" placeholder="" disabled class="yoko-wid140">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="yoko-search-form-wrap">
                 <div class="yoko-search-form-heading yoko-fold-btn-wrap">
                     Additional Information
@@ -1730,7 +2104,8 @@ a {text-decoration: none;}
                                         <input type="text" name="inputJobType" value="" ng-model='c.data.jobTypeNm' ng-disabled='c.data.disJobType' placeholder="" class="yoko-wid100">
                                         <button type="button" class="yoko-btn yoko-btn-search" ng-disabled='c.data.disJobType' ng-click="btnClickDMRSearch(1)"></button>
                                         <button type="button" class="yoko-btn yoko-btn-info-fill" ng-disabled='c.data.disJobType' ng-click="btnClickDMRInfo(1)"></button>
-                                        <button type="button" class="yoko-btn yoko-btn-load" ng-disabled='c.data.disJobType' ng-click="btnClickDMRLoad()">Load</button>
+                                       <!-- <button type="button" class="yoko-btn yoko-btn-load" ng-disabled='c.data.disJobType' ng-click="btnClickDMRLoad()">Load</button> -->
+                                      	<input type='hidden' value='' ng-model='c.data.jobTypeSysId'>
                                     </div>
                                 </div>
                             </div>
@@ -1743,6 +2118,30 @@ a {text-decoration: none;}
                                         <button type="button" class="yoko-btn yoko-btn-info-fill" ng-disabled='c.data.disDmrClass' ng-click="btnClickDMRInfo(2)"></button>
                                     </div>
                                     <input type="text" name="inputDmrClassNm" value="" ng-model="c.data.DmrClassCode" placeholder="" disabled class="yoko-wid140">
+                                </div>
+                            </div>
+                          	<div class="yoko-form-group">
+                                <label for="lbDmrClass" class="yoko-short">Amount Level</label>
+                                <div class="yoko-form-inline">
+                                    <div class="yoko-form-inline">
+                                        <input type="text" name="inputDmrAmt" value="" ng-model="c.data.dmrAmt" ng-disabled='c.data.disDmrClass' placeholder="" class="yoko-wid300">
+                                    </div>
+                                </div>
+                            </div>
+                          	<div class="yoko-form-group">
+                                <label for="lbDmrClass" class="yoko-short">MP Level</label>
+                                <div class="yoko-form-inline">
+                                    <div class="yoko-form-inline">
+                                        <input type="text" name="inputDmrMP" value="" ng-model="c.data.dmrMP" ng-disabled='c.data.disDmrClass' placeholder="" class="yoko-wid300">
+                                    </div>
+                                </div>
+                            </div>
+                          	<div class="yoko-form-group">
+                                <label for="lbDmrClass" class="yoko-short">GP Level</label>
+                                <div class="yoko-form-inline">
+                                    <div class="yoko-form-inline">
+                                        <input type="text" name="inputDmrGP" value="" ng-model="c.data.dmrGP" ng-disabled='c.data.disDmrClass' placeholder="" class="yoko-wid300">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1915,19 +2314,19 @@ a {text-decoration: none;}
                                                 <div class="yoko-form-group">
                                                     <label class="checkbox-label">
                                                         <div class="custom-checkbox">
-                                                            <input type="checkbox" ng-disabled='c.data.disChkFlag' [checked]="c.data.checkedSDG" />
+                                                            <input type="checkbox" name='check_1' ng-disabled='c.data.disChkFlag' ng-model='c.data.itemsFlag[0].checked' />
                                                             <span class="checkmark"></span>
                                                         </div>
-                                                        {{c.data.itemsFlagName[0]}}
+                                                        {{c.data.itemsFlag[0].name}}
                                                     </label>
                                                 </div>
                                                 <div class="yoko-form-group">
                                                     <label class="checkbox-label">
                                                         <div class="custom-checkbox">
-                                                            <input type="checkbox" ng-disabled='c.data.disChkFlag' [checked]="c.data.checkedDXP" />
+                                                            <input type="checkbox" name='check_2' ng-disabled='c.data.disChkFlag' ng-model='c.data.itemsFlag[1].checked' />
                                                             <span class="checkmark"></span>
                                                         </div>
-                                                        {{c.data.itemsFlagName[1]}}
+                                                        {{c.data.itemsFlag[1].name}}
                                                     </label>
                                                 </div>
                                             </div>
@@ -1935,19 +2334,19 @@ a {text-decoration: none;}
                                                 <div class="yoko-form-group">
                                                     <label class="checkbox-label">
                                                         <div class="custom-checkbox">
-                                                            <input type="checkbox" ng-disabled='c.data.disChkFlag' [checked]="c.data.checkedAI" />
+                                                            <input type="checkbox" name='check_3' ng-disabled='c.data.disChkFlag' ng-model='c.data.itemsFlag[2].checked' />
                                                             <span class="checkmark"></span>
                                                         </div>
-                                                        {{c.data.itemsFlagName[2]}}
+                                                        {{c.data.itemsFlag[2].name}}
                                                     </label>
                                                 </div>
                                                 <div class="yoko-form-group">
                                                     <label class="checkbox-label">
                                                         <div class="custom-checkbox">
-                                                            <input type="checkbox" ng-disabled='c.data.disChkFlag' [checked]="c.data.checkedDES" />
+                                                            <input type="checkbox" name='check_4' ng-disabled='c.data.disChkFlag' ng-model='c.data.itemsFlag[3].checked' />
                                                             <span class="checkmark"></span>
                                                         </div>
-                                                        {{c.data.itemsFlagName[3]}}
+                                                        {{c.data.itemsFlag[3].name}}
                                                     </label>
                                                 </div>
                                             </div>
@@ -1955,10 +2354,10 @@ a {text-decoration: none;}
                                                 <div class="yoko-form-group">
                                                     <label class="checkbox-label">
                                                         <div class="custom-checkbox">
-                                                            <input type="checkbox" ng-disabled='c.data.disChkFlag' [checked]="c.data.checkedSmart" />
+                                                            <input type="checkbox" name='check_5' ng-disabled='c.data.disChkFlag' ng-model='c.data.itemsFlag[4].checked' />
                                                             <span class="checkmark"></span>
                                                         </div>
-                                                        {{c.data.itemsFlagName[4]}}
+                                                        {{c.data.itemsFlag[4].name}}
                                                     </label>
                                                 </div>
                                             </div>
@@ -1971,164 +2370,15 @@ a {text-decoration: none;}
                     </div>
                 </div>
             </div>
-            <div class="yoko-search-form-wrap">
-                <div class="yoko-search-form-heading yoko-fold-btn-wrap">
-                    RFQ Entry
-                    <button type="button" data-target="RFQEntry" class="yoko-btn yoko-btn-fold"></button> 
-                    <!-- 화면접기 버튼추가 -->
-                </div>
-                <div class="RFQ-entry-wrap" id="RFQEntry">
-                    <div class="yoko-search-form yoko-padding24">
-                        <div class="yoko-form-col">
-                            <div class="yoko-form-group">
-                                <div class="yoko-form-inline">
-                                    <div class="yoko-form-group">
-                                        <label for="lbRfqNo" class="yoko-short-90">RFQ No.</label>
-                                        <input type="text" name="inputRfqNo" value="" ng-model="c.data.rfqNumber" placeholder="" disabled class="yoko-wid140">
-                                    </div>
-                                    <div class="yoko-form-group">
-                                        <label for="lbCustomerPoNo" class="yoko-short-120">Customer PO No.</label>
-                                        <input type="text" name="inputCustomerPoNo" value="" ng-model="c.data.custPONo" placeholder="" disabled class="yoko-wid140">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="lbYodaPportunity" class="yoko-short-90">YODA Opportunity</label>
-                                <input type="text" name="inputYodaPportunity" value="" ng-model="c.data.yodaOpportNo" placeholder="" disabled class="yoko-col100">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="lbProjectName" class="yoko-short-90">Project Name</label>
-                                <input type="text" name="inputProjectName" value="" ng-model="c.data.ProjectNm" placeholder="" disabled class="yoko-col100">
-                            </div>
-                        </div>
-                        <div class="yoko-form-col">
-                            <div class="yoko-form-group">
-                                <label for="lbEndUser" class="yoko-short-100">End User</label>
-                                <div class="yoko-form-inline">
-                                    <input type="text" name="inputEndUserNm" value="" ng-model="c.data.endUserNm" placeholder="" disabled class="yoko-wid100">
-                                    <input type="text" name="inputEndUserNum" value="" ng-model="c.data.endUserNum" placeholder="" disabled class="">
-                                </div>
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="lbContractor" class="yoko-short-100">Contractor</label>
-                                <input type="text" name="inputContractor" value="" ng-model="c.data.constrator" placeholder="" disabled class="yoko-col100">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="lbDummyAccount" class="yoko-short-100">Dummy Account</label>
-                                <input type="text" name="inputDummyAccount" value="" ng-model="c.data.dummyAccount" placeholder="" disabled class="yoko-col100">
-                            </div>
-                        </div>
-                        <div class="yoko-form-col">
-                            <div class="yoko-form-group">
-                                <label for="lbSalesTerritory" class="yoko-short-130">Sales Territory</label>
-                                <input type="text" name="inputSalesTerritory" value="" ng-model="c.data.salesTerrit" placeholder="" disabled class="yoko-wid140">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="lbTCAS" class="yoko-short-130">T-CAS</label>
-                                <input type="text" name="inputTCAS" value="" ng-model="c.data.tcas" placeholder="" disabled class="yoko-wid140">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="lbRiskMgmtCategory" class="yoko-short-130">Risk Mgmt Category</label>
-                                <input type="text" name="inputRiskMgmtCategory" value="" ng-model="c.data.ristMgnt" placeholder="" disabled class="yoko-wid140">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="lbCreditAssessment" class="yoko-short-130">Credit Assessment</label>
-                                <input type="text" name="inputCreditAssessment" value="" ng-model="c.data.creditAss" placeholder="" disabled class="yoko-wid140">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="yoko-search-form-wrap">
-                <div class="yoko-search-form-heading yoko-fold-btn-wrap">
-                    Quotation
-                    <button type="button" data-target="Quotation" class="yoko-btn yoko-btn-fold"></button>
-                    <!-- 화면접기 버튼추가 -->
-                </div>
-                <div class="quotation_wrap" id="Quotation">
-                    <div class="yoko-search-form yoko-padding24">
-                        <div class="yoko-flex-responsive quotation-responsive">
-                            <div class="yoko-form-col">
-                                <div class="yoko-form-group">
-                                    <div class="yoko-form-group">
-                                        <label for="lbQuotationNo" class="yoko-short-110">Quotation No</label>
-                                        <input type="text" name="inputQuotationNo" value="" ng-model="c.data.quotNum" placeholder="" disabled class="yoko-wid140">
-                                    </div>
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="lbEssSqmsNo" class="yoko-short-110">ESS/SQMS No.</label>
-                                    <input type="text" name="inputEssSqmsNo" value="" ng-model="c.dataEssNo" placeholder="" disabled class="yoko-wid140">
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="lbCurrency" class="yoko-short-110">Currency</label>
-                                    <input type="text" name="inputCurrency" value="" ng-model="c.data.currency" placeholder="" disabled class="yoko-wid140">
-                                </div>
-                            </div>
-                            <div class="yoko-form-col">
-                                <div class="yoko-form-group">
-                                    <label for="industry_security_fee" class="yoko-short-142 ">Industry Security Fee</label>
-                                    <input type="text" name="industry_security_fee" value="" ng-model="c.data.industrySec" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="lbIndustrySecurityFee" class="yoko-short-142">Liability Insurance Fee</label>
-                                    <input type="text" name="inputIndustrySecurityFee" value="" ng-model="c.data.liabilityInsu" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="yoko-form-col">
-                            <!--<div class="yoko-form-group">
-                                <label for="lbExRate" class="yoko-short-110">Ex. Rate</label>
-                                <input type="text" name="inputExRate" value="" ng-model="c.data.ExRate" laceholder="" disabled class="yoko-wid140 yoko-text-right">
-                            </div>-->
-                            <div class="yoko-form-group">
-                                <label for="lbOiAmountTc" class="yoko-short-110">OI Amount(TC)</label>
-                                <input type="text" name="inputOiAmountTc" value="" ng-model="c.data.oiAmtTC" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="lbOiAmountLc" class="yoko-short-110">OI Amount(LC)</label>
-                                <input type="text" name="inputOiAmountLc" value="" ng-model="c.data.oiAmtLC" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                            </div>
-                        </div>
-                        <div class="yoko-form-col">
-                            <div class="yoko-form-group">
-                                <label for="lbQuotMpAmt" class="yoko-short">MP Amount</label>
-                                <input type="text" name="inputQuotMpAmt" value="" ng-model="c.data.quotMpAmt" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="lbQuotMpGap" class="yoko-short">MP GAP</label>
-                                <input type="text" name="inputQuotMpGap" value="" ng-model="c.data.quotMpGap" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="lbQuotMpGapPerc" class="yoko-short">MP Gap %</label>
-                                <input type="text" name="inputQuotMpGapPerc" value="" ng-model="c.data.quotMpGapPerc" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                            </div>
-                        </div>
-                        <div class="yoko-form-col">
-                            <div class="yoko-form-group">
-                                <label for="lbQuotTotEstCost" class="yoko-short-135">Total Estimated Cost</label>
-                                <input type="text" name="inputQuotTotEstCost" value="" ng-model="c.data.quotTotEstCost" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="lbQuotGpAmt" class="yoko-short-135">GP Amount</label>
-                                <input type="text" name="inputQuotGpAmt" value="" ng-model="c.data.quotGpAmt" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="lbQuotGpPerc" class="yoko-short-135">GP %</label>
-                                <input type="text" name="inputQuotGpPerc" value="" ng-model="c.data.quotGpPerc" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+						<div class="yoko-grid-btn-wrap-grid" style='margin-'>
+              <button class="yoko-btn yoko-btn-outline" id="bt-add" ng-click='gridDetailBtnClick(1)'>Add</button>
+              <button class="yoko-btn yoko-btn-outline" id="bt-insert" ng-click='gridDetailBtnClick(2)'>Insert</button>
+              <button class="yoko-btn yoko-btn-outline" id="bt-delete" ng-click='gridDetailBtnClick(3)'>Delete</button>
+              <button class="yoko-btn yoko-btn-outline" id="bt-save" ng-click='gridDetailBtnClick(4)'>Save</button>
+              <div id='gridContainer' style="width:100%; height: 400px; margin-top:5px;"></div>
             </div>
-
-						<div class="yoko-grid-btn-wrap-grid">
-              <button id="bt-add" ng-click='gridDetailBtnClick(1)'>Add</button>
-              <button id="bt-insert" ng-click='gridDetailBtnClick(2)'>Insert</button>
-              <button id="bt-delete" ng-click='gridDetailBtnClick(3)'>Delete</button>
-              <button id="bt-save" ng-click='gridDetailBtnClick(4)'>Save</button>
-            </div>
-          	<div id='gridContainer' style="width:100%; height: 400px; "></div>
+          	
             
         </div>
     </div>
@@ -2195,6 +2445,29 @@ a {text-decoration: none;}
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" ng-click="closeModalAnsoff()">Close</button>
+            </div>
+        </div>
+    </div>
+  
+  	<!-- Modal JOB TYPE -->
+    <div id="modalJobType" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>JOB Type</h2>
+            </div>
+            <div class="modal-body">
+                <ul id="container" class="container">
+                    <li ng-repeat="item in c.data.itemsJobType">
+                      <span ng-click="clickDmrClass(item)">{{item.name}}</span>
+                    </li>
+                </ul>
+  
+                <div class="pagination" id="pagination"></div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="closeDmrClass()">Close</button>
             </div>
         </div>
     </div>

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="46e073003b26ca10ec3cbf2a85e45ac3" extends="x_yergb_bpm_process" label="Project" max_length="40" name="x_yergb_bpm_project" type="collection">
-        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="PM Name" max_length="32" name="pm" reference="sys_user" type="reference"/>
-        <element label="Project Name" max_length="40" name="name" type="string"/>
-        <element label="Customer" max_length="32" name="customer" reference="core_company" type="reference"/>
-        <element attributes="edge_encryption_enabled=true" choice="3" default="item" label="Data type" max_length="40" name="u_data_type" type="string">
+        <element choice="1" label="Currency" max_length="40" name="currency" type="choice">
             <choice>
-                <element inactive_on_update="false" label="ITEM" sequence="0" value="item"/>
-                <element inactive_on_update="false" label="WBS-6" sequence="1" value="wbs-6"/>
+                <element inactive_on_update="false" label="USD" sequence="0" value="usd"/>
+                <element inactive_on_update="false" label="KRW" sequence="1" value="krw"/>
+                <element inactive_on_update="false" label="CNY" sequence="2" value="cny"/>
             </choice>
         </element>
         <element attributes="edge_encryption_enabled=true" choice="1" label="Region" max_length="40" name="region" type="choice">
@@ -16,15 +14,17 @@
                 <element inactive_on_update="false" label="YHQ" sequence="300" value="yhq"/>
             </choice>
         </element>
+        <element label="Customer" max_length="32" name="customer" reference="core_company" type="reference"/>
+        <element label="Project Code" max_length="40" name="project_code" type="string"/>
+        <element label="Project Name" max_length="40" name="name" type="string"/>
         <element label="Sales Order" max_length="40" name="sales_order" type="string"/>
-        <element choice="1" label="Currency" max_length="40" name="currency" type="choice">
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="PM Name" max_length="32" name="pm" reference="sys_user" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" choice="3" default="item" label="Data type" max_length="40" name="u_data_type" type="string">
             <choice>
-                <element inactive_on_update="false" label="USD" sequence="0" value="usd"/>
-                <element inactive_on_update="false" label="KRW" sequence="1" value="krw"/>
-                <element inactive_on_update="false" label="CNY" sequence="2" value="cny"/>
+                <element inactive_on_update="false" label="ITEM" sequence="0" value="item"/>
+                <element inactive_on_update="false" label="WBS-6" sequence="1" value="wbs-6"/>
             </choice>
         </element>
-        <element label="Project Code" max_length="40" name="project_code" type="string"/>
         <index name="index">
             <element name="customer"/>
         </index>
