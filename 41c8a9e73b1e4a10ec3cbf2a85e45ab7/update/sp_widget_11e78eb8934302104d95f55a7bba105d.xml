@@ -1567,7 +1567,7 @@ while(grLabel.next()) {
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "Requested" && gs.getUser().isMemberOf('YCN Sales Group') ) {
+        } else if (gr.state.getDisplayValue() == "Requested" && gs.getUser().isMemberOf('YCN_Sales_Engineer_Group') ) {
             data.showAssess = false;
             data.showRequest = false;
             data.showSubmit = false;
@@ -1595,7 +1595,7 @@ while(grLabel.next()) {
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "In Progress" && gs.getUser().isMemberOf('YCN_Sales_Engineer_Group')) {
+        } else if (gr.state.getDisplayValue() == "In Progress") {
             data.showAssess = false;
             data.showRequest = false;
             data.showSubmit = true;
@@ -1638,6 +1638,7 @@ while(grLabel.next()) {
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
         }else {
+          //  gs.addErrorMessage("who are you")
             data.showAssess = false;
             data.showRequest = false;
             data.showSubmit = false;
@@ -1670,7 +1671,7 @@ while(grLabel.next()) {
             data.showQuotationType = true;
         }
 */
-		if(gs.getUser().isMemberOf('YCN Sales Group') &&  gr.state.getDisplayValue() == "In Progress" && input.quotation_state != 'Completed'){ // 세일즈 그룹이고, in progress 이고, q type 이 complete 가 아니면 버튼들 
+		if(gs.getUser().isMemberOf('YCN Sales Group') &&  gr.state.getDisplayValue() == "In Progress" && data.quotation_state != 'Completed'){ // 세일즈 그룹이고, in progress 이고, q type 이 complete 가 아니면 버튼들 
             data.showAssess = false;
             data.showRequest = false;
             data.showSubmit = false;
@@ -1685,16 +1686,16 @@ while(grLabel.next()) {
             data.showQuotationType = true;
         }  
         
-        if(gs.getUser().isMemberOf('YCN_Sales_Engineer_Group') &&  gr.state.getDisplayValue() == "In Progress"&& input.quotation_state != 'Completed'){  //엔지니어 그룹이고, in progress 이고 
+        if(gs.getUser().isMemberOf('YCN_Sales_Engineer_Group') &&  gr.state.getDisplayValue() == "In Progress"){  //엔지니어 그룹이고, in progress 이고 
             data.showAssess = false;
             data.showRequest = false;
-            data.showSubmit = true;
+            data.showSubmit = false;
             data.showInProgress = false;
             data.showAccept = false;
             data.showReturn = false;
             data.showCancel = false;
-            data.showUpdate = true;
-            data.showSave = true
+            data.showUpdate = false;
+            data.showSave = false
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
@@ -1998,7 +1999,8 @@ while(grLabel.next()) {
             items.push({
                 column1: gr.getValue('number'),
                 column2: gr.getValue('sys_id'),
-                //column3: gr.getValue('name')
+                column3: gr.getValue('quotation_type'),
+                column4: gr.getValue('project_name')
             });
         }
 
@@ -2034,14 +2036,14 @@ while(grLabel.next()) {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>85</sys_mod_count>
+        <sys_mod_count>97</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-27 02:28:33</sys_updated_on>
+        <sys_updated_on>2024-06-27 04:24:29</sys_updated_on>
         <template><![CDATA[<div>
     <div class="yoko-container">
           <div class="yoko-breadcrumb">Home > Quotation Request</div>
