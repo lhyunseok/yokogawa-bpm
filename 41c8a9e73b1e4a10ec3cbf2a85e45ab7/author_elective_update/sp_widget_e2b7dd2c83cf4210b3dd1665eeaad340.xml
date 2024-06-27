@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {
+  /* widget controller */
+  var c = this;
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>orderintakereportgridwd</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>orderIntakeReportGridWd</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+  function getValueOrEmptyString(value) {
+	return typeof value === 'undefined' ? '' : value;
+  }
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-24 03:18:01</sys_created_on>
+        <sys_id>e2b7dd2c83cf4210b3dd1665eeaad340</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>orderIntakeReportGridWd</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sp_widget_e2b7dd2c83cf4210b3dd1665eeaad340</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-24 03:18:01</sys_updated_on>
+        <template><![CDATA[<div>
+<!-- your widget template -->
+  Test additional widget
+</div>]]></template>
+    </sp_widget>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</application>
+        <file_path/>
+        <instance_id>b2fca61fdb5d8ed42f082a591396194c</instance_id>
+        <instance_name>dev257309</instance_name>
+        <name>sp_widget_e2b7dd2c83cf4210b3dd1665eeaad340</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;
+    &lt;sp_widget action="INSERT_OR_UPDATE"&gt;
+        &lt;category&gt;custom&lt;/category&gt;
+        &lt;client_script&gt;&lt;![CDATA[api.controller=function() {
+  /* widget controller */
+  var c = this;
+};]]&gt;&lt;/client_script&gt;
+        &lt;controller_as&gt;c&lt;/controller_as&gt;
+        &lt;css/&gt;
+        &lt;data_table&gt;sp_instance&lt;/data_table&gt;
+        &lt;demo_data/&gt;
+        &lt;description/&gt;
+        &lt;docs/&gt;
+        &lt;field_list/&gt;
+        &lt;has_preview&gt;false&lt;/has_preview&gt;
+        &lt;id&gt;orderintakereportgridwd&lt;/id&gt;
+        &lt;internal&gt;false&lt;/internal&gt;
+        &lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]&gt;&lt;/link&gt;
+        &lt;name&gt;orderIntakeReportGridWd&lt;/name&gt;
+        &lt;option_schema/&gt;
+        &lt;public&gt;false&lt;/public&gt;
+        &lt;roles/&gt;
+        &lt;script&gt;&lt;![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+  function getValueOrEmptyString(value) {
+	return typeof value === 'undefined' ? '' : value;
+  }
+
+})();]]&gt;&lt;/script&gt;
+        &lt;servicenow&gt;false&lt;/servicenow&gt;
+        &lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2024-06-24 03:18:01&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;e2b7dd2c83cf4210b3dd1665eeaad340&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;orderIntakeReportGridWd&lt;/sys_name&gt;
+        &lt;sys_package display_value="BPM" source="x_yergb_bpm"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sp_widget_e2b7dd2c83cf4210b3dd1665eeaad340&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2024-06-24 03:18:01&lt;/sys_updated_on&gt;
+        &lt;template&gt;&lt;![CDATA[&lt;div&gt;
+&lt;!-- your widget template --&gt;
+  Test additional widget
+&lt;/div&gt;]]&gt;&lt;/template&gt;
+    &lt;/sp_widget&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>534021254</payload_hash>
+        <record_name>orderIntakeReportGridWd</record_name>
+        <reverted_from/>
+        <source>de1324a9830f8610b3dd1665eeaad38f</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-27 02:00:29</sys_created_on>
+        <sys_id>992328a9830f8610b3dd1665eeaad318</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>190576c3b630000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-27 02:00:29</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>952328a9e80f8610db61d2d6d2c16f18</update_guid>
+        <update_guid_history>952328a9e80f8610db61d2d6d2c16f18:0,228a90edddcb8610e1e24e7d8af013e0:-1128453942,f31859a0264382105bd255007e8dabc9:401184620,d0ed1da8704382109328d01bb12a920c:-1774792328,f31859a0264382105bd255007e8dabc9:401184620</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-27 02:01:46</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>a81fe4fc49a348a0839b46eb62673c40</sys_id>
+        <sys_metadata>e2b7dd2c83cf4210b3dd1665eeaad340</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>orderIntakeReportGridWd</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_scope_delete display_value="">9ff3e273935a476eab36e9bd65d24759</sys_scope_delete>
+        <sys_update_name>sp_widget_e2b7dd2c83cf4210b3dd1665eeaad340</sys_update_name>
+        <sys_update_version display_value="sp_widget_e2b7dd2c83cf4210b3dd1665eeaad340">992328a9830f8610b3dd1665eeaad318</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-27 02:01:46</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
