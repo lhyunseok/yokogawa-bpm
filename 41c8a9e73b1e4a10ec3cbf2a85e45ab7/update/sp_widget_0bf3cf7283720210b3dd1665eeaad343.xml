@@ -733,8 +733,11 @@
 		} else if(idx == 2) {
 			dpDetail.insertRow(0, v);
 		} else if(idx == 3) {
-			var curr = gvDetail.getCurrent();
-  		dpDetail.removeRow(curr.dataRow);
+			var checkedRows = gvDetail.getCheckedRows();
+			for (var k = checkedRows.length - 1; k >= 0; k--) {
+				dpDetail.removeRow(checkedRows[k]);
+			}
+
 		} else if(idx == 4) {
 			c.data.gridBtnTransact = 'T';
 			c.data.gridDetailData = dpDetail.getJsonRows();
@@ -1893,14 +1896,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>853</sys_mod_count>
+        <sys_mod_count>857</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-27 10:38:23</sys_updated_on>
+        <sys_updated_on>2024-06-27 11:20:30</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2508,7 +2511,7 @@ border: 2px solid red;
     <div id="modalOrderType" class="modal" style="display:none;">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close">&times;</span>
+                <span class="close" ng-click="closeModalOrderType()">&times;</span>
                 <h2>{{c.data.modalOrderTypeTitle}}</h2>
             </div>
             <div class="modal-body">
@@ -2529,7 +2532,7 @@ border: 2px solid red;
     <div id="modalProjectType" class="modal" style="display:none;">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close">&times;</span>
+                <span class="close" ng-click="closeModalProjectType()">&times;</span>
                 <h2>{{c.data.modalProjectTypeTitle}}</h2>
             </div>
             <div class="modal-body">
@@ -2551,7 +2554,7 @@ border: 2px solid red;
     <div id="modalAnsoff" class="modal" style="display:none;">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close">&times;</span>
+                <span class="close" ng-click="closeModalAnsoff()">&times;</span>
                 <h2>{{c.data.modalAnsoffTitle}}</h2>
             </div>
             <div class="modal-body">
@@ -2574,7 +2577,7 @@ border: 2px solid red;
     <div id="modalJobType" class="modal" style="display:none;">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close">&times;</span>
+                <span class="close" ng-click="closeDmrClass()">&times;</span>
                 <h2>JOB Type</h2>
             </div>
             <div class="modal-body">
