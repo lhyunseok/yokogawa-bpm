@@ -38,7 +38,7 @@
             'ms_code': '',
             'unit_cost': '',
             'quantity': '',
-            'extended_cost': '',
+            'extended_cost_lc': '',
             'strategy': '',
             'lead_time': '',
             'planned_procurement': '',
@@ -1220,7 +1220,7 @@ th {
                 'ms_code': gritem.ms_code.getDisplayValue(),
                 'unit_cost': gritem.unit_cost.getDisplayValue(),
                 'quantity': gritem.quantity.getDisplayValue(),
-                'extended_cost': parseInt(gritem.extended_cost.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'extended_cost_lc': parseInt(gritem.extended_cost_lc.getDisplayValue().replace(/,/g, ''), 10) || 0,
                 'strategy': gritem.strategy.getDisplayValue(),
                 'lead_time': gritem.lead_time.getDisplayValue(),
                 'planned_procurement': gritem.planned_procurement.getDisplayValue(),
@@ -1273,7 +1273,7 @@ th {
             'ms_code',
             'unit_cost',
             'quantity',
-            'extended_cost',
+            'extended_cost_lc',
             'strategy',
             'lead_time',
             'planned_procurement',
@@ -1336,14 +1336,14 @@ function sf1(a, b) {
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-19 02:07:04</sys_created_on>
         <sys_id>ffe7d7b683b20210856ceec0deaad3e3</sys_id>
-        <sys_mod_count>20</sys_mod_count>
+        <sys_mod_count>21</sys_mod_count>
         <sys_name>budgetPlanMngtWd04</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_ffe7d7b683b20210856ceec0deaad3e3</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-26 02:00:07</sys_updated_on>
+        <sys_updated_on>2024-06-26 10:38:12</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 
