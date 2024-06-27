@@ -34,6 +34,9 @@
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
 
+	var exchange_rate = 1;
+	var total_quote_price_lc = 0;
+
 	var quote_no = "QUOT"+ current.number.substring(3,10);
 	var version = "";
 	var gr = new GlideRecord('x_yergb_bpm_quotation');
@@ -45,7 +48,18 @@
 	}
 
 	if(version == '' || version == null) {
-		version = 1;
+		version = 0;
+	}
+
+	if(current.currency != current.sales_manager.company.u_currency) {
+		var grrate = new GlideRecord('x_yergb_bpm_bpm_exchange_rate');
+		grrate.addQuery('source_currency',current.currency);
+		grrate.addQuery('target_currency',current.sales_manager.company.u_currency);
+		grrate.query();
+		if(grrate.next()) {
+			exchange_rate = grrate.exchange_rate;
+			gs.info("Exchange_rate is not 1 : "+ exchange_rate + ", source:target = " + current.currency + " : " +  current.sales_manager.company.u_currency);
+		}
 	}
 
 	gr.newRecord();
@@ -55,6 +69,8 @@
 	gr.assignment_group = current.assignment_group;
 	gr.assigned = current.assigned_to;
 	gr.state = 1;
+	gr.exchange_rate = exchange_rate;
+	gr.currency_lc = current.sales_manager.company.u_currency;
 	gr.insert();
 	
 
@@ -65,7 +81,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>3ef5c8b8473e8610a4863b12d16d4382</sys_id>
-        <sys_mod_count>7</sys_mod_count>
+        <sys_mod_count>9</sys_mod_count>
         <sys_name>RFQ Entry Accepted</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
@@ -73,7 +89,7 @@
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_3ef5c8b8473e8610a4863b12d16d4382</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 07:16:28</sys_updated_on>
+        <sys_updated_on>2024-06-27 12:32:06</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>
