@@ -37,7 +37,7 @@
             'ms_code': '',
             'unit_cost': '',
             'quantity': '',
-            'extended_cost': '',
+            'extended_cost_lc': '',
             'strategy': '',
             'lead_time': '',
             'planned_procurement': '',
@@ -162,7 +162,7 @@
                 dataType: "text",
             },
             {
-                fieldName: "extended_cost",
+                fieldName: "extended_cost_lc",
                 dataType: "number",
             },
             {
@@ -257,8 +257,8 @@
                 "editable": false,
             },
             {
-                "name": "extended_cost",
-                "fieldName": "extended_cost",
+                "name": "extended_cost_lc",
+                "fieldName": "extended_cost_lc",
                 "numberFormat": "#,##0",
                 "type": "number",
                 "width": 100,
@@ -337,7 +337,7 @@
             'ms_code',
             'unit_cost',
             'quantity',
-            'extended_cost',
+            'extended_cost_lc',
             'strategy',
             'lead_time',
             'planned_procurement',
@@ -370,6 +370,52 @@
             gv.displayOptions.fitStyle = "fill";
             gv.checkBar.visible = false;
             gv.stateBar.visible = false;
+
+            dp.setRows(c.data.gridData);
+
+            gv.onCellEdited = function(grid, itemIndex, row, field) {
+                gv.commit();
+                console.log('Edit done! at ' + itemIndex + ', ');
+                debugger;
+                var a = dp.getValue(row, "plan_gr_date");
+                var b = dp.getValue(row, "lead_time");
+                calculateDate(a, b, row);
+            }
+
+            gv.pasteOptions.eventEachRow = true;
+            gv.onEditRowPasted = function(grid, itemIndex, row, fields, oldValues, newValues) {
+                var a = newValues;
+                var b = dp.getValue(row, "lead_time");
+                calculateDate(a, b, row);
+            };
+
+            function calculateDate(a, b, row) {
+
+                var planGrDate = new Date(a);
+                if (!isValidDate(planGrDate)) {
+                    alert('Please check the Plan Gr Date format. yyyy-mm-dd');
+                    dp.setValue(row, "plan_gr_date", '');
+                    return;
+                }
+
+                planGrDate.setHours(0, 0, 0, 0);
+                var leadTime = parseInt(b, 10);
+                var newDate = new Date(planGrDate);
+                newDate.setDate(newDate.getDate() - leadTime);
+
+                dp.setValue(row, "planned_procurement", formatDateToYYYYMMDD(newDate));
+            }
+
+            function isValidDate(d) {
+                return d instanceof Date && !isNaN(d);
+            }
+
+            function formatDateToYYYYMMDD(date) {
+                var year = date.getFullYear();
+                var month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based
+                var day = date.getDate().toString().padStart(2, '0');
+                return year + '-' + month + '-' + day;
+            }
 
             dp.setRows(c.data.gridData);
 
@@ -967,7 +1013,7 @@ th {
                 'ms_code': gritem.ms_code.getDisplayValue(),
                 'unit_cost': gritem.unit_cost.getDisplayValue(),
                 'quantity': gritem.quantity.getDisplayValue(),
-                'extended_cost': parseInt(gritem.extended_cost.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'extended_cost_lc': parseInt(gritem.extended_cost_lc.getDisplayValue().replace(/,/g, ''), 10) || 0,
                 'strategy': gritem.strategy.getDisplayValue(),
                 'lead_time': gritem.lead_time.getDisplayValue(),
                 'planned_procurement': gritem.planned_procurement.getDisplayValue(),
@@ -1019,7 +1065,7 @@ th {
             'ms_code',
             'unit_cost',
             'quantity',
-            'extended_cost',
+            'extended_cost_lc',
             'strategy',
             'lead_time',
             'planned_procurement',
@@ -1082,14 +1128,14 @@ function sf1(a, b) {
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-26 00:21:26</sys_created_on>
         <sys_id>a0e2cbc183030210856ceec0deaad39c</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>6</sys_mod_count>
         <sys_name>budgetPlanPrjMngtWd01</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_a0e2cbc183030210856ceec0deaad39c</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-26 09:57:20</sys_updated_on>
+        <sys_updated_on>2024-06-27 00:28:55</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 
