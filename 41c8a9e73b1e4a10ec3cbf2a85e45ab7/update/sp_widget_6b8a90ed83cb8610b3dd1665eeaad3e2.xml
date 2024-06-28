@@ -124,6 +124,11 @@
 	// Call resizeIframe on initial load to set the initial height
 	resizeIframe();
 	
+	/*function formatNumber(str) {
+    var t = str.replace(/,/g, '').replace(/\D/g, '');
+    return t.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	}*/
+	
 	/* 최초 초기화 */
 	c.server.update().then(function(response) {
 		console.log('Init screen rsponse:', response);
@@ -136,6 +141,15 @@
 		c.data.initOiReport = false;
 		c.data.initRfqEntry = false;
 		c.data.initQuotation = false;
+		
+		/*c.data.mpAmount = formatNumber(c.data.mpAmount);
+		c.data.mpGap = formatNumber(c.data.mpGap);
+		c.data.oiAmtTC = formatNumber(c.data.oiAmtTC);
+		c.data.mpGapPerc = formatNumber(c.data.mpGapPerc);
+		c.data.oiAmtLC = formatNumber(c.data.oiAmtLC);
+		c.data.gpAmt = formatNumber(c.data.gpAmt);
+		c.data.totEstimCost = formatNumber(c.data.totEstimCost);
+		c.data.gpPer = formatNumber(c.data.gpPer);*/
 		
 		if(c.data.btnHeaderType=='Reject') {
 			alert('Reject process done.');
@@ -527,6 +541,7 @@ border: 2px solid red;
 		
 		// TEST 
 		//data.oiSysId = '049440b63b3e4210ec3cbf2a85e45afd0';
+		//console.log('OI SYS ID : ' + data.oiSysId);
 		
 		var oiReportData = new GlideRecord('x_yergb_bpm_oi_report');
 		oiReportData.addQuery('sys_id', data.oiSysId);
@@ -538,7 +553,7 @@ border: 2px solid red;
 			
 			data.customerPONo = oiReportData.customer_po_no.toString();
 			data.exRate = oiReportData.exchange_rate.toString();
-			data.mpAmount = oiReportData.mp_amount_tc.toString();
+			data.mpAmount = oiReportData.mp_amount_lc.toString();
 			data.mpGap = oiReportData.mp_gap_lc.toString();
 			data.oiAmtTC = oiReportData.oi_amount_tc.toString();
 			data.mpGapPerc = oiReportData.mp_gap_percent.toString();
@@ -560,9 +575,13 @@ border: 2px solid red;
 			data.salesMngNm = rfqEntryData.sales_manager.name.toString();
 			data.salesMngCode = rfqEntryData.sales_manager.country.toString();
 			data.endUserNm = rfqEntryData.end_user.name.toString();
-			data.endUserCode = rfqEntryData.end_user.phone.toString();
+			data.endUserCode = rfqEntryData.end_user.contract.toString();
 			data.quotSysId = rfqEntryData.quotation.toString();
-			data.yodaOpportunity = rfqEntryData.yoda_opportunity_no.toString();			
+			data.yodaOpportunity = rfqEntryData.yoda_opportunity_no.toString();		
+			data.contractorNm = rfqEntryData.contract.name.toString();
+			data.contractorCode = rfqEntryData.contract_name.toString();
+			data.projectNm = rfqEntryData.project_title.toString();
+			data.currency = rfqEntryData.currency.code.toString();
 		}
 	}
 
@@ -570,11 +589,9 @@ border: 2px solid red;
 		var quotData = new GlideRecord('x_yergb_bpm_quotation');
 		quotData.addQuery('sys_id', data.quotSysId);
 		quotData.query();
-
 		while(quotData.next()) {
 			data.quotNum = quotData.number.toString();
 			data.essSqmsNum = quotData.ess_sqms_no.toString();
-			data.currency = quotData.currency_lc.code.toString();
 		}
 	}
 	
@@ -614,14 +631,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-27 01:26:09</sys_created_on>
         <sys_id>6b8a90ed83cb8610b3dd1665eeaad3e2</sys_id>
-        <sys_mod_count>111</sys_mod_count>
+        <sys_mod_count>119</sys_mod_count>
         <sys_name>orderIntakeReportApprovalWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_6b8a90ed83cb8610b3dd1665eeaad3e2</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-28 02:06:13</sys_updated_on>
+        <sys_updated_on>2024-06-28 03:15:58</sys_updated_on>
         <template><![CDATA[<div>
 	<div class="yoko-container">
         <!--<div class="yoko-breadcrumb">Home >  Approval - OI Cancel Report</div>-->
@@ -781,10 +798,10 @@ border: 2px solid red;
                                             <input type="text" name="quotationNum" value="" ng-model='c.data.quotNum' placeholder="" disabled class="yoko-col100">
                                         </div>
                                         <div class="yoko-form-group">
-                                            <label for="contoractor" class="yoko-short-90">Contoractor</label>
+                                            <label for="contoractor" class="yoko-short-90">Contractor</label>
                                             <div class="yoko-form-inline ">
-                                                <input type="text" name="contoractorNm" value="" ng-model='c.data.constructorNm' placeholder="" disabled class="yoko-col100">
-                                                <input type="text" name="contoractorCode" value="" ng-model='c.data.constructorCode' placeholder="" disabled class="yoko-col100">
+                                                <input type="text" name="contractorNm" value="" ng-model='c.data.contractorNm' placeholder="" disabled class="yoko-col100">
+                                                <input type="text" name="contractorCode" value="" ng-model='c.data.contractorCode' placeholder="" disabled class="yoko-col100">
                                             </div>
                                         </div>
                                     </div>
