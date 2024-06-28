@@ -7,8 +7,8 @@
     c.data.readStatus = true;
     $window.realGrid2Lic = $realgridkey.getKey();
     $window.RealGrid = $realgrid.getRealGrid();
-    let headFile, detailFile;
-    let currentBaseMonth = new Date();
+    var headFile, detailFile, wbsBudgetFile;
+    var currentBaseMonth = new Date();
 
     
     var modalProjectNumber = document.getElementById("modalProjectNumber");
@@ -28,6 +28,7 @@
         if (headFile && detailFile) {
             postHeaderFile(headFile);
             postDetailFile(detailFile);
+            postWbsBudget(wbsBudgetFile);
         }
         clearModalUpload();
     }
@@ -103,19 +104,24 @@
 	}
 
     $scope.valueChangeAddFile = async function(obj) {
-        let files = obj.files;
+        var files = obj.files;
         // Check if files are selected
         if (files && files.length) {
-            for (let i = 0; i < files.length; i++) {
-                let file = files[i];
+            for (var i = files.length - 1; i >= 0; i--) {
+                var file = files[i];
+                console.log(file.name);
                 if (validation(file)) {
                     if (file.name.includes("PJTSUM_H")) {
                         $("#projectHeader").val(file.name);
                         headFile = await readFile(file);
+                        headFile = parseCustomTableJson(headFile);
     
                     } else if (file.name.includes("PJTSUM_D")) {
                         $("#projectDetail").val(file.name);
                         detailFile = await readFile(file);
+                        wbsBudgetFile = parserWbsBudgetTableJson(detailFile);
+
+                        detailFile = parseCustomTableJson(detailFile);
                     }
                 }
             }
@@ -130,40 +136,47 @@
         document.querySelector("input[type=file]").value = "";
         $("#projectHeader").val('');
         $("#projectDetail").val('');
-        headFile, detailFile = '';
+        headFile, detailFile, wbsBudgetFile = '';
     }
 
     /** read txt File */
     async function readFile(file) {
         return new Promise((resolve, reject) => {
-        let reader = new FileReader();
+        var reader = new FileReader();
         reader.onload = (function(theFile) {
             return function(e) {
                 // Access the file content using e.target.result
-                let fileContent = e.target.result;
-                resolve(parseJson(fileContent))
+                var fileContent = e.target.result;
+                resolve(fileContent)
             };
         })(file);
         reader.readAsText(file, /* optional */ "euc-kr");
         });
     }
 
+    function parserWbsBudgetTableJson(str) {
+        str = parseWbsBudgetJson(str);
+        let records = str.records;
+        records.
+        console.log(str);
+    }
+
 
     /*** string to json */
-    function parseJson(str) {
+    function parseCustomTableJson(str) {
         /***split by new line and split by whitespace */
-        let cells = str.split('\n').map(function (el) { return el.split(/\t/); });
+        var cells = str.split('\n').map(function (el) { return el.split(/\t/); });
 
-        let headings = cells.shift();
+        var headings = cells.shift();
 
-        let regex =  /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"\r]/g
+        var regex =  /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"\r]/g
 
         // Function to remove non-alphanumeric characters from a string
-        const removeNonAlphanumeric = str => str.replace(regex, '');
+        var removeNonAlphanumeric = str => str.replace(regex, '');
 
         function camelToSnakeWithPrefix(input) {
             // Replace CamelCase with spaces to snake_case
-            let snakeCase = input.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase();
+            var snakeCase = input.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase();
             
             // Add 'u_' prefix
             snakeCase = 'u_' + snakeCase;
@@ -172,7 +185,7 @@
         }
 
         // Use map to create a new array with modified strings
-        const modifiedHeadings = headings.map(removeNonAlphanumeric).map(str => camelToSnakeWithPrefix(str)).map(str => str.replace(/\s+/g, '_'));
+        var modifiedHeadings = headings.map(removeNonAlphanumeric).map(str => camelToSnakeWithPrefix(str)).map(str => str.replace(/\s+/g, '_'));
 
         
         cells = cells.filter((cell) => {
@@ -181,34 +194,81 @@
         });
 
 
-        let specialChRegex = /[\'\"\r]/g;
-        let obj = cells.map(function (el) {
-            let obj = {};
-            for (let i = 0, l = el.length; i < l; i++) {
+        var specialChRegex = /[\'\"\r]/g;
+        var obj = cells.map(function (el) {
+            var obj = {};
+            for (var i = 0, l = el.length; i < l; i++) {
                 if (typeof el[i] == 'string') {
-                    let value = el[i] ? el[i].replace(specialChRegex, '') : '';
+                    var value = el[i] ? el[i].replace(specialChRegex, '') : '';
                     obj[modifiedHeadings[i]] = value;
                 }
                 else if (typeof el[i] == 'number') obj[modifiedHeadings[i]] = isNaN(Number(el[i])) ? el[i] : +el[i];
             }
             return obj;
         });
-        let result = {};
+        var result = {};
+        result['records'] = obj;
+        return JSON.stringify(result);
+    }
+
+    /*** string to json */
+    function parseWbsBudgetJson(str) {
+        /***split by new line and split by whitespace */
+        var cells = str.split('\n').map(function (el) { return el.split(/\t/); });
+
+        var headings = cells.shift();
+
+        var regex =  /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"\r]/g
+
+        // Function to remove non-alphanumeric characters from a string
+        var removeNonAlphanumeric = str => str.replace(regex, '');
+
+
+        // Use map to create a new array with modified strings
+        var modifiedHeadings = headings.map(removeNonAlphanumeric).map(str => str.replace(/\s+/g, '_'));
+
+        
+        cells = cells.filter((cell) => {
+            //if there is only empty string in there filter it out
+            if (cell.length > 1) return cell;
+        });
+
+
+        var specialChRegex = /[\'\"\r]/g;
+        var obj = cells.map(function (el) {
+            var obj = {};
+            for (var i = 0, l = el.length; i < l; i++) {
+                if (typeof el[i] == 'string') {
+                    var value = el[i] ? el[i].replace(specialChRegex, '') : '';
+                    obj[modifiedHeadings[i]] = value;
+                }
+                else if (typeof el[i] == 'number') obj[modifiedHeadings[i]] = isNaN(Number(el[i])) ? el[i] : +el[i];
+            }
+            return obj;
+        });
+        var result = {};
+        obj.forEach(object => {
+            // Calculate Base_Month by concatenating Fiscal_Year and Period
+            object.Base_Month = object.Fiscal_Year + object.Period.padStart(2, '0');
+        });
         result['records'] = obj;
         return JSON.stringify(result);
     }
 
     function postHeaderFile(json) {
-        let url = location.origin + '/api/now/import/x_yergb_bpm_pjt_sum_h/insertMultiple';
+        var url = location.origin + '/api/now/import/x_yergb_bpm_pjt_sum_h/insertMultiple';
         postJsonToImportSet(url, json);
     }
 
     function postDetailFile(json) {
-        let url = location.origin + '/api/now/import/x_yergb_bpm_pjt_sum_d/insertMultiple';
+        var url = location.origin + '/api/now/import/x_yergb_bpm_pjt_sum_d/insertMultiple';
         postJsonToImportSet(url, json);
     }
 
-    
+    function postWbsBudget(json) {
+        var wbsBudgetUrl = location.origin + '/api/now/import/x_yergb_bpm_pjt_sum_d/insertMultiple';
+        // postJsonToImportSet(wbsBudgetUrl, json);
+    }
 
     function postJsonToImportSet(url, json) {
         $http({
@@ -216,15 +276,17 @@
             url: url,
             data: json
         }).then(function successCallback(response) {
+			gs.addInfoMessage('전송이 완료되었습니다.');
             console.log(response);
         }, function errorCallback(response) {
-            console.log('error');
+			gs.addInfoMessage('전송에 실패하였습니다.');
+            console.log(response);
         });
     }
 
     /* 첨부파일 검증 */
     function validation(obj){
-        const fileTypes = ['text/plain'];
+        var fileTypes = ['text/plain'];
         if (obj.name.length > 35) {
             gs.addInfoMessage("파일명이 35자 이하여야 합니다.");
             return false;
@@ -267,7 +329,7 @@
     var dataProvider;
 
     function grid() {
-        const gridViewFields = [
+        var gridViewFields = [
             { fieldName: "sys_id",          dataType: "text" },
             { fieldName: "project_no",      dataType: "text" },
             { fieldName: "contractor",      dataType: "text" },
@@ -282,9 +344,9 @@
         ];
         
 
-        const sumFooter = { "expression": "sum", "numberFormat": "#,##0" };
+        var sumFooter = { "expression": "sum", "numberFormat": "#,##0" };
 
-        const gridViewColumns = [
+        var gridViewColumns = [
             { name: "sys_id",           fieldName: "sys_id",            type: "data",   width: 100,  header: { text: "sysid" },              visible: false, readOnly: true,  editable: false },
             { name: "project_no",       fieldName: "project_no",        type: "data",   width: 100,  header: { text: "Project No." },        visible: true,  readOnly: true,  editable: false, styleName: "ni-rg-col-project_no",             groupFooter: { text: " ", expression: "max" } },
             { name: "contractor",       fieldName: "contractor",        type: "data",   width: 200,  header: { text: "Contractor" },         visible: true,  readOnly: true,  editable: false },
@@ -300,7 +362,7 @@
         
         
 
-        const gridViewLayouts = [ 'sys_id', 'project_no', 'contractor', 'project_name', 'pm', 'contract_amt', 'ptc_last_month', 'forecast_ptc', 'variance', 'poc_percentage', 'state' ];
+        var gridViewLayouts = [ 'sys_id', 'project_no', 'contractor', 'project_name', 'pm', 'contract_amt', 'ptc_last_month', 'forecast_ptc', 'variance', 'poc_percentage', 'state' ];
 
         function initGrid() {
             gridView = new RealGrid.GridView('gridContainer');
@@ -736,14 +798,14 @@ border: 2px solid red;&#13;
         <sys_created_by>yeongink</sys_created_by>
         <sys_created_on>2024-06-24 05:11:44</sys_created_on>
         <sys_id>48e1f96c8347021099decf50ceaad3f1</sys_id>
-        <sys_mod_count>383</sys_mod_count>
+        <sys_mod_count>397</sys_mod_count>
         <sys_name>prfManagement</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_48e1f96c8347021099decf50ceaad3f1</sys_update_name>
         <sys_updated_by>yeongink</sys_updated_by>
-        <sys_updated_on>2024-06-27 12:19:53</sys_updated_on>
+        <sys_updated_on>2024-06-28 03:50:05</sys_updated_on>
         <template><![CDATA[<div class="yoko-container">
   <div class="yoko-breadcrumb">Home > Project Management > PRF Management</div>
   <div class="yoko-title-btn-wrap">
