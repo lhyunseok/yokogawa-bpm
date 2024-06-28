@@ -110,20 +110,20 @@
       gvDetail.setDataSource(dpDetail);
 
       dpDetail.setFields([
-          'sys_id',
-          'number',
-          'wbs_6',
-          'ms_code',
-          'description',
-          'quantity',
-          'unit_price',
-          'extended_price',
-          'unit_cost',
-          'extended_cost',
-          'unit_mp',
-          'mp_amount',
-          'vendor',
-          'quotation'
+          {fieldName: 'sys_id',  dataType:  'text'},
+          {fieldName: 'number',  dataType:  'text'},
+          {fieldName: 'wbs_6',  dataType:  'text'},
+          {fieldName: 'ms_code',  dataType:  'text'},
+          {fieldName: 'description',  dataType:  'text'},
+          {fieldName: 'quantity',  dataType:  'number'},
+          {fieldName: 'unit_price',  dataType:  'number'},
+          {fieldName: 'extended_price',  dataType:  'number'},
+          {fieldName: 'unit_cost',  dataType:  'number'},
+          {fieldName: 'extended_cost',  dataType:  'number'},
+          {fieldName: 'unit_mp',  dataType:  'number'},
+          {fieldName: 'mp_amount',  dataType:  'number'},
+          {fieldName: 'vendor',  dataType:  'text'},
+          {fieldName: 'quotation',  dataType:  'text'}
       ]);
 
       gvDetail.setColumns([{
@@ -134,7 +134,8 @@
               "header": {
                   "text": "sysid",
               },
-              "visible" : false
+              "visible" : false,
+				"styleName" : "left-column"
 
           },
           {
@@ -145,7 +146,8 @@
               "header": {
                   "text": "Number"
               },
-            "visible" : false
+            "visible" : false,
+				"styleName" : "left-column"
 
           },
           {
@@ -156,6 +158,7 @@
               "header": {
                   "text": "WBS 6"
               },
+						"styleName" : "left-column"
           },
           {
               "name": "ms_code",
@@ -165,6 +168,7 @@
               "header": {
                   "text": "MS Code"
               },
+						"styleName" : "left-column"
           },
           {
               "name": "description",
@@ -174,6 +178,7 @@
               "header": {
                   "text": "Description"
               },
+						"styleName" : "left-column"
           },
           {
               "name": "quantity",
@@ -183,6 +188,7 @@
               "header": {
                   "text": "Quantity"
               },
+						"styleName" : "right-column"
           },
           {
               "name": "unit_price",
@@ -192,6 +198,7 @@
               "header": {
                   "text": "Unit Price"
               },
+						"styleName" : "right-column"
           },
           {
               "name": "extended_price",
@@ -201,6 +208,7 @@
               "header": {
                   "text": "Extended Price"
               },
+						"styleName" : "right-column"
           },
           {
               "name": "unit_cost",
@@ -210,6 +218,7 @@
               "header": {
                   "text": "Unit Cost"
               },
+						"styleName" : "right-column"
           },
           {
               "name": "extended_cost",
@@ -219,6 +228,7 @@
               "header": {
                   "text": "Extended Cost"
               },
+						"styleName" : "right-column"
           },
           {
               "name": "unit_mp",
@@ -228,6 +238,7 @@
               "header": {
                   "text": "Unit MP"
               },
+						"styleName" : "right-column"
           },
           {
               "name": "mp_amount",
@@ -237,6 +248,7 @@
               "header": {
                   "text": "MP Amount"
               },
+						"styleName" : "right-column"
           },
           {
               "name": "vendor",
@@ -246,6 +258,7 @@
               "header": {
                   "text": "Vendor"
               },
+						"styleName" : "left-column"
           },
           {
               "name": "quotation",
@@ -256,7 +269,6 @@
                   "text": "quotation"
               },
               "visible" : false
-
           }
       ]);
 
@@ -285,8 +297,11 @@
       dpDetail.softDeleting = true;
       gvDetail.displayOptions.fitStyle = "evenFill";
       gvDetail.setPasteOptions({enabled: true , enableAppend:true, eventEachRow	:true, commitEdit	:true});
-
-
+			gvDetail.header.height = 40;
+			gvDetail.displayOptions.rowHeight = 30;
+		
+			gvDetail.displayOptions.columnMovable = false;
+ 
 
       //gvDetail.checkBar.visible = false;
       //gvDetail.stateBar.visible = false;
@@ -661,6 +676,7 @@ a {text-decoration: none;}
 
 
 /*리얼그리드 수정*/
+/*
 .rg-root {color: #4B5966 !important;  font-family: "Pretendard" !important;   font-size: 14px !important;  font-style: normal !important;  font-weight: 500 !important;  line-height: normal !important;}
 .rg-grid {border: 1px solid #EAEEF3 !important;}
 
@@ -685,6 +701,15 @@ a {text-decoration: none;}
 .rg-header-select {background: rgb(232 248 240 / 50%) !important;}
 .rg-selection { background: rgb(232 248 240 / 35%) !important; border: 1px solid #15BD66!important;}
 .rg-editor-container { border: 2px solid #27C382 !important; }
+*/
+
+.rg-header-cell {text-align: center !important;}
+.right-column { text-align: right !important;}
+.left-column { text-align: left !important;}
+
+.non-editable { background: #dddddd !important}
+
+
 
 
 /* ----------------------------------------------- */
@@ -922,11 +947,11 @@ a {text-decoration: none;}
             }
     }
 	 if(salesManager != userNameSysId){
-            gs.addErrorMessage("달라")
+            //gs.addErrorMessage("달라")
             data.showNew = false;
         }
         else{
-            gs.addErrorMessage("같아")
+            //gs.addErrorMessage("같아")
             data.showNew = true;
         }
 
@@ -939,14 +964,14 @@ a {text-decoration: none;}
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 04:53:32</sys_created_on>
         <sys_id>38973e74934702104d95f55a7bba1056</sys_id>
-        <sys_mod_count>107</sys_mod_count>
+        <sys_mod_count>113</sys_mod_count>
         <sys_name>quotationWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_38973e74934702104d95f55a7bba1056</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-28 02:26:55</sys_updated_on>
+        <sys_updated_on>2024-06-28 04:20:20</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
