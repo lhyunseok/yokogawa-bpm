@@ -284,11 +284,15 @@
         //alert("OI Report?")
         c.data.newState = 9;
         c.data.isButton = true;
+        c.data.isOIReport = true;
         // Call the server script to update the state
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
-            location.reload();
+					  console.log(c.data.io_sys_id)
+            window.location.href = "/ybpm?id=orderintakereport&sys_id=" + c.data.io_sys_id; // Redirect to the URL
+
+            //location.reload();
         });
 
     };
@@ -400,16 +404,28 @@
 
 
 
-    $scope.btnRefRequester = function(sys_id) {
-        c.data.refer_requester_modal = true;
+    $scope.btnRefSalesManager = function(sys_id) {
+        c.data.refer_sales_manager_modal = true;
         c.data.isRead = false;
         c.server.update().then(function(response) {
             console.log('Server response:', response);
             c.logSysId = function(number, sys_id, code) {
-                c.data.requester = number
-                c.data.requester_sys_id = sys_id
-                modal.style.display = "none";
-
+                c.data.sales_manager = number
+                c.data.sales_manager_sys_id = sys_id
+                
+							
+							  modal.style.display = "none";
+								c.data.refer_sales_manager_modal = false
+                c.data.refer_end_user_modal = false
+                c.data.refer_requester_modal = false
+                c.data.refer_quotation_modal = false
+                c.data.refer_assignment_group_modal = false
+                c.data.refer_assigned_to_modal = false
+                c.data.refer_contract_modal = false
+                c.data.refer_contract_country_modal = false
+							  c.data.refer_copy_modal = false;
+                c.data.items = ""
+                c.data.modalTitle = ""
             };
         });
         var modal = document.getElementById("modalTest");
@@ -417,23 +433,6 @@
 
     };
 
-    $scope.btnRefQuotation = function(sys_id) {
-        c.data.refer_quotation_modal = true;
-        c.data.isRead = false;
-        c.server.update().then(function(response) {
-            // Handle the server response if needed
-            // Function to log the sys_id
-            c.logSysId = function(number, sys_id) {
-                c.data.end_user = number
-                c.data.end_user_code = sys_id
-            };
-
-        });
-
-        var modal = document.getElementById("modalTest");
-        modal.style.display = "block";
-
-    };
 
     $scope.btnRefAssignmentGroup = function(sys_id) {
         c.data.refer_assignment_group_modal = true;
@@ -447,6 +446,7 @@
 
 
                 modal.style.display = "none";
+                c.data.refer_sales_manager_modal = false
                 c.data.refer_end_user_modal = false
                 c.data.refer_requester_modal = false
                 c.data.refer_quotation_modal = false
@@ -454,7 +454,7 @@
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
                 c.data.refer_contract_country_modal = false
-							c.data.refer_copy_modal = false;
+							  c.data.refer_copy_modal = false;
                 c.data.items = ""
                 c.data.modalTitle = ""
 
@@ -480,6 +480,7 @@
 
 
                 modal.style.display = "none";
+                c.data.refer_sales_manager_modal = false
                 c.data.refer_end_user_modal = false
                 c.data.refer_requester_modal = false
                 c.data.refer_quotation_modal = false
@@ -487,7 +488,7 @@
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
                 c.data.refer_contract_country_modal = false
-							c.data.refer_copy_modal = false;
+							  c.data.refer_copy_modal = false;
                 c.data.items = ""
                 c.data.modalTitle = ""
             };
@@ -509,16 +510,17 @@
 
 
             modal.style.display = "none";
-            c.data.refer_end_user_modal = false
-            c.data.refer_requester_modal = false
-            c.data.refer_quotation_modal = false
-            c.data.refer_assignment_group_modal = false
-            c.data.refer_assigned_to_modal = false
-            c.data.refer_contract_modal = false
-            c.data.refer_contract_country_modal = false
-					c.data.refer_copy_modal = false;
-            c.data.items = ""
-            c.data.modalTitle = ""
+            c.data.refer_sales_manager_modal = false
+                c.data.refer_end_user_modal = false
+                c.data.refer_requester_modal = false
+                c.data.refer_quotation_modal = false
+                c.data.refer_assignment_group_modal = false
+                c.data.refer_assigned_to_modal = false
+                c.data.refer_contract_modal = false
+                c.data.refer_contract_country_modal = false
+							  c.data.refer_copy_modal = false;
+                c.data.items = ""
+                c.data.modalTitle = ""
 
 
 
@@ -541,6 +543,7 @@
 
 
                 modal.style.display = "none";
+               c.data.refer_sales_manager_modal = false
                 c.data.refer_end_user_modal = false
                 c.data.refer_requester_modal = false
                 c.data.refer_quotation_modal = false
@@ -548,7 +551,7 @@
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
                 c.data.refer_contract_country_modal = false
-							c.data.refer_copy_modal = false;
+							  c.data.refer_copy_modal = false;
                 c.data.items = ""
                 c.data.modalTitle = ""
             };
@@ -571,6 +574,7 @@
 
 
                 modal.style.display = "none";
+                 c.data.refer_sales_manager_modal = false
                 c.data.refer_end_user_modal = false
                 c.data.refer_requester_modal = false
                 c.data.refer_quotation_modal = false
@@ -578,7 +582,7 @@
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
                 c.data.refer_contract_country_modal = false
-							c.data.refer_copy_modal = false;
+							  c.data.refer_copy_modal = false;
                 c.data.items = ""
                 c.data.modalTitle = ""
             };
@@ -601,6 +605,7 @@
 
 
                 modal.style.display = "none";
+                c.data.refer_sales_manager_modal = false
                 c.data.refer_end_user_modal = false
                 c.data.refer_requester_modal = false
                 c.data.refer_quotation_modal = false
@@ -608,7 +613,7 @@
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
                 c.data.refer_contract_country_modal = false
-							c.data.refer_copy_modal = false;
+							  c.data.refer_copy_modal = false;
                 c.data.items = ""
                 c.data.modalTitle = ""
             };
@@ -669,6 +674,24 @@
     };
 
 
+	
+    $scope.btnRefQuotation = function(sys_id) {
+        c.data.refer_quotation_modal = true;
+        c.data.isRead = false;
+        c.server.update().then(function(response) {
+            // Handle the server response if needed
+            // Function to log the sys_id
+            c.logSysId = function(number, sys_id) {
+                c.data.end_user = number
+                c.data.end_user_code = sys_id
+            };
+
+        });
+
+        var modal = document.getElementById("modalTest");
+        modal.style.display = "block";
+
+    };
     // In your controller
     // 이거는 어딘가 바뀌는거 감시하는거 
     $scope.$watch('c.data.contract', function(newVal, oldVal) {
@@ -1353,11 +1376,17 @@ while(grLabel.next()) {
 
     }
 
+	var urlSysId = $sp.getParameter('sys_id');
 
     // client script를 통해서 넣어준 유저의 이름, sysid 를 server단으로 가져옴
     data.requestor = userName;
     data.requestor_sys_id = userNameSysId;
-
+	   
+		if(!urlSysId){
+			data.sales_manager = userName;
+	    data.sales_manager_sys_id = userNameSysId;
+		}
+		
     // 버튼, 요소 노출
     data.showUpdate = false;
     data.showSave = true
@@ -1422,6 +1451,7 @@ while(grLabel.next()) {
         var request_due_date
         var remark
         var sales_manager
+        var sales_manager_sys_id
         ///////////// 여기서는 아마 뿌려주는 로직을 할듯
         grI.addQuery('sys_id', data.sys_id);
         grI.query();
@@ -1455,7 +1485,9 @@ while(grLabel.next()) {
             reason_code = grI.reason_code.toString()
             request_due_date = grI.request_due_date.toString()
             remark = grI.remark.toString()
-						sales_manager = grI.sales_manager.toString()
+						sales_manager = grI.sales_manager.name.toString()
+					  sales_manager_sys_id = grI.sales_manager.toString();
+
 					//gs.addErrorMessage(currency_sys_id)
             // quotation의 라벨을 가져오는 함수 (하단에 작성 되어있음)
             quotation_type_label = getChoiceLabel('x_yergb_bpm_rfq_entry', 'quotation_type', quotation_type);
@@ -1493,6 +1525,7 @@ while(grLabel.next()) {
         data.request_due_date = request_due_date
         data.remark = remark
         data.sales_manager = sales_manager
+        data.sales_manager_sys_id = sales_manager_sys_id
         // Quotation 을 가져오기 위해 , 현재 sys id 를 quotation 테이블에 넣어서 가져옴
         var grQ = new GlideRecord('x_yergb_bpm_quotation');
         var quotation
@@ -1561,12 +1594,16 @@ while(grLabel.next()) {
         var reason_code
         var request_due_date
         var remark
+        var sales_manager
+
         ///////////// 여기서는 아마 뿌려주는 로직을 할듯
         grI.addQuery('sys_id', input.copy_sys_id);
         grI.query();
         while (grI.next()) {
             requestor = grI.requestor.name.toString();
             requestor_sys_id = grI.requestor.toString();
+					sales_manager = grI.sales_manager.name.toString();
+					sales_manager_sys_id = grI.sales_manager.toString();
             //number = grI.number.toString()
             request_date = grI.request_date.toString()
             complete_date = grI.complete_date.toString()
@@ -1601,6 +1638,8 @@ while(grLabel.next()) {
         // data 로 html 로 보내줌
         data.requestor_sys_id = requestor_sys_id
         data.requestor = requestor
+			  data.sales_manager_sys_id = sales_manager_sys_id
+        data.sales_manager = sales_manager
         //data.number = number
         data.request_date = request_date
         data.complete_date = complete_date
@@ -1743,9 +1782,9 @@ while(grLabel.next()) {
             data.showQuotationType = true;
         } else if (gr.state.getDisplayValue() == "Submitted" ) {
             data.showAssess = false;
-            data.showRequest = false;
+            //data.showRequest = false;
             data.showSubmit = false;
-            data.showInProgress = false;
+            //data.showInProgress = false;
             data.showAccept = false;
             data.showReturn = false;
             data.showCancel = false;
@@ -1755,6 +1794,15 @@ while(grLabel.next()) {
             data.showOIReport = true;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
+            if(data.quotation_type_label == "Budgetary"){
+                data.showInProgress = true;
+            }
+            else if(data.quotation_type_label == "Submission to Customers"){
+                data.showRequest = true;
+            }
+            else{
+                gs.addInfoMessage("how creative")
+            }
         } else if (gr.state.getDisplayValue() == "Completed" ||(gs.getUser().isMemberOf('YCN_Sales_Engineer_Group') || gs.getUser().isMemberOf('YKO_Sales_Engineer_Group') ) ) {
             data.showAssess = false;
             data.showRequest = false;
@@ -1849,7 +1897,8 @@ while(grLabel.next()) {
     //////////////////////// SAVE 버튼을 눌렀을때 ---- INSERT거나 UPDATE거나의 분기점
     if (input && input.isInsert) { // 없으면 오류 뜸, 둘다 있어야 함.
       //gs.addErrorMessage("야 정신차려봐 isInsert") 
-			var requestor = input.requestor_sys_id
+		   	var requestor = input.requestor_sys_id
+		   	var sales_manager = input.sales_manager_sys_id
         var request_date = input.request_date
         var complete_date = input.complete_date
         var estimated_oi_amount = getValueOrEmptyString(input.estimated_oi_amount)
@@ -1876,6 +1925,7 @@ while(grLabel.next()) {
         var gr = new GlideRecord('x_yergb_bpm_rfq_entry');
         gr.initialize();
         gr.setValue('requestor', requestor)
+        gr.setValue('sales_manager', sales_manager)
         gr.setValue('request_date', request_date)
         gr.setValue('complete_date', complete_date)
         gr.setValue('currency', currency)
@@ -1906,6 +1956,7 @@ while(grLabel.next()) {
     } else if (input && input.isUpdate) {
      //gs.addErrorMessage("야 정신차려봐 isUpdate")
 			var requestor = input.requestor_sys_id
+		   	var sales_manager = input.sales_manager_sys_id
 
         var request_date = input.request_date
         var complete_date = input.complete_date
@@ -1935,6 +1986,8 @@ while(grLabel.next()) {
         ///////////// 여기서는 아마 뿌려주는 로직을 할듯
         grU.get(input.urlSysId);
         grU.setValue('requestor', requestor)
+        grU.setValue('sales_manager', sales_manager)
+			
         grU.setValue('request_date', request_date)
         grU.setValue('complete_date', complete_date)
         grU.setValue('estimated_oi_amount', estimated_oi_amount)
@@ -1966,8 +2019,27 @@ while(grLabel.next()) {
     }
 
 
+
+    if (input && input.isOIReport) {
+        //gs.addErrorMessage("야 정신차려봐 isUpdate")
+        gs.addInfoMessage("원하는 곳에 옴")
+        gs.addInfoMessage(input.number.toString())
+        var inputRawNumber = input.number.toString()
+				inputRawNumber = inputRawNumber.substring(3)
+        var oi = new GlideRecord('x_yergb_bpm_oi_report');
+        oi.addQuery('number', 'OI' + inputRawNumber );
+				oi.query();
+        while(oi.next()) {
+			   data.io_sys_id = oi.sys_id.toString()
+					gs.addInfoMessage(oi.sys_id)
+					gs.addInfoMessage(data.io_sys_id)
+				}
+				 
+       }
+
+
     // 여기서는 전부 REFERENCE 버튼과 관련된 로직
-    if (input && input.refer_requestor_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
+    if (input && input.refer_sales_manager_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
 
         var items = [];
         var gr = new GlideRecord('sys_user');
@@ -1976,13 +2048,13 @@ while(grLabel.next()) {
             items.push({
                 column1: gr.getValue('name'),
                 column2: gr.getValue('sys_id'),
-                column3: gr.getValue('sys_id')
+                //column3: gr.getValue('sys_id')
             });
         }
 
         // Pass data to the client script
         data.items = items;
-        data.modalTitle = "REQUESTER"
+        data.modalTitle = "Sales Manager"
     }
 
     if (input && input.refer_quotation_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
@@ -2168,14 +2240,14 @@ while(grLabel.next()) {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>185</sys_mod_count>
+        <sys_mod_count>224</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-27 11:16:56</sys_updated_on>
+        <sys_updated_on>2024-06-28 02:44:54</sys_updated_on>
         <template><![CDATA[<div  ng-controller="PopoverController as c" >
     <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > Quotation Request</div>
@@ -2215,33 +2287,47 @@ while(grLabel.next()) {
                                 <div class="yoko-form-inline">
                                     <input type="text" name="requester_no" ng-model="c.data.requestor" disabled class="yoko-wid140" ng-disabled="isCancelledDisabled">
                                     <input type="text" name="requestor_no_sys_id" value="" disabled class="yoko-wid140" ng-model="c.data.requestor_sys_id" ng-style="{'display': 'none'}">
-                                  <button id="button2" type="button" class="yoko-btn yoko-btn-search" ng-click="c.togglePopover($event, 2)"></button>
-  
+                                 <button id="button2" type="button" class="yoko-btn yoko-btn-search" ng-click="c.togglePopover($event, 2)"></button>
                               </div>
                             </div>
                             <div class="yoko-form-group">
                                 <label for="sales_manager" class="yoko-short">{{data.labelSalesManager}}</label>
-                                <input type="text" name="request_no" value="" placeholder="" ng-model="c.data.sales_manager" disabled>
-                              <button id="button1" type="button" class="yoko-btn yoko-btn-search" ng-click="c.togglePopover($event, 1)"></button>
- 
-                          </div>
+                                <input type="text" name="request_no" value="" placeholder="" ng-model="c.data.sales_manager" class="yoko-wid140" disabled>
+                                <input type="text" name="requestor_no_sys_id" value="" disabled class="yoko-wid140" ng-model="c.data.sales_manager_sys_id" ng-style="{'display': 'none'}">
+                                <button id="button1" type="button" class="yoko-btn yoko-btn-search" ng-click="c.togglePopover($event, 1)" ng-style="{'display': 'none'}"></button>
+                                <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefSalesManager()" ng-disabled="isCancelledDisabled"></button>
+                            </div>
+                          <div class="yoko-form-group">
+                            <label for="customer_rfq" class="yoko-short">**Customer RFQ</label>
+                            <input type="text" name="request_no" value="" placeholder="" ng-model="c.data.number" disabled>
+                        </div>
                         </div>
 
                         <div class="yoko-form-col">
-                            <div class="yoko-form-group">
-                                <label for="status" class="yoko-short">{{data.labelState}}</label>
-                                <input type="text" name="status" value={{data.state}} placeholder="New" class="yoko-wid140" disabled>
-                            </div>
+                            
                             <div class="yoko-form-group">
                                 <label for="req_date" class="yoko-short">{{data.labelRequestDate}}</label>
                                 <input type="date" value={{data.request_date}} name="req_date" class="yoko-wid140" ng-model="c.data.request_date" ng-disabled="isCancelledDisabled">
                             </div>
                             <div class="yoko-form-group">
+                                <label for="req_date" class="yoko-short">**Submit Date</label>
+                                <input type="date" value={{data.request_date}} name="req_date" class="yoko-wid140" ng-model="c.data.request_date" ng-disabled="isCancelledDisabled">
+                            </div>
+                            <div class="yoko-form-group">
                                 <label for="comp_date" class="yoko-short">{{data.labelCompleteDate}}</label>
-                                <input type="date" name="comp_date" class="yoko-wid140" value={{data.complete_date}} ng-model="c.data.complete_date" disabled>
+                                <input type="date" value={{data.request_date}} name="req_date" class="yoko-wid140" ng-model="c.data.request_date"  disabled>
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="orderdate" class="yoko-short">{{data.labelEstimatedOrderDate}}</label>
+                                <input type="date" name="orderdate" id="orderdate" class="yoko-wid140" value={{data.estimated_order_date}} ng-model="c.data.estimated_order_date" ng-disabled="isCancelledDisabled">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="deliverydate" class="yoko-short">{{data.labelEstimatedDeliveryDate}}</label>
+                                <input type="date" name="deliverydate" id="deliverydate" class="yoko-wid140" value={{data.estimated_delivery_date}} ng-model="c.data.estimated_delivery_date" ng-disabled="isCancelledDisabled">
                             </div>
                         </div>
                     </div>
+
 
                     <div class="yoko-form-col">
                         <div class="yoko-form-group">
@@ -2255,18 +2341,23 @@ while(grLabel.next()) {
                             </div>
                         </div>
                         <div class="yoko-form-group">
-                            <label for="est_oi_amount" class="yoko-short-120">{{data.labelEstimatedOIAmount}}</label>
+                            <label for="exchange_rate" class="yoko-short-120">**exchange_rate</label>
                             <input type="text" name="est_oi_amount" value="" placeholder="" class="yoko-wid140" ng-model="c.data.estimated_oi_amount" ng-disabled="isCancelledDisabled">
                         </div>
-
                         <div class="yoko-form-group">
-                            <label for="orderdate" class="yoko-short-120">{{data.labelEstimatedOrderDate}}</label>
-                            <input type="date" name="orderdate" id="orderdate" class="yoko-wid140" value={{data.estimated_order_date}} ng-model="c.data.estimated_order_date" ng-disabled="isCancelledDisabled">
+                            <label for="exchange_rate" class="yoko-short-120">{{data.labelEstimatedOIAmount}}</label>
+                            <input type="text" name="est_oi_amount" value="" placeholder="" class="yoko-wid140" ng-model="c.data.estimated_oi_amount" ng-disabled="isCancelledDisabled">
                         </div>
                         <div class="yoko-form-group">
-                            <label for="deliverydate" class="yoko-short-120">{{data.labelEstimatedDeliveryDate}}</label>
-                            <input type="date" name="deliverydate" id="deliverydate" class="yoko-wid140" value={{data.estimated_delivery_date}} ng-model="c.data.estimated_delivery_date" ng-disabled="isCancelledDisabled">
+                            <label for="exchange_rate" class="yoko-short-120">**tc</label>
+                            <input type="text" name="est_oi_amount" value="" placeholder="" class="yoko-wid140" ng-model="c.data.estimated_oi_amount" ng-disabled="isCancelledDisabled">
                         </div>
+                        <div class="yoko-form-group">
+                            <label for="exchange_rate" class="yoko-short-120">**lc</label>
+                            <input type="text" name="est_oi_amount" value="" placeholder="" class="yoko-wid140" ng-model="c.data.estimated_oi_amount" ng-disabled="isCancelledDisabled">
+                        </div>
+                       
+                       
                     </div>
                     <div class="yoko-form-col">
                         <div class="yoko-form-group">
@@ -2299,6 +2390,11 @@ while(grLabel.next()) {
                         </div>
                     </div>
                     <div class="yoko-form-col">
+                        <div class="yoko-form-group">
+                            <label for="status" class="yoko-short-110">{{data.labelState}}</label>
+                            <input type="text" name="status" value={{data.state}} placeholder="New" class="yoko-wid172" disabled>
+                        </div>
+
                         <div class="yoko-form-group">
                             <label for="oppt_no" class="yoko-short-110">{{data.labelYodaOpportunityNo}}</label>
                             <input type="text" name="oppt_no" value="" placeholder="" class="yoko-wid172" ng-model="c.data.yoda_opportunity_no" ng-disabled="isCancelledDisabled">
