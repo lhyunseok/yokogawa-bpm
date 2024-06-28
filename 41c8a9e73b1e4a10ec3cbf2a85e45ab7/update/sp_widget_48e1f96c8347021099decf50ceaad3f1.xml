@@ -304,6 +304,7 @@
 
         function initGrid() {
             gridView = new RealGrid.GridView('gridContainer');
+			dataProvider = new RealGrid.LocalDataProvider();
             gridView.setDataSource(dataProvider);
             gridView.setColumns(gridViewColumns);
             gridView.setColumnLayout(gridViewLayouts);
@@ -313,18 +314,12 @@
             gridView.editOptions.insertable = true;
             gridView.checkBar.visible = false;
             gridView.stateBar.visible = false;
-
-            dataProvider = new RealGrid.LocalDataProvider();
+            gridView.onCellClicked = function (grid, clickData) {
+								console.log("onCellClicked: " + JSON.stringify(clickData));
+						}
             dataProvider.setFields(gridViewFields);
             dataProvider.softDeleting = false;
             dataProvider.setRows(c.data.gridData);
-            dataProvider.fillJsonData(c.data.gridData, { fillMode: "set" });
-        }
-
-        console.log(c.data.gridData);
-
-        function loadDataProvider() {
-            dataProvider.fillJsonData(c.data.gridData, { fillMode: "set" });
         }
 
         initGrid();
@@ -741,14 +736,14 @@ border: 2px solid red;&#13;
         <sys_created_by>yeongink</sys_created_by>
         <sys_created_on>2024-06-24 05:11:44</sys_created_on>
         <sys_id>48e1f96c8347021099decf50ceaad3f1</sys_id>
-        <sys_mod_count>377</sys_mod_count>
+        <sys_mod_count>383</sys_mod_count>
         <sys_name>prfManagement</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_48e1f96c8347021099decf50ceaad3f1</sys_update_name>
         <sys_updated_by>yeongink</sys_updated_by>
-        <sys_updated_on>2024-06-27 06:31:45</sys_updated_on>
+        <sys_updated_on>2024-06-27 12:19:53</sys_updated_on>
         <template><![CDATA[<div class="yoko-container">
   <div class="yoko-breadcrumb">Home > Project Management > PRF Management</div>
   <div class="yoko-title-btn-wrap">
