@@ -136,6 +136,10 @@
 		c.data.initOiReport = false;
 		c.data.initRfqEntry = false;
 		c.data.initQuotation = false;
+		
+		
+		var xx = 'APPID : ' + c.data.approvalId + '\nOIID : ' + c.data.oiSysId;
+		alert(xx);
 	});
 };]]></client_script>
         <controller_as>c</controller_as>
@@ -439,6 +443,33 @@ border: 2px solid red;
 
 
 
+
+/*
+.placeholder-style::before {
+            content: attr(data-placeholder);
+            color: gray;
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            padding: 8px;
+            pointer-events: none;
+        }
+        .no-placeholder::before {
+            content: '';
+        }
+        .input-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 200px; 
+        }
+        input[type="date"] {
+            position: relative;
+            background: transparent;
+        }
+*/
 </css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -577,14 +608,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-27 01:26:09</sys_created_on>
         <sys_id>6b8a90ed83cb8610b3dd1665eeaad3e2</sys_id>
-        <sys_mod_count>78</sys_mod_count>
+        <sys_mod_count>107</sys_mod_count>
         <sys_name>orderIntakeReportApprovalWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_6b8a90ed83cb8610b3dd1665eeaad3e2</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-28 01:00:40</sys_updated_on>
+        <sys_updated_on>2024-06-28 01:53:12</sys_updated_on>
         <template><![CDATA[<div>
 	<div class="yoko-container">
         <!--<div class="yoko-breadcrumb">Home >  Approval - OI Cancel Report</div>-->
@@ -621,11 +652,11 @@ border: 2px solid red;
                         <!--<div class="yoko-form-group">
                             <label for="activities_1" class="yoko-short">Activities : 1</label>
                             <textarea id="activities_1" name="" ng-model='activities1' rows="4" required placeholder=""></textarea>
-                        </div>
+                        </div> 
                         <div class="yoko-form-group">
                             <label for="activities_2" class="yoko-short">Activities : 2</label>
                             <textarea id="activities_2" name="" rows="4" ng-model='activities2' required placeholder=""></textarea>
-                        </div>-->
+                        </div>--
                     </div>
                     
                 </div>
@@ -839,7 +870,7 @@ border: 2px solid red;
                         </div>
                       	<div class="yoko-form-group">
                           <label for="req_date" class="yoko-short">{{data.labelRequestDate}}</label>
-                          <input type="date" value={{data.request_date}} name="req_date" class="yoko-wid140" ng-model="c.data.request_date" ng-disabled="isCancelledDisabled">
+                          <input type="date" value='' id='myDate' name="req_date" class="yoko-wid140 placeholder-style" ng-model="c.data.request_date"  data-placeholder="YYYY-MM-DD" ng-disabled="isCancelledDisabled">
                       	</div>-->
                     </div>
                     
@@ -849,7 +880,20 @@ border: 2px solid red;
             
         </div>
     </div>
- 
+   
+    <!--
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const dateInput = document.getElementById('myDate');
+            const currentDate = new Date();
+            const year = currentDate.getFullYear();
+            const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+            const day = String(currentDate.getDate()).padStart(2, '0');
+            const formattedDate = `${year}-${month}-${day}`; // YYYY-MM-DD format
+            dateInput.value = formattedDate;
+          console.log(dateInput.value);
+        });
+    </script> -->
 </div>]]></template>
     </sp_widget>
 </record_update>
