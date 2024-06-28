@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller=function($scope, $rootScope, $window, $location, testService) {
+        <client_script><![CDATA[api.controller=function($scope, $rootScope, $window, $location, $realgridkey, $realgrid) {
   /* widget controller */
   var c = this;
+	
+	$window.realGrid2Lic = $realgridkey.getKey();
+	$window.RealGrid = $realgrid.getRealGrid();
 
 	var modalOrderType = document.getElementById("modalOrderType");
 	var modalProjectType = document.getElementById("modalProjectType");
@@ -52,8 +55,6 @@
 	c.data.modalTypeAnsoff2 = false;
 	c.data.modalTypeAnsoff3 = false;
 	
-
-	
 	$scope.displayScreen = function(idx) {
 		if(idx == 1) {
 			c.data.showAddInfo = !c.data.showAddInfo;
@@ -65,7 +66,6 @@
 	}
 	
 	$scope.btnClickSOSearch = function() {
-
 		console.log("BTN : SO Search");
 		c.server.update().then(function(response) {
 			console.log('Server response:', response);
@@ -79,20 +79,43 @@
 		});
 	}
 	
+	function getInteger(str) {
+		if((str == undefined) || (str=='')) {
+			return 0;
+		}
+		
+		return Number(str);
+	}
+	
 	function validation() {
-		var sumPrj = Number(c.data.prjType1Perc) + Number(c.data.prjType2Perc) + Number(c.data.prjType3Perc);
+		var p1 = getInteger(c.data.prjType1Perc);
+		var p2 = getInteger(c.data.prjType2Perc);
+		var p3 = getInteger(c.data.prjType3Perc);
+		var s1 = getInteger(c.data.ansoff1Perc);
+		var s2 = getInteger(c.data.ansoff2Perc);
+		var s3 = getInteger(c.data.ansoff3Perc);
+		
+		var sumPrj = p1+p2+p3;
 		if(sumPrj != 100) {
 			alert("Project Type's total value is not 100");
 			return false;
 		}
 		
-		var sumAns = Number(c.data.ansoff1Perc) + Number(c.data.ansoff2Perc) + Number(c.data.ansoff3Perc);
+		var sumAns = s1+s2+s3;
 		if(sumAns != 100) {
 			alert("Ansoff Type's total value is not 100");
 			return false;
 		}
 		
 		return true;
+	}
+	
+	function detailGridSave() {
+		c.data.gridBtnTransact = 'T';
+		c.data.gridDetailData = dpDetail.getJsonRows();
+		for(var x=0; x<c.data.gridDetailData.length; x++) {
+			c.data.gridDetailData[x].rowStat = dpDetail.getRowState(x);
+		}
 	}
 	
 	$scope.btnHeader = function(str) {
@@ -104,18 +127,21 @@
 				c.data.btnHeaderType = 'oiInsert';
 			} else {
 				c.data.btnHeaderType = 'oiUpdate';
+				detailGridSave();
 			}
 		} else if(str == 'cancel') {
 			c.data.btnHeaderType = 'cancel';
 		} else if(str == 'request') {
 			if(validation()) {
 				c.data.btnHeaderType = 'request';
+				detailGridSave();
 			} else {
 				c.data.btnHeaderType = '';
 			}
 		} else if(str == 'autorize') {
 			if(validation()) {
 				c.data.btnHeaderType = 'autorize';
+				detailGridSave();
 			} else {
 				c.data.btnHeaderType = '';
 			}
@@ -436,13 +462,13 @@
 	
 
 
-	function checkRealGrid() {
+	/*function checkRealGrid() {
 		if(RealGrid) {
 			return true;
 		} 
 		
 		return false;
-	}
+	}*/
 	
 	var dpDetail;
 	var gvDetail;
@@ -521,15 +547,6 @@
 		]);
 		
 		gvDetail.setColumns([
-			/*{
-				"name": "sys_id",
-				"fieldName": "sys_id",
-				"type": "data",
-				"width": 0,
-				"header": {
-					"text": "sysid"
-				},
-			},*/
 			{
 				"name": "number",
 				"fieldName": "number",
@@ -738,7 +755,6 @@
 			for (var k = checkedRows.length - 1; k >= 0; k--) {
 				dpDetail.removeRow(checkedRows[k]);
 			}
-
 		} else if(idx == 4) {
 			c.data.gridBtnTransact = 'T';
 			c.data.gridDetailData = dpDetail.getJsonRows();
@@ -771,19 +787,20 @@
 		c.data.showBtnSave = true;
 		c.data.showBtnRequest = true;
 		c.data.showBtnAuthorize = true;
+		
+		c.data.disSONm = true;
+		c.data.disSONmSearch = true;
+		c.data.disSONmInfo = true;
+		c.data.disOiAmtTC = true;
+		c.data.disOiAmtLC = true;
+		c.data.disTotEstCost = true;
+		c.data.disGpAmt = true;
+		c.data.disMpAmt = true;
+		c.data.disGpPerc = true;
+		c.data.disMpPerc = true;
 
 		console.log("STATE:" + c.data.oiState);
-		if(Number(c.data.oiStateCode) == "1") {
-			c.data.disSONm = true;
-			c.data.disSONmSearch = true;
-			c.data.disSONmInfo = true;
-			c.data.disOiAmtTC = true;
-			c.data.disOiAmtLC = true;
-			c.data.disTotEstCost = true;
-			c.data.disGpAmt = true;
-			c.data.disMpAmt = true;
-			c.data.disGpPerc = true;
-			c.data.disMpPerc = true;
+		if(Number(c.data.oiStateCode) == "1") {			
 			c.data.disOrdType = false;
 			c.data.disTaxClass = false;
 			c.data.disIndustry = false;
@@ -813,16 +830,6 @@
 			}
 		} else if( (Number(c.data.oiStateCode) == "3") || 
 			(Number(c.data.oiStateCode) == "6") ) {
-			c.data.disSONm = true;
-			c.data.disSONmSearch = true;
-			c.data.disSONmInfo = true;
-			c.data.disOiAmtTC = true;
-			c.data.disOiAmtLC = true;
-			c.data.disTotEstCost = true;
-			c.data.disGpAmt = true;
-			c.data.disMpAmt = true;
-			c.data.disGpPerc = true;
-			c.data.disMpPerc = true;
 			c.data.disOrdType = true;
 			c.data.disTaxClass = true;
 			c.data.disIndustry = true;
@@ -848,16 +855,6 @@
 			c.data.showBtnCancel = false;
 			c.data.showBtnSave = false;
 		} else {
-			c.data.disSONm = true;
-			c.data.disSONmSearch = true;
-			c.data.disSONmInfo = true;
-			c.data.disOiAmtTC = true;
-			c.data.disOiAmtLC = true;
-			c.data.disTotEstCost = true;
-			c.data.disGpAmt = true;
-			c.data.disMpAmt = true;
-			c.data.disGpPerc = true;
-			c.data.disMpPerc = true;
 			c.data.disOrdType = false;
 			c.data.disTaxClass = false;
 			c.data.disIndustry = false;
@@ -887,24 +884,7 @@
 			}
 		}
 		
-
-
-		var loopCnt = 0;
-		var timerid = setInterval(function() {
-			loopCnt = loopCnt + 1;
-			if(loopCnt > 30) {
-				clearTimeout(timerid);
-				alert('Can not load REALGRID');
-			}
-			
-			if (checkRealGrid()) {
-				clearTimeout(timerid);
-				drawRealGrid();
-			} 
-		}, 100);
-		
-		//$scope.serviceCall = testService.showResult();
-		//console.log("$scope.serviceCall: "+$scope.serviceCall);
+		drawRealGrid();
 	});	
 };]]></client_script>
         <controller_as>c</controller_as>
@@ -1591,6 +1571,113 @@ border: 2px solid red;
 	}
 	
 	/* Header Button Events */ 
+	function headerDataSave() {
+		console.log('SERVER BTN :: OI UPDATE');
+		console.log('JOB:' + getValueOrEmptyString(input.jobTypeSysId));
+		oiRptTr.get(input.oiSysId);
+		oiRptTr.setValue('job_type', getValueOrEmptyString(input.jobTypeSysId));
+		oiRptTr.setValue('dmr_amount_level', getValueOrEmptyString(input.dmrAmt));
+		oiRptTr.setValue('dmr_mp_level', getValueOrEmptyString(input.dmrMP));
+		oiRptTr.setValue('dmr_gp_level', getValueOrEmptyString(input.dmrGP));
+		oiRptTr.setValue('oi_amount_lc', getValueOrEmptyString(input.oiAmtLC));
+		oiRptTr.setValue('oi_amount_tc', getValueOrEmptyString(input.oiAmtTC));
+		oiRptTr.setValue('gp_amount_lc', getValueOrEmptyString(input.gpAmt));
+		oiRptTr.setValue('mp_amount_lc', getValueOrEmptyString(input.mpAmt));
+		oiRptTr.setValue('gp_percent', getValueOrEmptyString(input.gpPerc));
+		oiRptTr.setValue('mp_gap_percent', getValueOrEmptyString(input.mpPerc));
+		oiRptTr.setValue('total_extended_cost_tc', getValueOrEmptyString(input.totEstCost));
+		oiRptTr.setValue('customer_po_no', getValueOrEmptyString(input.PONo));
+		oiRptTr.setValue('order_type', getValueOrEmptyString(input.orderTypeCode));
+		oiRptTr.setValue('tax_classification', getValueOrEmptyString(input.taxClassCode));
+		oiRptTr.setValue('payment_terms', getValueOrEmptyString(input.payTermsCode));	
+		//oiRptTr.setValue('version', /*String(Number(input.oiVer) + 1)*/ '1');
+		oiRptTr.update();
+		// Update status.
+		// Update version.
+
+		// Update Project type list
+		var prjTR = new GlideRecord('x_yergb_bpm_oi_project_type');
+		prjTR.initialize();
+		prjTR.addQuery('oi_report', input.oiSysId);
+		prjTR.deleteMultiple();
+
+		if( !isEmpty(input.prjType1SysId) ) {
+			prjTR.initialize();
+			prjTR.setValue('oi_report', input.oiSysId)
+			prjTR.setValue('project_type', input.prjType1SysId);
+			prjTR.setValue('rate_percent', input.prjType1Perc);
+			prjTR.setValue('sequence', 1);
+			prjTR.insert();
+		} 
+
+		if( !isEmpty(input.prjType2SysId) ) {
+			prjTR.initialize();
+			prjTR.setValue('oi_report', input.oiSysId)
+			prjTR.setValue('project_type', input.prjType2SysId);
+			prjTR.setValue('rate_percent', input.prjType2Perc);
+			prjTR.setValue('sequence', 2);
+			prjTR.insert();
+		} 
+
+		if( !isEmpty(input.prjType3SysId) ) {
+			prjTR.initialize();
+			prjTR.setValue('oi_report', input.oiSysId)
+			prjTR.setValue('project_type', input.prjType3SysId);
+			prjTR.setValue('rate_percent', input.prjType3Perc);
+			prjTR.setValue('sequence', 3);
+			prjTR.insert();
+		}
+
+		// Update Ansoff type list
+		var ansTR = new GlideRecord('x_yergb_bpm_oi_ansoff_type');
+		ansTR.initialize();
+		ansTR.addQuery('oi_report', input.oiSysId);
+		ansTR.deleteMultiple();
+
+		if( !isEmpty(input.ansoff1SysId) ) {
+			ansTR.initialize();
+			ansTR.setValue('oi_report', input.oiSysId)
+			ansTR.setValue('ansoff_type', input.ansoff1SysId);
+			ansTR.setValue('rate_percent', input.ansoff1Perc);
+			ansTR.setValue('sequence', 1);
+			ansTR.insert();
+		} 
+
+		if( !isEmpty(input.ansoff2SysId) ) {
+			ansTR.initialize();
+			ansTR.setValue('oi_report', input.oiSysId)
+			ansTR.setValue('ansoff_type', input.ansoff2SysId);
+			ansTR.setValue('rate_percent', input.ansoff2Perc);
+			ansTR.setValue('sequence', 2);
+			ansTR.insert();
+		} 
+
+		if( !isEmpty(input.ansoff3SysId) ) {
+			ansTR.initialize();
+			ansTR.setValue('oi_report', input.oiSysId)
+			ansTR.setValue('ansoff_type', input.ansoff3SysId);
+			ansTR.setValue('rate_percent', input.ansoff3Perc);
+			ansTR.setValue('sequence', 3);
+			ansTR.insert();
+		}
+
+		// Update Flag list
+		var flagR = new GlideRecord('x_yergb_bpm_flag_master')
+		//console.log('checked length :' + input.itemsFlag.length);
+		for(var k = 0; k<input.itemsFlag.length; k++) {
+			console.log('checked:' + input.itemsFlag[k].sysid);
+			console.log('checked:' + input.itemsFlag[k].checked);
+			flagR.initialize();
+			flagR.get(input.itemsFlag[k].sysid);
+			if(input.itemsFlag[k].checked == true) {
+				flagR.setValue('active', true);
+			} else {
+				flagR.setValue('active', false);
+			}
+			flagR.update();
+		}
+	}
+	
 	if(input && input.btnHeaderType) {
 		console.log(input.btnHeaderType);
 		var oiRptTr = new GlideRecord('x_yergb_bpm_oi_report');
@@ -1610,122 +1697,25 @@ border: 2px solid red;
 			oiRptTr.insert();
 			data.redirect_sys_id = oiRptTr.getUniqueValue();
 		} else if(input.btnHeaderType == 'oiUpdate') {
-			console.log('SERVER BTN :: OI UPDATE');
-			console.log('JOB:' + getValueOrEmptyString(input.jobTypeSysId));
-			oiRptTr.get(input.oiSysId);
-			oiRptTr.setValue('job_type', getValueOrEmptyString(input.jobTypeSysId));
-			oiRptTr.setValue('dmr_amount_level', getValueOrEmptyString(input.dmrAmt));
-			oiRptTr.setValue('dmr_mp_level', getValueOrEmptyString(input.dmrMP));
-			oiRptTr.setValue('dmr_gp_level', getValueOrEmptyString(input.dmrGP));
-			oiRptTr.setValue('oi_amount_lc', getValueOrEmptyString(input.oiAmtLC));
-			oiRptTr.setValue('oi_amount_tc', getValueOrEmptyString(input.oiAmtTC));
-			oiRptTr.setValue('gp_amount_lc', getValueOrEmptyString(input.gpAmt));
-			oiRptTr.setValue('mp_amount_lc', getValueOrEmptyString(input.mpAmt));
-			oiRptTr.setValue('gp_percent', getValueOrEmptyString(input.gpPerc));
-			oiRptTr.setValue('mp_gap_percent', getValueOrEmptyString(input.mpPerc));
-			oiRptTr.setValue('total_extended_cost_tc', getValueOrEmptyString(input.totEstCost));
-			oiRptTr.setValue('customer_po_no', getValueOrEmptyString(input.PONo));
-			oiRptTr.setValue('order_type', getValueOrEmptyString(input.orderTypeCode));
-			oiRptTr.setValue('tax_classification', getValueOrEmptyString(input.taxClassCode));
-			oiRptTr.setValue('payment_terms', getValueOrEmptyString(input.payTermsCode));	
-			//oiRptTr.setValue('version', /*String(Number(input.oiVer) + 1)*/ '1');
-			oiRptTr.update();
-			// Update status.
-			// Update version.
-			
-			// Update Project type list
-			var prjTR = new GlideRecord('x_yergb_bpm_oi_project_type');
-			prjTR.initialize();
-			prjTR.addQuery('oi_report', input.oiSysId);
-			prjTR.deleteMultiple();
-
-			if( !isEmpty(input.prjType1SysId) ) {
-				prjTR.initialize();
-				prjTR.setValue('oi_report', input.oiSysId)
-				prjTR.setValue('project_type', input.prjType1SysId);
-				prjTR.setValue('rate_percent', input.prjType1Perc);
-				prjTR.setValue('sequence', 1);
-				prjTR.insert();
-			} 
-			
-			if( !isEmpty(input.prjType2SysId) ) {
-				prjTR.initialize();
-				prjTR.setValue('oi_report', input.oiSysId)
-				prjTR.setValue('project_type', input.prjType2SysId);
-				prjTR.setValue('rate_percent', input.prjType2Perc);
-				prjTR.setValue('sequence', 2);
-				prjTR.insert();
-			} 
-			
-			if( !isEmpty(input.prjType3SysId) ) {
-				prjTR.initialize();
-				prjTR.setValue('oi_report', input.oiSysId)
-				prjTR.setValue('project_type', input.prjType3SysId);
-				prjTR.setValue('rate_percent', input.prjType3Perc);
-				prjTR.setValue('sequence', 3);
-				prjTR.insert();
-			}
-			
-			// Update Ansoff type list
-			var ansTR = new GlideRecord('x_yergb_bpm_oi_ansoff_type');
-			ansTR.initialize();
-			ansTR.addQuery('oi_report', input.oiSysId);
-			ansTR.deleteMultiple();
-
-			if( !isEmpty(input.ansoff1SysId) ) {
-				ansTR.initialize();
-				ansTR.setValue('oi_report', input.oiSysId)
-				ansTR.setValue('ansoff_type', input.ansoff1SysId);
-				ansTR.setValue('rate_percent', input.ansoff1Perc);
-				ansTR.setValue('sequence', 1);
-				ansTR.insert();
-			} 
-			
-			if( !isEmpty(input.ansoff2SysId) ) {
-				ansTR.initialize();
-				ansTR.setValue('oi_report', input.oiSysId)
-				ansTR.setValue('ansoff_type', input.ansoff2SysId);
-				ansTR.setValue('rate_percent', input.ansoff2Perc);
-				ansTR.setValue('sequence', 2);
-				ansTR.insert();
-			} 
-			
-			if( !isEmpty(input.ansoff3SysId) ) {
-				ansTR.initialize();
-				ansTR.setValue('oi_report', input.oiSysId)
-				ansTR.setValue('ansoff_type', input.ansoff3SysId);
-				ansTR.setValue('rate_percent', input.ansoff3Perc);
-				ansTR.setValue('sequence', 3);
-				ansTR.insert();
-			}
-			
-			// Update Flag list
-			var flagR = new GlideRecord('x_yergb_bpm_flag_master')
-			//console.log('checked length :' + input.itemsFlag.length);
-			for(var k = 0; k<input.itemsFlag.length; k++) {
-				console.log('checked:' + input.itemsFlag[k].sysid);
-				console.log('checked:' + input.itemsFlag[k].checked);
-				flagR.initialize();
-				flagR.get(input.itemsFlag[k].sysid);
-				if(input.itemsFlag[k].checked == true) {
-					flagR.setValue('active', true);
-				} else {
-					flagR.setValue('active', false);
-				}
-				flagR.update();
-			}
+			headerDataSave();
 		} else if(input.btnHeaderType == 'request') {
 			console.log('SERVER BTN REQUEST');
+			headerDataSave();
+			
 			oiRptTr.get(input.oiSysId);
 			oiRptTr.setValue('state', '3');
 			oiRptTr.update();
 		} else if(input.btnHeaderType == 'autorize') {
 			console.log('SERVER BTN AUTHORIZE');
+			
+			headerDataSave();
 			oiRptTr.get(input.oiSysId);
 			oiRptTr.setValue('state', '6');
 			oiRptTr.update();
 		} else if(input.btnHeaderType == 'cancel') {
 			console.log('SERVER BTN CANCEL');
+			
+			headerDataSave();
 			oiRptTr.get(input.oiSysId);
 			oiRptTr.setValue('state', '-8');
 			oiRptTr.update();
@@ -1937,19 +1927,19 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>863</sys_mod_count>
+        <sys_mod_count>888</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-28 04:14:21</sys_updated_on>
-        <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
+        <sys_updated_on>2024-06-28 08:06:20</sys_updated_on>
+        <template><![CDATA[<!--<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
   var realGrid2Lic = 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYkkSQt0t0CTeCSk1qaDqTRZ5JoV9H143uMO5+/xJSE3Lj4YewEIhlh/';
-</script>
+</script>-->
 
 <div>
   <div class="yoko-container">
@@ -2365,8 +2355,12 @@ border: 2px solid red;
                                             <div class="yoko-form-group-heading-wrap">
                                                 <div class="yoko-form-group-heading">Project Type</div>
                                                 <div class="yoko-form-group-line"></div>
+                                                <!--<button type="button" ng-click='gridProjectTypeBtnClick(1)' class="yoko-btn yoko-btn-add"></button>
+                                                <button type="button" ng-click='gridProjectTypeBtnClick(2)' class="yoko-btn yoko-btn-delete"></button>
+                                              	<span> </span>-->
                                             </div>
                                             <div class="yoko-ht100 yoko-scroll">
+                                                <!--<div id='gridContainer' style="width:550px; height: 100px;"></div>-->
                                                 <div class="yoko-form-col yoko-mb-80">
                                                     <div class="yoko-form-group">
                                                         <label for="lbPrjType1" class="yoko-short-100">Project Type1</label>
@@ -2537,11 +2531,16 @@ border: 2px solid red;
             </div>
 
 						<div class="yoko-grid-btn-wrap-grid" style='margin-'>
-              <button class="yoko-btn yoko-btn-outline" id="bt-add" ng-click='gridDetailBtnClick(1)'>Add</button>
+              <!--<button class="yoko-btn yoko-btn-outline" id="bt-add" ng-click='gridDetailBtnClick(1)'>Add</button>
               <button class="yoko-btn yoko-btn-outline" id="bt-insert" ng-click='gridDetailBtnClick(2)'>Insert</button>
               <button class="yoko-btn yoko-btn-outline" id="bt-delete" ng-click='gridDetailBtnClick(3)'>Delete</button>
               <button class="yoko-btn yoko-btn-outline" id="bt-save" ng-click='gridDetailBtnClick(4)'>Save</button>
-              <div id='gridContainer' style="width:100%; height: 400px; margin-top:5px;"></div>
+              -->
+              <div class="yoko-grid-btn-wrap">
+                  <button type="button" id="bt-add"    ng-click='gridDetailBtnClick(1)' class="yoko-btn yoko-btn-add"></button>
+                  <button type="button" id="bt-delete" ng-click='gridDetailBtnClick(3)' class="yoko-btn yoko-btn-delete"></button>
+              </div>
+							<div id='gridContainer' style="width:100%; height: 400px; margin-top:5px;"></div>
             </div>
           	
             
