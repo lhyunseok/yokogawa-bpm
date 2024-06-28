@@ -26,15 +26,22 @@
 	$scope.btnHeaderClick = function(type) {
 		console.log('CLIENT HEADER BTN : ' + type);
 		c.data.btnHeaderType = type;
+		var up = true;
 		if(type == 'Reject') {
+			console.log('Comment :' + c.data.approveComments + ':');
+			if( (c.data.approveComments == '') || (c.data.approveComments == undefined) ) {
+				alert('Please check comments for reject!');
+				up = false;
+			}
+		} /*else if(type == 'Approve') {
 			
-		} else if(type == 'Approve') {
-			
+		}*/
+		if(up) {
+			c.server.update().then(function(response) {
+				console.log('Header button click rsponse:', response);
+				c.data.btnHeaderType = '';
+			});
 		}
-		c.server.update().then(function(response) {
-			console.log('Header button click rsponse:', response);
-			c.data.btnHeaderType = '';
-		});
 	}
 	
 	/* common button */
@@ -303,6 +310,9 @@ a {text-decoration: none;}
 .yoko-form-inline.yoko-column {gap: 30px; align-items: flex-start;}
 .yoko-border-line {border-top: 1px solid #B2B2B2;}
 
+.highlight-form {
+border: 2px solid red;
+}
 
 
 
@@ -480,10 +490,10 @@ a {text-decoration: none;}
 		//console.log('OI SYS ID : ' + data.oiSysId);
 		
 		// TEST 
-		data.oiSysId = '049440b63b3e4210ec3cbf2a85e45afd0';
+		//data.oiSysId = '049440b63b3e4210ec3cbf2a85e45afd0';
 		
 		var oiReportData = new GlideRecord('x_yergb_bpm_oi_report');
-		oiReportData.addQuery('sys_id', '049440b63b3e4210ec3cbf2a85e45afd');
+		oiReportData.addQuery('sys_id', data.oiSysId);
 		oiReportData.query();
 		while(oiReportData.next()) {
 			data.version = oiReportData.version.toString();
@@ -532,18 +542,19 @@ a {text-decoration: none;}
 	}
 	
 	if(input) {
-		//var apData = new GlideRecord('sysapproval_approver');
-		//apData.initialize();
-		//apData.get(data.approvalId);		
+		var apData = new GlideRecord('sysapproval_approver');
+		apData.initialize();
+		apData.get(data.approvalId);		
 		if(input.btnHeaderType=='Reject') {
-			console.log('SERVER BTN Reject');
-			//apData.setValue('state', '');
+			//console.log('SERVER BTN Reject');
+			apData.setValue('state', 'rejected');
+			apData.setValue('comments', data.approveComments);
 		} else if(input.btnHeaderType=='Approve') {
-			console.log('SERVER BTN Approve');
-			//apData.setValue('state', '');
+			//console.log('SERVER BTN Approve');
+			apData.setValue('state', 'approved');
 		}
 		
-		//apData.update();
+		apData.update();
 	}
 
 	
@@ -566,14 +577,14 @@ a {text-decoration: none;}
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-27 01:26:09</sys_created_on>
         <sys_id>6b8a90ed83cb8610b3dd1665eeaad3e2</sys_id>
-        <sys_mod_count>63</sys_mod_count>
+        <sys_mod_count>78</sys_mod_count>
         <sys_name>orderIntakeReportApprovalWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_6b8a90ed83cb8610b3dd1665eeaad3e2</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-27 23:42:30</sys_updated_on>
+        <sys_updated_on>2024-06-28 01:00:40</sys_updated_on>
         <template><![CDATA[<div>
 	<div class="yoko-container">
         <!--<div class="yoko-breadcrumb">Home >  Approval - OI Cancel Report</div>-->
@@ -605,7 +616,7 @@ a {text-decoration: none;}
                         <div class="yoko-form-group">
                             <label for="comments" class="yoko-short">Comments</label>
                             <textarea id="comments" name="" rows="4" ng-model='c.data.approveComments' required placeholder=""></textarea>
-                            <button class="yoko-btn yoko-btn-outline" ng-click='btnPostClick()'>Post</button>
+                            <!--<button class="yoko-btn yoko-btn-outline" ng-click='btnPostClick()'>Post</button>-->
                         </div>
                         <!--<div class="yoko-form-group">
                             <label for="activities_1" class="yoko-short">Activities : 1</label>
@@ -820,12 +831,16 @@ a {text-decoration: none;}
                                 </div>
                             </div>
                         </div>
-                        <div class="yoko-form-inline yoko-column yoko-mt-20">
+                        <!--<div class="yoko-form-inline yoko-column yoko-mt-20">
                             <div class="yoko-form-group yoko-col100">
                                 <label for="total_estimated_cost" class="yoko-short-120">Cancel Reason</label>
                                 <input type="text" name="cancelReason" ng-model='cancelReason' value="" placeholder="" disabled class="yoko-col100">
                             </div>
                         </div>
+                      	<div class="yoko-form-group">
+                          <label for="req_date" class="yoko-short">{{data.labelRequestDate}}</label>
+                          <input type="date" value={{data.request_date}} name="req_date" class="yoko-wid140" ng-model="c.data.request_date" ng-disabled="isCancelledDisabled">
+                      	</div>-->
                     </div>
                     
                 </div>
