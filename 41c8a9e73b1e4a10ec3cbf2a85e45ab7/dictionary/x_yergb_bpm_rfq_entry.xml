@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element audit="true" db_object_id="49b1af843be2ca10ec3cbf2a85e45a43" extends="x_yergb_bpm_process" label="RFQ Entry" max_length="40" name="x_yergb_bpm_rfq_entry" type="collection">
+        <element label="Customer RFQ" max_length="40" name="customer_rfq" type="string"/>
         <element label="Quotation Due Date" max_length="40" name="quotation_due_date" type="glide_date"/>
         <element label="Caution" max_length="4000" name="caution" type="string"/>
         <element default="javascript:gs.nowDateTime();" dynamic_default_value="79cb83a85f220100a9ad2572f2b4773c" label="Request Date" mandatory="true" max_length="40" name="request_date" type="glide_date" use_dynamic_default="true"/>
