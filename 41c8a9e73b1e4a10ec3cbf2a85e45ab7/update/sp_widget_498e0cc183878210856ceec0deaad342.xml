@@ -75,463 +75,73 @@
     var dp;
 
     function grid() {
-        var gvFields = [{
-                fieldName: "sys_id",
-                dataType: "text",
-            },
-            {
-                fieldName: "wbs",
-                dataType: "text",
-            },
-            {
-                fieldName: "wbs_description",
-                dataType: "text",
-            },
-            {
-                fieldName: "month1",
-                dataType: "number",
-            },
-            {
-                fieldName: "month2",
-                dataType: "number",
-            },
-            {
-                fieldName: "month3",
-                dataType: "number",
-            },
-            {
-                fieldName: "month4",
-                dataType: "number",
-            },
-            {
-                fieldName: "month5",
-                dataType: "number",
-            },
-            {
-                fieldName: "month6",
-                dataType: "number",
-            },
-            {
-                fieldName: "month7",
-                dataType: "number",
-            },
-            {
-                fieldName: "month8",
-                dataType: "number",
-            },
-            {
-                fieldName: "month9",
-                dataType: "number",
-            },
-            {
-                fieldName: "month10",
-                dataType: "number",
-            },
-            {
-                fieldName: "month11",
-                dataType: "number",
-            },
-            {
-                fieldName: "month12",
-                dataType: "number",
-            },
-            {
-                fieldName: "month13",
-                dataType: "number",
-            },
-            {
-                fieldName: "month14",
-                dataType: "number",
-            },
-            {
-                fieldName: "month15",
-                dataType: "number",
-            },
-            {
-                fieldName: "month16",
-                dataType: "number",
-            },
-            {
-                fieldName: "month17",
-                dataType: "number",
-            },
-            {
-                fieldName: "month18",
-                dataType: "number",
-            },
-            {
-                fieldName: "beyond18",
-                dataType: "number",
-            },
-            {
-                fieldName: "forecast_ptc",
-                dataType: "number",
-            },
-            {
-                fieldName: "base_month",
-                dataType: "text",
-            },
-            {
-                fieldName: "project",
-                dataType: "text",
-            },
+        var gvFields = [
+            { fieldName: "sys_id", dataType: "text" },
+            { fieldName: "wbs", dataType: "text" },
+            { fieldName: "ptc_last_month", dataType: "text" },
+            { fieldName: "ctd_last_month", dataType: "text" },
+            { fieldName: "committed_cost", dataType: "text" },
+            { fieldName: "future_cost", dataType: "text" },
+            { fieldName: "month1", dataType: "number" },
+            { fieldName: "month2", dataType: "number" },
+            { fieldName: "month3", dataType: "number" },
+            { fieldName: "month4", dataType: "number" },
+            { fieldName: "month5", dataType: "number" },
+            { fieldName: "month6", dataType: "number" },
+            { fieldName: "month7", dataType: "number" },
+            { fieldName: "month8", dataType: "number" },
+            { fieldName: "month9", dataType: "number" },
+            { fieldName: "month10", dataType: "number" },
+            { fieldName: "month11", dataType: "number" },
+            { fieldName: "month12", dataType: "number" },
+            { fieldName: "month13", dataType: "number" },
+            { fieldName: "month14", dataType: "number" },
+            { fieldName: "month15", dataType: "number" },
+            { fieldName: "month16", dataType: "number" },
+            { fieldName: "month17", dataType: "number" },
+            { fieldName: "month18", dataType: "number" },
+            { fieldName: "beyond18", dataType: "number" },
+            { fieldName: "forecast_ptc", dataType: "number" },
+            { fieldName: "variance", dataType: "number" },
+            { fieldName: "base_month", dataType: "text" },
+            { fieldName: "project", dataType: "text" }
         ];
 
-        var gvColumns = [{
-                "name": "sys_id",
-                "fieldName": "sys_id",
-                "type": "data",
-                "width": 0,
-                "header": {
-                    "text": "sysid"
-                },
-            },
-            {
-                "name": "wbs",
-                "fieldName": "wbs",
-                "type": "data",
-                "width": 100,
-                "header": {
-                    "text": "WBS"
-                },
-            },
-            {
-                "name": "wbs_description",
-                "fieldName": "wbs_description",
-                "type": "data",
-                "width": 200,
-                "header": {
-                    "text": "WBS Description"
-                },
-            },
-            {
-                "name": "month1",
-                "fieldName": "month1",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Month 1"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "month2",
-                "fieldName": "month2",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Month 2"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "month3",
-                "fieldName": "month3",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Month 3"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "month4",
-                "fieldName": "month4",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Month 4"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "month5",
-                "fieldName": "month5",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Month 5"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "month6",
-                "fieldName": "month6",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Month 6"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "month7",
-                "fieldName": "month7",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Month 7"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "month8",
-                "fieldName": "month8",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Month 8"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "month9",
-                "fieldName": "month9",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Month 9"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "month10",
-                "fieldName": "month10",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Month 10"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "month11",
-                "fieldName": "month11",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Month 11"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "month12",
-                "fieldName": "month12",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Month 12"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "month13",
-                "fieldName": "month13",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Month 13"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "month14",
-                "fieldName": "month14",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Month 14"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "month15",
-                "fieldName": "month15",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Month 15"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "month16",
-                "fieldName": "month16",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Month 16"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "month17",
-                "fieldName": "month17",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Month 17"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "month18",
-                "fieldName": "month18",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Month 18"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "beyond18",
-                "fieldName": "beyond18",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Beyond 18"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "forecast_ptc",
-                "fieldName": "forecast_ptc",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Forecast PTC"
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-            },
-            {
-                "name": "base_month",
-                "fieldName": "base_month",
-                "type": "data",
-                "width": 100,
-                "header": {
-                    "text": "Base Month"
-                },
-            },
-            {
-                "name": "project",
-                "fieldName": "project",
-                "type": "data",
-                "width": 0,
-                "header": {
-                    "text": "Project"
-                }
-            }
-        ];
 
-        var gvLayouts = [
-            'sys_id',
-            'wbs',
-            'wbs_description',
-            'month1',
-            'month2',
-            'month3',
-            'month4',
-            'month5',
-            'month6',
-            'month7',
-            'month8',
-            'month9',
-            'month10',
-            'month11',
-            'month12',
-            'month13',
-            'month14',
-            'month15',
-            'month16',
-            'month17',
-            'month18',
-            'beyond18',
-            'forecast_ptc',
-            'base_month',
-            'project'
-
+        var gvColumns = [
+            { "name": "sys_id", "fieldName": "sys_id", "type": "data", "width": 0, "header": { "text": "sysid" } },
+            { "name": "wbs", "fieldName": "wbs", "type": "data", "width": 100, "header": { "text": "WBS" } },
+            { "name": "ptc_last_month", "fieldName": "ptc_last_month", "type": "data", "width": 100, "header": { "text": "PTC Last Month" } },
+            { "name": "ctd_last_month", "fieldName": "ctd_last_month", "type": "data", "width": 100, "header": { "text": "CTD Last Month" } },
+            { "name": "committed_cost", "fieldName": "committed_cost", "type": "data", "width": 100, "header": { "text": "Commited Cost" } },
+            { "name": "future_cost", "fieldName": "future_cost", "type": "data", "width": 100, "header": { "text": "Future Cost" } },
+            { "name": "month1", "fieldName": "month1", "numberFormat": "#,##0", "type": "number", "width": 100, "header": { "text": "Month 1" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "month2", "fieldName": "month2", "numberFormat": "#,##0", "type": "number", "width": 100, "header": { "text": "Month 2" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "month3", "fieldName": "month3", "numberFormat": "#,##0", "type": "number", "width": 100, "header": { "text": "Month 3" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "month4", "fieldName": "month4", "numberFormat": "#,##0", "type": "number", "width": 100, "header": { "text": "Month 4" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "month5", "fieldName": "month5", "numberFormat": "#,##0", "type": "number", "width": 100, "header": { "text": "Month 5" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "month6", "fieldName": "month6", "numberFormat": "#,##0", "type": "number", "width": 100, "header": { "text": "Month 6" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "month7", "fieldName": "month7", "numberFormat": "#,##0", "type": "number", "width": 100, "header": { "text": "Month 7" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "month8", "fieldName": "month8", "numberFormat": "#,##0", "type": "number", "width": 100, "header": { "text": "Month 8" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "month9", "fieldName": "month9", "numberFormat": "#,##0", "type": "number", "width": 100, "header": { "text": "Month 9" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "month10", "fieldName": "month10", "numberFormat": "#,##0", "type": "number", "width": 90, "header": { "text": "Month 10" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "month11", "fieldName": "month11", "numberFormat": "#,##0", "type": "number", "width": 90, "header": { "text": "Month 11" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "month12", "fieldName": "month12", "numberFormat": "#,##0", "type": "number", "width": 90, "header": { "text": "Month 12" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "month13", "fieldName": "month13", "numberFormat": "#,##0", "type": "number", "width": 90, "header": { "text": "Month 13" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "month14", "fieldName": "month14", "numberFormat": "#,##0", "type": "number", "width": 90, "header": { "text": "Month 14" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "month15", "fieldName": "month15", "numberFormat": "#,##0", "type": "number", "width": 90, "header": { "text": "Month 15" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "month16", "fieldName": "month16", "numberFormat": "#,##0", "type": "number", "width": 90, "header": { "text": "Month 16" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "month17", "fieldName": "month17", "numberFormat": "#,##0", "type": "number", "width": 90, "header": { "text": "Month 17" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "month18", "fieldName": "month18", "numberFormat": "#,##0", "type": "number", "width": 90, "header": { "text": "Month 18" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "beyond18", "fieldName": "beyond18", "numberFormat": "#,##0", "type": "number", "width": 90, "header": { "text": "Beyond 18" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "forecast_ptc", "fieldName": "forecast_ptc", "numberFormat": "#,##0", "type": "number", "width": 90, "header": { "text": "Forecast PTC" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "variance", "fieldName": "variance", "numberFormat": "#,##0", "type": "number", "width": 60, "header": { "text": "Variance" }, "footer": { "expression": "sum", "numberFormat": "#,##0" } },
+            { "name": "base_month", "fieldName": "base_month", "type": "data", "width": 90, "header": { "text": "Base Month" } },
+            { "name": "project", "fieldName": "project", "type": "data", "width": 0, "header": { "text": "Project" } }
         ];
+        
+
+        var gvLayouts = ['sys_id', 'wbs', 'ptc_last_month', 'ctd_last_month', 'committed_cost', 'future_cost',  'month1', 'month2', 'month3', 'month4', 'month5', 'month6', 'month7', 'month8', 'month9', 'month10', 'month11', 'month12', 'month13', 'month14', 'month15', 'month16', 'month17', 'month18', 'beyond18', 'forecast_ptc', 'variance', 'base_month', 'project'];
 
         function initGrid(gridName) {
             gv = new RealGrid.GridView(gridName);
@@ -552,11 +162,11 @@
             gv.editOptions.commitByCell = false; //Item type is readOnly
             gv.editOptions.insertable = false; //Item type is readOnly
             gv.setFixedOptions({
-                colCount: 2,
-                rightCount: 2,
+                colCount: 5,
+                rightCount: 3,
                 editable: false,
             });
-            dp.softDeleting = false;
+            dp.softDevaring = false;
             gv.checkBar.visible = false; //Item type is readOnly
             gv.stateBar.visible = false; //Item type is readOnly
             gv.setEditOptions({
@@ -643,8 +253,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     toggleButtons.forEach(button => {
         button.addEventListener("click", function() {
-            const targetId = this.getAttribute("data-target");
-            const content = document.getElementById(targetId);
+            var targetId = this.getAttribute("data-target");
+            var content = document.getElementById(targetId);
             if (content.style.display === "block" || content.style.display === "") {
                 content.style.display = "none";
             } else {
@@ -679,7 +289,7 @@ $(document).ready(function() {
     $('.yoko-dep-1').click(function(e) {
         e.preventDefault();
 
-        const $targetWrap = $(this).children('.yoko-dep-2-wrap');
+        var $targetWrap = $(this).children('.yoko-dep-2-wrap');
         $('.yoko-dep-2-wrap').not($targetWrap).slideUp('fast');
         $targetWrap.slideToggle('fast');
         $(this).find('a').toggleClass('rotate');
@@ -1207,7 +817,7 @@ th {
     data.base_month = currentDate.getByFormat("yyyyMM").toString();
     data.base_month_y = currentDate.getYearNoTZ().toString();
     data.base_month_m = currentDate.getMonthNoTZ().toString();
-    data.last_month = data.base_month_y + (Number(data.base_month_m) - 1).toString().toFixed(2);
+    data.last_month =  '   Last Month - ' + data.base_month_y + (('0' +(Number(data.base_month_m) - 1)).toString().slice(-2));
 
     if (data.number) { // get Project
         var grProject = new GlideRecord('x_yergb_bpm_project');
@@ -1275,7 +885,7 @@ th {
                 myresult[wbs][yearmonth] += amount;
             }
             var gpa = totalContract - totalCost;
-            const gp = gpa / totalContract * 100;
+            var gp = gpa / totalContract * 100;
             data.contract = totalContract.toString();
             data.total_cost = totalCost.toString();
             data.gpa = gpa.toString();
@@ -1303,9 +913,9 @@ th {
             }
         }
 
-        var myarr = ['month1', 'month2', 'month3', 'month4', 'month5', 'month6', 'month7', 'month8', 'month9', 'month10', 'month11', 'month12', 'month13', 'month14', 'month15', 'month16', 'month17', 'month18'];
+        var months = ['month1', 'month2', 'month3', 'month4', 'month5', 'month6', 'month7', 'month8', 'month9', 'month10', 'month11', 'month12', 'month13', 'month14', 'month15', 'month16', 'month17', 'month18'];
 
-        var updatedResult = replaceYearMonthKeys(myresult, yearmonths, myarr);
+        var updatedResult = replaceYearMonthKeys(myresult, yearmonths, months);
 
         var grUpdateBudgetPlan = new GlideRecord("x_yergb_bpm_budget_plan");
         grUpdateBudgetPlan.get(input.budget_key); //Budget Plan sys_id
@@ -1425,7 +1035,10 @@ th {
             tableinfo.push({
                 'sys_id': gritem.sys_id.getDisplayValue(),
                 'wbs': gritem.wbs.getDisplayValue(),
-                'wbs_description': gritem.wbs.description.toString(),
+                'ptc_last_month':gritem.wbs.getDisplayValue(),
+                'ctd_last_month': gritem.wbs.getDisplayValue(),
+                'committed_cost': gritem.wbs.getDisplayValue(),
+                'future_cost': gritem.wbs.getDisplayValue(),
                 'month1': parseInt(gritem.month1.getDisplayValue().replace(/,/g, ''), 10) || 0,
                 'month2': parseInt(gritem.month2.getDisplayValue().replace(/,/g, ''), 10) || 0,
                 'month3': parseInt(gritem.month3.getDisplayValue().replace(/,/g, ''), 10) || 0,
@@ -1446,6 +1059,7 @@ th {
                 'month18': parseInt(gritem.month18.getDisplayValue().replace(/,/g, ''), 10) || 0,
                 'beyond18': parseInt(gritem.beyond18.getDisplayValue().replace(/,/g, ''), 10) || 0,
                 'forecast_ptc': parseInt(gritem.forecast_ptc.getDisplayValue().replace(/,/g, ''), 10) || 0,
+                'varicane': gritem.wbs.getDisplayValue(),
                 'base_month': gritem.base_month.getDisplayValue(),
                 'project': project_key
             });
@@ -1461,14 +1075,14 @@ th {
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-25 11:13:23</sys_created_on>
         <sys_id>498e0cc183878210856ceec0deaad342</sys_id>
-        <sys_mod_count>48</sys_mod_count>
+        <sys_mod_count>76</sys_mod_count>
         <sys_name>prjCostMngtWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_498e0cc183878210856ceec0deaad342</sys_update_name>
         <sys_updated_by>yeongink</sys_updated_by>
-        <sys_updated_on>2024-06-27 12:47:53</sys_updated_on>
+        <sys_updated_on>2024-06-28 02:47:43</sys_updated_on>
         <template><![CDATA[<div class="yoko-container">
     <div class="yoko-title-btn-wrap">
         <div class="yoko-btn-wrap">
@@ -1482,7 +1096,6 @@ th {
         <div class="yoko-btn-wrap">
             <button class="yoko-btn yoko-btn-outline" ng-if="!data.state || data.state === 'New'" ng-click="clickLoadData()">Load Data</button>
             <button class="yoko-btn yoko-btn-outline" ng-if="data.state === 'New'" ng-click="clickApproval()">Approval Request</button>
-            <button class="yoko-btn yoko-btn-outline" ng-click="clickClose()">Close</button>
         </div>
     </div>
     <div class="yoko-content">
@@ -1605,15 +1218,15 @@ th {
                 </div>
             </div>
         </div>
-        <div class="out" id='gridContainerNow' style="width:100%; height: 200px;"></div>
+        <div class="out" id='gridContainerNow' style="width:100%; height: 180px;"></div>
             <input id="" type="hidden" value="{{data.gridUrl}}">
             <input id="gridData" type="hidden" value="{{data.gridData}}">
             <input id="" type="hidden" value="{{data.gridDataStr}}">
         </div>
         <div>
-            <input type="text" value="{{data.last_month}}"></input>
+            {{data.last_month}}
         </div>
-        <div class="out" id='gridContainerLastMonth' style="width:100%; height: 200px;"></div>
+        <div class="out" id='gridContainerLastMonth' style="width:100%; height: 180px;"></div>
             <input id="" type="hidden" value="{{data.gridUrl}}">
             <input id="gridData" type="hidden" value="{{data.gridData}}">
             <input id="" type="hidden" value="{{data.gridDataStr}}">
