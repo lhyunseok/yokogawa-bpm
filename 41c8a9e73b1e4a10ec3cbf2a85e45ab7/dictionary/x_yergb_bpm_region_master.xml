@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="f88cdd3147660210a4863b12d16d4370" label="Bpm Region Master" max_length="40" name="x_yergb_bpm_region_master" type="collection">
-        <element label="Description" max_length="40" name="description" type="string"/>
         <element label="Country" max_length="32" name="country" reference="core_country" type="reference"/>
         <element label="Region" max_length="40" name="region" type="string"/>
+        <element label="Description" max_length="40" name="description" type="string"/>
         <index name="index">
             <element name="country"/>
         </index>

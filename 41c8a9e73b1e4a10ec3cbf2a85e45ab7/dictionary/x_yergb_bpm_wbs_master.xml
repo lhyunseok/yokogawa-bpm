@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="26ed8e6c47ee4610d254bce5536d4322" label="WBS Master" max_length="40" name="x_yergb_bpm_wbs_master" type="collection">
-        <element display="true" label="WBS Code" max_length="40" name="code" type="string"/>
-        <element label="WBS Description" max_length="400" name="description" type="string"/>
         <element choice="1" label="Budget Type" max_length="40" name="budget_type" type="choice">
             <choice>
-                <element inactive_on_update="false" label="Man hour" sequence="300" value="eng"/>
-                <element inactive_on_update="false" label="BOP" sequence="200" value="bop"/>
-                <element inactive_on_update="false" label="Y-Prod" sequence="100" value="prod"/>
                 <element inactive_on_update="false" label="Other" sequence="400" value="cost"/>
+                <element inactive_on_update="false" label="BOP" sequence="200" value="bop"/>
+                <element inactive_on_update="false" label="Man hour" sequence="300" value="eng"/>
+                <element inactive_on_update="false" label="Y-Prod" sequence="100" value="prod"/>
             </choice>
         </element>
+        <element label="WBS Description" max_length="400" name="description" type="string"/>
+        <element display="true" label="WBS Code" max_length="40" name="code" type="string"/>
     </element>
 </database>

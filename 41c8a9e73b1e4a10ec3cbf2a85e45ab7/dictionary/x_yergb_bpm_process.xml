@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="9399a12b3b1e4a10ec3cbf2a85e45a90" label="BPM Process" max_length="40" name="x_yergb_bpm_process" text_index="true" type="collection">
-        <element default="not requested" label="Approval" max_length="40" name="approval" type="string"/>
-        <element default="javascript:current.getTableName();" label="Class" max_length="80" name="sys_class_name" type="sys_class_name"/>
         <element label="Assignment group" max_length="32" name="assignment_group" reference="sys_user_group" type="reference"/>
-        <element label="Approval history" max_length="4000" name="approval_history" type="journal"/>
-        <element label="Assigned to" max_length="32" name="assigned_to" reference="sys_user" type="reference"/>
-        <element label="Requestor" max_length="32" name="requestor" reference="sys_user" type="reference"/>
         <element attributes="edge_encryption_enabled=true" default="javascript:getNextObjNumberPadded();" display="true" dynamic_default_value="fdcb83a85f220100a9ad2572f2b4773c" label="Number" max_length="40" name="number" type="string" use_dynamic_default="true"/>
+        <element default="javascript:current.getTableName();" label="Class" max_length="80" name="sys_class_name" type="sys_class_name"/>
+        <element default="not requested" label="Approval" max_length="40" name="approval" type="string"/>
+        <element label="Requestor" max_length="32" name="requestor" reference="sys_user" type="reference"/>
         <element label="Work notes" max_length="4000" name="work_notes" type="journal_input"/>
         <element attributes="edge_encryption_enabled=true" choice="3" label="State" max_length="40" name="state" type="integer">
             <choice/>
         </element>
+        <element label="Approval history" max_length="4000" name="approval_history" type="journal"/>
+        <element label="Assigned to" max_length="32" name="assigned_to" reference="sys_user" type="reference"/>
         <index name="index">
-            <element name="sys_class_name"/>
+            <element name="assigned_to"/>
         </index>
         <index name="index2">
-            <element name="requestor"/>
-        </index>
-        <index name="index3">
             <element name="assignment_group"/>
         </index>
+        <index name="index3">
+            <element name="sys_class_name"/>
+        </index>
         <index name="index4">
-            <element name="assigned_to"/>
+            <element name="requestor"/>
         </index>
     </element>
 </database>
