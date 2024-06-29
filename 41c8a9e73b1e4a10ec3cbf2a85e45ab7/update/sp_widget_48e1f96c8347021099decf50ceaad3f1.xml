@@ -12,8 +12,9 @@
 
     
     var modalProjectNumber = document.getElementById("modalProjectNumber");
-		var modalPMName = document.getElementById("modalPMName");
+	var modalPMName = document.getElementById("modalPMName");
 	var modalState = document.getElementById("modalState");
+    var filesPath = [];
     // Function to get URL parameters
     c.getUrlParameter = function(param) {
         return $location.search()[param];
@@ -26,9 +27,11 @@
     $scope.btnClickAddFile  = function() {
         modalUpload.style.display = 'none';
         if (headFile && detailFile) {
-            postHeaderFile(headFile);
-            postDetailFile(detailFile);
-            postWbsBudget(wbsBudgetFile);
+            postHeaderFile(parseCustomTableJson(headFile));
+            postDetailFile(parseCustomTableJson(detailFile));
+            postWbsBudget(parseWbsBudgetJson(wbsBudgetFile));
+        } else {
+            alert("PJTSUM_H 파일과 PJTSUM_D 파일을 올려주세요.")
         }
         clearModalUpload();
     }
@@ -43,7 +46,7 @@
 			modalProjectNumber.style.display = 'block';
 			//c.data.modalProjectNumber = true;
 			c.data.modalProjectNumberTitle = 'Project Number';
-    	c.data.modalProject = true;
+    	    c.data.modalProject = true;
 			c.server.update().then(function(response) {
 				console.log('Server response:', response);
 			});
@@ -60,11 +63,11 @@
     }
 
 	
-	    c.clickProjectNumber = function(index) {
-				c.data.myProjectId = c.data.itemsProject[index].sys_id;
-				c.data.myProjectNumber = c.data.itemsProject[index].code;
-				console.log(c.data.myProjectNumber);
-	      modalProjectNumber.style.display = 'none';
+    c.clickProjectNumber = function(index) {
+        c.data.myProjectId = c.data.itemsProject[index].sys_id;
+        c.data.myProjectNumber = c.data.itemsProject[index].code;
+        console.log(c.data.myProjectNumber);
+        modalProjectNumber.style.display = 'none';
     };
 
     $scope.btnClickPMNameSearch = function(idx) {
@@ -115,19 +118,17 @@
         if (files && files.length) {
             for (var i = files.length - 1; i >= 0; i--) {
                 var file = files[i];
-                console.log(file.name);
                 if (validation(file)) {
                     if (file.name.includes("PJTSUM_H")) {
                         $("#projectHeader").val(file.name);
                         headFile = await readFile(file);
-                        headFile = parseCustomTableJson(headFile);
-    console.log(headFile);
+                        headFile = headFile;
                     } else if (file.name.includes("PJTSUM_D")) {
                         $("#projectDetail").val(file.name);
                         detailFile = await readFile(file);
-                        wbsBudgetFile = parserWbsBudgetTableJson(detailFile);
-
-                        detailFile = parseCustomTableJson(detailFile);console.log(detailFile);
+                        //parse the detailFile for postWbsBudget
+                        wbsBudgetFile = detailFile;
+                        detailFile = detailFile;
                     }
                 }
             }
@@ -156,30 +157,27 @@
 			
     }
 	
-		function loadDataProvider() {
+    function loadDataProvider() {
 
-			if(c.data.myProjectId == undefined){
-				c.data.myProjectId = '';
-			}
-			debugger
-		  if(c.data.myPmName == undefined){
-				c.data.myPmName = '';
-			}
-			c.data.myQuery = 'base_month='+c.data.basemonth+'^plan_type=prf^'+'project.sys_idLIKE^'+c.data.myProjectId+'pm_nameLIKE'+c.data.myPmName + '^stateLIKE'+ c.data.myStateValue;
-			c.data.SearchState = true;
-			c.server.update().then(function(response) {
-				console.log('Server response:', response);
-			});
-			dataProvider.fillJsonData(c.data.gridDataNew, { fillMode: "set" });
-		}
+        if(c.data.myProjectId == undefined){
+            c.data.myProjectId = '';
+        }
+        if(c.data.myPmName == undefined){
+            c.data.myPmName = '';
+        }
+        c.data.myQuery = 'base_month='+c.data.basemonth+'^plan_type=prf^'+'project.sys_idLIKE^'+c.data.myProjectId+'pm_nameLIKE'+c.data.myPmName + '^stateLIKE'+ c.data.myStateValue;
+        c.data.SearchState = true;
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+        });
+        dataProvider.fillJsonData(c.data.gridDataNew, { fillMode: "set" });
+    }
 
     function clearModalUpload() {
         document.querySelector("input[type=file]").value = "";
         $("#projectHeader").val('');
         $("#projectDetail").val('');
-        headFile = '';
-				detailFile = '';
-			  wbsBudgetFile = '';
+        headFile, detailFile, wbsBudgetFile = null, filesPath = [];
     }
 
     /** read txt File */
@@ -195,13 +193,6 @@
         })(file);
         reader.readAsText(file, /* optional */ "euc-kr");
         });
-    }
-
-    function parserWbsBudgetTableJson(str) {
-        str = parseWbsBudgetJson(str);
-        let records = str.records;
-        records.
-        console.log(str);
     }
 
 
@@ -294,23 +285,98 @@
             // Calculate Base_Month by concatenating Fiscal_Year and Period
             object.Base_Month = object.Fiscal_Year + object.Period.padStart(2, '0');
         });
-        result['records'] = obj;
+
+
+
+        obj.sort((a, b) => {
+            if (a.Project_No !== b.Project_No) {
+                return a.Project_No.localeCompare(b.Project_No);
+            }
+            if (a.Data_Category !== b.Data_Category) {
+                return a.Data_Category.localeCompare(b.Data_Category);
+            }
+            if (a.Version !== b.Version) {
+                return a.Version.localeCompare(b.Version);
+            }
+            // Sort Version_Date in descending order
+            return new Date(b.Version_Date) - new Date(a.Version_Date);
+        });
+        
+        // Step 2: Group data by Project_No, Data_Category, Version (highest Version_Date)
+        let groupedData = {};
+        
+        obj.forEach(obj => {
+            let key = obj.Project_No + '-' + obj.Data_Category + '-' + obj.Version;
+            if (!groupedData[key]) {
+                groupedData[key] = {
+                    Project: obj.Project_No,
+                    WBS: obj.Data_Category,
+                    Version: obj.Version,
+                    VersionDate: obj.Version_Date,
+                    LowestBaseMonth: obj.Base_Month,
+                    Beyond18: null,
+                    months: {}
+                };
+            }
+            
+            // Step 3: Find the lowest Base_Month within each group
+            if (obj.Base_Month < groupedData[key].LowestBaseMonth) {
+                groupedData[key].LowestBaseMonth = obj.Base_Month;
+            }
+            
+            // Step 4: Calculate month1 to month18 based on the lowest Base_Month
+            let baseMonthNum = parseInt(obj.Base_Month);
+            let lowestBaseMonthNum = parseInt(groupedData[key].LowestBaseMonth);
+            let monthDifference = baseMonthNum - lowestBaseMonthNum + 1;
+            
+            if (monthDifference >= 1 && monthDifference <= 18) {
+                groupedData[key].months['Month' + monthDifference] = obj.Value;
+            }
+            else if (monthDifference > 18) {
+                groupedData[key].Beyond18 ? groupedData[key].Beyond18 + obj.Value : obj.Value;
+            }
+        });
+        
+        // Step 5: Format the aggregated data with month1 to month18 fields
+        let aggregatedData = Object.values(groupedData);
+
+        aggregatedData.forEach(obj => {
+            let months = obj.months;
+            for (let month in months) {
+                obj[month] = months[month];
+            }
+        });
+
+        aggregatedData.forEach(obj => {
+            let transformedObj = {};
+            for (let key in obj) {
+                let transformedKey = key.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                transformedObj[transformedKey] = obj[key];
+            }
+            obj = transformedObj;
+        });
+        
+        result['records'] = aggregatedData;
+        
         return JSON.stringify(result);
     }
 
     function postHeaderFile(json) {
         var url = location.origin + '/api/now/import/x_yergb_bpm_pjt_sum_h/insertMultiple';
+        console.log('Header File: ' + json);
         postJsonToImportSet(url, json);
     }
 
     function postDetailFile(json) {
         var url = location.origin + '/api/now/import/x_yergb_bpm_pjt_sum_d/insertMultiple';
+        console.log('Detail File: ' + json);
         postJsonToImportSet(url, json);
     }
 
     function postWbsBudget(json) {
-        var wbsBudgetUrl = location.origin + '/api/now/import/x_yergb_bpm_pjt_sum_d/insertMultiple';
-        // postJsonToImportSet(wbsBudgetUrl, json);
+        var wbsBudgetUrl = location.origin + '/api/now/import/x_yergb_bpm_wbs_budget_import/insertMultiple';
+        console.log('WBS File: ' + json);
+        postJsonToImportSet(wbsBudgetUrl, json);
     }
 
     function postJsonToImportSet(url, json) {
@@ -352,7 +418,6 @@
     }
 
     $(document).ready(function() {
-        
     	var toggleButtons = document.querySelectorAll(".yoko-btn-fold");
       toggleButtons.forEach(button => {
         button.addEventListener("click", function() {
@@ -363,7 +428,6 @@
           } else {
             content.style.display = "block";
           }
-
           this.classList.toggle("active");
         });
       });
@@ -413,7 +477,7 @@
 
         function initGrid() {
             gridView = new RealGrid.GridView('gridContainer');
-			      dataProvider = new RealGrid.LocalDataProvider();
+            dataProvider = new RealGrid.LocalDataProvider();
             gridView.setDataSource(dataProvider);
             gridView.setColumns(gridViewColumns);
             gridView.setColumnLayout(gridViewLayouts);
@@ -423,14 +487,14 @@
             gridView.editOptions.insertable = true;
             gridView.checkBar.visible = false;
             gridView.stateBar.visible = false;
-						gridView.onCellClicked = function(grid, index, column) {
-							if (['number'].includes(index.column)) {
-							debugger
-							window.location.href = "/ybpm?id=epic_09_ui_prj&number="+dataProvider.getValue(index.dataRow,'number')+'&table=x_yergb_bpm_budget_plan&sys_id='
-							+dataProvider.getValue(index.dataRow,'sys_id');
-							//&number=E326482J00&table=x_yergb_bpm_budget_plan&sys_id=c5c397c983830210856ceec0deaad3c2";
-							}
-						};
+            gridView.onCellClicked = function(grid, index, column) {
+                if (['number'].includes(index.column)) {
+                debugger
+                window.location.href = "/ybpm?id=epic_09_ui_prj&number="+dataProvider.getValue(index.dataRow,'number')+'&table=x_yergb_bpm_budget_plan&sys_id='
+                +dataProvider.getValue(index.dataRow,'sys_id');
+                //&number=E326482J00&table=x_yergb_bpm_budget_plan&sys_id=c5c397c983830210856ceec0deaad3c2";
+                }
+            };
             dataProvider.setFields(gridViewFields);
             dataProvider.softDeleting = false;
             dataProvider.setRows(c.data.gridData);
@@ -992,14 +1056,14 @@ th {
         <sys_created_by>yeongink</sys_created_by>
         <sys_created_on>2024-06-24 05:11:44</sys_created_on>
         <sys_id>48e1f96c8347021099decf50ceaad3f1</sys_id>
-        <sys_mod_count>414</sys_mod_count>
+        <sys_mod_count>422</sys_mod_count>
         <sys_name>prfManagement</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_48e1f96c8347021099decf50ceaad3f1</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-29 08:24:10</sys_updated_on>
+        <sys_updated_by>yeongink</sys_updated_by>
+        <sys_updated_on>2024-06-29 09:05:45</sys_updated_on>
         <template><![CDATA[<div class="yoko-container">
   <div class="yoko-breadcrumb">Home > Project Management > PRF Management</div>
   <div class="yoko-title-btn-wrap">
