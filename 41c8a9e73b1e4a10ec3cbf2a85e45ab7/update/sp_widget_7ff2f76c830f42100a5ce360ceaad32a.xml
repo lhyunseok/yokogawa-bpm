@@ -39,7 +39,7 @@
     $scope.clickLoadData = function() {
         // Call the server script
         c.server.update($scope).then(function(response) {
-            alert("Load the data...");
+            //alert("Load the data...");
             if (!c.data.budget_key) {
                 location.reload();
             } else {
@@ -166,11 +166,11 @@
                 c.data.btn_grid_save = true;
                 c.data.dataSets = dataSets;
                 c.data.updateSets = updateSets;
-                c.server.update().then(function(response) {
+                c.server.update($scope).then(function(response) {
                     location.reload();
                     console.log('Server response:', response);
                 });
-                clickLoadData();
+                //clickLoadData();
             }
         }
 
@@ -1421,9 +1421,20 @@ th {
 
         var grWBS = new GlideAggregate('x_yergb_bpm_wbs_budget');
         grWBS.addQuery("project", data.sys_id);
-		grWBS.query();
+        grWBS.addQuery('base_month', data.base_month);
+        grWBS.query();
         data.cnt_row = grWBS.getRowCount();
 
+        getBudgetPlan(data);
+    }
+
+    if (data.data_type === 'ITEM') {
+        data.gridUrl = '/x_yergb_bpm_SorinGrid_item.do?project_sysid=' + data.sys_id + '&basemonth=' + data.base_month;
+    } else {
+        data.gridUrl = '/x_yergb_bpm_SorinGrid_wbs.do?project_sysid=' + data.sys_id + '&basemonth=' + data.base_month;
+    }
+
+    function getBudgetPlan(data) {
         if (data.project_key) { //Get Budget Plan
             var grBudgetPlan = new GlideRecord('x_yergb_bpm_budget_plan');
             grBudgetPlan.addQuery('project', data.project_key);
@@ -1480,72 +1491,40 @@ th {
         }
     }
 
-    if (data.data_type === 'ITEM') {
-        data.gridUrl = '/x_yergb_bpm_SorinGrid_item.do?project_sysid=' + data.sys_id + '&basemonth=' + data.base_month;
-    } else {
-        data.gridUrl = '/x_yergb_bpm_SorinGrid_wbs.do?project_sysid=' + data.sys_id + '&basemonth=' + data.base_month;
-    }
-
-    if (input) { //Update
-        var mymonth = input.base_month;
-        var numMonths = 18; // Number of months to generate
-        var currentMonth = parseInt(mymonth);
-        var yearmonths = []; //202406,202407 ~ 18개
-
-        for (var i = 0; i < numMonths; i++) {
-            yearmonths.push(currentMonth.toString());
-            currentMonth++;
-            if (currentMonth % 100 > 12) {
-                currentMonth += 88;
-            }
-        }
-
-        var myarr = ['month1', 'month2', 'month3', 'month4', 'month5', 'month6', 'month7', 'month8', 'month9', 'month10', 'month11', 'month12', 'month13', 'month14', 'month15', 'month16', 'month17', 'month18'];
-
-        var updatedResult = replaceYearMonthKeys(myresult, yearmonths, myarr);
+    function upBudgetPlan(data) {
 
         var grUpdateBudgetPlan = new GlideRecord("x_yergb_bpm_budget_plan");
-        grUpdateBudgetPlan.get(input.budget_key); //Budget Plan sys_id
+        grUpdateBudgetPlan.get(data.budget_key); //Budget Plan sys_id
 
         if (grUpdateBudgetPlan.getRowCount() > 0) {
-            grUpdateBudgetPlan.project = input.project_key;
-            grUpdateBudgetPlan.base_month = input.base_month;
-            grUpdateBudgetPlan.contract = input.contract;
-            grUpdateBudgetPlan.gpa = input.gpa;
-            grUpdateBudgetPlan.gp = input.gp;
-            grUpdateBudgetPlan.dmr = input.dmr;
-            grUpdateBudgetPlan.total_cost = input.total_cost;
-            grUpdateBudgetPlan.data_type = input.data_type;
-            if (input.approve == 'Requested') {
+
+            grUpdateBudgetPlan.project = data.project_key;
+            grUpdateBudgetPlan.base_month = data.base_month;
+            grUpdateBudgetPlan.contract = data.contract;
+            grUpdateBudgetPlan.gpa = data.gpa;
+            grUpdateBudgetPlan.gp = data.gp;
+            grUpdateBudgetPlan.dmr = data.dmr;
+            grUpdateBudgetPlan.total_cost = data.total_cost;
+            grUpdateBudgetPlan.data_type = data.data_type;
+            if (data.approve == 'Requested') {
                 grUpdateBudgetPlan.state = '6';
             }
             grUpdateBudgetPlan.update();
+
         } else { //Insert
             grUpdateBudgetPlan.initialize();
-            grUpdateBudgetPlan.project = input.project_key;
-            grUpdateBudgetPlan.base_month = input.base_month;
-            grUpdateBudgetPlan.plan_type = input.plan_type;
-            grUpdateBudgetPlan.contract = input.contract;
-            grUpdateBudgetPlan.gpa = input.gpa;
-            grUpdateBudgetPlan.gp = input.gp;
-            grUpdateBudgetPlan.dmr = input.dmr;
+            grUpdateBudgetPlan.project = data.project_key;
+            grUpdateBudgetPlan.base_month = data.base_month;
+            grUpdateBudgetPlan.plan_type = data.plan_type;
+            grUpdateBudgetPlan.contract = data.contract;
+            grUpdateBudgetPlan.gpa = data.gpa;
+            grUpdateBudgetPlan.gp = data.gp;
+            grUpdateBudgetPlan.dmr = data.dmr;
             grUpdateBudgetPlan.state = "1";
-            grUpdateBudgetPlan.total_cost = input.total_cost;
-            grUpdateBudgetPlan.data_type = input.data_type;
+            grUpdateBudgetPlan.total_cost = data.total_cost;
+            grUpdateBudgetPlan.data_type = data.data_type;
             grUpdateBudgetPlan.insert();
         }
-
-        //Beyond18 Calulate Data start
-        var strMonth = currentMonth.toString();
-
-        if (strMonth.length > 5) {
-            strMonth = strMonth.substring(0, 4) + '-' + strMonth.substring(4, 6) + '-01';
-        }
-
-        var dt = new GlideDate();
-        dt.setValue(strMonth);
-        var beyondDate = dt.getByFormat("yyyy-MM-dd");
-        //Beyond18 Calulate Data End
     }
 
     function replaceYearMonthKeys(result, monthArray, arrArray) {
@@ -1708,61 +1687,79 @@ th {
 
         data.wbsInfo = wbsInfo;
     }
+    //if (input && input.btn_grid_save) { //Update
+    if (input) { //Update
+        var mymonth = input.base_month;
+        var numMonths = 18; // Number of months to generate
+        var currentMonth = parseInt(mymonth);
+        var yearmonths = []; //202406,202407 ~ 18개
 
-
-
-    if (input && input.btn_grid_save) {
-        var myFields = [
-            '',
-            'wbs',
-            '',
-            '',
-            'month1',
-            'month2',
-            'month3',
-            'month4',
-            'month5',
-            'month6',
-            'month7',
-            'month8',
-            'month9',
-            'month10',
-            'month11',
-            'month12',
-            'month13',
-            'month14',
-            'month15',
-            'month16',
-            'month17',
-            'month18',
-            'beyond18',
-            'forecast_ptc',
-            'base_month',
-            'project'
-        ];
-
-        if (input.dataSets.length) {
-            insertData(input, myFields);
+        for (var i = 0; i < numMonths; i++) {
+            yearmonths.push(currentMonth.toString());
+            currentMonth++;
+            if (currentMonth % 100 > 12) {
+                currentMonth += 88;
+            }
         }
-        if (input.updateSets.length) {
-            updateData(input, myFields);
+
+        var myarr = ['month1', 'month2', 'month3', 'month4', 'month5', 'month6', 'month7', 'month8', 'month9', 'month10', 'month11', 'month12', 'month13', 'month14', 'month15', 'month16', 'month17', 'month18'];
+
+        var updatedResult = replaceYearMonthKeys(myresult, yearmonths, myarr);
+
+        getBudgetPlan(input);
+        upBudgetPlan(input);
+        if (input && input.btn_grid_save) { //Update
+            var myFields = [
+                '',
+                'wbs',
+                '',
+                '',
+                'month1',
+                'month2',
+                'month3',
+                'month4',
+                'month5',
+                'month6',
+                'month7',
+                'month8',
+                'month9',
+                'month10',
+                'month11',
+                'month12',
+                'month13',
+                'month14',
+                'month15',
+                'month16',
+                'month17',
+                'month18',
+                'beyond18',
+                'forecast_ptc',
+                'base_month',
+                'project'
+            ];
+
+            if (input.dataSets.length) {
+                insertData(input, myFields);
+            }
+            if (input.updateSets.length) {
+                updateData(input, myFields);
+            }
         }
     }
-
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-24 14:34:40</sys_created_on>
         <sys_id>7ff2f76c830f42100a5ce360ceaad32a</sys_id>
-        <sys_mod_count>100</sys_mod_count>
+        <sys_mod_count>116</sys_mod_count>
         <sys_name>initPlanMngtWbsWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_7ff2f76c830f42100a5ce360ceaad32a</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-29 09:25:22</sys_updated_on>
+        <sys_updated_on>2024-06-29 13:47:33</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 
@@ -1904,8 +1901,8 @@ th {
                 </div>
             </div>
           <div class="yoko-grid-btn-wrap">
-              <button type="button" id="bt-add" ng-click='gridDetailBtnClick(1)' class="yoko-btn yoko-btn-add"></button>
-              <button type="button" id="bt-delete" ng-click='gridDetailBtnClick(3)' class="yoko-btn yoko-btn-delete"></button>
+              <button type="button" id="bt-add" ng-click='gridDetailBtnClick(1)' ng-if="!data.state || data.state === 'New'" class="yoko-btn yoko-btn-add"></button>
+              <button type="button" id="bt-delete" ng-click='gridDetailBtnClick(3)' ng-if="!data.state || data.state === 'New'" class="yoko-btn yoko-btn-delete"></button>
             </div>
           	<div id='gridContainer' style="width:100%; height: 450px; "></div>
         	</div>
