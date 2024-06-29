@@ -220,8 +220,8 @@
                 "styleName": "ni-rg-align-left ni-rg-readonly",
                 "readOnly": true,
                 "editable": false,
-                //button: "action",
-                //buttonVisibility: "always",
+                button: "action",
+                buttonVisibility: "always",
             },
             {
                 "name": "ms_code",
@@ -233,6 +233,7 @@
                 },
                 "readOnly": true,
                 "editable": false,
+                "styleName": "rg-cell-color",
             },
             {
                 "name": "unit_cost",
@@ -244,7 +245,7 @@
                 },
                 "readOnly": true,
                 "editable": false,
-                "styleName": "right-column",
+                "styleName": "right-column-color",
             },
             {
                 "name": "quantity",
@@ -256,7 +257,7 @@
                 },
                 "readOnly": true,
                 "editable": false,
-                "styleName": "right-column",
+                "styleName": "right-column-color",
             },
             {
                 "name": "extended_cost_lc",
@@ -270,11 +271,11 @@
                 "readOnly": true,
                 "editable": false,
                 "footer": {
-					"styleName": "right-column",
+                    "styleName": "right-column",
                     "expression": "sum",
                     "numberFormat": "#,##0"
                 },
-                "styleName": "right-column",
+                "styleName": "right-column-color",
             },
             {
                 "name": "strategy",
@@ -306,7 +307,7 @@
                 },
                 "readOnly": true,
                 "editable": false,
-                "styleName": "rg-header-cell",
+                "styleName": "rg-header-cell-color",
             },
             {
                 "name": "plan_gr_date",
@@ -382,34 +383,38 @@
             gv.onCellEdited = function(grid, itemIndex, row, field) {
                 gv.commit();
                 console.log('Edit done! at ' + itemIndex + ', ');
-                debugger;
-                var a = dp.getValue(row, "plan_gr_date");
-                var b = dp.getValue(row, "lead_time");
-                calculateDate(a, b, row);
+                var planGRDate = dp.getValue(row, "plan_gr_date");
+                var leadTime = dp.getValue(row, "lead_time");
+                calculateDate(planGRDate, leadTime, row);
             }
 
             gv.pasteOptions.eventEachRow = true;
             gv.onEditRowPasted = function(grid, itemIndex, row, fields, oldValues, newValues) {
                 var a = newValues;
                 var b = dp.getValue(row, "lead_time");
-                calculateDate(a, b, row);
+                calculateDate(a, b, row, fields, oldValues);
             };
 
-            function calculateDate(a, b, row) {
-
-                var planGrDate = new Date(a);
-                if (!isValidDate(planGrDate)) {
-                    alert('Please check the Plan Gr Date format. yyyy-mm-dd');
-                    dp.setValue(row, "plan_gr_date", '');
+            function calculateDate(a, b, row, fields, oldValues) {
+                if (fields == 2) {
+                    var len = oldValues.length - 1;
+                    dp.setValue(row, "wbs", oldValues[len]);
                     return;
                 }
+                if (fields == 10) {
+                    var planGrDate = new Date(a);
+                    if (!isValidDate(planGrDate)) {
+                        dp.setValue(row, "plan_gr_date", '');
+                        return;
+                    }
 
-                planGrDate.setHours(0, 0, 0, 0);
-                var leadTime = parseInt(b, 10);
-                var newDate = new Date(planGrDate);
-                newDate.setDate(newDate.getDate() - leadTime);
+                    planGrDate.setHours(0, 0, 0, 0);
+                    var leadTime = parseInt(b, 10);
+                    var newDate = new Date(planGrDate);
+                    newDate.setDate(newDate.getDate() - leadTime);
 
-                dp.setValue(row, "planned_procurement", formatDateToYYYYMMDD(newDate));
+                    dp.setValue(row, "planned_procurement", formatDateToYYYYMMDD(newDate));
+                }
             }
 
             function isValidDate(d) {
@@ -452,7 +457,7 @@
                     console.log('Server response:', response);
                 });
 
-                //dlgActivityType.showModal(); //dont modify
+                dlgActivityType.showModal(); //dont modify
             }
         };
 
@@ -857,6 +862,9 @@ th {&#13;
 .rg-editor-container { border: 2px solid #27C382 !important; }&#13;
 .rg-header-cell {text-align: center !important;}&#13;
 .right-column { text-align: right !important;}&#13;
+.rg-header-cell-color {text-align: center !important; background-color: #F7F7F7}&#13;
+.right-column-color { text-align: right !important; background-color: #F7F7F7}&#13;
+.rg-cell-color {background-color: #F7F7F7}&#13;
 &#13;
 @charset "UTF-8";&#13;
 &#13;
@@ -1008,8 +1016,10 @@ th {&#13;
     function getGridData(id_q) {
 
         var gritem = new GlideRecord("x_yergb_bpm_order_item");
+        var grMaster = gritem.addJoinQuery('x_yergb_bpm_wbs_master', 'wbs_6', 'sys_id');
+        grMaster.addCondition('budget_type', 'prod');
+        gritem.addEncodedQuery('project=' + id_q);
         gritem.orderBy("number");
-        gritem.addEncodedQuery('budget_type=prod^project=' + id_q);
         gritem.query();
         var tableinfo = [];
         while (gritem.next()) {
@@ -1039,6 +1049,7 @@ th {&#13;
 
         var items = [];
         var gr = new GlideRecord('x_yergb_bpm_wbs_master'); //x_yergb_bpm_wbs_master_list
+        gr.addQuery('budget_type', 'prod');
         gr.query();
         while (gr.next()) {
             items.push({
@@ -1135,14 +1146,14 @@ function sf1(a, b) {
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-17 08:14:02</sys_created_on>
         <sys_id>77b85252833e0210856ceec0deaad37c</sys_id>
-        <sys_mod_count>97</sys_mod_count>
+        <sys_mod_count>134</sys_mod_count>
         <sys_name>budgetPlanMngtWd01</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_77b85252833e0210856ceec0deaad37c</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-27 08:35:59</sys_updated_on>
+        <sys_updated_on>2024-06-28 11:54:13</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 
