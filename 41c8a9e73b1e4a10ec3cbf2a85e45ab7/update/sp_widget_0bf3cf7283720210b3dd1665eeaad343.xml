@@ -88,60 +88,66 @@
 	}
 	
 	function validation() {
-		var p1 = getInteger(c.data.prjType1Perc);
-		var p2 = getInteger(c.data.prjType2Perc);
-		var p3 = getInteger(c.data.prjType3Perc);
-		var s1 = getInteger(c.data.ansoff1Perc);
-		var s2 = getInteger(c.data.ansoff2Perc);
-		var s3 = getInteger(c.data.ansoff3Perc);
+		var jpt = dpPrjType.getJsonRows();
+		var tot = 0;
+		for(var tt in jpt) {
+			tot += (jpt[tt].perc==undefined ? 0 : jpt[tt].perc);
+		}
 		
-		var sumPrj = p1+p2+p3;
-		if(sumPrj != 100) {
+		if(tot != 100) {
 			alert("Project Type's total value is not 100");
 			return false;
 		}
 		
-		var sumAns = s1+s2+s3;
-		if(sumAns != 100) {
+		var jao = dpAnsoff.getJsonRows();
+		tot = 0;
+		for(var ta in jao) {
+			tot += (jao[ta].perc==undefined ? 0 : jao[ta].perc);
+		}
+		
+		if(tot != 100) {
 			alert("Ansoff Type's total value is not 100");
 			return false;
 		}
-		
+	
 		return true;
 	}
 	
-	function detailGridSave() {
+	function gridsSave() {
 		c.data.gridBtnTransact = 'T';
 		c.data.gridDetailData = dpDetail.getJsonRows();
 		for(var x=0; x<c.data.gridDetailData.length; x++) {
 			c.data.gridDetailData[x].rowStat = dpDetail.getRowState(x);
 		}
+		
+		c.data.gridDpProjecttype = dpPrjType.getJsonRows();
+		c.data.gridDpAnsoff = dpAnsoff.getJsonRows();
 	}
 	
 	$scope.btnHeader = function(str) {
 		console.log('HEAD BUTTON : ' + str);
 		c.data.redirect_sys_id = '';
 		c.data.btnHeaderType = '';
+		
+		gridsSave();
 		if(str=='save') {
+			//validation();
 			if(c.data.oiSysId=='') {
 				c.data.btnHeaderType = 'oiInsert';
 			} else {
 				c.data.btnHeaderType = 'oiUpdate';
-				detailGridSave();
 			}
 		} else if(str == 'cancel') {
 			c.data.btnHeaderType = 'cancel';
 		} else if(str == 'request') {
 			if(validation()) {
 				c.data.btnHeaderType = 'request';
-				detailGridSave();
 			} else {
 				c.data.btnHeaderType = '';
 			}
 		} else if(str == 'autorize') {
 			if(validation()) {
 				c.data.btnHeaderType = 'autorize';
-				detailGridSave();
 			} else {
 				c.data.btnHeaderType = '';
 			}
@@ -237,7 +243,7 @@
 		});
 	}
 	
-	$scope.btnClickPrjTypeSearch = function(idx) {
+	/*$scope.btnClickPrjTypeSearch = function(idx) {
 		c.data.itemsProjecttype = [];
 		modalProjectType.style.display = 'block';
 		c.data.modalProjectType = true;
@@ -256,7 +262,7 @@
 		c.server.update().then(function(response) {
 			console.log('Server response:', response);
 		});
-	}
+	}*/
 	
 	$scope.btnClickPrjTypeInfo = function(idx) {
 		console.log("BTN : Project Type Info---"+idx);
@@ -332,71 +338,31 @@
 	
 	$scope.closeModalProjectType = function() {
 		c.data.modalProjectType = false;
-		c.data.modalTypePrjType1 = false;
+		/*c.data.modalTypePrjType1 = false;
 		c.data.modalTypePrjType2 = false;
-		c.data.modalTypePrjType3 = false;
+		c.data.modalTypePrjType3 = false;*/
 		
 		modalProjectType.style.display = 'none';
 	}
 	
 	$scope.clickProjectType = function(item) {
-		if(item.type == 1) {
-			c.data.prjType1Nm = item.name;
-			c.data.prjType1Perc = '0'/*item.perc*/;
-			c.data.prjType1Code = item.code;
-			c.data.prjType1SysId = item.sysid;
-		} else if(item.type == 2) {
-			c.data.prjType2Nm = item.name;
-			c.data.prjType2Perc = '0'/*item.perc*/;
-			c.data.prjType2Code = item.code;
-			c.data.prjType2SysId = item.sysid;
-		} else if(item.type == 3) {
-			c.data.prjType3Nm = item.name;
-			c.data.prjType3Perc = '0'/*item.perc*/;
-			c.data.prjType3Code = item.code;
-			c.data.prjType3SysId = item.sysid;
-		}
-		
+		var curr = gvPrjType.getCurrent();
+  	dpPrjType.updateRow(curr.dataRow, item);
+
 		c.data.modalProjectType = false;
-		c.data.modalTypePrjType1 = false;
-		c.data.modalTypePrjType2 = false;
-		c.data.modalTypePrjType3 = false;
-		
 		modalProjectType.style.display = 'none';
 	}
 	
 	$scope.closeModalAnsoff = function() {
 		c.data.modalAnsoff = false;
-		c.data.modalTypeAnsoff1 = false;
-		c.data.modalTypeAnsoff2 = false;
-		c.data.modalTypeAnsoff3 = false;
-
 		modalAnsoff.style.display = 'none';
 	}
 	
-	$scope.clickAnsoff = function(item) {
-		if(item.type == 1) {
-			c.data.ansoff1Nm = item.name;
-			c.data.ansoff1Desc = item.desc;
-			c.data.ansoff1Perc = '0'/*item.perc*/;
-			c.data.ansoff1SysId = item.sysid;
-		} else if(item.type == 2) {
-			c.data.ansoff2Nm = item.name;
-			c.data.ansoff2Desc = item.desc;
-			c.data.ansoff2Perc = '0'/*item.perc*/;
-			c.data.ansoff2SysId = item.sysid;
-		} else if(item.type == 3) {
-			c.data.ansoff3Nm = item.name;
-			c.data.ansoff3Desc = item.desc;
-			c.data.ansoff3Perc = '0'/*item.perc*/;
-			c.data.ansoff3SysId = item.sysid;
-		}
-		
-		c.data.modalAnsoff = false;
-		c.data.modalTypeAnsoff1 = false;
-		c.data.modalTypeAnsoff2 = false;
-		c.data.modalTypeAnsoff3 = false;
+	$scope.clickAnsoff = function(item) {		
+		var curr = gvAnsoff.getCurrent();
+  	dpAnsoff.updateRow(curr.dataRow, item);
 
+		c.data.modalAnsoff = false;
 		modalAnsoff.style.display = 'none';
 	}
 
@@ -469,6 +435,210 @@
 		
 		return false;
 	}*/
+	
+	
+	$scope.gridProjectTypeBtnClick = function(str) {
+		console.log('gridProjectTypeBtnClick:' + str);
+		if(str == 'add') {
+			dpPrjType.addRow({
+				'sysid' : '', 
+				'name' : '',
+				'code' : '',
+				'perc' : ''
+			});
+		} else if(str == 'del') {
+			var checkedRows = gvPrjType.getCheckedRows();
+			for (var k = checkedRows.length - 1; k >= 0; k--) {
+				dpPrjType.removeRow(checkedRows[k]);
+			}
+		}
+	}
+	
+	var dpPrjType;
+	var gvPrjType;
+	function drawProjectType() {
+		dpPrjType = new RealGrid.LocalDataProvider(false);
+		gvPrjType = new RealGrid.GridView(document.getElementById('gridProjectType'));
+		gvPrjType.setDataSource(dpPrjType);
+		
+		dpPrjType.setFields([
+			{ fieldName: 'sysid', dataType: 'text'},
+			{ fieldName: 'name', dataType: 'text'}, 
+			{ fieldName: 'code', dataType: 'text'}, 
+			{ fieldName: 'perc', dataType: 'number'}
+		]);
+		
+		gvPrjType.setColumns([
+			{
+				"name": "name",
+				"fieldName": "name",
+				"type": "data",
+				"width": 200,
+				"header": {
+					"text": "Name"
+				},
+				"styleName" : "left-column",
+				"button":"action",
+      	"buttonVisibility": "always"
+			},
+			{
+				"name": "code",
+				"fieldName": "code",
+				"type": "data",
+				"width": 110,
+				"header": {
+					"text": "Code"
+				},
+				"styleName" : "left-column"
+			},
+			{
+				"name": "perc",
+				"fieldName": "perc",
+				"type": "data",
+				"width": 80,
+				"header": {
+					"text": "Percent"
+				},
+				"styleName" : "right-column"
+			},
+		]);
+		
+		gvPrjType.setColumnLayout([
+			'name',
+			'code',
+			'perc'
+		]);
+		
+	  gvPrjType.footers.visible = false;
+		gvPrjType.commitEditor();
+		gvPrjType.undoable = true;
+		gvPrjType.editOptions.commitByCell = true;
+		gvPrjType.editOptions.insertable = true;
+		gvPrjType.hideDeletedRows = false;
+		gvPrjType.header.height = 20;
+		gvPrjType.displayOptions.rowHeight = 20;
+		gvPrjType.displayOptions.columnMovable = false;
+		
+		gvPrjType.onCellButtonClicked = function(grid, index, column) {
+			c.data.itemsProjecttype = [];
+			modalProjectType.style.display = 'block';
+			c.data.modalProjectType = true;
+			c.data.modalProjectTypeTitle = 'Project Type';
+				
+			c.server.update().then(function(response) {
+				console.log('Server response:', response);
+			});
+		};
+
+		dpPrjType.setRows(c.data.gridDpProjecttype);
+	}
+	
+	$scope.gridAnsoffTypeBtnClick = function(str) {
+		console.log('gridAnsoffTypeBtnClick:' + str);
+		if(str == 'add') {
+			dpAnsoff.addRow({
+				'sysid' : '', 
+				'name' : '',
+				'desc' : '',
+				'perc' : ''
+			});
+		} else if(str == 'del') {
+			var checkedRows = gvAnsoff.getCheckedRows();
+			for (var k = checkedRows.length - 1; k >= 0; k--) {
+				dpAnsoff.removeRow(checkedRows[k]);
+			}
+		}
+	}
+	
+	var dpAnsoff;
+	var gvAnsoff;
+	function drawAnsoffType() {
+		dpAnsoff = new RealGrid.LocalDataProvider(false);
+		gvAnsoff = new RealGrid.GridView(document.getElementById('gridAnsoffType'));
+		gvAnsoff.setDataSource(dpAnsoff);
+		
+		dpAnsoff.setFields([
+			{ fieldName: 'sysid', dataType: 'text'},
+			{ fieldName: 'name', dataType: 'text'}, 
+			{ fieldName: 'desc', dataType: 'text'}, 
+			{ fieldName: 'perc', dataType: 'number'}
+		]);
+		
+		gvAnsoff.setColumns([
+			{
+				"name": "name",
+				"fieldName": "name",
+				"type": "data",
+				"width": 130,
+				"header": {
+					"text": "Name"
+				},
+				"styleName" : "left-column",
+				"button":"action",
+      	"buttonVisibility": "always"
+			},
+			{
+				"name": "desc",
+				"fieldName": "desc",
+				"type": "data",
+				"width": 180,
+				"header": {
+					"text": "Description"
+				},
+				"styleName" : "left-column"
+			},
+			{
+				"name": "perc",
+				"fieldName": "perc",
+				"type": "data",
+				"width": 80,
+				"header": {
+					"text": "Percent"
+				},
+				"styleName" : "right-column"
+			},
+		]);
+		
+		gvAnsoff.setColumnLayout([
+			'name',
+			'desc',
+			'perc'
+		]);
+		
+	  gvAnsoff.footers.visible = false;
+		gvAnsoff.commitEditor();
+		gvAnsoff.undoable = true;
+		gvAnsoff.editOptions.commitByCell = true;
+		gvAnsoff.editOptions.insertable = true;
+		gvAnsoff.hideDeletedRows = false;
+		gvAnsoff.header.height = 20;
+		gvAnsoff.displayOptions.rowHeight = 20;
+		gvAnsoff.displayOptions.columnMovable = false;
+		
+		gvAnsoff.onCellButtonClicked = function(grid, index, column) {
+			c.data.itemsAnsoff = [];
+			modalAnsoff.style.display = 'block';
+			c.data.modalAnsoff = true;
+			c.data.modalAnsoffTitle = 'Ansoff Type';
+
+			c.server.update().then(function(response) {
+				console.log('Server response:', response);
+			});
+		};
+		
+		dpAnsoff.setRows(c.data.gridDpAnsoff);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	var dpDetail;
 	var gvDetail;
@@ -884,6 +1054,8 @@
 			}
 		}
 		
+		drawProjectType();
+		drawAnsoffType();
 		drawRealGrid();
 	});	
 };]]></client_script>
@@ -1413,88 +1585,46 @@ border: 2px solid red;
 			}
 			
 			// get Project type
+			data.gridDpProjecttype = [];
 			var prjTpR = new GlideRecord('x_yergb_bpm_oi_project_type');
 			prjTpR.initialize();
 			prjTpR.addQuery('oi_report', data.oiSysId);
 			prjTpR.query();
-			var loopCnt = 1;
 			while(prjTpR.next()) {
-				var pSeq = prjTpR.sequence;
-				var pRate = prjTpR.rate_percent.toString();
-				var cR = new GlideRecord('x_yergb_bpm_common_code');
-				cR.initialize();
-				cR.addQuery('category', 'PJT TYPE');
-				cR.addQuery('sys_id', prjTpR.project_type.toString());
-				cR.query();
-				while(cR.next()) {
-					if(loopCnt == 1) {
-						data.prjType1Nm = cR.name.toString();
-						data.prjType1Code = cR.code.toString();
-						//data.prjType1Perc = pRate;
-						data.prjType1SysId = cR.sys_id.toString();
-					} else if(loopCnt == 2) {
-						data.prjType2Nm = cR.name.toString();
-						data.prjType2Code = cR.code.toString();
-						//data.prjType2Perc = cR.rate_percent.toString();
-						data.prjType2SysId = cR.sys_id.toString();
-					} else if(loopCnt == 3) {
-						data.prjType3Nm = cR.name.toString();
-						data.prjType3Code = cR.code.toString();
-						//data.prjType3Perc = cR.rate_percent.toString();
-						data.prjType3SysId = cR.sys_id.toString();
-					}
-				}
-				loopCnt = loopCnt + 1;
-				
-				if(pSeq == 1) {
-					data.prjType1Perc = pRate;
-				} else if(pSeq == 2) {
-					data.prjType2Perc = pRate;
-				} else if(pSeq == 3) {
-					data.prjType3Perc = pRate;
+				var rP = new GlideRecord('x_yergb_bpm_common_code');
+				rP.initialize();
+				rP.addQuery('category', 'PJT TYPE');	
+				rP.addQuery('sys_id', prjTpR.project_type);
+				rP.query();
+				while(rP.next()) {
+					data.gridDpProjecttype.push({
+						'name' : rP.name.toString(),
+						'code' : rP.code.toString(),
+						'sysid' : rP.sys_id.toString(),
+						'perc' : prjTpR.rate_percent.toString()
+					});
 				}
 			}
 			
 			// get Ansoff type
+			data.gridDpAnsoff =[];
 			var ansR = new GlideRecord('x_yergb_bpm_oi_ansoff_type');
 			ansR.initialize();
 			ansR.addQuery('oi_report', data.oiSysId);
 			ansR.query();
-			loopCnt = 1; 
 			while(ansR.next()){
-				var aSeq = ansR.sequence;
-				var aRate = ansR.rate_percent.toString();
 				var aR = new GlideRecord('x_yergb_bpm_ansoff_master');
 				aR.initialize();
 				aR.addQuery('sys_id', ansR.ansoff_type.toString());
+				console.log('LOAD ANSOFF: ' + ansR.ansoff_type.toString());
 				aR.query();
 				while(aR.next()) {
-					if(loopCnt == 1) {
-						data.ansoff1Desc = aR.biz_name.toString();
-						data.ansoff1Nm = aR.biz_type.toString();
-						//data.ansoff1Perc = aR.rate_percent.toString();
-						data.ansoff1SysId = aR.sys_id.toString();
-					} else if(loopCnt == 2) {
-						data.ansoff2Desc = aR.biz_name.toString();
-						data.ansoff2Nm = aR.biz_type.toString();
-						//data.ansoff2Perc = aR.rate_percent.toString();
-						data.ansoff2SysId = aR.sys_id.toString();
-					} else if(loopCnt == 3) {
-						data.ansoff3Desc = aR.biz_name.toString();
-						data.ansoff3Nm = aR.biz_type.toString();
-						//data.ansoff3Perc = aR.rate_percent.toString();
-						data.ansoff3SysId = aR.sys_id.toString();
-					}
-					
-					loopCnt = loopCnt +1;
-					
-					if(aSeq == 1) {
-						data.ansoff1Perc = aRate;
-					} else if(aSeq == 2) {
-						data.ansoff2Perc = aRate;
-					} else if(aSeq == 3) {
-						data.ansoff3Perc = aRate;
-					}
+					data.gridDpAnsoff.push({
+						'name' : aR.biz_name.toString(), 
+						'desc' : aR.biz_type.toString(),
+						'sysid' : aR.sys_id.toString(),
+						'perc' : ansR.rate_percent.toString()
+					});
 				}
 			}
 			
@@ -1600,32 +1730,16 @@ border: 2px solid red;
 		prjTR.initialize();
 		prjTR.addQuery('oi_report', input.oiSysId);
 		prjTR.deleteMultiple();
-
-		if( !isEmpty(input.prjType1SysId) ) {
+		
+		for(var pidx in input.gridDpProjecttype) {
 			prjTR.initialize();
-			prjTR.setValue('oi_report', input.oiSysId)
-			prjTR.setValue('project_type', input.prjType1SysId);
-			prjTR.setValue('rate_percent', input.prjType1Perc);
-			prjTR.setValue('sequence', 1);
-			prjTR.insert();
-		} 
-
-		if( !isEmpty(input.prjType2SysId) ) {
-			prjTR.initialize();
-			prjTR.setValue('oi_report', input.oiSysId)
-			prjTR.setValue('project_type', input.prjType2SysId);
-			prjTR.setValue('rate_percent', input.prjType2Perc);
-			prjTR.setValue('sequence', 2);
-			prjTR.insert();
-		} 
-
-		if( !isEmpty(input.prjType3SysId) ) {
-			prjTR.initialize();
-			prjTR.setValue('oi_report', input.oiSysId)
-			prjTR.setValue('project_type', input.prjType3SysId);
-			prjTR.setValue('rate_percent', input.prjType3Perc);
-			prjTR.setValue('sequence', 3);
-			prjTR.insert();
+			var pObj = input.gridDpProjecttype[pidx];
+			if(!isEmpty(pObj.sysid)) {
+				prjTR.setValue('oi_report', input.oiSysId);
+				prjTR.setValue('project_type', pObj.sysid);
+				prjTR.setValue('rate_percent', pObj.perc);
+				prjTR.insert();
+			} 
 		}
 
 		// Update Ansoff type list
@@ -1634,31 +1748,15 @@ border: 2px solid red;
 		ansTR.addQuery('oi_report', input.oiSysId);
 		ansTR.deleteMultiple();
 
-		if( !isEmpty(input.ansoff1SysId) ) {
+		for(var aidx in input.gridDpAnsoff) {
 			ansTR.initialize();
-			ansTR.setValue('oi_report', input.oiSysId)
-			ansTR.setValue('ansoff_type', input.ansoff1SysId);
-			ansTR.setValue('rate_percent', input.ansoff1Perc);
-			ansTR.setValue('sequence', 1);
-			ansTR.insert();
-		} 
-
-		if( !isEmpty(input.ansoff2SysId) ) {
-			ansTR.initialize();
-			ansTR.setValue('oi_report', input.oiSysId)
-			ansTR.setValue('ansoff_type', input.ansoff2SysId);
-			ansTR.setValue('rate_percent', input.ansoff2Perc);
-			ansTR.setValue('sequence', 2);
-			ansTR.insert();
-		} 
-
-		if( !isEmpty(input.ansoff3SysId) ) {
-			ansTR.initialize();
-			ansTR.setValue('oi_report', input.oiSysId)
-			ansTR.setValue('ansoff_type', input.ansoff3SysId);
-			ansTR.setValue('rate_percent', input.ansoff3Perc);
-			ansTR.setValue('sequence', 3);
-			ansTR.insert();
+			var aObj = input.gridDpAnsoff[aidx];
+			if(!isEmpty(aObj.sysid)) {
+				ansTR.setValue('oi_report', input.oiSysId);
+				ansTR.setValue('ansoff_type', aObj.sysid);
+				ansTR.setValue('rate_percent', aObj.perc);
+				ansTR.insert();
+			}
 		}
 
 		// Update Flag list
@@ -1874,21 +1972,20 @@ border: 2px solid red;
 	/* Project type Modal */
 	if(input && input.modalProjectType) {
 		data.itemsProjecttype = [];
-		var prjType;
+		/*var prjType;
 		if(input && input.modalTypePrjType1) {
 			prjType = "1";
 		} else if(input && input.modalTypePrjType2) {
 			prjType = "2";
 		} else if(input && input.modalTypePrjType3) {
 			prjType = "3";
-		}
+		}*/
 		
 		var grPjtType = new GlideRecord('x_yergb_bpm_common_code');
 		grPjtType.addQuery('category', 'PJT TYPE');		
 		grPjtType.query();
 		while(grPjtType.next()) {
 			data.itemsProjecttype.push({
-				type : prjType,
 				name : grPjtType.name.toString(),
 				code : grPjtType.code.toString(), 
 				//perc : grPjtType.rate_percent.toString(),
@@ -1927,14 +2024,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>888</sys_mod_count>
+        <sys_mod_count>984</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-28 08:06:20</sys_updated_on>
+        <sys_updated_on>2024-06-29 19:37:34</sys_updated_on>
         <template><![CDATA[<!--<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2355,13 +2452,13 @@ border: 2px solid red;
                                             <div class="yoko-form-group-heading-wrap">
                                                 <div class="yoko-form-group-heading">Project Type</div>
                                                 <div class="yoko-form-group-line"></div>
-                                                <!--<button type="button" ng-click='gridProjectTypeBtnClick(1)' class="yoko-btn yoko-btn-add"></button>
-                                                <button type="button" ng-click='gridProjectTypeBtnClick(2)' class="yoko-btn yoko-btn-delete"></button>
-                                              	<span> </span>-->
+                                                <button type="button" ng-click="gridProjectTypeBtnClick('add')" class="yoko-btn yoko-btn-add"></button>
+                                                <button type="button" ng-click="gridProjectTypeBtnClick('del')" class="yoko-btn yoko-btn-delete"></button>
+                                              	<span> </span>
                                             </div>
                                             <div class="yoko-ht100 yoko-scroll">
-                                                <!--<div id='gridContainer' style="width:550px; height: 100px;"></div>-->
-                                                <div class="yoko-form-col yoko-mb-80">
+                                                <div id='gridProjectType' style="width: 480px; height: 105px;"></div>
+                                                <!--<div class="yoko-form-col yoko-mb-80">
                                                     <div class="yoko-form-group">
                                                         <label for="lbPrjType1" class="yoko-short-100">Project Type1</label>
                                                         <div class="yoko-form-inline">
@@ -2401,7 +2498,7 @@ border: 2px solid red;
                                                           	<input type="hidden" value="" ng-model="c.data.prjType3SysId">
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>-->
                                             </div>
                                         </div>
                                     </div>
@@ -2412,9 +2509,13 @@ border: 2px solid red;
                                             <div class="yoko-form-group-heading-wrap">
                                                 <div class="yoko-form-group-heading">Ansoff Type</div>
                                                 <div class="yoko-form-group-line"></div>
+                                              	<button type="button" ng-click="gridAnsoffTypeBtnClick('add')" class="yoko-btn yoko-btn-add"></button>
+                                                <button type="button" ng-click="gridAnsoffTypeBtnClick('del')" class="yoko-btn yoko-btn-delete"></button>
+                                              	<span> </span>
                                             </div>
                                             <div class="yoko-ht100 yoko-scroll">
-                                                <div class="yoko-form-col yoko-mb-80">
+                                              	<div id='gridAnsoffType' style="width: 480px; height: 105px;"></div>
+                                                <!--<div class="yoko-form-col yoko-mb-80">
                                                     <div class="yoko-form-group">
                                                         <label for="lbAnsoffType1" class="yoko-short-90">Ansoff Type1</label>
                                                         <div class="yoko-form-inline">
@@ -2455,7 +2556,7 @@ border: 2px solid red;
                                                           	<input type="hidden" value="" ng-model="c.data.ansoff3SysId">
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>-->
                                             </div>
                                         </div>
                                     </div>
