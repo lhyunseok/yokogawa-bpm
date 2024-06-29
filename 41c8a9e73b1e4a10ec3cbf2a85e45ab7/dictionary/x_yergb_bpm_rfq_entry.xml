@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element audit="true" db_object_id="49b1af843be2ca10ec3cbf2a85e45a43" extends="x_yergb_bpm_process" label="RFQ Entry" max_length="40" name="x_yergb_bpm_rfq_entry" type="collection">
         <element label="Customer RFQ No" max_length="40" name="customer_rfq" type="string"/>
+        <element label="End User Country" max_length="32" name="end_user_country" reference="core_country" type="reference"/>
         <element label="Quotation Due Date" max_length="40" name="quotation_due_date" type="glide_date"/>
         <element label="Caution" max_length="4000" name="caution" type="string"/>
         <element default="javascript:gs.nowDateTime();" dynamic_default_value="79cb83a85f220100a9ad2572f2b4773c" label="Request Date" mandatory="true" max_length="40" name="request_date" type="glide_date" use_dynamic_default="true"/>
@@ -33,6 +34,7 @@
         <element label="Project Detail" max_length="4000" name="project_detail" type="string"/>
         <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Sales Order" max_length="32" name="sales_order" reference="x_yergb_bpm_sales_order" type="reference"/>
         <element attributes="edge_encryption_enabled=true" label="Estimated OI Amount  (TC)" max_length="40" name="estimated_oi_amount" type="decimal"/>
+        <element label="Contract Country" max_length="32" name="contract_country" reference="core_country" type="reference"/>
         <element label="T CAS" max_length="32" name="t_cas" reference="x_yergb_bpm_tcas_management" type="reference"/>
         <element label="Contract" max_length="32" name="contract" reference="core_company" type="reference"/>
         <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="OI Report" max_length="32" name="oi_report" reference="x_yergb_bpm_oi_report" type="reference"/>
@@ -50,37 +52,43 @@
             <element name="quotation"/>
         </index>
         <index name="index3">
-            <element name="end_user"/>
+            <element name="end_user_country"/>
         </index>
         <index name="index4">
-            <element name="currency_lc"/>
+            <element name="end_user"/>
         </index>
         <index name="index5">
-            <element name="credit_assessment"/>
-        </index>
-        <index name="index6">
-            <element name="territory_review"/>
-        </index>
-        <index name="index7">
-            <element name="contract"/>
-        </index>
-        <index name="index8">
-            <element name="oi_report"/>
-        </index>
-        <index name="index9">
-            <element name="sales_manager"/>
-        </index>
-        <index name="index10">
-            <element name="risk_management"/>
-        </index>
-        <index name="index11">
-            <element name="t_cas"/>
-        </index>
-        <index name="index12">
             <element name="profit_company"/>
         </index>
-        <index name="index13">
+        <index name="index6">
             <element name="sales_order"/>
+        </index>
+        <index name="index7">
+            <element name="credit_assessment"/>
+        </index>
+        <index name="index8">
+            <element name="currency_lc"/>
+        </index>
+        <index name="index9">
+            <element name="territory_review"/>
+        </index>
+        <index name="index10">
+            <element name="contract"/>
+        </index>
+        <index name="index11">
+            <element name="contract_country"/>
+        </index>
+        <index name="index12">
+            <element name="oi_report"/>
+        </index>
+        <index name="index13">
+            <element name="sales_manager"/>
+        </index>
+        <index name="index14">
+            <element name="risk_management"/>
+        </index>
+        <index name="index15">
+            <element name="t_cas"/>
         </index>
     </element>
 </database>
