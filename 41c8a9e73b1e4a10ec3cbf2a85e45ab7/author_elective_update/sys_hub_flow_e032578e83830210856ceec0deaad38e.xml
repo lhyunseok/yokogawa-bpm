@@ -1,0 +1,1454 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_hub_flow">
+    <sys_hub_flow action="DELETE">
+        <access>public</access>
+        <acls/>
+        <active>false</active>
+        <annotation/>
+        <attributes>browserActivatedIn=chrome,integrationActivatedIn=standalone,labelCacheCleanUpExecuted=true,timeFromCreateToActivate=2111188000,viewActivatedIn=naturalLanguage</attributes>
+        <authored_on_release_version>25000</authored_on_release_version>
+        <callable_by_client_api>false</callable_by_client_api>
+        <category/>
+        <compiler_build>glide-washingtondc-12-20-2023__patch3-hotfix1-05-12-2024_05-16-2024_0813.zip</compiler_build>
+        <copied_from>083d49d247e64610d254bce5536d4349</copied_from>
+        <copied_from_name>initial plan flow</copied_from_name>
+        <description/>
+        <display_name_after_preview/>
+        <flow_priority/>
+        <generation_source/>
+        <internal_name>budget_plan_approval_flow</internal_name>
+        <label_cache>[{"name":"Created_1.current.approval","label":"Trigger - Record Created➛Budget Plan Record➛Approval","reference":"","reference_display":"Approval","type":"choice","base_type":"choice","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"0315f040-6845-4d6a-bde6-4babc2f25194":["log_message"],"0e149899-270e-47ad-b273-413fc48f8a0d":["condition"],"5b3560fb-69a8-47ca-9309-57b6bbaf11ff":["condition"],"09f35f9a-aeb2-4458-a878-5368f0ad6e3b":["condition"],"cfa2818e-11f6-423e-96a6-22afe1ee9b64":["condition"]},"attributes":null},{"name":"{{static.9a7dd7383bcf061046a3934a85e45ac8}}","label":"YCN_1st_PD_Approver ","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"61825273-ac78-4a1e-8d0b-64870d0de39c":["approval_conditions"]},"attributes":null},{"name":"{{static.aacb62e2c0a80015007f67f752c2b12c}}","label":"Project Mgmt","reference":"sys_user_group","reference_display":"Group","type":"reference","base_type":"reference","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"61825273-ac78-4a1e-8d0b-64870d0de39c":["approval_conditions"]},"attributes":null},{"name":"Created_1.current","label":"Trigger - Record Created➛Budget Plan Record","reference":"x_yergb_bpm_budget_plan","reference_display":"Budget Plan","type":"reference","base_type":"reference","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"0c2cab68-061b-445a-9625-0cda7933dc24":["record"],"8687d99c-dc3f-4616-b609-5bcfef9d6596":["record"],"61825273-ac78-4a1e-8d0b-64870d0de39c":["record"],"abf764f6-0836-4298-8bb4-38cfe6b24ef2":["record"],"8e336a49-9a78-4c11-98ec-3290c04aa8be":["record"],"21fba349-3b8c-412a-ad92-c75d9a46e605":["record"],"553a7848-911a-4791-a1e4-bfbfc9719ed5":["record"],"2def4aa5-984b-4d92-8c1a-96c151372575":["record"],"22efdfde-e782-4af0-a0b0-7f24c5adc359":["record"],"b3bcb51d-20ea-42a3-b484-f54df1762335":["record"],"82ce0776-6c85-4c7e-a28b-800d881e1de0":["record"],"ad2a49f9-6bef-4e4b-ae79-4e5cbd84086b":["record"],"c5392a8c-b9ed-42a9-876a-90d29d97d870":["record"],"0c9e27f3-1e17-4d53-8865-5399700104e9":["record"],"98be2105-5c3c-453b-b571-c5014a241e64":["record"]},"attributes":null},{"name":"Created_1.table_name","label":"Trigger - Record Created➛Budget Plan Table","reference":"x_yergb_bpm_budget_plan","reference_display":"Budget Plan","type":"table_name","base_type":"table_name","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"02598742-d783-422f-9908-b1dd26eac2bf":["table_name"]},"attributes":null},{"name":"{{static.c808bee23bb6c21046a3934a85e45ace}}","label":"김성태 TestUser","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"61825273-ac78-4a1e-8d0b-64870d0de39c":["approval_conditions"]},"attributes":null},{"name":"Created_1.current.approval_history","label":"Trigger - Record Created➛Budget Plan Record➛Approval history","reference":"","reference_display":"Approval history","type":"journal","base_type":"journal","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"0315f040-6845-4d6a-bde6-4babc2f25194":["log_message"],"8e634d1d-ea99-4691-a1c6-8b30817d9055":["log_message"],"89a54579-2f32-4322-81b7-0dc5bd2f7ff2":["log_message"]},"attributes":null},{"name":"61825273-ac78-4a1e-8d0b-64870d0de39c.__action_status__.message","label":"4 - Ask For Approval➛Action Status➛Message","reference":"","reference_display":"","type":"string","base_type":"string","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"98be2105-5c3c-453b-b571-c5014a241e64":["record"]},"attributes":null},{"name":"61825273-ac78-4a1e-8d0b-64870d0de39c.approval_state","label":"5 - Ask For Approval➛Approval State","reference":"","reference_display":"Approval State","type":"choice","base_type":"choice","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"de30f4da-ba83-4f00-bf60-47fa33dfb3a7":["condition"],"efa484ba-99d0-49df-b055-2e804768b4c4":["condition"]},"attributes":null},{"name":"Created or Updated_1.current.approval","label":"Trigger - Record Created or Updated➛Budget Plan Record➛Approval","reference":"","reference_display":"Approval","type":"choice","base_type":"choice","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"a1f46d74-9ec4-413c-9392-93e303d5366a":["condition"]},"attributes":null},{"name":"Created or Updated_1.current.state","label":"Trigger - Record Created or Updated➛Budget Plan Record➛State","reference":"","reference_display":"State","type":"choice","base_type":"choice","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"a1f46d74-9ec4-413c-9392-93e303d5366a":["condition"]},"attributes":null}]</label_cache>
+        <latest_snapshot/>
+        <master_snapshot/>
+        <name>Budget Plan Approval Flow</name>
+        <natlang/>
+        <outputs/>
+        <pre_compiled>false</pre_compiled>
+        <remote_trigger_id/>
+        <run_as>user</run_as>
+        <run_with_roles/>
+        <sc_callable>false</sc_callable>
+        <show_draft_actions>false</show_draft_actions>
+        <show_triggered_flows>false</show_triggered_flows>
+        <status>draft</status>
+        <substatus/>
+        <sys_class_name>sys_hub_flow</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:16</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>e032578e83830210856ceec0deaad38e</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>Budget Plan Approval Flow</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_hub_flow_e032578e83830210856ceec0deaad38e</sys_update_name>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:05:32</sys_updated_on>
+        <type>flow</type>
+    </sys_hub_flow>
+    <sys_translated_text action="DELETE" query="documentkey=e032578e83830210856ceec0deaad38e"/>
+    <sys_variable_value action="DELETE" query="document_key=e032578e83830210856ceec0deaad38e"/>
+    <sys_hub_trigger_instance action="DELETE" query="flow=e032578e83830210856ceec0deaad38e^sys_idNOT INa952d74e83830210856ceec0deaad36f"/>
+    <sys_hub_trigger_instance action="DELETE">
+        <comment/>
+        <display_text/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <name>Created or Updated</name>
+        <remote_sys_id/>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:52</sys_created_on>
+        <sys_id>a952d74e83830210856ceec0deaad36f</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:03:14</sys_updated_on>
+        <trigger_definition display_value="Created or Updated">a45d9180c32222002841b63b12d3aea7</trigger_definition>
+        <trigger_inputs/>
+        <trigger_outputs/>
+        <trigger_type>record_create_or_update</trigger_type>
+    </sys_hub_trigger_instance>
+    <sys_variable_value action="DELETE" query="document_key=a952d74e83830210856ceec0deaad36f"/>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_trigger_instance</document>
+        <document_key>a952d74e83830210856ceec0deaad36f</document_key>
+        <order>1</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:52</sys_created_on>
+        <sys_id>a952d74e83830210856ceec0deaad370</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value>x_yergb_bpm_budget_plan</value>
+        <variable display_value="Table">cf1e1980c32222002841b63b12d3aea0</variable>
+    </sys_variable_value>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_trigger_instance</document>
+        <document_key>a952d74e83830210856ceec0deaad36f</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:52</sys_created_on>
+        <sys_id>e552d74e83830210856ceec0deaad370</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value>^EQ</value>
+        <variable display_value="Condition">707dd180c32222002841b63b12d3aecb</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="DELETE" query="table=var__m_sys_hub_trigger_output_a45d9180c32222002841b63b12d3aea7^id=a952d74e83830210856ceec0deaad36f"/>
+    <sys_hub_flow_stage action="DELETE" query="flow=e032578e83830210856ceec0deaad38e"/>
+    <sys_flow_cat_variable_model action="DELETE" query="id=e032578e83830210856ceec0deaad38e^sys_idNOT INa032578e83830210856ceec0deaad38f"/>
+    <sys_flow_cat_variable_model action="DELETE">
+        <id>e032578e83830210856ceec0deaad38e</id>
+        <name>Budget Plan Approval Flow</name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:16</sys_created_on>
+        <sys_id>a032578e83830210856ceec0deaad38f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:16</sys_updated_on>
+    </sys_flow_cat_variable_model>
+    <sys_flow_cat_variable action="DELETE" query="flow_catalog_model=a032578e83830210856ceec0deaad38f"/>
+    <sys_hub_flow_input action="DELETE" query="model=e032578e83830210856ceec0deaad38e^sys_idNOT IN3c32578e83830210856ceec0deaad395,7c32578e83830210856ceec0deaad399"/>
+    <sys_hub_flow_input action="DELETE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=document_id</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent>table_name</dependent>
+        <dependent_on_field>table_name</dependent_on_field>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>current</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="">document_id</internal_type>
+        <label>Record</label>
+        <mandatory>true</mandatory>
+        <max_length>200</max_length>
+        <model display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</model>
+        <model_id>e032578e83830210856ceec0deaad38e</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_input_e032578e83830210856ceec0deaad38e</name>
+        <next_element/>
+        <order>100</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:16</sys_created_on>
+        <sys_id>3c32578e83830210856ceec0deaad395</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:16</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>true</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="DELETE" query="action_input=3c32578e83830210856ceec0deaad395"/>
+    <sys_hub_flow_input action="DELETE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,test_input_hidden=true,uiType=table_name</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>table_name</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="">table_name</internal_type>
+        <label>Table Name</label>
+        <mandatory>false</mandatory>
+        <max_length>200</max_length>
+        <model display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</model>
+        <model_id>e032578e83830210856ceec0deaad38e</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_input_e032578e83830210856ceec0deaad38e</name>
+        <next_element/>
+        <order>101</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:16</sys_created_on>
+        <sys_id>7c32578e83830210856ceec0deaad399</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:16</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="DELETE" query="action_input=7c32578e83830210856ceec0deaad399"/>
+    <sys_hub_flow_output action="DELETE" query="model=e032578e83830210856ceec0deaad38e"/>
+    <sys_hub_alias_mapping action="DELETE" query="source_id=e032578e83830210856ceec0deaad38e"/>
+    <sys_hub_action_instance action="DELETE" query="flow=e032578e83830210856ceec0deaad38e^sys_idNOT IN3832578e83830210856ceec0deaad3c5,3c32578e83830210856ceec0deaad3d9,4132578e83830210856ceec0deaad3f0,4d32578e83830210856ceec0deaad3fc,c132578e83830210856ceec0deaad3e0,c132978e83830210856ceec0deaad303,c532578e83830210856ceec0deaad3f6,cd32578e83830210856ceec0deaad3e7"/>
+    <sys_hub_action_instance action="DELETE">
+        <action_inputs/>
+        <action_type display_value="Wait For Condition">89ce8a4187120010663ca1bb36cb0be3</action_type>
+        <action_type_parent display_value="Wait For Condition">8bb9a8160b10030085c083eb37673aec</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>89ce8a4187120010663ca1bb36cb0be3</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <generation_source/>
+        <order>1</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>3832578e83830210856ceec0deaad3c5</sys_id>
+        <sys_mod_count>10</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:03:54</sys_updated_on>
+        <ui_id>c5392a8c-b9ed-42a9-876a-90d29d97d870</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="DELETE" query="document_key=3832578e83830210856ceec0deaad3c5"/>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_action_instance</document>
+        <document_key>3832578e83830210856ceec0deaad3c5</document_key>
+        <order>2</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>3032578e83830210856ceec0deaad3d5</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value/>
+        <variable display_value="Table">45ce8a4187120010663ca1bb36cb0bea</variable>
+    </sys_variable_value>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_action_instance</document>
+        <document_key>3832578e83830210856ceec0deaad3c5</document_key>
+        <order>3</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>7c32578e83830210856ceec0deaad3d4</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value/>
+        <variable display_value="Conditions">49ce8a4187120010663ca1bb36cb0bef</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="DELETE" query="table=var__m_sys_hub_action_input_89ce8a4187120010663ca1bb36cb0be3^id=3832578e83830210856ceec0deaad3c5"/>
+    <sys_hub_input_scripts action="DELETE" query="instance=3832578e83830210856ceec0deaad3c5"/>
+    <sys_hub_alias_mapping action="DELETE" query="source_id=3832578e83830210856ceec0deaad3c5"/>
+    <sys_hub_action_instance action="DELETE">
+        <action_inputs/>
+        <action_type display_value="Update Record">f9d01dd2c31332002841b63b12d3aea1</action_type>
+        <action_type_parent display_value="Update Record">baf174c8c3c232002841b63b12d3aee4</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>f9d01dd2c31332002841b63b12d3aea1</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <generation_source/>
+        <order>3</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>3c32578e83830210856ceec0deaad3d9</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:03:54</sys_updated_on>
+        <ui_id>8e336a49-9a78-4c11-98ec-3290c04aa8be</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="DELETE" query="document_key=3c32578e83830210856ceec0deaad3d9"/>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_action_instance</document>
+        <document_key>3c32578e83830210856ceec0deaad3d9</document_key>
+        <order>50</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>3c32578e83830210856ceec0deaad3db</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value/>
+        <variable display_value="Table">b5d01916c31332002841b63b12d3aec9</variable>
+    </sys_variable_value>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_action_instance</document>
+        <document_key>3c32578e83830210856ceec0deaad3d9</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>7832578e83830210856ceec0deaad3db</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value/>
+        <variable display_value="Fields">02d01916c31332002841b63b12d3aeee</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="DELETE" query="table=var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1^id=3c32578e83830210856ceec0deaad3d9"/>
+    <sys_hub_input_scripts action="DELETE" query="instance=3c32578e83830210856ceec0deaad3d9"/>
+    <sys_hub_alias_mapping action="DELETE" query="source_id=3c32578e83830210856ceec0deaad3d9"/>
+    <sys_hub_action_instance action="DELETE">
+        <action_inputs/>
+        <action_type display_value="Update Record">f9d01dd2c31332002841b63b12d3aea1</action_type>
+        <action_type_parent display_value="Update Record">baf174c8c3c232002841b63b12d3aee4</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>f9d01dd2c31332002841b63b12d3aea1</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <generation_source/>
+        <order>7</order>
+        <parent_ui_id>de30f4da-ba83-4f00-bf60-47fa33dfb3a7</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>4132578e83830210856ceec0deaad3f0</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:03:55</sys_updated_on>
+        <ui_id>82ce0776-6c85-4c7e-a28b-800d881e1de0</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="DELETE" query="document_key=4132578e83830210856ceec0deaad3f0"/>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_action_instance</document>
+        <document_key>4132578e83830210856ceec0deaad3f0</document_key>
+        <order>50</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>4d32578e83830210856ceec0deaad3f1</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value/>
+        <variable display_value="Table">b5d01916c31332002841b63b12d3aec9</variable>
+    </sys_variable_value>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_action_instance</document>
+        <document_key>4132578e83830210856ceec0deaad3f0</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>8932578e83830210856ceec0deaad3f1</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value/>
+        <variable display_value="Fields">02d01916c31332002841b63b12d3aeee</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="DELETE" query="table=var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1^id=4132578e83830210856ceec0deaad3f0"/>
+    <sys_hub_input_scripts action="DELETE" query="instance=4132578e83830210856ceec0deaad3f0"/>
+    <sys_hub_alias_mapping action="DELETE" query="source_id=4132578e83830210856ceec0deaad3f0"/>
+    <sys_hub_action_instance action="DELETE">
+        <action_inputs/>
+        <action_type display_value="Update Record">f9d01dd2c31332002841b63b12d3aea1</action_type>
+        <action_type_parent display_value="Update Record">baf174c8c3c232002841b63b12d3aee4</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>f9d01dd2c31332002841b63b12d3aea1</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <generation_source/>
+        <order>14</order>
+        <parent_ui_id>0e149899-270e-47ad-b273-413fc48f8a0d</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:18</sys_created_on>
+        <sys_id>4d32578e83830210856ceec0deaad3fc</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:03:54</sys_updated_on>
+        <ui_id>2def4aa5-984b-4d92-8c1a-96c151372575</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="DELETE" query="document_key=4d32578e83830210856ceec0deaad3fc"/>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_action_instance</document>
+        <document_key>4d32578e83830210856ceec0deaad3fc</document_key>
+        <order>50</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:18</sys_created_on>
+        <sys_id>4932578e83830210856ceec0deaad3fe</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value/>
+        <variable display_value="Table">b5d01916c31332002841b63b12d3aec9</variable>
+    </sys_variable_value>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_action_instance</document>
+        <document_key>4d32578e83830210856ceec0deaad3fc</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:18</sys_created_on>
+        <sys_id>8532578e83830210856ceec0deaad3fe</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value/>
+        <variable display_value="Fields">02d01916c31332002841b63b12d3aeee</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="DELETE" query="table=var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1^id=4d32578e83830210856ceec0deaad3fc"/>
+    <sys_hub_input_scripts action="DELETE" query="instance=4d32578e83830210856ceec0deaad3fc"/>
+    <sys_hub_alias_mapping action="DELETE" query="source_id=4d32578e83830210856ceec0deaad3fc"/>
+    <sys_hub_action_instance action="DELETE">
+        <action_inputs/>
+        <action_type display_value="Send Notification">0d8dd9f10f11101051218e8ebc767e27</action_type>
+        <action_type_parent display_value="Send Notification">7eda5d710f11101051218e8ebc767ec1</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>0d8dd9f10f11101051218e8ebc767e27</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <generation_source/>
+        <order>4</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>c132578e83830210856ceec0deaad3e0</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:03:54</sys_updated_on>
+        <ui_id>21fba349-3b8c-412a-ad92-c75d9a46e605</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="DELETE" query="document_key=c132578e83830210856ceec0deaad3e0"/>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_action_instance</document>
+        <document_key>c132578e83830210856ceec0deaad3e0</document_key>
+        <order>2</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>0532578e83830210856ceec0deaad3e2</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value/>
+        <variable display_value="Table">818dd9f10f11101051218e8ebc767e32</variable>
+    </sys_variable_value>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_action_instance</document>
+        <document_key>c132578e83830210856ceec0deaad3e0</document_key>
+        <order>3</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>4132578e83830210856ceec0deaad3e2</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value/>
+        <variable display_value="Notification">418dd9f10f11101051218e8ebc767e38</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="DELETE" query="table=var__m_sys_hub_action_input_0d8dd9f10f11101051218e8ebc767e27^id=c132578e83830210856ceec0deaad3e0"/>
+    <sys_hub_input_scripts action="DELETE" query="instance=c132578e83830210856ceec0deaad3e0"/>
+    <sys_hub_alias_mapping action="DELETE" query="source_id=c132578e83830210856ceec0deaad3e0"/>
+    <sys_hub_action_instance action="DELETE">
+        <action_inputs/>
+        <action_type display_value="Update Record">f9d01dd2c31332002841b63b12d3aea1</action_type>
+        <action_type_parent display_value="Update Record">baf174c8c3c232002841b63b12d3aee4</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>f9d01dd2c31332002841b63b12d3aea1</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <generation_source/>
+        <order>17</order>
+        <parent_ui_id>cfa2818e-11f6-423e-96a6-22afe1ee9b64</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:18</sys_created_on>
+        <sys_id>c132978e83830210856ceec0deaad303</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:03:55</sys_updated_on>
+        <ui_id>553a7848-911a-4791-a1e4-bfbfc9719ed5</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="DELETE" query="document_key=c132978e83830210856ceec0deaad303"/>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_action_instance</document>
+        <document_key>c132978e83830210856ceec0deaad303</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:18</sys_created_on>
+        <sys_id>0d32978e83830210856ceec0deaad304</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value/>
+        <variable display_value="Fields">02d01916c31332002841b63b12d3aeee</variable>
+    </sys_variable_value>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_action_instance</document>
+        <document_key>c132978e83830210856ceec0deaad303</document_key>
+        <order>50</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:18</sys_created_on>
+        <sys_id>cd32978e83830210856ceec0deaad304</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value/>
+        <variable display_value="Table">b5d01916c31332002841b63b12d3aec9</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="DELETE" query="table=var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1^id=c132978e83830210856ceec0deaad303"/>
+    <sys_hub_input_scripts action="DELETE" query="instance=c132978e83830210856ceec0deaad303"/>
+    <sys_hub_alias_mapping action="DELETE" query="source_id=c132978e83830210856ceec0deaad303"/>
+    <sys_hub_action_instance action="DELETE">
+        <action_inputs/>
+        <action_type display_value="Update Record">f9d01dd2c31332002841b63b12d3aea1</action_type>
+        <action_type_parent display_value="Update Record">baf174c8c3c232002841b63b12d3aee4</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>f9d01dd2c31332002841b63b12d3aea1</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <generation_source/>
+        <order>10</order>
+        <parent_ui_id>efa484ba-99d0-49df-b055-2e804768b4c4</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:18</sys_created_on>
+        <sys_id>c532578e83830210856ceec0deaad3f6</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:03:55</sys_updated_on>
+        <ui_id>ad2a49f9-6bef-4e4b-ae79-4e5cbd84086b</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="DELETE" query="document_key=c532578e83830210856ceec0deaad3f6"/>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_action_instance</document>
+        <document_key>c532578e83830210856ceec0deaad3f6</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:18</sys_created_on>
+        <sys_id>0132578e83830210856ceec0deaad3f8</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value/>
+        <variable display_value="Fields">02d01916c31332002841b63b12d3aeee</variable>
+    </sys_variable_value>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_action_instance</document>
+        <document_key>c532578e83830210856ceec0deaad3f6</document_key>
+        <order>50</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:18</sys_created_on>
+        <sys_id>c132578e83830210856ceec0deaad3f8</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value/>
+        <variable display_value="Table">b5d01916c31332002841b63b12d3aec9</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="DELETE" query="table=var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1^id=c532578e83830210856ceec0deaad3f6"/>
+    <sys_hub_input_scripts action="DELETE" query="instance=c532578e83830210856ceec0deaad3f6"/>
+    <sys_hub_alias_mapping action="DELETE" query="source_id=c532578e83830210856ceec0deaad3f6"/>
+    <sys_hub_action_instance action="DELETE">
+        <action_inputs/>
+        <action_inputs/>
+        <action_type display_value="Ask For Approval">f8f2e9920b10030085c083eb37673abd</action_type>
+        <action_type_parent display_value="Ask For Approval">bae0a1120b10030085c083eb37673a92</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>f8f2e9920b10030085c083eb37673abd</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <generation_source/>
+        <order>5</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>cd32578e83830210856ceec0deaad3e7</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:03:54</sys_updated_on>
+        <ui_id>61825273-ac78-4a1e-8d0b-64870d0de39c</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="DELETE" query="document_key=cd32578e83830210856ceec0deaad3e7"/>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_action_instance</document>
+        <document_key>cd32578e83830210856ceec0deaad3e7</document_key>
+        <order>2</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>0d32578e83830210856ceec0deaad3ea</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value/>
+        <variable display_value="Approval Field">01f2e9920b10030085c083eb37673ad8</variable>
+    </sys_variable_value>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_action_instance</document>
+        <document_key>cd32578e83830210856ceec0deaad3e7</document_key>
+        <order>1</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>4532578e83830210856ceec0deaad3eb</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value/>
+        <variable display_value="Table">bcf2e9920b10030085c083eb37673acc</variable>
+    </sys_variable_value>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_action_instance</document>
+        <document_key>cd32578e83830210856ceec0deaad3e7</document_key>
+        <order>5</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>8132578e83830210856ceec0deaad3eb</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:17</sys_updated_on>
+        <value/>
+        <variable display_value="Due Date">c5f2e9920b10030085c083eb37673af9</variable>
+    </sys_variable_value>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_action_instance</document>
+        <document_key>cd32578e83830210856ceec0deaad3e7</document_key>
+        <order>3</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>cd32578e83830210856ceec0deaad3ea</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value/>
+        <variable display_value="Journal Field">c1f2e9920b10030085c083eb37673ae3</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="DELETE" query="id=cd32578e83830210856ceec0deaad3e7"/>
+    <sys_element_mapping action="DELETE">
+        <field>approval_conditions</field>
+        <id>cd32578e83830210856ceec0deaad3e7</id>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>c532578e83830210856ceec0deaad3ea</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:17</sys_updated_on>
+        <table>var__m_sys_hub_action_input_f8f2e9920b10030085c083eb37673abd</table>
+        <value>ApprovesAnyU[{{static.9a7dd7383bcf061046a3934a85e45ac8}}]OrRejectsAnyU[{{static.9a7dd7383bcf061046a3934a85e45ac8}}]</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="DELETE">
+        <field>approval_field</field>
+        <id>cd32578e83830210856ceec0deaad3e7</id>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>c932578e83830210856ceec0deaad3e9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:17</sys_updated_on>
+        <table>var__m_sys_hub_action_input_f8f2e9920b10030085c083eb37673abd</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_element_mapping action="DELETE">
+        <field>due_date</field>
+        <id>cd32578e83830210856ceec0deaad3e7</id>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>0532578e83830210856ceec0deaad3ea</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:17</sys_updated_on>
+        <table>var__m_sys_hub_action_input_f8f2e9920b10030085c083eb37673abd</table>
+        <value>{"action":"none","date_type":"actual","date":"{{}}","duration":1,"duration_type":"days","schedule":"","schedule_label":""}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="DELETE">
+        <field>journal_field</field>
+        <id>cd32578e83830210856ceec0deaad3e7</id>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>8d32578e83830210856ceec0deaad3e9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:17</sys_updated_on>
+        <table>var__m_sys_hub_action_input_f8f2e9920b10030085c083eb37673abd</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_element_mapping action="DELETE">
+        <field>record</field>
+        <id>cd32578e83830210856ceec0deaad3e7</id>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>4132578e83830210856ceec0deaad3ea</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <table>var__m_sys_hub_action_input_f8f2e9920b10030085c083eb37673abd</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_element_mapping action="DELETE">
+        <field>table</field>
+        <id>cd32578e83830210856ceec0deaad3e7</id>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>8932578e83830210856ceec0deaad3ea</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:17</sys_updated_on>
+        <table>var__m_sys_hub_action_input_f8f2e9920b10030085c083eb37673abd</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_hub_input_scripts action="DELETE" query="instance=cd32578e83830210856ceec0deaad3e7"/>
+    <sys_hub_alias_mapping action="DELETE" query="source_id=cd32578e83830210856ceec0deaad3e7"/>
+    <sys_hub_sub_flow_instance action="DELETE" query="flow=e032578e83830210856ceec0deaad38e"/>
+    <sys_hub_flow_logic action="DELETE" query="flow=e032578e83830210856ceec0deaad38e^sys_idNOT IN2492db8e83830210856ceec0deaad310,3032578e83830210856ceec0deaad3a8,3432578e83830210856ceec0deaad3b2,3432578e83830210856ceec0deaad3b6,3c32578e83830210856ceec0deaad3aa,7032578e83830210856ceec0deaad3a0,7c32578e83830210856ceec0deaad3ae,b432578e83830210856ceec0deaad3a3,f832578e83830210856ceec0deaad3bc,fc32578e83830210856ceec0deaad3b9"/>
+    <sys_hub_flow_logic action="DELETE">
+        <attributes/>
+        <block display_value="">2892db8e83830210856ceec0deaad30f</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <flow_variable/>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <inputs/>
+        <logic_definition display_value="If">af4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>2</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:03:54</sys_created_on>
+        <sys_id>2492db8e83830210856ceec0deaad310</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:03:54</sys_updated_on>
+        <ui_id>a1f46d74-9ec4-413c-9392-93e303d5366a</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="DELETE" query="document_key=2492db8e83830210856ceec0deaad310"/>
+    <sys_element_mapping action="DELETE" query="table=var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e^id=2492db8e83830210856ceec0deaad310"/>
+    <sys_hub_flow_logic_ext_input action="DELETE" query="model=2492db8e83830210856ceec0deaad310"/>
+    <sys_hub_input_scripts action="DELETE" query="instance=2492db8e83830210856ceec0deaad310"/>
+    <sys_hub_flow_logic action="DELETE">
+        <attributes/>
+        <block display_value="">bd44596583438210856ceec0deaad353</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <flow_variable/>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <inputs/>
+        <logic_definition display_value="End">d176605ea76103004f27b0d2187901c7</logic_definition>
+        <order>8</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id>de30f4da-ba83-4f00-bf60-47fa33dfb3a7</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>3032578e83830210856ceec0deaad3a8</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:03:55</sys_updated_on>
+        <ui_id>08d1516e-2bbb-4673-be74-37fa11e6ca95</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="DELETE" query="document_key=3032578e83830210856ceec0deaad3a8"/>
+    <sys_hub_flow_logic_ext_input action="DELETE" query="model=3032578e83830210856ceec0deaad3a8"/>
+    <sys_hub_input_scripts action="DELETE" query="instance=3032578e83830210856ceec0deaad3a8"/>
+    <sys_hub_flow_logic action="DELETE">
+        <attributes/>
+        <block display_value="">aab2438a83430210856ceec0deaad33c</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <flow_variable/>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <inputs/>
+        <logic_definition display_value="Top Level Catch">35d60003e6022010a5e40cdd1254dd23</logic_definition>
+        <order>12</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>3432578e83830210856ceec0deaad3b2</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:03:54</sys_updated_on>
+        <ui_id>27ca42fa-c9fb-44bc-8283-cdd3b4241ac6</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="DELETE" query="document_key=3432578e83830210856ceec0deaad3b2"/>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>3432578e83830210856ceec0deaad3b2</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>7432578e83830210856ceec0deaad3b5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:17</sys_updated_on>
+        <value>1</value>
+        <variable display_value="enabled">dd70187cc36e20105553b740ad40dddc</variable>
+    </sys_variable_value>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>3432578e83830210856ceec0deaad3b2</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>b032578e83830210856ceec0deaad3b5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:17</sys_updated_on>
+        <value>{"version":"1.0","complexObject":{"code":{"$cv":{"$c":"java.lang.String","$v":""}},"message":{"$cv":{"$c":"java.lang.String","$v":""}}},"serializationFormat":"JSON","complexObjectSchema":{"FlowDesigner:FDACTIONSTATUS":{"code":"Integer","code.$field_facets":{"SimpleMapFacet":"{\"uiTypeLabel\":\"Integer\",\"read_only\":\"false\",\"hint\":\"\",\"uiType\":\"integer\",\"default_value\":\"\",\"label\":\"Code\",\"action_error_output\":\"true\",\"mandatory\":\"false\",\"order\":\"1\",\"max_length\":\"40\"}"},"message":"String","message.$field_facets":{"SimpleMapFacet":"{\"uiTypeLabel\":\"String\",\"read_only\":\"false\",\"hint\":\"\",\"uiType\":\"string\",\"default_value\":\"\",\"label\":\"Message\",\"action_error_output\":\"true\",\"mandatory\":\"false\",\"order\":\"2\",\"max_length\":\"4000\"}"}},"FlowDesigner:FDACTIONSTATUS.$type_facets":{"SimpleMapFacet":"{\"default_value\":\"\",\"label\":\"Action Status\",\"action_error_output\":\"true\",\"mandatory\":\"false\",\"uiUniqueId\":\"4adfb7bc-9d67-498d-88d0-8d6c3d584fed\",\"uiTypeLabel\":\"Object\",\"co_type_name\":\"FDACTIONSTATUS\",\"element_mapping_provider\":\"com.glide.flow_design.action.data.FlowDesignVariableMapper\",\"read_only\":\"false\",\"hint\":null,\"uiType\":\"object\",\"order\":\"1\",\"max_length\":\"65000\"}"}}}</value>
+        <variable display_value="Error Status">0f72a5a25b132010b61ea2013781c749</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="DELETE" query="table=var__m_sys_hub_flow_logic_input_35d60003e6022010a5e40cdd1254dd23^id=3432578e83830210856ceec0deaad3b2"/>
+    <sys_hub_flow_logic_ext_input action="DELETE" query="model=3432578e83830210856ceec0deaad3b2"/>
+    <sys_hub_input_scripts action="DELETE" query="instance=3432578e83830210856ceec0deaad3b2"/>
+    <sys_hub_flow_logic action="DELETE">
+        <attributes/>
+        <block display_value="">eab2438a83430210856ceec0deaad34e</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <flow_variable/>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <inputs/>
+        <logic_definition display_value="If">af4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>13</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>3432578e83830210856ceec0deaad3b6</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:03:55</sys_updated_on>
+        <ui_id>0e149899-270e-47ad-b273-413fc48f8a0d</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="DELETE" query="document_key=3432578e83830210856ceec0deaad3b6"/>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>3432578e83830210856ceec0deaad3b6</document_key>
+        <order>20</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:52</sys_created_on>
+        <sys_id>69529b8e83830210856ceec0deaad3df</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value>=approved</value>
+        <variable display_value="Condition">9a5f5105c32632002841b63b12d3ae46</variable>
+    </sys_variable_value>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>3432578e83830210856ceec0deaad3b6</document_key>
+        <order>10</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>b032578e83830210856ceec0deaad3b9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:17</sys_updated_on>
+        <value>Approved</value>
+        <variable display_value="Condition Label">f0af19c1c32632002841b63b12d3aea3</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="DELETE" query="table=var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e^id=3432578e83830210856ceec0deaad3b6"/>
+    <sys_hub_flow_logic_ext_input action="DELETE" query="model=3432578e83830210856ceec0deaad3b6"/>
+    <sys_hub_input_scripts action="DELETE" query="instance=3432578e83830210856ceec0deaad3b6"/>
+    <sys_hub_flow_logic action="DELETE">
+        <attributes/>
+        <block display_value="">7144596583438210856ceec0deaad359</block>
+        <comment/>
+        <connected_to>de30f4da-ba83-4f00-bf60-47fa33dfb3a7</connected_to>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <flow_variable/>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <inputs/>
+        <inputs/>
+        <logic_definition display_value="Else If">666e5545c3e232002841b63b12d3ae99</logic_definition>
+        <order>9</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>3c32578e83830210856ceec0deaad3aa</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:03:55</sys_updated_on>
+        <ui_id>efa484ba-99d0-49df-b055-2e804768b4c4</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="DELETE" query="document_key=3c32578e83830210856ceec0deaad3aa"/>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>3c32578e83830210856ceec0deaad3aa</document_key>
+        <order>10</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>bc32578e83830210856ceec0deaad3ad</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:17</sys_updated_on>
+        <value>Rejected</value>
+        <variable display_value="Condition Label">f0af19c1c32632002841b63b12d3aea2</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="DELETE" query="id=3c32578e83830210856ceec0deaad3aa"/>
+    <sys_element_mapping action="DELETE">
+        <field>condition</field>
+        <id>3c32578e83830210856ceec0deaad3aa</id>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>3c32578e83830210856ceec0deaad3ad</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:17</sys_updated_on>
+        <table>var__m_sys_hub_flow_logic_input_666e5545c3e232002841b63b12d3ae99</table>
+        <value>{{61825273-ac78-4a1e-8d0b-64870d0de39c.approval_state}}=rejected</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="DELETE">
+        <field>condition_name</field>
+        <id>3c32578e83830210856ceec0deaad3aa</id>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>7832578e83830210856ceec0deaad3ad</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:17</sys_updated_on>
+        <table>var__m_sys_hub_flow_logic_input_666e5545c3e232002841b63b12d3ae99</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_hub_flow_logic_ext_input action="DELETE" query="model=3c32578e83830210856ceec0deaad3aa"/>
+    <sys_hub_input_scripts action="DELETE" query="instance=3c32578e83830210856ceec0deaad3aa"/>
+    <sys_hub_flow_logic action="DELETE">
+        <attributes/>
+        <block display_value="">eeb2438a83430210856ceec0deaad300</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <flow_variable/>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <inputs/>
+        <logic_definition display_value="Top Level Try">e9060aa2c3013010ace8b740ad40dd51</logic_definition>
+        <order>0</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:16</sys_created_on>
+        <sys_id>7032578e83830210856ceec0deaad3a0</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:16</sys_updated_on>
+        <ui_id>f3deab10-03b4-476b-a13b-11dc8c93c87a</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="DELETE" query="document_key=7032578e83830210856ceec0deaad3a0"/>
+    <sys_hub_flow_logic_ext_input action="DELETE" query="model=7032578e83830210856ceec0deaad3a0"/>
+    <sys_hub_input_scripts action="DELETE" query="instance=7032578e83830210856ceec0deaad3a0"/>
+    <sys_hub_flow_logic action="DELETE">
+        <attributes/>
+        <block display_value="">3944596583438210856ceec0deaad35f</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <flow_variable/>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <inputs/>
+        <logic_definition display_value="Go back to">59ea75fd77502110b2b4ddd9cf5a99ef</logic_definition>
+        <order>11</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id>efa484ba-99d0-49df-b055-2e804768b4c4</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>7c32578e83830210856ceec0deaad3ae</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:03:54</sys_updated_on>
+        <ui_id>3e496526-e4c8-45a4-b8bf-2fca60fec4f6</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="DELETE" query="document_key=7c32578e83830210856ceec0deaad3ae"/>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>7c32578e83830210856ceec0deaad3ae</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>7432578e83830210856ceec0deaad3b1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:17</sys_updated_on>
+        <value>c5392a8c-b9ed-42a9-876a-90d29d97d870</value>
+        <variable display_value="Go back to step">7bf519994391e110e3bf457a7bb8f2fc</variable>
+    </sys_variable_value>
+    <sys_hub_flow_logic_ext_input action="DELETE" query="model=7c32578e83830210856ceec0deaad3ae"/>
+    <sys_hub_input_scripts action="DELETE" query="instance=7c32578e83830210856ceec0deaad3ae"/>
+    <sys_hub_flow_logic action="DELETE">
+        <attributes/>
+        <block display_value="">b944596583438210856ceec0deaad34d</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <flow_variable/>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <inputs/>
+        <inputs/>
+        <logic_definition display_value="If">af4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>6</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:16</sys_created_on>
+        <sys_id>b432578e83830210856ceec0deaad3a3</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:03:55</sys_updated_on>
+        <ui_id>de30f4da-ba83-4f00-bf60-47fa33dfb3a7</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="DELETE" query="document_key=b432578e83830210856ceec0deaad3a3"/>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>b432578e83830210856ceec0deaad3a3</document_key>
+        <order>10</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>3c32578e83830210856ceec0deaad3a6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:17</sys_updated_on>
+        <value>Approved</value>
+        <variable display_value="Condition Label">f0af19c1c32632002841b63b12d3aea3</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="DELETE" query="id=b432578e83830210856ceec0deaad3a3"/>
+    <sys_element_mapping action="DELETE">
+        <field>condition</field>
+        <id>b432578e83830210856ceec0deaad3a3</id>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>b832578e83830210856ceec0deaad3a6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:17</sys_updated_on>
+        <table>var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e</table>
+        <value>{{61825273-ac78-4a1e-8d0b-64870d0de39c.approval_state}}=approved</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="DELETE">
+        <field>condition_name</field>
+        <id>b432578e83830210856ceec0deaad3a3</id>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>f032578e83830210856ceec0deaad3a6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:17</sys_updated_on>
+        <table>var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_hub_flow_logic_ext_input action="DELETE" query="model=b432578e83830210856ceec0deaad3a3"/>
+    <sys_hub_input_scripts action="DELETE" query="instance=b432578e83830210856ceec0deaad3a3"/>
+    <sys_hub_flow_logic action="DELETE">
+        <attributes/>
+        <block display_value="">7ab2438a83430210856ceec0deaad366</block>
+        <comment/>
+        <connected_to>0e149899-270e-47ad-b273-413fc48f8a0d</connected_to>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <flow_variable/>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <inputs/>
+        <logic_definition display_value="Else If">666e5545c3e232002841b63b12d3ae99</logic_definition>
+        <order>16</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>f832578e83830210856ceec0deaad3bc</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:03:55</sys_updated_on>
+        <ui_id>cfa2818e-11f6-423e-96a6-22afe1ee9b64</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="DELETE" query="document_key=f832578e83830210856ceec0deaad3bc"/>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>f832578e83830210856ceec0deaad3bc</document_key>
+        <order>10</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>7832578e83830210856ceec0deaad3bf</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:17</sys_updated_on>
+        <value>Rejected</value>
+        <variable display_value="Condition Label">f0af19c1c32632002841b63b12d3aea2</variable>
+    </sys_variable_value>
+    <sys_variable_value action="DELETE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>f832578e83830210856ceec0deaad3bc</document_key>
+        <order>20</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:52</sys_created_on>
+        <sys_id>e9529b8e83830210856ceec0deaad3e5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:52</sys_updated_on>
+        <value>=rejected</value>
+        <variable display_value="Condition">f0af19c1c32632002841b63b12d3aea1</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="DELETE" query="table=var__m_sys_hub_flow_logic_input_666e5545c3e232002841b63b12d3ae99^id=f832578e83830210856ceec0deaad3bc"/>
+    <sys_hub_flow_logic_ext_input action="DELETE" query="model=f832578e83830210856ceec0deaad3bc"/>
+    <sys_hub_input_scripts action="DELETE" query="instance=f832578e83830210856ceec0deaad3bc"/>
+    <sys_hub_flow_logic action="DELETE">
+        <attributes/>
+        <block display_value="">eeb2438a83430210856ceec0deaad354</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Budget Plan Approval Flow">e032578e83830210856ceec0deaad38e</flow>
+        <flow_variable/>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <inputs/>
+        <logic_definition display_value="End">d176605ea76103004f27b0d2187901c7</logic_definition>
+        <order>15</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id>0e149899-270e-47ad-b273-413fc48f8a0d</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:17</sys_created_on>
+        <sys_id>fc32578e83830210856ceec0deaad3b9</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:03:55</sys_updated_on>
+        <ui_id>8bf7f37e-9fb1-484c-a7d6-dcc5b72151e3</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="DELETE" query="document_key=fc32578e83830210856ceec0deaad3b9"/>
+    <sys_hub_flow_logic_ext_input action="DELETE" query="model=fc32578e83830210856ceec0deaad3b9"/>
+    <sys_hub_input_scripts action="DELETE" query="instance=fc32578e83830210856ceec0deaad3b9"/>
+    <sys_hub_pill_compound action="DELETE" query="attached_to=e032578e83830210856ceec0deaad38e"/>
+    <sys_hub_flow_variable action="DELETE" query="model=e032578e83830210856ceec0deaad38e"/>
+    <sys_documentation action="DELETE" query="name=var__m_sys_hub_flow_input_e032578e83830210856ceec0deaad38e^sys_idNOT IN3032578e83830210856ceec0deaad39c,7c32578e83830210856ceec0deaad398"/>
+    <sys_documentation action="DELETE">
+        <element>table_name</element>
+        <help/>
+        <hint/>
+        <label>Table Name</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_e032578e83830210856ceec0deaad38e</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:16</sys_created_on>
+        <sys_id>3032578e83830210856ceec0deaad39c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:16</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_documentation action="DELETE">
+        <element>current</element>
+        <help/>
+        <hint/>
+        <label>Record</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_e032578e83830210856ceec0deaad38e</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:02:16</sys_created_on>
+        <sys_id>7c32578e83830210856ceec0deaad398</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:02:16</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_choice action="DELETE" query="name=var__m_sys_hub_flow_input_e032578e83830210856ceec0deaad38e"/>
+    <sys_documentation action="DELETE" query="name=var__m_sys_hub_flow_output_e032578e83830210856ceec0deaad38e"/>
+    <sys_choice action="DELETE" query="name=var__m_sys_hub_flow_output_e032578e83830210856ceec0deaad38e"/>
+    <sys_flow_trigger_plan action="DELETE" query="plan_id=e032578e83830210856ceec0deaad38e"/>
+    <sys_flow_subflow_plan action="DELETE" query="plan_id=e032578e83830210856ceec0deaad38e"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</application>
+        <file_path/>
+        <instance_id>a0ea7653db614e582f082a59139619b8</instance_id>
+        <instance_name>dev260285</instance_name>
+        <name>sys_hub_flow_e032578e83830210856ceec0deaad38e</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_hub_flow"&gt;&lt;sys_hub_flow action="INSERT_OR_UPDATE"&gt;&lt;access&gt;public&lt;/access&gt;&lt;acls/&gt;&lt;active&gt;false&lt;/active&gt;&lt;annotation/&gt;&lt;attributes&gt;browserActivatedIn=chrome,integrationActivatedIn=standalone,labelCacheCleanUpExecuted=true,timeFromCreateToActivate=2111188000,viewActivatedIn=naturalLanguage&lt;/attributes&gt;&lt;authored_on_release_version&gt;25000&lt;/authored_on_release_version&gt;&lt;callable_by_client_api&gt;false&lt;/callable_by_client_api&gt;&lt;category/&gt;&lt;compiler_build&gt;glide-washingtondc-12-20-2023__patch3-hotfix1-05-12-2024_05-16-2024_0813.zip&lt;/compiler_build&gt;&lt;copied_from&gt;083d49d247e64610d254bce5536d4349&lt;/copied_from&gt;&lt;copied_from_name&gt;initial plan flow&lt;/copied_from_name&gt;&lt;description/&gt;&lt;display_name_after_preview/&gt;&lt;flow_priority/&gt;&lt;generation_source/&gt;&lt;internal_name&gt;budget_plan_approval_flow&lt;/internal_name&gt;&lt;label_cache&gt;[{"name":"Created_1.current.approval","label":"Trigger - Record Created➛Budget Plan Record➛Approval","reference":"","reference_display":"Approval","type":"choice","base_type":"choice","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"0315f040-6845-4d6a-bde6-4babc2f25194":["log_message"],"0e149899-270e-47ad-b273-413fc48f8a0d":["condition"],"5b3560fb-69a8-47ca-9309-57b6bbaf11ff":["condition"],"09f35f9a-aeb2-4458-a878-5368f0ad6e3b":["condition"],"cfa2818e-11f6-423e-96a6-22afe1ee9b64":["condition"]},"attributes":null},{"name":"{{static.9a7dd7383bcf061046a3934a85e45ac8}}","label":"YCN_1st_PD_Approver ","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"61825273-ac78-4a1e-8d0b-64870d0de39c":["approval_conditions"]},"attributes":null},{"name":"{{static.aacb62e2c0a80015007f67f752c2b12c}}","label":"Project Mgmt","reference":"sys_user_group","reference_display":"Group","type":"reference","base_type":"reference","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"61825273-ac78-4a1e-8d0b-64870d0de39c":["approval_conditions"]},"attributes":null},{"name":"Created_1.current","label":"Trigger - Record Created➛Budget Plan Record","reference":"x_yergb_bpm_budget_plan","reference_display":"Budget Plan","type":"reference","base_type":"reference","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"0c2cab68-061b-445a-9625-0cda7933dc24":["record"],"8687d99c-dc3f-4616-b609-5bcfef9d6596":["record"],"61825273-ac78-4a1e-8d0b-64870d0de39c":["record"],"abf764f6-0836-4298-8bb4-38cfe6b24ef2":["record"],"8e336a49-9a78-4c11-98ec-3290c04aa8be":["record"],"21fba349-3b8c-412a-ad92-c75d9a46e605":["record"],"553a7848-911a-4791-a1e4-bfbfc9719ed5":["record"],"2def4aa5-984b-4d92-8c1a-96c151372575":["record"],"22efdfde-e782-4af0-a0b0-7f24c5adc359":["record"],"b3bcb51d-20ea-42a3-b484-f54df1762335":["record"],"82ce0776-6c85-4c7e-a28b-800d881e1de0":["record"],"ad2a49f9-6bef-4e4b-ae79-4e5cbd84086b":["record"],"c5392a8c-b9ed-42a9-876a-90d29d97d870":["record"],"0c9e27f3-1e17-4d53-8865-5399700104e9":["record"],"98be2105-5c3c-453b-b571-c5014a241e64":["record"]},"attributes":null},{"name":"Created_1.table_name","label":"Trigger - Record Created➛Budget Plan Table","reference":"x_yergb_bpm_budget_plan","reference_display":"Budget Plan","type":"table_name","base_type":"table_name","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"02598742-d783-422f-9908-b1dd26eac2bf":["table_name"]},"attributes":null},{"name":"{{static.c808bee23bb6c21046a3934a85e45ace}}","label":"김성태 TestUser","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"61825273-ac78-4a1e-8d0b-64870d0de39c":["approval_conditions"]},"attributes":null},{"name":"Created_1.current.approval_history","label":"Trigger - Record Created➛Budget Plan Record➛Approval history","reference":"","reference_display":"Approval history","type":"journal","base_type":"journal","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"0315f040-6845-4d6a-bde6-4babc2f25194":["log_message"],"8e634d1d-ea99-4691-a1c6-8b30817d9055":["log_message"],"89a54579-2f32-4322-81b7-0dc5bd2f7ff2":["log_message"]},"attributes":null},{"name":"61825273-ac78-4a1e-8d0b-64870d0de39c.__action_status__.message","label":"4 - Ask For Approval➛Action Status➛Message","reference":"","reference_display":"","type":"string","base_type":"string","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"98be2105-5c3c-453b-b571-c5014a241e64":["record"]},"attributes":null},{"name":"61825273-ac78-4a1e-8d0b-64870d0de39c.approval_state","label":"5 - Ask For Approval➛Approval State","reference":"","reference_display":"Approval State","type":"choice","base_type":"choice","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"de30f4da-ba83-4f00-bf60-47fa33dfb3a7":["condition"],"efa484ba-99d0-49df-b055-2e804768b4c4":["condition"]},"attributes":null},{"name":"Created or Updated_1.current.approval","label":"Trigger - Record Created or Updated➛Budget Plan Record➛Approval","reference":"","reference_display":"Approval","type":"choice","base_type":"choice","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"a1f46d74-9ec4-413c-9392-93e303d5366a":["condition"]},"attributes":null},{"name":"Created or Updated_1.current.state","label":"Trigger - Record Created or Updated➛Budget Plan Record➛State","reference":"","reference_display":"State","type":"choice","base_type":"choice","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{"a1f46d74-9ec4-413c-9392-93e303d5366a":["condition"]},"attributes":null}]&lt;/label_cache&gt;&lt;latest_snapshot/&gt;&lt;master_snapshot/&gt;&lt;name&gt;Budget Plan Approval Flow&lt;/name&gt;&lt;natlang/&gt;&lt;outputs/&gt;&lt;pre_compiled&gt;false&lt;/pre_compiled&gt;&lt;remote_trigger_id/&gt;&lt;run_as&gt;user&lt;/run_as&gt;&lt;run_with_roles/&gt;&lt;sc_callable&gt;false&lt;/sc_callable&gt;&lt;show_draft_actions&gt;false&lt;/show_draft_actions&gt;&lt;show_triggered_flows&gt;false&lt;/show_triggered_flows&gt;&lt;status&gt;draft&lt;/status&gt;&lt;substatus/&gt;&lt;sys_class_name&gt;sys_hub_flow&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:16&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;e032578e83830210856ceec0deaad38e&lt;/sys_id&gt;&lt;sys_mod_count&gt;7&lt;/sys_mod_count&gt;&lt;sys_name&gt;Budget Plan Approval Flow&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="BPM" source="x_yergb_bpm"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_hub_flow_e032578e83830210856ceec0deaad38e&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:05:32&lt;/sys_updated_on&gt;&lt;type&gt;flow&lt;/type&gt;&lt;/sys_hub_flow&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=e032578e83830210856ceec0deaad38e"/&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=e032578e83830210856ceec0deaad38e"/&gt;&lt;sys_hub_trigger_instance action="delete_multiple" query="flow=e032578e83830210856ceec0deaad38e^sys_idNOT INa952d74e83830210856ceec0deaad36f"/&gt;&lt;sys_hub_trigger_instance action="INSERT_OR_UPDATE"&gt;&lt;comment/&gt;&lt;display_text/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;name&gt;Created or Updated&lt;/name&gt;&lt;remote_sys_id/&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:52&lt;/sys_created_on&gt;&lt;sys_id&gt;a952d74e83830210856ceec0deaad36f&lt;/sys_id&gt;&lt;sys_mod_count&gt;2&lt;/sys_mod_count&gt;&lt;sys_scope/&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:03:14&lt;/sys_updated_on&gt;&lt;trigger_definition display_value="Created or Updated"&gt;a45d9180c32222002841b63b12d3aea7&lt;/trigger_definition&gt;&lt;trigger_inputs/&gt;&lt;trigger_outputs/&gt;&lt;trigger_type&gt;record_create_or_update&lt;/trigger_type&gt;&lt;/sys_hub_trigger_instance&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=a952d74e83830210856ceec0deaad36f"/&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_trigger_instance&lt;/document&gt;&lt;document_key&gt;a952d74e83830210856ceec0deaad36f&lt;/document_key&gt;&lt;order&gt;1&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:52&lt;/sys_created_on&gt;&lt;sys_id&gt;a952d74e83830210856ceec0deaad370&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value&gt;x_yergb_bpm_budget_plan&lt;/value&gt;&lt;variable display_value="Table"&gt;cf1e1980c32222002841b63b12d3aea0&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_trigger_instance&lt;/document&gt;&lt;document_key&gt;a952d74e83830210856ceec0deaad36f&lt;/document_key&gt;&lt;order&gt;100&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:52&lt;/sys_created_on&gt;&lt;sys_id&gt;e552d74e83830210856ceec0deaad370&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value&gt;^EQ&lt;/value&gt;&lt;variable display_value="Condition"&gt;707dd180c32222002841b63b12d3aecb&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_trigger_output_a45d9180c32222002841b63b12d3aea7^id=a952d74e83830210856ceec0deaad36f"/&gt;&lt;sys_hub_flow_stage action="delete_multiple" query="flow=e032578e83830210856ceec0deaad38e"/&gt;&lt;sys_flow_cat_variable_model action="delete_multiple" query="id=e032578e83830210856ceec0deaad38e^sys_idNOT INa032578e83830210856ceec0deaad38f"/&gt;&lt;sys_flow_cat_variable_model action="INSERT_OR_UPDATE"&gt;&lt;id&gt;e032578e83830210856ceec0deaad38e&lt;/id&gt;&lt;name&gt;Budget Plan Approval Flow&lt;/name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:16&lt;/sys_created_on&gt;&lt;sys_id&gt;a032578e83830210856ceec0deaad38f&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_scope/&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:16&lt;/sys_updated_on&gt;&lt;/sys_flow_cat_variable_model&gt;&lt;sys_flow_cat_variable action="delete_multiple" query="flow_catalog_model=a032578e83830210856ceec0deaad38f"/&gt;&lt;sys_hub_flow_input action="delete_multiple" query="model=e032578e83830210856ceec0deaad38e^sys_idNOT IN3c32578e83830210856ceec0deaad395,7c32578e83830210856ceec0deaad399"/&gt;&lt;sys_hub_flow_input action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;array&gt;false&lt;/array&gt;&lt;array_denormalized&gt;false&lt;/array_denormalized&gt;&lt;attributes&gt;element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=document_id&lt;/attributes&gt;&lt;audit&gt;false&lt;/audit&gt;&lt;calculation&gt;&lt;![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]&gt;&lt;/calculation&gt;&lt;choice/&gt;&lt;choice_field/&gt;&lt;choice_table/&gt;&lt;column_label/&gt;&lt;comments/&gt;&lt;create_roles/&gt;&lt;default_value/&gt;&lt;defaultsort/&gt;&lt;delete_roles/&gt;&lt;dependent&gt;table_name&lt;/dependent&gt;&lt;dependent_on_field&gt;table_name&lt;/dependent_on_field&gt;&lt;display&gt;false&lt;/display&gt;&lt;dynamic_creation&gt;false&lt;/dynamic_creation&gt;&lt;dynamic_creation_script/&gt;&lt;dynamic_default_value/&gt;&lt;dynamic_ref_qual/&gt;&lt;element&gt;current&lt;/element&gt;&lt;element_reference&gt;false&lt;/element_reference&gt;&lt;foreign_database/&gt;&lt;formula/&gt;&lt;function_definition/&gt;&lt;function_field&gt;false&lt;/function_field&gt;&lt;help/&gt;&lt;hint/&gt;&lt;internal_type display_value=""&gt;document_id&lt;/internal_type&gt;&lt;label&gt;Record&lt;/label&gt;&lt;mandatory&gt;true&lt;/mandatory&gt;&lt;max_length&gt;200&lt;/max_length&gt;&lt;model display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/model&gt;&lt;model_id&gt;e032578e83830210856ceec0deaad38e&lt;/model_id&gt;&lt;model_table&gt;sys_hub_flow&lt;/model_table&gt;&lt;name&gt;var__m_sys_hub_flow_input_e032578e83830210856ceec0deaad38e&lt;/name&gt;&lt;next_element/&gt;&lt;order&gt;100&lt;/order&gt;&lt;primary&gt;false&lt;/primary&gt;&lt;read_only&gt;false&lt;/read_only&gt;&lt;read_roles/&gt;&lt;reference/&gt;&lt;reference_cascade_rule/&gt;&lt;reference_floats&gt;false&lt;/reference_floats&gt;&lt;reference_key/&gt;&lt;reference_qual/&gt;&lt;reference_qual_condition/&gt;&lt;reference_type/&gt;&lt;sizeclass/&gt;&lt;spell_check&gt;false&lt;/spell_check&gt;&lt;staged&gt;false&lt;/staged&gt;&lt;sys_class_name&gt;sys_hub_flow_input&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:16&lt;/sys_created_on&gt;&lt;sys_id&gt;3c32578e83830210856ceec0deaad395&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name/&gt;&lt;sys_package/&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_update_name/&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:16&lt;/sys_updated_on&gt;&lt;table_reference&gt;false&lt;/table_reference&gt;&lt;text_index&gt;false&lt;/text_index&gt;&lt;unique&gt;false&lt;/unique&gt;&lt;use_dependent_field&gt;true&lt;/use_dependent_field&gt;&lt;use_dynamic_default&gt;false&lt;/use_dynamic_default&gt;&lt;use_reference_qualifier&gt;simple&lt;/use_reference_qualifier&gt;&lt;virtual&gt;false&lt;/virtual&gt;&lt;virtual_type&gt;script&lt;/virtual_type&gt;&lt;widget/&gt;&lt;write_roles/&gt;&lt;xml_view&gt;false&lt;/xml_view&gt;&lt;/sys_hub_flow_input&gt;&lt;sys_hub_action_input_action_instance action="delete_multiple" query="action_input=3c32578e83830210856ceec0deaad395"/&gt;&lt;sys_hub_flow_input action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;array&gt;false&lt;/array&gt;&lt;array_denormalized&gt;false&lt;/array_denormalized&gt;&lt;attributes&gt;element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,test_input_hidden=true,uiType=table_name&lt;/attributes&gt;&lt;audit&gt;false&lt;/audit&gt;&lt;calculation&gt;&lt;![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]&gt;&lt;/calculation&gt;&lt;choice/&gt;&lt;choice_field/&gt;&lt;choice_table/&gt;&lt;column_label/&gt;&lt;comments/&gt;&lt;create_roles/&gt;&lt;default_value/&gt;&lt;defaultsort/&gt;&lt;delete_roles/&gt;&lt;dependent/&gt;&lt;dependent_on_field/&gt;&lt;display&gt;false&lt;/display&gt;&lt;dynamic_creation&gt;false&lt;/dynamic_creation&gt;&lt;dynamic_creation_script/&gt;&lt;dynamic_default_value/&gt;&lt;dynamic_ref_qual/&gt;&lt;element&gt;table_name&lt;/element&gt;&lt;element_reference&gt;false&lt;/element_reference&gt;&lt;foreign_database/&gt;&lt;formula/&gt;&lt;function_definition/&gt;&lt;function_field&gt;false&lt;/function_field&gt;&lt;help/&gt;&lt;hint/&gt;&lt;internal_type display_value=""&gt;table_name&lt;/internal_type&gt;&lt;label&gt;Table Name&lt;/label&gt;&lt;mandatory&gt;false&lt;/mandatory&gt;&lt;max_length&gt;200&lt;/max_length&gt;&lt;model display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/model&gt;&lt;model_id&gt;e032578e83830210856ceec0deaad38e&lt;/model_id&gt;&lt;model_table&gt;sys_hub_flow&lt;/model_table&gt;&lt;name&gt;var__m_sys_hub_flow_input_e032578e83830210856ceec0deaad38e&lt;/name&gt;&lt;next_element/&gt;&lt;order&gt;101&lt;/order&gt;&lt;primary&gt;false&lt;/primary&gt;&lt;read_only&gt;false&lt;/read_only&gt;&lt;read_roles/&gt;&lt;reference/&gt;&lt;reference_cascade_rule/&gt;&lt;reference_floats&gt;false&lt;/reference_floats&gt;&lt;reference_key/&gt;&lt;reference_qual/&gt;&lt;reference_qual_condition/&gt;&lt;reference_type/&gt;&lt;sizeclass/&gt;&lt;spell_check&gt;false&lt;/spell_check&gt;&lt;staged&gt;false&lt;/staged&gt;&lt;sys_class_name&gt;sys_hub_flow_input&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:16&lt;/sys_created_on&gt;&lt;sys_id&gt;7c32578e83830210856ceec0deaad399&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name/&gt;&lt;sys_package/&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_update_name/&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:16&lt;/sys_updated_on&gt;&lt;table_reference&gt;false&lt;/table_reference&gt;&lt;text_index&gt;false&lt;/text_index&gt;&lt;unique&gt;false&lt;/unique&gt;&lt;use_dependent_field&gt;false&lt;/use_dependent_field&gt;&lt;use_dynamic_default&gt;false&lt;/use_dynamic_default&gt;&lt;use_reference_qualifier&gt;simple&lt;/use_reference_qualifier&gt;&lt;virtual&gt;false&lt;/virtual&gt;&lt;virtual_type&gt;script&lt;/virtual_type&gt;&lt;widget/&gt;&lt;write_roles/&gt;&lt;xml_view&gt;false&lt;/xml_view&gt;&lt;/sys_hub_flow_input&gt;&lt;sys_hub_action_input_action_instance action="delete_multiple" query="action_input=7c32578e83830210856ceec0deaad399"/&gt;&lt;sys_hub_flow_output action="delete_multiple" query="model=e032578e83830210856ceec0deaad38e"/&gt;&lt;sys_hub_alias_mapping action="delete_multiple" query="source_id=e032578e83830210856ceec0deaad38e"/&gt;&lt;sys_hub_action_instance action="delete_multiple" query="flow=e032578e83830210856ceec0deaad38e^sys_idNOT IN3832578e83830210856ceec0deaad3c5,3c32578e83830210856ceec0deaad3d9,4132578e83830210856ceec0deaad3f0,4d32578e83830210856ceec0deaad3fc,c132578e83830210856ceec0deaad3e0,c132978e83830210856ceec0deaad303,c532578e83830210856ceec0deaad3f6,cd32578e83830210856ceec0deaad3e7"/&gt;&lt;sys_hub_action_instance action="INSERT_OR_UPDATE"&gt;&lt;action_inputs/&gt;&lt;action_type display_value="Wait For Condition"&gt;89ce8a4187120010663ca1bb36cb0be3&lt;/action_type&gt;&lt;action_type_parent display_value="Wait For Condition"&gt;8bb9a8160b10030085c083eb37673aec&lt;/action_type_parent&gt;&lt;attributes/&gt;&lt;comment/&gt;&lt;compiled_snapshot&gt;89ce8a4187120010663ca1bb36cb0be3&lt;/compiled_snapshot&gt;&lt;display_text/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;generation_source/&gt;&lt;order&gt;1&lt;/order&gt;&lt;parent_ui_id/&gt;&lt;sys_class_name&gt;sys_hub_action_instance&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;3832578e83830210856ceec0deaad3c5&lt;/sys_id&gt;&lt;sys_mod_count&gt;10&lt;/sys_mod_count&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:03:54&lt;/sys_updated_on&gt;&lt;ui_id&gt;c5392a8c-b9ed-42a9-876a-90d29d97d870&lt;/ui_id&gt;&lt;/sys_hub_action_instance&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=3832578e83830210856ceec0deaad3c5"/&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_action_instance&lt;/document&gt;&lt;document_key&gt;3832578e83830210856ceec0deaad3c5&lt;/document_key&gt;&lt;order&gt;2&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;3032578e83830210856ceec0deaad3d5&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value/&gt;&lt;variable display_value="Table"&gt;45ce8a4187120010663ca1bb36cb0bea&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_action_instance&lt;/document&gt;&lt;document_key&gt;3832578e83830210856ceec0deaad3c5&lt;/document_key&gt;&lt;order&gt;3&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;7c32578e83830210856ceec0deaad3d4&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value/&gt;&lt;variable display_value="Conditions"&gt;49ce8a4187120010663ca1bb36cb0bef&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_action_input_89ce8a4187120010663ca1bb36cb0be3^id=3832578e83830210856ceec0deaad3c5"/&gt;&lt;sys_hub_input_scripts action="delete_multiple" query="instance=3832578e83830210856ceec0deaad3c5"/&gt;&lt;sys_hub_alias_mapping action="delete_multiple" query="source_id=3832578e83830210856ceec0deaad3c5"/&gt;&lt;sys_hub_action_instance action="INSERT_OR_UPDATE"&gt;&lt;action_inputs/&gt;&lt;action_type display_value="Update Record"&gt;f9d01dd2c31332002841b63b12d3aea1&lt;/action_type&gt;&lt;action_type_parent display_value="Update Record"&gt;baf174c8c3c232002841b63b12d3aee4&lt;/action_type_parent&gt;&lt;attributes/&gt;&lt;comment/&gt;&lt;compiled_snapshot&gt;f9d01dd2c31332002841b63b12d3aea1&lt;/compiled_snapshot&gt;&lt;display_text/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;generation_source/&gt;&lt;order&gt;3&lt;/order&gt;&lt;parent_ui_id/&gt;&lt;sys_class_name&gt;sys_hub_action_instance&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;3c32578e83830210856ceec0deaad3d9&lt;/sys_id&gt;&lt;sys_mod_count&gt;6&lt;/sys_mod_count&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:03:54&lt;/sys_updated_on&gt;&lt;ui_id&gt;8e336a49-9a78-4c11-98ec-3290c04aa8be&lt;/ui_id&gt;&lt;/sys_hub_action_instance&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=3c32578e83830210856ceec0deaad3d9"/&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_action_instance&lt;/document&gt;&lt;document_key&gt;3c32578e83830210856ceec0deaad3d9&lt;/document_key&gt;&lt;order&gt;50&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;3c32578e83830210856ceec0deaad3db&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value/&gt;&lt;variable display_value="Table"&gt;b5d01916c31332002841b63b12d3aec9&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_action_instance&lt;/document&gt;&lt;document_key&gt;3c32578e83830210856ceec0deaad3d9&lt;/document_key&gt;&lt;order&gt;100&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;7832578e83830210856ceec0deaad3db&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value/&gt;&lt;variable display_value="Fields"&gt;02d01916c31332002841b63b12d3aeee&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1^id=3c32578e83830210856ceec0deaad3d9"/&gt;&lt;sys_hub_input_scripts action="delete_multiple" query="instance=3c32578e83830210856ceec0deaad3d9"/&gt;&lt;sys_hub_alias_mapping action="delete_multiple" query="source_id=3c32578e83830210856ceec0deaad3d9"/&gt;&lt;sys_hub_action_instance action="INSERT_OR_UPDATE"&gt;&lt;action_inputs/&gt;&lt;action_type display_value="Update Record"&gt;f9d01dd2c31332002841b63b12d3aea1&lt;/action_type&gt;&lt;action_type_parent display_value="Update Record"&gt;baf174c8c3c232002841b63b12d3aee4&lt;/action_type_parent&gt;&lt;attributes/&gt;&lt;comment/&gt;&lt;compiled_snapshot&gt;f9d01dd2c31332002841b63b12d3aea1&lt;/compiled_snapshot&gt;&lt;display_text/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;generation_source/&gt;&lt;order&gt;7&lt;/order&gt;&lt;parent_ui_id&gt;de30f4da-ba83-4f00-bf60-47fa33dfb3a7&lt;/parent_ui_id&gt;&lt;sys_class_name&gt;sys_hub_action_instance&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;4132578e83830210856ceec0deaad3f0&lt;/sys_id&gt;&lt;sys_mod_count&gt;6&lt;/sys_mod_count&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:03:55&lt;/sys_updated_on&gt;&lt;ui_id&gt;82ce0776-6c85-4c7e-a28b-800d881e1de0&lt;/ui_id&gt;&lt;/sys_hub_action_instance&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=4132578e83830210856ceec0deaad3f0"/&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_action_instance&lt;/document&gt;&lt;document_key&gt;4132578e83830210856ceec0deaad3f0&lt;/document_key&gt;&lt;order&gt;50&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;4d32578e83830210856ceec0deaad3f1&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value/&gt;&lt;variable display_value="Table"&gt;b5d01916c31332002841b63b12d3aec9&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_action_instance&lt;/document&gt;&lt;document_key&gt;4132578e83830210856ceec0deaad3f0&lt;/document_key&gt;&lt;order&gt;100&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;8932578e83830210856ceec0deaad3f1&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value/&gt;&lt;variable display_value="Fields"&gt;02d01916c31332002841b63b12d3aeee&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1^id=4132578e83830210856ceec0deaad3f0"/&gt;&lt;sys_hub_input_scripts action="delete_multiple" query="instance=4132578e83830210856ceec0deaad3f0"/&gt;&lt;sys_hub_alias_mapping action="delete_multiple" query="source_id=4132578e83830210856ceec0deaad3f0"/&gt;&lt;sys_hub_action_instance action="INSERT_OR_UPDATE"&gt;&lt;action_inputs/&gt;&lt;action_type display_value="Update Record"&gt;f9d01dd2c31332002841b63b12d3aea1&lt;/action_type&gt;&lt;action_type_parent display_value="Update Record"&gt;baf174c8c3c232002841b63b12d3aee4&lt;/action_type_parent&gt;&lt;attributes/&gt;&lt;comment/&gt;&lt;compiled_snapshot&gt;f9d01dd2c31332002841b63b12d3aea1&lt;/compiled_snapshot&gt;&lt;display_text/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;generation_source/&gt;&lt;order&gt;14&lt;/order&gt;&lt;parent_ui_id&gt;0e149899-270e-47ad-b273-413fc48f8a0d&lt;/parent_ui_id&gt;&lt;sys_class_name&gt;sys_hub_action_instance&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:18&lt;/sys_created_on&gt;&lt;sys_id&gt;4d32578e83830210856ceec0deaad3fc&lt;/sys_id&gt;&lt;sys_mod_count&gt;6&lt;/sys_mod_count&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:03:54&lt;/sys_updated_on&gt;&lt;ui_id&gt;2def4aa5-984b-4d92-8c1a-96c151372575&lt;/ui_id&gt;&lt;/sys_hub_action_instance&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=4d32578e83830210856ceec0deaad3fc"/&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_action_instance&lt;/document&gt;&lt;document_key&gt;4d32578e83830210856ceec0deaad3fc&lt;/document_key&gt;&lt;order&gt;50&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:18&lt;/sys_created_on&gt;&lt;sys_id&gt;4932578e83830210856ceec0deaad3fe&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value/&gt;&lt;variable display_value="Table"&gt;b5d01916c31332002841b63b12d3aec9&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_action_instance&lt;/document&gt;&lt;document_key&gt;4d32578e83830210856ceec0deaad3fc&lt;/document_key&gt;&lt;order&gt;100&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:18&lt;/sys_created_on&gt;&lt;sys_id&gt;8532578e83830210856ceec0deaad3fe&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value/&gt;&lt;variable display_value="Fields"&gt;02d01916c31332002841b63b12d3aeee&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1^id=4d32578e83830210856ceec0deaad3fc"/&gt;&lt;sys_hub_input_scripts action="delete_multiple" query="instance=4d32578e83830210856ceec0deaad3fc"/&gt;&lt;sys_hub_alias_mapping action="delete_multiple" query="source_id=4d32578e83830210856ceec0deaad3fc"/&gt;&lt;sys_hub_action_instance action="INSERT_OR_UPDATE"&gt;&lt;action_inputs/&gt;&lt;action_type display_value="Send Notification"&gt;0d8dd9f10f11101051218e8ebc767e27&lt;/action_type&gt;&lt;action_type_parent display_value="Send Notification"&gt;7eda5d710f11101051218e8ebc767ec1&lt;/action_type_parent&gt;&lt;attributes/&gt;&lt;comment/&gt;&lt;compiled_snapshot&gt;0d8dd9f10f11101051218e8ebc767e27&lt;/compiled_snapshot&gt;&lt;display_text/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;generation_source/&gt;&lt;order&gt;4&lt;/order&gt;&lt;parent_ui_id/&gt;&lt;sys_class_name&gt;sys_hub_action_instance&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;c132578e83830210856ceec0deaad3e0&lt;/sys_id&gt;&lt;sys_mod_count&gt;6&lt;/sys_mod_count&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:03:54&lt;/sys_updated_on&gt;&lt;ui_id&gt;21fba349-3b8c-412a-ad92-c75d9a46e605&lt;/ui_id&gt;&lt;/sys_hub_action_instance&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=c132578e83830210856ceec0deaad3e0"/&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_action_instance&lt;/document&gt;&lt;document_key&gt;c132578e83830210856ceec0deaad3e0&lt;/document_key&gt;&lt;order&gt;2&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;0532578e83830210856ceec0deaad3e2&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value/&gt;&lt;variable display_value="Table"&gt;818dd9f10f11101051218e8ebc767e32&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_action_instance&lt;/document&gt;&lt;document_key&gt;c132578e83830210856ceec0deaad3e0&lt;/document_key&gt;&lt;order&gt;3&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;4132578e83830210856ceec0deaad3e2&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value/&gt;&lt;variable display_value="Notification"&gt;418dd9f10f11101051218e8ebc767e38&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_action_input_0d8dd9f10f11101051218e8ebc767e27^id=c132578e83830210856ceec0deaad3e0"/&gt;&lt;sys_hub_input_scripts action="delete_multiple" query="instance=c132578e83830210856ceec0deaad3e0"/&gt;&lt;sys_hub_alias_mapping action="delete_multiple" query="source_id=c132578e83830210856ceec0deaad3e0"/&gt;&lt;sys_hub_action_instance action="INSERT_OR_UPDATE"&gt;&lt;action_inputs/&gt;&lt;action_type display_value="Update Record"&gt;f9d01dd2c31332002841b63b12d3aea1&lt;/action_type&gt;&lt;action_type_parent display_value="Update Record"&gt;baf174c8c3c232002841b63b12d3aee4&lt;/action_type_parent&gt;&lt;attributes/&gt;&lt;comment/&gt;&lt;compiled_snapshot&gt;f9d01dd2c31332002841b63b12d3aea1&lt;/compiled_snapshot&gt;&lt;display_text/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;generation_source/&gt;&lt;order&gt;17&lt;/order&gt;&lt;parent_ui_id&gt;cfa2818e-11f6-423e-96a6-22afe1ee9b64&lt;/parent_ui_id&gt;&lt;sys_class_name&gt;sys_hub_action_instance&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:18&lt;/sys_created_on&gt;&lt;sys_id&gt;c132978e83830210856ceec0deaad303&lt;/sys_id&gt;&lt;sys_mod_count&gt;6&lt;/sys_mod_count&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:03:55&lt;/sys_updated_on&gt;&lt;ui_id&gt;553a7848-911a-4791-a1e4-bfbfc9719ed5&lt;/ui_id&gt;&lt;/sys_hub_action_instance&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=c132978e83830210856ceec0deaad303"/&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_action_instance&lt;/document&gt;&lt;document_key&gt;c132978e83830210856ceec0deaad303&lt;/document_key&gt;&lt;order&gt;100&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:18&lt;/sys_created_on&gt;&lt;sys_id&gt;0d32978e83830210856ceec0deaad304&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value/&gt;&lt;variable display_value="Fields"&gt;02d01916c31332002841b63b12d3aeee&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_action_instance&lt;/document&gt;&lt;document_key&gt;c132978e83830210856ceec0deaad303&lt;/document_key&gt;&lt;order&gt;50&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:18&lt;/sys_created_on&gt;&lt;sys_id&gt;cd32978e83830210856ceec0deaad304&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value/&gt;&lt;variable display_value="Table"&gt;b5d01916c31332002841b63b12d3aec9&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1^id=c132978e83830210856ceec0deaad303"/&gt;&lt;sys_hub_input_scripts action="delete_multiple" query="instance=c132978e83830210856ceec0deaad303"/&gt;&lt;sys_hub_alias_mapping action="delete_multiple" query="source_id=c132978e83830210856ceec0deaad303"/&gt;&lt;sys_hub_action_instance action="INSERT_OR_UPDATE"&gt;&lt;action_inputs/&gt;&lt;action_type display_value="Update Record"&gt;f9d01dd2c31332002841b63b12d3aea1&lt;/action_type&gt;&lt;action_type_parent display_value="Update Record"&gt;baf174c8c3c232002841b63b12d3aee4&lt;/action_type_parent&gt;&lt;attributes/&gt;&lt;comment/&gt;&lt;compiled_snapshot&gt;f9d01dd2c31332002841b63b12d3aea1&lt;/compiled_snapshot&gt;&lt;display_text/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;generation_source/&gt;&lt;order&gt;10&lt;/order&gt;&lt;parent_ui_id&gt;efa484ba-99d0-49df-b055-2e804768b4c4&lt;/parent_ui_id&gt;&lt;sys_class_name&gt;sys_hub_action_instance&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:18&lt;/sys_created_on&gt;&lt;sys_id&gt;c532578e83830210856ceec0deaad3f6&lt;/sys_id&gt;&lt;sys_mod_count&gt;6&lt;/sys_mod_count&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:03:55&lt;/sys_updated_on&gt;&lt;ui_id&gt;ad2a49f9-6bef-4e4b-ae79-4e5cbd84086b&lt;/ui_id&gt;&lt;/sys_hub_action_instance&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=c532578e83830210856ceec0deaad3f6"/&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_action_instance&lt;/document&gt;&lt;document_key&gt;c532578e83830210856ceec0deaad3f6&lt;/document_key&gt;&lt;order&gt;100&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:18&lt;/sys_created_on&gt;&lt;sys_id&gt;0132578e83830210856ceec0deaad3f8&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value/&gt;&lt;variable display_value="Fields"&gt;02d01916c31332002841b63b12d3aeee&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_action_instance&lt;/document&gt;&lt;document_key&gt;c532578e83830210856ceec0deaad3f6&lt;/document_key&gt;&lt;order&gt;50&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:18&lt;/sys_created_on&gt;&lt;sys_id&gt;c132578e83830210856ceec0deaad3f8&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value/&gt;&lt;variable display_value="Table"&gt;b5d01916c31332002841b63b12d3aec9&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1^id=c532578e83830210856ceec0deaad3f6"/&gt;&lt;sys_hub_input_scripts action="delete_multiple" query="instance=c532578e83830210856ceec0deaad3f6"/&gt;&lt;sys_hub_alias_mapping action="delete_multiple" query="source_id=c532578e83830210856ceec0deaad3f6"/&gt;&lt;sys_hub_action_instance action="INSERT_OR_UPDATE"&gt;&lt;action_inputs/&gt;&lt;action_inputs/&gt;&lt;action_type display_value="Ask For Approval"&gt;f8f2e9920b10030085c083eb37673abd&lt;/action_type&gt;&lt;action_type_parent display_value="Ask For Approval"&gt;bae0a1120b10030085c083eb37673a92&lt;/action_type_parent&gt;&lt;attributes/&gt;&lt;comment/&gt;&lt;compiled_snapshot&gt;f8f2e9920b10030085c083eb37673abd&lt;/compiled_snapshot&gt;&lt;display_text/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;generation_source/&gt;&lt;order&gt;5&lt;/order&gt;&lt;parent_ui_id/&gt;&lt;sys_class_name&gt;sys_hub_action_instance&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;cd32578e83830210856ceec0deaad3e7&lt;/sys_id&gt;&lt;sys_mod_count&gt;6&lt;/sys_mod_count&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:03:54&lt;/sys_updated_on&gt;&lt;ui_id&gt;61825273-ac78-4a1e-8d0b-64870d0de39c&lt;/ui_id&gt;&lt;/sys_hub_action_instance&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=cd32578e83830210856ceec0deaad3e7"/&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_action_instance&lt;/document&gt;&lt;document_key&gt;cd32578e83830210856ceec0deaad3e7&lt;/document_key&gt;&lt;order&gt;2&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;0d32578e83830210856ceec0deaad3ea&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value/&gt;&lt;variable display_value="Approval Field"&gt;01f2e9920b10030085c083eb37673ad8&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_action_instance&lt;/document&gt;&lt;document_key&gt;cd32578e83830210856ceec0deaad3e7&lt;/document_key&gt;&lt;order&gt;1&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;4532578e83830210856ceec0deaad3eb&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value/&gt;&lt;variable display_value="Table"&gt;bcf2e9920b10030085c083eb37673acc&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_action_instance&lt;/document&gt;&lt;document_key&gt;cd32578e83830210856ceec0deaad3e7&lt;/document_key&gt;&lt;order&gt;5&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;8132578e83830210856ceec0deaad3eb&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:17&lt;/sys_updated_on&gt;&lt;value/&gt;&lt;variable display_value="Due Date"&gt;c5f2e9920b10030085c083eb37673af9&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_action_instance&lt;/document&gt;&lt;document_key&gt;cd32578e83830210856ceec0deaad3e7&lt;/document_key&gt;&lt;order&gt;3&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;cd32578e83830210856ceec0deaad3ea&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value/&gt;&lt;variable display_value="Journal Field"&gt;c1f2e9920b10030085c083eb37673ae3&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_element_mapping action="delete_multiple" query="id=cd32578e83830210856ceec0deaad3e7"/&gt;&lt;sys_element_mapping action="INSERT_OR_UPDATE"&gt;&lt;field&gt;approval_conditions&lt;/field&gt;&lt;id&gt;cd32578e83830210856ceec0deaad3e7&lt;/id&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;c532578e83830210856ceec0deaad3ea&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:17&lt;/sys_updated_on&gt;&lt;table&gt;var__m_sys_hub_action_input_f8f2e9920b10030085c083eb37673abd&lt;/table&gt;&lt;value&gt;ApprovesAnyU[{{static.9a7dd7383bcf061046a3934a85e45ac8}}]OrRejectsAnyU[{{static.9a7dd7383bcf061046a3934a85e45ac8}}]&lt;/value&gt;&lt;/sys_element_mapping&gt;&lt;sys_element_mapping action="INSERT_OR_UPDATE"&gt;&lt;field&gt;approval_field&lt;/field&gt;&lt;id&gt;cd32578e83830210856ceec0deaad3e7&lt;/id&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;c932578e83830210856ceec0deaad3e9&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:17&lt;/sys_updated_on&gt;&lt;table&gt;var__m_sys_hub_action_input_f8f2e9920b10030085c083eb37673abd&lt;/table&gt;&lt;value/&gt;&lt;/sys_element_mapping&gt;&lt;sys_element_mapping action="INSERT_OR_UPDATE"&gt;&lt;field&gt;due_date&lt;/field&gt;&lt;id&gt;cd32578e83830210856ceec0deaad3e7&lt;/id&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;0532578e83830210856ceec0deaad3ea&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:17&lt;/sys_updated_on&gt;&lt;table&gt;var__m_sys_hub_action_input_f8f2e9920b10030085c083eb37673abd&lt;/table&gt;&lt;value&gt;{"action":"none","date_type":"actual","date":"{{}}","duration":1,"duration_type":"days","schedule":"","schedule_label":""}&lt;/value&gt;&lt;/sys_element_mapping&gt;&lt;sys_element_mapping action="INSERT_OR_UPDATE"&gt;&lt;field&gt;journal_field&lt;/field&gt;&lt;id&gt;cd32578e83830210856ceec0deaad3e7&lt;/id&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;8d32578e83830210856ceec0deaad3e9&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:17&lt;/sys_updated_on&gt;&lt;table&gt;var__m_sys_hub_action_input_f8f2e9920b10030085c083eb37673abd&lt;/table&gt;&lt;value/&gt;&lt;/sys_element_mapping&gt;&lt;sys_element_mapping action="INSERT_OR_UPDATE"&gt;&lt;field&gt;record&lt;/field&gt;&lt;id&gt;cd32578e83830210856ceec0deaad3e7&lt;/id&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;4132578e83830210856ceec0deaad3ea&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;table&gt;var__m_sys_hub_action_input_f8f2e9920b10030085c083eb37673abd&lt;/table&gt;&lt;value/&gt;&lt;/sys_element_mapping&gt;&lt;sys_element_mapping action="INSERT_OR_UPDATE"&gt;&lt;field&gt;table&lt;/field&gt;&lt;id&gt;cd32578e83830210856ceec0deaad3e7&lt;/id&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;8932578e83830210856ceec0deaad3ea&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:17&lt;/sys_updated_on&gt;&lt;table&gt;var__m_sys_hub_action_input_f8f2e9920b10030085c083eb37673abd&lt;/table&gt;&lt;value/&gt;&lt;/sys_element_mapping&gt;&lt;sys_hub_input_scripts action="delete_multiple" query="instance=cd32578e83830210856ceec0deaad3e7"/&gt;&lt;sys_hub_alias_mapping action="delete_multiple" query="source_id=cd32578e83830210856ceec0deaad3e7"/&gt;&lt;sys_hub_sub_flow_instance action="delete_multiple" query="flow=e032578e83830210856ceec0deaad38e"/&gt;&lt;sys_hub_flow_logic action="delete_multiple" query="flow=e032578e83830210856ceec0deaad38e^sys_idNOT IN2492db8e83830210856ceec0deaad310,3032578e83830210856ceec0deaad3a8,3432578e83830210856ceec0deaad3b2,3432578e83830210856ceec0deaad3b6,3c32578e83830210856ceec0deaad3aa,7032578e83830210856ceec0deaad3a0,7c32578e83830210856ceec0deaad3ae,b432578e83830210856ceec0deaad3a3,f832578e83830210856ceec0deaad3bc,fc32578e83830210856ceec0deaad3b9"/&gt;&lt;sys_hub_flow_logic action="INSERT_OR_UPDATE"&gt;&lt;attributes/&gt;&lt;block display_value=""&gt;2892db8e83830210856ceec0deaad30f&lt;/block&gt;&lt;comment/&gt;&lt;connected_to/&gt;&lt;decision_table/&gt;&lt;decision_table_inputs/&gt;&lt;display_text/&gt;&lt;extended_inputs/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;flow_variable/&gt;&lt;flow_variables_assigned/&gt;&lt;generation_source/&gt;&lt;inputs/&gt;&lt;logic_definition display_value="If"&gt;af4e1945c3e232002841b63b12d3ae3e&lt;/logic_definition&gt;&lt;order&gt;2&lt;/order&gt;&lt;outputs_assigned/&gt;&lt;outputs_to_assign/&gt;&lt;parent_ui_id/&gt;&lt;sys_class_name&gt;sys_hub_flow_logic&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:03:54&lt;/sys_created_on&gt;&lt;sys_id&gt;2492db8e83830210856ceec0deaad310&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:03:54&lt;/sys_updated_on&gt;&lt;ui_id&gt;a1f46d74-9ec4-413c-9392-93e303d5366a&lt;/ui_id&gt;&lt;workflow_inputs/&gt;&lt;workflow_reference/&gt;&lt;/sys_hub_flow_logic&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=2492db8e83830210856ceec0deaad310"/&gt;&lt;sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e^id=2492db8e83830210856ceec0deaad310"/&gt;&lt;sys_hub_flow_logic_ext_input action="delete_multiple" query="model=2492db8e83830210856ceec0deaad310"/&gt;&lt;sys_hub_input_scripts action="delete_multiple" query="instance=2492db8e83830210856ceec0deaad310"/&gt;&lt;sys_hub_flow_logic action="INSERT_OR_UPDATE"&gt;&lt;attributes/&gt;&lt;block display_value=""&gt;bd44596583438210856ceec0deaad353&lt;/block&gt;&lt;comment/&gt;&lt;connected_to/&gt;&lt;decision_table/&gt;&lt;decision_table_inputs/&gt;&lt;display_text/&gt;&lt;extended_inputs/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;flow_variable/&gt;&lt;flow_variables_assigned/&gt;&lt;generation_source/&gt;&lt;inputs/&gt;&lt;logic_definition display_value="End"&gt;d176605ea76103004f27b0d2187901c7&lt;/logic_definition&gt;&lt;order&gt;8&lt;/order&gt;&lt;outputs_assigned/&gt;&lt;outputs_to_assign/&gt;&lt;parent_ui_id&gt;de30f4da-ba83-4f00-bf60-47fa33dfb3a7&lt;/parent_ui_id&gt;&lt;sys_class_name&gt;sys_hub_flow_logic&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;3032578e83830210856ceec0deaad3a8&lt;/sys_id&gt;&lt;sys_mod_count&gt;3&lt;/sys_mod_count&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:03:55&lt;/sys_updated_on&gt;&lt;ui_id&gt;08d1516e-2bbb-4673-be74-37fa11e6ca95&lt;/ui_id&gt;&lt;workflow_inputs/&gt;&lt;workflow_reference/&gt;&lt;/sys_hub_flow_logic&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=3032578e83830210856ceec0deaad3a8"/&gt;&lt;sys_hub_flow_logic_ext_input action="delete_multiple" query="model=3032578e83830210856ceec0deaad3a8"/&gt;&lt;sys_hub_input_scripts action="delete_multiple" query="instance=3032578e83830210856ceec0deaad3a8"/&gt;&lt;sys_hub_flow_logic action="INSERT_OR_UPDATE"&gt;&lt;attributes/&gt;&lt;block display_value=""&gt;aab2438a83430210856ceec0deaad33c&lt;/block&gt;&lt;comment/&gt;&lt;connected_to/&gt;&lt;decision_table/&gt;&lt;decision_table_inputs/&gt;&lt;display_text/&gt;&lt;extended_inputs/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;flow_variable/&gt;&lt;flow_variables_assigned/&gt;&lt;generation_source/&gt;&lt;inputs/&gt;&lt;logic_definition display_value="Top Level Catch"&gt;35d60003e6022010a5e40cdd1254dd23&lt;/logic_definition&gt;&lt;order&gt;12&lt;/order&gt;&lt;outputs_assigned/&gt;&lt;outputs_to_assign/&gt;&lt;parent_ui_id/&gt;&lt;sys_class_name&gt;sys_hub_flow_logic&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;3432578e83830210856ceec0deaad3b2&lt;/sys_id&gt;&lt;sys_mod_count&gt;3&lt;/sys_mod_count&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:03:54&lt;/sys_updated_on&gt;&lt;ui_id&gt;27ca42fa-c9fb-44bc-8283-cdd3b4241ac6&lt;/ui_id&gt;&lt;workflow_inputs/&gt;&lt;workflow_reference/&gt;&lt;/sys_hub_flow_logic&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=3432578e83830210856ceec0deaad3b2"/&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_flow_logic&lt;/document&gt;&lt;document_key&gt;3432578e83830210856ceec0deaad3b2&lt;/document_key&gt;&lt;order&gt;100&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;7432578e83830210856ceec0deaad3b5&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:17&lt;/sys_updated_on&gt;&lt;value&gt;1&lt;/value&gt;&lt;variable display_value="enabled"&gt;dd70187cc36e20105553b740ad40dddc&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_flow_logic&lt;/document&gt;&lt;document_key&gt;3432578e83830210856ceec0deaad3b2&lt;/document_key&gt;&lt;order&gt;100&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;b032578e83830210856ceec0deaad3b5&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:17&lt;/sys_updated_on&gt;&lt;value&gt;{"version":"1.0","complexObject":{"code":{"$cv":{"$c":"java.lang.String","$v":""}},"message":{"$cv":{"$c":"java.lang.String","$v":""}}},"serializationFormat":"JSON","complexObjectSchema":{"FlowDesigner:FDACTIONSTATUS":{"code":"Integer","code.$field_facets":{"SimpleMapFacet":"{\"uiTypeLabel\":\"Integer\",\"read_only\":\"false\",\"hint\":\"\",\"uiType\":\"integer\",\"default_value\":\"\",\"label\":\"Code\",\"action_error_output\":\"true\",\"mandatory\":\"false\",\"order\":\"1\",\"max_length\":\"40\"}"},"message":"String","message.$field_facets":{"SimpleMapFacet":"{\"uiTypeLabel\":\"String\",\"read_only\":\"false\",\"hint\":\"\",\"uiType\":\"string\",\"default_value\":\"\",\"label\":\"Message\",\"action_error_output\":\"true\",\"mandatory\":\"false\",\"order\":\"2\",\"max_length\":\"4000\"}"}},"FlowDesigner:FDACTIONSTATUS.$type_facets":{"SimpleMapFacet":"{\"default_value\":\"\",\"label\":\"Action Status\",\"action_error_output\":\"true\",\"mandatory\":\"false\",\"uiUniqueId\":\"4adfb7bc-9d67-498d-88d0-8d6c3d584fed\",\"uiTypeLabel\":\"Object\",\"co_type_name\":\"FDACTIONSTATUS\",\"element_mapping_provider\":\"com.glide.flow_design.action.data.FlowDesignVariableMapper\",\"read_only\":\"false\",\"hint\":null,\"uiType\":\"object\",\"order\":\"1\",\"max_length\":\"65000\"}"}}}&lt;/value&gt;&lt;variable display_value="Error Status"&gt;0f72a5a25b132010b61ea2013781c749&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_flow_logic_input_35d60003e6022010a5e40cdd1254dd23^id=3432578e83830210856ceec0deaad3b2"/&gt;&lt;sys_hub_flow_logic_ext_input action="delete_multiple" query="model=3432578e83830210856ceec0deaad3b2"/&gt;&lt;sys_hub_input_scripts action="delete_multiple" query="instance=3432578e83830210856ceec0deaad3b2"/&gt;&lt;sys_hub_flow_logic action="INSERT_OR_UPDATE"&gt;&lt;attributes/&gt;&lt;block display_value=""&gt;eab2438a83430210856ceec0deaad34e&lt;/block&gt;&lt;comment/&gt;&lt;connected_to/&gt;&lt;decision_table/&gt;&lt;decision_table_inputs/&gt;&lt;display_text/&gt;&lt;extended_inputs/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;flow_variable/&gt;&lt;flow_variables_assigned/&gt;&lt;generation_source/&gt;&lt;inputs/&gt;&lt;logic_definition display_value="If"&gt;af4e1945c3e232002841b63b12d3ae3e&lt;/logic_definition&gt;&lt;order&gt;13&lt;/order&gt;&lt;outputs_assigned/&gt;&lt;outputs_to_assign/&gt;&lt;parent_ui_id/&gt;&lt;sys_class_name&gt;sys_hub_flow_logic&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;3432578e83830210856ceec0deaad3b6&lt;/sys_id&gt;&lt;sys_mod_count&gt;5&lt;/sys_mod_count&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:03:55&lt;/sys_updated_on&gt;&lt;ui_id&gt;0e149899-270e-47ad-b273-413fc48f8a0d&lt;/ui_id&gt;&lt;workflow_inputs/&gt;&lt;workflow_reference/&gt;&lt;/sys_hub_flow_logic&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=3432578e83830210856ceec0deaad3b6"/&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_flow_logic&lt;/document&gt;&lt;document_key&gt;3432578e83830210856ceec0deaad3b6&lt;/document_key&gt;&lt;order&gt;20&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:52&lt;/sys_created_on&gt;&lt;sys_id&gt;69529b8e83830210856ceec0deaad3df&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value&gt;=approved&lt;/value&gt;&lt;variable display_value="Condition"&gt;9a5f5105c32632002841b63b12d3ae46&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_flow_logic&lt;/document&gt;&lt;document_key&gt;3432578e83830210856ceec0deaad3b6&lt;/document_key&gt;&lt;order&gt;10&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;b032578e83830210856ceec0deaad3b9&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:17&lt;/sys_updated_on&gt;&lt;value&gt;Approved&lt;/value&gt;&lt;variable display_value="Condition Label"&gt;f0af19c1c32632002841b63b12d3aea3&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e^id=3432578e83830210856ceec0deaad3b6"/&gt;&lt;sys_hub_flow_logic_ext_input action="delete_multiple" query="model=3432578e83830210856ceec0deaad3b6"/&gt;&lt;sys_hub_input_scripts action="delete_multiple" query="instance=3432578e83830210856ceec0deaad3b6"/&gt;&lt;sys_hub_flow_logic action="INSERT_OR_UPDATE"&gt;&lt;attributes/&gt;&lt;block display_value=""&gt;7144596583438210856ceec0deaad359&lt;/block&gt;&lt;comment/&gt;&lt;connected_to&gt;de30f4da-ba83-4f00-bf60-47fa33dfb3a7&lt;/connected_to&gt;&lt;decision_table/&gt;&lt;decision_table_inputs/&gt;&lt;display_text/&gt;&lt;extended_inputs/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;flow_variable/&gt;&lt;flow_variables_assigned/&gt;&lt;generation_source/&gt;&lt;inputs/&gt;&lt;inputs/&gt;&lt;logic_definition display_value="Else If"&gt;666e5545c3e232002841b63b12d3ae99&lt;/logic_definition&gt;&lt;order&gt;9&lt;/order&gt;&lt;outputs_assigned/&gt;&lt;outputs_to_assign/&gt;&lt;parent_ui_id/&gt;&lt;sys_class_name&gt;sys_hub_flow_logic&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;3c32578e83830210856ceec0deaad3aa&lt;/sys_id&gt;&lt;sys_mod_count&gt;3&lt;/sys_mod_count&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:03:55&lt;/sys_updated_on&gt;&lt;ui_id&gt;efa484ba-99d0-49df-b055-2e804768b4c4&lt;/ui_id&gt;&lt;workflow_inputs/&gt;&lt;workflow_reference/&gt;&lt;/sys_hub_flow_logic&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=3c32578e83830210856ceec0deaad3aa"/&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_flow_logic&lt;/document&gt;&lt;document_key&gt;3c32578e83830210856ceec0deaad3aa&lt;/document_key&gt;&lt;order&gt;10&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;bc32578e83830210856ceec0deaad3ad&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:17&lt;/sys_updated_on&gt;&lt;value&gt;Rejected&lt;/value&gt;&lt;variable display_value="Condition Label"&gt;f0af19c1c32632002841b63b12d3aea2&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_element_mapping action="delete_multiple" query="id=3c32578e83830210856ceec0deaad3aa"/&gt;&lt;sys_element_mapping action="INSERT_OR_UPDATE"&gt;&lt;field&gt;condition&lt;/field&gt;&lt;id&gt;3c32578e83830210856ceec0deaad3aa&lt;/id&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;3c32578e83830210856ceec0deaad3ad&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:17&lt;/sys_updated_on&gt;&lt;table&gt;var__m_sys_hub_flow_logic_input_666e5545c3e232002841b63b12d3ae99&lt;/table&gt;&lt;value&gt;{{61825273-ac78-4a1e-8d0b-64870d0de39c.approval_state}}=rejected&lt;/value&gt;&lt;/sys_element_mapping&gt;&lt;sys_element_mapping action="INSERT_OR_UPDATE"&gt;&lt;field&gt;condition_name&lt;/field&gt;&lt;id&gt;3c32578e83830210856ceec0deaad3aa&lt;/id&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;7832578e83830210856ceec0deaad3ad&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:17&lt;/sys_updated_on&gt;&lt;table&gt;var__m_sys_hub_flow_logic_input_666e5545c3e232002841b63b12d3ae99&lt;/table&gt;&lt;value/&gt;&lt;/sys_element_mapping&gt;&lt;sys_hub_flow_logic_ext_input action="delete_multiple" query="model=3c32578e83830210856ceec0deaad3aa"/&gt;&lt;sys_hub_input_scripts action="delete_multiple" query="instance=3c32578e83830210856ceec0deaad3aa"/&gt;&lt;sys_hub_flow_logic action="INSERT_OR_UPDATE"&gt;&lt;attributes/&gt;&lt;block display_value=""&gt;eeb2438a83430210856ceec0deaad300&lt;/block&gt;&lt;comment/&gt;&lt;connected_to/&gt;&lt;decision_table/&gt;&lt;decision_table_inputs/&gt;&lt;display_text/&gt;&lt;extended_inputs/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;flow_variable/&gt;&lt;flow_variables_assigned/&gt;&lt;generation_source/&gt;&lt;inputs/&gt;&lt;logic_definition display_value="Top Level Try"&gt;e9060aa2c3013010ace8b740ad40dd51&lt;/logic_definition&gt;&lt;order&gt;0&lt;/order&gt;&lt;outputs_assigned/&gt;&lt;outputs_to_assign/&gt;&lt;parent_ui_id/&gt;&lt;sys_class_name&gt;sys_hub_flow_logic&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:16&lt;/sys_created_on&gt;&lt;sys_id&gt;7032578e83830210856ceec0deaad3a0&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_scope/&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:16&lt;/sys_updated_on&gt;&lt;ui_id&gt;f3deab10-03b4-476b-a13b-11dc8c93c87a&lt;/ui_id&gt;&lt;workflow_inputs/&gt;&lt;workflow_reference/&gt;&lt;/sys_hub_flow_logic&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=7032578e83830210856ceec0deaad3a0"/&gt;&lt;sys_hub_flow_logic_ext_input action="delete_multiple" query="model=7032578e83830210856ceec0deaad3a0"/&gt;&lt;sys_hub_input_scripts action="delete_multiple" query="instance=7032578e83830210856ceec0deaad3a0"/&gt;&lt;sys_hub_flow_logic action="INSERT_OR_UPDATE"&gt;&lt;attributes/&gt;&lt;block display_value=""&gt;3944596583438210856ceec0deaad35f&lt;/block&gt;&lt;comment/&gt;&lt;connected_to/&gt;&lt;decision_table/&gt;&lt;decision_table_inputs/&gt;&lt;display_text/&gt;&lt;extended_inputs/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;flow_variable/&gt;&lt;flow_variables_assigned/&gt;&lt;generation_source/&gt;&lt;inputs/&gt;&lt;logic_definition display_value="Go back to"&gt;59ea75fd77502110b2b4ddd9cf5a99ef&lt;/logic_definition&gt;&lt;order&gt;11&lt;/order&gt;&lt;outputs_assigned/&gt;&lt;outputs_to_assign/&gt;&lt;parent_ui_id&gt;efa484ba-99d0-49df-b055-2e804768b4c4&lt;/parent_ui_id&gt;&lt;sys_class_name&gt;sys_hub_flow_logic&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;7c32578e83830210856ceec0deaad3ae&lt;/sys_id&gt;&lt;sys_mod_count&gt;3&lt;/sys_mod_count&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:03:54&lt;/sys_updated_on&gt;&lt;ui_id&gt;3e496526-e4c8-45a4-b8bf-2fca60fec4f6&lt;/ui_id&gt;&lt;workflow_inputs/&gt;&lt;workflow_reference/&gt;&lt;/sys_hub_flow_logic&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=7c32578e83830210856ceec0deaad3ae"/&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_flow_logic&lt;/document&gt;&lt;document_key&gt;7c32578e83830210856ceec0deaad3ae&lt;/document_key&gt;&lt;order&gt;100&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;7432578e83830210856ceec0deaad3b1&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:17&lt;/sys_updated_on&gt;&lt;value&gt;c5392a8c-b9ed-42a9-876a-90d29d97d870&lt;/value&gt;&lt;variable display_value="Go back to step"&gt;7bf519994391e110e3bf457a7bb8f2fc&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_hub_flow_logic_ext_input action="delete_multiple" query="model=7c32578e83830210856ceec0deaad3ae"/&gt;&lt;sys_hub_input_scripts action="delete_multiple" query="instance=7c32578e83830210856ceec0deaad3ae"/&gt;&lt;sys_hub_flow_logic action="INSERT_OR_UPDATE"&gt;&lt;attributes/&gt;&lt;block display_value=""&gt;b944596583438210856ceec0deaad34d&lt;/block&gt;&lt;comment/&gt;&lt;connected_to/&gt;&lt;decision_table/&gt;&lt;decision_table_inputs/&gt;&lt;display_text/&gt;&lt;extended_inputs/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;flow_variable/&gt;&lt;flow_variables_assigned/&gt;&lt;generation_source/&gt;&lt;inputs/&gt;&lt;inputs/&gt;&lt;logic_definition display_value="If"&gt;af4e1945c3e232002841b63b12d3ae3e&lt;/logic_definition&gt;&lt;order&gt;6&lt;/order&gt;&lt;outputs_assigned/&gt;&lt;outputs_to_assign/&gt;&lt;parent_ui_id/&gt;&lt;sys_class_name&gt;sys_hub_flow_logic&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:16&lt;/sys_created_on&gt;&lt;sys_id&gt;b432578e83830210856ceec0deaad3a3&lt;/sys_id&gt;&lt;sys_mod_count&gt;3&lt;/sys_mod_count&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:03:55&lt;/sys_updated_on&gt;&lt;ui_id&gt;de30f4da-ba83-4f00-bf60-47fa33dfb3a7&lt;/ui_id&gt;&lt;workflow_inputs/&gt;&lt;workflow_reference/&gt;&lt;/sys_hub_flow_logic&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=b432578e83830210856ceec0deaad3a3"/&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_flow_logic&lt;/document&gt;&lt;document_key&gt;b432578e83830210856ceec0deaad3a3&lt;/document_key&gt;&lt;order&gt;10&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;3c32578e83830210856ceec0deaad3a6&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:17&lt;/sys_updated_on&gt;&lt;value&gt;Approved&lt;/value&gt;&lt;variable display_value="Condition Label"&gt;f0af19c1c32632002841b63b12d3aea3&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_element_mapping action="delete_multiple" query="id=b432578e83830210856ceec0deaad3a3"/&gt;&lt;sys_element_mapping action="INSERT_OR_UPDATE"&gt;&lt;field&gt;condition&lt;/field&gt;&lt;id&gt;b432578e83830210856ceec0deaad3a3&lt;/id&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;b832578e83830210856ceec0deaad3a6&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:17&lt;/sys_updated_on&gt;&lt;table&gt;var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e&lt;/table&gt;&lt;value&gt;{{61825273-ac78-4a1e-8d0b-64870d0de39c.approval_state}}=approved&lt;/value&gt;&lt;/sys_element_mapping&gt;&lt;sys_element_mapping action="INSERT_OR_UPDATE"&gt;&lt;field&gt;condition_name&lt;/field&gt;&lt;id&gt;b432578e83830210856ceec0deaad3a3&lt;/id&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;f032578e83830210856ceec0deaad3a6&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:17&lt;/sys_updated_on&gt;&lt;table&gt;var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e&lt;/table&gt;&lt;value/&gt;&lt;/sys_element_mapping&gt;&lt;sys_hub_flow_logic_ext_input action="delete_multiple" query="model=b432578e83830210856ceec0deaad3a3"/&gt;&lt;sys_hub_input_scripts action="delete_multiple" query="instance=b432578e83830210856ceec0deaad3a3"/&gt;&lt;sys_hub_flow_logic action="INSERT_OR_UPDATE"&gt;&lt;attributes/&gt;&lt;block display_value=""&gt;7ab2438a83430210856ceec0deaad366&lt;/block&gt;&lt;comment/&gt;&lt;connected_to&gt;0e149899-270e-47ad-b273-413fc48f8a0d&lt;/connected_to&gt;&lt;decision_table/&gt;&lt;decision_table_inputs/&gt;&lt;display_text/&gt;&lt;extended_inputs/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;flow_variable/&gt;&lt;flow_variables_assigned/&gt;&lt;generation_source/&gt;&lt;inputs/&gt;&lt;logic_definition display_value="Else If"&gt;666e5545c3e232002841b63b12d3ae99&lt;/logic_definition&gt;&lt;order&gt;16&lt;/order&gt;&lt;outputs_assigned/&gt;&lt;outputs_to_assign/&gt;&lt;parent_ui_id/&gt;&lt;sys_class_name&gt;sys_hub_flow_logic&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;f832578e83830210856ceec0deaad3bc&lt;/sys_id&gt;&lt;sys_mod_count&gt;5&lt;/sys_mod_count&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:03:55&lt;/sys_updated_on&gt;&lt;ui_id&gt;cfa2818e-11f6-423e-96a6-22afe1ee9b64&lt;/ui_id&gt;&lt;workflow_inputs/&gt;&lt;workflow_reference/&gt;&lt;/sys_hub_flow_logic&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=f832578e83830210856ceec0deaad3bc"/&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_flow_logic&lt;/document&gt;&lt;document_key&gt;f832578e83830210856ceec0deaad3bc&lt;/document_key&gt;&lt;order&gt;10&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;7832578e83830210856ceec0deaad3bf&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:17&lt;/sys_updated_on&gt;&lt;value&gt;Rejected&lt;/value&gt;&lt;variable display_value="Condition Label"&gt;f0af19c1c32632002841b63b12d3aea2&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_variable_value action="INSERT_OR_UPDATE"&gt;&lt;document&gt;sys_hub_flow_logic&lt;/document&gt;&lt;document_key&gt;f832578e83830210856ceec0deaad3bc&lt;/document_key&gt;&lt;order&gt;20&lt;/order&gt;&lt;sys_class_name&gt;sys_variable_value&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:52&lt;/sys_created_on&gt;&lt;sys_id&gt;e9529b8e83830210856ceec0deaad3e5&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:52&lt;/sys_updated_on&gt;&lt;value&gt;=rejected&lt;/value&gt;&lt;variable display_value="Condition"&gt;f0af19c1c32632002841b63b12d3aea1&lt;/variable&gt;&lt;/sys_variable_value&gt;&lt;sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_flow_logic_input_666e5545c3e232002841b63b12d3ae99^id=f832578e83830210856ceec0deaad3bc"/&gt;&lt;sys_hub_flow_logic_ext_input action="delete_multiple" query="model=f832578e83830210856ceec0deaad3bc"/&gt;&lt;sys_hub_input_scripts action="delete_multiple" query="instance=f832578e83830210856ceec0deaad3bc"/&gt;&lt;sys_hub_flow_logic action="INSERT_OR_UPDATE"&gt;&lt;attributes/&gt;&lt;block display_value=""&gt;eeb2438a83430210856ceec0deaad354&lt;/block&gt;&lt;comment/&gt;&lt;connected_to/&gt;&lt;decision_table/&gt;&lt;decision_table_inputs/&gt;&lt;display_text/&gt;&lt;extended_inputs/&gt;&lt;flow display_value="Budget Plan Approval Flow"&gt;e032578e83830210856ceec0deaad38e&lt;/flow&gt;&lt;flow_variable/&gt;&lt;flow_variables_assigned/&gt;&lt;generation_source/&gt;&lt;inputs/&gt;&lt;logic_definition display_value="End"&gt;d176605ea76103004f27b0d2187901c7&lt;/logic_definition&gt;&lt;order&gt;15&lt;/order&gt;&lt;outputs_assigned/&gt;&lt;outputs_to_assign/&gt;&lt;parent_ui_id&gt;0e149899-270e-47ad-b273-413fc48f8a0d&lt;/parent_ui_id&gt;&lt;sys_class_name&gt;sys_hub_flow_logic&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:17&lt;/sys_created_on&gt;&lt;sys_id&gt;fc32578e83830210856ceec0deaad3b9&lt;/sys_id&gt;&lt;sys_mod_count&gt;3&lt;/sys_mod_count&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:03:55&lt;/sys_updated_on&gt;&lt;ui_id&gt;8bf7f37e-9fb1-484c-a7d6-dcc5b72151e3&lt;/ui_id&gt;&lt;workflow_inputs/&gt;&lt;workflow_reference/&gt;&lt;/sys_hub_flow_logic&gt;&lt;sys_variable_value action="delete_multiple" query="document_key=fc32578e83830210856ceec0deaad3b9"/&gt;&lt;sys_hub_flow_logic_ext_input action="delete_multiple" query="model=fc32578e83830210856ceec0deaad3b9"/&gt;&lt;sys_hub_input_scripts action="delete_multiple" query="instance=fc32578e83830210856ceec0deaad3b9"/&gt;&lt;sys_hub_pill_compound action="delete_multiple" query="attached_to=e032578e83830210856ceec0deaad38e"/&gt;&lt;sys_hub_flow_variable action="delete_multiple" query="model=e032578e83830210856ceec0deaad38e"/&gt;&lt;sys_documentation action="delete_multiple" query="name=var__m_sys_hub_flow_input_e032578e83830210856ceec0deaad38e^sys_idNOT IN3032578e83830210856ceec0deaad39c,7c32578e83830210856ceec0deaad398"/&gt;&lt;sys_documentation action="INSERT_OR_UPDATE"&gt;&lt;element&gt;table_name&lt;/element&gt;&lt;help/&gt;&lt;hint/&gt;&lt;label&gt;Table Name&lt;/label&gt;&lt;language&gt;en&lt;/language&gt;&lt;name&gt;var__m_sys_hub_flow_input_e032578e83830210856ceec0deaad38e&lt;/name&gt;&lt;plural/&gt;&lt;sys_class_name&gt;sys_documentation&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:16&lt;/sys_created_on&gt;&lt;sys_id&gt;3032578e83830210856ceec0deaad39c&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name/&gt;&lt;sys_package display_value="BPM" source="x_yergb_bpm"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_update_name/&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:16&lt;/sys_updated_on&gt;&lt;url/&gt;&lt;url_target/&gt;&lt;/sys_documentation&gt;&lt;sys_documentation action="INSERT_OR_UPDATE"&gt;&lt;element&gt;current&lt;/element&gt;&lt;help/&gt;&lt;hint/&gt;&lt;label&gt;Record&lt;/label&gt;&lt;language&gt;en&lt;/language&gt;&lt;name&gt;var__m_sys_hub_flow_input_e032578e83830210856ceec0deaad38e&lt;/name&gt;&lt;plural/&gt;&lt;sys_class_name&gt;sys_documentation&lt;/sys_class_name&gt;&lt;sys_created_by&gt;kms@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-29 04:02:16&lt;/sys_created_on&gt;&lt;sys_id&gt;7c32578e83830210856ceec0deaad398&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name/&gt;&lt;sys_package display_value="BPM" source="x_yergb_bpm"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_update_name/&gt;&lt;sys_updated_by&gt;kms@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-29 04:02:16&lt;/sys_updated_on&gt;&lt;url/&gt;&lt;url_target/&gt;&lt;/sys_documentation&gt;&lt;sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_input_e032578e83830210856ceec0deaad38e"/&gt;&lt;sys_documentation action="delete_multiple" query="name=var__m_sys_hub_flow_output_e032578e83830210856ceec0deaad38e"/&gt;&lt;sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_output_e032578e83830210856ceec0deaad38e"/&gt;&lt;sys_flow_trigger_plan action="delete_multiple" query="plan_id=e032578e83830210856ceec0deaad38e"/&gt;&lt;sys_flow_subflow_plan action="delete_multiple" query="plan_id=e032578e83830210856ceec0deaad38e"/&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-775488341</payload_hash>
+        <record_name>Budget Plan Approval Flow</record_name>
+        <reverted_from/>
+        <source>5672b6c283030210856ceec0deaad3bc</source>
+        <source_table>sys_update_set</source_table>
+        <state>current</state>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:05:33</sys_created_on>
+        <sys_id>fcf29bce83830210856ceec0deaad3a8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>190622b752e0000001</sys_recorded_at>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:05:33</sys_updated_on>
+        <type>Flow</type>
+        <update_guid>74f29bcec183021094e7dda1890510a8</update_guid>
+        <update_guid_history>74f29bcec183021094e7dda1890510a8:-775488341,979293cebe830210df6c3e11af261423:-1602283406,18621f8e5883021072ac0119f469fc2a:-879574472,9132978e6a830210921160304532ae64:1841167198,6c32578ecb830210b1cd79664f2d5792:-2093627733</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 04:57:25</sys_created_on>
+        <sys_db_object display_value="" name="sys_hub_flow">sys_hub_flow</sys_db_object>
+        <sys_id>0b9d31c0b24b495e9ca42a2f9e106829</sys_id>
+        <sys_metadata>e032578e83830210856ceec0deaad38e</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Budget Plan Approval Flow</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_scope_delete display_value="">9ff3e273935a476eab36e9bd65d24759</sys_scope_delete>
+        <sys_update_name>sys_hub_flow_e032578e83830210856ceec0deaad38e</sys_update_name>
+        <sys_update_version display_value="sys_hub_flow_e032578e83830210856ceec0deaad38e">fcf29bce83830210856ceec0deaad3a8</sys_update_version>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:57:25</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

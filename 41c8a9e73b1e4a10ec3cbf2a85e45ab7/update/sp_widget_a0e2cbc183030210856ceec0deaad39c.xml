@@ -242,8 +242,8 @@
                 "styleName": "ni-rg-align-left ni-rg-readonly",
                 "readOnly": true,
                 "editable": false,
-                //button: "action",
-                //buttonVisibility: "always",
+                button: "action",
+                buttonVisibility: "always",
             },
             {
                 "name": "ms_code",
@@ -255,6 +255,7 @@
                 },
                 "readOnly": true,
                 "editable": false,
+				"styleName": "rg-cell-color",
             },
             {
                 "name": "unit_cost",
@@ -266,7 +267,7 @@
                 },
                 "readOnly": true,
                 "editable": false,
-                "styleName": "right-column",
+                "styleName": "right-column-color",
             },
             {
                 "name": "quantity",
@@ -278,7 +279,7 @@
                 },
                 "readOnly": true,
                 "editable": false,
-                "styleName": "right-column",
+                "styleName": "right-column-color",
             },
             {
                 "name": "extended_cost_lc",
@@ -296,7 +297,7 @@
                     "expression": "sum",
                     "numberFormat": "#,##0"
                 },
-                "styleName": "right-column",
+                "styleName": "right-column-color",
             },
             {
                 "name": "strategy",
@@ -328,7 +329,7 @@
                 },
                 "readOnly": true,
                 "editable": false,
-                "styleName": "rg-header-cell",
+                "styleName": "rg-header-cell-color",
             },
             {
                 "name": "plan_gr_date",
@@ -350,7 +351,7 @@
                 },
                 "readOnly": true,
                 "editable": false,
-                "styleName": "rg-header-cell",
+                "styleName": "rg-header-cell-color",
             },
             {
                 "name": "target_gr_date",
@@ -362,7 +363,7 @@
                 },
                 "readOnly": true,
                 "editable": false,
-                "styleName": "rg-header-cell",
+                "styleName": "rg-header-cell-color",
             },
             {
                 "name": "gr_date",
@@ -384,7 +385,7 @@
                 },
                 "readOnly": true,
                 "editable": false,
-                "styleName": "rg-header-cell",
+                "styleName": "rg-header-cell-color",
             },
             {
                 "name": "project",
@@ -526,7 +527,7 @@
                     console.log('Server response:', response);
                 });
 
-                //dlgActivityType.showModal(); //dont modify
+                dlgActivityType.showModal(); //dont modify
             }
         };
 
@@ -931,6 +932,9 @@ th {&#13;
 .rg-editor-container { border: 2px solid #27C382 !important; }&#13;
 .rg-header-cell {text-align: center !important;}&#13;
 .right-column { text-align: right !important;}&#13;
+.rg-header-cell-color {text-align: center !important; background-color: #F7F7F7}&#13;
+.right-column-color { text-align: right !important; background-color: #F7F7F7}&#13;
+.rg-cell-color {background-color: #F7F7F7}&#13;
 &#13;
 @charset "UTF-8";&#13;
 &#13;
@@ -1082,8 +1086,10 @@ th {&#13;
     function getGridData(id_q) {
 
         var gritem = new GlideRecord("x_yergb_bpm_order_item");
+        var grMaster = gritem.addJoinQuery('x_yergb_bpm_wbs_master', 'wbs_6', 'sys_id');
+        grMaster.addCondition('budget_type', 'prod');
+        gritem.addEncodedQuery('project=' + id_q);
         gritem.orderBy("number");
-        gritem.addEncodedQuery('budget_type=prod^project=' + id_q);
         gritem.query();
         var tableinfo = [];
         while (gritem.next()) {
@@ -1117,6 +1123,7 @@ th {&#13;
 
         var items = [];
         var gr = new GlideRecord('x_yergb_bpm_wbs_master'); //x_yergb_bpm_wbs_master_list
+		gr.addQuery('budget_type', 'prod');
         gr.query();
         while (gr.next()) {
             items.push({
@@ -1217,14 +1224,14 @@ function sf1(a, b) {
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-26 00:21:26</sys_created_on>
         <sys_id>a0e2cbc183030210856ceec0deaad39c</sys_id>
-        <sys_mod_count>12</sys_mod_count>
+        <sys_mod_count>15</sys_mod_count>
         <sys_name>budgetPlanPrjMngtWd01</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_a0e2cbc183030210856ceec0deaad39c</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-27 10:06:53</sys_updated_on>
+        <sys_updated_on>2024-06-28 12:05:47</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 
