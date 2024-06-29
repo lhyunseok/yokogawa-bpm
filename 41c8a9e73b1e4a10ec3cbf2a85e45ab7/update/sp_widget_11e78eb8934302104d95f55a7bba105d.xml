@@ -497,7 +497,7 @@ $scope.btnUpdate = function() {
     //모달창의 pm name 클릭 시 input 에 값 넣고 모달 창 닫기
     c.clickSM = function(index) {
         c.data.sales_manager_sys_id = c.data.itemsSM[index].sys_id;
-        c.data.sales_manager_name = c.data.itemsSM[index].name;
+        c.data.sales_manager = c.data.itemsSM[index].name;
         document.getElementById("SalesManagerModal").style.display = 'none';
     };
 
@@ -1851,7 +1851,7 @@ border: 2px solid red;&#13;
     data.requestor = userName;
     data.requestor_sys_id = userNameSysId;
 
-	if(!urlSysId && data.sales_manager == 'undefined') {
+	if(!urlSysId && data.sales_manager == null) {
 		data.sales_manager = userName;
 		data.sales_manager_sys_id = userNameSysId;
 	}
@@ -2256,7 +2256,7 @@ border: 2px solid red;&#13;
     if (input && input.refer_sales_manager_modal) {
         data.itemsSM = [];
         var grPm = new GlideRecord('sys_user');
-        //grPm.addEncodedQuery(input.modalQuery);
+        grPm.addEncodedQuery(input.modalQuery);
         grPm.query();
         while (grPm.next()) {
             data.itemsSM.push({
@@ -2468,14 +2468,14 @@ border: 2px solid red;&#13;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>345</sys_mod_count>
+        <sys_mod_count>348</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-29 22:40:03</sys_updated_on>
+        <sys_updated_on>2024-06-29 22:50:48</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
