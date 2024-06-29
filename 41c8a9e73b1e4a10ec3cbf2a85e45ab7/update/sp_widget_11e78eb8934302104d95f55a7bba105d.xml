@@ -356,7 +356,8 @@
         c.data.refer_assigned_to_modal = false
         c.data.refer_contract_modal = false
         c.data.refer_contract_country_modal = false
-			c.data.refer_copy_modal = false;
+				c.data.refer_currency_modal = false;
+
         c.data.items = ""
         c.data.modalTitle = ""
     }
@@ -371,7 +372,8 @@
         c.data.refer_assigned_to_modal = false
         c.data.refer_contract_modal = false
         c.data.refer_contract_country_modal = false
-			c.data.refer_copy_modal = false;
+				c.data.refer_copy_modal = false;
+				c.data.refer_currency_modal = false;
         c.data.items = ""
         c.data.modalTitle = ""
     }
@@ -387,7 +389,8 @@
             c.data.refer_assigned_to_modal = false
             c.data.refer_contract_modal = false
             c.data.refer_contract_country_modal = false
-					c.data.refer_copy_modal = false;
+				c.data.refer_copy_modal = false;
+				c.data.refer_currency_modal = false;
             c.data.items = ""
             c.data.modalTitle = ""
         }
@@ -414,33 +417,88 @@ $scope.btnUpdate = function() {
     };
 
 
-    $scope.btnRefSalesManager = function(sys_id) {
-        c.data.refer_sales_manager_modal = true;
-        c.data.isRead = false;
-        c.server.update().then(function(response) {
-            console.log('Server response:', response);
-            c.logSysId = function(number, sys_id, code) {
-                c.data.sales_manager = number
-                c.data.sales_manager_sys_id = sys_id
+    // $scope.btnRefSalesManager = function(sys_id) {
+    //     c.data.refer_sales_manager_modal = true;
+    //     c.data.isRead = false;
+    //     c.server.update().then(function(response) {
+    //         console.log('Server response:', response);
+    //         c.logSysId = function(number, sys_id, code) {
+    //             c.data.sales_manager = number
+    //             c.data.sales_manager_sys_id = sys_id
                 
 							
-				modal.style.display = "none";
-				c.data.refer_sales_manager_modal = false;
-                c.data.refer_end_user_modal = false;
-                c.data.refer_requester_modal = false;
-                c.data.refer_quotation_modal = false;
-                c.data.refer_assignment_group_modal = false;
-                c.data.refer_assigned_to_modal = false;
-                c.data.refer_contract_modal = false;
-                c.data.refer_contract_country_modal = false;
-				c.data.refer_copy_modal = false;
-                c.data.items = "";
-                c.data.modalTitle = "";
-            };
-        });
-        var modal = document.getElementById("modalTest");
-        modal.style.display = "block";
+	// 			modal.style.display = "none";
+	// 			c.data.refer_sales_manager_modal = false;
+    //             c.data.refer_end_user_modal = false;
+    //             c.data.refer_requester_modal = false;
+    //             c.data.refer_quotation_modal = false;
+    //             c.data.refer_assignment_group_modal = false;
+    //             c.data.refer_assigned_to_modal = false;
+    //             c.data.refer_contract_modal = false;
+    //             c.data.refer_contract_country_modal = false;
+	// 			c.data.refer_copy_modal = false;
+	// 			c.data.refer_currency_modal = false;
+    //             c.data.items = "";
+    //             c.data.modalTitle = "";
+    //         };
+    //     });
+    //     var modal = document.getElementById("modalTest");
+    //     modal.style.display = "block";
 
+    // };
+
+	$scope.btnRefSalesManager = function(sys_id) {
+		document.getElementById("SalesManagerModal").style.display = 'block';
+        c.data.itemsSM = [];
+		//modal option 과 table thead th 에 들어갈 값
+        c.data.modalItems = [{
+            text: "name",
+            value: "user_name",
+            fieldLabel: "Name"
+        }, {
+            text: "department",
+            value: "department.name",
+            fieldLabel: "Department"
+        }];
+
+        c.data.refer_sales_manager_modal = true;
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+        });
+    };
+	    //모달창 검색 버튼 클릭
+    $scope.btnClickModalSearch = function() {
+
+        if (c.data.searchQuery == undefined) {
+            c.data.searchQuery = '';
+        }
+
+        //셀렉트 박스에서 선택한 value 값 가져오기 (필드)
+        var selectElement = document.querySelector('.modal-select');
+        var selectedValue = selectElement.value;
+
+        c.data.modalQuery = selectedValue + 'LIKE' + c.data.searchQuery;
+        console.log(c.data.modalQuery);
+
+        c.data.refer_sales_manager_modal = true;
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+            c.data.modalQuery = '';
+        });
+
+    };
+	  
+	  //모달 x 버튼 클릭 시 닫기
+	  $scope.closeModalPM = function() {
+        document.getElementById("SalesManagerModal").style.display = 'none';
+    };
+
+
+    //모달창의 pm name 클릭 시 input 에 값 넣고 모달 창 닫기
+    c.clickSM = function(index) {
+        c.data.sales_manager_sys_id = c.data.itemsSM[index].sys_id;
+        c.data.sales_manager_name = c.data.itemsSM[index].name;
+        document.getElementById("SalesManagerModal").style.display = 'none';
     };
 
 
@@ -464,7 +522,8 @@ $scope.btnUpdate = function() {
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
                 c.data.refer_contract_country_modal = false
-							  c.data.refer_copy_modal = false;
+				c.data.refer_copy_modal = false;
+				c.data.refer_currency_modal = false;
                 c.data.items = ""
                 c.data.modalTitle = ""
 
@@ -498,7 +557,8 @@ $scope.btnUpdate = function() {
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
                 c.data.refer_contract_country_modal = false
-							  c.data.refer_copy_modal = false;
+				c.data.refer_copy_modal = false;
+				c.data.refer_currency_modal = false;
                 c.data.items = ""
                 c.data.modalTitle = ""
             };
@@ -528,7 +588,8 @@ $scope.btnUpdate = function() {
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
                 c.data.refer_contract_country_modal = false
-							  c.data.refer_copy_modal = false;
+				c.data.refer_copy_modal = false;
+				c.data.refer_currency_modal = false;
                 c.data.items = ""
                 c.data.modalTitle = ""
 
@@ -561,7 +622,8 @@ $scope.btnUpdate = function() {
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
                 c.data.refer_contract_country_modal = false
-							  c.data.refer_copy_modal = false;
+				c.data.refer_copy_modal = false;
+				c.data.refer_currency_modal = false;
                 c.data.items = ""
                 c.data.modalTitle = ""
             };
@@ -592,7 +654,8 @@ $scope.btnUpdate = function() {
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
                 c.data.refer_contract_country_modal = false
-							  c.data.refer_copy_modal = false;
+				c.data.refer_copy_modal = false;
+				c.data.refer_currency_modal = false;
                 c.data.items = ""
                 c.data.modalTitle = ""
             };
@@ -605,27 +668,29 @@ $scope.btnUpdate = function() {
     };
 
     $scope.btnRefCurrency = function(sys_id) {
+
         c.data.refer_currency_modal = true;
         c.data.isRead = false;
         c.server.update().then(function(response) {
             console.log('Server response:', response);
             c.logSysId = function(number, sys_id) {
-                c.data.currency = number
-                c.data.currency_sys_id = sys_id
+                c.data.currency = number;
+                c.data.currency_sys_id = sys_id;
 
 
                 modal.style.display = "none";
-                c.data.refer_sales_manager_modal = false
-                c.data.refer_end_user_modal = false
-                c.data.refer_requester_modal = false
-                c.data.refer_quotation_modal = false
-                c.data.refer_assignment_group_modal = false
-                c.data.refer_assigned_to_modal = false
-                c.data.refer_contract_modal = false
-                c.data.refer_contract_country_modal = false
-							  c.data.refer_copy_modal = false;
-                c.data.items = ""
-                c.data.modalTitle = ""
+                c.data.refer_sales_manager_modal = false;
+                c.data.refer_end_user_modal = false;
+                c.data.refer_requester_modal = false;
+                c.data.refer_quotation_modal = false;
+                c.data.refer_assignment_group_modal = false;
+                c.data.refer_assigned_to_modal = false;
+                c.data.refer_contract_modal = false;
+                c.data.refer_contract_country_modal = false;
+				c.data.refer_copy_modal = false;
+				c.data.refer_currency_modal = false;
+                c.data.items = "";
+                c.data.modalTitle = "";
             };
 
         });
@@ -634,6 +699,7 @@ $scope.btnUpdate = function() {
         modal.style.display = "block";
 
     };
+
 
 
     $scope.btnCopy = function() {
@@ -1506,6 +1572,133 @@ border: 2px solid red;&#13;
 .popover .popover-body {&#13;
     padding: 9px 14px;&#13;
 }&#13;
+&#13;
+&#13;
+/* modal 0630 */&#13;
+&#13;
+ .modal-dialog{&#13;
+     border: #ddd 1px solid !important;&#13;
+     position: fixed;&#13;
+     top: 50%; /* Adjust the vertical position */&#13;
+     left: 50%; /* Adjust the horizontal position */&#13;
+     transform: translate(-50%, -50%);&#13;
+     width: 80%;&#13;
+     min-width: 500px;&#13;
+     max-width: 600px;&#13;
+     padding: 20px;&#13;
+     background-color: white;&#13;
+     border-radius: 2px;&#13;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);&#13;
+}&#13;
+ .modal-form-content {&#13;
+     position: relative;&#13;
+     width: 100%;&#13;
+     height: 100%;&#13;
+}&#13;
+ .modal-search-form {&#13;
+     display: flex;&#13;
+     gap: 30px;&#13;
+     padding: 16px 20px;&#13;
+     max-width: 1600px;&#13;
+     background-color: #F7F7F7;&#13;
+     border: 1px #EDEDED;&#13;
+     border-radius: 4px;&#13;
+     margin-bottom: 10px;&#13;
+}&#13;
+ .modal-close-button {&#13;
+     position: absolute;&#13;
+     top: 1px;&#13;
+     right: 1px;&#13;
+     background: transparent;&#13;
+     border: none;&#13;
+     font-size: 25px;&#13;
+     cursor: pointer;&#13;
+}&#13;
+ .modal-form-inline {&#13;
+     display: flex;&#13;
+     align-items: left;&#13;
+}&#13;
+ .modal-label {&#13;
+     font-size: 15px !important;&#13;
+     font-weight: bold !important;&#13;
+     width: 50px !important;&#13;
+     min-width: 50px !important;&#13;
+     margin-right: 50px;&#13;
+     text-align: left;&#13;
+     color: #4B5E70;&#13;
+     font-family: 'Pretendard';&#13;
+     font-size: 13px;&#13;
+     font-style: normal;&#13;
+     font-weight: 500;&#13;
+     line-height: normal;&#13;
+}&#13;
+ .modal-select {&#13;
+     font-family: "Pretendard";&#13;
+     font-size: 13px;&#13;
+     padding: 6px 10px 5px 10px;&#13;
+     max-height: 28px;&#13;
+     width: calc(100%);&#13;
+     border-radius: 4px;&#13;
+     border: 1px solid #E1E8F0;&#13;
+     color: #7A8692;&#13;
+     margin-right: 10px;&#13;
+     max-width: 150px !important;&#13;
+     min-width: 150px !important;&#13;
+     -moz-appearance:none;&#13;
+     -webkit-appearance:none;&#13;
+     appearance:none;&#13;
+     background-image: url(icon_arrow_down.png);&#13;
+     background-repeat: no-repeat;&#13;
+     background-position-x: 100%;&#13;
+     background-position-y: 1px;&#13;
+     line-height: 15px;&#13;
+     padding: 6px 30px 5px 10px;&#13;
+}&#13;
+ .yoko-wid204 {&#13;
+     font-family: "Pretendard";&#13;
+     font-size: 13px;&#13;
+     padding: 6px 10px 5px 10px;&#13;
+     max-height: 28px;&#13;
+     border-radius: 4px;&#13;
+     border: 1px solid #E1E8F0;&#13;
+     color: #7A8692;&#13;
+     margin-right: 10px;&#13;
+     min-width: 150px !important;     &#13;
+     max-width: 150px !important;&#13;
+}&#13;
+ .yoko-table-container {&#13;
+     border: #ddd 1px solid !important;&#13;
+     min-height: 200px;&#13;
+     max-height: 400px;&#13;
+     overflow-y: auto;&#13;
+     overflow-x: hidden;&#13;
+}&#13;
+ .yoko-search-table {&#13;
+     width: 100%;&#13;
+     border-collapse: collapse;&#13;
+}&#13;
+ .yoko-search-table tr th {&#13;
+     color: #4B5E70;&#13;
+     padding: 3px;&#13;
+     text-align: center;&#13;
+     background-color: #f2f2f2;&#13;
+}&#13;
+ .yoko-search-table tr td {&#13;
+     padding: 3px;&#13;
+     text-align: left;&#13;
+     border-bottom: 1px solid #ddd;&#13;
+}&#13;
+&#13;
+#clicktd {&#13;
+     color: #1c88f4;&#13;
+     cursor: pointer;&#13;
+     text-align: center;&#13;
+}&#13;
+ #clicktd:hover {&#13;
+     font-weight: bold;&#13;
+     text-decoration: underline;&#13;
+}&#13;
+ &#13;
 </css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -1642,8 +1835,10 @@ border: 2px solid red;&#13;
     if (grC.get(grUCompany)) {
         var currency = grC.u_currency.code;
        // gs.addInfoMessage(currency)
-        data.currency = grC.u_currency.code.toString();
-        data.currency_sys_id = grC.u_currency.toString();
+		if(data.currency == null || data.currency == '') {
+			data.currency = grC.u_currency.code.toString();
+			data.currency_sys_id = grC.u_currency.toString();
+		}	
        // gs.addInfoMessage( data.currency)
        // gs.addInfoMessage(data.currency_sys_id)
 
@@ -1656,7 +1851,7 @@ border: 2px solid red;&#13;
     data.requestor = userName;
     data.requestor_sys_id = userNameSysId;
 
-	if(!urlSysId) {
+	if(!urlSysId && data.sales_manager == 'undefined') {
 		data.sales_manager = userName;
 		data.sales_manager_sys_id = userNameSysId;
 	}
@@ -2054,34 +2249,31 @@ border: 2px solid red;&#13;
        }
 
 
-	var items = [];
+	
 
-    // 여기서는 전부 REFERENCE 버튼과 관련된 로직
-    if (input && input.refer_sales_manager_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
 
-        items = [];
-        var gr1 = new GlideRecord('sys_user');
-        gr1.query();
-        while (gr1.next()) {
-            items.push({
-                column1: gr1.getValue('name'),
-                column2: gr1.getValue('sys_id'),
-                //column3: gr.getValue('sys_id')
+	/* Sales Manager Modal */
+    if (input && input.refer_sales_manager_modal) {
+        data.itemsSM = [];
+        var grPm = new GlideRecord('sys_user');
+        //grPm.addEncodedQuery(input.modalQuery);
+        grPm.query();
+        while (grPm.next()) {
+            data.itemsSM.push({
+                name: grPm.user_name.toString(),
+                department: grPm.department.name.toString(),
+                sys_id: grPm.sys_id.toString()
             });
         }
-
-        // Pass data to the client script
-        data.items = items;
-        data.modalTitle = "Sales Manager";
     }
 
     if (input && input.refer_quotation_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
 
-        items = [];
+        data.item = [];
         var gr2 = new GlideRecord('x_yergb_bpm_quotation');
         gr2.query();
         while (gr2.next()) {
-            items.push({
+            data.items.push({
                 column1: gr2.getValue('name'),
                 column2: gr2.getValue('sys_id'),
                 column3: gr2.getValue('sys_id')
@@ -2089,13 +2281,13 @@ border: 2px solid red;&#13;
         }
 
         // Pass data to the client script
-        data.items = items;
+        //data.items = items;
         data.modalTitle = "QUOTATION";
 
     }
 
     if (input && input.refer_assignment_group_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-		items = [];
+		var items = [];
         var gr3 = new GlideRecord('sys_user_group');
         gr3.query();
         while (gr3.next()) {
@@ -2131,11 +2323,11 @@ border: 2px solid red;&#13;
 
     }
     if (input && input.refer_end_user_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-		items = [];
+		data.items = [];
         var gr5 = new GlideRecord('core_company');
         gr5.query();
         while (gr5.next()) {
-            items.push({
+            data.items.push({
                 column1: gr5.getValue('name'),
                 column2: gr5.getValue('sys_id'),
                 column3: gr5.getValue('u_company_code'),
@@ -2144,16 +2336,16 @@ border: 2px solid red;&#13;
         }
 
         // Pass data to the client script
-        data.items = items;
+        //data.items = items;
         data.modalTitle = "END USER";
     }
 
     if (input && input.refer_contract_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-		items = [];
+		data.items = [];
         var gr6 = new GlideRecord('core_company');
         gr6.query();
         while (gr6.next()) {
-            items.push({
+            data.items.push({
                 column1: gr6.getValue('name'),
                 column2: gr6.getValue('sys_id'),
                 column3: gr6.getValue('u_company_code'),
@@ -2163,17 +2355,17 @@ border: 2px solid red;&#13;
         }
 
         // Pass data to the client script
-        data.items = items;
+        //data.items = items;
         data.modalTitle = "CONTRACT COMPANY";
 
     }
 
     if (input && input.refer_contract_country_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-		items = [];
+		data.items = [];
         var gr7 = new GlideRecord('core_country');
         gr7.query();
         while (gr7.next()) {
-            items.push({
+            data.items.push({
                 column1: gr7.getValue('name'),
                 column2: gr7.getValue('sys_id'),
                 column3: gr7.getValue('sys_id')
@@ -2181,19 +2373,19 @@ border: 2px solid red;&#13;
         }
 
         // Pass data to the client script
-        data.items = items;
+        //data.items = items;
         data.modalTitle = "COUNTRY";
 
     }
 
 
     if (input && input.refer_currency_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-		items = [];
+		data.items = [];
         var gr8 = new GlideRecord('fx_currency');
         gr8.addQuery('active', true);
         gr8.query();
         while (gr8.next()) {
-            items.push({
+            data.items.push({
                 column1: gr8.getValue('code'),
                 column2: gr8.getValue('sys_id'),
                 column3: gr8.getValue('name')
@@ -2201,7 +2393,7 @@ border: 2px solid red;&#13;
         }
 
         // Pass data to the client script
-        data.items = items;
+        //data.items = items;
         data.modalTitle = "CURRENCY";
 
     }
@@ -2276,14 +2468,14 @@ border: 2px solid red;&#13;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>327</sys_mod_count>
+        <sys_mod_count>345</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-29 20:33:39</sys_updated_on>
+        <sys_updated_on>2024-06-29 22:40:03</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2752,11 +2944,44 @@ border: 2px solid red;&#13;
             <button type="button" class="btn btn-secondary" ng-click="c.hidePopover(2)">Close</button>
         </div>
     </div>
-
-
-
-
 </div>
+
+<dialog class="modal-dialog" id="SalesManagerModal">
+    <div class="modal-form-content">
+        <div class="modal-search-form">
+            <button class="modal-close-button" ng-click="closeSMModal()">×</button>
+            <div class="modal-form-inline">
+                <label class="modal-label" >Project</label>
+                <select class="modal-select">
+                <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                </select>
+                <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickModalSearch()"></button>
+            </div>
+       </div>
+    </div>
+    <div class="yoko-table-container">
+        <table class="yoko-search-table">
+            <colgroup>
+              <col style="width: 51px">
+              <col style="width: 137px">
+              <col style="width: auto">
+            </colgroup>
+            <thead>
+              <tr>
+                <th ng-repeat="item in c.data.modalItems">{{ item.fieldLabel }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in c.data.itemsSM">
+                <td id="clicktd" ng-click="c.clickSM($index)">{{ item.name }}</td>
+                <td>{{ item.department }}</td>
+                <td style="display: none;">{{ item.sys_id }}</td>
+              </tr>
+            </tbody>
+        </table>   
+    </div>
+</dialog>
 
 
 <script>
