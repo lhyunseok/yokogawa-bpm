@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_action">
     <sys_ui_action action="INSERT_OR_UPDATE">
-        <action_name/>
-        <active>false</active>
+        <action_name>callOIAjax</action_name>
+        <active>true</active>
         <client>true</client>
         <client_script_v2><![CDATA[function onClick(g_form) {
 
 }]]></client_script_v2>
         <comments/>
-        <condition>g_scratchpad.flowData.hasFlows === true</condition>
+        <condition>current.state==9 </condition>
         <form_action>true</form_action>
-        <form_button>false</form_button>
+        <form_button>true</form_button>
         <form_button_v2>false</form_button_v2>
         <form_context_menu>false</form_context_menu>
-        <form_link>true</form_link>
+        <form_link>false</form_link>
         <form_menu_button_v2>false</form_menu_button_v2>
         <form_style/>
         <format_for_configurable_workspace>false</format_for_configurable_workspace>
@@ -27,39 +27,48 @@
         <list_save_with_form_button>false</list_save_with_form_button>
         <list_style/>
         <messages/>
-        <name>Show Flow</name>
-        <onclick>showFlowContext()</onclick>
+        <name>Revision</name>
+        <onclick>createNew()</onclick>
         <order>100</order>
-        <script><![CDATA[function showFlowContext () {
-	var url;
-	if (g_scratchpad.flowData.hasMultipleFlows === false && g_scratchpad.flowData.flowId !== "") {
-		url = new GlideURL("/$flow-designer.do#/operations/context/" + g_scratchpad.flowData.flowId);
-	} else {
-		url = new GlideURL("sys_flow_context_list.do");
-		url.addParam("sysparm_fixed_query", g_scratchpad.flowData.flowQuery);
-	}
+        <script><![CDATA[function createNew() {
 
-	g_navigation.open(url.getURL(), "_blank");
-}]]></script>
+
+	var ga = new GlideAjax('OIRevisionAjax');
+	ga.addParam('sysparm_name', 'getRevisionOI');
+	ga.addParam('sysparm_oi_sys_id', g_form.getUniqueValue());
+	ga.getXML(responseAjax);
+
+
+}
+
+function responseAjax(response) {
+
+	var answer = response.responseXML.documentElement.getAttribute("answer");
+	//alert(answer);
+	alert("New Version OI Report is created.");
+
+}
+	
+]]></script>
         <show_insert>true</show_insert>
         <show_multiple_update>false</show_multiple_update>
         <show_query>false</show_query>
         <show_update>true</show_update>
         <sys_class_name>sys_ui_action</sys_class_name>
         <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-24 00:22:00</sys_created_on>
+        <sys_created_on>2024-06-29 05:15:40</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>80bfa0a0478f06106cce1ce4316d43d2</sys_id>
-        <sys_mod_count>5</sys_mod_count>
-        <sys_name>Show Flow</sys_name>
+        <sys_id>3a91670a47cb86106cce1ce4316d4361</sys_id>
+        <sys_mod_count>12</sys_mod_count>
+        <sys_name>Revision</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_update_name>sys_ui_action_80bfa0a0478f06106cce1ce4316d43d2</sys_update_name>
+        <sys_update_name>sys_ui_action_3a91670a47cb86106cce1ce4316d4361</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-29 05:29:31</sys_updated_on>
+        <sys_updated_on>2024-06-29 06:23:41</sys_updated_on>
         <table>x_yergb_bpm_oi_report</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>

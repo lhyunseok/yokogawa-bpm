@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_yergb_bpm.CreateNewVersionOI</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>CreateNewVersionOI</name>
+        <script><![CDATA[var CreateNewVersionOI = Class.create();
+CreateNewVersionOI.prototype = {
+    initialize: function() {
+    },
+
+	createNewOIReport: function(oi_sys_id) {
+
+		var new_oi_sys_id = '';
+		var new_version = 0;
+
+		var gr = new GlideRecord('x_yergb_bpm_oi_report');
+		gr.addQuery('sys_id',oi_sys_id);
+		gr.query();
+		if(gr.next()) {
+			new_version = gr.version+1;
+			gr.version = new_version;
+			gr.state = 1;
+			gr.insert();
+			new_oi_sys_id = gr.sys_id;
+		}
+
+		gs.info("KKKK : " + new_oi_sys_id);
+
+		var gri = new GlideRecord('x_yergb_bpm_order_item');
+		gri.addQuery('oi_report', oi_sys_id);
+		gri.query();
+		while(gri.next()) {
+			gri.oi_report = new_oi_sys_id;
+			gri.insert();
+		}
+
+		return new_oi_sys_id;
+
+	},
+
+	deleteOIReport: function(oi_sys_id) {
+
+		var gri = new GlideRecord('x_yergb_bpm_order_item');
+		gri.addQuery('oi_report', oi_sys_id);
+		gri.query();
+		while(gri.next()) {
+			gri.deleteRecord();
+		}
+
+		var gr = new GlideRecord('x_yergb_bpm_oi_report');
+		gr.addQuery('sys_id', oi_sys_id);
+		gr.query();
+		if(gr.next()) {
+			gr.deleteRecord();
+		}
+
+	},
+
+    type: 'CreateNewVersionOI'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 03:47:31</sys_created_on>
+        <sys_id>12be4b8e474b86106cce1ce4316d438d</sys_id>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_name>CreateNewVersionOI</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_script_include_12be4b8e474b86106cce1ce4316d438d</sys_update_name>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 06:00:05</sys_updated_on>
+    </sys_script_include>
+</record_update>
