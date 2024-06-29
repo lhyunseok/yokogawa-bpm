@@ -843,8 +843,8 @@ a {text-decoration: none;}
         gRfq.query()
         while(gRfq.next()){
             salesManager = gRfq.sales_manager
-            //gs.addErrorMessage("salesManager")
-            //gs.addErrorMessage(salesManager)
+            //gs.addInfoMessage("salesManager")
+            //gs.addInfoMessage(salesManager)
         }
 
        
@@ -1023,11 +1023,14 @@ a {text-decoration: none;}
             }
     }
 	 if(salesManager != userNameSysId){
-            //gs.addErrorMessage("달라")
+		 			
+           // gs.addErrorMessage("달라")
+           // gs.addErrorMessage(salesManager)
+           // gs.addErrorMessage(userNameSysId)
             data.showNew = false;
         }
         else{
-            //gs.addErrorMessage("같아")
+           // gs.addErrorMessage("같아")
             data.showNew = true;
         }
 
@@ -1040,14 +1043,14 @@ a {text-decoration: none;}
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 04:53:32</sys_created_on>
         <sys_id>38973e74934702104d95f55a7bba1056</sys_id>
-        <sys_mod_count>116</sys_mod_count>
+        <sys_mod_count>122</sys_mod_count>
         <sys_name>quotationWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_38973e74934702104d95f55a7bba1056</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-28 11:13:46</sys_updated_on>
+        <sys_updated_on>2024-06-29 08:48:00</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>

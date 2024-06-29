@@ -11,8 +11,8 @@
         <element label="T CAS" max_length="32" name="t_cas" reference="x_yergb_bpm_tcas_management" type="reference"/>
         <element label="Profit Company" max_length="32" name="profit_company" reference="core_company" reference_qual="customer=false^vendor=false^EQ" reference_qual_condition="customer=false^vendor=false^EQ" type="reference"/>
         <element label="Sales Manager" max_length="32" name="sales_manager" reference="sys_user" type="reference"/>
-        <element default="javascript:gs.nowDateTime();" dynamic_default_value="79cb83a85f220100a9ad2572f2b4773c" label="Request Due" mandatory="true" max_length="40" name="request_date" type="glide_date" use_dynamic_default="true"/>
-        <element attributes="edge_encryption_enabled=true" label="Estimated OI Amount" max_length="40" name="estimated_oi_amount" type="decimal"/>
+        <element default="javascript:gs.nowDateTime();" dynamic_default_value="79cb83a85f220100a9ad2572f2b4773c" label="Request Date" mandatory="true" max_length="40" name="request_date" type="glide_date" use_dynamic_default="true"/>
+        <element attributes="edge_encryption_enabled=true" label="Estimated OI Amount  (TC)" max_length="40" name="estimated_oi_amount" type="decimal"/>
         <element label="Caution" max_length="4000" name="caution" type="string"/>
         <element label="Quotation" max_length="40" name="quotation" reference="x_yergb_bpm_quotation" type="reference"/>
         <element label="Estimated OI Amount (LC)" max_length="40" name="estimated_oi_amount_lc" type="decimal"/>
@@ -37,8 +37,9 @@
             </choice>
         </element>
         <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Sales Order" max_length="32" name="sales_order" reference="x_yergb_bpm_sales_order" type="reference"/>
-        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Currency" max_length="32" name="currency" reference="fx_currency" reference_qual="active=true^EQ" reference_qual_condition="active=true^EQ" type="reference"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Currency (TC)" max_length="32" name="currency" reference="fx_currency" reference_qual="active=true^EQ" reference_qual_condition="active=true^EQ" type="reference"/>
         <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="OI Report" max_length="32" name="oi_report" reference="x_yergb_bpm_oi_report" type="reference"/>
+        <element label="Project Status" max_length="40" name="project_status" type="string"/>
         <element attributes="edge_encryption_enabled=true" default="true" label="Active" max_length="40" name="active" read_only="true" type="boolean"/>
         <index name="index">
             <element name="contract"/>
@@ -62,18 +63,21 @@
             <element name="sales_manager"/>
         </index>
         <index name="index8">
-            <element name="risk_management"/>
+            <element name="quotation"/>
         </index>
         <index name="index9">
-            <element name="t_cas"/>
+            <element name="risk_management"/>
         </index>
         <index name="index10">
-            <element name="territory_review"/>
+            <element name="t_cas"/>
         </index>
         <index name="index11">
-            <element name="profit_company"/>
+            <element name="territory_review"/>
         </index>
         <index name="index12">
+            <element name="profit_company"/>
+        </index>
+        <index name="index13">
             <element name="oi_report"/>
         </index>
     </element>

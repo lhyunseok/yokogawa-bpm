@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller = function($scope, $location, $window) {
+        <client_script><![CDATA[api.controller = function($scope, $location, $window, $realgrid, $realgridkey) {
 
+    $window.RealGrid = $realgrid.getRealGrid();
+    $window.realGrid2Lic = $realgridkey.getKey();
     /* widget controller */
     var c = this;
     c.data.readStatus = true;
@@ -14,7 +16,7 @@
     // Function to handle click event
     $scope.handleClick = function() {
         if (c.data.quotation) {
-            window.location.href = "/ybpm?id=epic_03_ui_budget_y_product&number=" + c.data.key; // Redirect to the URL
+            window.location.href = "/ybpm?id=epic_09_ui_budget_y_product&number=" + c.data.key; // Redirect to the URL
         }
     };
     // Example: Retrieve a specific parameter
@@ -36,528 +38,78 @@
             location.reload();
         }
     });
-    // Function to dynamically adjust iframe height
-    function resizeIframe() {
-        var iframe = document.getElementById('myIframe');
-        if (iframe) {
-            var windowHeight = window.innerHeight;
-            iframe.style.height = Math.max(windowHeight * 0.5, 200) + 'px';
-        }
-    }
 
-    // Add event listener to resize iframe when content loads
-    $window.onload = function() {
-        resizeIframe();
-    };
-
-    // Add event listener to window resize event
-    $window.addEventListener('resize', function() {
-        resizeIframe();
-    });
-
-    // Call resizeIframe on initial load to set the initial height
-    resizeIframe();
-
-
-    // --------------------------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------------------------
     var gv;
     var dp;
 
     function grid() {
-        // async, import 지원안함
-        //import('https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js').then(s => console.log(s)).catch(console.log);
-        //console.log('mc-1 : grid');
 
-        const gvFields = [{
-                fieldName: "sys_id",
-                dataType: "text",
-            },
-            {
-                fieldName: "wbs",
-                dataType: "text",
-            },
-            {
-                fieldName: "__type",
-                dataType: "text",
-            },
-            {
-                fieldName: "in_charge",
-                dataType: "text",
-            },
-            {
-                fieldName: "activity_type",
-                dataType: "text",
-            },
-            {
-                fieldName: "activity_rate",
-                dataType: "number",
-            },
-            {
-                fieldName: "rate_hour",
-                dataType: "number",
-                //valueExpression: "values['activity_rate'] * values['total_amount']",
-                valueCallback: function(provider, dataRow, fieldName, fieldNames, values) {
-                    if (values[fieldNames.indexOf('__type')] == '참고') {
-                        return values[fieldNames.indexOf('activity_rate')] * values[fieldNames.indexOf('total_amount')];
-                    } else {
-                        let v = 0;
-                        for (let i = 0; i <= 18; i++) {
-                            v += values[fieldNames.indexOf('month' + i)] || 0;
-                        }
-                        v += values[fieldNames.indexOf('beyond18')] || 0;
-                        return v;
-                    }
-                }
-            },
-            {
-                fieldName: "total_amount",
-                dataType: "number",
-            },
-            {
-                fieldName: "month1",
-                dataType: "number"
-            },
-            {
-                fieldName: "month2",
-                dataType: "number"
-            },
-            {
-                fieldName: "month3",
-                dataType: "number"
-            },
-            {
-                fieldName: "month4",
-                dataType: "number"
-            },
-            {
-                fieldName: "month5",
-                dataType: "number"
-            },
-            {
-                fieldName: "month6",
-                dataType: "number"
-            },
-            {
-                fieldName: "month7",
-                dataType: "number"
-            },
-            {
-                fieldName: "month8",
-                dataType: "number"
-            },
-            {
-                fieldName: "month9",
-                dataType: "number"
-            },
-            {
-                fieldName: "month10",
-                dataType: "number"
-            },
-            {
-                fieldName: "month11",
-                dataType: "number"
-            },
-            {
-                fieldName: "month12",
-                dataType: "number"
-            },
-            {
-                fieldName: "month13",
-                dataType: "number"
-            },
-            {
-                fieldName: "month14",
-                dataType: "number"
-            },
-            {
-                fieldName: "month15",
-                dataType: "number"
-            },
-            {
-                fieldName: "month16",
-                dataType: "number"
-            },
-            {
-                fieldName: "month17",
-                dataType: "number"
-            },
-            {
-                fieldName: "month18",
-                dataType: "number"
-            },
-            {
-                fieldName: "beyond18",
-                dataType: "number"
-            },
-            {
-                fieldName: "__insert",
-                dataType: "text"
-            },
-            {
-                fieldName: "__delete",
-                dataType: "text"
-            },
+        const gvFields = [
+            { fieldName: "sys_id", dataType: "text" },
+            { fieldName: "wbs", dataType: "text" },
+            { fieldName: "__type", dataType: "text" },
+            { fieldName: "in_charge", dataType: "text" },
+            { fieldName: "activity_type", dataType: "text" },
+            { fieldName: "activity_rate", dataType: "number", /*valueExpression: "values['activity_rate'] * values['total_amount']",*/ valueCallback: function(provider, dataRow, fieldName, fieldNames, values) { if (values[fieldNames.indexOf('__type')] == '참고') { return values[fieldNames.indexOf('activity_rate')] * values[fieldNames.indexOf('total_amount')]; } else { let v = 0; for (let i = 0; i <= 18; i++) { v += values[fieldNames.indexOf('month' + i)] || 0; } v += values[fieldNames.indexOf('beyond18')] || 0; return v; } } },
+            { fieldName: "total_amount", dataType: "number" },
+            { fieldName: "month1", dataType: "number" },
+            { fieldName: "month2", dataType: "number" },
+            { fieldName: "month3", dataType: "number" },
+            { fieldName: "month4", dataType: "number" },
+            { fieldName: "month5", dataType: "number" },
+            { fieldName: "month6", dataType: "number" },
+            { fieldName: "month7", dataType: "number" },
+            { fieldName: "month8", dataType: "number" },
+            { fieldName: "month9", dataType: "number" },
+            { fieldName: "month10", dataType: "number" },
+            { fieldName: "month11", dataType: "number" },
+            { fieldName: "month12", dataType: "number" },
+            { fieldName: "month13", dataType: "number" },
+            { fieldName: "month14", dataType: "number" },
+            { fieldName: "month15", dataType: "number" },
+            { fieldName: "month16", dataType: "number" },
+            { fieldName: "month17", dataType: "number" },
+            { fieldName: "month18", dataType: "number" },
+            { fieldName: "beyond18", dataType: "number" },
+            { fieldName: "__insert", dataType: "text" },
+            { fieldName: "__delete", dataType: "text" },
         ];
+        
 
-        const gvColumns = [{
-                "name": "sys_id",
-                "fieldName": "sys_id",
-                "type": "data",
-                "width": 30,
-                "header": {
-                    "text": "sysid"
-                },
-                "visible": false,
-            },
-            {
-                "name": "__type",
-                "fieldName": "__type",
-                "type": "data",
-                "width": 40,
-                "header": {
-                    "text": "TYPE"
-                },
-                //"visible" : false,
-            },
-            {
-                "name": "wbs",
-                "fieldName": "wbs",
-                "type": "data",
-                "width": 100,
-                "header": {
-                    "text": "WBS"
-                },
-                "groupFooter": {
-                    "text": " ",
-                    "expression": "max",
-                },
-                //mergeRule: {criteria: "value"},
-                "readOnly": true,
-                "editable": false,
-                styleName: "ni-rg-col-wbs",
-            },
-            {
-                "name": "in_charge",
-                "fieldName": "in_charge",
-                "type": "data",
-                "width": 150,
-                "header": {
-                    "text": "In Charge"
-                },
-                "styleName": "ni-rg-align-left ni-rg-readonly",
-                "readOnly": true,
-                "editable": false,
-            },
-            {
-                "name": "activity_type",
-                "fieldName": "activity_type",
-                "type": "data",
-                "width": 120,
-                "header": {
-                    "text": "Activity Type"
-                },
-                groupFooter: {
-                    "styleName": "ni-rg-align-center",
-                    "numberFormat": "#,###",
-                    valueCallback: function(grid, column, groupFooterIndex, group, value) {
-                        if (group.level == 2) {
-                            if (group.groupValue == "참고") {
-                                return " --- SUM ---";
-                            } else {
-                                return null;
-                            }
-                        }
-                    }
-                },
-                "styleName": "ni-rg-align-left ni-rg-readonly",
-                "readOnly": true,
-                "editable": false,
-                button: "action",
-                buttonVisibility: "always",
-            },
-            {
-                "name": "activity_rate",
-                "fieldName": "activity_rate",
-                "type": "number",
-                "numberFormat": "#,##0",
-                "width": 80,
-                "header": {
-                    "text": "Activity Rate"
-                },
-                "styleName": "ni-rg-align-right ni-rg-readonly",
-                "readOnly": true,
-                "editable": false,
-            },
-            {
-                "name": "rate_hour",
-                "fieldName": "rate_hour",
-                "width": 100,
-                "numberFormat": "#,##0",
-                "header": {
-                    "text": "Rate * Hour",
-                },
-                "footer": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-                "groupFooter": {
-                    "expression": "sum",
-                    "numberFormat": "#,##0"
-                },
-                "styleName": "ni-rg-align-right ni-rg-readonly",
-                "readOnly": true,
-                "editable": false,
-            },
-            {
-                "name": "total_amount",
-                "fieldName": "total_amount",
-                "type": "number",
-                "numberFormat": "#,##0",
-                "width": 60,
-                "header": {
-                    "text": "Total(H)"
-                },
-                "groupFooter": {
-                    "text": "",
-                    "expression": "sum",
-                    "numberFormat": "#,###",
-                    "styleName": "ni-rg-align-right"
-                },
-                "styleName": "ni-rg-align-right ni-rg-readonly",
-                "readOnly": true,
-                "editable": false,
-            },
-            {
-                "name": "month1",
-                "fieldName": "month1",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 60,
-                "header": {
-                    "text": "Month 1"
-                },
-                groupFooter: {
-                    "numberFormat": "#,###",
-                    valueCallback: function(grid, column, groupFooterIndex, group, value) {
-                        //debugger;
-                        const gm = grid.getGroupModel(group.index + 1);
-                        const d = grid.getGroupSummary(gm, "month1_amt", true).sum;
-                        return d;
-                    },
-                },
-            },
-            {
-                "name": "month2",
-                "fieldName": "month2",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 60,
-                "header": {
-                    "text": "Month 2"
-                }
-            },
-            {
-                "name": "month3",
-                "fieldName": "month3",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 60,
-                "header": {
-                    "text": "Month 3"
-                }
-            },
-            {
-                "name": "month4",
-                "fieldName": "month4",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 60,
-                "header": {
-                    "text": "Month 4"
-                }
-            },
-            {
-                "name": "month5",
-                "fieldName": "month5",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 60,
-                "header": {
-                    "text": "Month 5"
-                }
-            },
-            {
-                "name": "month6",
-                "fieldName": "month6",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 60,
-                "header": {
-                    "text": "Month 6"
-                }
-            },
-            {
-                "name": "month7",
-                "fieldName": "month7",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 60,
-                "header": {
-                    "text": "Month 7"
-                }
-            },
-            {
-                "name": "month8",
-                "fieldName": "month8",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 60,
-                "header": {
-                    "text": "Month 8"
-                }
-            },
-            {
-                "name": "month9",
-                "fieldName": "month9",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 60,
-                "header": {
-                    "text": "Month 9"
-                }
-            },
-            {
-                "name": "month10",
-                "fieldName": "month10",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 60,
-                "header": {
-                    "text": "Month 10"
-                }
-            },
-            {
-                "name": "month11",
-                "fieldName": "month11",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 60,
-                "header": {
-                    "text": "Month 11"
-                }
-            },
-            {
-                "name": "month12",
-                "fieldName": "month12",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 60,
-                "header": {
-                    "text": "Month 12"
-                }
-            },
-            {
-                "name": "month13",
-                "fieldName": "month13",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 60,
-                "header": {
-                    "text": "Month 13"
-                }
-            },
-            {
-                "name": "month14",
-                "fieldName": "month14",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 60,
-                "header": {
-                    "text": "Month 14"
-                }
-            },
-            {
-                "name": "month15",
-                "fieldName": "month15",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 60,
-                "header": {
-                    "text": "Month 15"
-                }
-            },
-            {
-                "name": "month16",
-                "fieldName": "month16",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 60,
-                "header": {
-                    "text": "Month 16"
-                }
-            },
-            {
-                "name": "month17",
-                "fieldName": "month17",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 60,
-                "header": {
-                    "text": "Month 17"
-                }
-            },
-            {
-                "name": "month18",
-                "fieldName": "month18",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 60,
-                "header": {
-                    "text": "Month 18"
-                }
-            },
-            {
-                "name": "beyond18",
-                "fieldName": "beyond18",
-                "numberFormat": "#,##0",
-                "type": "number",
-                "width": 100,
-                "header": {
-                    "text": "Beyond 18"
-                }
-            },
-            {
-                "name": "__insert",
-                "fieldName": "__insert",
-                "type": "button",
-                "width": 40,
-                "header": {
-                    "text": "Insert"
-                },
-                styleName: 'ni-rg-col-button',
-                renderer: {
-                    "type": "button",
-                    "hideWhenEmpty": true
-                },
-                editable: false,
-            },
-            {
-                "name": "__delete",
-                "fieldName": "__delete",
-                "type": "button",
-                "width": 45,
-                "header": {
-                    "text": "Delete"
-                },
-                styleName: 'ni-rg-col-button',
-                renderer: {
-                    "type": "button",
-                    "hideWhenEmpty": true
-                },
-                editable: false,
-            },
+
+        const gvColumns = [
+            {"name": "sys_id", "fieldName": "sys_id", "type": "data", "width": 30, "header": {"text": "sysid"}, "visible": false},
+            {"name": "__type", "fieldName": "__type", "type": "data", "width": 40, "header": {"text": "TYPE"}},
+            {"name": "wbs", "fieldName": "wbs", "type": "data", "width": 100, "header": {"text": "WBS"}, "groupFooter": {"text": " ", "expression": "max"}, "readOnly": true, "editable": false, styleName: "ni-rg-col-wbs"},
+            {"name": "in_charge", "fieldName": "in_charge", "type": "data", "width": 150, "header": {"text": "In Charge"}, "styleName": "ni-rg-align-left ni-rg-readonly", "readOnly": true, "editable": false},
+            {"name": "activity_type", "fieldName": "activity_type", "type": "data", "width": 120, "header": {"text": "Activity Type"}, "groupFooter": {"styleName": "ni-rg-align-center", "numberFormat": "#,###", valueCallback: function(grid, column, groupFooterIndex, group, value) { if (group.level == 2) { if (group.groupValue == "참고") { return " --- SUM ---"; } else { return null; } } } }, "styleName": "ni-rg-align-left ni-rg-readonly", "readOnly": true, "editable": false, button: "action", buttonVisibility: "always"},
+            {"name": "activity_rate", "fieldName": "activity_rate", "type": "number", "numberFormat": "#,##0", "width": 80, "header": {"text": "Activity Rate"}, "styleName": "ni-rg-align-right ni-rg-readonly", "readOnly": true, "editable": false},
+            {"name": "rate_hour", "fieldName": "rate_hour", "width": 100, "numberFormat": "#,##0", "header": {"text": "Rate * Hour"}, "footer": {"expression": "sum", "numberFormat": "#,##0"}, "groupFooter": {"expression": "sum", "numberFormat": "#,##0"}, "styleName": "ni-rg-align-right ni-rg-readonly", "readOnly": true, "editable": false},
+            {"name": "total_amount", "fieldName": "total_amount", "type": "number", "numberFormat": "#,##0", "width": 60, "header": {"text": "Total(H)"}, "groupFooter": {"text": "", "expression": "sum", "numberFormat": "#,###", "styleName": "ni-rg-align-right"}, "styleName": "ni-rg-align-right ni-rg-readonly", "readOnly": true, "editable": false},
+            {"name": "month1", "fieldName": "month1", "numberFormat": "#,##0", "type": "number", "width": 60, "header": {"text": "Month 1"}, "groupFooter": {"numberFormat": "#,###", valueCallback: function(grid, column, groupFooterIndex, group, value) { const gm = grid.getGroupModel(group.index + 1); const d = grid.getGroupSummary(gm, "month1_amt", true).sum; return d; } }},
+            {"name": "month2", "fieldName": "month2", "numberFormat": "#,##0", "type": "number", "width": 60, "header": {"text": "Month 2"}},
+            {"name": "month3", "fieldName": "month3", "numberFormat": "#,##0", "type": "number", "width": 60, "header": {"text": "Month 3"}},
+            {"name": "month4", "fieldName": "month4", "numberFormat": "#,##0", "type": "number", "width": 60, "header": {"text": "Month 4"}},
+            {"name": "month5", "fieldName": "month5", "numberFormat": "#,##0", "type": "number", "width": 60, "header": {"text": "Month 5"}},
+            {"name": "month6", "fieldName": "month6", "numberFormat": "#,##0", "type": "number", "width": 60, "header": {"text": "Month 6"}},
+            {"name": "month7", "fieldName": "month7", "numberFormat": "#,##0", "type": "number", "width": 60, "header": {"text": "Month 7"}},
+            {"name": "month8", "fieldName": "month8", "numberFormat": "#,##0", "type": "number", "width": 60, "header": {"text": "Month 8"}},
+            {"name": "month9", "fieldName": "month9", "numberFormat": "#,##0", "type": "number", "width": 60, "header": {"text": "Month 9"}},
+            {"name": "month10", "fieldName": "month10", "numberFormat": "#,##0", "type": "number", "width": 60, "header": {"text": "Month 10"}},
+            {"name": "month11", "fieldName": "month11", "numberFormat": "#,##0", "type": "number", "width": 60, "header": {"text": "Month 11"}},
+            {"name": "month12", "fieldName": "month12", "numberFormat": "#,##0", "type": "number", "width": 60, "header": {"text": "Month 12"}},
+            {"name": "month13", "fieldName": "month13", "numberFormat": "#,##0", "type": "number", "width": 60, "header": {"text": "Month 13"}},
+            {"name": "month14", "fieldName": "month14", "numberFormat": "#,##0", "type": "number", "width": 60, "header": {"text": "Month 14"}},
+            {"name": "month15", "fieldName": "month15", "numberFormat": "#,##0", "type": "number", "width": 60, "header": {"text": "Month 15"}},
+            {"name": "month16", "fieldName": "month16", "numberFormat": "#,##0", "type": "number", "width": 60, "header": {"text": "Month 16"}},
+            {"name": "month17", "fieldName": "month17", "numberFormat": "#,##0", "type": "number", "width": 60, "header": {"text": "Month 17"}},
+            {"name": "month18", "fieldName": "month18", "numberFormat": "#,##0", "type": "number", "width": 60, "header": {"text": "Month 18"}},
+            {"name": "beyond18", "fieldName": "beyond18", "numberFormat": "#,##0", "type": "number", "width": 100, "header": {"text": "Beyond 18"}},
+            {"name": "__insert", "fieldName": "__insert", "type": "button", "width": 40, "header": {"text": "Insert"}, styleName: 'ni-rg-col-button', renderer: {"type": "button", "hideWhenEmpty": true}, editable: false},
+            {"name": "__delete", "fieldName": "__delete", "type": "button", "width": 45, "header": {"text": "Delete"}, styleName: 'ni-rg-col-button', renderer: {"type": "button", "hideWhenEmpty": true}, editable: false},
         ];
+        
 
         const gvLayouts = [
             'sys_id',
@@ -642,21 +194,22 @@
                     col.groupFooters = [{
                         numberFormat: "#,###",
                         valueCallback: function(grid, column, groupFooterIndex, group, value) {
-                            //debugger;
-                            //  const gm = grid.getGroupModel(group.index+1);
-                            //  const d = grid.getGroupSummary(gm, col.name + "_amt", true).sum;
-                            //  return d;
-                            //if (group.level == 2) {
-                            //  if (group.groupValue == "참고") {
-                            //const gm = grid.getGroupModel(group.index);
-                            //const v = grid.getGroupSummary(gm, col.name + "_amt", true).sum;
-                            const v = grid.getGroupSummary(group, col.name + "_amt", true).sum;
+                            /*
+                              const gm = grid.getGroupModel(group.index+1);
+                                const d = grid.getGroupSummary(gm, col.name + "_amt", true).sum;
+                                return d;
+                                if (group.level == 2) {
+                                if (group.groupValue == "참고") {
+                                const gm = grid.getGroupModel(group.index);
+                                const v = grid.getGroupSummary(gm, col.name + "_amt", true).sum;
+                                const v = grid.getGroupSummary(group, col.name + "_amt", true).sum;
 
-                            return v;
-                            //  } else {
-                            //    return null;
-                            //  }
-                            //}
+                                return v;
+                                } else {
+                                return null;
+                                }
+                            }
+                            */
                         }
                     }];
                 }
@@ -815,26 +368,7 @@
         initFormEtc();
     }
 
-    // 초기화 여러번 시도
-    const gridTry = [200, 300, 400, 500, 750, 1000, 1250, 1500, 2000, 2500, 3000, 3500, 4000];
-    for (const ms of gridTry) {
-        setTimeout(function() {
-            const logStr = 'doGrid[' + ms + 'ms]';
-            console.log(logStr + ' : start');
-            const g = document.querySelector('#gridContainer .rg-grid');
-            if (g) {
-                console.log(logStr + ' : already completed');
-            } else {
-                try {
-                    console.log(logStr + ' : try');
-                    doGrid();
-                    console.log(logStr + ' : done');
-                } catch (e) {
-                    console.log(logStr + ' : fail');
-                }
-            }
-        }, ms);
-    }
+    doGrid();
 
 }]]></client_script>
         <controller_as>c</controller_as>
@@ -1206,9 +740,6 @@ th {
 .rg-selection { background: rgb(232 248 240 / 35%) !important; border: 1px solid #15BD66!important;}
 .rg-editor-container { border: 2px solid #27C382 !important; }
 
-
-@charset "UTF-8";
-
 /*
 @font-face {
     font-family: "Pretendard";
@@ -1325,10 +856,10 @@ th {
         <docs/>
         <field_list/>
         <has_preview>false</has_preview>
-        <id>budgetplanprjmngtwd03</id>
+        <id>budgetplanprfmngtmanhourwd</id>
         <internal>false</internal>
         <link><![CDATA[function link(scope, element, attrs, controller) {}]]></link>
-        <name>budgetPlanPrjMngtWd03</name>
+        <name>budgetPlanPrfMngtManHourWd</name>
         <option_schema/>
         <public>false</public>
         <roles/>
@@ -1437,14 +968,14 @@ function sf1(a, b) {
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-26 00:23:25</sys_created_on>
         <sys_id>b553cf0583030210856ceec0deaad368</sys_id>
-        <sys_mod_count>1</sys_mod_count>
-        <sys_name>budgetPlanPrjMngtWd03</sys_name>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>budgetPlanPrfMngtManHourWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_b553cf0583030210856ceec0deaad368</sys_update_name>
-        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-26 00:23:40</sys_updated_on>
+        <sys_updated_by>yeongink</sys_updated_by>
+        <sys_updated_on>2024-06-29 11:20:28</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 
