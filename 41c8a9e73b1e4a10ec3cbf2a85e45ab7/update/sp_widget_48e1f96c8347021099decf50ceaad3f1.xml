@@ -12,7 +12,7 @@
 
     
     var modalProjectNumber = document.getElementById("modalProjectNumber");
-	var modalPMName = document.getElementById("modalPMName");
+		var modalPMName = document.getElementById("modalPMName");
 	var modalState = document.getElementById("modalState");
     // Function to get URL parameters
     c.getUrlParameter = function(param) {
@@ -38,70 +38,76 @@
         clearModalUpload();
     }
 	
-
     $scope.btnClickProjectNumberSearch = function(idx) {
-		c.data.itemsProjectNumbers = [];
-		modalProjectNumber.style.display = 'block';
-		c.data.modalProjectNumber = true;
-		c.data.modalProjectNumberTitle = 'Project Number';
-        c.data.modalProjectNumberType = true;
-		c.server.update().then(function(response) {
-			console.log('Server response:', response);
-		});
-	}
+			c.data.itemsProjectNumbers = [];
+			modalProjectNumber.style.display = 'block';
+			//c.data.modalProjectNumber = true;
+			c.data.modalProjectNumberTitle = 'Project Number';
+    	c.data.modalProject = true;
+			c.server.update().then(function(response) {
+				console.log('Server response:', response);
+			});
+		}
 
     $scope.closeModalProjectNumber = function() {
         modalProjectNumber.style.display = 'none';
     }
+    $scope.closeModalPM = function() {
+        modalPMName.style.display = 'none';
+    }
+    $scope.closeModalS = function() {
+        modalState.style.display = 'none';
+    }
 
-    $scope.clickProjectNumber = function(item) {
-        modalProjectNumber.style.display = 'none';
-        c.data.ProjectNumberNm = item.name;
-        c.data.ProjectNumberCode = item.code;
-        c.data.modalProjectNumber = false;
-        c.data.modalProjectNumberType = false;
-
-	}
+	
+	    c.clickProjectNumber = function(index) {
+				c.data.myProjectId = c.data.itemsProject[index].sys_id;
+				c.data.myProjectNumber = c.data.itemsProject[index].code;
+				console.log(c.data.myProjectNumber);
+	      modalProjectNumber.style.display = 'none';
+    };
 
     $scope.btnClickPMNameSearch = function(idx) {
-		c.data.itemsPMNames = [];
-		modalPMName.style.display = 'block';
-		c.data.modalPMName = true;
-		c.data.modalPMNameTitle = 'PM Name';
-        c.data.modalPMNameType = true;
-		c.server.update().then(function(response) {
+			c.data.itemsPMNames = [];
+			modalPMName.style.display = 'block';
+
+			c.data.modalPM = true;
+			c.server.update().then(function(response) {
+				console.log('Server response:', response);
+			});
+			
+			c.data.itemsPMNames = [];
+			modalPMName.style.display = 'block';
+			c.data.modalPMName = true;
+			c.data.modalPMNameTitle = 'PM Name';
+      c.data.modalPMNameType = true;
+			c.server.update().then(function(response) {
 			console.log('Server response:', response);
 		});
 	}
+	   c.clickPM = function(index) {
+				c.data.myPmId = c.data.itemsPMNames[index].sysid;
+				c.data.myPmName = c.data.itemsPMNames[index].name;
+				console.log(c.data.myPmName);
+	      modalPMName.style.display = 'none';
+    };
 
-    $scope.clickPMName = function(item) {
-        modalPMName.style.display = 'none';
-        c.data.PMNameNm = item.name;
-        c.data.PMNameCode = item.code;
-        c.data.modalPMName = false;
-        c.data.modalPMNameType = false;
-
-	}
-
-    $scope.btnClickStateSearch = function(idx) {
-		c.data.itemsStates = [];
+    $scope.btnClickState = function(idx) {
+		c.data.itemState = [];
 		modalState.style.display = 'block';
 		c.data.modalState = true;
-		c.data.modalStateTitle = 'State';
-        c.data.modalStateType = true;
+			
 		c.server.update().then(function(response) {
 			console.log('Server response:', response);
 		});
 	}
 
-    $scope.clickState = function(item) {
-        modalState.style.display = 'none';
-        c.data.StateNm = item.name;
-        c.data.StateCode = item.code;
-        c.data.modalState= false;
-        c.data.modalStateType = false;
-
-	}
+		 c.clickS = function(index) {
+				c.data.mylabel = c.data.itemState[index].label;
+				c.data.myStateValue = c.data.itemState[index].value;
+				 console.log(c.data.myStateValue);
+	      modalState.style.display = 'none';
+    };
 
     $scope.valueChangeAddFile = async function(obj) {
         var files = obj.files;
@@ -127,16 +133,53 @@
             }
         }
     }
-
+	
     $scope.btnClickLoadData = function() {
-        loadDataProvider();
+
+      if(c.data.myProjectId == undefined){
+				c.data.myProjectId = '';
+			}
+		  if(c.data.myPmName == undefined){
+				c.data.myPmName = '';
+			}
+			if(c.data.myStateValue == undefined){
+				c.data.myStateValue = '';
+			}
+			c.data.myQuery = 'base_month='+c.data.basemonth+'^plan_type=prf^'+'project.sys_idLIKE'+ c.data.myProjectId + '^pm_nameLIKE' + c.data.myPmName + '^stateLIKE'+ c.data.myStateValue;
+			console.log(c.data.myQuery);
+			c.data.SearchState = true;
+			c.server.update().then(function(response) {
+				console.log('Server response:', response);
+				dataProvider.fillJsonData(c.data.gridDataNew, { fillMode: "set" });
+				c.data.myQuery = '';
+			});
+			
     }
+	
+		function loadDataProvider() {
+
+			if(c.data.myProjectId == undefined){
+				c.data.myProjectId = '';
+			}
+			debugger
+		  if(c.data.myPmName == undefined){
+				c.data.myPmName = '';
+			}
+			c.data.myQuery = 'base_month='+c.data.basemonth+'^plan_type=prf^'+'project.sys_idLIKE^'+c.data.myProjectId+'pm_nameLIKE'+c.data.myPmName + '^stateLIKE'+ c.data.myStateValue;
+			c.data.SearchState = true;
+			c.server.update().then(function(response) {
+				console.log('Server response:', response);
+			});
+			dataProvider.fillJsonData(c.data.gridDataNew, { fillMode: "set" });
+		}
 
     function clearModalUpload() {
         document.querySelector("input[type=file]").value = "";
         $("#projectHeader").val('');
         $("#projectDetail").val('');
-        headFile, detailFile, wbsBudgetFile = '';
+        headFile = '';
+				detailFile = '';
+			  wbsBudgetFile = '';
     }
 
     /** read txt File */
@@ -333,6 +376,7 @@
     function grid() {
         var gridViewFields = [
             { fieldName: "sys_id",          dataType: "text" },
+						{ fieldName: "number",          dataType: "text" },
             { fieldName: "project_no",      dataType: "text" },
             { fieldName: "contractor",      dataType: "text" },
             { fieldName: "project_name",    dataType: "text" },
@@ -348,27 +392,28 @@
 
         var sumFooter = { "expression": "sum", "numberFormat": "#,##0" };
 
-        var gridViewColumns = [
+        const gridViewColumns = [
             { name: "sys_id",           fieldName: "sys_id",            type: "data",   width: 100,  header: { text: "sysid" },              visible: false, readOnly: true,  editable: false },
+					  { name: "number",       fieldName: "number",        type: "data",   width: 200,  header: { text: "Number" },         visible: true,  readOnly: true,  editable: false },
             { name: "project_no",       fieldName: "project_no",        type: "data",   width: 100,  header: { text: "Project No." },        visible: true,  readOnly: true,  editable: false, styleName: "ni-rg-col-project_no",             groupFooter: { text: " ", expression: "max" } },
             { name: "contractor",       fieldName: "contractor",        type: "data",   width: 200,  header: { text: "Contractor" },         visible: true,  readOnly: true,  editable: false },
             { name: "project_name",     fieldName: "project_name",      type: "data",   width: 150,  header: { text: "Project Name" },       visible: true,  readOnly: true,  editable: false, styleName: "ni-rg-align-left ni-rg-readonly" },
-            { name: "pm",               fieldName: "pm",                type: "data",   width: 150,  header: { text: "PM" },                 visible: true,  readOnly: true,  editable: false, styleName: "ni-rg-align-left ni-rg-readonly",  groupFooter: sumFooter, button: "action", buttonVisibility: "always" },
+            { name: "pm",               fieldName: "pm",                type: "data",   width: 150,  header: { text: "PM" },                 visible: true,  readOnly: true,  editable: false, styleName: "ni-rg-align-left ni-rg-readonly",  groupFooter: sumFooter},
             { name: "contract_amt",     fieldName: "contract_amt",      type: "number", width: 130,  header: { text: "Contract Amt" },       visible: true,  readOnly: true,  editable: false, styleName: "ni-rg-align-right ni-rg-readonly", numberFormat: "#,##0" },
             { name: "ptc_last_month",   fieldName: "ptc_last_month",    type: "data",   width: 130,  header: { text: "PTC last Mon" },       visible: true,  readOnly: true,  editable: false, styleName: "ni-rg-align-right ni-rg-readonly", numberFormat: "#,##0", footer: { expression: "sum", numberFormat: "#,##0" }, groupFooter: sumFooter },
             { name: "forecast_ptc",     fieldName: "forecast_ptc",      type: "data",   width: 130,  header: { text: "Forecast PTC" },       visible: true,  readOnly: true,  editable: false, styleName: "ni-rg-align-right ni-rg-readonly", numberFormat: "#,##0", groupFooter: { text: "", expression: "sum", numberFormat: "#,###", styleName: "ni-rg-align-right" } },
-            { name: "variance",         fieldName: "variance",          type: "data",   width: 130,  header: { text: "Variance" },           visible: true,  readOnly: false, editable: false, styleName: "ni-rg-col-button" },
-            { name: "poc_percentage",   fieldName: "poc_percentage",    type: "data",   width: 110,  header: { text: "POC%" },               visible: true,  readOnly: false, editable: false, styleName: "ni-rg-col-button" },
-            { name: "state",            fieldName: "state",             type: "data",   width: 120,  header: { text: "State" },              visible: true,  readOnly: false, editable: false, styleName: "ni-rg-col-button" }
+            { name: "variance",         fieldName: "variance",          type: "data",   width: 130,  header: { text: "Variance" },           visible: true,  readOnly: true, editable: false, styleName: "ni-rg-col-button" },
+            { name: "poc_percentage",   fieldName: "poc_percentage",    type: "data",   width: 110,  header: { text: "POC%" },               visible: true,  readOnly: true, editable: false, styleName: "ni-rg-col-button" },
+            { name: "state",            fieldName: "state",             type: "data",   width: 120,  header: { text: "State" },              visible: true,  readOnly: true, editable: false, styleName: "ni-rg-col-button" }
         ];
         
         
 
-        var gridViewLayouts = [ 'sys_id', 'project_no', 'contractor', 'project_name', 'pm', 'contract_amt', 'ptc_last_month', 'forecast_ptc', 'variance', 'poc_percentage', 'state' ];
+        var gridViewLayouts = [ 'sys_id', 'number', 'project_no', 'contractor', 'project_name', 'pm', 'contract_amt', 'ptc_last_month', 'forecast_ptc', 'variance', 'poc_percentage', 'state' ];
 
         function initGrid() {
             gridView = new RealGrid.GridView('gridContainer');
-			dataProvider = new RealGrid.LocalDataProvider();
+			      dataProvider = new RealGrid.LocalDataProvider();
             gridView.setDataSource(dataProvider);
             gridView.setColumns(gridViewColumns);
             gridView.setColumnLayout(gridViewLayouts);
@@ -378,9 +423,14 @@
             gridView.editOptions.insertable = true;
             gridView.checkBar.visible = false;
             gridView.stateBar.visible = false;
-            gridView.onCellClicked = function (grid, clickData) {
-								console.log("onCellClicked: " + JSON.stringify(clickData));
-						}
+						gridView.onCellClicked = function(grid, index, column) {
+							if (['number'].includes(index.column)) {
+							debugger
+							window.location.href = "/ybpm?id=epic_09_ui_prj&number="+dataProvider.getValue(index.dataRow,'number')+'&table=x_yergb_bpm_budget_plan&sys_id='
+							+dataProvider.getValue(index.dataRow,'sys_id');
+							//&number=E326482J00&table=x_yergb_bpm_budget_plan&sys_id=c5c397c983830210856ceec0deaad3c2";
+							}
+						};
             dataProvider.setFields(gridViewFields);
             dataProvider.softDeleting = false;
             dataProvider.setRows(c.data.gridData);
@@ -392,338 +442,404 @@
     grid();
 }]]></client_script>
         <controller_as>c</controller_as>
-        <css>@charset "UTF-8";&#13;
-&#13;
-&#13;
-body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; line-height: normal;}&#13;
-&#13;
-.blank {width: 100%; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); }&#13;
-.yoko-container {margin: 40px auto 100px; min-width: 1400px; max-width: 1600px; font-family: "Pretendard"; font-size: 14px; font-weight: 400; letter-spacing: 0;}&#13;
-.yoko-container * {box-sizing: border-box;}&#13;
-.yoko-container .yoko-content {display: flex; gap: 30px; flex-direction: column;}&#13;
-.yoko-breadcrumb {color: #425D78;}&#13;
-.yoko-title-btn-wrap {display: flex; justify-content: space-between; align-items: center; margin: 8px 0 25px 0;}&#13;
-.yoko-title-btn-wrap .yoko-title {margin:0; color: #1C3956; font-family: "Pretendard";font-size: 24px;  font-style: normal;  font-weight: 700; line-height: normal;}&#13;
-.yoko-title-btn-wrap .yoko-btn-wrap {display: flex; gap: 4px; margin-bottom: 0;}&#13;
-&#13;
-.yoko-btn-wrap {display: flex; justify-content: space-between; margin-bottom: 8px;}&#13;
-.yoko-btn-wrap &gt; div {display: flex; gap: 4px;}&#13;
-&#13;
-.yoko-btn {cursor: pointer; border-radius: 4px; text-align: center; font-family: "Pretendard";font-size: 14px;  font-style: normal; font-weight: 400;  padding: 8px 20px 8px 20px;}&#13;
-.yoko-btn:disabled  {border: 1px solid #AABBD1; color: #C8CED4;}&#13;
-&#13;
-.yoko-btn.yoko-btn-outline {background: #fff; border: 1px solid #EAEEF3;  color: #4B5E70; }&#13;
-.yoko-btn.yoko-btn-outline:hover  {border: 1px solid #AABBD1;}&#13;
-&#13;
-.yoko-btn.yoko-btn-fill {background-color: #68B3FC; border: 1px solid #4193E2; color: #fff;}&#13;
-.yoko-btn.yoko-btn-fill:hover  {background-color: #4193E2; border: 1px solid #4193E2;}&#13;
-&#13;
-.yoko-btn.yoko-btn-fill-red {background-color: #FF6D6D; border: 1px solid #E35050; color: #fff;}&#13;
-.yoko-btn.yoko-btn-fill-red:hover  {background-color: #E35050; border: 1px solid #E35050;}&#13;
-&#13;
-&#13;
-.yoko-btn-search {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(icon_search.png) no-repeat center center !important;}&#13;
-.yoko-btn-search:hover {background-color: #eaeaea;}&#13;
-.yoko-btn-add {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(icon_add.png) no-repeat center center !important;}&#13;
-.yoko-btn-add:hover {background-color: #eaeaea;}&#13;
-.yoko-btn-delete {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(icon_delete.png) no-repeat center center !important;}&#13;
-.yoko-btn-delete:hover {background-color: #eaeaea;}&#13;
-.yoko-btn-info-fill {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(icon_info_fill.png) no-repeat center center !important;}&#13;
-.yoko-btn-info-fill:hover {background-color: #eaeaea;}&#13;
-.yoko-btn-attach {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(icon_attach.png) no-repeat center center !important;}&#13;
-.yoko-btn-attach:hover {background-color: #eaeaea;}&#13;
-.yoko-btn-load {border: 1px solid #E1E8F0; font-weight: 600; padding: 0; min-width: 58px; width: 28px; height: 28px; color: #606060; background:#fff;}&#13;
-.yoko-btn-load:hover {background-color: #eaeaea;}&#13;
-&#13;
-.yoko-search-form {display: flex; gap: 30px; padding: 16px 30px; max-width: 1600px;  background-color: #F7F7F7; border: 1px solid #EDEDED; border-radius: 4px;}&#13;
-&#13;
-.yoko-form-group .yoko-btn {padding: 5px 10px 5px 10px;}&#13;
-.yoko-search-form .yoko-form-group {display: flex; align-items: center; gap: 20px; /*width: 100%; min-width: 240px;*/}&#13;
-.yoko-search-form .yoko-form-group label {width:130px; min-width: 130px; text-align: right;}&#13;
-.yoko-search-form label {color: #4B5E70; font-family: 'Pretendard'; font-size: 13px; font-style: normal; font-weight: 500; line-height: normal;}&#13;
-.yoko-search-form label.yoko-short {width: 80px; min-width: 80px;}&#13;
-.yoko-search-form label.yoko-short-100 {width: 100px; min-width: 100px;}&#13;
-.yoko-search-form label.yoko-short-110 {width: 110px; min-width: 110px;}&#13;
-.yoko-search-form label.yoko-short-120 {width: 120px; min-width: 120px;}&#13;
-.yoko-search-form label.yoko-short-130 {width: 130px; min-width: 130px;}&#13;
-.yoko-search-form label.yoko-short-135 {width: 135px; min-width: 130px;}&#13;
-.yoko-search-form label.yoko-middle {width: 170px; min-width: 170px;}&#13;
-.yoko-search-form label.yoko-long {width: 200px; min-width: 200px;}&#13;
-.yoko-search-form label.yoko-btn-fill {background-color: #68B3FC;text-align: center; color: #fff; font-weight: 400;  padding: 5px 10px 6px 10px; border-radius: 4px;}&#13;
-.yoko-search-form label.yoko-long.yoko-btn-fill {width: calc(200px - 10px);}&#13;
-.yoko-search-form label.yoko-middle.yoko-btn-fill {width: calc(170px - 10px);}&#13;
-&#13;
-.yoko-search-form input,&#13;
-.yoko-search-form select,&#13;
-.yoko-search-form textarea {font-family: "Pretendard"; font-size: 13px; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); border-radius: 4px; border: 1px solid #E1E8F0; color: #7A8692;}&#13;
-.yoko-search-form textarea {max-height: none; width: 100%; padding: 10px 10px 10px 10px; }&#13;
-/* .yoko-search-form input[type=date] {width: 140px; } */&#13;
-.yoko-search-form input[type=date]::-webkit-calendar-picker-indicator,&#13;
-.yoko-search-form input[type=date]::-webkit-inner-spin-button {background: url('icon_calendar.png') no-repeat right center; }&#13;
-&#13;
-.yoko-search-form select {&#13;
-  -moz-appearance:none; /* Firefox */&#13;
-  -webkit-appearance:none; /* Safari and Chrome */&#13;
-  appearance:none;&#13;
-  background-image: url(icon_arrow_down.png);&#13;
-  background-repeat: no-repeat;&#13;
-  background-position-x: 100%;&#13;
-  background-position-y: 1px;&#13;
-  line-height: 15px;&#13;
-  padding: 6px 30px 5px 10px;&#13;
-&#13;
-}&#13;
-&#13;
-.yoko-form-inline {display: flex;gap: 4px; width: calc(100% - 4px); align-items: center;}&#13;
-.yoko-form-group-title {padding: 4px 0 8px 0; color: #1C3956; font-family: "Pretendard"; font-size: 14px;font-style: normal;font-weight: 700; line-height: normal;}&#13;
-.yoko-form-group-hori  {display: flex;gap: 0; /*width:100%;*/}&#13;
-.yoko-flex-responsive {display: flex; gap: 30px;}&#13;
-.yoko-form-col {/*width: 100%;*/ display: flex; gap: 8px; flex-direction: column;}&#13;
-.yoko-form-col.yoko-gap7 {gap:7px ;}&#13;
-.yoko-col100 {width: 100%;}&#13;
-.yoko-col60 {width: 60%;}&#13;
-.yoko-col50 {width: 50%;}&#13;
-.yoko-col40 {width: 40%}&#13;
-.yoko-col35 {width: 35%}&#13;
-.yoko-col30 {width: 30%}&#13;
-.yoko-col20 {width: 20%} &#13;
-.yoko-col15 {width: 15%} &#13;
-.yoko-col10 {width: 10%} &#13;
-&#13;
-.yoko-search-form label.checkbox-label {text-align: left;width: auto; min-width: auto; cursor: pointer; display: flex; gap: 10px; align-items: center; justify-content: flex-start; color: #4B5E70; font-family: "Pretendard";  font-size: 13px; font-style: normal; font-weight: 400; line-height: normal;}&#13;
-.custom-checkbox {position: relative;}&#13;
-.custom-checkbox input { position: absolute;  opacity: 0;  cursor: pointer;  width: 18px; height: 18px; z-index: 1;}&#13;
-.custom-checkbox .checkmark {position: relative;  top: 0;  left: 0;  display: block;  height: 18px;  width: 18px;  border-radius: 2px;border: 1px solid #DCE3EB;background: #FFF; overflow: hidden;}&#13;
-.custom-checkbox:hover input ~ .checkmark {background-color: #FFF;}&#13;
-.custom-checkbox input:checked ~ .checkmark {  background-color: #68B3FC;  border-radius: 2px;  border: 1px solid #68B3FC;}&#13;
-.custom-checkbox .checkmark:after {  content: "";  position: absolute;  display: none;}&#13;
-.custom-checkbox input:checked ~ .checkmark:after {  display: block;  left: 50%; top: 50%;  height: 16px;  width: 18px;  transform: translate(-50%, -50%);  background: url(icon_checkbox.png) no-repeat center center;}&#13;
-&#13;
-.custom-checkbox input:disabled ~ .checkmark {border: 1px solid #D1D1D1; background: #E2E2E2; cursor: not-allowed; }&#13;
-.custom-checkbox input:checked:disabled ~ .checkmark {background:#E2E2E2 url(icon_checkbox_dis.png) no-repeat center center; }&#13;
-.custom-checkbox input:disabled ~ .checkmark:after {background: url(icon_checkbox_dis.png) no-repeat center center;}&#13;
-&#13;
-.yoko-wid100 {width: 100px !important;}&#13;
-.yoko-wid103 {width: 103px !important;}&#13;
-.yoko-wid127 {width: 127px !important;}&#13;
-.yoko-wid134 {width: 134px !important;}&#13;
-.yoko-wid140 {width: 140px !important;}&#13;
-.yoko-wid147 {width: 147px !important;}&#13;
-.yoko-wid154 {width: 154px !important;}&#13;
-.yoko-wid158 {width: 158px !important;}&#13;
-.yoko-wid172 {width: 172px !important;}&#13;
-.yoko-wid247 {width: 247px !important;}&#13;
-.yoko-wid308 {width: 308px !important;}&#13;
-.yoko-wid425 {width: 425px !important;}&#13;
-.yoko-wid559 {width: 559px !important;}&#13;
-.yoko-wid717 {width: 717px !important;}&#13;
-&#13;
-.yoko-mt-20 {margin-top: 20px;}&#13;
-/* .yoko-form-inline select {width: calc(100% - 28px);} */&#13;
-.yoko-btn-spacing {width: calc(100% - 32px);}&#13;
-&#13;
-.yoko-search-form-wrapper {display: flex; gap: 20px; }&#13;
-.yoko-search-form-wrap .yoko-search-form-heading {margin-top: 10px; margin-bottom: 5px; font-size: 16px; font-weight: 600; color: #1F3B55;}&#13;
-&#13;
-.yoko-governance-wrap .yoko-search-form button {width: 100%; min-width: 140px;}&#13;
-.yoko-project-wrap .yoko-search-form input[type=text] {width: 100%;}&#13;
-&#13;
-.yoko-form-group-heading-wrap {display: flex; gap: 9px; justify-content: space-between; align-items: center;}&#13;
-.yoko-form-group-heading {font-size: 14px; font-weight: 700; color: #1F3B55;}&#13;
-.yoko-form-group-line {flex-grow: 1; height: 1px; background-color: #E1E1E1;}&#13;
-.yoko-padding24 {padding: 24px;}&#13;
-.yoko-grid-btn-wrap {display: flex; gap: 7px; justify-content: right;}&#13;
-&#13;
-.yoko-project-wrap {height: 255px;}&#13;
-.yoko-project-wrap .yoko-search-form {height: 100%;}&#13;
-&#13;
-&#13;
-/* 모달창 */&#13;
-.yoko-modal-normal {padding: 32px 30px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 768px; height: 240px; background-color: #fff; box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.1); z-index: 100;}&#13;
-.yoko-modal-content {position: relative; width: 100%; height: 100%;}&#13;
-.yoko-modal-content .yoko-btn-wrap {position: absolute; top: 0; right: 0;}&#13;
-.yoko-modal-content .yoko-btn-group {margin-top: 32px;}&#13;
-.yoko-modal-content .yoko-btn-group button {padding: 8px 20px;}&#13;
-.yoko-modal-content .yoko-btn-wrap button {padding: 6px 10px;}&#13;
-&#13;
-/* 테이블 형식 */&#13;
-.yoko-search-table input,&#13;
-.yoko-search-table select,&#13;
-.yoko-search-table textarea {font-family: "Pretendard"; font-size: 13px; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); border-radius: 4px; border: 1px solid #E1E8F0; color: #7A8692;}&#13;
-.yoko-search-table textarea {max-height: none; width: 100%; padding: 10px 10px 10px 10px; }&#13;
-.yoko-search-table input[type=date]::-webkit-calendar-picker-indicator,&#13;
-.yoko-search-table input[type=date]::-webkit-inner-spin-button {background: url('icon_calendar.png') no-repeat right center; }&#13;
-&#13;
-.yoko-search-table select {&#13;
-  -moz-appearance:none; /* Firefox */&#13;
-  -webkit-appearance:none; /* Safari and Chrome */&#13;
-  appearance:none;&#13;
-  background-image: url(icon_arrow_down.png);&#13;
-  background-repeat: no-repeat;&#13;
-  background-position-x: 100%;&#13;
-  background-position-y: 1px;&#13;
-  line-height: 15px;&#13;
-  padding: 6px 30px 5px 10px;&#13;
-}&#13;
-&#13;
-.yoko-search-table-wrap {display: flex; gap: 0;}&#13;
-.yoko-search-table tr.yoko-height-short {height: 39px;} &#13;
-.yoko-search-table {border-spacing: 0; border-collapse: collapse;}&#13;
-.yoko-search-table tr th {padding-right: 16px; text-align: right; background-color: #F7F7F7; border-top: 1px solid #EDEDED; border-bottom: 1px solid #EDEDED;}&#13;
-.yoko-search-table tr th.yoko-bg-none {background-color: #fff;}&#13;
-.yoko-search-table tr th label {color: #4B5E70; font-family: 'Pretendard'; font-size: 13px; font-style: normal; font-weight: 500; line-height: normal;}&#13;
-.yoko-search-table tr td {padding: 5px 10px; border-top: 1px solid #EDEDED; border-bottom: 1px solid #EDEDED;}&#13;
-.yoko-search-table tr td input {padding: 5px 10px; width: 100%; height: 100%;}&#13;
-.yoko-search-table tr td input:disabled {border: 1px solid #E1E8F0; background: #F1F1F1;}&#13;
-.yoko-search-table .yoko-form-inline {width: 100%;}&#13;
-&#13;
-.yoko-search-table-wrapper {display: flex; gap: 30px;}&#13;
-.yoko-search-table-heading {margin-top: 12px; margin-bottom: 5px; font-size: 16px; font-weight: 600; color: #1F3B55;}&#13;
-.yoko-table-heading {text-align: left !important; font-size: 14px; font-weight: 700; color: #1F3B55;}&#13;
-.yoko-search-table.yoko-empty-col {flex: 1;}&#13;
-&#13;
-&#13;
-&#13;
-&#13;
-&#13;
-&#13;
-@media (max-width: 1719px) {&#13;
-  .yoko-container {width: 1280px; min-width: 1280px;}&#13;
-  .yoko-search-form {gap: 15px;}&#13;
-  .yoko-flex-responsive {flex-direction: column; gap: 8px;}&#13;
-  .yoko-flex-responsive-row {flex-direction: row; gap: 20px;}&#13;
-  .yoko-search-form-company.yoko-col60 {width: 888px;}&#13;
-  .yoko-search-form-company .yoko-padding24 {padding: 14px;}&#13;
-  .yoko-search-form-company .yoko-search-form {gap: 7px;}&#13;
-  .yoko-search-form-governance.yoko-col40 {width: 381px;}&#13;
-  .yoko-project-wrap.yoko-col60 {width: 888px;}&#13;
-  .yoko-project-wrap.yoko-col40 {width: 381px;}&#13;
-  .yoko-project-wrap .yoko-search-form {padding: 18px;}&#13;
-&#13;
-  .yoko-form-amount-wrap label.yoko-short {width: 130px;}&#13;
-  .quotation-responsive label.yoko-short-110 {width: 135px;}&#13;
-  .yoko-flag-wrap {margin-top: 15px; height: 100px !important;}&#13;
-  .yoko-flag-wrap.yoko-search-form .yoko-form-group {gap: 40px;}&#13;
-  .yoko-flag-wrap .yoko-flex-responsive-row {flex-direction: row; gap: 40px;}&#13;
-}&#13;
-&#13;
-/*모달커스텀 모달*/&#13;
-.modal {&#13;
-  display: none;&#13;
-  position: fixed;&#13;
-  z-index: 1;&#13;
-  padding-top: 60px;&#13;
-  left: 0;&#13;
-  top: 0;&#13;
-  width: 100%;&#13;
-  height: 100%;&#13;
-  overflow: auto;&#13;
-  background-color: rgb(0,0,0);&#13;
-  background-color: rgba(0,0,0,0.4);&#13;
-}&#13;
-&#13;
-.modal-content {&#13;
-  background-color: #fefefe;&#13;
-  margin: 5% auto;&#13;
-  padding: 20px;&#13;
-  border: 1px solid #888;&#13;
-  width: 80%;&#13;
-}&#13;
-&#13;
-.close {&#13;
-  color: #aaa;&#13;
-  float: right;&#13;
-  font-size: 28px;&#13;
-  font-weight: bold;&#13;
-}&#13;
-&#13;
-.close:hover,&#13;
-.close:focus {&#13;
-  color: black;&#13;
-  text-decoration: none;&#13;
-  cursor: pointer;&#13;
-}&#13;
-&#13;
-&#13;
-/*  &#13;
-TEST Modal CSS&#13;
-*/&#13;
-.modal {&#13;
-display: none; /* Hidden by default */&#13;
-position: fixed; /* Stay in place */&#13;
-z-index: 3; /* Sit on top */&#13;
-left: 0;&#13;
-top: 0;&#13;
-width: 100%; /* Full width */&#13;
-height: 100%; /* Full height */&#13;
-overflow: auto; /* Enable scroll if needed */&#13;
-background-color: rgb(0,0,0); /* Fallback color */&#13;
-background-color: rgba(0,0,0,0.4); /* Black w/ opacity */&#13;
-}&#13;
-.modal-content {&#13;
-background-color: #fefefe;&#13;
-//margin: 5% auto; /* 15% from the top and centered */&#13;
-padding: 20px;&#13;
-border: 1px solid #888;&#13;
-width: 50%; /* Reduced width to 60% */&#13;
-}&#13;
-.close {&#13;
-color: #aaa;&#13;
-float: right;&#13;
-font-size: 28px;&#13;
-font-weight: bold;&#13;
-}&#13;
-.close:hover,&#13;
-.close:focus {&#13;
-color: black;&#13;
-text-decoration: none;&#13;
-cursor: pointer;&#13;
-}&#13;
-.container {&#13;
-list-style-type: none;&#13;
-padding: 0;&#13;
-}&#13;
-.container li {&#13;
-padding: 8px 0;&#13;
-border-bottom: 1px solid #ddd;&#13;
-display: flex;&#13;
-justify-content: space-between;&#13;
-margin-bottom: 10px;&#13;
-box-sizing: border-box; /* Include padding and border in element's total width and height */&#13;
-width: 100%; /* Ensure the list items take the full width of the container */&#13;
-}&#13;
-.highlight-form {&#13;
-border: 2px solid red;&#13;
-}&#13;
-&#13;
-&#13;
-&#13;
-&#13;
-&#13;
-/*리얼그리드 수정*/&#13;
-.rg-root {color: #4B5966 !important;  font-family: "Pretendard" !important;   font-size: 14px !important;  font-style: normal !important;  font-weight: 500 !important;  line-height: normal !important;}&#13;
-.rg-grid {border: 1px solid #EAEEF3 !important;}&#13;
-&#13;
-.rg-header {background: #FBFCFF  !important; color:#8B99A6 !important; font-weight: 600 !important; font-weight: 500 !important;}&#13;
-.rg-header .rg-table tr td {border-right: 1px solid #EAEEF3 !important; border-bottom: 1px solid #EAEEF3 !important; font-weight: 500 !important;} &#13;
-.rg-head {background: #FBFCFF  !important; color:#8B99A6 !important; font-weight: 600 !important; font-weight: 500 !important;}&#13;
-.rg-head .rg-table tr td { border-right: 1px solid #EAEEF3 !important;  border-bottom: 1px solid #EAEEF3 !important; font-weight: 500 !important;}&#13;
-&#13;
-.rg-body,&#13;
-.rg-fixed-body {color: #4B5966 !important;}&#13;
-.rg-body .rg-table tr td, &#13;
-.rg-fixed-body .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-bottom: 1px solid #EAEEF3 !important;}&#13;
-.rg-rowbarcontainer .rg-table tr td {background-color: transparent !important;    border-right: 1px solid #EAEEF3 !important;    border-bottom: 1px solid #EAEEF3 !important;}&#13;
-.rg-alternate-row {background: #fff !important;}&#13;
-.rg-footer {color: #606060 !important; background: #FBFCFF  !important;}&#13;
-.rg-footer .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-top: 1px solid #EAEEF3 !important;}&#13;
-.rg-foot {color: #606060 !important; background: #FBFCFF  !important;}&#13;
-.rg-foot .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-top: 1px solid #EAEEF3 !important;}&#13;
-.rg-focus {border:  2px solid #68B3FC !important;}&#13;
-.rg-header-focus {background: #E5F2FF !important; color: #6F7479 !important;}&#13;
-.rg-header .rg-table tr td:hover {background: #68B3FC !important; color: #fff !important;}&#13;
-.rg-header-select {background: rgb(232 248 240 / 50%) !important;}&#13;
-.rg-selection { background: rgb(232 248 240 / 35%) !important; border: 1px solid #15BD66!important;}&#13;
+        <css>@charset "UTF-8";
+
+
+body {margin: 0; font-family: "Pretendard"; font-size: 14px; font-weight: 400; line-height: normal;}
+
+.blank {width: 100%; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); }
+.yoko-container {margin: 40px auto 100px; min-width: 1400px; max-width: 1600px; font-family: "Pretendard"; font-size: 14px; font-weight: 400; letter-spacing: 0;}
+.yoko-container * {box-sizing: border-box;}
+.yoko-container .yoko-content {display: flex; gap: 30px; flex-direction: column;}
+.yoko-breadcrumb {color: #425D78;}
+.yoko-title-btn-wrap {display: flex; justify-content: space-between; align-items: center; margin: 8px 0 25px 0;}
+.yoko-title-btn-wrap .yoko-title {margin:0; color: #1C3956; font-family: "Pretendard";font-size: 24px;  font-style: normal;  font-weight: 700; line-height: normal;}
+.yoko-title-btn-wrap .yoko-btn-wrap {display: flex; gap: 4px; margin-bottom: 0;}
+
+.yoko-btn-wrap {display: flex; justify-content: space-between; margin-bottom: 8px;}
+.yoko-btn-wrap &gt; div {display: flex; gap: 4px;}
+
+.yoko-btn {cursor: pointer; border-radius: 4px; text-align: center; font-family: "Pretendard";font-size: 14px;  font-style: normal; font-weight: 400;  padding: 8px 20px 8px 20px;}
+.yoko-btn:disabled  {border: 1px solid #AABBD1; color: #C8CED4;}
+
+.yoko-btn.yoko-btn-outline {background: #fff; border: 1px solid #EAEEF3;  color: #4B5E70; }
+.yoko-btn.yoko-btn-outline:hover  {border: 1px solid #AABBD1;}
+
+.yoko-btn.yoko-btn-fill {background-color: #68B3FC; border: 1px solid #4193E2; color: #fff;}
+.yoko-btn.yoko-btn-fill:hover  {background-color: #4193E2; border: 1px solid #4193E2;}
+
+.yoko-btn.yoko-btn-fill-red {background-color: #FF6D6D; border: 1px solid #E35050; color: #fff;}
+.yoko-btn.yoko-btn-fill-red:hover  {background-color: #E35050; border: 1px solid #E35050;}
+
+
+.yoko-btn-search {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(icon_search.png) no-repeat center center !important;}
+.yoko-btn-search:hover {background-color: #eaeaea;}
+.yoko-btn-add {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(icon_add.png) no-repeat center center !important;}
+.yoko-btn-add:hover {background-color: #eaeaea;}
+.yoko-btn-delete {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(icon_delete.png) no-repeat center center !important;}
+.yoko-btn-delete:hover {background-color: #eaeaea;}
+.yoko-btn-info-fill {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(icon_info_fill.png) no-repeat center center !important;}
+.yoko-btn-info-fill:hover {background-color: #eaeaea;}
+.yoko-btn-attach {border: 1px solid #E1E8F0; padding: 0; min-width: 28px; width: 28px; height: 28px; background:#fff url(icon_attach.png) no-repeat center center !important;}
+.yoko-btn-attach:hover {background-color: #eaeaea;}
+.yoko-btn-load {border: 1px solid #E1E8F0; font-weight: 600; padding: 0; min-width: 58px; width: 28px; height: 28px; color: #606060; background:#fff;}
+.yoko-btn-load:hover {background-color: #eaeaea;}
+
+.yoko-search-form {display: flex; gap: 30px; padding: 16px 30px; max-width: 1600px;  background-color: #F7F7F7; border: 1px solid #EDEDED; border-radius: 4px;}
+
+.yoko-form-group .yoko-btn {padding: 5px 10px 5px 10px;}
+.yoko-search-form .yoko-form-group {display: flex; align-items: center; gap: 20px; /*width: 100%; min-width: 240px;*/}
+.yoko-search-form .yoko-form-group label {width:130px; min-width: 130px; text-align: right;}
+.yoko-search-form label {color: #4B5E70; font-family: 'Pretendard'; font-size: 13px; font-style: normal; font-weight: 500; line-height: normal;}
+.yoko-search-form label.yoko-short {width: 80px; min-width: 80px;}
+.yoko-search-form label.yoko-short-100 {width: 100px; min-width: 100px;}
+.yoko-search-form label.yoko-short-110 {width: 110px; min-width: 110px;}
+.yoko-search-form label.yoko-short-120 {width: 120px; min-width: 120px;}
+.yoko-search-form label.yoko-short-130 {width: 130px; min-width: 130px;}
+.yoko-search-form label.yoko-short-135 {width: 135px; min-width: 130px;}
+.yoko-search-form label.yoko-middle {width: 170px; min-width: 170px;}
+.yoko-search-form label.yoko-long {width: 200px; min-width: 200px;}
+.yoko-search-form label.yoko-btn-fill {background-color: #68B3FC;text-align: center; color: #fff; font-weight: 400;  padding: 5px 10px 6px 10px; border-radius: 4px;}
+.yoko-search-form label.yoko-long.yoko-btn-fill {width: calc(200px - 10px);}
+.yoko-search-form label.yoko-middle.yoko-btn-fill {width: calc(170px - 10px);}
+
+.yoko-search-form input,
+.yoko-search-form select,
+.yoko-search-form textarea {font-family: "Pretendard"; font-size: 13px; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); border-radius: 4px; border: 1px solid #E1E8F0; color: #7A8692;}
+.yoko-search-form textarea {max-height: none; width: 100%; padding: 10px 10px 10px 10px; }
+/* .yoko-search-form input[type=date] {width: 140px; } */
+.yoko-search-form input[type=date]::-webkit-calendar-picker-indicator,
+.yoko-search-form input[type=date]::-webkit-inner-spin-button {background: url('icon_calendar.png') no-repeat right center; }
+
+.yoko-search-form select {
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
+  background-image: url(icon_arrow_down.png);
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: 1px;
+  line-height: 15px;
+  padding: 6px 30px 5px 10px;
+
+}
+
+.yoko-form-inline {display: flex;gap: 4px; width: calc(100% - 4px); align-items: center;}
+.yoko-form-group-title {padding: 4px 0 8px 0; color: #1C3956; font-family: "Pretendard"; font-size: 14px;font-style: normal;font-weight: 700; line-height: normal;}
+.yoko-form-group-hori  {display: flex;gap: 0; /*width:100%;*/}
+.yoko-flex-responsive {display: flex; gap: 30px;}
+.yoko-form-col {/*width: 100%;*/ display: flex; gap: 8px; flex-direction: column;}
+.yoko-form-col.yoko-gap7 {gap:7px ;}
+.yoko-col100 {width: 100%;}
+.yoko-col60 {width: 60%;}
+.yoko-col50 {width: 50%;}
+.yoko-col40 {width: 40%}
+.yoko-col35 {width: 35%}
+.yoko-col30 {width: 30%}
+.yoko-col20 {width: 20%} 
+.yoko-col15 {width: 15%} 
+.yoko-col10 {width: 10%} 
+
+.yoko-search-form label.checkbox-label {text-align: left;width: auto; min-width: auto; cursor: pointer; display: flex; gap: 10px; align-items: center; justify-content: flex-start; color: #4B5E70; font-family: "Pretendard";  font-size: 13px; font-style: normal; font-weight: 400; line-height: normal;}
+.custom-checkbox {position: relative;}
+.custom-checkbox input { position: absolute;  opacity: 0;  cursor: pointer;  width: 18px; height: 18px; z-index: 1;}
+.custom-checkbox .checkmark {position: relative;  top: 0;  left: 0;  display: block;  height: 18px;  width: 18px;  border-radius: 2px;border: 1px solid #DCE3EB;background: #FFF; overflow: hidden;}
+.custom-checkbox:hover input ~ .checkmark {background-color: #FFF;}
+.custom-checkbox input:checked ~ .checkmark {  background-color: #68B3FC;  border-radius: 2px;  border: 1px solid #68B3FC;}
+.custom-checkbox .checkmark:after {  content: "";  position: absolute;  display: none;}
+.custom-checkbox input:checked ~ .checkmark:after {  display: block;  left: 50%; top: 50%;  height: 16px;  width: 18px;  transform: translate(-50%, -50%);  background: url(icon_checkbox.png) no-repeat center center;}
+
+.custom-checkbox input:disabled ~ .checkmark {border: 1px solid #D1D1D1; background: #E2E2E2; cursor: not-allowed; }
+.custom-checkbox input:checked:disabled ~ .checkmark {background:#E2E2E2 url(icon_checkbox_dis.png) no-repeat center center; }
+.custom-checkbox input:disabled ~ .checkmark:after {background: url(icon_checkbox_dis.png) no-repeat center center;}
+
+.yoko-wid100 {width: 100px !important;}
+.yoko-wid103 {width: 103px !important;}
+.yoko-wid127 {width: 127px !important;}
+.yoko-wid134 {width: 134px !important;}
+.yoko-wid140 {width: 140px !important;}
+.yoko-wid147 {width: 147px !important;}
+.yoko-wid154 {width: 154px !important;}
+.yoko-wid158 {width: 158px !important;}
+.yoko-wid172 {width: 172px !important;}
+.yoko-wid247 {width: 247px !important;}
+.yoko-wid308 {width: 308px !important;}
+.yoko-wid425 {width: 425px !important;}
+.yoko-wid559 {width: 559px !important;}
+.yoko-wid717 {width: 717px !important;}
+
+.yoko-mt-20 {margin-top: 20px;}
+/* .yoko-form-inline select {width: calc(100% - 28px);} */
+.yoko-btn-spacing {width: calc(100% - 32px);}
+
+.yoko-search-form-wrapper {display: flex; gap: 20px; }
+.yoko-search-form-wrap .yoko-search-form-heading {margin-top: 10px; margin-bottom: 5px; font-size: 16px; font-weight: 600; color: #1F3B55;}
+
+.yoko-governance-wrap .yoko-search-form button {width: 100%; min-width: 140px;}
+.yoko-project-wrap .yoko-search-form input[type=text] {width: 100%;}
+
+.yoko-form-group-heading-wrap {display: flex; gap: 9px; justify-content: space-between; align-items: center;}
+.yoko-form-group-heading {font-size: 14px; font-weight: 700; color: #1F3B55;}
+.yoko-form-group-line {flex-grow: 1; height: 1px; background-color: #E1E1E1;}
+.yoko-padding24 {padding: 24px;}
+.yoko-grid-btn-wrap {display: flex; gap: 7px; justify-content: right;}
+
+.yoko-project-wrap {height: 255px;}
+.yoko-project-wrap .yoko-search-form {height: 100%;}
+
+
+/* 모달창 */
+.yoko-modal-normal {padding: 32px 30px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 768px; height: 240px; background-color: #fff; box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.1); z-index: 100;}
+.yoko-modal-content {position: relative; width: 100%; height: 100%;}
+.yoko-modal-content .yoko-btn-wrap {position: absolute; top: 0; right: 0;}
+.yoko-modal-content .yoko-btn-group {margin-top: 32px;}
+.yoko-modal-content .yoko-btn-group button {padding: 8px 20px;}
+.yoko-modal-content .yoko-btn-wrap button {padding: 6px 10px;}
+
+/* 테이블 형식 */
+.yoko-search-table input,
+.yoko-search-table select,
+.yoko-search-table textarea {font-family: "Pretendard"; font-size: 13px; padding: 6px 10px 5px 10px; max-height: 28px; width: calc(100%); border-radius: 4px; border: 1px solid #E1E8F0; color: #7A8692;}
+.yoko-search-table textarea {max-height: none; width: 100%; padding: 10px 10px 10px 10px; }
+.yoko-search-table input[type=date]::-webkit-calendar-picker-indicator,
+.yoko-search-table input[type=date]::-webkit-inner-spin-button {background: url('icon_calendar.png') no-repeat right center; }
+
+.yoko-search-table select {
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
+  background-image: url(icon_arrow_down.png);
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: 1px;
+  line-height: 15px;
+  padding: 6px 30px 5px 10px;
+}
+
+.yoko-search-table-wrap {display: flex; gap: 0;}
+.yoko-search-table tr.yoko-height-short {height: 39px;} 
+.yoko-search-table {border-spacing: 0; border-collapse: collapse;}
+.yoko-search-table tr th {padding-right: 16px; text-align: right; background-color: #F7F7F7; border-top: 1px solid #EDEDED; border-bottom: 1px solid #EDEDED;}
+.yoko-search-table tr th.yoko-bg-none {background-color: #fff;}
+.yoko-search-table tr th label {color: #4B5E70; font-family: 'Pretendard'; font-size: 13px; font-style: normal; font-weight: 500; line-height: normal;}
+.yoko-search-table tr td {padding: 5px 10px; border-top: 1px solid #EDEDED; border-bottom: 1px solid #EDEDED;}
+.yoko-search-table tr td input {padding: 5px 10px; width: 100%; height: 100%;}
+.yoko-search-table tr td input:disabled {border: 1px solid #E1E8F0; background: #F1F1F1;}
+.yoko-search-table .yoko-form-inline {width: 100%;}
+
+.yoko-search-table-wrapper {display: flex; gap: 30px;}
+.yoko-search-table-heading {margin-top: 12px; margin-bottom: 5px; font-size: 16px; font-weight: 600; color: #1F3B55;}
+.yoko-table-heading {text-align: left !important; font-size: 14px; font-weight: 700; color: #1F3B55;}
+.yoko-search-table.yoko-empty-col {flex: 1;}
+
+
+
+
+
+
+@media (max-width: 1719px) {
+  .yoko-container {width: 1280px; min-width: 1280px;}
+  .yoko-search-form {gap: 15px;}
+  .yoko-flex-responsive {flex-direction: column; gap: 8px;}
+  .yoko-flex-responsive-row {flex-direction: row; gap: 20px;}
+  .yoko-search-form-company.yoko-col60 {width: 888px;}
+  .yoko-search-form-company .yoko-padding24 {padding: 14px;}
+  .yoko-search-form-company .yoko-search-form {gap: 7px;}
+  .yoko-search-form-governance.yoko-col40 {width: 381px;}
+  .yoko-project-wrap.yoko-col60 {width: 888px;}
+  .yoko-project-wrap.yoko-col40 {width: 381px;}
+  .yoko-project-wrap .yoko-search-form {padding: 18px;}
+
+  .yoko-form-amount-wrap label.yoko-short {width: 130px;}
+  .quotation-responsive label.yoko-short-110 {width: 135px;}
+  .yoko-flag-wrap {margin-top: 15px; height: 100px !important;}
+  .yoko-flag-wrap.yoko-search-form .yoko-form-group {gap: 40px;}
+  .yoko-flag-wrap .yoko-flex-responsive-row {flex-direction: row; gap: 40px;}
+}
+
+/*모달커스텀 모달*/
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+/*  
+TEST Modal CSS
+*/
+.modal {
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index: 3; /* Sit on top */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.modal-content {
+background-color: #fefefe;
+//margin: 5% auto; /* 15% from the top and centered */
+padding: 20px;
+border: 1px solid #888;
+width: 50%; /* Reduced width to 60% */
+}
+.close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+.close:hover,
+.close:focus {
+color: black;
+text-decoration: none;
+cursor: pointer;
+}
+.container {
+list-style-type: none;
+padding: 0;
+}
+.container li {
+padding: 8px 0;
+border-bottom: 1px solid #ddd;
+display: flex;
+justify-content: space-between;
+margin-bottom: 10px;
+box-sizing: border-box; /* Include padding and border in element's total width and height */
+width: 100%; /* Ensure the list items take the full width of the container */
+}
+.highlight-form {
+border: 2px solid red;
+}
+
+.ni-backdrop {
+    width: 500px;
+    min-height: 300px;
+  	max-height: 500px;
+    overflow-y: auto; /* 세로 스크롤바 자동 표시 */
+    position: fixed;
+  	top: 40%;
+  	transform: translate(-50%, -50%);
+}
+
+.ni-backdrop article {
+    height: 90%;
+  	padding: 10px; /* 내부 여백 설정 */
+}
+
+.ni-backdrop h4 {
+   margin-left: 20px; /* 내부 여백 설정 */
+}
+/* 테이블 스타일 */
+table {
+    width: 100%;
+    border-collapse: collapse; /* 테이블 경계를 합침 */
+    margin-bottom: 10px; /* 테이블 아래 여백 설정 */
+}
+
+th, td {
+    border: 1px solid #ccc; /* 테두리 설정 */
+    padding: 5px; /* 셀 안 여백 설정 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+th {
+    background-color: #f2f2f2; /* 헤더 배경색 설정 */
+    text-align: center; /* 텍스트 왼쪽 정렬 */
+}
+
+/* 닫기 버튼 스타일 */
+.close-btn {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 0;
+    position: absolute;
+    right: 20px; /* 오른쪽 여백 설정 */
+    top: 10px; /* 상단 여백 설정 */
+}
+
+.close-btn:hover {
+    color: #666; /* 호버 시 색상 변경 */
+}
+/* 클릭 가능한 링크 스타일 */
+#wbs_data1 {
+  color: #1c88f4;
+  cursor: pointer; /* 커서 모양 설정 */
+  text-align: center;
+}
+
+#wbs_data1:hover {
+  font-weight: bold; /* 텍스트 굵게 */
+  text-decoration: underline; /* 호버 시 밑줄 유지 */
+}
+
+#wbs_data2 {
+  padding: 5px 5px 5px 15px; /* 셀 안 여백 설정 */
+}
+
+
+
+/*리얼그리드 수정*/
+.rg-root {color: #4B5966 !important;  font-family: "Pretendard" !important;   font-size: 14px !important;  font-style: normal !important;  font-weight: 500 !important;  line-height: normal !important;}
+.rg-grid {border: 1px solid #EAEEF3 !important;}
+
+.rg-header {background: #FBFCFF  !important; color:#8B99A6 !important; font-weight: 600 !important; font-weight: 500 !important;}
+.rg-header .rg-table tr td {border-right: 1px solid #EAEEF3 !important; border-bottom: 1px solid #EAEEF3 !important; font-weight: 500 !important;} 
+.rg-head {background: #FBFCFF  !important; color:#8B99A6 !important; font-weight: 600 !important; font-weight: 500 !important;}
+.rg-head .rg-table tr td { border-right: 1px solid #EAEEF3 !important;  border-bottom: 1px solid #EAEEF3 !important; font-weight: 500 !important;}
+
+.rg-body,
+.rg-fixed-body {color: #4B5966 !important;}
+.rg-body .rg-table tr td, 
+.rg-fixed-body .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-bottom: 1px solid #EAEEF3 !important;}
+.rg-rowbarcontainer .rg-table tr td {background-color: transparent !important;    border-right: 1px solid #EAEEF3 !important;    border-bottom: 1px solid #EAEEF3 !important;}
+.rg-alternate-row {background: #fff !important;}
+.rg-footer {color: #606060 !important; background: #FBFCFF  !important;}
+.rg-footer .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-top: 1px solid #EAEEF3 !important;}
+.rg-foot {color: #606060 !important; background: #FBFCFF  !important;}
+.rg-foot .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-top: 1px solid #EAEEF3 !important;}
+.rg-focus {border:  2px solid #68B3FC !important;}
+.rg-header-focus {background: #E5F2FF !important; color: #6F7479 !important;}
+.rg-header .rg-table tr td:hover {background: #68B3FC !important; color: #fff !important;}
+.rg-header-select {background: rgb(232 248 240 / 50%) !important;}
+.rg-selection { background: rgb(232 248 240 / 35%) !important; border: 1px solid #15BD66!important;}
 .rg-editor-container { border: 2px solid #27C382 !important; }</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -741,6 +857,11 @@ border: 2px solid red;&#13;
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
+	
+	data.basemonth = $sp.getParameter("basemonth");
+	if(!data.basemonth){
+		data.basemonth = '202406';
+	}
 	function getGridData(item_sysid, basemonth) {
         var gritem = new GlideRecord("x_yergb_bpm_cost");
         gritem.orderBy("number");
@@ -764,8 +885,7 @@ border: 2px solid red;&#13;
 
 	function getData(basemonth) {
 		var gritem = new GlideRecord("x_yergb_bpm_budget_plan");
-		gritem.addJoinQuery('x_yergb_bpm_wbs_budget', "project", "project");
-		gritem.addQuery('base_month', basemonth);
+		gritem.addEncodedQuery('base_month='+basemonth+'^plan_type=prf');
 		gritem.orderBy("project");
 		gritem.query();
 
@@ -773,8 +893,9 @@ border: 2px solid red;&#13;
 		while (gritem.next()) {
 			tableinfo.push({
 				'sys_id' : gritem.sys_id.getDisplayValue(),
+				'number' : gritem.number.getDisplayValue(),
 				'project_no' : gritem.project.getDisplayValue(),
-			    'contractor' : gritem.customername.getDisplayValue(),
+			  'contractor' : gritem.customername.getDisplayValue(),
 				'project_name' : gritem.project_name.getDisplayValue(), 
 				'pm' : gritem.pm_name.getDisplayValue(), 
 				'contract_amt' : gritem.contract.getDisplayValue(), 
@@ -788,10 +909,81 @@ border: 2px solid red;&#13;
 		return tableinfo;
     }
 
+	data.gridData = getData(data.basemonth);
+	
+		/* Project type Modal */
+		if(input && input.modalProject) {
+			data.itemsProject = [];
 
-	// data.gridData = getGridData();
-	data.gridData = getData('202406');
-	data.gridDataStr = JSON.stringify(data.gridData);
+			var grPjt = new GlideRecord('x_yergb_bpm_project');
+			grPjt.query();
+			while(grPjt.next()) {
+				data.itemsProject.push({
+					name : grPjt.name.toString(),
+					code : grPjt.number.toString(), 
+					sys_id : grPjt.sys_id.toString()
+				});
+			}
+		}
+
+		/* Project type Modal */
+		if(input && input.modalPM) {
+			data.itemsPMNames = [];
+			var grPm = new GlideRecord('sys_user');
+			grPm.query();
+			while(grPm.next()) {
+				data.itemsPMNames.push({
+					name : grPm.user_name.toString(),
+					department : grPm.department.toString(), 
+					sys_id : grPm.sys_id.toString()
+				});
+			}
+		}
+			/* Project type Modal */
+		if(input && input.modalState) {
+			data.itemState = [];
+			var grPm = new GlideRecord('sys_choice');
+			grPm.addEncodedQuery('name=x_yergb_bpm_budget_plan^element=state');
+			grPm.query();
+			while(grPm.next()) {
+				data.itemState.push({
+					label : grPm.label.toString(),
+					value : grPm.value.toString()
+				});
+			}
+		}
+				
+	/* Search*/
+		if(input && input.SearchState) {
+			getSearchData(data.basemonth);
+			function getSearchData(basemonth) {
+				var gritem = new GlideRecord("x_yergb_bpm_budget_plan");
+				gritem.addEncodedQuery(input.myQuery);
+				gritem.orderBy("project");
+				gritem.query();
+
+				var searchinfo = [];
+				while (gritem.next()) {
+					searchinfo.push({
+					'sys_id' : gritem.sys_id.getDisplayValue(),
+					'number' : gritem.number.getDisplayValue(),
+					'project_no' : gritem.project.getDisplayValue(),
+				  'contractor' : gritem.customername.getDisplayValue(),
+					'project_name' : gritem.project_name.getDisplayValue(), 
+					'pm' : gritem.pm_name.getDisplayValue(), 
+					'contract_amt' : gritem.contract.getDisplayValue(), 
+					'ptc_last_month' : gritem.intake_last_month.getDisplayValue(), 
+					'forecast_ptc' : isNaN(gritem.forecast_ptc) ? 0 : gritem.forecast_ptc.getDisplayValue(), 
+					'state': gritem.state.getDisplayValue(),
+					'variance' : 0, 
+					'poc_percentage' : 'N/A',
+				})
+			}
+				data.gridDataNew = searchinfo;
+    	}
+		}
+	
+	
 
 })();
 ]]></script>
@@ -800,14 +992,14 @@ border: 2px solid red;&#13;
         <sys_created_by>yeongink</sys_created_by>
         <sys_created_on>2024-06-24 05:11:44</sys_created_on>
         <sys_id>48e1f96c8347021099decf50ceaad3f1</sys_id>
-        <sys_mod_count>399</sys_mod_count>
+        <sys_mod_count>414</sys_mod_count>
         <sys_name>prfManagement</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_48e1f96c8347021099decf50ceaad3f1</sys_update_name>
-        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-28 07:02:17</sys_updated_on>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-29 08:24:10</sys_updated_on>
         <template><![CDATA[<div class="yoko-container">
   <div class="yoko-breadcrumb">Home > Project Management > PRF Management</div>
   <div class="yoko-title-btn-wrap">
@@ -822,27 +1014,27 @@ border: 2px solid red;&#13;
       <div class="yoko-search-form">
         <div class="yoko-form-group">
           <label for="base_year_month" class="yoko-short-120">Base Year / Month</label>
-          <input type="text" name="base_year_month" value="2024. 05" placeholder="" disabled class="yoko-wid140">
+          <input type="text" name="base_year_month" value={{data.basemonth}} placeholder="" disabled class="yoko-wid140">
         </div>
         <div class="yoko-form-group">
           <label for="project_number" class="yoko-short-100">Project Number</label>
           <div class="yoko-form-inline">
-            <input type="text" name="project_number" value="" placeholder="" class="yoko-wid140">
+            <input type="text" name="project_number" value={{data.myProjectNumber}} placeholder="" class="yoko-wid140">
             <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickProjectNumberSearch()"></button>
           </div>
         </div>
         <div class="yoko-form-group">
           <label for="pm_name" class="yoko-short">PM Name</label>
           <div class="yoko-form-inline">
-            <input type="text" name="pm_name" value="" placeholder="" class="yoko-wid140">
-            <button type="button" class="yoko-btn yoko-btn-search"></button>
+            <input type="text" name="pm_name" value={{data.myPmName}} placeholder="" class="yoko-wid140">
+            <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickPMNameSearch()"></button>
           </div>
         </div>
         <div class="yoko-form-group">
           <label for="state" class="yoko-short">State</label>
           <div class="yoko-form-inline">
-            <input type="text" name="state" value="" placeholder="" class="yoko-wid140">
-            <button type="button" class="yoko-btn yoko-btn-search"></button>
+            <input type="text" name="state" value={{data.mylabel}} placeholder="" class="yoko-wid140">
+            <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickState()"></button>
           </div>
         </div>
       </div>
@@ -850,9 +1042,6 @@ border: 2px solid red;&#13;
   </div>
   <div class="yoko-container"> 
     <div class="out" id='gridContainer' style="width:100%; height: 450px;"></div>
-      <input id="" type="hidden" value="{{data.gridUrl}}">
-      <input id="gridData" type="hidden" value="{{data.gridData}}">
-      <input id="" type="hidden" value="{{data.gridDataStr}}">
   </div>
   <div class="yoko-modal-normal yoko-search-form" id="modalUpload" style="display:none">
     <form class="yoko-modal-content">
@@ -883,26 +1072,99 @@ border: 2px solid red;&#13;
     </form>
   </div>
 </div>
+  
 <!-- Modal Order type Structure -->
-<div id="modalProjectNumber" class="modal" style="display:none;">
-  <div class="modal-content">
-      <div class="modal-header">
-          <span class="close" ng-click="closeModalProjectNumber()">&times;</span>
-          <h2>{{c.data.modalProjectNumberTitle}}</h2>
-      </div>
-      <div class="modal-body">
-          <ul id="container" class="container">
-              <li ng-repeat="item in c.data.itemsProjectNumber">
-                <span ng-click="clickProjectNumber(item)">{{item.name}}</span>
-              </li>
-          </ul>
-          <div class="pagination" id="pagination"></div>
-      </div>
-      <div class="modal-footer">
-          <button class="btn btn-primary" ng-click="closeModalProjectNumber()">Close</button>
-      </div>
-  </div>
-</div>
-]]></template>
+<dialog id="modalProjectNumber" class="ni-backdrop" >
+  <form method="dialog">
+    <header>
+      <h4>Projet</h4>
+      <button class="close-btn" ng-click="closeModalProjectNumber()">X</button>
+    </header>
+    <article>
+			<table>
+    		<thead>
+        	<tr>
+            <th>Number</th>
+            <th>Name</th>
+        	</tr>
+    	</thead>
+    	<tbody>
+        	<tr ng-repeat="item in c.data.itemsProject">
+            <td id="wbs_data1" ng-click="c.clickProjectNumber($index)">
+                {{ item.code }}
+            </td>
+            <td id="wbs_data2">
+                {{ item.name }}
+            </td>
+            <td id="wbs_data3" style="display: none;">
+                {{ item.sys_id }}
+            </td>
+        </tr>
+   	 	</tbody>
+		</table>     
+   </article>
+ </form>
+</dialog>  
+  
+<dialog id="modalPMName" class="ni-backdrop" >
+  <form method="dialog">
+    <header>
+      <h4>PM</h4>
+      <button class="close-btn" ng-click="closeModalPM()">X</button>
+    </header>
+    <article>
+			<table>
+    		<thead>
+        	<tr>
+            <th>Name</th>
+            <th>Department</th>
+        	</tr>
+    	</thead>
+    	<tbody>
+        	<tr ng-repeat="item in c.data.itemsPMNames">
+            <td id="wbs_data1" ng-click="c.clickPM($index)">
+                {{ item.name }}
+            </td>
+            <td id="wbs_data2">
+                {{ item.department }}
+            </td>
+            <td id="wbs_data3" style="display: none;">
+                {{ item.sys_id }}
+            </td>
+        </tr>
+   	 	</tbody>
+		</table>     
+   </article>
+ </form>
+</dialog>  
+  
+  
+<dialog id="modalState" class="ni-backdrop" >
+  <form method="dialog">
+    <header>
+      <h4>State</h4>
+      <button class="close-btn" ng-click="closeModalS()">X</button>
+    </header>
+    <article>
+			<table>
+    		<thead>
+        	<tr>
+            <th>state</th>
+        	</tr>
+    	</thead>
+    	<tbody>
+        	<tr ng-repeat="item in c.data.itemState">
+            <td id="wbs_data1" ng-click="c.clickS($index)">
+                {{ item.label }}
+            </td>
+            <td id="wbs_data3" style="display: none;">
+                {{ item.value }}
+            </td>
+        </tr>
+   	 	</tbody>
+		</table>     
+   </article>
+ </form>
+</dialog>  ]]></template>
     </sp_widget>
 </record_update>
