@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function($scope) {
+    var c = this;
+
+   c.data.isModalVisible = false;
+
+    $scope.btnUpdate = function($event) {
+        $event.stopPropagation();
+       c.data.isModalVisible = true;
+    };
+
+    $scope.btnClose = function($event) {
+        if ($event.target.classList.contains('yoko-modal-auto') || $event.target.classList.contains('btn-secondary') || $event.target.classList.contains('yoko-modal-backdrop')) {
+            c.data.isModalVisible = false;
+        }
+    };
+};
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.yoko-modal-auto {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    border-radius: 5px;
+}
+
+.yoko-modal-auto.ng-show {
+    display: block;
+}
+
+.yoko-modal-content {
+    padding: 20px;
+}
+
+.yoko-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+}
+
+.yoko-btn-outline {
+    margin: 10px;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>modalsample</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>modalSample</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>lhyunseok</sys_created_by>
+        <sys_created_on>2024-06-28 11:34:39</sys_created_on>
+        <sys_id>6520737193c306104d95f55a7bba1052</sys_id>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_name>modalSample</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sp_widget_6520737193c306104d95f55a7bba1052</sys_update_name>
+        <sys_updated_by>lhyunseok</sys_updated_by>
+        <sys_updated_on>2024-06-28 11:47:39</sys_updated_on>
+        <template><![CDATA[<div ng-controller="ModalController as c">
+    <button class="yoko-btn yoko-btn-outline" ng-click="btnUpdate($event)">Update</button>
+
+    <div class="yoko-modal-auto yoko-search-form" >
+        <div class="yoko-modal-content" ng-click="$event.stopPropagation()">
+            <div class="yoko-form-col">
+                <div class="yoko-search-form yoko-padding-l20">
+                    <div class="yoko-form-group">
+                        <div class="yoko-form-inline">
+                            <label style="text-align: left; font-weight: bold; margin-left: 10px;"> Project </label>
+                            <select class="yoko-select">
+                                <option value="option1">Option 1</option>
+                                <option value="option2">Option 2</option>
+                                <option value="option3">Option 3</option>
+                            </select>
+                            <input type="text" name="" value="" placeholder="" class="yoko-wid204">
+                            <button type="button" class="yoko-btn yoko-btn-search"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="yoko-table-container">
+                    <table class="yoko-search-table">
+                        <colgroup>
+                            <col style="width: 51px">
+                            <col style="width: 137px">
+                            <col style="width: auto">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th class="yoko-text-center">NO</th>
+                                <th>Application</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="yoko-text-center">1</td>
+                                <td>RFQ</td>
+                                <td>Submitted</td>
+                            </tr>
+                            <!-- More rows as needed -->
+                        </tbody>
+                    </table>
+                </div>
+                <button type="button" class="btn btn-secondary" ng-click="btnClose($event)">Close</button>
+            </div>
+        </div>
+        <div class="yoko-modal-backdrop" ng-click="btnClose($event)"></div>
+    </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

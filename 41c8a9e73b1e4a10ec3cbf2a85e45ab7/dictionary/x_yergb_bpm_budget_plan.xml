@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="1a37474c3bee0e1046a3934a85e45aea" label="Budget Plan" max_length="40" name="x_yergb_bpm_budget_plan" type="collection">
-        <element attributes="edge_encryption_enabled=true" function_definition="glidefunction:multiply(divide(subtract(contract,total_cost),contract),100)" function_field="true" label="gp" max_length="15" name="rpt_gp" read_only="true" type="decimal"/>
-        <element label="Intake Last Month" max_length="40" name="intake_last_month" type="integer"/>
-        <element attributes="edge_encryption_enabled=true" function_definition="glidefunction:subtract(contract,total_cost)" function_field="true" label="gpa2" max_length="40" name="rpt_gpa2" read_only="true" type="float"/>
-        <element attributes="edge_encryption_enabled=true" label="GPA" max_length="20" name="gpa" type="decimal"/>
-        <element attributes="edge_encryption_enabled=true" label="Total cost" max_length="20" name="total_cost" type="decimal"/>
-        <element choice="3" default="not requested" label="Approval" max_length="40" name="approval" type="string">
+        <element label="Intake Current" max_length="40" name="intake_current" type="integer"/>
+        <element label="LM Number" max_length="40" name="lm_number" type="string"/>
+        <element label="Project Status" max_length="40" name="project_status" type="string"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element choice="1" label="Data Type" max_length="40" name="data_type" type="choice">
             <choice>
-                <element inactive_on_update="false" label="Approved" sequence="2" value="approved"/>
-                <element inactive_on_update="false" label="Not Yet Requested" sequence="0" value="not requested"/>
-                <element inactive_on_update="false" label="Requested" sequence="1" value="requested"/>
-                <element inactive_on_update="false" label="Rejected" sequence="3" value="rejected"/>
+                <element inactive_on_update="false" label="WBS6" sequence="0" value="wbs6"/>
+                <element inactive_on_update="false" label="ITEM" sequence="1" value="item"/>
             </choice>
         </element>
-        <element label="Intake Current" max_length="40" name="intake_current" type="integer"/>
-        <element label="Intake Initial" max_length="40" name="intake_initial" type="integer"/>
-        <element default="Initial" label="Plan Type" max_length="40" name="plan_type" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="GPA" max_length="20" name="gpa" type="decimal"/>
         <element label="Base Month" max_length="40" name="base_month" type="string"/>
-        <element label="Is changed" max_length="40" name="is_changed" type="boolean"/>
         <element choice="1" label="State" max_length="40" name="state" type="choice">
             <choice>
                 <element inactive_on_update="false" label="Authorize" sequence="2" value="6"/>
@@ -25,25 +19,27 @@
                 <element inactive_on_update="false" label="New" sequence="1" value="1"/>
             </choice>
         </element>
-        <element label="PRF Change reason" max_length="40" name="prf_change_reason" type="string"/>
-        <element label="LM Number" max_length="40" name="lm_number" type="string"/>
-        <element label="PM Number" max_length="40" name="pm_number" type="string"/>
-        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Region" max_length="32" name="region" reference="x_yergb_bpm_region_master" type="reference"/>
-        <element label="Sum WBS" max_length="40" name="sum_wbs" type="glide_date_time"/>
+        <element label="Intake Initial" max_length="40" name="intake_initial" type="integer"/>
         <element label="PM Name" max_length="40" name="pm_name" type="string"/>
-        <element attributes="edge_encryption_enabled=true" label="Contract" max_length="20" name="contract" type="decimal"/>
-        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
-        <element label="CustomerName" max_length="40" name="customername" type="string"/>
         <element attributes="edge_encryption_enabled=true" label="Intake Current Single Month" max_length="100" name="intake_current_single_month" type="integer"/>
-        <element label="Project Status" max_length="40" name="project_status" type="string"/>
-        <element choice="1" label="Data Type" max_length="40" name="data_type" type="choice">
+        <element label="Project" max_length="32" name="project" reference="x_yergb_bpm_project" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" label="GP" max_length="20" name="gp" type="decimal"/>
+        <element label="Approval history" max_length="4000" name="approval_history" type="journal"/>
+        <element label="PRF Change reason" max_length="40" name="prf_change_reason" type="string"/>
+        <element label="PM Number" max_length="40" name="pm_number" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Total cost" max_length="20" name="total_cost" type="decimal"/>
+        <element label="Intake Last Month" max_length="40" name="intake_last_month" type="integer"/>
+        <element attributes="edge_encryption_enabled=true" function_definition="glidefunction:multiply(divide(subtract(contract,total_cost),contract),100)" function_field="true" label="gp" max_length="15" name="rpt_gp" read_only="true" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Region" max_length="32" name="region" reference="x_yergb_bpm_region_master" type="reference"/>
+        <element choice="3" default="not requested" label="Approval" max_length="40" name="approval" read_only="true" type="string">
             <choice>
-                <element inactive_on_update="false" label="WBS6" sequence="0" value="wbs6"/>
-                <element inactive_on_update="false" label="ITEM" sequence="1" value="item"/>
+                <element inactive_on_update="false" label="Rejected" sequence="3" value="rejected"/>
+                <element inactive_on_update="false" label="Requested" sequence="1" value="requested"/>
+                <element inactive_on_update="false" label="Approved" sequence="2" value="approved"/>
+                <element inactive_on_update="false" label="Not Yet Requested" sequence="0" value="not requested"/>
             </choice>
         </element>
-        <element label="Approval history" max_length="4000" name="approval_history" type="journal"/>
-        <element attributes="edge_encryption_enabled=true" label="GP" max_length="20" name="gp" type="decimal"/>
+        <element label="Sum WBS" max_length="40" name="sum_wbs" type="glide_date_time"/>
         <element choice="1" label="Currency" max_length="40" name="currency" type="choice">
             <choice>
                 <element inactive_on_update="false" label="KRW" sequence="1" value="krw"/>
@@ -51,10 +47,14 @@
                 <element inactive_on_update="false" label="USD" sequence="0" value="usd"/>
             </choice>
         </element>
-        <element label="DMR" max_length="40" name="dmr" type="string"/>
-        <element label="Project" max_length="32" name="project" reference="x_yergb_bpm_project" type="reference"/>
+        <element default="Initial" label="Plan Type" max_length="40" name="plan_type" type="string"/>
+        <element label="CustomerName" max_length="40" name="customername" type="string"/>
         <element label="LM Name" max_length="40" name="lm_name" type="string"/>
         <element label="Project Name" max_length="40" name="project_name" type="string"/>
+        <element label="DMR" max_length="40" name="dmr" type="string"/>
+        <element attributes="edge_encryption_enabled=true" function_definition="glidefunction:subtract(contract,total_cost)" function_field="true" label="gpa2" max_length="40" name="rpt_gpa2" read_only="true" type="float"/>
+        <element label="Is changed" max_length="40" name="is_changed" type="boolean"/>
+        <element attributes="edge_encryption_enabled=true" label="Contract" max_length="20" name="contract" type="decimal"/>
         <index name="index">
             <element name="project"/>
         </index>
