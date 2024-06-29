@@ -1,84 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element audit="true" db_object_id="49b1af843be2ca10ec3cbf2a85e45a43" extends="x_yergb_bpm_process" label="RFQ Entry" max_length="40" name="x_yergb_bpm_rfq_entry" type="collection">
-        <element label="Submitted Date" max_length="40" name="submitted_date" type="glide_date"/>
-        <element label="Contract" max_length="32" name="contract" reference="core_company" type="reference"/>
-        <element label="Reason Code" max_length="40" name="reason_code" type="string"/>
-        <element label="Estimated Delivery Date" max_length="40" name="estimated_delivery_date" type="glide_date"/>
-        <element label="Quotation Due Date" max_length="40" name="quotation_due_date" type="glide_date"/>
-        <element label="Credit Assessment" max_length="32" name="credit_assessment" reference="x_yergb_bpm_credit_assessment" type="reference"/>
-        <element label="Estimated Order Date" max_length="40" name="estimated_order_date" type="glide_date"/>
-        <element label="Request Due" max_length="40" name="request_due_date" type="glide_date"/>
-        <element label="T CAS" max_length="32" name="t_cas" reference="x_yergb_bpm_tcas_management" type="reference"/>
-        <element label="Profit Company" max_length="32" name="profit_company" reference="core_company" reference_qual="customer=false^vendor=false^EQ" reference_qual_condition="customer=false^vendor=false^EQ" type="reference"/>
-        <element label="Sales Manager" max_length="32" name="sales_manager" reference="sys_user" type="reference"/>
-        <element default="javascript:gs.nowDateTime();" dynamic_default_value="79cb83a85f220100a9ad2572f2b4773c" label="Request Date" mandatory="true" max_length="40" name="request_date" type="glide_date" use_dynamic_default="true"/>
-        <element attributes="edge_encryption_enabled=true" label="Estimated OI Amount  (TC)" max_length="40" name="estimated_oi_amount" type="decimal"/>
-        <element label="Caution" max_length="4000" name="caution" type="string"/>
-        <element label="Quotation" max_length="40" name="quotation" reference="x_yergb_bpm_quotation" type="reference"/>
-        <element label="Estimated OI Amount (LC)" max_length="40" name="estimated_oi_amount_lc" type="decimal"/>
-        <element label="Currency (LC)" max_length="32" name="currency_lc" reference="fx_currency" type="reference"/>
-        <element label="Remark" max_length="4000" name="remark" type="string"/>
-        <element label="Risk Management" max_length="32" name="risk_management" reference="x_yergb_bpm_risk_management" type="reference"/>
-        <element label="Contract Address" max_length="100" name="contract_address" type="string"/>
-        <element label="Contract Name" max_length="40" name="contract_name" type="string"/>
-        <element label="YODA Opportunity No" max_length="40" name="yoda_opportunity_no" type="string"/>
-        <element label="Territory Review" max_length="32" name="territory_review" reference="x_yergb_bpm_territory" type="reference"/>
-        <element label="Complete Date" max_length="40" name="complete_date" type="glide_date"/>
-        <element label="Project" max_length="40" name="project" type="string"/>
-        <element label="End User" max_length="32" name="end_user" reference="core_company" type="reference"/>
-        <element label="Project Detail" max_length="4000" name="project_detail" type="string"/>
         <element label="Customer RFQ No" max_length="40" name="customer_rfq" type="string"/>
+        <element label="End User Country" max_length="32" name="end_user_country" reference="core_country" type="reference"/>
+        <element label="Quotation Due Date" max_length="40" name="quotation_due_date" type="glide_date"/>
+        <element label="Caution" max_length="4000" name="caution" type="string"/>
+        <element default="javascript:gs.nowDateTime();" dynamic_default_value="79cb83a85f220100a9ad2572f2b4773c" label="Request Date" mandatory="true" max_length="40" name="request_date" type="glide_date" use_dynamic_default="true"/>
+        <element label="Sales Manager" max_length="32" name="sales_manager" reference="sys_user" type="reference"/>
+        <element label="End User" max_length="32" name="end_user" reference="core_company" type="reference"/>
+        <element label="Contract Name" max_length="40" name="contract_name" type="string"/>
+        <element label="End User Name" max_length="100" name="end_user_name" type="string"/>
+        <element label="Currency (LC)" max_length="32" name="currency_lc" reference="fx_currency" type="reference"/>
+        <element label="Profit Company" max_length="32" name="profit_company" reference="core_company" reference_qual="customer=false^vendor=false^EQ" reference_qual_condition="customer=false^vendor=false^EQ" type="reference"/>
+        <element label="Estimated OI Amount (LC)" max_length="40" name="estimated_oi_amount_lc" type="decimal"/>
+        <element label="End User Address" max_length="100" name="end_user_address" type="string"/>
         <element attributes="scale=11" label="Exchange Rate" max_length="26" name="exchange_rate" type="decimal"/>
+        <element label="Reason Code" max_length="40" name="reason_code" type="string"/>
+        <element label="Remark" max_length="4000" name="remark" type="string"/>
+        <element label="Submitted Date" max_length="40" name="submitted_date" type="glide_date"/>
+        <element label="Project Status" max_length="40" name="project_status" type="string"/>
+        <element label="YODA Opportunity No" max_length="40" name="yoda_opportunity_no" type="string"/>
         <element label="Project Title" max_length="100" name="project_title" type="string"/>
+        <element label="Complete Date" max_length="40" name="complete_date" type="glide_date"/>
+        <element label="Estimated Order Date" max_length="40" name="estimated_order_date" type="glide_date"/>
+        <element label="Estimated Delivery Date" max_length="40" name="estimated_delivery_date" type="glide_date"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Currency (TC)" max_length="32" name="currency" reference="fx_currency" reference_qual="active=true^EQ" reference_qual_condition="active=true^EQ" type="reference"/>
         <element choice="1" label="Quotation type" max_length="40" name="quotation_type" type="string">
             <choice>
                 <element inactive_on_update="false" label="Budgetary" sequence="10" value="budgetary"/>
                 <element inactive_on_update="false" label="Submission to Customers" sequence="20" value="submission"/>
             </choice>
         </element>
+        <element label="Project" max_length="40" name="project" type="string"/>
+        <element label="Project Detail" max_length="4000" name="project_detail" type="string"/>
         <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Sales Order" max_length="32" name="sales_order" reference="x_yergb_bpm_sales_order" type="reference"/>
-        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Currency (TC)" max_length="32" name="currency" reference="fx_currency" reference_qual="active=true^EQ" reference_qual_condition="active=true^EQ" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" label="Estimated OI Amount  (TC)" max_length="40" name="estimated_oi_amount" type="decimal"/>
+        <element label="Contract Country" max_length="32" name="contract_country" reference="core_country" type="reference"/>
+        <element label="T CAS" max_length="32" name="t_cas" reference="x_yergb_bpm_tcas_management" type="reference"/>
+        <element label="Contract" max_length="32" name="contract" reference="core_company" type="reference"/>
         <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="OI Report" max_length="32" name="oi_report" reference="x_yergb_bpm_oi_report" type="reference"/>
-        <element label="Project Status" max_length="40" name="project_status" type="string"/>
         <element attributes="edge_encryption_enabled=true" default="true" label="Active" max_length="40" name="active" read_only="true" type="boolean"/>
+        <element label="Quotation" max_length="40" name="quotation" reference="x_yergb_bpm_quotation" type="reference"/>
+        <element label="Request Due" max_length="40" name="request_due_date" type="glide_date"/>
+        <element label="Credit Assessment" max_length="32" name="credit_assessment" reference="x_yergb_bpm_credit_assessment" type="reference"/>
+        <element label="Contract Address" max_length="100" name="contract_address" type="string"/>
+        <element label="Risk Management" max_length="32" name="risk_management" reference="x_yergb_bpm_risk_management" type="reference"/>
+        <element label="Territory Review" max_length="32" name="territory_review" reference="x_yergb_bpm_territory" type="reference"/>
         <index name="index">
-            <element name="contract"/>
+            <element name="currency"/>
         </index>
         <index name="index2">
-            <element name="credit_assessment"/>
+            <element name="quotation"/>
         </index>
         <index name="index3">
-            <element name="currency"/>
+            <element name="end_user_country"/>
         </index>
         <index name="index4">
             <element name="end_user"/>
         </index>
         <index name="index5">
-            <element name="currency_lc"/>
+            <element name="profit_company"/>
         </index>
         <index name="index6">
             <element name="sales_order"/>
         </index>
         <index name="index7">
-            <element name="sales_manager"/>
+            <element name="credit_assessment"/>
         </index>
         <index name="index8">
-            <element name="quotation"/>
+            <element name="currency_lc"/>
         </index>
         <index name="index9">
-            <element name="risk_management"/>
-        </index>
-        <index name="index10">
-            <element name="t_cas"/>
-        </index>
-        <index name="index11">
             <element name="territory_review"/>
         </index>
+        <index name="index10">
+            <element name="contract"/>
+        </index>
+        <index name="index11">
+            <element name="contract_country"/>
+        </index>
         <index name="index12">
-            <element name="profit_company"/>
+            <element name="oi_report"/>
         </index>
         <index name="index13">
-            <element name="oi_report"/>
+            <element name="sales_manager"/>
+        </index>
+        <index name="index14">
+            <element name="risk_management"/>
+        </index>
+        <index name="index15">
+            <element name="t_cas"/>
         </index>
     </element>
 </database>
