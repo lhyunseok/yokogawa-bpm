@@ -252,10 +252,10 @@
         <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-25 11:18:59</sys_created_on>
         <sys_id>0bcf848547cb02106cce1ce4316d4396</sys_id>
-        <sys_mod_count>10</sys_mod_count>
+        <sys_mod_count>12</sys_mod_count>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:27:47</sys_updated_on>
+        <sys_updated_by>YCN_Sales_Manager</sys_updated_by>
+        <sys_updated_on>2024-06-27 10:36:54</sys_updated_on>
         <ui_id>f30607ef-9260-4bfb-9b09-5c853f0739e2</ui_id>
     </sys_hub_action_instance>
     <sys_variable_value action="delete_multiple" query="document_key=0bcf848547cb02106cce1ce4316d4396"/>
@@ -406,10 +406,10 @@
         <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-25 11:16:44</sys_created_on>
         <sys_id>ce4fc84547cb02106cce1ce4316d43e5</sys_id>
-        <sys_mod_count>10</sys_mod_count>
+        <sys_mod_count>12</sys_mod_count>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:27:47</sys_updated_on>
+        <sys_updated_by>YCN_Sales_Manager</sys_updated_by>
+        <sys_updated_on>2024-06-27 10:36:54</sys_updated_on>
         <ui_id>bb7c9b3a-6411-4367-b908-878aac3c6f51</ui_id>
     </sys_hub_action_instance>
     <sys_variable_value action="delete_multiple" query="document_key=ce4fc84547cb02106cce1ce4316d43e5"/>
@@ -2051,14 +2051,14 @@
     <sys_hub_flow action="UPDATE">
         <sys_id>face4c0547cb02106cce1ce4316d43b8</sys_id>
         <latest_snapshot>1820dc8547cb02106cce1ce4316d43e0</latest_snapshot>
-        <compiler_build/>
+        <compiler_build>glide-washingtondc-12-20-2023__patch3-hotfix2-05-29-2024_06-01-2024_0923.zip</compiler_build>
     </sys_hub_flow>
     <sys_flow_trigger_plan action="delete_multiple" query="plan_id=face4c0547cb02106cce1ce4316d43b8"/>
     <sys_flow_subflow_plan action="delete_multiple" query="plan_id=face4c0547cb02106cce1ce4316d43b8^sys_idNOT INbc2010c547cb02106cce1ce4316d4361"/>
     <sys_flow_subflow_plan action="INSERT_OR_UPDATE">
-        <plan>com.snc.process_flow.engine.ProcessPlan@2ed1f15</plan>
+        <plan>{"type":"PlanProxy","persistor":{"@class":".ChunkingPlanPersistor","table":"sys_flow_subflow_plan","id":"bc2010c547cb02106cce1ce4316d4361","name":"plan","plan_signature":null}}</plan>
         <plan_id display_value="OI Report President Approval">face4c0547cb02106cce1ce4316d43b8</plan_id>
-        <snapshot>1820dc8547cb02106cce1ce4316d43e0</snapshot>
+        <snapshot>f15912e13b0b4a10ec3cbf2a85e45a7e</snapshot>
         <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-25 11:20:28</sys_created_on>
         <sys_domain>global</sys_domain>
