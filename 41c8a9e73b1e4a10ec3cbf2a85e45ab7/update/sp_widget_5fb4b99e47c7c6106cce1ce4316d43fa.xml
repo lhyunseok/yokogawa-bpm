@@ -6,10 +6,10 @@
     /* widget controller */
     var c = this;
     c.data.isRead = true;
-    c.data.reasonCodeMandatory = false;
-    c.data.reasonCodeRequestDueDateMandatory = false;
-    c.data.reasonRemarkMandatory = false;
-    c.data.quotationTypeSelectMandatory = false;
+    c.data.reasonCodeMandatory = false
+    c.data.reasonCodeRequestDueDateMandatory = false
+    c.data.reasonRemarkMandatory = false
+    c.data.quotationTypeSelectMandatory = false
     //c.data.copy_sys_id = false	
   
 	///팝오버
@@ -156,6 +156,11 @@
         }
 			}
 			
+			
+			
+			
+        
+
 
     };
 
@@ -178,7 +183,7 @@
             c.data.isButton = true;
             c.server.update().then(function(response) {
                 // Handle the server response if needed
-                //console.log('Server response:', response);
+                console.log('Server response:', response);
                 location.reload();
             });
         }
@@ -197,12 +202,15 @@
         requestDueDate.classList.remove('highlight-form');
         remark.classList.remove('highlight-form');
 
+
+
+
         // Check for mandatory fields
         if (!c.data.reason_code || !c.data.request_due_date || !c.data.remark) {
             alert("Mandatory is empty");
-            c.data.reasonCodeMandatory = true;
-            c.data.reasonCodeRequestDueDateMandatory = true;
-            c.data.reasonRemarkMandatory = true;
+            c.data.reasonCodeMandatory = true
+            c.data.reasonCodeRequestDueDateMandatory = true
+            c.data.reasonRemarkMandatory = true
             if (!c.data.reason_code) {
                 reasonCode.style.border = "2px solid red";
                 //asterik.style.color = "red";
@@ -356,8 +364,7 @@
         c.data.refer_assigned_to_modal = false
         c.data.refer_contract_modal = false
         c.data.refer_contract_country_modal = false
-				c.data.refer_currency_modal = false;
-
+			c.data.refer_copy_modal = false;
         c.data.items = ""
         c.data.modalTitle = ""
     }
@@ -372,8 +379,7 @@
         c.data.refer_assigned_to_modal = false
         c.data.refer_contract_modal = false
         c.data.refer_contract_country_modal = false
-				c.data.refer_copy_modal = false;
-				c.data.refer_currency_modal = false;
+			c.data.refer_copy_modal = false;
         c.data.items = ""
         c.data.modalTitle = ""
     }
@@ -389,8 +395,7 @@
             c.data.refer_assigned_to_modal = false
             c.data.refer_contract_modal = false
             c.data.refer_contract_country_modal = false
-				c.data.refer_copy_modal = false;
-				c.data.refer_currency_modal = false;
+					c.data.refer_copy_modal = false;
             c.data.items = ""
             c.data.modalTitle = ""
         }
@@ -417,88 +422,33 @@ $scope.btnUpdate = function() {
     };
 
 
-    // $scope.btnRefSalesManager = function(sys_id) {
-    //     c.data.refer_sales_manager_modal = true;
-    //     c.data.isRead = false;
-    //     c.server.update().then(function(response) {
-    //         console.log('Server response:', response);
-    //         c.logSysId = function(number, sys_id, code) {
-    //             c.data.sales_manager = number
-    //             c.data.sales_manager_sys_id = sys_id
+    $scope.btnRefSalesManager = function(sys_id) {
+        c.data.refer_sales_manager_modal = true;
+        c.data.isRead = false;
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+            c.logSysId = function(number, sys_id, code) {
+                c.data.sales_manager = number
+                c.data.sales_manager_sys_id = sys_id
                 
 							
-	// 			modal.style.display = "none";
-	// 			c.data.refer_sales_manager_modal = false;
-    //             c.data.refer_end_user_modal = false;
-    //             c.data.refer_requester_modal = false;
-    //             c.data.refer_quotation_modal = false;
-    //             c.data.refer_assignment_group_modal = false;
-    //             c.data.refer_assigned_to_modal = false;
-    //             c.data.refer_contract_modal = false;
-    //             c.data.refer_contract_country_modal = false;
-	// 			c.data.refer_copy_modal = false;
-	// 			c.data.refer_currency_modal = false;
-    //             c.data.items = "";
-    //             c.data.modalTitle = "";
-    //         };
-    //     });
-    //     var modal = document.getElementById("modalTest");
-    //     modal.style.display = "block";
-
-    // };
-
-	$scope.btnRefSalesManager = function(sys_id) {
-		document.getElementById("SalesManagerModal").style.display = 'block';
-        c.data.itemsSM = [];
-		//modal option 과 table thead th 에 들어갈 값
-        c.data.modalItems = [{
-            text: "name",
-            value: "user_name",
-            fieldLabel: "Name"
-        }, {
-            text: "department",
-            value: "department.name",
-            fieldLabel: "Department"
-        }];
-
-        c.data.refer_sales_manager_modal = true;
-        c.server.update().then(function(response) {
-            console.log('Server response:', response);
+							  modal.style.display = "none";
+								c.data.refer_sales_manager_modal = false
+                c.data.refer_end_user_modal = false
+                c.data.refer_requester_modal = false
+                c.data.refer_quotation_modal = false
+                c.data.refer_assignment_group_modal = false
+                c.data.refer_assigned_to_modal = false
+                c.data.refer_contract_modal = false
+                c.data.refer_contract_country_modal = false
+							  c.data.refer_copy_modal = false;
+                c.data.items = ""
+                c.data.modalTitle = ""
+            };
         });
-    };
-	    //모달창 검색 버튼 클릭
-    $scope.btnClickModalSearch = function() {
+        var modal = document.getElementById("modalTest");
+        modal.style.display = "block";
 
-        if (c.data.searchQuery == undefined) {
-            c.data.searchQuery = '';
-        }
-
-        //셀렉트 박스에서 선택한 value 값 가져오기 (필드)
-        var selectElement = document.querySelector('.modal-select');
-        var selectedValue = selectElement.value;
-
-        c.data.modalQuery = selectedValue + 'LIKE' + c.data.searchQuery;
-        console.log(c.data.modalQuery);
-
-        c.data.refer_sales_manager_modal = true;
-        c.server.update().then(function(response) {
-            console.log('Server response:', response);
-            c.data.modalQuery = '';
-        });
-
-    };
-	  
-	  //모달 x 버튼 클릭 시 닫기
-	  $scope.closeModalPM = function() {
-        document.getElementById("SalesManagerModal").style.display = 'none';
-    };
-
-
-    //모달창의 pm name 클릭 시 input 에 값 넣고 모달 창 닫기
-    c.clickSM = function(index) {
-        c.data.sales_manager_sys_id = c.data.itemsSM[index].sys_id;
-        c.data.sales_manager = c.data.itemsSM[index].name;
-        document.getElementById("SalesManagerModal").style.display = 'none';
     };
 
 
@@ -522,8 +472,7 @@ $scope.btnUpdate = function() {
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
                 c.data.refer_contract_country_modal = false
-				c.data.refer_copy_modal = false;
-				c.data.refer_currency_modal = false;
+							  c.data.refer_copy_modal = false;
                 c.data.items = ""
                 c.data.modalTitle = ""
 
@@ -557,8 +506,7 @@ $scope.btnUpdate = function() {
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
                 c.data.refer_contract_country_modal = false
-				c.data.refer_copy_modal = false;
-				c.data.refer_currency_modal = false;
+							  c.data.refer_copy_modal = false;
                 c.data.items = ""
                 c.data.modalTitle = ""
             };
@@ -588,8 +536,7 @@ $scope.btnUpdate = function() {
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
                 c.data.refer_contract_country_modal = false
-				c.data.refer_copy_modal = false;
-				c.data.refer_currency_modal = false;
+							  c.data.refer_copy_modal = false;
                 c.data.items = ""
                 c.data.modalTitle = ""
 
@@ -622,8 +569,7 @@ $scope.btnUpdate = function() {
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
                 c.data.refer_contract_country_modal = false
-				c.data.refer_copy_modal = false;
-				c.data.refer_currency_modal = false;
+							  c.data.refer_copy_modal = false;
                 c.data.items = ""
                 c.data.modalTitle = ""
             };
@@ -654,8 +600,7 @@ $scope.btnUpdate = function() {
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
                 c.data.refer_contract_country_modal = false
-				c.data.refer_copy_modal = false;
-				c.data.refer_currency_modal = false;
+							  c.data.refer_copy_modal = false;
                 c.data.items = ""
                 c.data.modalTitle = ""
             };
@@ -668,29 +613,27 @@ $scope.btnUpdate = function() {
     };
 
     $scope.btnRefCurrency = function(sys_id) {
-
         c.data.refer_currency_modal = true;
         c.data.isRead = false;
         c.server.update().then(function(response) {
             console.log('Server response:', response);
             c.logSysId = function(number, sys_id) {
-                c.data.currency = number;
-                c.data.currency_sys_id = sys_id;
+                c.data.currency = number
+                c.data.currency_sys_id = sys_id
 
 
                 modal.style.display = "none";
-                c.data.refer_sales_manager_modal = false;
-                c.data.refer_end_user_modal = false;
-                c.data.refer_requester_modal = false;
-                c.data.refer_quotation_modal = false;
-                c.data.refer_assignment_group_modal = false;
-                c.data.refer_assigned_to_modal = false;
-                c.data.refer_contract_modal = false;
-                c.data.refer_contract_country_modal = false;
-				c.data.refer_copy_modal = false;
-				c.data.refer_currency_modal = false;
-                c.data.items = "";
-                c.data.modalTitle = "";
+                c.data.refer_sales_manager_modal = false
+                c.data.refer_end_user_modal = false
+                c.data.refer_requester_modal = false
+                c.data.refer_quotation_modal = false
+                c.data.refer_assignment_group_modal = false
+                c.data.refer_assigned_to_modal = false
+                c.data.refer_contract_modal = false
+                c.data.refer_contract_country_modal = false
+							  c.data.refer_copy_modal = false;
+                c.data.items = ""
+                c.data.modalTitle = ""
             };
 
         });
@@ -699,7 +642,6 @@ $scope.btnUpdate = function() {
         modal.style.display = "block";
 
     };
-
 
 
     $scope.btnCopy = function() {
@@ -1076,6 +1018,12 @@ $scope.btnUpdate = function() {
         });
     };
   
+
+
+
+
+
+
 
 
 }
@@ -1572,133 +1520,6 @@ border: 2px solid red;&#13;
 .popover .popover-body {&#13;
     padding: 9px 14px;&#13;
 }&#13;
-&#13;
-&#13;
-/* modal 0630 */&#13;
-&#13;
- .modal-dialog{&#13;
-     border: #ddd 1px solid !important;&#13;
-     position: fixed;&#13;
-     top: 50%; /* Adjust the vertical position */&#13;
-     left: 50%; /* Adjust the horizontal position */&#13;
-     transform: translate(-50%, -50%);&#13;
-     width: 80%;&#13;
-     min-width: 500px;&#13;
-     max-width: 600px;&#13;
-     padding: 20px;&#13;
-     background-color: white;&#13;
-     border-radius: 2px;&#13;
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);&#13;
-}&#13;
- .modal-form-content {&#13;
-     position: relative;&#13;
-     width: 100%;&#13;
-     height: 100%;&#13;
-}&#13;
- .modal-search-form {&#13;
-     display: flex;&#13;
-     gap: 30px;&#13;
-     padding: 16px 20px;&#13;
-     max-width: 1600px;&#13;
-     background-color: #F7F7F7;&#13;
-     border: 1px #EDEDED;&#13;
-     border-radius: 4px;&#13;
-     margin-bottom: 10px;&#13;
-}&#13;
- .modal-close-button {&#13;
-     position: absolute;&#13;
-     top: 1px;&#13;
-     right: 1px;&#13;
-     background: transparent;&#13;
-     border: none;&#13;
-     font-size: 25px;&#13;
-     cursor: pointer;&#13;
-}&#13;
- .modal-form-inline {&#13;
-     display: flex;&#13;
-     align-items: left;&#13;
-}&#13;
- .modal-label {&#13;
-     font-size: 15px !important;&#13;
-     font-weight: bold !important;&#13;
-     width: 50px !important;&#13;
-     min-width: 50px !important;&#13;
-     margin-right: 50px;&#13;
-     text-align: left;&#13;
-     color: #4B5E70;&#13;
-     font-family: 'Pretendard';&#13;
-     font-size: 13px;&#13;
-     font-style: normal;&#13;
-     font-weight: 500;&#13;
-     line-height: normal;&#13;
-}&#13;
- .modal-select {&#13;
-     font-family: "Pretendard";&#13;
-     font-size: 13px;&#13;
-     padding: 6px 10px 5px 10px;&#13;
-     max-height: 28px;&#13;
-     width: calc(100%);&#13;
-     border-radius: 4px;&#13;
-     border: 1px solid #E1E8F0;&#13;
-     color: #7A8692;&#13;
-     margin-right: 10px;&#13;
-     max-width: 150px !important;&#13;
-     min-width: 150px !important;&#13;
-     -moz-appearance:none;&#13;
-     -webkit-appearance:none;&#13;
-     appearance:none;&#13;
-     background-image: url(icon_arrow_down.png);&#13;
-     background-repeat: no-repeat;&#13;
-     background-position-x: 100%;&#13;
-     background-position-y: 1px;&#13;
-     line-height: 15px;&#13;
-     padding: 6px 30px 5px 10px;&#13;
-}&#13;
- .yoko-wid204 {&#13;
-     font-family: "Pretendard";&#13;
-     font-size: 13px;&#13;
-     padding: 6px 10px 5px 10px;&#13;
-     max-height: 28px;&#13;
-     border-radius: 4px;&#13;
-     border: 1px solid #E1E8F0;&#13;
-     color: #7A8692;&#13;
-     margin-right: 10px;&#13;
-     min-width: 150px !important;     &#13;
-     max-width: 150px !important;&#13;
-}&#13;
- .yoko-table-container {&#13;
-     border: #ddd 1px solid !important;&#13;
-     min-height: 200px;&#13;
-     max-height: 400px;&#13;
-     overflow-y: auto;&#13;
-     overflow-x: hidden;&#13;
-}&#13;
- .yoko-search-table {&#13;
-     width: 100%;&#13;
-     border-collapse: collapse;&#13;
-}&#13;
- .yoko-search-table tr th {&#13;
-     color: #4B5E70;&#13;
-     padding: 3px;&#13;
-     text-align: center;&#13;
-     background-color: #f2f2f2;&#13;
-}&#13;
- .yoko-search-table tr td {&#13;
-     padding: 3px;&#13;
-     text-align: left;&#13;
-     border-bottom: 1px solid #ddd;&#13;
-}&#13;
-&#13;
-#clicktd {&#13;
-     color: #1c88f4;&#13;
-     cursor: pointer;&#13;
-     text-align: center;&#13;
-}&#13;
- #clicktd:hover {&#13;
-     font-weight: bold;&#13;
-     text-decoration: underline;&#13;
-}&#13;
- &#13;
 </css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -1706,10 +1527,10 @@ border: 2px solid red;&#13;
         <docs/>
         <field_list/>
         <has_preview>false</has_preview>
-        <id>rfqentrywd</id>
+        <id>rfqentrywdss</id>
         <internal>false</internal>
         <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
-        <name>rfqEntryWd</name>
+        <name>rfqEntryWdSS</name>
         <option_schema/>
         <public>false</public>
         <roles/>
@@ -1828,21 +1649,11 @@ border: 2px solid red;&#13;
     var userNameSysId = gs.getUser().getID();
     var userCompany = gs.getUser().getCompanyID();
 
-    var grU = new GlideRecord('sys_user');
-    grU.get(userNameSysId);
-    grUCompany = grU.company;
     var grC = new GlideRecord('core_company');
-    if (grC.get(grUCompany)) {
-        var currency = grC.u_currency.code;
-       // gs.addInfoMessage(currency)
-		if(data.currency == null || data.currency == '') {
-			data.currency = grC.u_currency.code.toString();
-			data.currency_sys_id = grC.u_currency.toString();
-		}	
-       // gs.addInfoMessage( data.currency)
-       // gs.addInfoMessage(data.currency_sys_id)
-
-    }
+    grC.get(userCompany);
+    var currency = grC.u_currency.code;
+    data.currency = grC.u_currency.code.toString();
+    data.currency_sys_id = grC.u_currency.toString();
 
 
 	var urlSysId = $sp.getParameter('sys_id');
@@ -1851,7 +1662,7 @@ border: 2px solid red;&#13;
     data.requestor = userName;
     data.requestor_sys_id = userNameSysId;
 
-	if(!urlSysId && data.sales_manager == null) {
+	if(!urlSysId) {
 		data.sales_manager = userName;
 		data.sales_manager_sys_id = userNameSysId;
 	}
@@ -1996,427 +1807,6 @@ border: 2px solid red;&#13;
 		}
     }
 
-    if (input && input.urlSysId) {
-        var gr = new GlideRecord('x_yergb_bpm_rfq_entry');
-        gr.get(input.urlSysId);
-        data.state = gr.state.getDisplayValue();
-        // 현재 STATE 에 따라서, 버튼들의 노출도를 전부 조절한다 여기서
-        if (gr.state.getDisplayValue() == "New" &&    (   gs.getUser().isMemberOf('YCN Sales Group') ||  gs.getUser().isMemberOf('YKO Sales Group')   ) ) {
-            data.showAssess = true;
-            data.showRequest = false;
-            data.showSubmit = false;
-            data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = true;
-            data.showSave = true;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = true;
-            data.showQuotationType = false;
-        } else if (gr.state.getDisplayValue() == "Assess" && (gs.getUser().isMemberOf('YCN Sales Group') ||gs.getUser().isMemberOf('YKO Sales Group') )) {
-            data.showAssess = false;
-            data.showRequest = true;
-            data.showSubmit = false;
-            data.showInProgress = true;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = true;
-            data.showSave = true;
-            data.showCopy = false;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
-            data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "Requested" && ( gs.getUser().isMemberOf('YCN_Sales_Engineer_Group') || gs.getUser().isMemberOf('YKO_Sales_Engineer_Group') ) ) {
-            data.showAssess = false;
-            data.showRequest = false;
-            data.showSubmit = false;
-            data.showInProgress = false;
-            data.showAccept = true;
-            data.showReturn = true;
-            data.showCancel = false;
-            data.showUpdate = true;
-            data.showSave = true;
-            data.showCopy = false;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
-            data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "Returned" && (gs.getUser().isMemberOf('YCN Sales Group') ||gs.getUser().isMemberOf('YKO Sales Group') )) {
-            data.showAssess = true;
-            data.showRequest = false;
-            data.showSubmit = false;
-            data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = true;
-            data.showUpdate = true;
-            data.showSave = true;
-            data.showCopy = false;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
-            data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "In Progress") {
-            data.showAssess = false;
-            data.showRequest = false;
-            data.showSubmit = true;
-            data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = true;
-            data.showSave = true;
-            data.showCopy = false;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
-            data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "Submitted" ) {
-            data.showAssess = false;
-            //data.showRequest = false;
-            data.showSubmit = false;
-            //data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = true;
-            data.showSave = true;
-            data.showCopy = false;
-            data.showOIReport = true;
-            data.showQuotationTypeSelect = false;
-            data.showQuotationType = true;
-            if(data.quotation_type_label == "Budgetary"){
-                data.showInProgress = true;
-            }
-            else if(data.quotation_type_label == "Submission to Customers"){
-                data.showRequest = true;
-            }
-            else{
-                gs.addInfoMessage("how creative");
-            }
-        } else if (gr.state.getDisplayValue() == "Completed" ||(gs.getUser().isMemberOf('YCN_Sales_Engineer_Group') || gs.getUser().isMemberOf('YKO_Sales_Engineer_Group') ) ) {
-            data.showAssess = false;
-            data.showRequest = false;
-            data.showSubmit = false;
-            data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = false;
-            data.showSave = false;
-            data.showCopy = false;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
-            data.showQuotationType = true;
-        }else {
-          //  gs.addErrorMessage("who are you")
-            data.showAssess = false;
-            data.showRequest = false;
-            data.showSubmit = false;
-            data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = false;
-            data.showSave = false;
-            data.showCopy = false;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
-            data.showQuotationType = true;
-        }
-
-		if((gs.getUser().isMemberOf('YCN Sales Group') ||gs.getUser().isMemberOf('YKO Sales Group') ) &&  gr.state.getDisplayValue() == "In Progress" && data.quotation_state != 'Completed'){ // 세일즈 그룹이고, in progress 이고, q type 이 complete 가 아니면 버튼들 
-            data.showAssess = false;
-            data.showRequest = false;
-            data.showSubmit = false;
-            data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = false;
-            data.showSave = false;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
-            data.showQuotationType = true;
-        }  
-        
-        if((gs.getUser().isMemberOf('YCN_Sales_Engineer_Group') || gs.getUser().isMemberOf('YKO_Sales_Engineer_Group') ) &&  gr.state.getDisplayValue() == "In Progress"){  //엔지니어 그룹이고, in progress 이고 
-            data.showAssess = false;
-            data.showRequest = false;
-            data.showSubmit = false;
-            data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = false;
-            data.showSave = false;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
-            data.showQuotationType = true;
-        }
-
-
-        /////////// 버튼을 누르면 STATE가 바뀐다. 
-        if (input.isButton) {
-            var grA = new GlideRecord('x_yergb_bpm_rfq_entry');
-            grA.get(input.urlSysId);
-            grA.setValue('state', input.newState);
-            grA.update();
-        }
-
-
-    }
-
-
-    //////////////////////// SAVE 버튼을 눌렀을때 ---- INSERT거나 UPDATE거나의 분기점
-    if (input && input.isInsert) { // 없으면 오류 뜸, 둘다 있어야 함.
-        var grr = new GlideRecord('x_yergb_bpm_rfq_entry');
-        grr.initialize();
-        grr.setValue('sales_manager', input.sales_manager_sys_id);
-        grr.setValue('customer_rfq', input.customer_rfq);
-        grr.setValue('currency', input.currency_sys_id);
-        grr.setValue('estimated_oi_amount', getValueOrEmptyString(input.estimated_oi_amount));
-        grr.setValue('estimated_order_date', input.estimated_order_date);
-        grr.setValue('estimated_delivery_date', input.estimated_delivery_date);
-        grr.setValue('quotation_due_date', input.quotation_due_date);
-        grr.setValue('yoda_opportunity_no', getValueOrEmptyString(input.yoda_opportunity_no));
-        grr.setValue('quotation_type', input.quotation_type);
-        grr.setValue('end_user', input.end_user_sys_id);
-		grr.setValue('end_user_name', input.end_user_name);
-		grr.setValue('end_user_address', input.end_user_address);
-		grr.setValue('end_user_country', input.end_user_country);
-        grr.setValue('contract', input.contract_sys_id);
-        grr.setValue('contract_name', getValueOrEmptyString(input.contract_name));
-        grr.setValue('contract_address', getValueOrEmptyString(input.contract_address));
-        grr.setValue('contract_country', input.contract_country);
-        grr.setValue('project_title', getValueOrEmptyString(input.project_title));
-        grr.setValue('project_detail', getValueOrEmptyString(input.project_detail));
-        grr.setValue('caution', input.caution);
-        grr.setValue('reason_code', getValueOrEmptyString(input.reason_code));
-        grr.setValue('remark', getValueOrEmptyString(input.remark));
-        grr.setValue('project_status',input.project_status);
-        
-        grr.insert();
-        data.redirect_sys_id = grr.getUniqueValue();
-       // gs.addErrorMessage("quotation_type")
-       // gs.addErrorMessage(quotation_type)
-
-    } else if (input && input.isUpdate) {
-     //gs.addErrorMessage("야 정신차려봐 isUpdate")
-        var grU = new GlideRecord('x_yergb_bpm_rfq_entry');
-        grU.get(input.urlSysId);
-        grU.setValue('sales_manager', input.sales_manager_sys_id);
-        grU.setValue('customer_rfq', input.customer_rfq);			
-        grU.setValue('estimated_oi_amount', getValueOrEmptyString(input.estimated_oi_amount));
-        grU.setValue('currency', input.currency_sys_id);
-        grU.setValue('estimated_order_date', input.estimated_order_date);
-        grU.setValue('estimated_delivery_date', input.estimated_delivery_date);
-        grU.setValue('submitted_date', input.submitted_date);
-        grU.setValue('quotation_due_date', input.quotation_due_date);
-        grU.setValue('quotation_type', input.quotation_type);
-        grU.setValue('yoda_opportunity_no', getValueOrEmptyString(input.yoda_opportunity_no));
-        grU.setValue('end_user', input.end_user_sys_id);
-		grU.setValue('end_user_name', input.end_user_name);
-		grU.setValue('end_user_address', input.end_user_address);
-		grU.setValue('end_user_country', input.end_user_country);
-        grU.setValue('contract', input.contract_sys_id);
-        grU.setValue('contract_name', getValueOrEmptyString(input.contract_name));
-        grU.setValue('contract_address', getValueOrEmptyString(input.contract_address));
-        grU.setValue('contract_country', input.contract_country);
-        grU.setValue('project_title', getValueOrEmptyString(input.project_title));
-        grU.setValue('project_detail', getValueOrEmptyString(input.project_detail));
-        grU.setValue('caution', input.caution);
-        grU.setValue('reason_code', getValueOrEmptyString(input.reason_code));
-        grU.setValue('remark', getValueOrEmptyString(input.remark));
-        grU.setValue('project_status',input.project_status);
-        grU.update();
-
-    }
-
-    if (input && input.isOIReport) {
-        //gs.addErrorMessage("야 정신차려봐 isUpdate")
-        gs.addInfoMessage("원하는 곳에 옴");
-        gs.addInfoMessage(input.number.toString());
-        var inputRawNumber = input.number.toString();
-				inputRawNumber = inputRawNumber.substring(3);
-        var oi = new GlideRecord('x_yergb_bpm_oi_report');
-        oi.addQuery('number', 'OI' + inputRawNumber );
-				oi.query();
-        while(oi.next()) {
-			data.io_sys_id = oi.sys_id.toString();
-				gs.addInfoMessage(oi.sys_id);
-				gs.addInfoMessage(data.io_sys_id);
-			}
-       }
-
-
-	
-
-
-	/* Sales Manager Modal */
-    if (input && input.refer_sales_manager_modal) {
-        data.itemsSM = [];
-        var grPm = new GlideRecord('sys_user');
-        grPm.addEncodedQuery(input.modalQuery);
-        grPm.query();
-        while (grPm.next()) {
-            data.itemsSM.push({
-                name: grPm.user_name.toString(),
-                department: grPm.department.name.toString(),
-                sys_id: grPm.sys_id.toString()
-            });
-        }
-    }
-
-    if (input && input.refer_quotation_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-
-        data.item = [];
-        var gr2 = new GlideRecord('x_yergb_bpm_quotation');
-        gr2.query();
-        while (gr2.next()) {
-            data.items.push({
-                column1: gr2.getValue('name'),
-                column2: gr2.getValue('sys_id'),
-                column3: gr2.getValue('sys_id')
-            });
-        }
-
-        // Pass data to the client script
-        //data.items = items;
-        data.modalTitle = "QUOTATION";
-
-    }
-
-    if (input && input.refer_assignment_group_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-		var items = [];
-        var gr3 = new GlideRecord('sys_user_group');
-        gr3.query();
-        while (gr3.next()) {
-            items.push({
-                column1: gr3.getValue('name'),
-                column2: gr3.getValue('sys_id'),
-                column3: gr3.getValue('description')
-            });
-        }
-
-        // Pass data to the client script
-        data.items = items;
-        data.modalTitle = "ASSIGNMENT GROUP";
-
-    }
-
-    if (input && input.refer_assigned_to_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-
-		items = [];
-        var gr4 = new GlideRecord('sys_user');
-        gr4.query();
-        while (gr4.next()) {
-            items.push({
-                column1: gr4.getValue('name'),
-                column2: gr4.getValue('sys_id'),
-                column3: gr4.getValue('email')
-            });
-        }
-
-        // Pass data to the client script
-        data.items = items;
-        data.modalTitle = "ASSIGNED TO";
-
-    }
-    if (input && input.refer_end_user_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-		data.items = [];
-        var gr5 = new GlideRecord('core_company');
-        gr5.query();
-        while (gr5.next()) {
-            data.items.push({
-                column1: gr5.getValue('name'),
-                column2: gr5.getValue('sys_id'),
-                column3: gr5.getValue('u_company_code'),
-                column4: gr5.getValue('city')
-            });
-        }
-
-        // Pass data to the client script
-        //data.items = items;
-        data.modalTitle = "END USER";
-    }
-
-    if (input && input.refer_contract_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-		data.items = [];
-        var gr6 = new GlideRecord('core_company');
-        gr6.query();
-        while (gr6.next()) {
-            data.items.push({
-                column1: gr6.getValue('name'),
-                column2: gr6.getValue('sys_id'),
-                column3: gr6.getValue('u_company_code'),
-                column4: gr6.getValue('city')
-
-            });
-        }
-
-        // Pass data to the client script
-        //data.items = items;
-        data.modalTitle = "CONTRACT COMPANY";
-
-    }
-
-    if (input && input.refer_contract_country_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-		data.items = [];
-        var gr7 = new GlideRecord('core_country');
-        gr7.query();
-        while (gr7.next()) {
-            data.items.push({
-                column1: gr7.getValue('name'),
-                column2: gr7.getValue('sys_id'),
-                column3: gr7.getValue('sys_id')
-            });
-        }
-
-        // Pass data to the client script
-        //data.items = items;
-        data.modalTitle = "COUNTRY";
-
-    }
-
-
-    if (input && input.refer_currency_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-		data.items = [];
-        var gr8 = new GlideRecord('fx_currency');
-        gr8.addQuery('active', true);
-        gr8.query();
-        while (gr8.next()) {
-            data.items.push({
-                column1: gr8.getValue('code'),
-                column2: gr8.getValue('sys_id'),
-                column3: gr8.getValue('name')
-            });
-        }
-
-        // Pass data to the client script
-        //data.items = items;
-        data.modalTitle = "CURRENCY";
-
-    }
-
-	if (input && input.refer_copy_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-		items = [];
-        var gr9 = new GlideRecord('x_yergb_bpm_rfq_entry');
-        gr9.addQuery('active', true);
-        gr9.query();
-        while (gr9.next()) {
-            items.push({
-                column1: gr9.getValue('number'),
-                column2: gr9.getValue('sys_id'),
-                column3: gr9.getValue('quotation_type'),
-                column4: gr9.getValue('project_title')
-            });
-        }
-
-        // Pass data to the client script
-        data.items = items;
-        data.modalTitle = "COPY";
-
-    }
 	
     function getValueOrEmptyString(value) {
         return typeof value === 'undefined' ? '' : value;
@@ -2437,45 +1827,20 @@ border: 2px solid red;&#13;
     }
 
 
-
-
-    var gra = new GlideRecord("x_yergb_bpm_quotation");
-        gra.orderBy("version");
-        gra.addEncodedQuery('rfq_entry=' + urlSysId);
-        gra.query();
-        var gridDetailData = [];
-        while (gra.next()) {
-            gridDetailData.push({
-                'sys_id': gra.sys_id.getDisplayValue(),
-                'number': gra.number.getDisplayValue(),
-                'version': gra.version.getDisplayValue(),
-                'currency_lc': gra.currency_lc.getDisplayValue(),
-                'total_quote_price': gra.total_quote_price.getDisplayValue(),
-                'total_quote_cost': gra.total_quote_cost.getDisplayValue(),
-                'gp_percent': gra.gp_percent.getDisplayValue(),
-                'mp_amount': gra.mp_amount.getDisplayValue(),
-                'mp_gap_percent': gra.mp_gap_percent.getDisplayValue()
-    
-            });
-				data.gridDetailData = gridDetailData;
-        }
-
-
-
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
-        <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2024-06-25 01:25:13</sys_created_on>
-        <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>348</sys_mod_count>
-        <sys_name>rfqEntryWd</sys_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-29 15:52:25</sys_created_on>
+        <sys_id>5fb4b99e47c7c6106cce1ce4316d43fa</sys_id>
+        <sys_mod_count>24</sys_mod_count>
+        <sys_name>rfqEntryWdSS</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
+        <sys_update_name>sp_widget_5fb4b99e47c7c6106cce1ce4316d43fa</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-29 22:50:48</sys_updated_on>
+        <sys_updated_on>2024-06-29 18:26:23</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2563,12 +1928,12 @@ border: 2px solid red;&#13;
 
                             <div class="yoko-form-group">
                                 <label for="req_date" class="yoko-short-120">{{data.labelSubmittedDate}}</label>
-                                <input type="date" name="submitted_date" ng-model="c.data.submitted_date" disabled>
+                                <input type="date" value={{data.submitted_date}} name="submitted_date" ng-model="c.data.submitted_date" disabled>
                             </div>
 
                             <div class="yoko-form-group">
                                 <label for="comp_date" class="yoko-short-120">{{data.labelCompleteDate}}</label>
-                                <input type="date" name="complete_date" ng-model="c.data.complete_date" disabled>
+                                <input type="date" value={{data.complete_date}} name="complete_date" ng-model="c.data.complete_date" disabled>
                             </div>
 
                         </div>
@@ -2578,44 +1943,44 @@ border: 2px solid red;&#13;
                     <div class="yoko-form-col">
 
                         <div class="yoko-form-group">
-                            <label for="type" class="yoko-short-140">
+                            <label for="type" class="yoko-short-120">
                                 <h5 name="mandatoryCurrency" style="display: inline; margin: 0;  color: red" ng-if="c.data.currencyMandatory">✻</h5> {{data.labelCurrency}}
                             </label>
                             <div class="yoko-form-inline">
-                                <input type="text" name="currency" ng-model="c.data.currency" class="yoko-wid103" readonly>
+                                <input type="text" name="currency" ng-model="c.data.currency" class="yoko-wid140" readonly>
                                 <input type="text" name="currency_sys_id" ng-model="c.data.currency_sys_id" placeholder="" ng-style="{'display': 'none'}" readonly>
                                 <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefCurrency()" ng-disabled="isCancelledDisabled"></button>
                             </div>
                         </div>
 
                         <div class="yoko-form-group">
-                            <label for="exchange_rate" class="yoko-short-140">{{data.labelCurrencyLC}}</label>
+                            <label for="exchange_rate" class="yoko-short-120">{{data.labelCurrencyLC}}</label>
                             <input type="text" name="est_oi_amount" value="" placeholder="" ng-model="c.data.currency_lc" disabled>
                         </div>
 
                         <div class="yoko-form-group">
-                            <label for="exchange_rate" class="yoko-short-140">{{data.labelExchangeRate}}</label>
-                            <input type="text" name="exchange_rate" value="" placeholder="" ng-model="c.data.exchange_rate" class="yoko-text-right" disabled>
+                            <label for="exchange_rate" class="yoko-short-120">{{data.labelExchangeRate}}</label>
+                            <input type="text" name="est_oi_amount" value="" placeholder="" ng-model="c.data.exchange_rate" disabled>
                         </div>
 
                         <div class="yoko-form-group">
-                            <label for="est_oi_amount" class="yoko-short-140">{{data.labelEstimatedOIAmount}}</label>
-                            <input type="text" name="est_oi_amount" value="" placeholder="" ng-model="c.data.estimated_oi_amount" class="yoko-text-right" ng-disabled="isCancelledDisabled">
+                            <label for="exchange_rate" class="yoko-short-120">{{data.labelEstimatedOIAmount}}</label>
+                            <input type="text" name="est_oi_amount" value="" placeholder="" ng-model="c.data.estimated_oi_amount" ng-disabled="isCancelledDisabled">
                         </div>
 
                         <div class="yoko-form-group">
-                            <label for="est_oi_amount_lc" class="yoko-short-140">{{data.labelEstimatedOIAmountLC}}</label>
-                            <input type="text" name="est_oi_amount_lc" value="" placeholder="" ng-model="c.data.estimated_oi_amount_lc" class="yoko-text-right" disabled>
+                            <label for="exchange_rate" class="yoko-short-120">{{data.labelEstimatedOIAmountLC}}</label>
+                            <input type="text" name="est_oi_amount" value="" placeholder="" ng-model="c.data.estimated_oi_amount_lc" disabled>
                         </div>
 
                         <div class="yoko-form-group">
-                            <label for="total_quote_price_tc" class="yoko-short-140">{{data.labelTotalQuotePrice}}</label>
-                            <input type="text" name="total_quote_price_tc" value="" placeholder="" ng-model="c.data.total_quote_price" class="yoko-text-right" disabled>
+                            <label for="exchange_rate" class="yoko-short-120">{{data.labelTotalQuotePrice}}</label>
+                            <input type="text" name="est_oi_amount" value="" placeholder="" ng-model="c.data.total_quote_price" disabled>
                         </div>
 
                         <div class="yoko-form-group">
-                            <label for="total_quote_price_lc" class="yoko-short-140">{{data.labelTotalQuotePriceLC}}</label>
-                            <input type="text" name="total_quote_price_lc" value="" placeholder="" ng-model="c.data.total_quote_price_lc" class="yoko-text-right" disabled>
+                            <label for="exchange_rate" class="yoko-short-120">{{data.labelTotalQuotePriceLC}}</label>
+                            <input type="text" name="est_oi_amount" value="" placeholder="" ng-model="c.data.total_quote_price_lc" disabled>
                         </div>
 
 
@@ -2650,8 +2015,8 @@ border: 2px solid red;&#13;
                         </div>
 
                         <div class="yoko-form-group">
-                            <label for="profit_company">{{data.labelProfitCompany}}</label>
-                            <input type="text" name="profit_company" class="yoko-wid140" ng-model="c.data.profit_company" disabled>
+                            <label for="quotation_state">{{data.labelProfitCompany}}</label>
+                            <input type="text" name="quotation_state" class="yoko-wid140" ng-model="c.data.quotation_state" disabled>
                         </div>
 
                         
@@ -2670,8 +2035,8 @@ border: 2px solid red;&#13;
                         </div>
                         
                         <div class="yoko-form-group">
-                            <label for="project_status" class="yoko-short-110">{{data.labelProjectStatus}}</label>
-                            <input type="text" name="project_status" value="" placeholder="" class="yoko-wid172" ng-model="c.data.project_status" ng-disabled="isCancelledDisabled">
+                            <label for="oppt_no" class="yoko-short-110">{{data.labelProjectStatus}}</label>
+                            <input type="text" name="oppt_no" value="" placeholder="" class="yoko-wid172" ng-model="c.data.yoda_opportunity_no" ng-disabled="isCancelledDisabled">
                         </div>
 
 
@@ -2764,17 +2129,17 @@ border: 2px solid red;&#13;
                             </div>
                             <div class="yoko-form-group">
                                 <label for="enduser_name" class="yoko-short">{{data.labelEndUserName}}</label>
-                                <input type="text" name="end_user_name" value="" placeholder="" class="yoko-col100" ng-model="c.data.end_user_name" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
+                                <input type="text" name="contract_name" value="" placeholder="" class="yoko-col100" ng-model="c.data.contract_name" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="enduser_address" class="yoko-short">{{data.labelEndUserAddress}}</label>
-                                <input type="text" name="end_user_address" value="" placeholder="" class="yoko-col100" ng-model="c.data.end_user_address" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
+                                <input type="text" name="contract_address" value="" placeholder="" class="yoko-col100" ng-model="c.data.contract_address" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="enduser_country" class="yoko-short">{{data.labelEndUserCountry}}</label>
                                 <div class="yoko-form-inline yoko-col100">
-                                    <input type="text" name="end_user_country" value={{data.contract_country}} placeholder="" ng-model="c.data.end_user_country" disabled>
-                                    <input type="text" name="end_user_country_sys_id" value="" placeholder="" ng-model="c.data.contract_country_sys_id" ng-style="{'display': 'none'}">
+                                    <input type="text" name="contract_country" value={{data.contract_country}} placeholder="" ng-model="c.data.contract_country" disabled>
+                                    <input type="text" name="contract_country_sys_id" value="" placeholder="" ng-model="c.data.contract_country_sys_id" ng-style="{'display': 'none'}">
                                     <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefContractCountry()" ng-disabled="isCancelledDisabled || isContractDummyDisabled"></button>
                                 </div>
                             </div>
@@ -2944,44 +2309,11 @@ border: 2px solid red;&#13;
             <button type="button" class="btn btn-secondary" ng-click="c.hidePopover(2)">Close</button>
         </div>
     </div>
-</div>
 
-<dialog class="modal-dialog" id="SalesManagerModal">
-    <div class="modal-form-content">
-        <div class="modal-search-form">
-            <button class="modal-close-button" ng-click="closeSMModal()">×</button>
-            <div class="modal-form-inline">
-                <label class="modal-label" >Project</label>
-                <select class="modal-select">
-                <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
-                </select>
-                <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
-                <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickModalSearch()"></button>
-            </div>
-       </div>
-    </div>
-    <div class="yoko-table-container">
-        <table class="yoko-search-table">
-            <colgroup>
-              <col style="width: 51px">
-              <col style="width: 137px">
-              <col style="width: auto">
-            </colgroup>
-            <thead>
-              <tr>
-                <th ng-repeat="item in c.data.modalItems">{{ item.fieldLabel }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="item in c.data.itemsSM">
-                <td id="clicktd" ng-click="c.clickSM($index)">{{ item.name }}</td>
-                <td>{{ item.department }}</td>
-                <td style="display: none;">{{ item.sys_id }}</td>
-              </tr>
-            </tbody>
-        </table>   
-    </div>
-</dialog>
+
+
+
+</div>
 
 
 <script>
