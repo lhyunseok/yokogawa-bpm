@@ -1649,11 +1649,19 @@ border: 2px solid red;&#13;
     var userNameSysId = gs.getUser().getID();
     var userCompany = gs.getUser().getCompanyID();
 
-    var grC = new GlideRecord('core_company');
-    grC.get(userCompany);
-    var currency = grC.u_currency.code;
-    data.currency = grC.u_currency.code.toString();
-    data.currency_sys_id = grC.u_currency.toString();
+    var grU = new GlideRecord('sys_user');
+    grU.get(userNameSysId)
+    grUCompany = grU.company
+    var grC = new GlideRecord('core_company')
+    if (grC.get(grUCompany)) {
+        var currency = grC.u_currency.code
+       // gs.addInfoMessage(currency)
+        data.currency = grC.u_currency.code.toString()
+        data.currency_sys_id = grC.u_currency.toString()
+       // gs.addInfoMessage( data.currency)
+       // gs.addInfoMessage(data.currency_sys_id)
+
+    }
 
 
 	var urlSysId = $sp.getParameter('sys_id');
@@ -2282,14 +2290,14 @@ border: 2px solid red;&#13;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>310</sys_mod_count>
+        <sys_mod_count>313</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-29 19:09:44</sys_updated_on>
+        <sys_updated_on>2024-06-29 19:38:11</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
