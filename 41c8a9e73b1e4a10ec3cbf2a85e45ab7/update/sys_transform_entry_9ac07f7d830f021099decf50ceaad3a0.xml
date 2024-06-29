@@ -5,29 +5,29 @@
         <coalesce_case_sensitive>false</coalesce_case_sensitive>
         <coalesce_empty_fields>false</coalesce_empty_fields>
         <date_format>yyyy-MM-dd HH:mm:ss</date_format>
-        <map display_value="Project Sum Detail Import to WBS Budget">87f6416d83cf421099decf50ceaad35e</map>
+        <map display_value="To WBS Budget">7710337d830f021099decf50ceaad36b</map>
         <reference_value_field/>
-        <source_field>u_wbs_element</source_field>
+        <source_field>month7</source_field>
         <source_script><![CDATA[answer = (function transformEntry(source) {
 
 	// Add your code here
 	return ""; // return the value to be put into the target field
 
 })(source);]]></source_script>
-        <source_table>x_yergb_bpm_pjt_sum_d</source_table>
+        <source_table>x_yergb_bpm_wbs_budget_import</source_table>
         <sys_class_name>sys_transform_entry</sys_class_name>
         <sys_created_by>yeongink</sys_created_by>
-        <sys_created_on>2024-06-27 04:47:24</sys_created_on>
-        <sys_id>d6598d6d83cf421099decf50ceaad383</sys_id>
+        <sys_created_on>2024-06-28 11:37:25</sys_created_on>
+        <sys_id>9ac07f7d830f021099decf50ceaad3a0</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_name>u_wbs_element</sys_name>
+        <sys_name>month7</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_update_name>sys_transform_entry_d6598d6d83cf421099decf50ceaad383</sys_update_name>
+        <sys_update_name>sys_transform_entry_9ac07f7d830f021099decf50ceaad3a0</sys_update_name>
         <sys_updated_by>yeongink</sys_updated_by>
-        <sys_updated_on>2024-06-27 04:47:24</sys_updated_on>
-        <target_field>wbs</target_field>
+        <sys_updated_on>2024-06-28 11:37:25</sys_updated_on>
+        <target_field>month7</target_field>
         <target_table>x_yergb_bpm_wbs_budget</target_table>
         <use_source_script>false</use_source_script>
     </sys_transform_entry>
