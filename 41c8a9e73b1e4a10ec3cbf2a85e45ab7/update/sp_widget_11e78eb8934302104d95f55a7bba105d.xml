@@ -424,18 +424,18 @@ $scope.btnUpdate = function() {
                 c.data.sales_manager_sys_id = sys_id
                 
 							
-							  modal.style.display = "none";
-								c.data.refer_sales_manager_modal = false
-                c.data.refer_end_user_modal = false
-                c.data.refer_requester_modal = false
-                c.data.refer_quotation_modal = false
-                c.data.refer_assignment_group_modal = false
-                c.data.refer_assigned_to_modal = false
-                c.data.refer_contract_modal = false
-                c.data.refer_contract_country_modal = false
-							  c.data.refer_copy_modal = false;
-                c.data.items = ""
-                c.data.modalTitle = ""
+				modal.style.display = "none";
+				c.data.refer_sales_manager_modal = false;
+                c.data.refer_end_user_modal = false;
+                c.data.refer_requester_modal = false;
+                c.data.refer_quotation_modal = false;
+                c.data.refer_assignment_group_modal = false;
+                c.data.refer_assigned_to_modal = false;
+                c.data.refer_contract_modal = false;
+                c.data.refer_contract_country_modal = false;
+				c.data.refer_copy_modal = false;
+                c.data.items = "";
+                c.data.modalTitle = "";
             };
         });
         var modal = document.getElementById("modalTest");
@@ -1010,12 +1010,6 @@ $scope.btnUpdate = function() {
         });
     };
   
-
-
-
-
-
-
 
 
 }
@@ -1642,14 +1636,14 @@ border: 2px solid red;&#13;
     var userCompany = gs.getUser().getCompanyID();
 
     var grU = new GlideRecord('sys_user');
-    grU.get(userNameSysId)
-    grUCompany = grU.company
-    var grC = new GlideRecord('core_company')
+    grU.get(userNameSysId);
+    grUCompany = grU.company;
+    var grC = new GlideRecord('core_company');
     if (grC.get(grUCompany)) {
-        var currency = grC.u_currency.code
+        var currency = grC.u_currency.code;
        // gs.addInfoMessage(currency)
-        data.currency = grC.u_currency.code.toString()
-        data.currency_sys_id = grC.u_currency.toString()
+        data.currency = grC.u_currency.code.toString();
+        data.currency_sys_id = grC.u_currency.toString();
        // gs.addInfoMessage( data.currency)
        // gs.addInfoMessage(data.currency_sys_id)
 
@@ -2065,7 +2059,7 @@ border: 2px solid red;&#13;
     // 여기서는 전부 REFERENCE 버튼과 관련된 로직
     if (input && input.refer_sales_manager_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
 
-       
+        items = [];
         var gr1 = new GlideRecord('sys_user');
         gr1.query();
         while (gr1.next()) {
@@ -2083,7 +2077,7 @@ border: 2px solid red;&#13;
 
     if (input && input.refer_quotation_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
 
-        
+        items = [];
         var gr2 = new GlideRecord('x_yergb_bpm_quotation');
         gr2.query();
         while (gr2.next()) {
@@ -2101,7 +2095,7 @@ border: 2px solid red;&#13;
     }
 
     if (input && input.refer_assignment_group_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-
+		items = [];
         var gr3 = new GlideRecord('sys_user_group');
         gr3.query();
         while (gr3.next()) {
@@ -2120,7 +2114,7 @@ border: 2px solid red;&#13;
 
     if (input && input.refer_assigned_to_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
 
-
+		items = [];
         var gr4 = new GlideRecord('sys_user');
         gr4.query();
         while (gr4.next()) {
@@ -2137,7 +2131,7 @@ border: 2px solid red;&#13;
 
     }
     if (input && input.refer_end_user_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-
+		items = [];
         var gr5 = new GlideRecord('core_company');
         gr5.query();
         while (gr5.next()) {
@@ -2155,7 +2149,7 @@ border: 2px solid red;&#13;
     }
 
     if (input && input.refer_contract_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-
+		items = [];
         var gr6 = new GlideRecord('core_company');
         gr6.query();
         while (gr6.next()) {
@@ -2175,7 +2169,7 @@ border: 2px solid red;&#13;
     }
 
     if (input && input.refer_contract_country_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-
+		items = [];
         var gr7 = new GlideRecord('core_country');
         gr7.query();
         while (gr7.next()) {
@@ -2194,7 +2188,7 @@ border: 2px solid red;&#13;
 
 
     if (input && input.refer_currency_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-
+		items = [];
         var gr8 = new GlideRecord('fx_currency');
         gr8.addQuery('active', true);
         gr8.query();
@@ -2213,7 +2207,7 @@ border: 2px solid red;&#13;
     }
 
 	if (input && input.refer_copy_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-
+		items = [];
         var gr9 = new GlideRecord('x_yergb_bpm_rfq_entry');
         gr9.addQuery('active', true);
         gr9.query();
@@ -2282,14 +2276,14 @@ border: 2px solid red;&#13;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>316</sys_mod_count>
+        <sys_mod_count>327</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-29 19:57:18</sys_updated_on>
+        <sys_updated_on>2024-06-29 20:33:39</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2377,12 +2371,12 @@ border: 2px solid red;&#13;
 
                             <div class="yoko-form-group">
                                 <label for="req_date" class="yoko-short-120">{{data.labelSubmittedDate}}</label>
-                                <input type="date" value={{data.submitted_date}} name="submitted_date" ng-model="c.data.submitted_date" disabled>
+                                <input type="date" name="submitted_date" ng-model="c.data.submitted_date" disabled>
                             </div>
 
                             <div class="yoko-form-group">
                                 <label for="comp_date" class="yoko-short-120">{{data.labelCompleteDate}}</label>
-                                <input type="date" value={{data.complete_date}} name="complete_date" ng-model="c.data.complete_date" disabled>
+                                <input type="date" name="complete_date" ng-model="c.data.complete_date" disabled>
                             </div>
 
                         </div>
@@ -2392,44 +2386,44 @@ border: 2px solid red;&#13;
                     <div class="yoko-form-col">
 
                         <div class="yoko-form-group">
-                            <label for="type" class="yoko-short-120">
+                            <label for="type" class="yoko-short-140">
                                 <h5 name="mandatoryCurrency" style="display: inline; margin: 0;  color: red" ng-if="c.data.currencyMandatory">✻</h5> {{data.labelCurrency}}
                             </label>
                             <div class="yoko-form-inline">
-                                <input type="text" name="currency" ng-model="c.data.currency" class="yoko-wid140" readonly>
+                                <input type="text" name="currency" ng-model="c.data.currency" class="yoko-wid103" readonly>
                                 <input type="text" name="currency_sys_id" ng-model="c.data.currency_sys_id" placeholder="" ng-style="{'display': 'none'}" readonly>
                                 <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefCurrency()" ng-disabled="isCancelledDisabled"></button>
                             </div>
                         </div>
 
                         <div class="yoko-form-group">
-                            <label for="exchange_rate" class="yoko-short-120">{{data.labelCurrencyLC}}</label>
+                            <label for="exchange_rate" class="yoko-short-140">{{data.labelCurrencyLC}}</label>
                             <input type="text" name="est_oi_amount" value="" placeholder="" ng-model="c.data.currency_lc" disabled>
                         </div>
 
                         <div class="yoko-form-group">
-                            <label for="exchange_rate" class="yoko-short-120">{{data.labelExchangeRate}}</label>
-                            <input type="text" name="est_oi_amount" value="" placeholder="" ng-model="c.data.exchange_rate" disabled>
+                            <label for="exchange_rate" class="yoko-short-140">{{data.labelExchangeRate}}</label>
+                            <input type="text" name="exchange_rate" value="" placeholder="" ng-model="c.data.exchange_rate" class="yoko-text-right" disabled>
                         </div>
 
                         <div class="yoko-form-group">
-                            <label for="exchange_rate" class="yoko-short-120">{{data.labelEstimatedOIAmount}}</label>
-                            <input type="text" name="est_oi_amount" value="" placeholder="" ng-model="c.data.estimated_oi_amount" ng-disabled="isCancelledDisabled">
+                            <label for="est_oi_amount" class="yoko-short-140">{{data.labelEstimatedOIAmount}}</label>
+                            <input type="text" name="est_oi_amount" value="" placeholder="" ng-model="c.data.estimated_oi_amount" class="yoko-text-right" ng-disabled="isCancelledDisabled">
                         </div>
 
                         <div class="yoko-form-group">
-                            <label for="exchange_rate" class="yoko-short-120">{{data.labelEstimatedOIAmountLC}}</label>
-                            <input type="text" name="est_oi_amount" value="" placeholder="" ng-model="c.data.estimated_oi_amount_lc" disabled>
+                            <label for="est_oi_amount_lc" class="yoko-short-140">{{data.labelEstimatedOIAmountLC}}</label>
+                            <input type="text" name="est_oi_amount_lc" value="" placeholder="" ng-model="c.data.estimated_oi_amount_lc" class="yoko-text-right" disabled>
                         </div>
 
                         <div class="yoko-form-group">
-                            <label for="exchange_rate" class="yoko-short-120">{{data.labelTotalQuotePrice}}</label>
-                            <input type="text" name="est_oi_amount" value="" placeholder="" ng-model="c.data.total_quote_price" disabled>
+                            <label for="total_quote_price_tc" class="yoko-short-140">{{data.labelTotalQuotePrice}}</label>
+                            <input type="text" name="total_quote_price_tc" value="" placeholder="" ng-model="c.data.total_quote_price" class="yoko-text-right" disabled>
                         </div>
 
                         <div class="yoko-form-group">
-                            <label for="exchange_rate" class="yoko-short-120">{{data.labelTotalQuotePriceLC}}</label>
-                            <input type="text" name="est_oi_amount" value="" placeholder="" ng-model="c.data.total_quote_price_lc" disabled>
+                            <label for="total_quote_price_lc" class="yoko-short-140">{{data.labelTotalQuotePriceLC}}</label>
+                            <input type="text" name="total_quote_price_lc" value="" placeholder="" ng-model="c.data.total_quote_price_lc" class="yoko-text-right" disabled>
                         </div>
 
 
@@ -2578,17 +2572,17 @@ border: 2px solid red;&#13;
                             </div>
                             <div class="yoko-form-group">
                                 <label for="enduser_name" class="yoko-short">{{data.labelEndUserName}}</label>
-                                <input type="text" name="contract_name" value="" placeholder="" class="yoko-col100" ng-model="c.data.contract_name" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
+                                <input type="text" name="end_user_name" value="" placeholder="" class="yoko-col100" ng-model="c.data.end_user_name" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="enduser_address" class="yoko-short">{{data.labelEndUserAddress}}</label>
-                                <input type="text" name="contract_address" value="" placeholder="" class="yoko-col100" ng-model="c.data.contract_address" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
+                                <input type="text" name="end_user_address" value="" placeholder="" class="yoko-col100" ng-model="c.data.end_user_address" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="enduser_country" class="yoko-short">{{data.labelEndUserCountry}}</label>
                                 <div class="yoko-form-inline yoko-col100">
-                                    <input type="text" name="contract_country" value={{data.contract_country}} placeholder="" ng-model="c.data.contract_country" disabled>
-                                    <input type="text" name="contract_country_sys_id" value="" placeholder="" ng-model="c.data.contract_country_sys_id" ng-style="{'display': 'none'}">
+                                    <input type="text" name="end_user_country" value={{data.contract_country}} placeholder="" ng-model="c.data.end_user_country" disabled>
+                                    <input type="text" name="end_user_country_sys_id" value="" placeholder="" ng-model="c.data.contract_country_sys_id" ng-style="{'display': 'none'}">
                                     <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefContractCountry()" ng-disabled="isCancelledDisabled || isContractDummyDisabled"></button>
                                 </div>
                             </div>
