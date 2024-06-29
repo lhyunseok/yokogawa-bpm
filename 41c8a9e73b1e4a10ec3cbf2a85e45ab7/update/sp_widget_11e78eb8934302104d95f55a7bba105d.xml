@@ -764,10 +764,253 @@ $scope.btnUpdate = function() {
             $scope.isCancelledDisabled = true;
             $scope.isContractDisabled = true;
             $scope.isContractDummyDisabled = true;
-			 	    $scope.popoverContent = $sp.getUser().displayName + ": " + data.popoverContent;
+			$scope.popoverContent = $sp.getUser().displayName + ": " + data.popoverContent;
 
         }
+        var loopCnt = 0;
+        var timerid = setInterval(function() {
+            loopCnt = loopCnt + 1;
+            if (loopCnt > 30) {
+                clearTimeout(timerid);
+                alert('Can not load REALGRID');
+            }
+  
+            if (checkRealGrid()) {
+                clearTimeout(timerid);
+                drawRealGrid();
+            }
+        }, 300);
     });
+
+
+
+
+
+
+
+
+    function checkRealGrid() {
+        if (RealGrid) {
+            return true;
+        }
+  
+        return false;
+    }
+  
+    function drawRealGrid() {
+        containerDetail = document.getElementById('gridContainer');
+        dpDetail = new RealGrid.LocalDataProvider(false);
+        gvDetail = new RealGrid.GridView(containerDetail);
+        gvDetail.setDataSource(dpDetail);
+  
+        dpDetail.setFields([
+            {fieldName: 'sys_id',             dataType:  'text'},
+            {fieldName: 'number',             dataType:  'text'},
+            {fieldName: 'version',            dataType:  'text'},
+            {fieldName: 'currency_lc',        dataType:  'text'},
+            {fieldName: 'total_quote_price',  dataType:  'text'},
+            {fieldName: 'total_quote_cost',   dataType:  'text'},
+            {fieldName: 'gp_percent',         dataType:  'text'},
+            {fieldName: 'mp_amount',          dataType:  'text'},
+            {fieldName: 'mp_gap_percent',     dataType:  'text'},
+        ]);
+  
+        gvDetail.setColumns([{
+                "name": "sys_id",
+                "fieldName": "sys_id",
+                "type": "data",
+                "width": 0,
+                "header": {
+                    "text": "sysid",
+                },
+                "visible" : false,
+                  "styleName" : "left-column"
+  
+            },
+            {
+                "name": "number",
+                "fieldName": "number",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Quotation Number"
+                },
+                  "styleName" : "left-column"
+  
+            },
+            {
+                "name": "version",
+                "fieldName": "version",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Version"
+                },
+                          "styleName" : "left-column"
+            },
+            {
+                "name": "currency_lc",
+                "fieldName": "currency_lc",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Currency"
+                },
+                          "styleName" : "left-column"
+            },
+            {
+                "name": "total_quote_price",
+                "fieldName": "total_quote_price",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Total Quote Price"
+                },
+                          "styleName" : "left-column"
+            },
+            {
+                "name": "total_quote_cost",
+                "fieldName": "total_quote_cost",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Total Quote Cost"
+                },
+                          "styleName" : "right-column"
+            },
+            {
+                "name": "gp_percent",
+                "fieldName": "gp_percent",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "GP %"
+                },
+                          "styleName" : "right-column"
+            },
+            {
+                "name": "mp_amount",
+                "fieldName": "mp_amount",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "MP Price"
+                },
+                          "styleName" : "right-column"
+            },
+            {
+                "name": "mp_gap_percent",
+                "fieldName": "mp_gap_percent",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "MP Gap %"
+                },
+                          "styleName" : "right-column"
+            },
+        ]);
+  
+        gvDetail.setColumnLayout([
+            'sys_id',           
+            'number',           
+            'version',          
+            'currency_lc',      
+            'total_quote_price',
+            'total_quote_cost', 
+            'gp_percent',       
+            'mp_amount',        
+            'mp_gap_percent',   
+        ]);
+  
+        gvDetail.footers.visible = false;
+        gvDetail.commitEditor();
+        gvDetail.undoable = true;
+        gvDetail.editOptions.commitByCell = true;		
+        gvDetail.editOptions.insertable = true;
+        dpDetail.softDeleting = true;
+        gvDetail.displayOptions.fitStyle = "evenFill";
+        gvDetail.setPasteOptions({enabled: true , enableAppend:true, eventEachRow	:true, commitEdit	:true});
+        gvDetail.header.height = 40;
+        gvDetail.displayOptions.rowHeight = 30;
+        
+        gvDetail.displayOptions.columnMovable = false;
+   
+  
+        //gvDetail.checkBar.visible = false;
+        //gvDetail.stateBar.visible = false;
+  
+        dpDetail.setRows(c.data.gridDetailData);
+    }
+  
+    $scope.gridDetailBtnClick = function(idx) {
+        var v = {
+            'rowStat': '',
+            'sys_id': '',
+            'number': '',
+            'wbs_6': '',
+            'ms_code': '',
+            'description': '',
+            'quantity': '',
+            'unit_price': '',
+            'extended_price': '',
+            'unit_cost': '',
+            'extended_cost': '',
+            'unit_mp': '',
+            'mp_amount': '',
+            'vendor': '',
+            'quotation': paramValue
+        }
+  
+        c.data.gridBtnType = '';
+        if (idx == 1) {
+            c.data.gridBtnType = 'add';
+            //alert("1")
+            dpDetail.addRow(v);
+        } else if (idx == 2) {
+           var curr = gvDetail.getCurrent();
+          dpDetail.removeRow(curr.dataRow);
+          
+  
+        } else if (idx == 3) {
+            alert("3")
+  
+            c.data.gridBtnTransact = 'T';
+            c.data.gridDetailData = dpDetail.getJsonRows();
+            for (var x = 0; x < c.data.gridDetailData.length; x++) {
+                c.data.gridDetailData[x].rowStat = dpDetail.getRowState(x);
+            }
+        }
+  
+  
+  
+        console.log(dpDetail.getRowCount());
+  
+  
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+        });
+    }
+  
+       // Create New
+    $scope.btnClickNew = function(fieldName, fieldValue) {
+  
+        c.data.operation = 'createNew';
+        c.server.update().then(function(response) {
+              window.location.href = "/ybpm?id=quotation&table=x_yergb_bpm_quotation&sys_id=" + c.data.redirect_sys_id;
+        }).catch(function(error) {
+            console.error('Error saving field:', error);
+            alert('Error saving field');
+        });
+    };
+  
+
+
+
+
+
+
+
+
 }
 
 function getCurrentDate() {
@@ -1623,7 +1866,7 @@ while(grLabel.next()) {
             contract_address = grI.contract_address.toString()
             project_title = grI.project_title.toString()
             project_detail = grI.project_detail.toString()
-            caution = grI.caution.toString()
+            //caution = grI.caution.toString()
             reason_code = grI.reason_code.toString()
             request_due_date = grI.request_due_date.toString()
             remark = grI.remark.toString()
@@ -2436,21 +2679,51 @@ while(grLabel.next()) {
 
 
 
+
+    var gr = new GlideRecord("x_yergb_bpm_quotation");
+        gr.orderBy("version");
+        gr.addEncodedQuery('rfq_entry=' + urlSysId);
+        gr.query();
+        var gridDetailData = [];
+        while (gr.next()) {
+            gridDetailData.push({
+                'sys_id': gr.sys_id.getDisplayValue(),
+                'number': gr.number.getDisplayValue(),
+                'version': gr.version.getDisplayValue(),
+                'currency_lc': gr.currency_lc.getDisplayValue(),
+                'total_quote_price': gr.total_quote_price.getDisplayValue(),
+                'total_quote_cost': gr.total_quote_cost.getDisplayValue(),
+                'gp_percent': gr.gp_percent.getDisplayValue(),
+                'mp_amount': gr.mp_amount.getDisplayValue(),
+                'mp_gap_percent': gr.mp_gap_percent.getDisplayValue()
+    
+            });
+				data.gridDetailData = gridDetailData;
+        }
+
+
+
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>257</sys_mod_count>
+        <sys_mod_count>269</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-29 07:04:56</sys_updated_on>
-        <template><![CDATA[<div ng-controller="PopoverController as c">
+        <sys_updated_on>2024-06-29 08:39:50</sys_updated_on>
+        <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
+<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
+<script defer>
+  var realGrid2Lic = 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYkkSQt0t0CTeCSk1qaDqTRZ5JoV9H143uMO5+/xJSE3Lj4YewEIhlh/';
+</script>
+
+<div ng-controller="PopoverController as c">
     <div class="yoko-container">
         <div class="yoko-breadcrumb">Home > Quotation Request</div>
         <div class="yoko-title-btn-wrap">
@@ -2496,7 +2769,23 @@ while(grLabel.next()) {
                             </div>
                             <div class="yoko-form-group">
                                 <label for="customer_rfq" class="yoko-short">{{data.labelCustomerRFQ}}</label>
-                                <input type="text" name="request_no" value="" placeholder="" ng-model="c.data.customer_rfq" disabled>
+                                <input type="text" name="request_no" value="" placeholder="" ng-model="c.data.customer_rfq" ng-disabled="isCancelledDisabled">
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="assignment_group" class="yoko-short-110">{{data.labelAssignmentGroup}}</label>
+                                <div class="yoko-form-inline">
+                                    <input type="text" name="assignment_group" value="" placeholder="" readonly class="yoko-wid140" ng-model="c.data.assignment_group" ng-disabled="isCancelledDisabled">
+                                    <input type="text" name="assignment_group_sys_id" value="" placeholder="" readonly class="yoko-wid140" ng-model="c.data.assignment_group_sys_id" ng-style="{'display': 'none'}">
+                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefAssignmentGroup()" disabled></button>
+                                </div>
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="assigned_to" class="yoko-short-110">{{data.labelAssignedTo}}</label>
+                                <div class="yoko-form-inline">
+                                    <input type="text" name="assigned_to" value="" placeholder="" readonly class="yoko-wid140" ng-model="c.data.assigned_to" ng-disabled="isCancelledDisabled">
+                                    <input type="text" name="assigned_to_sys_id" value="" placeholder="" readonly class="yoko-wid140" ng-model="c.data.assigned_to_sys_id" ng-style="{'display': 'none'}">
+                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefAssignedTo()" disabled></button>
+                                </div>
                             </div>
                         </div>
 
@@ -2504,7 +2793,7 @@ while(grLabel.next()) {
 
                             <div class="yoko-form-group">
                                 <label for="req_date" class="yoko-short">{{data.labelRequestDate}}</label>
-                                <input type="date" value={{data.request_date}} name="req_date" class="yoko-wid140" ng-model="c.data.request_date" ng-disabled="isCancelledDisabled">
+                                <input type="date" value={{data.request_date}} name="req_date" class="yoko-wid140" ng-model="c.data.request_date" disabled>
                             </div>
                             <div class="yoko-form-group">
                                 <label for="req_date" class="yoko-short">{{data.labelSubmittedDate}}</label>
@@ -2604,22 +2893,7 @@ while(grLabel.next()) {
                             <label for="oppt_no" class="yoko-short-110">{{data.labelYodaOpportunityNo}}</label>
                             <input type="text" name="oppt_no" value="" placeholder="" class="yoko-wid172" ng-model="c.data.yoda_opportunity_no" ng-disabled="isCancelledDisabled">
                         </div>
-                        <div class="yoko-form-group">
-                            <label for="assignment_group" class="yoko-short-110">{{data.labelAssignmentGroup}}</label>
-                            <div class="yoko-form-inline">
-                                <input type="text" name="assignment_group" value="" placeholder="" readonly class="yoko-wid140" ng-model="c.data.assignment_group" ng-disabled="isCancelledDisabled">
-                                <input type="text" name="assignment_group_sys_id" value="" placeholder="" readonly class="yoko-wid140" ng-model="c.data.assignment_group_sys_id" ng-style="{'display': 'none'}">
-                                <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefAssignmentGroup()" ng-disabled="isCancelledDisabled"></button>
-                            </div>
-                        </div>
-                        <div class="yoko-form-group">
-                            <label for="assigned_to" class="yoko-short-110">{{data.labelAssignedTo}}</label>
-                            <div class="yoko-form-inline">
-                                <input type="text" name="assigned_to" value="" placeholder="" readonly class="yoko-wid140" ng-model="c.data.assigned_to" ng-disabled="isCancelledDisabled">
-                                <input type="text" name="assigned_to_sys_id" value="" placeholder="" readonly class="yoko-wid140" ng-model="c.data.assigned_to_sys_id" ng-style="{'display': 'none'}">
-                                <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefAssignedTo()" ng-disabled="isCancelledDisabled"></button>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -2627,24 +2901,6 @@ while(grLabel.next()) {
                 <div class="yoko-search-form-wrap yoko-search-form-company yoko-col60">
                     <div class="yoko-search-form-heading">{{data.labelCompany}}</div>
                     <div class="yoko-search-form yoko-padding24">
-                        <div class="yoko-form-col">
-                            <div class="yoko-form-group-heading-wrap">
-                                <div class="yoko-form-group-heading">{{data.labelEndUser}}</div>
-                                <div class="yoko-form-group-line"></div>
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="end_user" class="yoko-short">{{data.labelEndUser}}</label>
-                                <div class="yoko-form-inline yoko-wid140">
-                                    <input type="text" name="end_user" value={{data.end_user}} ng-model="c.data.end_user" ng-disabled="isCancelledDisabled" readonly>
-                                    <input type="text" name="end_user_sys_id" value={{data.end_user_sys_id}} ng-model="c.data.end_user_sys_id" ng-style="{'display': 'none'}">
-                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefEndUser()" ng-disabled="isCancelledDisabled"></button>
-                                </div>
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="code" class="yoko-short">{{data.labelCode}}</label>
-                                <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.end_user_code" ng-disabled="isCancelledDisabled" readonly>
-                            </div>
-                        </div>
                         <div class="yoko-form-col">
                             <div class="yoko-form-group-heading-wrap">
                                 <div class="yoko-form-group-heading">{{data.labelContract}}</div>
@@ -2685,6 +2941,25 @@ while(grLabel.next()) {
                                 </div>
                             </div>
                         </div>
+                        <div class="yoko-form-col">
+                            <div class="yoko-form-group-heading-wrap">
+                                <div class="yoko-form-group-heading">{{data.labelEndUser}}</div>
+                                <div class="yoko-form-group-line"></div>
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="end_user" class="yoko-short">{{data.labelEndUser}}</label>
+                                <div class="yoko-form-inline yoko-wid140">
+                                    <input type="text" name="end_user" value={{data.end_user}} ng-model="c.data.end_user" ng-disabled="isCancelledDisabled" readonly>
+                                    <input type="text" name="end_user_sys_id" value={{data.end_user_sys_id}} ng-model="c.data.end_user_sys_id" ng-style="{'display': 'none'}">
+                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefEndUser()" ng-disabled="isCancelledDisabled"></button>
+                                </div>
+                            </div>
+                            <div class="yoko-form-group">
+                                <label for="code" class="yoko-short">{{data.labelCode}}</label>
+                                <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.end_user_code" ng-disabled="isCancelledDisabled" readonly>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="yoko-search-form-wrap yoko-search-form-governance yoko-col40">
@@ -2784,7 +3059,7 @@ while(grLabel.next()) {
 
         </div>
     </div> 
-    
+
   <div class="out" id='gridContainer' style="width:100%; height: 200px;"></div>
     <!-- Modal Test Structure -->
     <div id="modalTest" class="modal" style="display:none;">
@@ -2852,9 +3127,6 @@ while(grLabel.next()) {
     </div>
 
 
-
-
-</div>
 
 
 </div>
