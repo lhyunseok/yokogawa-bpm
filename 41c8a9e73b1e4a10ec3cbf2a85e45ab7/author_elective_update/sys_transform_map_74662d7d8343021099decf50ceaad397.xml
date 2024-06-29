@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_transform_map">
+    <sys_transform_map action="DELETE">
+        <active>false</active>
+        <copy_empty_fields>false</copy_empty_fields>
+        <create_new_record_on_empty_coalesce_fields>false</create_new_record_on_empty_coalesce_fields>
+        <enforce_mandatory_fields>No</enforce_mandatory_fields>
+        <name>File to Project Table</name>
+        <order>100</order>
+        <run_business_rules>true</run_business_rules>
+        <run_script>false</run_script>
+        <script><![CDATA[(function transformRow(source, target, map, log, isUpdate) {
+
+	// Add your code here
+
+})(source, target, map, log, action==="update");]]></script>
+        <source_table>x_yergb_bpm_pjt_sum_d</source_table>
+        <sys_class_name>sys_transform_map</sys_class_name>
+        <sys_created_by>yeongink</sys_created_by>
+        <sys_created_on>2024-06-28 01:33:05</sys_created_on>
+        <sys_id>74662d7d8343021099decf50ceaad397</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>File to Project Table</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_transform_map_74662d7d8343021099decf50ceaad397</sys_update_name>
+        <sys_updated_by>yeongink</sys_updated_by>
+        <sys_updated_on>2024-06-28 01:40:54</sys_updated_on>
+        <target_table>x_yergb_bpm_project</target_table>
+    </sys_transform_map>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</application>
+        <file_path/>
+        <instance_id>4bfbf0ee1b06469477c7cb7b234bcbab</instance_id>
+        <instance_name>dev267820</instance_name>
+        <name>sys_transform_map_74662d7d8343021099decf50ceaad397</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_transform_map"&gt;&lt;sys_transform_map action="INSERT_OR_UPDATE"&gt;&lt;active&gt;false&lt;/active&gt;&lt;copy_empty_fields&gt;false&lt;/copy_empty_fields&gt;&lt;create_new_record_on_empty_coalesce_fields&gt;false&lt;/create_new_record_on_empty_coalesce_fields&gt;&lt;enforce_mandatory_fields&gt;No&lt;/enforce_mandatory_fields&gt;&lt;name&gt;File to Project Table&lt;/name&gt;&lt;order&gt;100&lt;/order&gt;&lt;run_business_rules&gt;true&lt;/run_business_rules&gt;&lt;run_script&gt;false&lt;/run_script&gt;&lt;script&gt;&lt;![CDATA[(function transformRow(source, target, map, log, isUpdate) {
+
+	// Add your code here
+
+})(source, target, map, log, action==="update");]]&gt;&lt;/script&gt;&lt;source_table&gt;x_yergb_bpm_pjt_sum_d&lt;/source_table&gt;&lt;sys_class_name&gt;sys_transform_map&lt;/sys_class_name&gt;&lt;sys_created_by&gt;yeongink&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-28 01:33:05&lt;/sys_created_on&gt;&lt;sys_id&gt;74662d7d8343021099decf50ceaad397&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_name&gt;File to Project Table&lt;/sys_name&gt;&lt;sys_package display_value="BPM" source="x_yergb_bpm"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_transform_map_74662d7d8343021099decf50ceaad397&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;yeongink&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-28 01:40:54&lt;/sys_updated_on&gt;&lt;target_table&gt;x_yergb_bpm_project&lt;/target_table&gt;&lt;/sys_transform_map&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-2049996497</payload_hash>
+        <record_name>File to Project Table</record_name>
+        <reverted_from/>
+        <source>eb0bdfc283cf421099decf50ceaad344</source>
+        <source_table>sys_update_set</source_table>
+        <state>current</state>
+        <sys_created_by>yeongink</sys_created_by>
+        <sys_created_on>2024-06-29 04:41:08</sys_created_on>
+        <sys_id>8e1b930683cf421099decf50ceaad3db</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>190624c08770000001</sys_recorded_at>
+        <sys_updated_by>yeongink</sys_updated_by>
+        <sys_updated_on>2024-06-29 04:41:08</sys_updated_on>
+        <type>Table Transform Map</type>
+        <update_guid>c848613116830210a990f319d6aea9cd</update_guid>
+        <update_guid_history>c848613116830210a990f319d6aea9cd:-2049996497,217ad70265cf42101b994f57966b73fa:-952640221,c848613116830210a990f319d6aea9cd:-2049996497,df714f8e950f4210053cd023dc2a184a:-952640221,c848613116830210a990f319d6aea9cd:-2049996497,e227bfb5874f0210fb3ef0170937ea19:-952640221,c848613116830210a990f319d6aea9cd:-2049996497,e6280e79f7070210a5993c552e6beeb8:-952640221,c848613116830210a990f319d6aea9cd:-2049996497,060646b573070210f9fe5d445a006a57:-952640221,c848613116830210a990f319d6aea9cd:-2049996497,2576a93dae430210065452f21aa11d6e:821226924,c097e5fda143021024c17fc74d2fc621:-805942472,2576a93dae430210065452f21aa11d6e:821226924</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>yeongink</sys_created_by>
+        <sys_created_on>2024-06-29 07:18:32</sys_created_on>
+        <sys_db_object display_value="" name="sys_transform_map">sys_transform_map</sys_db_object>
+        <sys_id>023a86dff88042b8800ca4682c441240</sys_id>
+        <sys_metadata>74662d7d8343021099decf50ceaad397</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>File to Project Table</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_scope_delete display_value="">9ff3e273935a476eab36e9bd65d24759</sys_scope_delete>
+        <sys_update_name>sys_transform_map_74662d7d8343021099decf50ceaad397</sys_update_name>
+        <sys_update_version display_value="sys_transform_map_74662d7d8343021099decf50ceaad397">8e1b930683cf421099decf50ceaad3db</sys_update_version>
+        <sys_updated_by>yeongink</sys_updated_by>
+        <sys_updated_on>2024-06-29 07:18:32</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
