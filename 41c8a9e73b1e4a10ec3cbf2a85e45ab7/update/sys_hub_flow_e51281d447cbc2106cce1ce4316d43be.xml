@@ -35,15 +35,15 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>e51281d447cbc2106cce1ce4316d43be</sys_id>
-        <sys_mod_count>48</sys_mod_count>
+        <sys_mod_count>0</sys_mod_count>
         <sys_name>OI Report for Global</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_hub_flow_e51281d447cbc2106cce1ce4316d43be</sys_update_name>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:30:16</sys_updated_on>
+        <sys_updated_by>lhyunseok@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-28 04:51:23</sys_updated_on>
         <type>flow</type>
     </sys_hub_flow>
     <sys_translated_text action="delete_multiple" query="documentkey=e51281d447cbc2106cce1ce4316d43be"/>
@@ -351,7 +351,7 @@
         <sys_mod_count>101</sys_mod_count>
         <sys_name/>
         <sys_overrides/>
-        <sys_package display_value="Flow Designer Designer Model" source="com.glide.hub.designer_backend.model">7dbaf38ce4d2021008dda4ccc400801f</sys_package>
+        <sys_package display_value="Flow Designer Designer Model" source="com.glide.hub.designer_backend.model">26b533933b81021046a3934a85e45a03</sys_package>
         <sys_policy/>
         <sys_scope display_value="Global">global</sys_scope>
         <sys_update_name/>
@@ -445,7 +445,7 @@
     <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=f91281d447cbc2106cce1ce4316d43d1"/>
     <sys_hub_flow_output action="delete_multiple" query="model=e51281d447cbc2106cce1ce4316d43be"/>
     <sys_hub_alias_mapping action="delete_multiple" query="source_id=e51281d447cbc2106cce1ce4316d43be"/>
-    <sys_hub_action_instance action="delete_multiple" query="flow=e51281d447cbc2106cce1ce4316d43be^sys_idNOT IN0e12c1d447cbc2106cce1ce4316d431c,0e12c1d447cbc2106cce1ce4316d4322,12bbc40147cb02106cce1ce4316d43cd,2741d04947cb02106cce1ce4316d4335,37e1795447cfc2106cce1ce4316d434a,5b8b9d2c474346106cce1ce4316d4363,a1b0100947cb02106cce1ce4316d43ed,a202988947cb02106cce1ce4316d430a"/>
+    <sys_hub_action_instance action="delete_multiple" query="flow=e51281d447cbc2106cce1ce4316d43be^sys_idNOT IN0e12c1d447cbc2106cce1ce4316d431c,0e12c1d447cbc2106cce1ce4316d4322,37e1795447cfc2106cce1ce4316d434a,5b8b9d2c474346106cce1ce4316d4363,2741d04947cb02106cce1ce4316d4335,a1b0100947cb02106cce1ce4316d43ed,a202988947cb02106cce1ce4316d430a,12bbc40147cb02106cce1ce4316d43cd"/>
     <sys_hub_action_instance action="INSERT_OR_UPDATE">
         <action_inputs/>
         <action_inputs/>
@@ -574,186 +574,6 @@
     </sys_element_mapping>
     <sys_hub_input_scripts action="delete_multiple" query="instance=0e12c1d447cbc2106cce1ce4316d4322"/>
     <sys_hub_alias_mapping action="delete_multiple" query="source_id=0e12c1d447cbc2106cce1ce4316d4322"/>
-    <sys_hub_action_instance action="INSERT_OR_UPDATE">
-        <action_inputs/>
-        <action_inputs/>
-        <action_type display_value="Update Record">f9d01dd2c31332002841b63b12d3aea1</action_type>
-        <action_type_parent/>
-        <attributes/>
-        <comment/>
-        <display_text/>
-        <flow display_value="OI Report for Global">e51281d447cbc2106cce1ce4316d43be</flow>
-        <generation_source/>
-        <order>7</order>
-        <parent_ui_id/>
-        <sys_class_name>sys_hub_action_instance</sys_class_name>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-25 11:01:11</sys_created_on>
-        <sys_id>12bbc40147cb02106cce1ce4316d43cd</sys_id>
-        <sys_mod_count>10</sys_mod_count>
-        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:30:15</sys_updated_on>
-        <ui_id>f474cb74-96e5-4572-878e-ef9778ee2180</ui_id>
-    </sys_hub_action_instance>
-    <sys_variable_value action="delete_multiple" query="document_key=12bbc40147cb02106cce1ce4316d43cd"/>
-    <sys_variable_value action="INSERT_OR_UPDATE">
-        <document>sys_hub_action_instance</document>
-        <document_key>12bbc40147cb02106cce1ce4316d43cd</document_key>
-        <order>100</order>
-        <sys_class_name>sys_variable_value</sys_class_name>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-25 11:01:24</sys_created_on>
-        <sys_id>e1cb880147cb02106cce1ce4316d4355</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:01:24</sys_updated_on>
-        <value>state=6</value>
-        <variable display_value="Fields">02d01916c31332002841b63b12d3aeee</variable>
-    </sys_variable_value>
-    <sys_variable_value action="INSERT_OR_UPDATE">
-        <document>sys_hub_action_instance</document>
-        <document_key>12bbc40147cb02106cce1ce4316d43cd</document_key>
-        <order>50</order>
-        <sys_class_name>sys_variable_value</sys_class_name>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-25 11:01:24</sys_created_on>
-        <sys_id>e9cb880147cb02106cce1ce4316d4355</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:01:24</sys_updated_on>
-        <value>x_yergb_bpm_oi_report</value>
-        <variable display_value="Table">b5d01916c31332002841b63b12d3aec9</variable>
-    </sys_variable_value>
-    <sys_element_mapping action="delete_multiple" query="id=12bbc40147cb02106cce1ce4316d43cd"/>
-    <sys_element_mapping action="INSERT_OR_UPDATE">
-        <field>record</field>
-        <id>12bbc40147cb02106cce1ce4316d43cd</id>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-25 11:01:24</sys_created_on>
-        <sys_id>61cb880147cb02106cce1ce4316d4355</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:01:24</sys_updated_on>
-        <table>var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1</table>
-        <value>{{30e563b0-65e4-4017-a4c7-421465e83993.record}}</value>
-    </sys_element_mapping>
-    <sys_element_mapping action="INSERT_OR_UPDATE">
-        <field>table_name</field>
-        <id>12bbc40147cb02106cce1ce4316d43cd</id>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-25 11:01:24</sys_created_on>
-        <sys_id>e5cb880147cb02106cce1ce4316d4354</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:01:24</sys_updated_on>
-        <table>var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1</table>
-        <value/>
-    </sys_element_mapping>
-    <sys_element_mapping action="INSERT_OR_UPDATE">
-        <field>values</field>
-        <id>12bbc40147cb02106cce1ce4316d43cd</id>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-25 11:01:24</sys_created_on>
-        <sys_id>adcb880147cb02106cce1ce4316d4354</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:01:24</sys_updated_on>
-        <table>var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1</table>
-        <value/>
-    </sys_element_mapping>
-    <sys_hub_input_scripts action="delete_multiple" query="instance=12bbc40147cb02106cce1ce4316d43cd"/>
-    <sys_hub_alias_mapping action="delete_multiple" query="source_id=12bbc40147cb02106cce1ce4316d43cd"/>
-    <sys_hub_action_instance action="INSERT_OR_UPDATE">
-        <action_inputs/>
-        <action_inputs/>
-        <action_type display_value="Update Record">f9d01dd2c31332002841b63b12d3aea1</action_type>
-        <action_type_parent display_value="Update Record">baf174c8c3c232002841b63b12d3aee4</action_type_parent>
-        <attributes/>
-        <comment/>
-        <display_text/>
-        <flow display_value="OI Report for Global">e51281d447cbc2106cce1ce4316d43be</flow>
-        <generation_source/>
-        <order>16</order>
-        <parent_ui_id>192694d2-7dce-4f17-bf51-6d3ebd42b44f</parent_ui_id>
-        <sys_class_name>sys_hub_action_instance</sys_class_name>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-25 11:25:35</sys_created_on>
-        <sys_id>2741d04947cb02106cce1ce4316d4335</sys_id>
-        <sys_mod_count>8</sys_mod_count>
-        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:30:15</sys_updated_on>
-        <ui_id>41902ec0-9531-47c1-8884-dd385bfa1463</ui_id>
-    </sys_hub_action_instance>
-    <sys_variable_value action="delete_multiple" query="document_key=2741d04947cb02106cce1ce4316d4335"/>
-    <sys_variable_value action="INSERT_OR_UPDATE">
-        <document>sys_hub_action_instance</document>
-        <document_key>2741d04947cb02106cce1ce4316d4335</document_key>
-        <order>50</order>
-        <sys_class_name>sys_variable_value</sys_class_name>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-25 11:25:49</sys_created_on>
-        <sys_id>1f51544947cb02106cce1ce4316d436d</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:25:49</sys_updated_on>
-        <value>x_yergb_bpm_oi_report</value>
-        <variable display_value="Table">b5d01916c31332002841b63b12d3aec9</variable>
-    </sys_variable_value>
-    <sys_variable_value action="INSERT_OR_UPDATE">
-        <document>sys_hub_action_instance</document>
-        <document_key>2741d04947cb02106cce1ce4316d4335</document_key>
-        <order>100</order>
-        <sys_class_name>sys_variable_value</sys_class_name>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-25 11:25:49</sys_created_on>
-        <sys_id>5b51544947cb02106cce1ce4316d436d</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:25:49</sys_updated_on>
-        <value>state=-3</value>
-        <variable display_value="Fields">02d01916c31332002841b63b12d3aeee</variable>
-    </sys_variable_value>
-    <sys_element_mapping action="delete_multiple" query="id=2741d04947cb02106cce1ce4316d4335"/>
-    <sys_element_mapping action="INSERT_OR_UPDATE">
-        <field>record</field>
-        <id>2741d04947cb02106cce1ce4316d4335</id>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-25 11:25:49</sys_created_on>
-        <sys_id>d751544947cb02106cce1ce4316d436d</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:25:49</sys_updated_on>
-        <table>var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1</table>
-        <value>{{f474cb74-96e5-4572-878e-ef9778ee2180.record}}</value>
-    </sys_element_mapping>
-    <sys_element_mapping action="INSERT_OR_UPDATE">
-        <field>table_name</field>
-        <id>2741d04947cb02106cce1ce4316d4335</id>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-25 11:25:49</sys_created_on>
-        <sys_id>5351544947cb02106cce1ce4316d436d</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:25:49</sys_updated_on>
-        <table>var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1</table>
-        <value/>
-    </sys_element_mapping>
-    <sys_element_mapping action="INSERT_OR_UPDATE">
-        <field>values</field>
-        <id>2741d04947cb02106cce1ce4316d4335</id>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-25 11:25:49</sys_created_on>
-        <sys_id>1751544947cb02106cce1ce4316d436d</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:25:49</sys_updated_on>
-        <table>var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1</table>
-        <value/>
-    </sys_element_mapping>
-    <sys_hub_input_scripts action="delete_multiple" query="instance=2741d04947cb02106cce1ce4316d4335"/>
-    <sys_hub_alias_mapping action="delete_multiple" query="source_id=2741d04947cb02106cce1ce4316d4335"/>
     <sys_hub_action_instance action="INSERT_OR_UPDATE">
         <action_inputs/>
         <action_inputs/>
@@ -944,6 +764,96 @@
         <display_text/>
         <flow display_value="OI Report for Global">e51281d447cbc2106cce1ce4316d43be</flow>
         <generation_source/>
+        <order>16</order>
+        <parent_ui_id>192694d2-7dce-4f17-bf51-6d3ebd42b44f</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-25 11:25:35</sys_created_on>
+        <sys_id>2741d04947cb02106cce1ce4316d4335</sys_id>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-25 11:30:15</sys_updated_on>
+        <ui_id>41902ec0-9531-47c1-8884-dd385bfa1463</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=2741d04947cb02106cce1ce4316d4335"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_action_instance</document>
+        <document_key>2741d04947cb02106cce1ce4316d4335</document_key>
+        <order>50</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-25 11:25:49</sys_created_on>
+        <sys_id>1f51544947cb02106cce1ce4316d436d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-25 11:25:49</sys_updated_on>
+        <value>x_yergb_bpm_oi_report</value>
+        <variable display_value="Table">b5d01916c31332002841b63b12d3aec9</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_action_instance</document>
+        <document_key>2741d04947cb02106cce1ce4316d4335</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-25 11:25:49</sys_created_on>
+        <sys_id>5b51544947cb02106cce1ce4316d436d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-25 11:25:49</sys_updated_on>
+        <value>state=-3</value>
+        <variable display_value="Fields">02d01916c31332002841b63b12d3aeee</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="id=2741d04947cb02106cce1ce4316d4335"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>record</field>
+        <id>2741d04947cb02106cce1ce4316d4335</id>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-25 11:25:49</sys_created_on>
+        <sys_id>d751544947cb02106cce1ce4316d436d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-25 11:25:49</sys_updated_on>
+        <table>var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1</table>
+        <value>{{f474cb74-96e5-4572-878e-ef9778ee2180.record}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>table_name</field>
+        <id>2741d04947cb02106cce1ce4316d4335</id>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-25 11:25:49</sys_created_on>
+        <sys_id>5351544947cb02106cce1ce4316d436d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-25 11:25:49</sys_updated_on>
+        <table>var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>values</field>
+        <id>2741d04947cb02106cce1ce4316d4335</id>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-25 11:25:49</sys_created_on>
+        <sys_id>1751544947cb02106cce1ce4316d436d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-25 11:25:49</sys_updated_on>
+        <table>var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_hub_input_scripts action="delete_multiple" query="instance=2741d04947cb02106cce1ce4316d4335"/>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=2741d04947cb02106cce1ce4316d4335"/>
+    <sys_hub_action_instance action="INSERT_OR_UPDATE">
+        <action_inputs/>
+        <action_inputs/>
+        <action_type display_value="Update Record">f9d01dd2c31332002841b63b12d3aea1</action_type>
+        <action_type_parent display_value="Update Record">baf174c8c3c232002841b63b12d3aee4</action_type_parent>
+        <attributes/>
+        <comment/>
+        <display_text/>
+        <flow display_value="OI Report for Global">e51281d447cbc2106cce1ce4316d43be</flow>
+        <generation_source/>
         <order>11</order>
         <parent_ui_id>1127fc33-965e-4ecc-9f82-64d6cbab8b75</parent_ui_id>
         <sys_class_name>sys_hub_action_instance</sys_class_name>
@@ -1114,6 +1024,96 @@
     </sys_element_mapping>
     <sys_hub_input_scripts action="delete_multiple" query="instance=a202988947cb02106cce1ce4316d430a"/>
     <sys_hub_alias_mapping action="delete_multiple" query="source_id=a202988947cb02106cce1ce4316d430a"/>
+    <sys_hub_action_instance action="INSERT_OR_UPDATE">
+        <action_inputs/>
+        <action_inputs/>
+        <action_type display_value="Update Record">f9d01dd2c31332002841b63b12d3aea1</action_type>
+        <action_type_parent/>
+        <attributes/>
+        <comment/>
+        <display_text/>
+        <flow display_value="OI Report for Global">e51281d447cbc2106cce1ce4316d43be</flow>
+        <generation_source/>
+        <order>7</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-25 11:01:11</sys_created_on>
+        <sys_id>12bbc40147cb02106cce1ce4316d43cd</sys_id>
+        <sys_mod_count>10</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-25 11:30:15</sys_updated_on>
+        <ui_id>f474cb74-96e5-4572-878e-ef9778ee2180</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=12bbc40147cb02106cce1ce4316d43cd"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_action_instance</document>
+        <document_key>12bbc40147cb02106cce1ce4316d43cd</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-25 11:01:24</sys_created_on>
+        <sys_id>e1cb880147cb02106cce1ce4316d4355</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-25 11:01:24</sys_updated_on>
+        <value>state=6</value>
+        <variable display_value="Fields">02d01916c31332002841b63b12d3aeee</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_action_instance</document>
+        <document_key>12bbc40147cb02106cce1ce4316d43cd</document_key>
+        <order>50</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-25 11:01:24</sys_created_on>
+        <sys_id>e9cb880147cb02106cce1ce4316d4355</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-25 11:01:24</sys_updated_on>
+        <value>x_yergb_bpm_oi_report</value>
+        <variable display_value="Table">b5d01916c31332002841b63b12d3aec9</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="id=12bbc40147cb02106cce1ce4316d43cd"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>record</field>
+        <id>12bbc40147cb02106cce1ce4316d43cd</id>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-25 11:01:24</sys_created_on>
+        <sys_id>61cb880147cb02106cce1ce4316d4355</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-25 11:01:24</sys_updated_on>
+        <table>var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1</table>
+        <value>{{30e563b0-65e4-4017-a4c7-421465e83993.record}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>table_name</field>
+        <id>12bbc40147cb02106cce1ce4316d43cd</id>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-25 11:01:24</sys_created_on>
+        <sys_id>e5cb880147cb02106cce1ce4316d4354</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-25 11:01:24</sys_updated_on>
+        <table>var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>values</field>
+        <id>12bbc40147cb02106cce1ce4316d43cd</id>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-25 11:01:24</sys_created_on>
+        <sys_id>adcb880147cb02106cce1ce4316d4354</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-25 11:01:24</sys_updated_on>
+        <table>var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_hub_input_scripts action="delete_multiple" query="instance=12bbc40147cb02106cce1ce4316d43cd"/>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=12bbc40147cb02106cce1ce4316d43cd"/>
     <sys_hub_sub_flow_instance action="delete_multiple" query="flow=e51281d447cbc2106cce1ce4316d43be^sys_idNOT IN6b6018c547cb02106cce1ce4316d4368,9301d80947cb02106cce1ce4316d4343,97d1984947cb02106cce1ce4316d432e,ff5b192c474346106cce1ce4316d434a"/>
     <sys_hub_sub_flow_instance action="INSERT_OR_UPDATE">
         <attributes/>
@@ -1164,18 +1164,6 @@
         <sys_updated_on>2024-06-25 11:22:03</sys_updated_on>
         <table>var__m_sys_hub_flow_input_71cd08c147cb02106cce1ce4316d43a6</table>
         <value>{{f474cb74-96e5-4572-878e-ef9778ee2180.record}}</value>
-    </sys_element_mapping>
-    <sys_element_mapping action="INSERT_OR_UPDATE">
-        <field>wait_for_completion</field>
-        <id>6b6018c547cb02106cce1ce4316d4368</id>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-25 11:21:45</sys_created_on>
-        <sys_id>2b6018c547cb02106cce1ce4316d438b</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:21:45</sys_updated_on>
-        <table>var__m_sys_hub_sub_flow_instance_inputs_6b6018c547cb02106cce1ce4316d4368</table>
-        <value/>
     </sys_element_mapping>
     <sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_sub_flow_instance_inputs_6b6018c547cb02106cce1ce4316d4368^id=6b6018c547cb02106cce1ce4316d4368"/>
     <sys_hub_sub_flow_instance_inputs action="delete_multiple" query="model=6b6018c547cb02106cce1ce4316d4368^sys_idNOT INaf6018c547cb02106cce1ce4316d4369"/>
@@ -1313,18 +1301,6 @@
         <table>var__m_sys_hub_flow_input_65ae0c0547cb02106cce1ce4316d43e0</table>
         <value>{{f474cb74-96e5-4572-878e-ef9778ee2180.record}}</value>
     </sys_element_mapping>
-    <sys_element_mapping action="INSERT_OR_UPDATE">
-        <field>wait_for_completion</field>
-        <id>9301d80947cb02106cce1ce4316d4343</id>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-25 11:24:28</sys_created_on>
-        <sys_id>9301d80947cb02106cce1ce4316d4356</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:24:28</sys_updated_on>
-        <table>var__m_sys_hub_sub_flow_instance_inputs_9301d80947cb02106cce1ce4316d4343</table>
-        <value/>
-    </sys_element_mapping>
     <sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_sub_flow_instance_inputs_9301d80947cb02106cce1ce4316d4343^id=9301d80947cb02106cce1ce4316d4343"/>
     <sys_hub_sub_flow_instance_inputs action="delete_multiple" query="model=9301d80947cb02106cce1ce4316d4343^sys_idNOT IN5f01d80947cb02106cce1ce4316d4343"/>
     <sys_hub_sub_flow_instance_inputs action="INSERT_OR_UPDATE">
@@ -1460,18 +1436,6 @@
         <sys_updated_on>2024-06-25 11:28:08</sys_updated_on>
         <table>var__m_sys_hub_flow_input_1820dc8547cb02106cce1ce4316d43e0</table>
         <value>{{f474cb74-96e5-4572-878e-ef9778ee2180.record}}</value>
-    </sys_element_mapping>
-    <sys_element_mapping action="INSERT_OR_UPDATE">
-        <field>wait_for_completion</field>
-        <id>97d1984947cb02106cce1ce4316d432e</id>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-25 11:28:01</sys_created_on>
-        <sys_id>2fd1d08947cb02106cce1ce4316d43c1</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:28:01</sys_updated_on>
-        <table>var__m_sys_hub_sub_flow_instance_inputs_97d1984947cb02106cce1ce4316d432e</table>
-        <value/>
     </sys_element_mapping>
     <sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_sub_flow_instance_inputs_97d1984947cb02106cce1ce4316d432e^id=97d1984947cb02106cce1ce4316d432e"/>
     <sys_hub_sub_flow_instance_inputs action="delete_multiple" query="model=97d1984947cb02106cce1ce4316d432e^sys_idNOT IN9bd1d08947cb02106cce1ce4316d43a8"/>
@@ -2440,7 +2404,7 @@
         <sys_created_on>2024-06-23 07:03:16</sys_created_on>
         <sys_id>351281d447cbc2106cce1ce4316d43d4</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_name/>
+        <sys_name>Changed Fields</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
@@ -2463,7 +2427,7 @@
         <sys_created_on>2024-06-23 07:03:16</sys_created_on>
         <sys_id>a11281d447cbc2106cce1ce4316d43cd</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_name/>
+        <sys_name>Table Name</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
@@ -2486,7 +2450,7 @@
         <sys_created_on>2024-06-23 07:03:16</sys_created_on>
         <sys_id>f91281d447cbc2106cce1ce4316d43d0</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_name/>
+        <sys_name>Record</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
@@ -2804,7 +2768,7 @@
         <sys_mod_count>101</sys_mod_count>
         <sys_name/>
         <sys_overrides/>
-        <sys_package display_value="Flow Designer Designer Model" source="com.glide.hub.designer_backend.model">7dbaf38ce4d2021008dda4ccc400801f</sys_package>
+        <sys_package display_value="Flow Designer Designer Model" source="com.glide.hub.designer_backend.model">26b533933b81021046a3934a85e45a03</sys_package>
         <sys_policy/>
         <sys_scope display_value="Global">global</sys_scope>
         <sys_update_name/>
@@ -2898,7 +2862,135 @@
     <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=82982918478fc2106cce1ce4316d4317"/>
     <sys_hub_flow_output action="delete_multiple" query="model=0698e518478fc2106cce1ce4316d43d4"/>
     <sys_hub_alias_mapping action="delete_multiple" query="source_id=0698e518478fc2106cce1ce4316d43d4"/>
-    <sys_hub_action_instance action="delete_multiple" query="flow=0698e518478fc2106cce1ce4316d43d4^sys_idNOT IN16cb956c474346106cce1ce4316d43f7,1a982918478fc2106cce1ce4316d43bc,5e5214c947cb02106cce1ce4316d4365,9a5214c947cb02106cce1ce4316d434c,d25214c947cb02106cce1ce4316d436c,d65214c947cb02106cce1ce4316d435f,d6982918478fc2106cce1ce4316d43d0,e943311847cfc2106cce1ce4316d4357"/>
+    <sys_hub_action_instance action="delete_multiple" query="flow=0698e518478fc2106cce1ce4316d43d4^sys_idNOT INd6982918478fc2106cce1ce4316d43d0,e943311847cfc2106cce1ce4316d4357,16cb956c474346106cce1ce4316d43f7,1a982918478fc2106cce1ce4316d43bc,5e5214c947cb02106cce1ce4316d4365,9a5214c947cb02106cce1ce4316d434c,d25214c947cb02106cce1ce4316d436c,d65214c947cb02106cce1ce4316d435f"/>
+    <sys_hub_action_instance action="INSERT_OR_UPDATE">
+        <action_inputs/>
+        <action_inputs/>
+        <action_type display_value="Log">5bc1bcc6531003003bf1d9109ec587d4</action_type>
+        <action_type_parent display_value="Log">0e0ae8c2531003003bf1d9109ec587c8</action_type_parent>
+        <attributes/>
+        <comment/>
+        <display_text/>
+        <flow display_value="OI Report for Global">0698e518478fc2106cce1ce4316d43d4</flow>
+        <generation_source/>
+        <order>24</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-23 09:51:32</sys_created_on>
+        <sys_id>d6982918478fc2106cce1ce4316d43d0</sys_id>
+        <sys_mod_count>34</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-25 11:30:11</sys_updated_on>
+        <ui_id>24a07878-6474-476a-9707-641e10ae72f1</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=d6982918478fc2106cce1ce4316d43d0"/>
+    <sys_element_mapping action="delete_multiple" query="id=d6982918478fc2106cce1ce4316d43d0"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>log_message</field>
+        <id>d6982918478fc2106cce1ce4316d43d0</id>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-23 09:51:32</sys_created_on>
+        <sys_id>9a982918478fc2106cce1ce4316d43d1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-23 09:51:32</sys_updated_on>
+        <table>var__m_sys_hub_action_input_5bc1bcc6531003003bf1d9109ec587d4</table>
+        <value>{{Updated_1.current}} is completed</value>
+    </sys_element_mapping>
+    <sys_hub_input_scripts action="delete_multiple" query="instance=d6982918478fc2106cce1ce4316d43d0"/>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=d6982918478fc2106cce1ce4316d43d0"/>
+    <sys_hub_action_instance action="INSERT_OR_UPDATE">
+        <action_inputs/>
+        <action_inputs/>
+        <action_type display_value="Update Record">f9d01dd2c31332002841b63b12d3aea1</action_type>
+        <action_type_parent display_value="Update Record">baf174c8c3c232002841b63b12d3aee4</action_type_parent>
+        <attributes/>
+        <comment/>
+        <display_text/>
+        <flow display_value="OI Report for Global">0698e518478fc2106cce1ce4316d43d4</flow>
+        <generation_source/>
+        <order>1</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-23 10:38:10</sys_created_on>
+        <sys_id>e943311847cfc2106cce1ce4316d4357</sys_id>
+        <sys_mod_count>32</sys_mod_count>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-25 11:30:09</sys_updated_on>
+        <ui_id>30e563b0-65e4-4017-a4c7-421465e83993</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=e943311847cfc2106cce1ce4316d4357"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_action_instance</document>
+        <document_key>e943311847cfc2106cce1ce4316d4357</document_key>
+        <order>50</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-23 10:38:10</sys_created_on>
+        <sys_id>a543311847cfc2106cce1ce4316d4366</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-23 10:38:10</sys_updated_on>
+        <value>x_yergb_bpm_oi_report</value>
+        <variable display_value="Table">b5d01916c31332002841b63b12d3aec9</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_action_instance</document>
+        <document_key>e943311847cfc2106cce1ce4316d4357</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-23 10:38:10</sys_created_on>
+        <sys_id>e143311847cfc2106cce1ce4316d4366</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-23 10:38:10</sys_updated_on>
+        <value>assignment_group={"display":"YKO Finance","value":"7e91cb2347ba02106cce1ce4316d431c","sys_id":"7e91cb2347ba02106cce1ce4316d431c"}</value>
+        <variable display_value="Fields">02d01916c31332002841b63b12d3aeee</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="id=e943311847cfc2106cce1ce4316d4357"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>record</field>
+        <id>e943311847cfc2106cce1ce4316d4357</id>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-23 10:38:10</sys_created_on>
+        <sys_id>6143311847cfc2106cce1ce4316d4366</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-23 10:38:10</sys_updated_on>
+        <table>var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1</table>
+        <value>{{Updated_1.current}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>table_name</field>
+        <id>e943311847cfc2106cce1ce4316d4357</id>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-23 10:38:10</sys_created_on>
+        <sys_id>e943311847cfc2106cce1ce4316d4365</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-23 10:38:10</sys_updated_on>
+        <table>var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>values</field>
+        <id>e943311847cfc2106cce1ce4316d4357</id>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-23 10:38:10</sys_created_on>
+        <sys_id>ad43311847cfc2106cce1ce4316d4365</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-23 10:38:10</sys_updated_on>
+        <table>var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_hub_input_scripts action="delete_multiple" query="instance=e943311847cfc2106cce1ce4316d4357"/>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=e943311847cfc2106cce1ce4316d4357"/>
     <sys_hub_action_instance action="INSERT_OR_UPDATE">
         <action_inputs/>
         <action_inputs/>
@@ -3439,134 +3531,6 @@
     </sys_element_mapping>
     <sys_hub_input_scripts action="delete_multiple" query="instance=d65214c947cb02106cce1ce4316d435f"/>
     <sys_hub_alias_mapping action="delete_multiple" query="source_id=d65214c947cb02106cce1ce4316d435f"/>
-    <sys_hub_action_instance action="INSERT_OR_UPDATE">
-        <action_inputs/>
-        <action_inputs/>
-        <action_type display_value="Log">5bc1bcc6531003003bf1d9109ec587d4</action_type>
-        <action_type_parent display_value="Log">0e0ae8c2531003003bf1d9109ec587c8</action_type_parent>
-        <attributes/>
-        <comment/>
-        <display_text/>
-        <flow display_value="OI Report for Global">0698e518478fc2106cce1ce4316d43d4</flow>
-        <generation_source/>
-        <order>24</order>
-        <parent_ui_id/>
-        <sys_class_name>sys_hub_action_instance</sys_class_name>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-23 09:51:32</sys_created_on>
-        <sys_id>d6982918478fc2106cce1ce4316d43d0</sys_id>
-        <sys_mod_count>34</sys_mod_count>
-        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:30:11</sys_updated_on>
-        <ui_id>24a07878-6474-476a-9707-641e10ae72f1</ui_id>
-    </sys_hub_action_instance>
-    <sys_variable_value action="delete_multiple" query="document_key=d6982918478fc2106cce1ce4316d43d0"/>
-    <sys_element_mapping action="delete_multiple" query="id=d6982918478fc2106cce1ce4316d43d0"/>
-    <sys_element_mapping action="INSERT_OR_UPDATE">
-        <field>log_message</field>
-        <id>d6982918478fc2106cce1ce4316d43d0</id>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-23 09:51:32</sys_created_on>
-        <sys_id>9a982918478fc2106cce1ce4316d43d1</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-23 09:51:32</sys_updated_on>
-        <table>var__m_sys_hub_action_input_5bc1bcc6531003003bf1d9109ec587d4</table>
-        <value>{{Updated_1.current}} is completed</value>
-    </sys_element_mapping>
-    <sys_hub_input_scripts action="delete_multiple" query="instance=d6982918478fc2106cce1ce4316d43d0"/>
-    <sys_hub_alias_mapping action="delete_multiple" query="source_id=d6982918478fc2106cce1ce4316d43d0"/>
-    <sys_hub_action_instance action="INSERT_OR_UPDATE">
-        <action_inputs/>
-        <action_inputs/>
-        <action_type display_value="Update Record">f9d01dd2c31332002841b63b12d3aea1</action_type>
-        <action_type_parent display_value="Update Record">baf174c8c3c232002841b63b12d3aee4</action_type_parent>
-        <attributes/>
-        <comment/>
-        <display_text/>
-        <flow display_value="OI Report for Global">0698e518478fc2106cce1ce4316d43d4</flow>
-        <generation_source/>
-        <order>1</order>
-        <parent_ui_id/>
-        <sys_class_name>sys_hub_action_instance</sys_class_name>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-23 10:38:10</sys_created_on>
-        <sys_id>e943311847cfc2106cce1ce4316d4357</sys_id>
-        <sys_mod_count>32</sys_mod_count>
-        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:30:09</sys_updated_on>
-        <ui_id>30e563b0-65e4-4017-a4c7-421465e83993</ui_id>
-    </sys_hub_action_instance>
-    <sys_variable_value action="delete_multiple" query="document_key=e943311847cfc2106cce1ce4316d4357"/>
-    <sys_variable_value action="INSERT_OR_UPDATE">
-        <document>sys_hub_action_instance</document>
-        <document_key>e943311847cfc2106cce1ce4316d4357</document_key>
-        <order>50</order>
-        <sys_class_name>sys_variable_value</sys_class_name>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-23 10:38:10</sys_created_on>
-        <sys_id>a543311847cfc2106cce1ce4316d4366</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-23 10:38:10</sys_updated_on>
-        <value>x_yergb_bpm_oi_report</value>
-        <variable display_value="Table">b5d01916c31332002841b63b12d3aec9</variable>
-    </sys_variable_value>
-    <sys_variable_value action="INSERT_OR_UPDATE">
-        <document>sys_hub_action_instance</document>
-        <document_key>e943311847cfc2106cce1ce4316d4357</document_key>
-        <order>100</order>
-        <sys_class_name>sys_variable_value</sys_class_name>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-23 10:38:10</sys_created_on>
-        <sys_id>e143311847cfc2106cce1ce4316d4366</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-23 10:38:10</sys_updated_on>
-        <value>assignment_group={"display":"YKO Finance","value":"7e91cb2347ba02106cce1ce4316d431c","sys_id":"7e91cb2347ba02106cce1ce4316d431c"}</value>
-        <variable display_value="Fields">02d01916c31332002841b63b12d3aeee</variable>
-    </sys_variable_value>
-    <sys_element_mapping action="delete_multiple" query="id=e943311847cfc2106cce1ce4316d4357"/>
-    <sys_element_mapping action="INSERT_OR_UPDATE">
-        <field>record</field>
-        <id>e943311847cfc2106cce1ce4316d4357</id>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-23 10:38:10</sys_created_on>
-        <sys_id>6143311847cfc2106cce1ce4316d4366</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-23 10:38:10</sys_updated_on>
-        <table>var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1</table>
-        <value>{{Updated_1.current}}</value>
-    </sys_element_mapping>
-    <sys_element_mapping action="INSERT_OR_UPDATE">
-        <field>table_name</field>
-        <id>e943311847cfc2106cce1ce4316d4357</id>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-23 10:38:10</sys_created_on>
-        <sys_id>e943311847cfc2106cce1ce4316d4365</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-23 10:38:10</sys_updated_on>
-        <table>var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1</table>
-        <value/>
-    </sys_element_mapping>
-    <sys_element_mapping action="INSERT_OR_UPDATE">
-        <field>values</field>
-        <id>e943311847cfc2106cce1ce4316d4357</id>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-23 10:38:10</sys_created_on>
-        <sys_id>ad43311847cfc2106cce1ce4316d4365</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-23 10:38:10</sys_updated_on>
-        <table>var__m_sys_hub_action_input_f9d01dd2c31332002841b63b12d3aea1</table>
-        <value/>
-    </sys_element_mapping>
-    <sys_hub_input_scripts action="delete_multiple" query="instance=e943311847cfc2106cce1ce4316d4357"/>
-    <sys_hub_alias_mapping action="delete_multiple" query="source_id=e943311847cfc2106cce1ce4316d4357"/>
     <sys_hub_sub_flow_instance action="delete_multiple" query="flow=0698e518478fc2106cce1ce4316d43d4^sys_idNOT IN625214c947cb02106cce1ce4316d43b5,6acbd56c474346106cce1ce4316d4311,a25214c947cb02106cce1ce4316d43a9,ee5214c947cb02106cce1ce4316d43c0"/>
     <sys_hub_sub_flow_instance action="INSERT_OR_UPDATE">
         <attributes/>
@@ -3617,18 +3581,6 @@
         <sys_updated_on>2024-06-25 11:30:09</sys_updated_on>
         <table>var__m_sys_hub_flow_input_65ae0c0547cb02106cce1ce4316d43e0</table>
         <value>{{f474cb74-96e5-4572-878e-ef9778ee2180.record}}</value>
-    </sys_element_mapping>
-    <sys_element_mapping action="INSERT_OR_UPDATE">
-        <field>wait_for_completion</field>
-        <id>625214c947cb02106cce1ce4316d43b5</id>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-25 11:30:09</sys_created_on>
-        <sys_id>2a5214c947cb02106cce1ce4316d43c0</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:30:09</sys_updated_on>
-        <table>var__m_sys_hub_sub_flow_instance_inputs_625214c947cb02106cce1ce4316d43b5</table>
-        <value/>
     </sys_element_mapping>
     <sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_sub_flow_instance_inputs_625214c947cb02106cce1ce4316d43b5^id=625214c947cb02106cce1ce4316d43b5"/>
     <sys_hub_sub_flow_instance_inputs action="delete_multiple" query="model=625214c947cb02106cce1ce4316d43b5^sys_idNOT IN2e5214c947cb02106cce1ce4316d43b5"/>
@@ -3902,18 +3854,6 @@
         <table>var__m_sys_hub_flow_input_71cd08c147cb02106cce1ce4316d43a6</table>
         <value>{{f474cb74-96e5-4572-878e-ef9778ee2180.record}}</value>
     </sys_element_mapping>
-    <sys_element_mapping action="INSERT_OR_UPDATE">
-        <field>wait_for_completion</field>
-        <id>a25214c947cb02106cce1ce4316d43a9</id>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-25 11:30:09</sys_created_on>
-        <sys_id>aa5214c947cb02106cce1ce4316d43b4</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:30:09</sys_updated_on>
-        <table>var__m_sys_hub_sub_flow_instance_inputs_a25214c947cb02106cce1ce4316d43a9</table>
-        <value/>
-    </sys_element_mapping>
     <sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_sub_flow_instance_inputs_a25214c947cb02106cce1ce4316d43a9^id=a25214c947cb02106cce1ce4316d43a9"/>
     <sys_hub_sub_flow_instance_inputs action="delete_multiple" query="model=a25214c947cb02106cce1ce4316d43a9^sys_idNOT IN6e5214c947cb02106cce1ce4316d43a9"/>
     <sys_hub_sub_flow_instance_inputs action="INSERT_OR_UPDATE">
@@ -4049,18 +3989,6 @@
         <sys_updated_on>2024-06-25 11:30:09</sys_updated_on>
         <table>var__m_sys_hub_flow_input_1820dc8547cb02106cce1ce4316d43e0</table>
         <value>{{f474cb74-96e5-4572-878e-ef9778ee2180.record}}</value>
-    </sys_element_mapping>
-    <sys_element_mapping action="INSERT_OR_UPDATE">
-        <field>wait_for_completion</field>
-        <id>ee5214c947cb02106cce1ce4316d43c0</id>
-        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
-        <sys_created_on>2024-06-25 11:30:09</sys_created_on>
-        <sys_id>a65214c947cb02106cce1ce4316d43cc</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 11:30:09</sys_updated_on>
-        <table>var__m_sys_hub_sub_flow_instance_inputs_ee5214c947cb02106cce1ce4316d43c0</table>
-        <value/>
     </sys_element_mapping>
     <sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_sub_flow_instance_inputs_ee5214c947cb02106cce1ce4316d43c0^id=ee5214c947cb02106cce1ce4316d43c0"/>
     <sys_hub_sub_flow_instance_inputs action="delete_multiple" query="model=ee5214c947cb02106cce1ce4316d43c0^sys_idNOT INaa5214c947cb02106cce1ce4316d43c1"/>
@@ -4893,7 +4821,7 @@
         <sys_created_on>2024-06-23 09:51:31</sys_created_on>
         <sys_id>0e982918478fc2106cce1ce4316d4361</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_name/>
+        <sys_name>Table Name</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
@@ -4916,7 +4844,7 @@
         <sys_created_on>2024-06-23 09:51:30</sys_created_on>
         <sys_id>4698e518478fc2106cce1ce4316d43fa</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_name/>
+        <sys_name>Record</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
@@ -4939,7 +4867,7 @@
         <sys_created_on>2024-06-23 09:51:31</sys_created_on>
         <sys_id>8a982918478fc2106cce1ce4316d431b</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_name/>
+        <sys_name>Changed Fields</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>

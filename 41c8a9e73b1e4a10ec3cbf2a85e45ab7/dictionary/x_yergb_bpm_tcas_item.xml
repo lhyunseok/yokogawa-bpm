@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="853073003b26ca10ec3cbf2a85e45ac7" extends="x_yergb_bpm_tcas_management" label="TCAS Item" max_length="40" name="x_yergb_bpm_tcas_item" type="collection">
-        <element label="Product Name" max_length="40" name="product_name" type="string"/>
-        <element label="Model Code" max_length="40" name="model_code" type="string"/>
         <element label="TCAS number" max_length="32" name="tcas_number" reference="x_yergb_bpm_tcas_management" type="reference"/>
         <element label="Remake" max_length="40" name="remake" type="integer"/>
         <element label="Quantity" max_length="40" name="quantity" type="string"/>
+        <element label="Product Name" max_length="40" name="product_name" type="string"/>
+        <element label="Model Code" max_length="40" name="model_code" type="string"/>
         <index name="index">
             <element name="tcas_number"/>
         </index>
