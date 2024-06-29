@@ -170,6 +170,7 @@
                     location.reload();
                     console.log('Server response:', response);
                 });
+                clickLoadData();
             }
         }
 
@@ -189,7 +190,7 @@
             'wbs_id',
             'wbs',
             'wbs_description',
- 						{
+            {
                 fieldName: "month1",
                 dataType: "number"
             },
@@ -265,16 +266,16 @@
                 fieldName: "beyond18",
                 dataType: "number"
             },
-					  {
+            {
                 fieldName: "forecast_ptc",
                 dataType: "number",
                 valueCallback: function(provider, dataRow, fieldName, fieldNames, values) {
-                        let v = 0;
-                        for (let i = 0; i <= 18; i++) {
-                            v += values[fieldNames.indexOf('month' + i)] || 0;
-                        }
-                        v += values[fieldNames.indexOf('beyond18')] || 0;
-                        return v;
+                    let v = 0;
+                    for (let i = 0; i <= 18; i++) {
+                        v += values[fieldNames.indexOf('month' + i)] || 0;
+                    }
+                    v += values[fieldNames.indexOf('beyond18')] || 0;
+                    return v;
                 }
             },
             'base_month',
@@ -321,7 +322,7 @@
                 "header": {
                     "text": "WBS Description"
                 },
-								"readOnly": true,
+                "readOnly": true,
                 "editable": false,
             },
             {
@@ -332,8 +333,8 @@
                 "header": {
                     "text": "Month 1"
                 },
-							  "styleName": "right-column",
-							  "numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "month2",
@@ -343,8 +344,8 @@
                 "header": {
                     "text": "Month 2"
                 },
-							  "styleName": "right-column",
-							  "numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "month3",
@@ -354,8 +355,8 @@
                 "header": {
                     "text": "Month 3"
                 },
-							  "styleName": "right-column",
-							  "numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "month4",
@@ -365,8 +366,8 @@
                 "header": {
                     "text": "Month 4"
                 },
-							  "styleName": "right-column",
-							  "numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "month5",
@@ -376,8 +377,8 @@
                 "header": {
                     "text": "Month 5"
                 },
-							  "styleName": "right-column",
-							  "numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "month6",
@@ -387,8 +388,8 @@
                 "header": {
                     "text": "Month 6"
                 },
-							  "styleName": "right-column",
-							  "numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "month7",
@@ -398,8 +399,8 @@
                 "header": {
                     "text": "Month 7"
                 },
-							  "styleName": "right-column",
-							  "numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "month8",
@@ -409,8 +410,8 @@
                 "header": {
                     "text": "Month 8"
                 },
-						  	"styleName": "right-column",
-							  "numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "month9",
@@ -420,8 +421,8 @@
                 "header": {
                     "text": "Month 9"
                 },
-							  "styleName": "right-column",
-							  "numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "month10",
@@ -431,8 +432,8 @@
                 "header": {
                     "text": "Month 10"
                 },
-							  "styleName": "right-column",
-							  "numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "month11",
@@ -442,8 +443,8 @@
                 "header": {
                     "text": "Month 11"
                 },
-						  	"styleName": "right-column",
-							  "numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "month12",
@@ -453,8 +454,8 @@
                 "header": {
                     "text": "Month 12"
                 },
-						  	"styleName": "right-column",
-							  "numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "month13",
@@ -464,8 +465,8 @@
                 "header": {
                     "text": "Month 13"
                 },
-						  	"styleName": "right-column",
-							  "numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "month14",
@@ -475,8 +476,8 @@
                 "header": {
                     "text": "Month 14"
                 },
-						  	"styleName": "right-column",
-							  "numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "month15",
@@ -486,8 +487,8 @@
                 "header": {
                     "text": "Month 15"
                 },
-						  	"styleName": "right-column",
-							  "numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "month16",
@@ -497,8 +498,8 @@
                 "header": {
                     "text": "Month 16"
                 },
-							  "styleName": "right-column",
-							  "numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "month17",
@@ -508,7 +509,7 @@
                 "header": {
                     "text": "Month 17"
                 },
-							  "numberFormat": "#,##0",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "month18",
@@ -518,8 +519,8 @@
                 "header": {
                     "text": "Month 18"
                 },
-							  "styleName": "right-column",
-								"numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "beyond18",
@@ -529,8 +530,8 @@
                 "header": {
                     "text": "Beyond 18"
                 },
-							  "styleName": "right-column",
-								"numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
             },
             {
                 "name": "forecast_ptc",
@@ -540,14 +541,14 @@
                 "header": {
                     "text": "Forecast PTC"
                 },
-							  "styleName": "right-column",
-							  "numberFormat": "#,##0",
+                "styleName": "right-column",
+                "numberFormat": "#,##0",
                 "footer": {
                     "expression": "sum",
                     "numberFormat": "#,##0",
-								  	"styleName": "right-column"
+                    "styleName": "right-column"
                 },
-							  "readOnly": true,
+                "readOnly": true,
                 "editable": false,
             },
             {
@@ -630,86 +631,87 @@
             gv.columnByName("project").visible = false;
             gv.columnByName("wbs_id").visible = false;
             gv.columnByName("base_month").visible = false;
-						
-					  gv.header.height = 40;
-					  gv.displayOptions.rowHeight = 30;
+
+            gv.header.height = 40;
+            gv.displayOptions.rowHeight = 30;
             dp.softDeleting = false;
-					  
-					  gv.onCellEdited = function(grid, itemIndex, row, field) {
-								if(field != 2){
-									return;
-								}
-								gv.commit();
-							  var myWbs = dp.getValue(row, "wbs");
-								c.data.validate_wbs = true;
-							  c.data.myWbs = myWbs;
-							
-                c.server.update().then(function(response) {
-									if(response.wbsData.length == 0){
-										alert('Please check the WBS code.');
-										dp.setValue(row, "wbs", '');
-										dp.setValue(row, "wbs_id", '');
-										dp.setValue(row, "wbs_description", '');
+
+            gv.onCellEdited = function(grid, itemIndex, row, field) {
+                if (field != 2) {
                     return;
-									}else{
-										
-										dp.setValue(row, "wbs_id", response.wbsData[0].sys_id);
-										dp.setValue(row, "wbs_description", response.wbsData[0].description);
-									}
+                }
+                gv.commit();
+                var myWbs = dp.getValue(row, "wbs");
+                c.data.validate_wbs = true;
+                c.data.myWbs = myWbs;
+
+                c.server.update().then(function(response) {
+                    if (response.wbsData.length == 0) {
+                        alert('Please check the WBS code.');
+                        dp.setValue(row, "wbs", '');
+                        dp.setValue(row, "wbs_id", '');
+                        dp.setValue(row, "wbs_description", '');
+                        return;
+                    } else {
+
+                        dp.setValue(row, "wbs_id", response.wbsData[0].sys_id);
+                        dp.setValue(row, "wbs_description", response.wbsData[0].description);
+                    }
                     console.log('Server response:', response);
                 });
             }
-					
-				  	gv.pasteOptions.eventEachRow = true;
-					
-					 	var wbsCodes = [];
-					
-					  gv.onEditRowPasted = function(grid, itemIndex, row, fields, oldValues, newValues) {
-								
-					  		if(fields != 2){
-										return;
-								}
-								var myWbs = dp.getValue(row, "wbs");
-								
-							  wbsCodes.push({ row: row, code: myWbs });
-                
-							  c.data.validate_wbsCodes = true;
-							  c.data.wbsCodes = wbsCodes;
-							
-                c.server.update().then(function(response) {
-									console.log(response.wbsInfo);
-									if(response.wbsInfo.length == 0){
-										alert('Please check the WBS code.');
-										dp.setValue(row, "wbs", '');
-										dp.setValue(row, "wbs_id", '');
-										dp.setValue(row, "wbs_description", '');
+
+            gv.pasteOptions.eventEachRow = true;
+
+            var wbsCodes = [];
+
+            gv.onEditRowPasted = function(grid, itemIndex, row, fields, oldValues, newValues) {
+
+                if (fields != 2) {
                     return;
-									}else{
-										var wbsInfo = response.wbsInfo;
-										for (var i = 0; i < wbsInfo.length; i++) {
-    									var item = wbsInfo[i];
-    									dp.setValue(item.row, "wbs_id", item.sys_id);
-    									dp.setValue(item.row, "wbs_description", item.description);
-										}
-									}
-                  
-									console.log('Server response:', response);
-									
-									// wbsCodes와 response.wbsInfo 초기화
-                  wbsCodes = [];
-                  c.data.wbsCodes = wbsCodes;
+                }
+                var myWbs = dp.getValue(row, "wbs");
+
+                wbsCodes.push({
+                    row: row,
+                    code: myWbs
+                });
+
+                c.data.validate_wbsCodes = true;
+                c.data.wbsCodes = wbsCodes;
+
+                c.server.update().then(function(response) {
+                    console.log(response.wbsInfo);
+                    if (response.wbsInfo.length == 0) {
+                        alert('Please check the WBS code.');
+                        dp.setValue(row, "wbs", '');
+                        dp.setValue(row, "wbs_id", '');
+                        dp.setValue(row, "wbs_description", '');
+                        return;
+                    } else {
+                        var wbsInfo = response.wbsInfo;
+                        for (var i = 0; i < wbsInfo.length; i++) {
+                            var item = wbsInfo[i];
+                            dp.setValue(item.row, "wbs_id", item.sys_id);
+                            dp.setValue(item.row, "wbs_description", item.description);
+                        }
+                    }
+
+                    console.log('Server response:', response);
+
+                    // wbsCodes와 response.wbsInfo 초기화
+                    wbsCodes = [];
+                    c.data.wbsCodes = wbsCodes;
                 });
             };
-					
-            dp.setRows(c.data.gridData);
 
+            dp.setRows(c.data.gridData);
         }
 
         initGrid();
     }
 
     function initFormEtc() {
-        debugger
         $scope.closeDlgActivityType = function() {
             dlgActivityType.close();
 
@@ -765,32 +767,32 @@
         initGridEtc();
         initFormEtc();
     }
-	
-	
-	  function checkRealGrid() {
+
+
+    function checkRealGrid() {
         if (RealGrid) {
             return true;
         }
 
         return false;
     }
-	
-		c.server.update().then(function(response) {
+
+    c.server.update().then(function(response) {
 
 
-			var loopCnt = 0;
-			var timerid = setInterval(function() {
-				loopCnt = loopCnt + 1;
-				if (loopCnt > 30) {
-					clearTimeout(timerid);
-					alert('Can not load REALGRID');
-				}
+        var loopCnt = 0;
+        var timerid = setInterval(function() {
+            loopCnt = loopCnt + 1;
+            if (loopCnt > 30) {
+                clearTimeout(timerid);
+                alert('Can not load REALGRID');
+            }
 
-				if (checkRealGrid()) {
-					clearTimeout(timerid);
-					doGrid();
-				}
-			}, 100);
+            if (checkRealGrid()) {
+                clearTimeout(timerid);
+                doGrid();
+            }
+        }, 100);
     });
 
 }
@@ -1416,11 +1418,16 @@ th {
             data.customer = grProject.customer.name.toString(); // CustomerName
             data.sys_id = grProject.sys_id.toString(); // Project sys_id
         }
+
+        var grWBS = new GlideAggregate('x_yergb_bpm_wbs_budget');
+        grWBS.addQuery("project", data.sys_id);
+		grWBS.query();
+        data.cnt_row = grWBS.getRowCount();
+
         if (data.project_key) { //Get Budget Plan
             var grBudgetPlan = new GlideRecord('x_yergb_bpm_budget_plan');
             grBudgetPlan.addQuery('project', data.project_key);
             grBudgetPlan.query();
-
             if (grBudgetPlan.next()) {
                 data.base_month = grBudgetPlan.base_month.toString(); // Base Month
                 if (data.base_month.length > 5) {
@@ -1539,55 +1546,6 @@ th {
         dt.setValue(strMonth);
         var beyondDate = dt.getByFormat("yyyy-MM-dd");
         //Beyond18 Calulate Data End
-        /*
-                for (var wbs1 in updatedResult) {
-                    //Beyond18 Calulate End
-                    var queryOIBeyondCalulator = "plan_gr_date>javascript:gs.dateGenerate('" + beyondDate + "','end')^project=" + input.project_key + "^wbs_6=" + wbs1 + "^project.u_data_typeINwbs-6";
-                    var queryWBSBudget = "project=" + input.project_key + "^wbs=" + wbs1;
-                    var dataBeyond18 = 0;
-                    var grOIBeyondCalulator = new GlideRecord('x_yergb_bpm_order_item');
-                    grOIBeyondCalulator.addEncodedQuery(queryOIBeyondCalulator);
-                    grOIBeyondCalulator.query();
-                    while (grOIBeyondCalulator.next()) {
-                        dataBeyond18 += grOIBeyondCalulator.extended_cost_lc;
-                    }
-                    //Beyond18 Calulate End
-
-                    var monthData = updatedResult[wbs1];
-                    var forecastPTC = 0;
-                    var calforecastPTC = 0;
-                    var grWBSBudget = new GlideRecord('x_yergb_bpm_wbs_budget');
-                    grWBSBudget.addEncodedQuery(queryWBSBudget);
-                    grWBSBudget.query();
-
-                    if (grWBSBudget.next()) {
-                        for (var upMonth in monthData) {
-                            grWBSBudget.setValue(upMonth, monthData[upMonth]);
-                            calforecastPTC += parseInt(monthData[upMonth]);
-                        }
-                        forecastPTC = calforecastPTC + dataBeyond18;
-                        grWBSBudget.setValue("project", input.project_key);
-                        grWBSBudget.setValue("beyond18", dataBeyond18);
-                        grWBSBudget.setValue("forecast_ptc", forecastPTC);
-                        grWBSBudget.update();
-
-                    } else {
-                        var insertWBSBudget = new GlideRecord('x_yergb_bpm_wbs_budget');
-                        insertWBSBudget.initialize();
-                        insertWBSBudget.setValue('wbs', wbs1);
-                        insertWBSBudget.setValue('project', input.project_key);
-
-                        for (var inMonth in monthData) {
-                            insertWBSBudget.setValue(inMonth, monthData[inMonth]);
-                            calforecastPTC += parseInt(monthData[inMonth]);
-                        }
-        				forecastPTC = calforecastPTC + dataBeyond18;
-                        insertWBSBudget.setValue("beyond18", dataBeyond18);
-                        insertWBSBudget.setValue("forecast_ptc", forecastPTC);
-                        insertWBSBudget.insert();
-                    }
-                }
-        		*/
     }
 
     function replaceYearMonthKeys(result, monthArray, arrArray) {
@@ -1606,6 +1564,41 @@ th {
         }
 
         return newResult;
+    }
+
+    function insertData(input, myFields) {
+        var insertArr = input.dataSets;
+
+        for (var i = 0; i < insertArr.length; i++) {
+            var gr = new GlideRecord('x_yergb_bpm_wbs_budget'); // GlideRecord 객체 생성
+            // 필드 설정
+            gr.initialize(); // 새 레코드 초기화
+
+            for (var m = 0; m < myFields.length; m++) {
+                if (myFields[m]) {
+                    gr.setValue(myFields[m], insertArr[i][m]);
+                }
+            }
+            gr.insert();
+        }
+    }
+
+    function updateData(input, myFields) {
+        var updateArr = input.updateSets;
+
+        for (var i = 0; i < updateArr.length; i++) {
+            var gr2 = new GlideRecord('x_yergb_bpm_wbs_budget'); // GlideRecord 객체 생성
+            gr2.addQuery('sys_id', updateArr[i][0]); // sys_id 필드의 인덱스는 0
+            gr2.query();
+            if (gr2.next()) {
+                for (var m = 0; m < myFields.length; m++) {
+                    if (myFields[m]) {
+                        gr2.setValue(myFields[m], updateArr[i][m]);
+                    }
+                }
+            }
+            gr2.update();
+        }
     }
 
     function getGridData(project_key) {
@@ -1676,45 +1669,45 @@ th {
         }
 
     }
-	
-		if (input && input.validate_wbs) { // 없으면 오류 뜸, 둘다 있어야 함.
-			var wbsData = [];
-			var gr = new GlideRecord('x_yergb_bpm_wbs_master');
-			gr.query('code', input.myWbs);
-			if (gr.next()) {
-				wbsData.push({
-					sys_id: gr.getValue('sys_id'),
-					code: gr.getValue('code'),
-					description: gr.getValue('description'),
-				});
-			}
 
-			data.wbsData = wbsData;
+    if (input && input.validate_wbs) { // 없으면 오류 뜸, 둘다 있어야 함.
+        var wbsData = [];
+        var gr = new GlideRecord('x_yergb_bpm_wbs_master');
+        gr.query('code', input.myWbs);
+        if (gr.next()) {
+            wbsData.push({
+                sys_id: gr.getValue('sys_id'),
+                code: gr.getValue('code'),
+                description: gr.getValue('description'),
+            });
+        }
+
+        data.wbsData = wbsData;
     }
-	
-		if (input && input.validate_wbsCodes) {
-			var wbsCodes = input.wbsCodes;
-			var wbsInfo = [];
 
-			var gr = new GlideRecord('x_yergb_bpm_wbs_master');
+    if (input && input.validate_wbsCodes) {
+        var wbsCodes = input.wbsCodes;
+        var wbsInfo = [];
 
-			for (var i = 0; i < wbsCodes.length; i++) {
-				gr.initialize(); // 새로운 쿼리를 위해 초기화
-				gr.addQuery('code', wbsCodes[i].code); // code 값으로 쿼리
-				gr.query();
+        var gr = new GlideRecord('x_yergb_bpm_wbs_master');
 
-				if (gr.next()) {
-					wbsInfo.push({
-						row: wbsCodes[i].row, // 기존 row 값
-						sys_id: gr.getValue('sys_id'),
-						code: gr.getValue('code'),
-						description: gr.getValue('description'),
-					});
-				}
-			}
+        for (var i = 0; i < wbsCodes.length; i++) {
+            gr.initialize(); // 새로운 쿼리를 위해 초기화
+            gr.addQuery('code', wbsCodes[i].code); // code 값으로 쿼리
+            gr.query();
 
-			data.wbsInfo = wbsInfo;
-		}
+            if (gr.next()) {
+                wbsInfo.push({
+                    row: wbsCodes[i].row, // 기존 row 값
+                    sys_id: gr.getValue('sys_id'),
+                    code: gr.getValue('code'),
+                    description: gr.getValue('description'),
+                });
+            }
+        }
+
+        data.wbsInfo = wbsInfo;
+    }
 
 
 
@@ -1749,49 +1742,12 @@ th {
         ];
 
         if (input.dataSets.length) {
-            insertData();
+            insertData(input, myFields);
         }
         if (input.updateSets.length) {
-            updateData();
+            updateData(input, myFields);
         }
-
-        function insertData() {
-            var insertArr = input.dataSets;
-
-            for (var i = 0; i < insertArr.length; i++) {
-                var gr = new GlideRecord('x_yergb_bpm_wbs_budget'); // GlideRecord 객체 생성
-                // 필드 설정
-                gr.initialize(); // 새 레코드 초기화
-
-                for (var m = 0; m < myFields.length; m++) {
-                    if (myFields[m]) {
-                        gr.setValue(myFields[m], insertArr[i][m]);
-                    }
-                }
-                gr.insert();
-            }
-        }
-
-        function updateData() {
-            var updateArr = input.updateSets;
-
-            for (var i = 0; i < updateArr.length; i++) {
-                var gr2 = new GlideRecord('x_yergb_bpm_wbs_budget'); // GlideRecord 객체 생성
-                gr2.addQuery('sys_id', updateArr[i][0]); // sys_id 필드의 인덱스는 0
-                gr2.query();
-                if (gr2.next()) {
-                    for (var m = 0; m < myFields.length; m++) {
-                        if (myFields[m]) {
-                            gr2.setValue(myFields[m], updateArr[i][m]);
-                        }
-                    }
-                }
-                gr2.update();
-            }
-        }
-
     }
-
 
 })();]]></script>
         <servicenow>false</servicenow>
@@ -1799,14 +1755,14 @@ th {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-24 14:34:40</sys_created_on>
         <sys_id>7ff2f76c830f42100a5ce360ceaad32a</sys_id>
-        <sys_mod_count>88</sys_mod_count>
+        <sys_mod_count>99</sys_mod_count>
         <sys_name>initPlanMngtWbsWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_7ff2f76c830f42100a5ce360ceaad32a</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-27 16:59:44</sys_updated_on>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-29 03:59:23</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 
@@ -1821,8 +1777,8 @@ th {
               </div>
             </div>
             <div class="yoko-btn-wrap">
-                <button class="yoko-btn yoko-btn-outline" ng-if="!data.state || data.state === 'New'" ng-click="clickLoadData()">Load Data</button>
-                <button class="yoko-btn yoko-btn-outline" ng-if="data.state === 'New'" ng-click="clickApproval()">Approval Request</button>
+                <!--<button class="yoko-btn yoko-btn-outline" ng-if="!data.state || data.state === 'New'" ng-click="clickLoadData()">Load Data</button>-->
+                <button class="yoko-btn yoko-btn-outline" ng-if="data.cnt_row && data.cnt_row > 0 && data.state === 'New'" ng-click="clickApproval()">Approval Request</button>
                 <button class="yoko-btn yoko-btn-fill" id="bt-save" ng-if="!data.state || data.state === 'New'" ng-click="gridDetailBtnClick(4)">Save</button>
                 <button class="yoko-btn yoko-btn-fill" ng-if="data.state === 'Completed'" ng-click="clickSAP()">Make SAP File</button>
             </div>
