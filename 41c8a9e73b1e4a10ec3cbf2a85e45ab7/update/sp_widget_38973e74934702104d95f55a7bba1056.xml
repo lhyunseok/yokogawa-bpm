@@ -3,379 +3,394 @@
         <category>custom</category>
         <client_script><![CDATA[api.controller = function($scope, $rootScope, $window, $location, $window) {
 
-    var c = this;
-    c.data.gridBtnType = '';
+  var c = this;
+  c.data.gridBtnType = '';
 
-    c.getUrlParameter = function(param) {
-        return $location.search()[param];
-    };
+  c.getUrlParameter = function(param) {
+      return $location.search()[param];
+  };
 
-    var paramValue = c.getUrlParameter('sys_id');
-    c.data.paramValue = paramValue;
+  var paramValue = c.getUrlParameter('sys_id');
+  c.data.paramValue = paramValue;
 
-    $scope.btnClickComplete = function() {
-        c.data.operation = 'updateState';
-        c.server.update().then(function(response) {
-            console.log('Server response:', response);
-            location.reload();
-        }).catch(function(error) {
-            console.error('Error updating state:', error);
-            alert('Error updating state');
-        });
-    };
+  $scope.btnClickComplete = function() {
+      c.data.operation = 'updateState';
+      c.server.update().then(function(response) {
+          console.log('Server response:', response);
+          location.reload();
+      }).catch(function(error) {
+          console.error('Error updating state:', error);
+          alert('Error updating state');
+      });
+  };
 
-    // Function to save a single field
-    $scope.saveField = function(fieldName, fieldValue) {
-        if (!fieldValue) {
-            alert('Field value cannot be empty');
-            return;
-        }
-        c.data.operation = 'saveField';
+  // Function to save a single field
+  $scope.saveField = function(fieldName, fieldValue) {
+      if (!fieldValue) {
+          alert('Field value cannot be empty');
+          return;
+      }
+      c.data.operation = 'saveField';
 
-			
-				   c.data.gridBtnTransact = 'T';
-            c.data.gridDetailData = dpDetail.getJsonRows();
-            for (var x = 0; x < c.data.gridDetailData.length; x++) {
-								console.log(c.data.gridDetailData[x])
-                c.data.gridDetailData[x].rowStat = dpDetail.getRowState(x);
-            }
-			
-			
-        c.server.update().then(function(response) {
-            location.reload();
-        }).catch(function(error) {
-            console.error('Error saving field:', error);
-            alert('Error saving field');
-        });
-			
-			
-			
-			
-			
-    };
+    
+         c.data.gridBtnTransact = 'T';
+          c.data.gridDetailData = dpDetail.getJsonRows();
+          for (var x = 0; x < c.data.gridDetailData.length; x++) {
+              console.log(c.data.gridDetailData[x])
+              c.data.gridDetailData[x].rowStat = dpDetail.getRowState(x);
+          }
+    
+    
+      c.server.update().then(function(response) {
+          location.reload();
+      }).catch(function(error) {
+          console.error('Error saving field:', error);
+          alert('Error saving field');
+      });
+    
+    
+    
+    
+    
+  };
 
-    $window.addEventListener('message', function(event) {
-        if (event.data.type === 'updateIframeSrc') {
-            location.reload();
-            //var iframe = document.getElementById('myIframe');
-            // iframe.src = event.data.newSrc;
-            // console.log('Iframe src updated to:', event.data.newSrc);
-        }
-    });
+  $window.addEventListener('message', function(event) {
+      if (event.data.type === 'updateIframeSrc') {
+          location.reload();
+          //var iframe = document.getElementById('myIframe');
+          // iframe.src = event.data.newSrc;
+          // console.log('Iframe src updated to:', event.data.newSrc);
+      }
+  });
 
-    // Function to handle click event
-    $scope.handleClick = function() {
-        if (c.data.rfq_entry_id) {
-            window.location.href = "/ybpm?id=rfqentry&table=x_yergb_bpm_rfq_entry&sys_id=" + c.data.rfq_entry_id; // Redirect to the URL
-        } else {
-            alert('no rfq record')
-        }
-    };
+  // Function to handle click event
+  $scope.handleClick = function() {
+      if (c.data.rfq_entry_id) {
+          window.location.href = "/ybpm?id=rfqentry&table=x_yergb_bpm_rfq_entry&sys_id=" + c.data.rfq_entry_id; // Redirect to the URL
+      } else {
+          alert('no rfq record')
+      }
+  };
 
-    // Function to dynamically adjust iframe height
-    function resizeIframe() {
-        var iframe = document.getElementById('myIframe');
-        if (iframe) {
-            var windowHeight = window.innerHeight;
-            iframe.style.height = Math.max(windowHeight * 0.45, 200) + 'px';
-        }
-    }
+  // Function to dynamically adjust iframe height
+  function resizeIframe() {
+      var iframe = document.getElementById('myIframe');
+      if (iframe) {
+          var windowHeight = window.innerHeight;
+          iframe.style.height = Math.max(windowHeight * 0.45, 200) + 'px';
+      }
+  }
 
-    // Add event listener to resize iframe when content loads
-    $window.onload = function() {
-        resizeIframe();
-        //initGrid();
-    };
+  // Add event listener to resize iframe when content loads
+  $window.onload = function() {
+      resizeIframe();
+      //initGrid();
+  };
 
-    // Add event listener to window resize event
-    $window.addEventListener('resize', function() {
-        resizeIframe();
-    });
+  // Add event listener to window resize event
+  $window.addEventListener('resize', function() {
+      resizeIframe();
+  });
 
-    // Call resizeIframe on initial load to set the initial height
-    resizeIframe();
+  // Call resizeIframe on initial load to set the initial height
+  resizeIframe();
 
-    function checkRealGrid() {
-        if (RealGrid) {
-            return true;
-        }
+  function checkRealGrid() {
+      if (RealGrid) {
+          return true;
+      }
 
-        return false;
-    }
+      return false;
+  }
 
-    function drawRealGrid() {
-        containerDetail = document.getElementById('gridContainer');
-        dpDetail = new RealGrid.LocalDataProvider(false);
-        gvDetail = new RealGrid.GridView(containerDetail);
-        gvDetail.setDataSource(dpDetail);
+  function drawRealGrid() {
+      containerDetail = document.getElementById('gridContainer');
+      dpDetail = new RealGrid.LocalDataProvider(false);
+      gvDetail = new RealGrid.GridView(containerDetail);
+      gvDetail.setDataSource(dpDetail);
 
-        dpDetail.setFields([
-            'sys_id',
-            'number',
-            'wbs_6',
-            'ms_code',
-            'description',
-            'quantity',
-            'unit_price',
-            'extended_price',
-            'unit_cost',
-            'extended_cost',
-            'unit_mp',
-            'mp_amount',
-            'vendor',
-            'quotation'
-        ]);
+      dpDetail.setFields([
+          {fieldName: 'sys_id',  dataType:  'text'},
+          {fieldName: 'number',  dataType:  'text'},
+          {fieldName: 'wbs_6',  dataType:  'text'},
+          {fieldName: 'ms_code',  dataType:  'text'},
+          {fieldName: 'description',  dataType:  'text'},
+          {fieldName: 'quantity',  dataType:  'number'},
+          {fieldName: 'unit_price',  dataType:  'number'},
+          {fieldName: 'extended_price',  dataType:  'number'},
+          {fieldName: 'unit_cost',  dataType:  'number'},
+          {fieldName: 'extended_cost',  dataType:  'number'},
+          {fieldName: 'unit_mp',  dataType:  'number'},
+          {fieldName: 'mp_amount',  dataType:  'number'},
+          {fieldName: 'vendor',  dataType:  'text'},
+          {fieldName: 'quotation',  dataType:  'text'}
+      ]);
 
-        gvDetail.setColumns([{
-                "name": "sys_id",
-                "fieldName": "sys_id",
-                "type": "data",
-                "width": 0,
-                "header": {
-                    "text": "sysid",
-                },
-								"visible" : false
+      gvDetail.setColumns([{
+              "name": "sys_id",
+              "fieldName": "sys_id",
+              "type": "data",
+              "width": 0,
+              "header": {
+                  "text": "sysid",
+              },
+              "visible" : false,
+				"styleName" : "left-column"
 
-            },
-            {
-                "name": "number",
-                "fieldName": "number",
-                "type": "data",
-                "width": 100,
-                "header": {
-                    "text": "Number"
-                },
-							"visible" : false
+          },
+          {
+              "name": "number",
+              "fieldName": "number",
+              "type": "data",
+              "width": 100,
+              "header": {
+                  "text": "Number"
+              },
+            "visible" : false,
+				"styleName" : "left-column"
 
-						},
-            {
-                "name": "wbs_6",
-                "fieldName": "wbs_6",
-                "type": "data",
-                "width": 100,
-                "header": {
-                    "text": "WBS 6"
-                },
-            },
-            {
-                "name": "ms_code",
-                "fieldName": "ms_code",
-                "type": "data",
-                "width": 100,
-                "header": {
-                    "text": "MS Code"
-                },
-            },
-            {
-                "name": "description",
-                "fieldName": "description",
-                "type": "data",
-                "width": 120,
-                "header": {
-                    "text": "Description"
-                },
-            },
-            {
-                "name": "quantity",
-                "fieldName": "quantity",
-                "type": "data",
-                "width": 120,
-                "header": {
-                    "text": "Quantity"
-                },
-            },
-            {
-                "name": "unit_price",
-                "fieldName": "unit_price",
-                "type": "data",
-                "width": 120,
-                "header": {
-                    "text": "Unit Price"
-                },
-            },
-            {
-                "name": "extended_price",
-                "fieldName": "extended_price",
-                "type": "data",
-                "width": 120,
-                "header": {
-                    "text": "Extended Price"
-                },
-            },
-            {
-                "name": "unit_cost",
-                "fieldName": "unit_cost",
-                "type": "data",
-                "width": 120,
-                "header": {
-                    "text": "Unit Cost"
-                },
-            },
-            {
-                "name": "extended_cost",
-                "fieldName": "extended_cost",
-                "type": "data",
-                "width": 120,
-                "header": {
-                    "text": "Extended Cost"
-                },
-            },
-            {
-                "name": "unit_mp",
-                "fieldName": "unit_mp",
-                "type": "data",
-                "width": 120,
-                "header": {
-                    "text": "Unit MP"
-                },
-            },
-            {
-                "name": "mp_amount",
-                "fieldName": "mp_amount",
-                "type": "data",
-                "width": 120,
-                "header": {
-                    "text": "MP Amount"
-                },
-            },
-            {
-                "name": "vendor",
-                "fieldName": "vendor",
-                "type": "data",
-                "width": 120,
-                "header": {
-                    "text": "Vendor"
-                },
-            },
-            {
-                "name": "quotation",
-                "fieldName": "quotation",
-                "type": "data",
-                "width": 120,
-                "header": {
-                    "text": "quotation"
-                },
-								"visible" : false
+          },
+          {
+              "name": "wbs_6",
+              "fieldName": "wbs_6",
+              "type": "data",
+              "width": 100,
+              "header": {
+                  "text": "WBS 6"
+              },
+						"styleName" : "left-column"
+          },
+          {
+              "name": "ms_code",
+              "fieldName": "ms_code",
+              "type": "data",
+              "width": 100,
+              "header": {
+                  "text": "MS Code"
+              },
+						"styleName" : "left-column"
+          },
+          {
+              "name": "description",
+              "fieldName": "description",
+              "type": "data",
+              "width": 120,
+              "header": {
+                  "text": "Description"
+              },
+						"styleName" : "left-column"
+          },
+          {
+              "name": "quantity",
+              "fieldName": "quantity",
+              "type": "data",
+              "width": 120,
+              "header": {
+                  "text": "Quantity"
+              },
+						"styleName" : "right-column"
+          },
+          {
+              "name": "unit_price",
+              "fieldName": "unit_price",
+              "type": "data",
+              "width": 120,
+              "header": {
+                  "text": "Unit Price"
+              },
+						"styleName" : "right-column"
+          },
+          {
+              "name": "extended_price",
+              "fieldName": "extended_price",
+              "type": "data",
+              "width": 120,
+              "header": {
+                  "text": "Extended Price"
+              },
+						"styleName" : "right-column"
+          },
+          {
+              "name": "unit_cost",
+              "fieldName": "unit_cost",
+              "type": "data",
+              "width": 120,
+              "header": {
+                  "text": "Unit Cost"
+              },
+						"styleName" : "right-column"
+          },
+          {
+              "name": "extended_cost",
+              "fieldName": "extended_cost",
+              "type": "data",
+              "width": 120,
+              "header": {
+                  "text": "Extended Cost"
+              },
+						"styleName" : "right-column"
+          },
+          {
+              "name": "unit_mp",
+              "fieldName": "unit_mp",
+              "type": "data",
+              "width": 120,
+              "header": {
+                  "text": "Unit MP"
+              },
+						"styleName" : "right-column"
+          },
+          {
+              "name": "mp_amount",
+              "fieldName": "mp_amount",
+              "type": "data",
+              "width": 120,
+              "header": {
+                  "text": "MP Amount"
+              },
+						"styleName" : "right-column"
+          },
+          {
+              "name": "vendor",
+              "fieldName": "vendor",
+              "type": "data",
+              "width": 120,
+              "header": {
+                  "text": "Vendor"
+              },
+						"styleName" : "left-column"
+          },
+          {
+              "name": "quotation",
+              "fieldName": "quotation",
+              "type": "data",
+              "width": 120,
+              "header": {
+                  "text": "quotation"
+              },
+              "visible" : false
+          }
+      ]);
 
-            }
-        ]);
+      gvDetail.setColumnLayout([
+          'sys_id',
+          'number',
+          'wbs_6',
+          'ms_code',
+          'description',
+          'quantity',
+          'unit_price',
+          'extended_price',
+          'unit_cost',
+          'extended_cost',
+          'unit_mp',
+          'mp_amount',
+          'vendor',
+          'quotation'
+      ]);
 
-        gvDetail.setColumnLayout([
-            'sys_id',
-            'number',
-            'wbs_6',
-            'ms_code',
-            'description',
-            'quantity',
-            'unit_price',
-            'extended_price',
-            'unit_cost',
-            'extended_cost',
-            'unit_mp',
-            'mp_amount',
-            'vendor',
-            'quotation'
-        ]);
+      gvDetail.footers.visible = false;
+      gvDetail.commitEditor();
+      gvDetail.undoable = true;
+      gvDetail.editOptions.commitByCell = true;		
+      gvDetail.editOptions.insertable = true;
+      dpDetail.softDeleting = true;
+      gvDetail.displayOptions.fitStyle = "evenFill";
+      gvDetail.setPasteOptions({enabled: true , enableAppend:true, eventEachRow	:true, commitEdit	:true});
+			gvDetail.header.height = 40;
+			gvDetail.displayOptions.rowHeight = 30;
+		
+			gvDetail.displayOptions.columnMovable = false;
+ 
 
-        gvDetail.footers.visible = false;
-        gvDetail.commitEditor();
-        gvDetail.undoable = true;
-        gvDetail.editOptions.commitByCell = true;		
-        gvDetail.editOptions.insertable = true;
-				dpDetail.softDeleting = true;
-				gvDetail.displayOptions.fitStyle = "evenFill";
-				gvDetail.setPasteOptions({enabled: true , enableAppend:true, eventEachRow	:true, commitEdit	:true});
+      //gvDetail.checkBar.visible = false;
+      //gvDetail.stateBar.visible = false;
 
+      dpDetail.setRows(c.data.gridDetailData);
+  }
 
+  $scope.gridDetailBtnClick = function(idx) {
+      var v = {
+          'rowStat': '',
+          'sys_id': '',
+          'number': '',
+          'wbs_6': '',
+          'ms_code': '',
+          'description': '',
+          'quantity': '',
+          'unit_price': '',
+          'extended_price': '',
+          'unit_cost': '',
+          'extended_cost': '',
+          'unit_mp': '',
+          'mp_amount': '',
+          'vendor': '',
+          'quotation': paramValue
+      }
 
-        //gvDetail.checkBar.visible = false;
-        //gvDetail.stateBar.visible = false;
+      c.data.gridBtnType = '';
+      if (idx == 1) {
+          c.data.gridBtnType = 'add';
+          //alert("1")
+          dpDetail.addRow(v);
+      } else if (idx == 2) {
+         var curr = gvDetail.getCurrent();
+        dpDetail.removeRow(curr.dataRow);
+        
 
-        dpDetail.setRows(c.data.gridDetailData);
-    }
+      } else if (idx == 3) {
+          alert("3")
 
-    $scope.gridDetailBtnClick = function(idx) {
-        var v = {
-            'rowStat': '',
-            'sys_id': '',
-            'number': '',
-            'wbs_6': '',
-            'ms_code': '',
-            'description': '',
-            'quantity': '',
-            'unit_price': '',
-            'extended_price': '',
-            'unit_cost': '',
-            'extended_cost': '',
-            'unit_mp': '',
-            'mp_amount': '',
-            'vendor': '',
-            'quotation': paramValue
-        }
-
-        c.data.gridBtnType = '';
-        if (idx == 1) {
-            c.data.gridBtnType = 'add';
-            //alert("1")
-            dpDetail.addRow(v);
-        } else if (idx == 2) {
-         	var curr = gvDetail.getCurrent();
-  		    dpDetail.removeRow(curr.dataRow);
-					
-
-        } else if (idx == 3) {
-            alert("3")
-
-            c.data.gridBtnTransact = 'T';
-            c.data.gridDetailData = dpDetail.getJsonRows();
-            for (var x = 0; x < c.data.gridDetailData.length; x++) {
-                c.data.gridDetailData[x].rowStat = dpDetail.getRowState(x);
-            }
-        }
-
-
-
-        console.log(dpDetail.getRowCount());
-
-
-        c.server.update().then(function(response) {
-            console.log('Server response:', response);
-        });
-    }
-
-       // Create New
-    $scope.btnClickNew = function(fieldName, fieldValue) {
-
-        c.data.operation = 'createNew';
-        c.server.update().then(function(response) {
-              window.location.href = "/ybpm?id=quotation&table=x_yergb_bpm_quotation&sys_id=" + c.data.redirect_sys_id;
-        }).catch(function(error) {
-            console.error('Error saving field:', error);
-            alert('Error saving field');
-        });
-    };
+          c.data.gridBtnTransact = 'T';
+          c.data.gridDetailData = dpDetail.getJsonRows();
+          for (var x = 0; x < c.data.gridDetailData.length; x++) {
+              c.data.gridDetailData[x].rowStat = dpDetail.getRowState(x);
+          }
+      }
 
 
-    c.server.update().then(function(response) {
+
+      console.log(dpDetail.getRowCount());
 
 
-        var loopCnt = 0;
-        var timerid = setInterval(function() {
-            loopCnt = loopCnt + 1;
-            if (loopCnt > 30) {
-                clearTimeout(timerid);
-                alert('Can not load REALGRID');
-            }
+      c.server.update().then(function(response) {
+          console.log('Server response:', response);
+      });
+  }
 
-            if (checkRealGrid()) {
-                clearTimeout(timerid);
-                drawRealGrid();
-            }
-        }, 100);
+     // Create New
+  $scope.btnClickNew = function(fieldName, fieldValue) {
 
-        //$scope.serviceCall = testService.showResult();
-        //console.log("$scope.serviceCall: "+$scope.serviceCall);
-    });
+      c.data.operation = 'createNew';
+      c.server.update().then(function(response) {
+            window.location.href = "/ybpm?id=quotation&table=x_yergb_bpm_quotation&sys_id=" + c.data.redirect_sys_id;
+      }).catch(function(error) {
+          console.error('Error saving field:', error);
+          alert('Error saving field');
+      });
+  };
+
+
+  c.server.update().then(function(response) {
+
+
+      var loopCnt = 0;
+      var timerid = setInterval(function() {
+          loopCnt = loopCnt + 1;
+          if (loopCnt > 30) {
+              clearTimeout(timerid);
+              alert('Can not load REALGRID');
+          }
+
+          if (checkRealGrid()) {
+              clearTimeout(timerid);
+              drawRealGrid();
+          }
+      }, 100);
+
+      //$scope.serviceCall = testService.showResult();
+      //console.log("$scope.serviceCall: "+$scope.serviceCall);
+  });
 
 
 
@@ -661,6 +676,7 @@ a {text-decoration: none;}
 
 
 /*리얼그리드 수정*/
+/*
 .rg-root {color: #4B5966 !important;  font-family: "Pretendard" !important;   font-size: 14px !important;  font-style: normal !important;  font-weight: 500 !important;  line-height: normal !important;}
 .rg-grid {border: 1px solid #EAEEF3 !important;}
 
@@ -685,6 +701,15 @@ a {text-decoration: none;}
 .rg-header-select {background: rgb(232 248 240 / 50%) !important;}
 .rg-selection { background: rgb(232 248 240 / 35%) !important; border: 1px solid #15BD66!important;}
 .rg-editor-container { border: 2px solid #27C382 !important; }
+*/
+
+.rg-header-cell {text-align: center !important;}
+.right-column { text-align: right !important;}
+.left-column { text-align: left !important;}
+
+.non-editable { background: #dddddd !important}
+
+
 
 
 /* ----------------------------------------------- */
@@ -729,6 +754,25 @@ a {text-decoration: none;}
 	var qSysId = $sp.getParameter('sys_id');
 	//gs.addInfoMessage(qSysId)
 	
+			// 현재 접속한 유저의 sysid 를 가져옴
+            var userName = gs.getUser().getDisplayName()
+            var userNameSysId = gs.getUser().getID();
+
+           // gs.addErrorMessage("userNameSysId")
+           // gs.addErrorMessage(userNameSysId)
+
+        var gRfq = new GlideRecord("x_yergb_bpm_rfq_entry");
+        var salesManager
+        gRfq.addQuery('quotation', qSysId)
+        gRfq.query()
+        while(gRfq.next()){
+            salesManager = gRfq.sales_manager
+            //gs.addErrorMessage("salesManager")
+            //gs.addErrorMessage(salesManager)
+        }
+
+       
+
 	      var gr = new GlideRecord("x_yergb_bpm_quote_item");
         gr.orderBy("number");
         gr.addEncodedQuery('quotation=' + qSysId);
@@ -902,6 +946,17 @@ a {text-decoration: none;}
               }            
             }
     }
+	 if(salesManager != userNameSysId){
+            //gs.addErrorMessage("달라")
+            data.showNew = false;
+        }
+        else{
+            //gs.addErrorMessage("같아")
+            data.showNew = true;
+        }
+
+
+	
 
 })();]]></script>
         <servicenow>false</servicenow>
@@ -909,14 +964,14 @@ a {text-decoration: none;}
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 04:53:32</sys_created_on>
         <sys_id>38973e74934702104d95f55a7bba1056</sys_id>
-        <sys_mod_count>101</sys_mod_count>
+        <sys_mod_count>113</sys_mod_count>
         <sys_name>quotationWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_38973e74934702104d95f55a7bba1056</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-27 11:14:52</sys_updated_on>
+        <sys_updated_on>2024-06-28 04:20:20</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
