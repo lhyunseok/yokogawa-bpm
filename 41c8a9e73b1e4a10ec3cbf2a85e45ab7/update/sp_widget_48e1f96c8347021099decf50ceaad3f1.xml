@@ -8,12 +8,11 @@
     $window.realGrid2Lic = $realgridkey.getKey();
     $window.RealGrid = $realgrid.getRealGrid();
     var headFile, detailFile, wbsBudgetFile;
-    var currentBaseMonth = new Date();
-
     
     var modalProjectNumber = document.getElementById("modalProjectNumber");
 	var modalPMName = document.getElementById("modalPMName");
 	var modalState = document.getElementById("modalState");
+    var filesPath = [];
     // Function to get URL parameters
     c.getUrlParameter = function(param) {
         return $location.search()[param];
@@ -26,9 +25,11 @@
     $scope.btnClickAddFile  = function() {
         modalUpload.style.display = 'none';
         if (headFile && detailFile) {
-            postHeaderFile(headFile);
-            postDetailFile(detailFile);
-            postWbsBudget(wbsBudgetFile);
+            postHeaderFile(parseCustomTableJson(headFile));
+            postDetailFile(parseCustomTableJson(detailFile));
+            postWbsBudget(parseWbsBudgetJson(wbsBudgetFile));
+        } else {
+            alert("PJTSUM_H 파일과 PJTSUM_D 파일을 올려주세요.")
         }
         clearModalUpload();
     }
@@ -109,19 +110,17 @@
         if (files && files.length) {
             for (var i = files.length - 1; i >= 0; i--) {
                 var file = files[i];
-                console.log(file.name);
                 if (validation(file)) {
                     if (file.name.includes("PJTSUM_H")) {
                         $("#projectHeader").val(file.name);
                         headFile = await readFile(file);
-                        headFile = parseCustomTableJson(headFile);
+                        headFile = headFile;
     
                     } else if (file.name.includes("PJTSUM_D")) {
                         $("#projectDetail").val(file.name);
                         detailFile = await readFile(file);
-                        wbsBudgetFile = parserWbsBudgetTableJson(detailFile);
-
-                        detailFile = parseCustomTableJson(detailFile);
+                        //parse the detailFile for postWbsBudget
+                        wbsBudgetFile = detailFile;
                     }
                 }
             }
@@ -136,7 +135,7 @@
         document.querySelector("input[type=file]").value = "";
         $("#projectHeader").val('');
         $("#projectDetail").val('');
-        headFile, detailFile, wbsBudgetFile = '';
+        headFile, detailFile, wbsBudgetFile, filesPath = '';
     }
 
     /** read txt File */
@@ -153,14 +152,6 @@
         reader.readAsText(file, /* optional */ "euc-kr");
         });
     }
-
-    function parserWbsBudgetTableJson(str) {
-        str = parseWbsBudgetJson(str);
-        let records = str.records;
-        records.
-        console.log(str);
-    }
-
 
     /*** string to json */
     function parseCustomTableJson(str) {
@@ -251,7 +242,79 @@
             // Calculate Base_Month by concatenating Fiscal_Year and Period
             object.Base_Month = object.Fiscal_Year + object.Period.padStart(2, '0');
         });
-        result['records'] = obj;
+
+
+
+        obj.sort((a, b) => {
+            if (a.Project_No !== b.Project_No) {
+                return a.Project_No.localeCompare(b.Project_No);
+            }
+            if (a.Data_Category !== b.Data_Category) {
+                return a.Data_Category.localeCompare(b.Data_Category);
+            }
+            if (a.Version !== b.Version) {
+                return a.Version.localeCompare(b.Version);
+            }
+            // Sort Version_Date in descending order
+            return new Date(b.Version_Date) - new Date(a.Version_Date);
+        });
+        
+        // Step 2: Group data by Project_No, Data_Category, Version (highest Version_Date)
+        let groupedData = {};
+        
+        obj.forEach(obj => {
+            let key = obj.Project_No + '-' + obj.Data_Category + '-' + obj.Version;
+            if (!groupedData[key]) {
+                groupedData[key] = {
+                    Project: obj.Project_No,
+                    WBS: obj.Data_Category,
+                    Version: obj.Version,
+                    VersionDate: obj.Version_Date,
+                    LowestBaseMonth: obj.Base_Month,
+                    Beyond18: null,
+                    months: {}
+                };
+            }
+            
+            // Step 3: Find the lowest Base_Month within each group
+            if (obj.Base_Month < groupedData[key].LowestBaseMonth) {
+                groupedData[key].LowestBaseMonth = obj.Base_Month;
+            }
+            
+            // Step 4: Calculate month1 to month18 based on the lowest Base_Month
+            let baseMonthNum = parseInt(obj.Base_Month);
+            let lowestBaseMonthNum = parseInt(groupedData[key].LowestBaseMonth);
+            let monthDifference = baseMonthNum - lowestBaseMonthNum + 1;
+            
+            if (monthDifference >= 1 && monthDifference <= 18) {
+                groupedData[key].months['Month' + monthDifference] = obj.Value;
+            }
+            else if (monthDifference > 18) {
+                groupedData[key].Beyond18 ? groupedData[key].Beyond18 + obj.Value : obj.Value;
+            }
+        });
+        
+        // Step 5: Format the aggregated data with month1 to month18 fields
+        let aggregatedData = Object.values(groupedData);
+
+        aggregatedData.forEach(obj => {
+            let months = obj.months;
+            for (let month in months) {
+                obj[month] = months[month];
+            }
+        });
+
+        aggregatedData.forEach(obj => {
+            let transformedObj = {};
+            for (let key in obj) {
+                let transformedKey = key.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                transformedObj[transformedKey] = obj[key];
+            }
+            obj = transformedObj;
+        });
+        
+        result['records'] = aggregatedData;
+        
         return JSON.stringify(result);
     }
 
@@ -266,20 +329,19 @@
     }
 
     function postWbsBudget(json) {
-        var wbsBudgetUrl = location.origin + '/api/now/import/x_yergb_bpm_pjt_sum_d/insertMultiple';
-        // postJsonToImportSet(wbsBudgetUrl, json);
+        var wbsBudgetUrl = location.origin + '/api/now/import/x_yergb_bpm_wbs_budget_import/insertMultiple';
+        postJsonToImportSet(wbsBudgetUrl, json);
     }
-
     function postJsonToImportSet(url, json) {
         $http({
             method: 'POST',
             url: url,
             data: json
         }).then(function successCallback(response) {
-			gs.addInfoMessage('전송이 완료되었습니다.');
+			alert('전송이 완료되었습니다.');
             console.log(response);
         }, function errorCallback(response) {
-			gs.addInfoMessage('전송에 실패하였습니다.');
+			alert('전송에 실패하였습니다.');
             console.log(response);
         });
     }
@@ -288,18 +350,18 @@
     function validation(obj){
         var fileTypes = ['text/plain'];
         if (obj.name.length > 35) {
-            gs.addInfoMessage("파일명이 35자 이하여야 합니다.");
+            alert("파일명이 35자 이하여야 합니다.");
             return false;
         } else if (!obj.name.includes('PJTSUM')) {
-            gs.addInfoMessage("PJTSUM 파일을 올려주세요.")
+            alert("PJTSUM 파일을 올려주세요.")
         } else if (obj.size > (100 * 1024 * 1024)) {
-            gs.addInfoMessage("최대 파일 용량인 100MB를 초과한 파일을 올릴 수 없습니다.");
+            alert("최대 파일 용량인 100MB를 초과한 파일을 올릴 수 없습니다.");
             return false;
         } else if (obj.name.lastIndexOf('.txt') == -1) {
-            gs.addInfoMessage("파일의 확장자를 txt로 해주세요.");
+            alert("파일의 확장자를 txt로 해주세요.");
             return false;
         } else if (!fileTypes.includes(obj.type)) {
-            gs.addInfoMessage("첨부가 불가능한 파일 입니다.");
+            alert("첨부가 불가능한 파일 입니다.");
             return false;
         } else {
             return true;
@@ -309,19 +371,18 @@
     $(document).ready(function() {
         
     	var toggleButtons = document.querySelectorAll(".yoko-btn-fold");
-      toggleButtons.forEach(button => {
+        toggleButtons.forEach(button => {
         button.addEventListener("click", function() {
-          var targetId = this.getAttribute("data-target");
-          var content = document.getElementById(targetId);
-          if (content.style.display === "block" || content.style.display === "") {
-            content.style.display = "none";
-          } else {
-            content.style.display = "block";
-          }
-
-          this.classList.toggle("active");
+            var targetId = this.getAttribute("data-target");
+            var content = document.getElementById(targetId);
+            if (content.style.display === "block" || content.style.display === "") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+            this.classList.toggle("active");
+            });
         });
-      });
     });
 
 
@@ -798,14 +859,14 @@ border: 2px solid red;&#13;
         <sys_created_by>yeongink</sys_created_by>
         <sys_created_on>2024-06-24 05:11:44</sys_created_on>
         <sys_id>48e1f96c8347021099decf50ceaad3f1</sys_id>
-        <sys_mod_count>397</sys_mod_count>
+        <sys_mod_count>452</sys_mod_count>
         <sys_name>prfManagement</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_48e1f96c8347021099decf50ceaad3f1</sys_update_name>
         <sys_updated_by>yeongink</sys_updated_by>
-        <sys_updated_on>2024-06-28 03:50:05</sys_updated_on>
+        <sys_updated_on>2024-06-28 12:03:30</sys_updated_on>
         <template><![CDATA[<div class="yoko-container">
   <div class="yoko-breadcrumb">Home > Project Management > PRF Management</div>
   <div class="yoko-title-btn-wrap">
@@ -885,7 +946,7 @@ border: 2px solid red;&#13;
 <div id="modalProjectNumber" class="modal" style="display:none;">
   <div class="modal-content">
       <div class="modal-header">
-          <span class="close" ng-click="closeModalProjectNumber()">&times;</span>
+          <span class="close" ng-click="closeModalProjfAectNumber()">&times;</span>
           <h2>{{c.data.modalProjectNumberTitle}}</h2>
       </div>
       <div class="modal-body">
