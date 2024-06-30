@@ -2265,9 +2265,13 @@ border: 2px solid red;
         var gr = new GlideRecord('x_yergb_bpm_rfq_entry');
         gr.get(input.urlSysId);
         data.state = gr.state.getDisplayValue();
+
+        // 
+        data.showCopy = false;
         // 현재 STATE 에 따라서, 버튼들의 노출도를 전부 조절한다 여기서
-        if (gr.state.getDisplayValue() == "New" &&    (   gs.getUser().isMemberOf('YCN Sales Group') ||  gs.getUser().isMemberOf('YKO Sales Group')   ) ) {
+        if (gr.state.getDisplayValue() == "New" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
             data.showAssess = true;
+            
             data.showRequest = false;
             data.showSubmit = false;
             data.showInProgress = false;
@@ -2279,7 +2283,7 @@ border: 2px solid red;
             data.showOIReport = false;
             data.showQuotationTypeSelect = true;
             data.showQuotationType = false;
-        } else if (gr.state.getDisplayValue() == "Assess" && (gs.getUser().isMemberOf('YCN Sales Group') ||gs.getUser().isMemberOf('YKO Sales Group') )) {
+        } else if (gr.state.getDisplayValue() == "Assess" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
             data.showAssess = false;
             data.showRequest = true;
             data.showSubmit = false;
@@ -2287,13 +2291,13 @@ border: 2px solid red;
             data.showAccept = false;
             data.showReturn = false;
             data.showCancel = false;
-            data.showUpdate = true;
+            data.showUpdate = false;
             data.showSave = true;
-            data.showCopy = false;
+            
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "Requested" && ( gs.getUser().isMemberOf('YCN_Sales_Engineer_Group') || gs.getUser().isMemberOf('YKO_Sales_Engineer_Group') ) ) {
+        } else if (gr.state.getDisplayValue() == "Requested" && ( gs.getUser().isMemberOf(data.assignment_group)) ) {
             data.showAssess = false;
             data.showRequest = false;
             data.showSubmit = false;
@@ -2301,9 +2305,21 @@ border: 2px solid red;
             data.showAccept = true;
             data.showReturn = true;
             data.showCancel = false;
-            data.showUpdate = true;
-            data.showSave = true;
-            data.showCopy = false;
+            data.showUpdate = false;
+            data.showSave = false; 
+            data.showOIReport = false;
+            data.showQuotationTypeSelect = false;
+            data.showQuotationType = true;
+        } else if (gr.state.getDisplayValue() == "Requested" && gr.quotation.state.getDisplayValue() == "Completed" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id) ) {
+            data.showAssess = false;
+            data.showRequest = false;
+            data.showSubmit = false;
+            data.showInProgress = false;
+            data.showAccept = true;
+            data.showReturn = true;
+            data.showCancel = false;
+            data.showUpdate = false;
+            data.showSave = false; 
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
@@ -2317,7 +2333,7 @@ border: 2px solid red;
             data.showCancel = true;
             data.showUpdate = true;
             data.showSave = true;
-            data.showCopy = false;
+           
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
@@ -2331,7 +2347,7 @@ border: 2px solid red;
             data.showCancel = false;
             data.showUpdate = true;
             data.showSave = true;
-            data.showCopy = false;
+
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
@@ -2345,7 +2361,7 @@ border: 2px solid red;
             data.showCancel = false;
             data.showUpdate = true;
             data.showSave = true;
-            data.showCopy = false;
+
             data.showOIReport = true;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
@@ -2368,7 +2384,7 @@ border: 2px solid red;
             data.showCancel = false;
             data.showUpdate = false;
             data.showSave = false;
-            data.showCopy = false;
+
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
@@ -2383,7 +2399,7 @@ border: 2px solid red;
             data.showCancel = false;
             data.showUpdate = false;
             data.showSave = false;
-            data.showCopy = false;
+
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
@@ -2481,9 +2497,9 @@ border: 2px solid red;
         grU.setValue('quotation_type', input.quotation_type);
         grU.setValue('yoda_opportunity_no', getValueOrEmptyString(input.yoda_opportunity_no));
         grU.setValue('end_user', input.end_user_sys_id);
-		    grU.setValue('end_user_name', input.end_user_name);
-		    grU.setValue('end_user_address', input.end_user_address);
-		    grU.setValue('end_user_country', input.end_user_country_sys_id);
+		grU.setValue('end_user_name', input.end_user_name);
+		grU.setValue('end_user_address', input.end_user_address);
+		grU.setValue('end_user_country', input.end_user_country_sys_id);
         grU.setValue('contract', input.contract_sys_id);
         grU.setValue('contract_name', getValueOrEmptyString(input.contract_name));
         grU.setValue('contract_address', getValueOrEmptyString(input.contract_address));
@@ -2492,6 +2508,7 @@ border: 2px solid red;
         grU.setValue('project_detail', getValueOrEmptyString(input.project_detail));
         grU.setValue('caution', input.caution);
         grU.setValue('reason_code', getValueOrEmptyString(input.reason_code));
+        grU.setValue('request_due_date', getValueOrEmptyString(input.request_due_date));
         grU.setValue('remark', getValueOrEmptyString(input.remark));
         grU.setValue('project_status',input.project_status);
         grU.update();
@@ -2731,14 +2748,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>417</sys_mod_count>
+        <sys_mod_count>422</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-30 04:19:39</sys_updated_on>
+        <sys_updated_on>2024-06-30 05:11:31</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
