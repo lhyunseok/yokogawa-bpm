@@ -13,6 +13,8 @@
 	var modalAnsoff = document.getElementById("modalAnsoff");
 	var modalJobType = document.getElementById('modalJobType');
 	
+	var modalSalesOffice = document.getElementById("modalSalesOffice");
+	
 	/* Server master values */
 	c.data.oiSysId = '';
 	c.data.rfqSysId = '';
@@ -44,6 +46,7 @@
 	c.data.modalTypeTaxClass = false;
 	c.data.modalTypeIndustry = false;
 	c.data.modalTypePayTerms = false;
+	c.data.modalSalesOffice = false;
 	
 	c.data.modalProjectType = false;
 	c.data.modalTypePrjType1 = false;
@@ -67,16 +70,44 @@
 	
 	$scope.btnClickSOSearch = function() {
 		console.log("BTN : SO Search");
+		modalSalesOffice.style.display = 'block';
+		c.data.modalSalesOffice = true;
+		
+		c.data.modalSOHeader = [{
+			text: "name",
+			value: "",
+			fieldLabel: "Saled Office"
+		}, {
+			text: "department",
+			value: "",
+			fieldLabel: "MU Code"
+		}];
+		
 		c.server.update().then(function(response) {
 			console.log('Server response:', response);
 		});
 	}
 	
-	$scope.btnClickSOInfo = function() {
+	/*$scope.btnClickSOInfo = function() {
 		console.log("BTN : SO Info");
+	
+		
 		c.server.update().then(function(response) {
 			console.log('Server response:', response);
 		});
+	}*/
+	
+	$scope.closeModalSalesOffice = function() {
+		c.data.modalSalesOffice = false;
+		modalSalesOffice.style.display = 'none';
+	}
+	
+	$scope.clickModalSO = function(item) {
+		c.data.SONm = item.name;
+		c.data.MUCode = item.muCode;
+		
+		c.data.modalSalesOffice = false;
+		modalSalesOffice.style.display = 'none';
 	}
 	
 	function getInteger(str) {
@@ -173,6 +204,16 @@
 		modalOrderType.style.display = 'block';
 		c.data.modalOrderType = true;
 		
+		c.data.modalOrderTypeHeader = [{
+			text: "name",
+			value: "",
+			fieldLabel: "Name"
+		}, {
+			text: "code",
+			value: "",
+			fieldLabel: "Code"
+		}];
+		
 		if(idx == 1) {
 			c.data.modalOrderTypeTitle = 'Order Type';
 			c.data.modalTypeOrderType = true;
@@ -205,8 +246,18 @@
 		
 
 		if(idx == 1) {
-					modalJobType.style.display = 'block';
+			modalJobType.style.display = 'block';
 			c.data.modalDmrType = 'JOB';
+			
+			c.data.modalSOHeader = [{
+				text: "name",
+				value: "",
+				fieldLabel: "Name"
+			}, {
+				text: "code",
+				value: "",
+				fieldLabel: "Code"
+			}];
 		}
 		c.server.update().then(function(response) {
 			console.log('Server response:', response);
@@ -271,7 +322,7 @@
 		});
 	}
 	
-	$scope.btnClickAnsoffTypeSearch = function(idx) {
+	/*$scope.btnClickAnsoffTypeSearch = function(idx) {
 		console.log("BTN : Ansoff Type Search---"+idx);
 		c.data.itemsAnsoff = [];
 		modalAnsoff.style.display = 'block';
@@ -290,7 +341,7 @@
 		c.server.update().then(function(response) {
 			console.log('Server response:', response);
 		});
-	}
+	}*/
 	
 	$scope.btnClickAnsoffTypeInfo = function(idx) {
 		console.log("BTN : Ansoff Type Info---"+idx);
@@ -368,7 +419,7 @@
 
 	$scope.clickDmrClass = function(item) {
 		c.data.jobTypeNm = item.name;
-		c.data.jobTypeSysId = item.sysId;
+		c.data.jobTypeSysId = item.sysid;
 		
 		modalJobType.style.display = 'none';
 	}
@@ -439,6 +490,15 @@
 	
 	$scope.gridProjectTypeBtnClick = function(str) {
 		console.log('gridProjectTypeBtnClick:' + str);
+		c.data.modalProjectTypeHeader = [{
+			text: "name",
+			value: "",
+			fieldLabel: "Name"
+		}, {
+			text: "code",
+			value: "",
+			fieldLabel: "Code"
+		}];
 		if(str == 'add') {
 			dpPrjType.addRow({
 				'sysid' : '', 
@@ -535,6 +595,15 @@
 	
 	$scope.gridAnsoffTypeBtnClick = function(str) {
 		console.log('gridAnsoffTypeBtnClick:' + str);
+		c.data.modalAnsoffHeader = [{
+			text: "name",
+			value: "",
+			fieldLabel: "Name"
+		}, {
+			text: "desc",
+			value: "",
+			fieldLabel: "Description"
+		}];
 		if(str == 'add') {
 			dpAnsoff.addRow({
 				'sysid' : '', 
@@ -990,6 +1059,9 @@
 			c.data.disAnsoff3 = false;
 			c.data.disChkFlag = false;
 			c.data.disPerc = false;
+			
+			c.data.disSONm = false;
+			c.data.disSONmSearch = false;
 			
 			if(c.data.salesCompanyNm == 'YCN') {
 				c.data.showBtnAuthorize = true;
@@ -1454,7 +1526,137 @@ border: 2px solid red;
 .rg-header .rg-table tr td:hover {background: #68B3FC !important; color: #fff !important;}
 .rg-header-select {background: rgb(232 248 240 / 50%) !important;}
 .rg-selection { background: rgb(232 248 240 / 35%) !important; border: 1px solid #15BD66!important;}
-.rg-editor-container { border: 2px solid #27C382 !important; }*/</css>
+.rg-editor-container { border: 2px solid #27C382 !important; }*/
+
+
+/* modal 0630 */
+
+ .modal-dialog{
+     border: #ddd 1px solid !important;
+     position: fixed;
+     top: 50%; /* Adjust the vertical position */
+     left: 50%; /* Adjust the horizontal position */
+     transform: translate(-50%, -50%);
+     width: 80%;
+     min-width: 500px;
+     max-width: 600px;
+     padding: 20px;
+     background-color: white;
+     border-radius: 2px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+ .modal-form-content {
+     position: relative;
+     width: 100%;
+     height: 100%;
+}
+ .modal-search-form {
+     display: flex;
+     gap: 30px;
+     padding: 16px 20px;
+     max-width: 1600px;
+     background-color: #F7F7F7;
+     border: 1px #EDEDED;
+     border-radius: 4px;
+     margin-bottom: 10px;
+}
+ .modal-close-button {
+     position: absolute;
+     top: 1px;
+     right: 1px;
+     background: transparent;
+     border: none;
+     font-size: 25px;
+     cursor: pointer;
+}
+ .modal-form-inline {
+     display: flex;
+     align-items: left;
+}
+ .modal-label {
+     font-size: 15px !important;
+     font-weight: bold !important;
+     width: 100px !important;
+     min-width: 50px !important;
+     margin-right: 50px;
+     text-align: left;
+     color: #4B5E70;
+     font-family: 'Pretendard';
+     font-size: 13px;
+     font-style: normal;
+     font-weight: 500;
+     line-height: normal;
+}
+ .modal-select {
+     font-family: "Pretendard";
+     font-size: 13px;
+     padding: 6px 10px 5px 10px;
+     max-height: 28px;
+     width: calc(100%);
+     border-radius: 4px;
+     border: 1px solid #E1E8F0;
+     color: #7A8692;
+     margin-right: 10px;
+     max-width: 150px !important;
+     min-width: 150px !important;
+     -moz-appearance:none;
+     -webkit-appearance:none;
+     appearance:none;
+     background-image: url(icon_arrow_down.png);
+     background-repeat: no-repeat;
+     background-position-x: 100%;
+     background-position-y: 1px;
+     line-height: 15px;
+     padding: 6px 30px 5px 10px;
+}
+ .yoko-wid204 {
+     font-family: "Pretendard";
+     font-size: 13px;
+     padding: 6px 10px 5px 10px;
+     max-height: 28px;
+     border-radius: 4px;
+     border: 1px solid #E1E8F0;
+     color: #7A8692;
+     margin-right: 10px;
+     min-width: 150px !important;     
+     max-width: 150px !important;
+}
+ .yoko-table-container {
+     border: #ddd 1px solid !important;
+     min-height: 200px;
+     max-height: 400px;
+     overflow-y: auto;
+     overflow-x: hidden;
+}
+ .yoko-search-table {
+     width: 100%;
+     border-collapse: collapse;
+}
+ .yoko-search-table tr th {
+     color: #4B5E70;
+     padding: 3px;
+     text-align: center;
+     background-color: #f2f2f2;
+}
+ .yoko-search-table tr td {
+     padding: 3px;
+     text-align: left;
+     border-bottom: 1px solid #ddd;
+}
+
+#clicktd {
+     color: #1c88f4;
+     cursor: pointer;
+     text-align: left;
+}
+ #clicktd:hover {
+     font-weight: bold;
+     text-decoration: underline;
+}
+
+
+
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -1571,6 +1773,9 @@ border: 2px solid red;
 					data.payTermsCode = grC.code.toString();
 				}
 			}
+			
+			
+			//grOrdType = new GlideRecord('x_yergb_bpm_industry_master');
 			
 			/* Job Type */
 			if( !isEmpty(data.jobTypeSysId) ) {
@@ -1914,7 +2119,9 @@ border: 2px solid red;
 			grOrdType.addQuery('category', 'TAX Classification');
 		} else if(input && input.modalTypeIndustry) {
 			grOrdType = new GlideRecord('x_yergb_bpm_industry_master');
-			//grOrdType .addQuery('active', true);
+			if(!isEmpty(input.MUCode)) {
+				grOrdType.addQuery('mu_code', input.MUCode);
+			}
 		} else if(input && input.modalTypePayTerms) {
 			grOrdType = new GlideRecord('x_yergb_bpm_common_code');
 			grOrdType.addQuery('category', 'PAYMENT TERMS');
@@ -1926,7 +2133,8 @@ border: 2px solid red;
 				data.itemsOrdertype.push({
 					type : "3", 
 					name : grOrdType.industry_name.toString(), 
-					code : grOrdType.industry_code.toString() 
+					code : grOrdType.industry_code.toString(),
+					sysid : grOrdType.sys_id.toString()
 				});
 			} else if(input && input.modalTypeOrderType) {
 				data.itemsOrdertype.push({
@@ -1950,45 +2158,21 @@ border: 2px solid red;
 		}
 	}
 	
-	/* Job type Modal */
-	if(input && input.modalDmrType=='JOB') {
-		console.log('SERVER:JOB=' + input.modalDmrType);
-		data.itemsJobType = [];
-		var rJob = new GlideRecord('x_yergb_bpm_common_code');
-		rJob.initialize();
-		rJob.addQuery('category', 'Job Type');
-		rJob.query();
-		while(rJob.next()) {
-			console.log('SERVER JOB : ' + rJob.name.toString());
-			data.itemsJobType.push({
-				name : rJob.name.toString(),
-				code : rJob.code.toString(),
-				desc : rJob.description.toString(),
-				sysId : rJob.sys_id.toString()
-			});
-		}
-	}
+
 	
 	/* Project type Modal */
 	if(input && input.modalProjectType) {
 		data.itemsProjecttype = [];
-		/*var prjType;
-		if(input && input.modalTypePrjType1) {
-			prjType = "1";
-		} else if(input && input.modalTypePrjType2) {
-			prjType = "2";
-		} else if(input && input.modalTypePrjType3) {
-			prjType = "3";
-		}*/
-		
 		var grPjtType = new GlideRecord('x_yergb_bpm_common_code');
-		grPjtType.addQuery('category', 'PJT TYPE');		
+		grPjtType.addQuery('category', 'PJT TYPE');	
+		if(!isEmpty(input.MUCode)) {
+			grPjtType.addQuery('mu_code', input.MUCode);
+		}
 		grPjtType.query();
 		while(grPjtType.next()) {
 			data.itemsProjecttype.push({
 				name : grPjtType.name.toString(),
 				code : grPjtType.code.toString(), 
-				//perc : grPjtType.rate_percent.toString(),
 				sysid : grPjtType.sys_id.toString()
 			});
 		}
@@ -1997,25 +2181,47 @@ border: 2px solid red;
 	/* Ansoff Modal */
 	if(input && input.modalAnsoff) {
 		data.itemsAnsoff = [];
-		var ansOff;
-		if(input && input.modalTypeAnsoff1) {
-			ansOff = "1";
-		} else if(input && input.modalTypeAnsoff2) {
-			ansOff = "2";
-		} else if(input && input.modalTypeAnsoff3) {
-			ansOff = "3";
-		}
-		
 		var grAnsoff = new GlideRecord('x_yergb_bpm_ansoff_master');
+		if(!isEmpty(input.MUCode)) {
+			grAnsoff.addQuery('mu_code', input.MUCode);
+		}
 		grAnsoff.query();
 		while(grAnsoff.next()) {
 				data.itemsAnsoff.push({
-					type : ansOff,
 					desc : grAnsoff.biz_name.toString(),
 					name : grAnsoff.biz_type.toString(),
-					//perc : grAnsoff.rate_percent.toString(),
 					sysid : grAnsoff.sys_id.toString()
 				});
+		}
+	}
+	
+	/* Job type Modal */
+	if(input && input.modalDmrType=='JOB') {
+		data.itemsJobType = [];
+		var rJob = new GlideRecord('x_yergb_bpm_common_code');
+		rJob.initialize();
+		rJob.addQuery('category', 'Job Type');
+		rJob.query();
+		while(rJob.next()) {
+			data.itemsJobType.push({
+				name : rJob.name.toString(),
+				code : rJob.code.toString(),
+				sysid : rJob.sys_id.toString()
+			});
+		}
+	}
+	
+	/* Sales office Modal */ 
+	if(input && input.modalSalesOffice){		
+		data.itemsSalesOffice = [];
+		var grSO = new GlideRecord('x_yergb_bpm_sales_office');
+		grSO.query();
+		while(grSO.next()) {
+			data.itemsSalesOffice.push({
+				name : grSO.name.toString(),
+				muCode : grSO.mu.mu_code.toString(),
+				sys_id : grSO.sys_id.toString()
+			});
 		}
 	}
 })();]]></script>
@@ -2024,14 +2230,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>984</sys_mod_count>
+        <sys_mod_count>1018</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-29 19:37:34</sys_updated_on>
+        <sys_updated_on>2024-06-30 00:16:17</sys_updated_on>
         <template><![CDATA[<!--<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2086,10 +2292,10 @@ border: 2px solid red;
                             <div class="yoko-form-inline yoko-wid308">
                                 <div class="yoko-form-inline">
                                     <input type="text" name="inputSalesOffice" value="" ng-model="c.data.SONm" ng-disabled='c.data.disSONm' placeholder="" class="yoko-wid100">
-                                    <button type="button" class="yoko-btn yoko-btn-search" hidden ng-click="btnClickSOSearch()" ng-disabled='c.data.disSONmSearch'></button>
-                                    <button type="button" class="yoko-btn yoko-btn-info-fill" ng-click="btnClickSOInfo()" ng-disabled='c.data.disSONmInfo'></button>
+                                    <button type="button" class="yoko-btn yoko-btn-search"  ng-click="btnClickSOSearch()" ng-disabled='c.data.disSONmSearch'></button>
+                                    <button type="button" class="yoko-btn yoko-btn-info-fill" hidden ng-click="btnClickSOInfo()" ng-disabled='c.data.disSONmInfo'></button>
                                 </div>
-                                <input type="text" name="inputSONum" value="" ng-model='c.data.SONum' placeholder="" disabled class="">
+                                <input type="text" name="inputSONum" value="" ng-model='c.data.MUCode' placeholder="" disabled class="">
                             </div>
                         </div>
                         <div class="yoko-form-group">
@@ -2649,93 +2855,195 @@ border: 2px solid red;
     </div>
   
   	<!-- Modal Order type Structure -->
-    <div id="modalOrderType" class="modal" style="display:none;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close" ng-click="closeModalOrderType()">&times;</span>
-                <h2>{{c.data.modalOrderTypeTitle}}</h2>
-            </div>
-            <div class="modal-body">
-                <ul id="container" class="container">
-                    <li ng-repeat="item in c.data.itemsOrdertype">
-                      <span ng-click="clickOrderType(item)">{{item.name}}</span>
-                    </li>
-                </ul>
-                <div class="pagination" id="pagination"></div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" ng-click="closeModalOrderType()">Close</button>
-            </div>
-        </div>
-    </div>
+  	<dialog class="modal-dialog" id="modalOrderType">
+      <div class="modal-form-content">
+          <div class="modal-search-form">
+              <button class="modal-close-button" ng-click="closeModalOrderType()">×</button>
+              <div class="modal-form-inline">
+                  <label class="modal-label" >{{c.data.modalOrderTypeTitle}}</label>
+                  <!--<select class="modal-select">
+                  <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                  </select>-->
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickModalSearch()"></button>
+              </div>
+         </div>
+      </div>
+      <div class="yoko-table-container">
+          <table class="yoko-search-table">
+              <colgroup>
+                <col style="width: 137px">
+                <col style="width: 51px">
+                <col style="width: auto">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th ng-repeat="item in c.data.modalOrderTypeHeader">{{ item.fieldLabel }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in c.data.itemsOrdertype">
+                  <td id="clicktd" ng-click="clickOrderType(item)">{{ item.name }}</td>
+                  <td>{{ item.code }}</td>
+                  <td style="display: none;">{{ item.sysid }}</td>
+                </tr>
+              </tbody>
+          </table>   
+      </div>
+    </dialog>
   
   	<!-- Modal Project type Structure -->
-    <div id="modalProjectType" class="modal" style="display:none;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close" ng-click="closeModalProjectType()">&times;</span>
-                <h2>{{c.data.modalProjectTypeTitle}}</h2>
-            </div>
-            <div class="modal-body">
-                <ul id="container" class="container">
-                    <li ng-repeat="item in c.data.itemsProjecttype">
-                      <span ng-click="clickProjectType(item)">{{item.name}}</span>
-                    </li>
-                </ul>
-                <div class="pagination" id="pagination"></div>
-
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" ng-click="closeModalProjectType()">Close</button>
-            </div>
-        </div>
-    </div>
+  	<dialog class="modal-dialog" id="modalProjectType">
+      <div class="modal-form-content">
+          <div class="modal-search-form">
+              <button class="modal-close-button" ng-click="closeModalProjectType()">×</button>
+              <div class="modal-form-inline">
+                  <label class="modal-label" >Project Type</label>
+                  <!--<select class="modal-select">
+                  <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                  </select>-->
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickModalSearch()"></button>
+              </div>
+         </div>
+      </div>
+      <div class="yoko-table-container">
+          <table class="yoko-search-table">
+              <colgroup>
+                <col style="width: 51px">
+                <col style="width: 137px">
+                <col style="width: auto">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th ng-repeat="item in c.data.modalProjectTypeHeader">{{ item.fieldLabel }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in c.data.itemsProjecttype">
+                  <td id="clicktd" ng-click="clickProjectType(item)">{{ item.name }}</td>
+                  <td>{{ item.code }}</td>
+                  <td style="display: none;">{{ item.sysid }}</td>
+                </tr>
+              </tbody>
+          </table>   
+      </div>
+    </dialog>
   
   	<!-- Modal Ansoff Structure -->
-    <div id="modalAnsoff" class="modal" style="display:none;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close" ng-click="closeModalAnsoff()">&times;</span>
-                <h2>{{c.data.modalAnsoffTitle}}</h2>
-            </div>
-            <div class="modal-body">
-                <ul id="container" class="container">
-                    <li ng-repeat="item in c.data.itemsAnsoff">
-                      <span ng-click="clickAnsoff(item)">{{item.desc}}</span>
-                    </li>
-                </ul>
-  
-                <div class="pagination" id="pagination"></div>
-
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" ng-click="closeModalAnsoff()">Close</button>
-            </div>
-        </div>
-    </div>
+  	<dialog class="modal-dialog" id="modalAnsoff">
+      <div class="modal-form-content">
+          <div class="modal-search-form">
+              <button class="modal-close-button" ng-click="closeModalAnsoff()">×</button>
+              <div class="modal-form-inline">
+                  <label class="modal-label" >Ansoff Type</label>
+                  <!--<select class="modal-select">
+                  <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                  </select>-->
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickModalSearch()"></button>
+              </div>
+         </div>
+      </div>
+      <div class="yoko-table-container">
+          <table class="yoko-search-table">
+              <colgroup>
+                <col style="width: 51px">
+                <col style="width: 137px">
+                <col style="width: auto">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th ng-repeat="item in c.data.modalAnsoffHeader">{{ item.fieldLabel }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in c.data.itemsAnsoff">
+                  <td id="clicktd" ng-click="clickAnsoff(item)">{{ item.name }}</td>
+                  <td>{{ item.desc }}</td>
+                  <td style="display: none;">{{ item.sysid }}</td>
+                </tr>
+              </tbody>
+          </table>   
+      </div>
+    </dialog>
   
   	<!-- Modal JOB TYPE -->
-    <div id="modalJobType" class="modal" style="display:none;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close" ng-click="closeDmrClass()">&times;</span>
-                <h2>JOB Type</h2>
-            </div>
-            <div class="modal-body">
-                <ul id="container" class="container">
-                    <li ng-repeat="item in c.data.itemsJobType">
-                      <span ng-click="clickDmrClass(item)">{{item.name}}</span>
-                    </li>
-                </ul>
+    <dialog class="modal-dialog" id="modalJobType">
+      <div class="modal-form-content">
+          <div class="modal-search-form">
+              <button class="modal-close-button" ng-click="closeDmrClass()">×</button>
+              <div class="modal-form-inline">
+                  <label class="modal-label" >JobType</label>
+                  <!--<select class="modal-select">
+                  <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                  </select>-->
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickModalSearch()"></button>
+              </div>
+         </div>
+      </div>
+      <div class="yoko-table-container">
+          <table class="yoko-search-table">
+              <colgroup>
+                <col style="width: 81px">
+                <col style="width: 107px">
+                <col style="width: auto">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th ng-repeat="item in c.data.modalSOHeader">{{ item.fieldLabel }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in c.data.itemsJobType">
+                  <td id="clicktd" ng-click="clickDmrClass(item)">{{ item.name }}</td>
+                  <td>{{ item.code }}</td>
+                  <td style="display: none;">{{ item.sysid }}</td>
+                </tr>
+              </tbody>
+          </table>   
+      </div>
+    </dialog>
   
-                <div class="pagination" id="pagination"></div>
+    <!-- Modal sales office -->
+    <dialog class="modal-dialog" id="modalSalesOffice">
+      <div class="modal-form-content">
+          <div class="modal-search-form">
+              <button class="modal-close-button" ng-click="closeModalSalesOffice()">×</button>
+              <div class="modal-form-inline">
+                  <label class="modal-label" >Sales office</label>
+                  <!--<select class="modal-select">
+                  <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                  </select>-->
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickModalSearch()"></button>
 
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" ng-click="closeDmrClass()">Close</button>
-            </div>
-        </div>
-    </div>
+              </div>
+         </div>
+      </div>
+      <div class="yoko-table-container">
+          <table class="yoko-search-table">
+              <colgroup>
+                <col style="width: 51px">
+                <col style="width: 137px">
+                <col style="width: auto">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th ng-repeat="item in c.data.modalSOHeader">{{ item.fieldLabel }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in c.data.itemsSalesOffice">
+                  <td id="clicktd" ng-click="clickModalSO(item)">{{ item.name }}</td>
+                  <td>{{ item.muCode }}</td>
+                  <td style="display: none;">{{ item.sys_id }}</td>
+                </tr>
+              </tbody>
+          </table>   
+      </div>
+    </dialog>
   
   <script type= text/javascript>
     $(document).ready(function() {
