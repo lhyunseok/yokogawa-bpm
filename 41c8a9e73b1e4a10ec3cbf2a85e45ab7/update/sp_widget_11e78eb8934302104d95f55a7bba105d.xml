@@ -2638,24 +2638,34 @@ border: 2px solid red;
 
     }
 
-    if (input && input.refer_contract_country_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-		data.items = [];
+	    if (input && input.refer_contract_country_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
+      data.itemsCountry = [];
         var gr7 = new GlideRecord('core_country');
+           gr7.addEncodedQuery(input.modalQuery);
         gr7.query();
         while (gr7.next()) {
-            data.items.push({
-                column1: gr7.getValue('name'),
-                column2: gr7.getValue('sys_id'),
-                column3: gr7.getValue('sys_id')
+            data.itemsCountry.push({
+                name: gr7.getValue('name'),
+                iso3166_2: gr7.getValue('iso3166_2'),
+                sys_id: gr7.getValue('sys_id')
             });
         }
-
-        // Pass data to the client script
-        //data.items = items;
-        data.modalTitle = "COUNTRY";
-
     }
 
+
+    if (input && input.refer_contract_country) { // 없으면 오류 뜸, 둘다 있어야 함.
+      data.itemsContractRef = [];
+        var gr8 = new GlideRecord('core_country');
+           gr8.addEncodedQuery(input.modalQuery);
+        gr8.query();
+        while (gr8.next()) {
+            data.itemsContractRef.push({
+                name: gr8.getValue('name'),
+                iso3166_2: gr8.getValue('iso3166_2'),
+                sys_id: gr8.getValue('sys_id')
+            });
+        }
+    }
 
 
     if (input && input.refer_currency_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
@@ -2748,14 +2758,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>422</sys_mod_count>
+        <sys_mod_count>423</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-30 05:11:31</sys_updated_on>
+        <sys_updated_on>2024-06-30 05:47:03</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
