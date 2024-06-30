@@ -2437,6 +2437,7 @@ border: 2px solid red;
         var grr = new GlideRecord('x_yergb_bpm_rfq_entry');
         grr.initialize();
         grr.setValue('sales_manager', input.sales_manager_sys_id);
+        grr.setValue('requestor', input.requestor_sys_id);
         grr.setValue('customer_rfq', input.customer_rfq);
         grr.setValue('currency', input.currency_sys_id);
         grr.setValue('estimated_oi_amount', getValueOrEmptyString(input.estimated_oi_amount));
@@ -2730,14 +2731,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>411</sys_mod_count>
+        <sys_mod_count>413</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-30 03:56:11</sys_updated_on>
+        <sys_updated_on>2024-06-30 04:07:47</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2778,8 +2779,8 @@ border: 2px solid red;
                             <div class="yoko-form-group">
                                 <label for="requester_no" class="yoko-short">{{data.labelRequestor}}</label>
                                 <div class="yoko-form-inline">
-                                    <input type="text" name="requester_no" ng-model="c.data.requestor" disabled>
-                                    <input type="text" name="requestor_no_sys_id" value="" disabled ng-model="c.data.requestor_sys_id" ng-style="{'display': 'none'}">
+                                    <input type="text" name="requestor" ng-model="c.data.requestor" disabled>
+                                    <input type="text" name="requestor_sys_id" value="" disabled ng-model="c.data.requestor_sys_id" ng-style="{'display': 'none'}">
                                     <button id="button2" type="button" class="yoko-btn yoko-btn-info" ng-click="c.togglePopover($event, 2)"></button>
                                 </div>
                             </div>
