@@ -141,6 +141,10 @@
 	}
 	
 	function gridsSave() {
+		gvDetail.commit(true);
+		gvPrjType.commit(true);
+		gvAnsoff.commit(true);
+		
 		c.data.gridBtnTransact = 'T';
 		c.data.gridDetailData = dpDetail.getJsonRows();
 		for(var x=0; x<c.data.gridDetailData.length; x++) {
@@ -2463,14 +2467,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>1088</sys_mod_count>
+        <sys_mod_count>1094</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-30 10:58:36</sys_updated_on>
+        <sys_updated_on>2024-06-30 11:52:08</sys_updated_on>
         <template><![CDATA[<!--<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
