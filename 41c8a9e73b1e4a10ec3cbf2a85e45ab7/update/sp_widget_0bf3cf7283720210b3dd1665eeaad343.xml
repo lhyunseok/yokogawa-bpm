@@ -12,6 +12,9 @@
 	var modalProjectType = document.getElementById("modalProjectType");
 	var modalAnsoff = document.getElementById("modalAnsoff");
 	var modalJobType = document.getElementById('modalJobType');
+	var modalVendor = document.getElementById('modalVendor');
+	var modalEndUser = document.getElementById('modalEndUser');
+	var modalContractor = document.getElementById('modalContractor');
 	
 	var modalSalesOffice = document.getElementById("modalSalesOffice");
 	
@@ -327,6 +330,7 @@
 		} else if(item.type == 3) {
 			c.data.industryNm = item.name;
 			c.data.industryCode = item.code;
+			c.data.industrySysId = item.sysid;
 		} else if(item.type == 4) {
 			c.data.payTermsNm = item.name;
 			c.data.payTermsCode = item.code;
@@ -423,6 +427,30 @@
 			console.log('Server response:', response);
 		});
 	}
+	
+	$scope.clickVendorModalSearch = function() {
+		modalVendor.style.display = 'block';
+		c.data.modalVendor = true;
+		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
+
+		c.server.update().then(function(response) {
+			console.log('Server response:', response);
+		});
+	}
+	
+	$scope.clickVendor = function(item) {
+		var rowIdx = gvDetail.getCurrent().dataRow;
+		dpDetail.setValue(rowIdx, 'vendor', item.name);
+		dpDetail.setValue(rowIdx, 'vendor_sysid', item.sysid);
+		
+		modalVendor.style.display = 'none';
+		c.data.modalVendor = false;
+	}
+	
+	$scope.closeModalVendor = function() {
+		modalVendor.style.display = 'none';
+		c.data.modalVendor = false;
+	}
 
 	
 	$scope.clickOrderTypeModalSearch = function() {
@@ -433,27 +461,106 @@
 			c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 		}
 		
-		/*if(idx == 1) {
-			c.data.modalOrderTypeTitle = 'Order Type';
-			c.data.modalTypeOrderType = true;
-		} else if(idx == 2) {
-			c.data.modalOrderTypeTitle = 'TAX Class';
-			c.data.modalTypeTaxClass = true;
-		} else if(idx == 3) {
-			c.data.modalOrderTypeTitle = 'Industry';
-			c.data.modalTypeIndustry = true;
-		} else if(idx == 4) {
-			c.data.modalOrderTypeTitle = 'Payment Terms';
-			c.data.modalTypePayTerms = true;
-		}*/
-		
 		c.server.update().then(function(response) {
 			c.data.modalOrderType = false;
 		});
 	} 
 	
 	
+	/* End user */
+	$scope.btnClickEndUserSearch = function() {
+		c.data.searchQuery = '';
+		c.data.modalQuery = '';
 
+		modalEndUser.style.display = 'block';
+		c.data.modalEndUser = true;
+
+		c.data.modalEndUserHeader = [{
+			text: "name",
+			value: "",
+			fieldLabel: "End User"
+		}, {
+			text: "country",
+			value: "",
+			fieldLabel: "Country"
+		}];
+		
+		c.server.update().then(function(response) {
+			c.data.modalEndUser = false;
+		});
+	}
+	
+	$scope.closeModalEndUser = function() {
+		modalEndUser.style.display = 'none';
+		c.data.modalEndUser = false;
+	}
+	
+	$scope.clickEndUserModalSearch = function() {
+		c.data.modalEndUser = true;
+		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
+
+		c.server.update().then(function(response) {
+			c.data.modalEndUser = false;
+		});
+	}
+	
+	$scope.clickModalEndUser = function(item) {
+		c.data.endUserNm = item.name;
+		c.data.endUserCountry = item.country;
+		c.data.endUserSysid = item.sys_id;
+			
+		modalEndUser.style.display = 'none';
+		c.data.modalEndUser = false;
+	}
+	
+	
+	
+	/* modalContractor */ 
+	$scope.btnClickContractorSearch = function() {
+		c.data.searchQuery = '';
+		c.data.modalQuery = '';
+
+		modalContractor.style.display = 'block';
+		c.data.modalContractor = true;
+		
+		c.data.modalContractorHeader = [{
+			text: "name",
+			value: "",
+			fieldLabel: "Contractor"
+		}, {
+			text: "country",
+			value: "",
+			fieldLabel: "Country"
+		}];
+		
+		c.server.update().then(function(response) {
+			c.data.modalConstructor = false;
+		});
+	}
+
+	$scope.closeModalContractor = function() {
+		modalContractor.style.display = 'none';
+		c.data.modalContractor = false;
+	}
+	
+	$scope.clickContractorModalSearch = function() {
+		c.data.modalContractor = true;
+		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
+
+		c.server.update().then(function(response) {
+			c.data.modalContractor = false;
+		});
+	}
+	
+	$scope.clickModalContractor = function(item) {
+		c.data.contractorNm = item.name;
+		c.data.contractorCountry = item.country;
+		c.data.contractorSysid = item.sys_id;
+		
+		modalContractor.style.display = 'none';
+		c.data.modalContractor = false;
+	}
+	
 	
 	
 	
@@ -512,15 +619,6 @@
 	/* GRID for Project type */
 	$scope.gridProjectTypeBtnClick = function(str) {
 		console.log('gridProjectTypeBtnClick:' + str);
-		c.data.modalProjectTypeHeader = [{
-			text: "name",
-			value: "",
-			fieldLabel: "Name"
-		}, {
-			text: "code",
-			value: "",
-			fieldLabel: "Code"
-		}];
 		if(str == 'add') {
 			dpPrjType.addRow({
 				'sysid' : '', 
@@ -602,6 +700,16 @@
 		gvPrjType.displayOptions.columnMovable = false;
 		
 		gvPrjType.onCellButtonClicked = function(grid, index, column) {
+			c.data.modalProjectTypeHeader = [{
+				text: "name",
+				value: "",
+				fieldLabel: "Name"
+			}, {
+				text: "code",
+				value: "",
+				fieldLabel: "Code"
+			}];
+			
 			c.data.itemsProjecttype = [];
 			modalProjectType.style.display = 'block';
 			c.data.modalProjectType = true;
@@ -620,15 +728,6 @@
 	/* GRID for Ansoff */
 	$scope.gridAnsoffTypeBtnClick = function(str) {
 		console.log('gridAnsoffTypeBtnClick:' + str);
-		c.data.modalAnsoffHeader = [{
-			text: "name",
-			value: "",
-			fieldLabel: "Name"
-		}, {
-			text: "desc",
-			value: "",
-			fieldLabel: "Description"
-		}];
 		if(str == 'add') {
 			dpAnsoff.addRow({
 				'sysid' : '', 
@@ -710,6 +809,16 @@
 		gvAnsoff.displayOptions.columnMovable = false;
 		
 		gvAnsoff.onCellButtonClicked = function(grid, index, column) {
+			c.data.modalAnsoffHeader = [{
+				text: "name",
+				value: "",
+				fieldLabel: "Name"
+			}, {
+				text: "desc",
+				value: "",
+				fieldLabel: "Description"
+			}];
+			
 			c.data.itemsAnsoff = [];
 			modalAnsoff.style.display = 'block';
 			c.data.modalAnsoff = true;
@@ -792,6 +901,10 @@
 			},
 			{
 				fieldName: 'vendor',
+				dataType: 'text',
+			},
+			{
+				fieldName: 'vendor_sysid',
 				dataType: 'text',
 			},
 			{
@@ -933,7 +1046,9 @@
 				"header": {
 					"text": "Vendor"
 				},
-				"styleName" : "left-column"
+				"styleName" : "left-column",
+				"button":"action",
+      	"buttonVisibility": "always"
 			},
 			{
 				"name": "oi_report_num",
@@ -977,10 +1092,32 @@
 		
 		dpDetail.softDeleting = true;
 		
+		gvDetail.onCellButtonClicked = function(grid, index, column) {
+			c.data.itemsVendor = [];
+			modalVendor.style.display = 'block';
+			c.data.modalVendor = true;
+			c.data.searchQuery = '';
+			c.data.modalQuery = '';
+			
+			c.data.modalVendorHeader = [{
+				text: "name",
+				value: "",
+				fieldLabel: "Name"
+			}, {
+				text: "country",
+				value: "",
+				fieldLabel: "Country"
+			}];
+
+			c.server.update().then(function(response) {
+				console.log('Server response:', response);
+			});
+		};
+		
 		dpDetail.setRows(c.data.gridDetailData);
 	}
 	
-	$scope.gridDetailBtnClick = function(idx) {
+	$scope.gridDetailBtnClick = function(idx) {		
 		var v = {
 			'rowStat' : '',
 			'sys_id' : '', 
@@ -1053,6 +1190,8 @@
 		c.data.disMpAmt = true;
 		c.data.disGpPerc = true;
 		c.data.disMpPerc = true;
+		c.data.disEndUserNm = true;
+		c.data.disConstrucNm = true;
 
 		console.log("STATE:" + c.data.oiState);
 		if(Number(c.data.oiStateCode) == "1") {			
@@ -1075,6 +1214,8 @@
 			c.data.disAnsoff3 = false;
 			c.data.disChkFlag = false;
 			c.data.disPerc = false;
+			c.data.disEndUserNm = false;
+			c.data.disConstrucNm = false;
 			
 			c.data.disSONm = false;
 			c.data.disSONmSearch = false;
@@ -1727,6 +1868,7 @@ border: 2px solid red;
 		var ordTpCode = '';
 		var taxCode = '';
 		var payCode = '';
+		var industrySysid = '';
 		while(oiReportData.next()) { 
 			data.oiNum = oiReportData.number.toString();
 			data.oiState = oiReportData.state.getDisplayValue().toString();
@@ -1747,11 +1889,17 @@ border: 2px solid red;
 			data.totEstCost = oiReportData.total_extended_cost_tc.toString();
 			data.oiVer = oiReportData.version.toString();
 			
+			data.endUserNm = oiReportData.end_user_name.toString();
+			data.endUserCountry = oiReportData.end_user_country.toString();
+			data.contractorNm = oiReportData.contractor_name.toString();
+			data.contractorCountry = oiReportData.contractor_country.toString();
+			
 			data.PONo = oiReportData.customer_po_no.toString();
 			
 			ordTpCode = oiReportData.order_type.toString();
 			taxCode = oiReportData.tax_classification.toString();
 			payCode = oiReportData.payment_terms.toString();
+			industrySysid = oiReportData.industry.toString();
 			
 			var grC;
 			if(ordTpCode != '') {
@@ -1790,8 +1938,17 @@ border: 2px solid red;
 				}
 			}
 			
-			
-			//grOrdType = new GlideRecord('x_yergb_bpm_industry_master');
+			if(!isEmpty(industrySysid)) {
+				grC = new GlideRecord('x_yergb_bpm_industry_master');
+				grC.initialize();
+				grC.addQuery('sys_id', industrySysid);
+				grC.query();
+				while(grC.next()) {
+					data.industryNm = grC.industry_name.toString();
+					data.industryCode = grC.industry_code.toString();
+					data.industrySysId = industrySysid;
+				}
+			}
 			
 			/* Job Type */
 			if( !isEmpty(data.jobTypeSysId) ) {
@@ -1941,6 +2098,13 @@ border: 2px solid red;
 		oiRptTr.setValue('order_type', getValueOrEmptyString(input.orderTypeCode));
 		oiRptTr.setValue('tax_classification', getValueOrEmptyString(input.taxClassCode));
 		oiRptTr.setValue('payment_terms', getValueOrEmptyString(input.payTermsCode));	
+		oiRptTr.setValue('industry', getValueOrEmptyString(input.industrySysId));
+		
+		oiRptTr.setValue('end_user_name', getValueOrEmptyString(input.endUserNm));
+		oiRptTr.setValue('end_user_country', getValueOrEmptyString(input.endUserCountry));
+		oiRptTr.setValue('contractor_name', getValueOrEmptyString(input.contractorNm));
+		oiRptTr.setValue('contractor_country', getValueOrEmptyString(input.contractorCountry));
+		
 		//oiRptTr.setValue('version', /*String(Number(input.oiVer) + 1)*/ '1');
 		oiRptTr.update();
 		// Update status.
@@ -2217,6 +2381,21 @@ border: 2px solid red;
 		}
 	}
 	
+	/* Vendor Modal */
+	if(input && input.modalVendor) {
+		data.itemsVendor = [];
+		var grVendor = new GlideRecord('core_company');
+		grVendor.addEncodedQuery(input.modalQuery);
+		grVendor.query();
+		while(grVendor.next()) {
+				data.itemsVendor.push({
+					desc : grVendor.country.toString(),
+					name : grVendor.name.toString(),
+					sysid : grVendor.sys_id.toString()
+				});
+		}
+	}
+	
 	/* Job type Modal */
 	if(input && input.modalDmrType=='JOB') {
 		data.itemsJobType = [];
@@ -2248,20 +2427,50 @@ border: 2px solid red;
 			});
 		}
 	}
+	
+	/* End User */
+	if(input && input.modalEndUser){		
+		data.itemsEndUser = [];
+		var grEuser = new GlideRecord('core_company');
+		grEuser.addEncodedQuery(input.modalQuery);
+		grEuser.query();
+		while(grEuser.next()) {
+			data.itemsEndUser.push({
+				name : grEuser.name.toString(),
+				country : grEuser.country.toString(),
+				sys_id : grEuser.sys_id.toString()
+			});
+		}
+	}
+	
+	/* Constructor */
+	if(input && input.modalContractor){		
+		data.itemsContractor = [];
+		var grConst = new GlideRecord('core_company');
+		grConst.addEncodedQuery(input.modalQuery);
+		grConst.query();
+		while(grConst.next()) {
+			data.itemsContractor.push({
+				name : grConst.name.toString(),
+				country : grConst.country.toString(),
+				sys_id : grConst.sys_id.toString()
+			});
+		}
+	}
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>1045</sys_mod_count>
+        <sys_mod_count>1084</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-30 02:27:03</sys_updated_on>
+        <sys_updated_on>2024-06-30 10:22:36</sys_updated_on>
         <template><![CDATA[<!--<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2476,16 +2685,27 @@ border: 2px solid red;
                         </div>
                         <div class="yoko-form-col">
                             <div class="yoko-form-group">
-                                <label for="lbEndUser" class="yoko-short-100">End User</label>
-                                <div class="yoko-form-inline">
-                                    <input type="text" name="inputEndUserNm" value="" ng-model="c.data.endUserNm" placeholder="" disabled class="yoko-wid100">
-                                    <input type="text" name="inputEndUserNum" value="" ng-model="c.data.endUserNum" placeholder="" disabled class="">
-                                </div>
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="lbContractor" class="yoko-short-100">Contractor</label>
-                                <input type="text" name="inputContractor" value="" ng-model="c.data.constrator" placeholder="" disabled class="yoko-col100">
-                            </div>
+                              <label for="end_user" class="yoko-short-110">End User</label>
+                              <div class="yoko-form-inline yoko-wid308">
+                                  <div class="yoko-form-inline">
+                                      <input type="text" name="inputEndUserNm" value="" ng-model="c.data.endUserNm" ng-disabled='c.data.disEndUser' placeholder="" class="yoko-wid100">
+                                      <button type="button" class="yoko-btn yoko-btn-search"  ng-click="btnClickEndUserSearch()" ng-disabled='c.data.disEndUserNm'></button>
+                                  </div>
+                                  <input type="text" name="inputEndUserCountry" value="" ng-model='c.data.endUserCountry' placeholder="" disabled class="">
+                                	<input type='hidden' value='' ng-model='c.data.endUserSysid' >
+                              </div>
+                          	</div>
+                          	<div class="yoko-form-group">
+                              <label for="constructor" class="yoko-short-110">Contractor</label>
+                              <div class="yoko-form-inline yoko-wid308">
+                                  <div class="yoko-form-inline">
+                                      <input type="text" name="inputConstructorNm" value="" ng-model="c.data.contractorNm" ng-disabled='c.data.disConstrucNm' placeholder="" class="yoko-wid100">
+                                      <button type="button" class="yoko-btn yoko-btn-search"  ng-click="btnClickContractorSearch()" ng-disabled='c.data.disConstrucNm'></button>
+                                  </div>
+                                  <input type="text" name="inputConstructorCountry" value="" ng-model='c.data.contractorCountry' placeholder="" disabled class="">
+                                	<input type='hidden' value='' ng-model='c.data.contractorSysid' >
+                              </div>
+                          	</div>   
                             <div class="yoko-form-group">
                                 <label for="lbDummyAccount" class="yoko-short-100">Dummy Account</label>
                                 <input type="text" name="inputDummyAccount" value="" ng-model="c.data.dummyAccount" placeholder="" disabled class="yoko-col100">
@@ -2556,6 +2776,7 @@ border: 2px solid red;
                                         <button type="button" class="yoko-btn yoko-btn-info-fill" ng-disabled='c.data.disIndustry' ng-click="btnClickOrdTypeInfo(3)"></button>
                                     </div>
                                     <input type="text" name="inputIndustryCode" value="" ng-model="c.data.industryCode" placeholder="" disabled class="yoko-wid140">
+                                  	<input type='hidden' value='' ng-model='c.data.industrySysId' >
                                 </div>
                             </div>
                             <div class="yoko-form-group">
@@ -2903,6 +3124,44 @@ border: 2px solid red;
       </div>
     </dialog>
   
+  	<!-- Modal Vendor Structure -->
+  	<dialog class="modal-dialog" id="modalVendor">
+      <div class="modal-form-content">
+          <div class="modal-search-form">
+              <button class="modal-close-button" ng-click="closeModalVendor()">×</button>
+              <div class="modal-form-inline">
+                  <label class="modal-label" >Vendor</label>
+                  <!--<select class="modal-select">
+                  <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                  </select>-->
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickVendorModalSearch()"></button>
+              </div>
+         </div>
+      </div>
+      <div class="yoko-table-container">
+          <table class="yoko-search-table">
+              <colgroup>
+                <col style="width: 137px">
+                <col style="width: 51px">
+                <col style="width: auto">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th ng-repeat="item in c.data.modalVendorHeader">{{ item.fieldLabel }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in c.data.itemsVendor">
+                  <td id="clicktd" ng-click="clickVendor(item)">{{ item.name }}</td>
+                  <td>{{ item.country }}</td>
+                  <td style="display: none;">{{ item.sysid }}</td>
+                </tr>
+              </tbody>
+          </table>   
+      </div>
+    </dialog>
+  
   	<!-- Modal JOB TYPE -->
     <dialog class="modal-dialog" id="modalJobType">
       <div class="modal-form-content">
@@ -2973,6 +3232,84 @@ border: 2px solid red;
                 <tr ng-repeat="item in c.data.itemsSalesOffice">
                   <td id="clicktd" ng-click="clickModalSO(item)">{{ item.name }}</td>
                   <td>{{ item.muCode }}</td>
+                  <td style="display: none;">{{ item.sys_id }}</td>
+                </tr>
+              </tbody>
+          </table>   
+      </div>
+    </dialog>
+  
+  	<!-- Modal End User -->
+    <dialog class="modal-dialog" id="modalEndUser">
+      <div class="modal-form-content">
+          <div class="modal-search-form">
+              <button class="modal-close-button" ng-click="closeModalEndUser()">×</button>
+              <div class="modal-form-inline">
+                  <label class="modal-label" >End User</label>
+                  <!--<select class="modal-select">
+                  <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                  </select>-->
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickEndUserModalSearch()"></button>
+
+              </div>
+         </div>
+      </div>
+      <div class="yoko-table-container">
+          <table class="yoko-search-table">
+              <colgroup>
+                <col style="width: 81px">
+                <col style="width: 107px">
+                <col style="width: auto">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th ng-repeat="item in c.data.modalEndUserHeader">{{ item.fieldLabel }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in c.data.itemsEndUser">
+                  <td id="clicktd" ng-click="clickModalEndUser(item)">{{ item.name }}</td>
+                  <td>{{ item.country }}</td>
+                  <td style="display: none;">{{ item.sys_id }}</td>
+                </tr>
+              </tbody>
+          </table>   
+      </div>
+    </dialog>
+  
+  	<!-- Modal Contractor -->
+    <dialog class="modal-dialog" id="modalContractor">
+      <div class="modal-form-content">
+          <div class="modal-search-form">
+              <button class="modal-close-button" ng-click="closeModalContractor()">×</button>
+              <div class="modal-form-inline">
+                  <label class="modal-label" >Constructor</label>
+                  <!--<select class="modal-select">
+                  <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                  </select>-->
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickContractorModalSearch()"></button>
+
+              </div>
+         </div>
+      </div>
+      <div class="yoko-table-container">
+          <table class="yoko-search-table">
+              <colgroup>
+                <col style="width: 81px">
+                <col style="width: 107px">
+                <col style="width: auto">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th ng-repeat="item in c.data.modalContractorHeader">{{ item.fieldLabel }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in c.data.itemsContractor">
+                  <td id="clicktd" ng-click="clickModalContractor(item)">{{ item.name }}</td>
+                  <td>{{ item.country }}</td>
                   <td style="display: none;">{{ item.sys_id }}</td>
                 </tr>
               </tbody>
