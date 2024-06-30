@@ -2155,13 +2155,14 @@ border: 2px solid red;
     // Select 가져올건데
 
 	var grI = new GlideRecord('x_yergb_bpm_rfq_entry');
-    if (data.sys_id && input && input.isRead) { //기존 레코드를 읽어와서 업데이트 할거임
+    if (data.sys_id && input && input.initRFQ) { //기존 레코드를 읽어와서 업데이트 할거임
         grI.addQuery('sys_id', data.sys_id);
         grI.query();
         if(grI.next()) {
             data.requestor = grI.requestor.name.toString();
             data.requestor_sys_id = grI.requestor.toString();
             data.number = grI.number.toString();
+			data.customer_rfq = grI.customer_rfq.toString();
             data.complete_date = grI.complete_date.toString();
             data.estimated_oi_amount = grI.estimated_oi_amount.toString();
             data.currency = grI.currency.code.toString();
@@ -2307,6 +2308,10 @@ border: 2px solid red;
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
+			if(data.quotation_type_label == "Budgetary"){
+                data.showRequest = false;
+            }
+
         } else if (gr.state.getDisplayValue() == "Requested" && ( gs.getUser().isMemberOf(data.assignment_group)) ) {
             data.showAssess = false;
             data.showRequest = false;
@@ -2320,20 +2325,20 @@ border: 2px solid red;
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "Requested" && gr.quotation.state.getDisplayValue() == "Completed" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id) ) {
+        } else if (gr.state.getDisplayValue() == "Requested" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id) ) {
             data.showAssess = false;
             data.showRequest = false;
             data.showSubmit = false;
             data.showInProgress = false;
-            data.showAccept = true;
-            data.showReturn = true;
+            data.showAccept = false;
+            data.showReturn = false;
             data.showCancel = false;
             data.showUpdate = false;
             data.showSave = false; 
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "Returned" && (gs.getUser().isMemberOf('YCN Sales Group') ||gs.getUser().isMemberOf('YKO Sales Group') )) {
+        } else if (gr.state.getDisplayValue() == "Returned" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
             data.showAssess = true;
             data.showRequest = false;
             data.showSubmit = false;
@@ -2341,33 +2346,46 @@ border: 2px solid red;
             data.showAccept = false;
             data.showReturn = false;
             data.showCancel = true;
-            data.showUpdate = true;
+            data.showUpdate = false;
             data.showSave = true;
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "In Progress") {
+        } else if (gr.state.getDisplayValue() == "In Progress" && gr.quotation.state.getDisplayValue() == "Completed" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
             data.showAssess = false;
-            data.showRequest = false;
+            data.showRequest = true;
             data.showSubmit = true;
             data.showInProgress = false;
             data.showAccept = false;
             data.showReturn = false;
             data.showCancel = false;
-            data.showUpdate = true;
+            data.showUpdate = false;
             data.showSave = true;
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "Submitted" ) {
+		} else if (gr.state.getDisplayValue() == "In Progress" && gr.quotation.state.getDisplayValue() != "Completed") {
             data.showAssess = false;
-            //data.showRequest = false;
+            data.showRequest = false;
             data.showSubmit = false;
-            //data.showInProgress = false;
+            data.showInProgress = false;
             data.showAccept = false;
             data.showReturn = false;
             data.showCancel = false;
-            data.showUpdate = true;
+            data.showUpdate = false;
+            data.showSave = false;
+            data.showOIReport = false;
+            data.showQuotationTypeSelect = false;
+            data.showQuotationType = true;
+        } else if (gr.state.getDisplayValue() == "Submitted" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id) ) {
+            data.showAssess = false;
+            data.showRequest = false;
+            data.showSubmit = false;
+            data.showInProgress = false;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = false;
+            data.showUpdate = false;
             data.showSave = true;
             data.showOIReport = true;
             data.showQuotationTypeSelect = false;
@@ -2381,7 +2399,7 @@ border: 2px solid red;
             else{
                 gs.addInfoMessage("how creative");
             }
-        } else if (gr.state.getDisplayValue() == "Completed" ||(gs.getUser().isMemberOf('YCN_Sales_Engineer_Group') || gs.getUser().isMemberOf('YKO_Sales_Engineer_Group') ) ) {
+        } else if (gr.state.getDisplayValue() == "Completed") {
             data.showAssess = false;
             data.showRequest = false;
             data.showSubmit = false;
@@ -2411,38 +2429,6 @@ border: 2px solid red;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
         }
-
-		if((gs.getUser().isMemberOf('YCN Sales Group') ||gs.getUser().isMemberOf('YKO Sales Group') ) &&  gr.state.getDisplayValue() == "In Progress" && data.quotation_state != 'Completed'){ // 세일즈 그룹이고, in progress 이고, q type 이 complete 가 아니면 버튼들 
-            data.showAssess = false;
-            data.showRequest = false;
-            data.showSubmit = false;
-            data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = false;
-            data.showSave = false;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
-            data.showQuotationType = true;
-        }  
-        
-        if((gs.getUser().isMemberOf('YCN_Sales_Engineer_Group') || gs.getUser().isMemberOf('YKO_Sales_Engineer_Group') ) &&  gr.state.getDisplayValue() == "In Progress"){  //엔지니어 그룹이고, in progress 이고 
-            data.showAssess = false;
-            data.showRequest = false;
-            data.showSubmit = false;
-            data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = false;
-            data.showSave = false;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
-            data.showQuotationType = true;
-        }
-
-
         /////////// 버튼을 누르면 STATE가 바뀐다. 
         if (input.isButton) {
             var grA = new GlideRecord('x_yergb_bpm_rfq_entry');
@@ -2753,14 +2739,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>440</sys_mod_count>
+        <sys_mod_count>446</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-30 10:42:52</sys_updated_on>
+        <sys_updated_on>2024-06-30 11:24:52</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2817,7 +2803,7 @@ border: 2px solid red;
 
                             <div class="yoko-form-group">
                                 <label for="customer_rfq" class="yoko-short">{{data.labelCustomerRFQ}}</label>
-                                <input type="text" name="customer_rfq" value="" placeholder="" ng-model="c.data.customer_rfq" ng-disabled="isCancelledDisabled">
+                                <input type="text" name="customer_rfq" placeholder="" ng-model="c.data.customer_rfq" ng-disabled="isCancelledDisabled">
                             </div>
 
                             
