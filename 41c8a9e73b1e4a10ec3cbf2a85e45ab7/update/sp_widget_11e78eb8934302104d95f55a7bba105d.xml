@@ -2739,14 +2739,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>446</sys_mod_count>
+        <sys_mod_count>451</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-30 11:24:52</sys_updated_on>
+        <sys_updated_on>2024-06-30 11:58:09</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2925,8 +2925,6 @@ border: 2px solid red;
                             <input type="text" name="profit_company" class="yoko-wid140" ng-model="c.data.profit_company" disabled>
                         </div>
 
-                        
-
                     </div>
                     <div class="yoko-form-col">
 
@@ -2944,7 +2942,6 @@ border: 2px solid red;
                             <label for="project_status" class="yoko-short-110">{{data.labelProjectStatus}}</label>
                             <input type="text" name="project_status" value="" placeholder="" class="yoko-wid172" ng-model="c.data.project_status" ng-disabled="isCancelledDisabled">
                         </div>
-
 
                         <div class="yoko-form-group">
                             <label for="assignment_group" class="yoko-short-110">{{data.labelAssignmentGroup}}</label>
@@ -2984,8 +2981,8 @@ border: 2px solid red;
                                 </div>
                             </div>
                             <div class="yoko-form-group">
-                                <label for="code" class="yoko-short">{{data.labelCode}}</label>
-                                <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.contract_code" ng-disabled="isCancelledDisabled || isContractDisabled" readonly>
+                                <label for="contractor_code" class="yoko-short">{{data.labelCode}}</label>
+                                <input type="text" name="contractor_code" value="" placeholder="" class="yoko-wid100" ng-model="c.data.contractor_code" disabled>
                             </div>
                         </div>
                         <div class="yoko-form-col">
@@ -3004,7 +3001,7 @@ border: 2px solid red;
                             <div class="yoko-form-group">
                                 <label for="contractor_country" class="yoko-short">{{data.labelContractorCountry}}</label>
                                 <div class="yoko-form-inline yoko-col100">
-                                    <input type="text" name="contractor_country" value={{data.contractor_country}} placeholder="" ng-model="c.data.contractor_country" disabled>
+                                    <input type="text" name="contractor_country" value={{data.contractor_country}} placeholder="" ng-model="c.data.contractor_country" readonly>
                                     <input type="text" name="contractor_country_sys_id" value="" placeholder="" ng-model="c.data.contractor_country_sys_id" ng-style="{'display': 'none'}">
                                     <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefContractCountry()" ng-disabled="isCancelledDisabled || isContractDummyDisabled"></button>
                                 </div>
@@ -3024,8 +3021,8 @@ border: 2px solid red;
                                 </div>
                             </div>
                             <div class="yoko-form-group">
-                                <label for="code" class="yoko-short">{{data.labelCode}}</label>
-                                <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.end_user_code" ng-disabled="isCancelledDisabled" readonly>
+                                <label for="end_user_code" class="yoko-short">{{data.labelCode}}</label>
+                                <input type="text" name="end_user_code" value="" placeholder="" disabled class="yoko-wid100" ng-model="c.data.end_user_code" >
                             </div>
                         </div>
                       	<div class="yoko-form-col">
@@ -3044,7 +3041,7 @@ border: 2px solid red;
                             <div class="yoko-form-group">
                                 <label for="enduser_country" class="yoko-short">{{data.labelEndUserCountry}}</label>
                                 <div class="yoko-form-inline yoko-col100">
-                                    <input type="text" name="end_user_country_name" placeholder="" ng-model="c.data.end_user_country_name" disabled>
+                                    <input type="text" name="end_user_country_name" placeholder="" ng-model="c.data.end_user_country_name" readonly>
                                     <input type="text" name="end_user_country" value="" placeholder="" ng-model="c.data.end_user_country" ng-style="{'display': 'none'}">
                                     <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefEndUserCountry()" ng-disabled="isCancelledDisabled || isContractDummyDisabled"></button>
                                 </div>
