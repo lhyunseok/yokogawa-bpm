@@ -6,6 +6,7 @@
     /* widget controller */
     var c = this;
     c.data.isRead = true;
+	c.data.initRFQ = true;
     c.data.reasonCodeMandatory = false;
     c.data.reasonCodeRequestDueDateMandatory = false;
     c.data.reasonRemarkMandatory = false;
@@ -1063,8 +1064,9 @@ $scope.btnUpdate = function() {
     });
 
 
-
+	// Initiate RFQ Entry
     c.server.update().then(function(response) {
+		c.data.initRFQ = false;
         //c.data.isRead = false;
         //alert(c.data.state)
         if(c.data.state == "Cancelled"){
@@ -2108,33 +2110,25 @@ border: 2px solid red;
     var userNameSysId = gs.getUser().getID();
     var userCompany = gs.getUser().getCompanyID();
 
-    var grU = new GlideRecord('sys_user');
-    grU.get(userNameSysId);
-    grUCompany = grU.company;
-    var grC = new GlideRecord('core_company');
-    if (grC.get(grUCompany)) {
-        var currency = grC.u_currency.code;
-       // gs.addInfoMessage(currency)
-		// if(data.currency == null || data.currency == '') {
-		// 	data.currency = grC.u_currency.code.toString();
-		// 	data.currency_sys_id = grC.u_currency.toString();
-		// }	
-       // gs.addInfoMessage( data.currency)
-       // gs.addInfoMessage(data.currency_sys_id)
+	if(input && input.initRFQ) {
+		var grU = new GlideRecord('sys_user');
+		grU.get(userNameSysId);
+		grUCompany = grU.company;
+		var grC = new GlideRecord('core_company');
+		if (grC.get(grUCompany)) {
+			data.currency = grC.u_currency.code.toString();
+			data.currency_sys_id = grC.u_currency.toString();
+		}
 
-    }
+		data.requestor = userName;
+		data.requestor_sys_id = userNameSysId;
+		data.sales_manager = userName;
+		data.sales_manager_sys_id = userNameSysId;
+	}
 
 
 	var urlSysId = $sp.getParameter('sys_id');
 
-    // client script를 통해서 넣어준 유저의 이름, sysid 를 server단으로 가져옴
-    data.requestor = userName;
-    data.requestor_sys_id = userNameSysId;
-
-	// if(!urlSysId && data.sales_manager == null) {
-	// 	data.sales_manager = userName;
-	// 	data.sales_manager_sys_id = userNameSysId;
-	// }
 		
     // 버튼, 요소 노출
     data.showUpdate = false;
@@ -2759,14 +2753,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>437</sys_mod_count>
+        <sys_mod_count>440</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-30 08:50:00</sys_updated_on>
+        <sys_updated_on>2024-06-30 10:42:52</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
