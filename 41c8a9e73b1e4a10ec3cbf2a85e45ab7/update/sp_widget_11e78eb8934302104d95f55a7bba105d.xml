@@ -449,6 +449,7 @@ $scope.btnUpdate = function() {
 
 	$scope.btnRefSalesManager = function(sys_id) {
 		document.getElementById("SalesManagerModal").style.display = 'block';
+		    c.data.isRead = false;
         c.data.itemsSM = [];
 		//modal option 과 table thead th 에 들어갈 값
         c.data.modalItems = [{
@@ -474,7 +475,7 @@ $scope.btnUpdate = function() {
         }
 
         //셀렉트 박스에서 선택한 value 값 가져오기 (필드)
-        var selectElement = document.querySelector('.modal-select');
+        var selectElement = document.querySelector('.modal-select-sm');
         var selectedValue = selectElement.value;
 
         c.data.modalQuery = selectedValue + 'LIKE' + c.data.searchQuery;
@@ -492,7 +493,6 @@ $scope.btnUpdate = function() {
 	  $scope.closeSMModal = function() {
         document.getElementById("SalesManagerModal").style.display = 'none';
     };
-
 
     //모달창의 pm name 클릭 시 input 에 값 넣고 모달 창 닫기
     c.clickSM = function(index) {
@@ -666,7 +666,7 @@ $scope.btnUpdate = function() {
         modal.style.display = "block";
 
     };
-
+/*
     $scope.btnRefCurrency = function(sys_id) {
 
         c.data.refer_currency_modal = true;
@@ -699,8 +699,57 @@ $scope.btnUpdate = function() {
         modal.style.display = "block";
 
     };
+*/
+		$scope.btnRefCurrency = function(sys_id) {
+		    document.getElementById("currencyModal").style.display = 'block';
+			  c.data.isRead = false;
+		//modal option 과 table thead th 에 들어갈 값
+        c.data.modalItems = [{
+            text: "code",
+            value: "code",
+            fieldLabel: "Code"
+        }, {
+            text: "name",
+            value: "name",
+            fieldLabel: "Name"
+        }];
 
+        c.data.refer_currency_modal = true;
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+        });
+    };
+	    //모달창 검색 버튼 클릭
+    $scope.btnClickModalSearch = function() {
 
+        if (c.data.searchQuery == undefined) {
+            c.data.searchQuery = '';
+        }
+
+        //셀렉트 박스에서 선택한 value 값 가져오기 (필드)
+        var selectElement = document.querySelector('.modal-select-currency');
+        var selectedValue = selectElement.value;
+
+        c.data.modalQuery = selectedValue + 'LIKE' + c.data.searchQuery;
+        console.log(c.data.modalQuery);
+
+        c.data.refer_currency_modal = true;
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+            c.data.modalQuery = '';
+        });
+
+    };
+	  
+	  $scope.closeCurrencyModal = function() {
+        document.getElementById("currencyModal").style.display = 'none';
+    };
+
+    c.clickCurrency = function(index) {
+        c.data.currency_sys_id = c.data.items[index].sys_id;
+        c.data.currency = c.data.items[index].code;
+        document.getElementById("currencyModal").style.display = 'none';
+    };
 
     $scope.btnCopy = function() {
         //alert(c.data.isRead)
@@ -1630,7 +1679,29 @@ border: 2px solid red;
      font-weight: 500;
      line-height: normal;
 }
- .modal-select {
+ .modal-form-inline select {
+     font-family: "Pretendard";
+     font-size: 13px;
+     padding: 6px 10px 5px 10px;
+     max-height: 28px;
+     width: calc(100%);
+     border-radius: 4px;
+     border: 1px solid #E1E8F0;
+     color: #7A8692;
+     margin-right: 10px;
+     max-width: 150px !important;
+     min-width: 150px !important;
+     -moz-appearance:none;
+     -webkit-appearance:none;
+     appearance:none;
+     background-image: url(icon_arrow_down.png);
+     background-repeat: no-repeat;
+     background-position-x: 100%;
+     background-position-y: 1px;
+     line-height: 15px;
+     padding: 6px 30px 5px 10px;
+}
+#modal-select {
      font-family: "Pretendard";
      font-size: 13px;
      padding: 6px 10px 5px 10px;
@@ -2390,12 +2461,13 @@ border: 2px solid red;
 		data.items = [];
         var gr8 = new GlideRecord('fx_currency');
         gr8.addQuery('active', true);
+			  gr8.addEncodedQuery(input.modalQuery);
         gr8.query();
         while (gr8.next()) {
             data.items.push({
-                column1: gr8.getValue('code'),
-                column2: gr8.getValue('sys_id'),
-                column3: gr8.getValue('name')
+                code: gr8.getValue('code'),
+                sys_id: gr8.getValue('sys_id'),
+                name: gr8.getValue('name')
             });
         }
 
@@ -2475,14 +2547,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>364</sys_mod_count>
+        <sys_mod_count>381</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-29 23:42:05</sys_updated_on>
+        <sys_updated_on>2024-06-30 00:27:51</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2951,7 +3023,7 @@ border: 2px solid red;
             <button class="modal-close-button" ng-click="closeSMModal()">×</button>
             <div class="modal-form-inline">
                 <label class="modal-label" >Sales Manager</label>
-                <select class="modal-select">
+                <select class="modal-select-sm" id="modal-select">
                 <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                 </select>
                 <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
@@ -2982,6 +3054,42 @@ border: 2px solid red;
     </div>
 </dialog>
 
+<dialog class="modal-dialog" id="currencyModal">
+    <div class="modal-form-content">
+        <div class="modal-search-form">
+            <button class="modal-close-button" ng-click="closeCurrencyModal()">×</button>
+            <div class="modal-form-inline">
+                <label class="modal-label" >Currency</label>
+                <select class="modal-select-currency"  id="modal-select">
+                <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                </select>
+                <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickModalSearch()"></button>
+            </div>
+       </div>
+    </div>
+    <div class="yoko-table-container">
+        <table class="yoko-search-table">
+            <colgroup>
+              <col style="width: 51px">
+              <col style="width: 137px">
+              <col style="width: auto">
+            </colgroup>
+            <thead>
+              <tr>
+                <th ng-repeat="item in c.data.modalItems">{{ item.fieldLabel }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in c.data.items">
+                <td id="clicktd" ng-click="c.clickCurrency($index)">{{ item.code }}</td>
+                <td>{{ item.name }}</td>
+                <td style="display: none;">{{ item.sys_id }}</td>
+              </tr>
+            </tbody>
+        </table>   
+    </div>
+</dialog>
 
 <script>
     const buttons = document.querySelectorAll('.yoko-title-btn-wrap .yoko-btn-wrap button');
