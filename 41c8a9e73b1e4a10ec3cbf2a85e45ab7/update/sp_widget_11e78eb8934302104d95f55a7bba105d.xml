@@ -282,7 +282,7 @@
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
-					  console.log(c.data.io_sys_id)
+			console.log(c.data.io_sys_id)
             window.location.href = "/ybpm?id=orderintakereport&sys_id=" + c.data.io_sys_id; // Redirect to the URL
 
             //location.reload();
@@ -613,7 +613,7 @@ $scope.btnUpdate = function() {
             fieldLabel: "Name"
         }, {
             text: "code",
-            value: "code",
+            value: "u_company_code",
             fieldLabel: "Code"
         }						
 				];
@@ -702,7 +702,7 @@ $scope.btnUpdate = function() {
             fieldLabel: "Name"
         }, {
             text: "code",
-            value: "code",
+            value: "u_company_code",
             fieldLabel: "Code"
         }						
 				];
@@ -2163,10 +2163,10 @@ border: 2px solid red;
             data.assigned_to = grI.assigned_to.name.toString();
             data.end_user = grI.end_user.name.toString();
             data.end_user_sys_id = grI.end_user.toString();
-          //  data.end_user_code = grI.end_user.u_company_code.toString();
+            data.end_user_code = grI.end_user.u_company_code.toString();
             data.contract = grI.contract.name.toString();
             data.contract_sys_id = grI.contract.toString();
-         //   data.contract_code = grI.contract.u_company_code.toString();
+            data.contract_code = grI.contract.u_company_code.toString();
             data.contract_name = grI.contract_name.toString();
             data.contract_address = grI.contract_address.toString();
             data.project_title = grI.project_title.toString();
@@ -2174,10 +2174,10 @@ border: 2px solid red;
             data.caution = grI.caution.toString();
             data.reason_code = grI.reason_code.toString();
             data.request_due_date = grI.request_due_date.toString();
-		      	data.request_date = grI.request_date.toString();
+			data.request_date = grI.request_date.toString();
             data.remark = grI.remark.toString();
-		      	data.sales_manager = grI.sales_manager.name.toString();
-		      	data.sales_manager_sys_id = grI.sales_manager.toString();
+			data.sales_manager = grI.sales_manager.name.toString();
+			data.sales_manager_sys_id = grI.sales_manager.toString();
             data.currency_lc = grI.currency_lc.toString();
             data.exchange_rate = grI.exchange_rate.toString();
             data.estimated_oi_amount_lc = grI.estimated_oi_amount_lc.toString();
@@ -2731,14 +2731,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>413</sys_mod_count>
+        <sys_mod_count>417</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-30 04:07:47</sys_updated_on>
+        <sys_updated_on>2024-06-30 04:19:39</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
