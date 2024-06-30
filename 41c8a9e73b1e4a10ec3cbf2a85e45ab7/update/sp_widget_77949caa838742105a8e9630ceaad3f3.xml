@@ -282,7 +282,7 @@
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
-			console.log(c.data.io_sys_id)
+					  console.log(c.data.io_sys_id)
             window.location.href = "/ybpm?id=orderintakereport&sys_id=" + c.data.io_sys_id; // Redirect to the URL
 
             //location.reload();
@@ -613,7 +613,7 @@ $scope.btnUpdate = function() {
             fieldLabel: "Name"
         }, {
             text: "code",
-            value: "u_company_code",
+            value: "code",
             fieldLabel: "Code"
         }						
 				];
@@ -702,7 +702,7 @@ $scope.btnUpdate = function() {
             fieldLabel: "Name"
         }, {
             text: "code",
-            value: "u_company_code",
+            value: "code",
             fieldLabel: "Code"
         }						
 				];
@@ -1966,10 +1966,10 @@ border: 2px solid red;
         <docs/>
         <field_list/>
         <has_preview>false</has_preview>
-        <id>rfqentrywd</id>
+        <id/>
         <internal>false</internal>
         <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
-        <name>rfqEntryWd</name>
+        <name>Copy of rfqEntryWd</name>
         <option_schema/>
         <public>false</public>
         <roles/>
@@ -2010,8 +2010,6 @@ border: 2px solid red;
             data.labelQuotation  = grLabel.label.toString(); // assuming 'value' contains the needed data
         }else if(grLabel.element == 'request_date') {
             data.labelRequestDate  = grLabel.label.toString(); // assuming 'value' contains the needed data
-        }else if(grLabel.element == 'request_due') {
-            data.labelRequestDue  = grLabel.label.toString(); // assuming 'value' contains the needed data
         }else if(grLabel.element == 'quotation_due_date') {
             data.labelQuotationDueDate  = grLabel.label.toString(); // assuming 'value' contains the needed data
         }else if(grLabel.element == 'estimated_order_date') {
@@ -2097,10 +2095,10 @@ border: 2px solid red;
     if (grC.get(grUCompany)) {
         var currency = grC.u_currency.code;
        // gs.addInfoMessage(currency)
-		// if(data.currency == null || data.currency == '') {
-		// 	data.currency = grC.u_currency.code.toString();
-		// 	data.currency_sys_id = grC.u_currency.toString();
-		// }	
+		if(data.currency == null || data.currency == '') {
+			data.currency = grC.u_currency.code.toString();
+			data.currency_sys_id = grC.u_currency.toString();
+		}	
        // gs.addInfoMessage( data.currency)
        // gs.addInfoMessage(data.currency_sys_id)
 
@@ -2113,10 +2111,10 @@ border: 2px solid red;
     data.requestor = userName;
     data.requestor_sys_id = userNameSysId;
 
-	// if(!urlSysId && data.sales_manager == null) {
-	// 	data.sales_manager = userName;
-	// 	data.sales_manager_sys_id = userNameSysId;
-	// }
+	if(!urlSysId && data.sales_manager == null) {
+		data.sales_manager = userName;
+		data.sales_manager_sys_id = userNameSysId;
+	}
 		
     // 버튼, 요소 노출
     data.showUpdate = false;
@@ -2163,10 +2161,10 @@ border: 2px solid red;
             data.assigned_to = grI.assigned_to.name.toString();
             data.end_user = grI.end_user.name.toString();
             data.end_user_sys_id = grI.end_user.toString();
-            data.end_user_code = grI.end_user.u_company_code.toString();
+          //  data.end_user_code = grI.end_user.u_company_code.toString();
             data.contract = grI.contract.name.toString();
             data.contract_sys_id = grI.contract.toString();
-            data.contract_code = grI.contract.u_company_code.toString();
+         //   data.contract_code = grI.contract.u_company_code.toString();
             data.contract_name = grI.contract_name.toString();
             data.contract_address = grI.contract_address.toString();
             data.project_title = grI.project_title.toString();
@@ -2174,15 +2172,15 @@ border: 2px solid red;
             data.caution = grI.caution.toString();
             data.reason_code = grI.reason_code.toString();
             data.request_due_date = grI.request_due_date.toString();
-			data.request_date = grI.request_date.toString();
+		      	data.request_date = grI.request_date.toString();
             data.remark = grI.remark.toString();
-			data.sales_manager = grI.sales_manager.name.toString();
-			data.sales_manager_sys_id = grI.sales_manager.toString();
+		      	data.sales_manager = grI.sales_manager.name.toString();
+		      	data.sales_manager_sys_id = grI.sales_manager.toString();
             data.currency_lc = grI.currency_lc.toString();
             data.exchange_rate = grI.exchange_rate.toString();
             data.estimated_oi_amount_lc = grI.estimated_oi_amount_lc.toString();
             data.project_status = grI.project_status.toString();
-            data.profit_company = grI.profit_company.name.toString();
+            data.profit_company = grI.profit_company.toString();
 					
 					 //hh 추가
 					  data.contract_country = grI.contract_country.name.toString();
@@ -2265,13 +2263,9 @@ border: 2px solid red;
         var gr = new GlideRecord('x_yergb_bpm_rfq_entry');
         gr.get(input.urlSysId);
         data.state = gr.state.getDisplayValue();
-
-        // 
-        data.showCopy = false;
         // 현재 STATE 에 따라서, 버튼들의 노출도를 전부 조절한다 여기서
-        if (gr.state.getDisplayValue() == "New" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
+        if (gr.state.getDisplayValue() == "New" &&    (   gs.getUser().isMemberOf('YCN Sales Group') ||  gs.getUser().isMemberOf('YKO Sales Group')   ) ) {
             data.showAssess = true;
-            
             data.showRequest = false;
             data.showSubmit = false;
             data.showInProgress = false;
@@ -2283,7 +2277,7 @@ border: 2px solid red;
             data.showOIReport = false;
             data.showQuotationTypeSelect = true;
             data.showQuotationType = false;
-        } else if (gr.state.getDisplayValue() == "Assess" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
+        } else if (gr.state.getDisplayValue() == "Assess" && (gs.getUser().isMemberOf('YCN Sales Group') ||gs.getUser().isMemberOf('YKO Sales Group') )) {
             data.showAssess = false;
             data.showRequest = true;
             data.showSubmit = false;
@@ -2291,13 +2285,13 @@ border: 2px solid red;
             data.showAccept = false;
             data.showReturn = false;
             data.showCancel = false;
-            data.showUpdate = false;
+            data.showUpdate = true;
             data.showSave = true;
-            
+            data.showCopy = false;
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "Requested" && ( gs.getUser().isMemberOf(data.assignment_group)) ) {
+        } else if (gr.state.getDisplayValue() == "Requested" && ( gs.getUser().isMemberOf('YCN_Sales_Engineer_Group') || gs.getUser().isMemberOf('YKO_Sales_Engineer_Group') ) ) {
             data.showAssess = false;
             data.showRequest = false;
             data.showSubmit = false;
@@ -2305,21 +2299,9 @@ border: 2px solid red;
             data.showAccept = true;
             data.showReturn = true;
             data.showCancel = false;
-            data.showUpdate = false;
-            data.showSave = false; 
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
-            data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "Requested" && gr.quotation.state.getDisplayValue() == "Completed" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id) ) {
-            data.showAssess = false;
-            data.showRequest = false;
-            data.showSubmit = false;
-            data.showInProgress = false;
-            data.showAccept = true;
-            data.showReturn = true;
-            data.showCancel = false;
-            data.showUpdate = false;
-            data.showSave = false; 
+            data.showUpdate = true;
+            data.showSave = true;
+            data.showCopy = false;
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
@@ -2333,7 +2315,7 @@ border: 2px solid red;
             data.showCancel = true;
             data.showUpdate = true;
             data.showSave = true;
-           
+            data.showCopy = false;
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
@@ -2347,7 +2329,7 @@ border: 2px solid red;
             data.showCancel = false;
             data.showUpdate = true;
             data.showSave = true;
-
+            data.showCopy = false;
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
@@ -2361,7 +2343,7 @@ border: 2px solid red;
             data.showCancel = false;
             data.showUpdate = true;
             data.showSave = true;
-
+            data.showCopy = false;
             data.showOIReport = true;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
@@ -2384,7 +2366,7 @@ border: 2px solid red;
             data.showCancel = false;
             data.showUpdate = false;
             data.showSave = false;
-
+            data.showCopy = false;
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
@@ -2399,7 +2381,7 @@ border: 2px solid red;
             data.showCancel = false;
             data.showUpdate = false;
             data.showSave = false;
-
+            data.showCopy = false;
             data.showOIReport = false;
             data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
@@ -2453,7 +2435,6 @@ border: 2px solid red;
         var grr = new GlideRecord('x_yergb_bpm_rfq_entry');
         grr.initialize();
         grr.setValue('sales_manager', input.sales_manager_sys_id);
-        grr.setValue('requestor', input.requestor_sys_id);
         grr.setValue('customer_rfq', input.customer_rfq);
         grr.setValue('currency', input.currency_sys_id);
         grr.setValue('estimated_oi_amount', getValueOrEmptyString(input.estimated_oi_amount));
@@ -2497,9 +2478,9 @@ border: 2px solid red;
         grU.setValue('quotation_type', input.quotation_type);
         grU.setValue('yoda_opportunity_no', getValueOrEmptyString(input.yoda_opportunity_no));
         grU.setValue('end_user', input.end_user_sys_id);
-		grU.setValue('end_user_name', input.end_user_name);
-		grU.setValue('end_user_address', input.end_user_address);
-		grU.setValue('end_user_country', input.end_user_country_sys_id);
+		    grU.setValue('end_user_name', input.end_user_name);
+		    grU.setValue('end_user_address', input.end_user_address);
+		    grU.setValue('end_user_country', input.end_user_country_sys_id);
         grU.setValue('contract', input.contract_sys_id);
         grU.setValue('contract_name', getValueOrEmptyString(input.contract_name));
         grU.setValue('contract_address', getValueOrEmptyString(input.contract_address));
@@ -2508,7 +2489,6 @@ border: 2px solid red;
         grU.setValue('project_detail', getValueOrEmptyString(input.project_detail));
         grU.setValue('caution', input.caution);
         grU.setValue('reason_code', getValueOrEmptyString(input.reason_code));
-        grU.setValue('request_due_date', getValueOrEmptyString(input.request_due_date));
         grU.setValue('remark', getValueOrEmptyString(input.remark));
         grU.setValue('project_status',input.project_status);
         grU.update();
@@ -2638,34 +2618,24 @@ border: 2px solid red;
 
     }
 
-	    if (input && input.refer_contract_country_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-      data.itemsCountry = [];
+    if (input && input.refer_contract_country_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
+		data.items = [];
         var gr7 = new GlideRecord('core_country');
-           gr7.addEncodedQuery(input.modalQuery);
         gr7.query();
         while (gr7.next()) {
-            data.itemsCountry.push({
-                name: gr7.getValue('name'),
-                iso3166_2: gr7.getValue('iso3166_2'),
-                sys_id: gr7.getValue('sys_id')
+            data.items.push({
+                column1: gr7.getValue('name'),
+                column2: gr7.getValue('sys_id'),
+                column3: gr7.getValue('sys_id')
             });
         }
+
+        // Pass data to the client script
+        //data.items = items;
+        data.modalTitle = "COUNTRY";
+
     }
 
-
-    if (input && input.refer_contract_country) { // 없으면 오류 뜸, 둘다 있어야 함.
-      data.itemsContractRef = [];
-        var gr8 = new GlideRecord('core_country');
-           gr8.addEncodedQuery(input.modalQuery);
-        gr8.query();
-        while (gr8.next()) {
-            data.itemsContractRef.push({
-                name: gr8.getValue('name'),
-                iso3166_2: gr8.getValue('iso3166_2'),
-                sys_id: gr8.getValue('sys_id')
-            });
-        }
-    }
 
 
     if (input && input.refer_currency_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
@@ -2756,16 +2726,16 @@ border: 2px solid red;
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2024-06-25 01:25:13</sys_created_on>
-        <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>423</sys_mod_count>
-        <sys_name>rfqEntryWd</sys_name>
+        <sys_created_on>2024-06-30 03:30:57</sys_created_on>
+        <sys_id>77949caa838742105a8e9630ceaad3f3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Copy of rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-30 05:47:03</sys_updated_on>
+        <sys_update_name>sp_widget_77949caa838742105a8e9630ceaad3f3</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-30 03:30:57</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2806,16 +2776,16 @@ border: 2px solid red;
                             <div class="yoko-form-group">
                                 <label for="requester_no" class="yoko-short">{{data.labelRequestor}}</label>
                                 <div class="yoko-form-inline">
-                                    <input type="text" name="requestor" ng-model="c.data.requestor" disabled>
-                                    <input type="text" name="requestor_sys_id" value="" disabled ng-model="c.data.requestor_sys_id" ng-style="{'display': 'none'}">
+                                    <input type="text" name="requester_no" ng-model="c.data.requestor" disabled>
+                                    <input type="text" name="requestor_no_sys_id" value="" disabled ng-model="c.data.requestor_sys_id" ng-style="{'display': 'none'}">
                                     <button id="button2" type="button" class="yoko-btn yoko-btn-info" ng-click="c.togglePopover($event, 2)"></button>
                                 </div>
                             </div>
 
                             <div class="yoko-form-group">
                                 <label for="sales_manager" class="yoko-short">{{data.labelSalesManager}}</label>
-                                <input type="text" name="sales_manager" value="" placeholder="" ng-model="c.data.sales_manager" readonly>
-                                <input type="text" name="sales_manager_no_sys_id" value="" ng-model="c.data.sales_manager_sys_id" ng-style="{'display': 'none'}" readonly>
+                                <input type="text" name="request_no" value="" placeholder="" ng-model="c.data.sales_manager" readonly>
+                                <input type="text" name="requestor_no_sys_id" value="" ng-model="c.data.sales_manager_sys_id" ng-style="{'display': 'none'}" readonly>
                                 <button id="button1" type="button" class="yoko-btn yoko-btn-info" ng-click="c.togglePopover($event, 1)" ng-style="{'display': 'none'}"></button>
                                 <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefSalesManager()" ng-disabled="isCancelledDisabled"></button>
                             </div>
@@ -2833,7 +2803,7 @@ border: 2px solid red;
 
                             <div class="yoko-form-group">
                                 <label for="req_date" class="yoko-short-120">{{data.labelRequestDate}}</label>
-                                <input type="date" value={{data.request_date}} name="req_date" ng-model="c.data.request_date" >
+                                <input type="date" value={{data.request_date}} name="req_date" ng-model="c.data.request_date" disabled>
                             </div>
 
                             <div class="yoko-form-group">
@@ -3143,7 +3113,7 @@ border: 2px solid red;
                             </div>
                             <div class="yoko-form-group">
                                 <label for="request_due_date" class="yoko-short-120">
-                                    <h5 name="mandatory" style="display: inline; margin: 0; color: red" ng-if="c.data.RequestDueDateMandatory">✻ </h5>{{data.labelRequestDue}}
+                                    <h5 name="mandatory" style="display: inline; margin: 0; color: red" ng-if="c.data.reasonCodeRequestDueDateMandatory">✻ </h5>{{data.labelRequestDate}}
                                 </label>
                                 <input type="date" name="request_due_date" value={{data.request_due_date}} ng-model="c.data.request_due_date" id="request_due_date" class="yoko-wid140" ng-class="{'highlight-form': !c.data.reason_code || !c.data.request_due_date || !c.data.remark}" ng-disabled="isCancelledDisabled">
                             </div>
@@ -3307,7 +3277,7 @@ border: 2px solid red;
         <div class="modal-search-form">
             <button class="modal-close-button" ng-click="closeUserRefModal()">×</button>
             <div class="modal-form-inline">
-                <label class="modal-label" >Company</label>
+                <label class="modal-label" >Currency</label>
                 <select class="modal-select-user-ref"  id="modal-select">
                 <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                 </select>
@@ -3344,7 +3314,7 @@ border: 2px solid red;
         <div class="modal-search-form">
             <button class="modal-close-button" ng-click="closeContractRefModal()">×</button>
             <div class="modal-form-inline">
-                <label class="modal-label" >Company</label>
+                <label class="modal-label" >Currency</label>
                 <select class="modal-select-contract-ref"  id="modal-select">
                 <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                 </select>
@@ -3381,7 +3351,7 @@ border: 2px solid red;
         <div class="modal-search-form">
             <button class="modal-close-button" ng-click="closeContranctCountryModal()">×</button>
             <div class="modal-form-inline">
-                <label class="modal-label" >Country</label>
+                <label class="modal-label" >Currency</label>
                 <select class="modal-select-c-countryy"  id="modal-select">
                 <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                 </select>
@@ -3418,7 +3388,7 @@ border: 2px solid red;
         <div class="modal-search-form">
             <button class="modal-close-button" ng-click="closeCountryModal()">×</button>
             <div class="modal-form-inline">
-                <label class="modal-label" >Country</label>
+                <label class="modal-label" >Currency</label>
                 <select class="modal-select-country"  id="modal-select">
                 <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                 </select>

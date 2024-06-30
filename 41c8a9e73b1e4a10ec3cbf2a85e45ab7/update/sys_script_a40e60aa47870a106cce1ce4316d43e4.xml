@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>false</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_yergb_bpm_rfq_entry</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition table="x_yergb_bpm_rfq_entry">currency_lc=CNY^currencyVALCHANGES^NQestimated_oi_amountVALCHANGES^EQ<item display_table="fx_currency" display_value="CNY" endquery="false" field="currency_lc" goto="false" newquery="false" operator="=" or="false" value="CNY"/>
+            <item endquery="false" field="currency" goto="false" newquery="false" operator="VALCHANGES" or="false" value=""/>
+            <item endquery="false" field="estimated_oi_amount" goto="false" newquery="true" operator="VALCHANGES" or="false" value=""/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter_condition>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>RFQ Entry profit company update</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+
+	var exchange_rate = 1;
+
+	if(current.currency_lc == current.currency) {
+		current.profit_company = '5c5c2a1b477e02106cce1ce4316d43f5'; //YCN
+		current.exchange_rate = 1;
+		current.estimated_oi_amount_lc = current.estimated_oi_amount;
+	}
+	else {
+		
+		var grrate = new GlideRecord('x_yergb_bpm_bpm_exchange_rate');
+		grrate.addQuery('source_currency',current.currency);
+		grrate.addQuery('target_currency',current.currency_lc);
+		grrate.query();
+		if(grrate.next()) {
+			exchange_rate = grrate.exchange_rate;
+			gs.info("Exchange_rate is not 1 : "+ exchange_rate + ", source:target = " + current.currency + " : " +  current.sales_manager.company.u_currency);
+		}
+		current.profit_company = '350bb7023b83ca10ec3cbf2a85e45a71'; // YCN-SP
+		current.exchange_rate = exchange_rate;
+		current.estimated_oi_amount_lc = current.estimated_oi_amount * exchange_rate;
+	}
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-30 05:24:00</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>a40e60aa47870a106cce1ce4316d43e4</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>RFQ Entry profit company update</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_script_a40e60aa47870a106cce1ce4316d43e4</sys_update_name>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-30 05:42:58</sys_updated_on>
+        <template/>
+        <when>before</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=a40e60aa47870a106cce1ce4316d43e4"/>
+</record_update>
