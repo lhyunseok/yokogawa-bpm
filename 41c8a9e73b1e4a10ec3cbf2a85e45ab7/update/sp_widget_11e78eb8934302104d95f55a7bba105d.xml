@@ -737,9 +737,9 @@ $scope.btnUpdate = function() {
     };
 
     c.clickContractR = function(index) {
-        c.data.contract = c.data.itemsContractRef[index].name;
-        c.data.contract_sys_id = c.data.itemsContractRef[index].sys_id;
-			  c.data.contract_code = c.data.itemsContractRef[index].code;
+        c.data.contractor = c.data.itemsContractRef[index].name;
+        c.data.contractor_sys_id = c.data.itemsContractRef[index].sys_id;
+			  c.data.contractor_code = c.data.itemsContractRef[index].code;
         document.getElementById("contractRefModal").style.display = 'none';
     };
 
@@ -2759,14 +2759,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>436</sys_mod_count>
+        <sys_mod_count>437</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-30 08:33:54</sys_updated_on>
+        <sys_updated_on>2024-06-30 08:50:00</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
