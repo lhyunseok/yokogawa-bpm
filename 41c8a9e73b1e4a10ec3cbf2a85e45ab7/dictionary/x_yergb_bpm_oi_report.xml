@@ -20,20 +20,28 @@
             </choice>
         </element>
         <element attributes="edge_encryption_enabled=true" label="Total Extended Cost (TC)" max_length="40" name="total_extended_cost_tc" type="decimal"/>
+        <element label="End User Name" max_length="100" name="end_user_name" type="string"/>
+        <element label="End User" max_length="32" name="end_user" reference="core_company" type="reference"/>
+        <element label="Contractor Country" max_length="32" name="contractor_country" reference="core_country" type="reference"/>
+        <element label="End User Address" max_length="100" name="end_user_address" type="string"/>
         <element attributes="edge_encryption_enabled=true" label="OI Amount (TC)" max_length="40" name="oi_amount_tc" type="decimal"/>
+        <element label="End User Country" max_length="32" name="end_user_country" reference="core_country" type="reference"/>
         <element label="E-Draft Maturity Days" max_length="40" name="e_draft_maturity_days" type="integer"/>
         <element attributes="Scale=11" label="Exchange Rate" max_length="26" name="exchange_rate" type="decimal"/>
         <element label="Currency (LC)" max_length="32" name="currency_lc" reference="fx_currency" type="reference"/>
         <element label="DMR GP Level" max_length="40" name="dmr_gp_level" type="integer"/>
         <element label="DMR Amount Level" max_length="40" name="dmr_amount_level" type="integer"/>
         <element attributes="edge_encryption_enabled=true" label="GP Amount (TC)" max_length="40" name="gp_amount_tc" type="decimal"/>
+        <element label="Contractor Address" max_length="100" name="contractor_address" type="string"/>
         <element attributes="edge_encryption_enabled=true" label="GP Amount (LC)" max_length="40" name="gp_amount_lc" type="decimal"/>
         <element attributes="edge_encryption_enabled=true" label="OI Amount (LC)" max_length="40" name="oi_amount_lc" type="decimal"/>
+        <element label="Contractor Name" max_length="100" name="contractor_name" type="string"/>
         <element label="DMR MP Level" max_length="40" name="dmr_mp_level" type="integer"/>
         <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="RFQ Entry" max_length="32" name="rfq_entry" reference="x_yergb_bpm_rfq_entry" type="reference"/>
         <element label="Customer PO No." max_length="40" name="customer_po_no" type="string"/>
         <element label="MP Gap %" max_length="40" name="mp_gap_percent" type="decimal"/>
         <element attributes="edge_encryption_enabled=true" label="MP Amount (TC)" max_length="40" name="mp_amount_tc" type="decimal"/>
+        <element label="Contractor" max_length="32" name="contractor" reference="core_company" type="reference"/>
         <element attributes="edge_encryption_enabled=true" label="MP Gap (TC)" max_length="40" name="mp_gap_tc" type="decimal"/>
         <index name="index">
             <element name="oi_amount_tc"/>
@@ -72,19 +80,31 @@
             <element name="tax_classification"/>
         </index>
         <index name="index13">
-            <element name="job_type"/>
+            <element name="rfq_entry"/>
         </index>
         <index name="index14">
-            <element name="industry"/>
+            <element name="end_user_country"/>
         </index>
         <index name="index15">
-            <element name="currency_lc"/>
+            <element name="contractor"/>
         </index>
         <index name="index16">
-            <element name="payment_terms"/>
+            <element name="end_user"/>
         </index>
         <index name="index17">
-            <element name="rfq_entry"/>
+            <element name="job_type"/>
+        </index>
+        <index name="index18">
+            <element name="industry"/>
+        </index>
+        <index name="index19">
+            <element name="currency_lc"/>
+        </index>
+        <index name="index20">
+            <element name="payment_terms"/>
+        </index>
+        <index name="index21">
+            <element name="contractor_country"/>
         </index>
     </element>
 </database>
