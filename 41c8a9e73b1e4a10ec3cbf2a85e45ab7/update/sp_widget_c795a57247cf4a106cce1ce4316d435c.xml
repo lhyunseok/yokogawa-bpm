@@ -176,7 +176,7 @@
             quotationTypeSelect.style.border = "2px solid red";
         } else {
             c.data.isUpdate = true;
-            c.data.state_value = 2;
+            c.data.newState = 2;
             c.data.isButton = true;
             c.server.update().then(function(response) {
                 // Handle the server response if needed
@@ -223,7 +223,7 @@
             }
         } else {
             c.data.isUpdate = true;
-            c.data.state_value = 3;
+            c.data.newState = 3;
             c.data.isButton = true;
             c.server.update().then(function(response) {
                 // Handle the server response if needed
@@ -239,7 +239,7 @@
         if (c.data.quotation_state != "Completed") {
             alert("Quotation is Not Completed");
         } else {
-            c.data.state_value = 5;
+            c.data.newState = 5;
             c.data.isButton = true;
             c.server.update().then(function(response) {
                 // Handle the server response if needed
@@ -251,9 +251,8 @@
     $scope.btnInProgress = function() {
         //alert("IN PROGRESS?")
         // Get the value from the input field using ng-model
-        c.data.state_value = 4;
+        c.data.newState = 4;
         c.data.isButton = true;
-		c.data.isUpdate = true;
 
         c.server.update().then(function(response) {
             // Handle the server response if needed
@@ -266,9 +265,8 @@
 
     $scope.btnAccept = function() {
         //alert("ACCEPT?")
-        c.data.state_value = 4;
+        c.data.newState = 4;
         c.data.isButton = true;
-		c.data.isUpdate = true;
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
@@ -278,9 +276,8 @@
     };
     $scope.btnOIReport = function() {
         //alert("OI Report?")
-        c.data.state_value = 9;
+        c.data.newState = 9;
         c.data.isButton = true;
-		c.data.isUpdate = true;
         c.data.isOIReport = true;
         // Call the server script to update the state
         c.server.update().then(function(response) {
@@ -296,9 +293,9 @@
 
     $scope.btnReturn = function() {
         //alert("RETURN?")
-        c.data.state_value = -5;
+        c.data.newState = -5;
         c.data.isButton = true;
-		c.data.isUpdate = true;
+			
 			
 					 var confirmed = confirm("Do you really want to reject?");
         if (confirmed) {
@@ -322,9 +319,8 @@
     };
     $scope.btnCancel = function() {
         //alert("CANCEL?")
-        c.data.state_value = -8;
+        c.data.newState = -8;
         c.data.isButton = true;
-		c.data.isUpdate = true;
         // Call the server script to update the state
         c.server.update().then(function(response) {
             // Handle the server response if needed
@@ -1990,10 +1986,10 @@ border: 2px solid red;
         <docs/>
         <field_list/>
         <has_preview>false</has_preview>
-        <id>rfqentrywd</id>
+        <id/>
         <internal>false</internal>
         <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
-        <name>rfqEntryWd</name>
+        <name>rfqEntryWd-backup-0701</name>
         <option_schema/>
         <public>false</public>
         <roles/>
@@ -2207,14 +2203,13 @@ border: 2px solid red;
             data.project_status = grI.project_status.toString();
             data.profit_company = grI.profit_company.name.toString();
 			data.state = grI.state.getDisplayValue();
-			data.state_value = grI.state.toString();
+			data.state.value = grI.state.toString();
+					
 			//hh 추가
 			data.contract_country = grI.contract_country.name.toString();
             data.end_user_country_name = grI.end_user_country.name.toString();
-            data.quotation_type_label = grI.quotation_type.getDisplayValue();
 
-			data.quotation_state = grI.quotation.state.getDisplayValue();
-			data.quotation_state_value = grI.quotation.state.toString();
+            data.quotation_type_label = grI.quotation_type.getDisplayValue();
 
 			//gs.addErrorMessage(data.state);
         }
@@ -2294,62 +2289,122 @@ border: 2px solid red;
 		}
     }
 
-	if(data.state && input.initRFQ) {
+	if(data.state) {
+    //if (input && input.urlSysId) {
+        var gr = new GlideRecord('x_yergb_bpm_rfq_entry');
+        gr.get(input.urlSysId);
+        //data.state = gr.state.getDisplayValue();
 
-		data.showAssess = false;
-		data.showRequest = false;
-		data.showSubmit = false;
-		data.showInProgress = false;
-		data.showAccept = false;
-		data.showReturn = false;
-		data.showCancel = false;
-		data.showUpdate = false;
-		data.showSave = false;
-		data.showOIReport = false;
-		data.showQuotationTypeSelect = false;
-		data.showQuotationType = false;
+        // 
         data.showCopy = false;
         // 현재 STATE 에 따라서, 버튼들의 노출도를 전부 조절한다 여기서
-        if (data.state == "New" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
+        if (gr.state.getDisplayValue() == "New" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
             data.showAssess = true;
+            data.showRequest = false;
+            data.showSubmit = false;
+            data.showInProgress = false;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = false;
+            data.showUpdate = true;
             data.showSave = true;
+            data.showOIReport = false;
             data.showQuotationTypeSelect = true;
-
-        } else if (data.state == "Assess" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
+            data.showQuotationType = false;
+        } else if (gr.state.getDisplayValue() == "Assess" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
+            data.showAssess = false;
             data.showRequest = true;
+            data.showSubmit = false;
             data.showInProgress = true;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = false;
+            data.showUpdate = false;
             data.showSave = true;
+            data.showOIReport = false;
+            data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
 			if(data.quotation_type_label == "Budgetary"){
                 data.showRequest = false;
             }
 
-        } else if (data.state == "Requested" && ( gs.getUser().isMemberOf(data.assignment_group)) ) {
+        } else if (gr.state.getDisplayValue() == "Requested" && ( gs.getUser().isMemberOf(data.assignment_group)) ) {
+            data.showAssess = false;
+            data.showRequest = false;
+            data.showSubmit = false;
+            data.showInProgress = false;
             data.showAccept = true;
             data.showReturn = true;
+            data.showCancel = false;
+            data.showUpdate = false;
+            data.showSave = false; 
+            data.showOIReport = false;
+            data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-
-        } else if (data.state == "Requested" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id) ) {
+        } else if (gr.state.getDisplayValue() == "Requested" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id) ) {
+            data.showAssess = false;
+            data.showRequest = false;
+            data.showSubmit = false;
+            data.showInProgress = false;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = false;
+            data.showUpdate = false;
+            data.showSave = false; 
+            data.showOIReport = false;
+            data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-
-        } else if (data.state == "Returned" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
+        } else if (gr.state.getDisplayValue() == "Returned" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
             data.showAssess = true;
+            data.showRequest = false;
+            data.showSubmit = false;
+            data.showInProgress = false;
+            data.showAccept = false;
+            data.showReturn = false;
             data.showCancel = true;
+            data.showUpdate = false;
             data.showSave = true;
+            data.showOIReport = false;
+            data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-
-        } else if (data.state == "In Progress" && data.quotation_state == "Completed" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
+        } else if (gr.state.getDisplayValue() == "In Progress" && gr.quotation.state.getDisplayValue() == "Completed" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
+            data.showAssess = false;
             data.showRequest = true;
             data.showSubmit = true;
+            data.showInProgress = false;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = false;
+            data.showUpdate = false;
             data.showSave = true;
+            data.showOIReport = false;
+            data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-
-		} else if (data.state == "In Progress" && data.quotation_state != "Completed") {
+		} else if (gr.state.getDisplayValue() == "In Progress" && gr.quotation.state.getDisplayValue() != "Completed") {
+            data.showAssess = false;
+            data.showRequest = false;
+            data.showSubmit = false;
+            data.showInProgress = false;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = false;
+            data.showUpdate = false;
+            data.showSave = false;
+            data.showOIReport = false;
+            data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-
-        } else if (data.state == "Submitted" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id) ) {
+        } else if (gr.state.getDisplayValue() == "Submitted" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id) ) {
+            data.showAssess = false;
+            data.showRequest = false;
+            data.showSubmit = false;
+            data.showInProgress = false;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = false;
+            data.showUpdate = false;
             data.showSave = true;
             data.showOIReport = true;
+            data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
             if(data.quotation_type_label == "Budgetary"){
                 data.showInProgress = true;
@@ -2360,20 +2415,45 @@ border: 2px solid red;
             else{
                 gs.addInfoMessage("how creative");
             }
+        } else if (gr.state.getDisplayValue() == "Completed") {
+            data.showAssess = false;
+            data.showRequest = false;
+            data.showSubmit = false;
+            data.showInProgress = false;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = false;
+            data.showUpdate = false;
+            data.showSave = false;
 
-        } else if (data.state == "Completed") {
+            data.showOIReport = false;
+            data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-
         }else {
+          //  gs.addErrorMessage("who are you")
+            data.showAssess = false;
+            data.showRequest = false;
+            data.showSubmit = false;
+            data.showInProgress = false;
+            data.showAccept = false;
+            data.showReturn = false;
+            data.showCancel = false;
+            data.showUpdate = false;
+            data.showSave = false;
+
+            data.showOIReport = false;
+            data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
         }
         /////////// 버튼을 누르면 STATE가 바뀐다. 
-        // if (input.isButton) {
-        //     var grA = new GlideRecord('x_yergb_bpm_rfq_entry');
-        //     grA.get(input.urlSysId);
-        //     grA.setValue('state', input.newState);
-        //     grA.update();
-        // }
+        if (input.isButton) {
+            var grA = new GlideRecord('x_yergb_bpm_rfq_entry');
+            grA.get(input.urlSysId);
+            grA.setValue('state', input.newState);
+            grA.update();
+        }
+
+
     }
 
 
@@ -2441,7 +2521,6 @@ border: 2px solid red;
         grUp.setValue('request_due_date', getValueOrEmptyString(input.request_due_date));
         grUp.setValue('remark', getValueOrEmptyString(input.remark));
         grUp.setValue('project_status',getValueOrEmptyString(input.project_status));
-		grUp.setValue('state',getValueOrEmptyString(input.state_value));
         grUp.update();
 
     }
@@ -2532,23 +2611,23 @@ border: 2px solid red;
         data.modalTitle = "ASSIGNED TO";
     }
 
-    if (input && input.refer_end_user_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-	    data.itemsEndUserRef = [];
-        var gr5 = new GlideRecord('core_company');
-		gr5.addEncodedQuery(input.modalQuery);
-        gr5.query();
-        while (gr5.next()) {
-            data.itemsEndUserRef.push({
-                name: gr5.getValue('name'),
-                sys_id: gr5.getValue('sys_id'),
-                code: gr5.getValue('u_company_code')
-                });
-            }
+    // if (input && input.refer_end_user_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
+	//     data.itemsEndUserRef = [];
+    //     var gr5 = new GlideRecord('core_company');
+	// 	gr5.addEncodedQuery(input.modalQuery);
+    //     gr5.query();
+    //     while (gr5.next()) {
+    //         data.itemsEndUserRef.push({
+    //             name: gr5.getValue('name'),
+    //             sys_id: gr5.getValue('sys_id'),
+    //             code: gr5.getValue('u_company_code')
+    //             });
+    //         }
 
-        // Pass data to the client script
-        //data.items = items;
-        data.modalTitle = "END USER";
-    }
+    //     // Pass data to the client script
+    //     //data.items = items;
+    //     data.modalTitle = "END USER";
+    // }
 
     if (input && input.refer_contract_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
 	    	data.itemsContractRef = [];
@@ -2672,17 +2751,17 @@ border: 2px solid red;
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
-        <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2024-06-25 01:25:13</sys_created_on>
-        <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>471</sys_mod_count>
-        <sys_name>rfqEntryWd</sys_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-07-01 04:03:16</sys_created_on>
+        <sys_id>c795a57247cf4a106cce1ce4316d435c</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>rfqEntryWd-backup-0701</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
-        <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
+        <sys_update_name>sp_widget_c795a57247cf4a106cce1ce4316d435c</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-07-01 04:39:25</sys_updated_on>
+        <sys_updated_on>2024-07-01 04:04:15</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
