@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance_vlist">
+    <sp_instance_vlist action="DELETE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <display_field>document_id</display_field>
+        <field_list/>
+        <filter table="sysapproval_approver">document_id!=NULL^sysapprovalISEMPTY<item endquery="false" field="document_id" goto="false" newquery="false" operator="!=" or="false" value="NULL"/>
+            <item endquery="false" field="sysapproval" goto="false" newquery="false" operator="ISEMPTY" or="false" value=""/>
+        </filter>
+        <glyph/>
+        <id/>
+        <maximum_entries>5</maximum_entries>
+        <order>1</order>
+        <order_by/>
+        <order_direction>asc</order_direction>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">65ced6aa3bc30e10ec3cbf2a85e45a9c</sp_column>
+        <sp_page display_value="apprlist">b12dd26a3bc30e10ec3cbf2a85e45a40</sp_page>
+        <sp_widget display_value="Simple List">5b255672cb03020000f8d856634c9c28</sp_widget>
+        <sys_class_name>sp_instance_vlist</sys_class_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-30 13:34:47</sys_created_on>
+        <sys_id>74ded66a3bc30e10ec3cbf2a85e45a91</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sp_instance_vlist_74ded66a3bc30e10ec3cbf2a85e45a91</sys_update_name>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-30 13:59:01</sys_updated_on>
+        <table>sysapproval_approver</table>
+        <title/>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"always_show": {
+		"value": "",
+		"displayValue": ""
+	},
+	"panel_body_height": {
+		"value": "",
+		"displayValue": ""
+	},
+	"image_field": {
+		"value": "",
+		"displayValue": ""
+	},
+	"secondary_fields": {
+		"value": "approver,state,sys_created_on",
+		"displayValue": "approver,state,sys_created_on"
+	},
+	"rounded_images": {
+		"value": "",
+		"displayValue": ""
+	},
+	"list_page": {
+		"value": "dcf1f502d7a23100a9ad1e173e24d414",
+		"displayValue": "approval"
+	},
+	"hide_footer": {
+		"value": "",
+		"displayValue": ""
+	},
+	"view": {
+		"value": "",
+		"displayValue": ""
+	},
+	"disable_record_watcher": {
+		"value": "",
+		"displayValue": ""
+	},
+	"filter_acls": {
+		"value": "false",
+		"displayValue": "false"
+	}
+}]]></widget_parameters>
+    </sp_instance_vlist>
+    <sys_translated_text action="DELETE" query="documentkey=74ded66a3bc30e10ec3cbf2a85e45a91"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</application>
+        <file_path/>
+        <instance_id>6a89af531b8542d877c7cb7b234bcb60</instance_id>
+        <instance_name>yokogawabpmdev</instance_name>
+        <name>sp_instance_vlist_74ded66a3bc30e10ec3cbf2a85e45a91</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_instance_vlist"&gt;&lt;sp_instance_vlist action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;class_name/&gt;&lt;color&gt;default&lt;/color&gt;&lt;css/&gt;&lt;display_field&gt;document_id&lt;/display_field&gt;&lt;field_list/&gt;&lt;filter table="sysapproval_approver"&gt;document_id!=NULL^sysapprovalISEMPTY&lt;item endquery="false" field="document_id" goto="false" newquery="false" operator="!=" or="false" value="NULL"/&gt;&lt;item endquery="false" field="sysapproval" goto="false" newquery="false" operator="ISEMPTY" or="false" value=""/&gt;&lt;/filter&gt;&lt;glyph/&gt;&lt;id/&gt;&lt;maximum_entries&gt;5&lt;/maximum_entries&gt;&lt;order&gt;1&lt;/order&gt;&lt;order_by/&gt;&lt;order_direction&gt;asc&lt;/order_direction&gt;&lt;roles/&gt;&lt;short_description/&gt;&lt;size&gt;md&lt;/size&gt;&lt;sp_column display_value="1"&gt;65ced6aa3bc30e10ec3cbf2a85e45a9c&lt;/sp_column&gt;&lt;sp_page display_value="apprlist"&gt;b12dd26a3bc30e10ec3cbf2a85e45a40&lt;/sp_page&gt;&lt;sp_widget display_value="Simple List"&gt;5b255672cb03020000f8d856634c9c28&lt;/sp_widget&gt;&lt;sys_class_name&gt;sp_instance_vlist&lt;/sys_class_name&gt;&lt;sys_created_by&gt;sungsoo@sorin.co.kr&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-30 13:34:47&lt;/sys_created_on&gt;&lt;sys_id&gt;74ded66a3bc30e10ec3cbf2a85e45a91&lt;/sys_id&gt;&lt;sys_mod_count&gt;5&lt;/sys_mod_count&gt;&lt;sys_name/&gt;&lt;sys_package display_value="BPM" source="x_yergb_bpm"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="BPM"&gt;41c8a9e73b1e4a10ec3cbf2a85e45ab7&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_instance_vlist_74ded66a3bc30e10ec3cbf2a85e45a91&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;sungsoo@sorin.co.kr&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-30 13:59:01&lt;/sys_updated_on&gt;&lt;table&gt;sysapproval_approver&lt;/table&gt;&lt;title/&gt;&lt;url/&gt;&lt;widget_parameters&gt;&lt;![CDATA[{
+	"always_show": {
+		"value": "",
+		"displayValue": ""
+	},
+	"panel_body_height": {
+		"value": "",
+		"displayValue": ""
+	},
+	"image_field": {
+		"value": "",
+		"displayValue": ""
+	},
+	"secondary_fields": {
+		"value": "approver,state,sys_created_on",
+		"displayValue": "approver,state,sys_created_on"
+	},
+	"rounded_images": {
+		"value": "",
+		"displayValue": ""
+	},
+	"list_page": {
+		"value": "dcf1f502d7a23100a9ad1e173e24d414",
+		"displayValue": "approval"
+	},
+	"hide_footer": {
+		"value": "",
+		"displayValue": ""
+	},
+	"view": {
+		"value": "",
+		"displayValue": ""
+	},
+	"disable_record_watcher": {
+		"value": "",
+		"displayValue": ""
+	},
+	"filter_acls": {
+		"value": "false",
+		"displayValue": "false"
+	}
+}]]&gt;&lt;/widget_parameters&gt;&lt;/sp_instance_vlist&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=74ded66a3bc30e10ec3cbf2a85e45a91"/&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-1915169965</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>0d3a8ae63b474a1046a3934a85e45aaf</source>
+        <source_table>sys_update_set</source_table>
+        <state>current</state>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-30 13:59:01</sys_created_on>
+        <sys_id>f75462ae3bc30e10ec3cbf2a85e45a26</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>190697124ce0000001</sys_recorded_at>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-30 13:59:01</sys_updated_on>
+        <type>Instance of Simple List</type>
+        <update_guid>335462ae0fc30e10d4b4ca64a7b83c26</update_guid>
+        <update_guid_history>335462ae0fc30e10d4b4ca64a7b83c26:-1915169965,f730e6ea05c30e1085dd1f4df5a06437:1969612668,2410e6ead3c30e1092aaad3b232d851d:-439975447,ba8f1eaa6fc30e1066e903d3af57fec6:1493078853,8b2f1aaa5ac30e1084352b9d697151c0:242593523,70ded66adac30e1006fe848346e86692:637073046</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">ee84e6ae3bc30e10ec3cbf2a85e45acc</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-06-30 13:59:45</sys_created_on>
+        <sys_db_object display_value="" name="sp_instance_vlist">sp_instance_vlist</sys_db_object>
+        <sys_id>b363eb95195b4dca84a76dee32877a51</sys_id>
+        <sys_metadata>74ded66a3bc30e10ec3cbf2a85e45a91</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_scope_delete display_value="">9ff3e273935a476eab36e9bd65d24759</sys_scope_delete>
+        <sys_update_name>sp_instance_vlist_74ded66a3bc30e10ec3cbf2a85e45a91</sys_update_name>
+        <sys_update_version display_value="sp_instance_vlist_74ded66a3bc30e10ec3cbf2a85e45a91">f75462ae3bc30e10ec3cbf2a85e45a26</sys_update_version>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-06-30 13:59:45</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
