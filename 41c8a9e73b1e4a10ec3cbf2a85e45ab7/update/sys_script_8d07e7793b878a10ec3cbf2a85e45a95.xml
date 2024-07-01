@@ -31,31 +31,34 @@
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
 
+	if(current.requestor == null || current.requestor == "") {
+		current.requestor = gs.getUserID();
+	}
 
 	// Setup Currency
 	var exchange_rate = 1;
-	if(current.currency != current.sales_manager.company.u_currency) {
+	if(current.currency != current.requestor.company.u_currency) {
 		var grrate = new GlideRecord('x_yergb_bpm_bpm_exchange_rate');
 		grrate.addQuery('source_currency',current.currency);
-		grrate.addQuery('target_currency',current.sales_manager.company.u_currency);
+		grrate.addQuery('target_currency',current.requestor.company.u_currency);
 		grrate.query();
 		if(grrate.next()) {
 			exchange_rate = grrate.exchange_rate;
-			gs.info("Exchange_rate is not 1 : "+ exchange_rate + ", source:target = " + current.currency + " : " +  current.sales_manager.company.u_currency);
+			gs.info("Exchange_rate is not 1 : "+ exchange_rate + ", source:target = " + current.currency + " : " +  current.requestor.company.u_currency);
 		}
 	}
 
-	current.currency_lc = current.sales_manager.company.u_currency;
+	current.currency_lc = current.requestor.company.u_currency;
 	current.exchange_rate = exchange_rate;
 
 	if(current.estimated_oi_amount != null) current.estimated_oi_amount_lc = current.estimated_oi_amount * exchange_rate;
 
 	// Setup Profit Company
-	if(current.currency != 'CNY' && current.sales_manager.company.u_currency == 'CNY') {
+	if(current.currency != 'CNY' && current.requestor.company.u_currency == 'CNY') {
 		current.profit_company = '350bb7023b83ca10ec3cbf2a85e45a71'; // YCN-SP
 	}
 	else 
-		current.profit_company = current.sales_manager.company;
+		current.profit_company = current.requestor.company;
 
 })(current, previous);]]></script>
         <sys_class_name>sys_script</sys_class_name>
@@ -64,7 +67,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>8d07e7793b878a10ec3cbf2a85e45a95</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>RFQ Entry Initial Setup</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
@@ -72,7 +75,7 @@
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_8d07e7793b878a10ec3cbf2a85e45a95</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-29 08:12:49</sys_updated_on>
+        <sys_updated_on>2024-07-01 02:12:54</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

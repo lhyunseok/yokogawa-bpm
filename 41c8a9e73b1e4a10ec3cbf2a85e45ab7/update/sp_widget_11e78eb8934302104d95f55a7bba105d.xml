@@ -6,10 +6,12 @@
     /* widget controller */
     var c = this;
     c.data.isRead = true;
+	c.data.initRFQ = true;
     c.data.reasonCodeMandatory = false;
     c.data.reasonCodeRequestDueDateMandatory = false;
     c.data.reasonRemarkMandatory = false;
     c.data.quotationTypeSelectMandatory = false;
+    c.data.refer_contract_modal = false;
     //c.data.copy_sys_id = false	
   
 	///팝오버
@@ -174,7 +176,7 @@
             quotationTypeSelect.style.border = "2px solid red";
         } else {
             c.data.isUpdate = true;
-            c.data.newState = 2;
+            c.data.state_value = 2;
             c.data.isButton = true;
             c.server.update().then(function(response) {
                 // Handle the server response if needed
@@ -221,7 +223,7 @@
             }
         } else {
             c.data.isUpdate = true;
-            c.data.newState = 3;
+            c.data.state_value = 3;
             c.data.isButton = true;
             c.server.update().then(function(response) {
                 // Handle the server response if needed
@@ -237,7 +239,7 @@
         if (c.data.quotation_state != "Completed") {
             alert("Quotation is Not Completed");
         } else {
-            c.data.newState = 5;
+            c.data.state_value = 5;
             c.data.isButton = true;
             c.server.update().then(function(response) {
                 // Handle the server response if needed
@@ -249,8 +251,9 @@
     $scope.btnInProgress = function() {
         //alert("IN PROGRESS?")
         // Get the value from the input field using ng-model
-        c.data.newState = 4;
+        c.data.state_value = 4;
         c.data.isButton = true;
+		c.data.isUpdate = true;
 
         c.server.update().then(function(response) {
             // Handle the server response if needed
@@ -263,8 +266,9 @@
 
     $scope.btnAccept = function() {
         //alert("ACCEPT?")
-        c.data.newState = 4;
+        c.data.state_value = 4;
         c.data.isButton = true;
+		c.data.isUpdate = true;
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
@@ -274,14 +278,15 @@
     };
     $scope.btnOIReport = function() {
         //alert("OI Report?")
-        c.data.newState = 9;
+        c.data.state_value = 9;
         c.data.isButton = true;
+		c.data.isUpdate = true;
         c.data.isOIReport = true;
         // Call the server script to update the state
         c.server.update().then(function(response) {
             // Handle the server response if needed
             console.log('Server response:', response);
-					  console.log(c.data.io_sys_id)
+			console.log(c.data.io_sys_id)
             window.location.href = "/ybpm?id=orderintakereport&sys_id=" + c.data.io_sys_id; // Redirect to the URL
 
             //location.reload();
@@ -291,9 +296,9 @@
 
     $scope.btnReturn = function() {
         //alert("RETURN?")
-        c.data.newState = -5;
+        c.data.state_value = -5;
         c.data.isButton = true;
-			
+		c.data.isUpdate = true;
 			
 					 var confirmed = confirm("Do you really want to reject?");
         if (confirmed) {
@@ -317,8 +322,9 @@
     };
     $scope.btnCancel = function() {
         //alert("CANCEL?")
-        c.data.newState = -8;
+        c.data.state_value = -8;
         c.data.isButton = true;
+		c.data.isUpdate = true;
         // Call the server script to update the state
         c.server.update().then(function(response) {
             // Handle the server response if needed
@@ -522,7 +528,7 @@ $scope.btnUpdate = function() {
                 c.data.refer_assigned_to_modal = false
                 c.data.refer_contract_modal = false
                 c.data.refer_contract_country_modal = false
-				c.data.refer_copy_modal = false;
+				        c.data.refer_copy_modal = false;
 				c.data.refer_currency_modal = false;
                 c.data.items = ""
                 c.data.modalTitle = ""
@@ -567,6 +573,8 @@ $scope.btnUpdate = function() {
         modal.style.display = "block";
 
     };
+	/*
+	
     $scope.btnRefEndUser = function() {
         c.data.refer_end_user_modal = true;
         c.data.isRead = false;
@@ -593,15 +601,65 @@ $scope.btnUpdate = function() {
                 c.data.items = ""
                 c.data.modalTitle = ""
 
-
-
-
-
         };
         var modal = document.getElementById("modalTest");
         modal.style.display = "block";
     };
+	*/
+				$scope.btnRefEndUser = function(sys_id) {       
+		    document.getElementById("enduserRefModal").style.display = 'block';
+				c.data.itemsEndUserRef = [];
+				c.data.refer_end_user_modal = true;
+			  c.data.isRead = false;
+				
+        c.data.modalItems = [{
+            text: "name",
+            value: "name",
+            fieldLabel: "Name"
+        }, {
+            text: "code",
+            value: "u_company_code",
+            fieldLabel: "Code"
+        }						
+				];
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+        });
+    };
+	    //모달창 검색 버튼 클릭
+    $scope.btnClickUserRef = function() {
 
+        if (c.data.searchQuery == undefined) {
+            c.data.searchQuery = '';
+        }
+
+        //셀렉트 박스에서 선택한 value 값 가져오기 (필드)
+        var selectElement = document.querySelector('.modal-select-user-ref');
+        var selectedValue = selectElement.value;
+
+        c.data.modalQuery = selectedValue + 'LIKE' + c.data.searchQuery;
+        console.log(c.data.modalQuery);
+
+        c.data.refer_currency_modal = true;
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+            c.data.modalQuery = '';
+        });
+
+    };
+	  
+	  $scope.closeUserRefModal = function() {
+        document.getElementById("enduserRefModal").style.display = 'none';
+    };
+
+    c.clickUserR = function(index) {
+        c.data.end_user = c.data.itemsEndUserRef[index].name;
+        c.data.end_user_sys_id = c.data.itemsEndUserRef[index].sys_id;
+			  c.data.end_user_code = c.data.itemsEndUserRef[index].code;
+        document.getElementById("enduserRefModal").style.display = 'none';
+    };
+	/*
+	
     $scope.btnRefContract = function() {
         c.data.refer_contract_modal = true;
         c.data.isRead = false;
@@ -634,38 +692,167 @@ $scope.btnUpdate = function() {
         modal.style.display = "block";
 
     };
+*/
+	
 
-    $scope.btnRefContractCountry = function(sys_id) {
-        c.data.refer_contract_country_modal = true;
-        c.data.isRead = false;
+			$scope.btnRefContract = function(sys_id) {       
+		    document.getElementById("contractRefModal").style.display = 'block';
+				c.data.itemsContractRef = [];
+				c.data.refer_contract_modal = true;
+			  c.data.isRead = false;
+				
+        c.data.modalItems = [{
+            text: "name",
+            value: "name",
+            fieldLabel: "Name"
+        }, {
+            text: "code",
+            value: "u_company_code",
+            fieldLabel: "Code"
+        }						
+				];
         c.server.update().then(function(response) {
             console.log('Server response:', response);
-            c.logSysId = function(number, sys_id) {
-                c.data.contract_country = number
-                c.data.contract_country_sys_id = sys_id
+        });
+    };
+	    //모달창 검색 버튼 클릭
+    $scope.btnClickRefContract = function() {
 
+        if (c.data.searchQuery == undefined) {
+            c.data.searchQuery = '';
+        }
 
-                modal.style.display = "none";
-                 c.data.refer_sales_manager_modal = false
-                c.data.refer_end_user_modal = false
-                c.data.refer_requester_modal = false
-                c.data.refer_quotation_modal = false
-                c.data.refer_assignment_group_modal = false
-                c.data.refer_assigned_to_modal = false
-                c.data.refer_contract_modal = false
-                c.data.refer_contract_country_modal = false
-				c.data.refer_copy_modal = false;
-				c.data.refer_currency_modal = false;
-                c.data.items = ""
-                c.data.modalTitle = ""
-            };
+        //셀렉트 박스에서 선택한 value 값 가져오기 (필드)
+        var selectElement = document.querySelector('.modal-select-contract-ref');
+        var selectedValue = selectElement.value;
 
+        c.data.modalQuery = selectedValue + 'LIKE' + c.data.searchQuery;
+        console.log(c.data.modalQuery);
+
+        c.data.refer_currency_modal = true;
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+            c.data.modalQuery = '';
         });
 
-        var modal = document.getElementById("modalTest");
-        modal.style.display = "block";
+    };
+	  
+	  $scope.closeContractRefModal = function() {
+        document.getElementById("contractRefModal").style.display = 'none';
+    };
+
+    c.clickContractR = function(index) {
+        c.data.contractor = c.data.itemsContractRef[index].name;
+        c.data.contractor_sys_id = c.data.itemsContractRef[index].sys_id;
+			  c.data.contractor_code = c.data.itemsContractRef[index].code;
+        document.getElementById("contractRefModal").style.display = 'none';
+    };
+
+
+	  $scope.btnRefContractCountry = function(sys_id) {
+		    document.getElementById("contractCountryModal").style.display = 'block';
+			  c.data.isRead = false;
+        c.data.modalItems = [{
+            text: "name",
+            value: "name",
+            fieldLabel: "Name"
+        }, {
+            text: "ISO",
+            value: "iso3166_2",
+            fieldLabel: "ISO"
+        }];
+
+        c.data.refer_contract_country_modal = true;
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+        });
+    };
+	    //모달창 검색 버튼 클릭
+    $scope.btnClickModalCountry = function() {
+
+        if (c.data.searchQuery == undefined) {
+            c.data.searchQuery = '';
+        }
+
+        //셀렉트 박스에서 선택한 value 값 가져오기 (필드)
+        var selectElement = document.querySelector('.modal-select-c-country');
+        var selectedValue = selectElement.value;
+
+        c.data.modalQuery = selectedValue + 'LIKE' + c.data.searchQuery;
+        console.log(c.data.modalQuery);
+
+        c.data.refer_currency_modal = true;
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+            c.data.modalQuery = '';
+        });
 
     };
+	  
+	  $scope.closeContranctCountryModal = function() {
+        document.getElementById("contractCountryModal").style.display = 'none';
+    };
+
+    c.clickContractCountry = function(index) {
+        c.data.contract_country_sys_id = c.data.itemsCountry[index].sys_id;
+        c.data.contract_country = c.data.itemsCountry[index].name;
+        document.getElementById("contractCountryModal").style.display = 'none';
+		  	console.log(c.data.contract_country_sys_id);
+    };
+	
+			$scope.btnRefEndUserCountry = function(sys_id) {
+		    document.getElementById("countryModal").style.display = 'block';
+			  c.data.isRead = false;
+				c.data.itemsCountry = [];
+        c.data.modalItems = [{
+            text: "name",
+            value: "name",
+            fieldLabel: "Name"
+        }, {
+            text: "ISO",
+            value: "iso3166_2",
+            fieldLabel: "ISO"
+        }];
+
+        c.data.refer_contract_country_modal = true;
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+        });
+    };
+	    //모달창 검색 버튼 클릭
+    $scope.btnClickModalCountry = function() {
+
+        if (c.data.searchQuery == undefined) {
+            c.data.searchQuery = '';
+        }
+
+        //셀렉트 박스에서 선택한 value 값 가져오기 (필드)
+        var selectElement = document.querySelector('.modal-select-country');
+        var selectedValue = selectElement.value;
+
+        c.data.modalQuery = selectedValue + 'LIKE' + c.data.searchQuery;
+        console.log(c.data.modalQuery);
+
+        c.data.refer_currency_modal = true;
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+            c.data.modalQuery = '';
+        });
+
+    };
+	  
+	  $scope.closeCountryModal = function() {
+        document.getElementById("countryModal").style.display = 'none';
+    };
+
+    c.clickCountry = function(index) {
+        c.data.end_user_country_sys_id = c.data.itemsCountry[index].sys_id;
+        c.data.end_user_country_name = c.data.itemsCountry[index].name;
+        document.getElementById("countryModal").style.display = 'none';
+		  	console.log(c.data.end_user_country_sys_id);
+    };
+//end_user_country_name
+	
 /*
     $scope.btnRefCurrency = function(sys_id) {
 
@@ -751,53 +938,71 @@ $scope.btnUpdate = function() {
         document.getElementById("currencyModal").style.display = 'none';
     };
 
-    $scope.btnCopy = function() {
-        //alert(c.data.isRead)
-        c.data.refer_copy_modal = true;
-        c.data.isCopy = true;
-        c.data.isRead = false;
-
+          $scope.btnCopy = function(sys_id) {       
+          document.getElementById("btnCopyModal").style.display = 'block';
+           c.data.refer_copy_modal = true;
+        c.data.isRead = false;   
+           c.data.itemsCopy = [];
+            
+        c.data.modalItems = [{
+            text: "number",
+            value: "number",
+            fieldLabel: "Number"
+        }, {
+            text: "requestor",
+            value: "requestor.user_name",
+            fieldLabel: "Requestor"
+        }, {
+            text: "project_title",
+            value: "project_title",
+            fieldLabel: "Project Title"
+        }               
+            ];
         c.server.update().then(function(response) {
-           // alert("we start copying now")
             console.log('Server response:', response);
-            c.logSysId = function(number, sys_id) {
-                c.data.isRead = false;
-                c.data.copy_sys_id = sys_id
+                 c.data.refer_copy_modal = false;
+        });
+    };
+       //모달창 검색 버튼 클릭
+    $scope.btnSearchRFQ = function() {
 
+        if (c.data.searchQuery == undefined) {
+            c.data.searchQuery = '';
+        }
+         
+        //셀렉트 박스에서 선택한 value 값 가져오기 (필드)
+        var selectElement = document.querySelector('.modal-select-rfq');
+        var selectedValue = selectElement.value;
 
+        c.data.modalQuery = selectedValue + 'LIKE' + c.data.searchQuery;
+        console.log(c.data.modalQuery);
 
-
-                c.server.update().then(function(response) {
-                    alert("we are copying now")
-                    c.data.isCopy = false;
-
-
-
-                    modal.style.display = "none";
-                    c.data.refer_end_user_modal = false
-                    c.data.refer_requester_modal = false
-                    c.data.refer_quotation_modal = false
-                    c.data.refer_assignment_group_modal = false
-                    c.data.refer_assigned_to_modal = false
-                    c.data.refer_contract_modal = false
-                    c.data.refer_contract_country_modal = false
-						        c.data.refer_copy_modal = false;
-
-                    c.data.items = ""
-                    c.data.modalTitle = ""
-
-                });
-
-            };
-
+        c.data.refer_copy_modal = true;
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+            c.data.modalQuery = '';
+                 c.data.refer_copy_modal = false;
         });
 
-        var modal = document.getElementById("modalTest");
-        modal.style.display = "block";
-
-
+    };
+     
+     $scope.closeCopyModal = function() {
+        document.getElementById("btnCopyModal").style.display = 'none';
     };
 
+    c.clickRNumber = function(index) {
+           c.data.isCopy = true;
+           c.data.copy_sys_id = c.data.itemsCopy[index].sys_id;
+           c.server.update().then(function(response) {
+               alert("we are copying now");
+               c.data.isCopy = false;
+               document.getElementById("btnCopyModal").style.display = 'none';
+         });   
+        //c.data.itemsCopy[index].number;
+        //c.data.itemsCopy[index].sys_id;
+           //c.data.itemsCopy[index].code;
+    };
+	
 
 	
     $scope.btnRefQuotation = function(sys_id) {
@@ -863,8 +1068,9 @@ $scope.btnUpdate = function() {
     });
 
 
-
+	// Initiate RFQ Entry
     c.server.update().then(function(response) {
+		c.data.initRFQ = false;
         //c.data.isRead = false;
         //alert(c.data.state)
         if(c.data.state == "Cancelled"){
@@ -1828,6 +2034,8 @@ border: 2px solid red;
             data.labelQuotation  = grLabel.label.toString(); // assuming 'value' contains the needed data
         }else if(grLabel.element == 'request_date') {
             data.labelRequestDate  = grLabel.label.toString(); // assuming 'value' contains the needed data
+        }else if(grLabel.element == 'request_due') {
+            data.labelRequestDue  = grLabel.label.toString(); // assuming 'value' contains the needed data
         }else if(grLabel.element == 'quotation_due_date') {
             data.labelQuotationDueDate  = grLabel.label.toString(); // assuming 'value' contains the needed data
         }else if(grLabel.element == 'estimated_order_date') {
@@ -1854,22 +2062,22 @@ border: 2px solid red;
             data.labelAssignmentGroup  = grLabel.label.toString(); // assuming 'value' contains the needed data
         }else if(grLabel.element == 'credit_assessment') {
             data.labelCreditAssessment  = grLabel.label.toString(); // assuming 'value' contains the needed data
-        }else if(grLabel.element == 'contract_address') {
-            data.labelContractAddress  = grLabel.label.toString(); // assuming 'value' contains the needed data
+        }else if(grLabel.element == 'contractor_address') {
+            data.labelContractorAddress  = grLabel.label.toString(); // assuming 'value' contains the needed data
         }else if(grLabel.element == 'assigned_to') {
             data.labelAssignedTo  = grLabel.label.toString(); // assuming 'value' contains the needed data
         }else if(grLabel.element == 'caution') {
             data.labelCaution  = grLabel.label.toString(); // assuming 'value' contains the needed data
         }else if(grLabel.element == 'currency') {
             data.labelCurrency  = grLabel.label.toString(); // assuming 'value' contains the needed data
-        }else if(grLabel.element == 'contract_country') {
-            data.labelContractCountry  = grLabel.label.toString(); // assuming 'value' contains the needed data
+        }else if(grLabel.element == 'contractor_country') {
+            data.labelContractorCountry  = grLabel.label.toString(); // assuming 'value' contains the needed data
         }else if(grLabel.element == 'complete_date') {
             data.labelCompleteDate  = grLabel.label.toString(); // assuming 'value' contains the needed data
-        }else if(grLabel.element == 'contract_name') {
-            data.labelContractName  = grLabel.label.toString(); // assuming 'value' contains the needed data
-        }else if(grLabel.element == 'contract') {
-            data.labelContract  = grLabel.label.toString(); // assuming 'value' contains the needed data
+        }else if(grLabel.element == 'contractor_name') {
+            data.labelContractorName  = grLabel.label.toString(); // assuming 'value' contains the needed data
+        }else if(grLabel.element == 'contractor') {
+            data.labelContractor  = grLabel.label.toString(); // assuming 'value' contains the needed data
         }else if(grLabel.element == 'sales_manager') {
             data.labelSalesManager  = grLabel.label.toString(); // assuming 'value' contains the needed data
         }else if(grLabel.element == 'customer_rfq') {
@@ -1906,33 +2114,25 @@ border: 2px solid red;
     var userNameSysId = gs.getUser().getID();
     var userCompany = gs.getUser().getCompanyID();
 
-    var grU = new GlideRecord('sys_user');
-    grU.get(userNameSysId);
-    grUCompany = grU.company;
-    var grC = new GlideRecord('core_company');
-    if (grC.get(grUCompany)) {
-        var currency = grC.u_currency.code;
-       // gs.addInfoMessage(currency)
-		if(data.currency == null || data.currency == '') {
+	if(input && input.initRFQ) {
+		var grU = new GlideRecord('sys_user');
+		grU.get(userNameSysId);
+		grUCompany = grU.company;
+		var grC = new GlideRecord('core_company');
+		if (grC.get(grUCompany)) {
 			data.currency = grC.u_currency.code.toString();
 			data.currency_sys_id = grC.u_currency.toString();
-		}	
-       // gs.addInfoMessage( data.currency)
-       // gs.addInfoMessage(data.currency_sys_id)
+		}
 
-    }
+		data.requestor = userName;
+		data.requestor_sys_id = userNameSysId;
+		data.sales_manager = userName;
+		data.sales_manager_sys_id = userNameSysId;
+	}
 
 
 	var urlSysId = $sp.getParameter('sys_id');
 
-    // client script를 통해서 넣어준 유저의 이름, sysid 를 server단으로 가져옴
-    data.requestor = userName;
-    data.requestor_sys_id = userNameSysId;
-
-	if(!urlSysId && data.sales_manager == null) {
-		data.sales_manager = userName;
-		data.sales_manager_sys_id = userNameSysId;
-	}
 		
     // 버튼, 요소 노출
     data.showUpdate = false;
@@ -1959,13 +2159,14 @@ border: 2px solid red;
     // Select 가져올건데
 
 	var grI = new GlideRecord('x_yergb_bpm_rfq_entry');
-    if (data.sys_id && input && input.isRead) { //기존 레코드를 읽어와서 업데이트 할거임
+    if (data.sys_id && input && input.initRFQ) { 
         grI.addQuery('sys_id', data.sys_id);
         grI.query();
         if(grI.next()) {
             data.requestor = grI.requestor.name.toString();
             data.requestor_sys_id = grI.requestor.toString();
             data.number = grI.number.toString();
+			data.customer_rfq = grI.customer_rfq.toString();
             data.complete_date = grI.complete_date.toString();
             data.estimated_oi_amount = grI.estimated_oi_amount.toString();
             data.currency = grI.currency.code.toString();
@@ -1980,29 +2181,42 @@ border: 2px solid red;
             data.end_user = grI.end_user.name.toString();
             data.end_user_sys_id = grI.end_user.toString();
             data.end_user_code = grI.end_user.u_company_code.toString();
-            data.contract = grI.contract.name.toString();
-            data.contract_sys_id = grI.contract.toString();
-            data.contract_code = grI.contract.u_company_code.toString();
-            data.contract_name = grI.contract_name.toString();
-            data.contract_address = grI.contract_address.toString();
+            data.end_user_name = grI.end_user_name.toString();
+            data.end_user_address = grI.end_user_address.toString();
+            data.end_user_country = grI.end_user_country.name.toString();
+            data.end_user_country_sys_id = grI.end_user_country.toString();
+            data.contractor = grI.contractor.name.toString();
+            data.contractor_sys_id = grI.contractor.toString();
+            data.contractor_code = grI.contractor.u_company_code.toString();
+            data.contractor_name = grI.contractor_name.toString();
+            data.contractor_address = grI.contractor_address.toString();
+            data.contractor_country = grI.contractor_country.name.toString();
+            data.contractor_country_sys_id = grI.contractor_country.toString();
             data.project_title = grI.project_title.toString();
             data.project_detail = grI.project_detail.toString();
             data.caution = grI.caution.toString();
             data.reason_code = grI.reason_code.toString();
             data.request_due_date = grI.request_due_date.toString();
-		      	data.request_date = grI.request_date.toString();
+			data.request_date = grI.request_date.toString();
             data.remark = grI.remark.toString();
-		      	data.sales_manager = grI.sales_manager.name.toString();
-		      	data.sales_manager_sys_id = grI.sales_manager.toString();
+			data.sales_manager = grI.sales_manager.name.toString();
+			data.sales_manager_sys_id = grI.sales_manager.toString();
             data.currency_lc = grI.currency_lc.toString();
             data.exchange_rate = grI.exchange_rate.toString();
             data.estimated_oi_amount_lc = grI.estimated_oi_amount_lc.toString();
             data.project_status = grI.project_status.toString();
-            data.profit_company = grI.profit_company.toString();
+            data.profit_company = grI.profit_company.name.toString();
+			data.state = grI.state.getDisplayValue();
+			data.state_value = grI.state.toString();
+			//hh 추가
+			data.contract_country = grI.contract_country.name.toString();
+            data.end_user_country_name = grI.end_user_country.name.toString();
+            data.quotation_type_label = grI.quotation_type.getDisplayValue();
 
-					//gs.addErrorMessage(currency_sys_id)
-            // quotation의 라벨을 가져오는 함수 (하단에 작성 되어있음)
-            data.quotation_type_label = getChoiceLabel('x_yergb_bpm_rfq_entry', 'quotation_type', data.quotation_type);
+			data.quotation_state = grI.quotation.state.getDisplayValue();
+			data.quotation_state_value = grI.quotation.state.toString();
+
+			//gs.addErrorMessage(data.state);
         }
 
         // Quotation 을 가져오기 위해 , 현재 sys id 를 quotation 테이블에 넣어서 가져옴
@@ -2054,11 +2268,17 @@ border: 2px solid red;
             data.end_user = grI.end_user.name.toString();
             data.end_user_sys_id = grI.end_user.toString();
             data.end_user_code = grI.end_user.u_company_code.toString();
-            data.contract = grI.contract.name.toString();
-            data.contract_sys_id = grI.contract.toString();
-            data.contract_code = grI.contract.u_company_code.toString();
-            data.contract_name = grI.contract_name.toString();
-            data.contract_address = grI.contract_address.toString();
+            data.end_user_name = grI.end_user_name.toString();
+            data.end_user_address = grI.end_user_address.toString();
+            data.end_user_country = grI.end_user_country.name.toString();
+            data.end_user_country_sys_id = grI.end_user_country.toString();
+            data.contractor = grI.contractor.name.toString();
+            data.contractor_sys_id = grI.contractor.toString();
+            data.contractor_code = grI.contractor.u_company_code.toString();
+            data.contractor_name = grI.contractor_name.toString();
+            data.contractor_address = grI.contractor_address.toString();
+            data.contractor_country = grI.contractor_country.name.toString();
+            data.contractor_country_sys_id = grI.contractor_country.toString();
             data.project_title = grI.project_title.toString();
             data.project_detail = grI.project_detail.toString();
             data.caution = grI.caution.toString();
@@ -2070,97 +2290,66 @@ border: 2px solid red;
             data.estimated_oi_amount_lc = grI.estimated_oi_amount_lc.toString();
             data.project_status = grI.project_status.toString();
             data.profit_company = grI.profit_company.toString();
-			quotation_type_label = getChoiceLabel('x_yergb_bpm_rfq_entry', 'quotation_type', data.quotation_type);
+			quotation_type_label = grI.data.quotation_type.getDisplayValue();
 		}
     }
 
-    if (input && input.urlSysId) {
-        var gr = new GlideRecord('x_yergb_bpm_rfq_entry');
-        gr.get(input.urlSysId);
-        data.state = gr.state.getDisplayValue();
+	if(data.state && input.initRFQ) {
+
+		data.showAssess = false;
+		data.showRequest = false;
+		data.showSubmit = false;
+		data.showInProgress = false;
+		data.showAccept = false;
+		data.showReturn = false;
+		data.showCancel = false;
+		data.showUpdate = false;
+		data.showSave = false;
+		data.showOIReport = false;
+		data.showQuotationTypeSelect = false;
+		data.showQuotationType = false;
+        data.showCopy = false;
         // 현재 STATE 에 따라서, 버튼들의 노출도를 전부 조절한다 여기서
-        if (gr.state.getDisplayValue() == "New" &&    (   gs.getUser().isMemberOf('YCN Sales Group') ||  gs.getUser().isMemberOf('YKO Sales Group')   ) ) {
+        if (data.state == "New" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
             data.showAssess = true;
-            data.showRequest = false;
-            data.showSubmit = false;
-            data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = true;
             data.showSave = true;
-            data.showOIReport = false;
             data.showQuotationTypeSelect = true;
-            data.showQuotationType = false;
-        } else if (gr.state.getDisplayValue() == "Assess" && (gs.getUser().isMemberOf('YCN Sales Group') ||gs.getUser().isMemberOf('YKO Sales Group') )) {
-            data.showAssess = false;
+
+        } else if (data.state == "Assess" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
             data.showRequest = true;
-            data.showSubmit = false;
             data.showInProgress = true;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = true;
             data.showSave = true;
-            data.showCopy = false;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "Requested" && ( gs.getUser().isMemberOf('YCN_Sales_Engineer_Group') || gs.getUser().isMemberOf('YKO_Sales_Engineer_Group') ) ) {
-            data.showAssess = false;
-            data.showRequest = false;
-            data.showSubmit = false;
-            data.showInProgress = false;
+			if(data.quotation_type_label == "Budgetary"){
+                data.showRequest = false;
+            }
+
+        } else if (data.state == "Requested" && ( gs.getUser().isMemberOf(data.assignment_group)) ) {
             data.showAccept = true;
             data.showReturn = true;
-            data.showCancel = false;
-            data.showUpdate = true;
-            data.showSave = true;
-            data.showCopy = false;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "Returned" && (gs.getUser().isMemberOf('YCN Sales Group') ||gs.getUser().isMemberOf('YKO Sales Group') )) {
+
+        } else if (data.state == "Requested" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id) ) {
+            data.showQuotationType = true;
+
+        } else if (data.state == "Returned" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
             data.showAssess = true;
-            data.showRequest = false;
-            data.showSubmit = false;
-            data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
             data.showCancel = true;
-            data.showUpdate = true;
             data.showSave = true;
-            data.showCopy = false;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "In Progress") {
-            data.showAssess = false;
-            data.showRequest = false;
+
+        } else if (data.state == "In Progress" && data.quotation_state == "Completed" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
+            data.showRequest = true;
             data.showSubmit = true;
-            data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = true;
             data.showSave = true;
-            data.showCopy = false;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
-        } else if (gr.state.getDisplayValue() == "Submitted" ) {
-            data.showAssess = false;
-            //data.showRequest = false;
-            data.showSubmit = false;
-            //data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = true;
+
+		} else if (data.state == "In Progress" && data.quotation_state != "Completed") {
+            data.showQuotationType = true;
+
+        } else if (data.state == "Submitted" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id) ) {
             data.showSave = true;
-            data.showCopy = false;
             data.showOIReport = true;
-            data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
             if(data.quotation_type_label == "Budgetary"){
                 data.showInProgress = true;
@@ -2171,77 +2360,20 @@ border: 2px solid red;
             else{
                 gs.addInfoMessage("how creative");
             }
-        } else if (gr.state.getDisplayValue() == "Completed" ||(gs.getUser().isMemberOf('YCN_Sales_Engineer_Group') || gs.getUser().isMemberOf('YKO_Sales_Engineer_Group') ) ) {
-            data.showAssess = false;
-            data.showRequest = false;
-            data.showSubmit = false;
-            data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = false;
-            data.showSave = false;
-            data.showCopy = false;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
+
+        } else if (data.state == "Completed") {
             data.showQuotationType = true;
+
         }else {
-          //  gs.addErrorMessage("who are you")
-            data.showAssess = false;
-            data.showRequest = false;
-            data.showSubmit = false;
-            data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = false;
-            data.showSave = false;
-            data.showCopy = false;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
             data.showQuotationType = true;
         }
-
-		if((gs.getUser().isMemberOf('YCN Sales Group') ||gs.getUser().isMemberOf('YKO Sales Group') ) &&  gr.state.getDisplayValue() == "In Progress" && data.quotation_state != 'Completed'){ // 세일즈 그룹이고, in progress 이고, q type 이 complete 가 아니면 버튼들 
-            data.showAssess = false;
-            data.showRequest = false;
-            data.showSubmit = false;
-            data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = false;
-            data.showSave = false;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
-            data.showQuotationType = true;
-        }  
-        
-        if((gs.getUser().isMemberOf('YCN_Sales_Engineer_Group') || gs.getUser().isMemberOf('YKO_Sales_Engineer_Group') ) &&  gr.state.getDisplayValue() == "In Progress"){  //엔지니어 그룹이고, in progress 이고 
-            data.showAssess = false;
-            data.showRequest = false;
-            data.showSubmit = false;
-            data.showInProgress = false;
-            data.showAccept = false;
-            data.showReturn = false;
-            data.showCancel = false;
-            data.showUpdate = false;
-            data.showSave = false;
-            data.showOIReport = false;
-            data.showQuotationTypeSelect = false;
-            data.showQuotationType = true;
-        }
-
-
         /////////// 버튼을 누르면 STATE가 바뀐다. 
-        if (input.isButton) {
-            var grA = new GlideRecord('x_yergb_bpm_rfq_entry');
-            grA.get(input.urlSysId);
-            grA.setValue('state', input.newState);
-            grA.update();
-        }
-
-
+        // if (input.isButton) {
+        //     var grA = new GlideRecord('x_yergb_bpm_rfq_entry');
+        //     grA.get(input.urlSysId);
+        //     grA.setValue('state', input.newState);
+        //     grA.update();
+        // }
     }
 
 
@@ -2250,7 +2382,8 @@ border: 2px solid red;
         var grr = new GlideRecord('x_yergb_bpm_rfq_entry');
         grr.initialize();
         grr.setValue('sales_manager', input.sales_manager_sys_id);
-        grr.setValue('customer_rfq', input.customer_rfq);
+        grr.setValue('requestor', input.requestor_sys_id);
+        grr.setValue('customer_rfq', getValueOrEmptyString(input.customer_rfq));
         grr.setValue('currency', input.currency_sys_id);
         grr.setValue('estimated_oi_amount', getValueOrEmptyString(input.estimated_oi_amount));
         grr.setValue('estimated_order_date', input.estimated_order_date);
@@ -2259,19 +2392,20 @@ border: 2px solid red;
         grr.setValue('yoda_opportunity_no', getValueOrEmptyString(input.yoda_opportunity_no));
         grr.setValue('quotation_type', input.quotation_type);
         grr.setValue('end_user', input.end_user_sys_id);
-		grr.setValue('end_user_name', input.end_user_name);
-		grr.setValue('end_user_address', input.end_user_address);
-		grr.setValue('end_user_country', input.end_user_country);
-        grr.setValue('contract', input.contract_sys_id);
-        grr.setValue('contract_name', getValueOrEmptyString(input.contract_name));
-        grr.setValue('contract_address', getValueOrEmptyString(input.contract_address));
-        grr.setValue('contract_country', input.contract_country);
+		grr.setValue('end_user_name', getValueOrEmptyString(input.end_user_name));
+		grr.setValue('end_user_address', getValueOrEmptyString(input.end_user_address));
+		grr.setValue('end_user_country', input.end_user_country_sys_id);
+        grr.setValue('contractor', input.contractor_sys_id);
+        grr.setValue('contractor_name', getValueOrEmptyString(input.contractor_name));
+        grr.setValue('contractor_address', getValueOrEmptyString(input.contractor_address));
+        grr.setValue('contractor_country', input.contractor_country_sys_id);
         grr.setValue('project_title', getValueOrEmptyString(input.project_title));
         grr.setValue('project_detail', getValueOrEmptyString(input.project_detail));
-        grr.setValue('caution', input.caution);
+        grr.setValue('caution', getValueOrEmptyString(input.caution));
         grr.setValue('reason_code', getValueOrEmptyString(input.reason_code));
+		grr.setValue('request_due_date', getValueOrEmptyString(input.request_due_date));
         grr.setValue('remark', getValueOrEmptyString(input.remark));
-        grr.setValue('project_status',input.project_status);
+        grr.setValue('project_status',getValueOrEmptyString(input.project_status));
         
         grr.insert();
         data.redirect_sys_id = grr.getUniqueValue();
@@ -2279,34 +2413,36 @@ border: 2px solid red;
        // gs.addErrorMessage(quotation_type)
 
     } else if (input && input.isUpdate) {
-     //gs.addErrorMessage("야 정신차려봐 isUpdate")
-        var grU = new GlideRecord('x_yergb_bpm_rfq_entry');
-        grU.get(input.urlSysId);
-        grU.setValue('sales_manager', input.sales_manager_sys_id);
-        grU.setValue('customer_rfq', input.customer_rfq);			
-        grU.setValue('estimated_oi_amount', getValueOrEmptyString(input.estimated_oi_amount));
-        grU.setValue('currency', input.currency_sys_id);
-        grU.setValue('estimated_order_date', input.estimated_order_date);
-        grU.setValue('estimated_delivery_date', input.estimated_delivery_date);
-        grU.setValue('submitted_date', input.submitted_date);
-        grU.setValue('quotation_due_date', input.quotation_due_date);
-        grU.setValue('quotation_type', input.quotation_type);
-        grU.setValue('yoda_opportunity_no', getValueOrEmptyString(input.yoda_opportunity_no));
-        grU.setValue('end_user', input.end_user_sys_id);
-		grU.setValue('end_user_name', input.end_user_name);
-		grU.setValue('end_user_address', input.end_user_address);
-		grU.setValue('end_user_country', input.end_user_country);
-        grU.setValue('contract', input.contract_sys_id);
-        grU.setValue('contract_name', getValueOrEmptyString(input.contract_name));
-        grU.setValue('contract_address', getValueOrEmptyString(input.contract_address));
-        grU.setValue('contract_country', input.contract_country);
-        grU.setValue('project_title', getValueOrEmptyString(input.project_title));
-        grU.setValue('project_detail', getValueOrEmptyString(input.project_detail));
-        grU.setValue('caution', input.caution);
-        grU.setValue('reason_code', getValueOrEmptyString(input.reason_code));
-        grU.setValue('remark', getValueOrEmptyString(input.remark));
-        grU.setValue('project_status',input.project_status);
-        grU.update();
+        gs.addErrorMessage(input.estimated_order_date);
+        var grUp = new GlideRecord('x_yergb_bpm_rfq_entry');
+        grUp.get(input.urlSysId);
+        grUp.setValue('sales_manager', input.sales_manager_sys_id);
+        grUp.setValue('customer_rfq', getValueOrEmptyString(input.customer_rfq));			
+        grUp.setValue('estimated_oi_amount', getValueOrEmptyString(input.estimated_oi_amount));
+        grUp.setValue('currency', input.currency_sys_id);
+        grUp.setValue('estimated_order_date', input.estimated_order_date);
+        grUp.setValue('estimated_delivery_date', input.estimated_delivery_date);
+        grUp.setValue('submitted_date', input.submitted_date);
+        grUp.setValue('quotation_due_date', input.quotation_due_date);
+        grUp.setValue('quotation_type', input.quotation_type);
+        grUp.setValue('yoda_opportunity_no', getValueOrEmptyString(input.yoda_opportunity_no));
+        grUp.setValue('end_user', input.end_user_sys_id);
+		grUp.setValue('end_user_name', getValueOrEmptyString(input.end_user_name));
+		grUp.setValue('end_user_address', getValueOrEmptyString(input.end_user_address));
+		grUp.setValue('end_user_country', input.end_user_country_sys_id);
+        grUp.setValue('contractor', input.contractor_sys_id);
+        grUp.setValue('contractor_name', getValueOrEmptyString(input.contractor_name));
+        grUp.setValue('contractor_address', getValueOrEmptyString(input.contractor_address));
+        grUp.setValue('contractor_country', input.contractor_country_sys_id);
+        grUp.setValue('project_title', getValueOrEmptyString(input.project_title));
+        grUp.setValue('project_detail', getValueOrEmptyString(input.project_detail));
+        grUp.setValue('caution', getValueOrEmptyString(input.caution));
+        grUp.setValue('reason_code', getValueOrEmptyString(input.reason_code));
+        grUp.setValue('request_due_date', getValueOrEmptyString(input.request_due_date));
+        grUp.setValue('remark', getValueOrEmptyString(input.remark));
+        grUp.setValue('project_status',getValueOrEmptyString(input.project_status));
+		grUp.setValue('state',getValueOrEmptyString(input.state_value));
+        grUp.update();
 
     }
 
@@ -2325,10 +2461,6 @@ border: 2px solid red;
 				gs.addInfoMessage(data.io_sys_id);
 			}
        }
-
-
-	
-
 
 	/* Sales Manager Modal */
     if (input && input.refer_sales_manager_modal) {
@@ -2398,20 +2530,20 @@ border: 2px solid red;
         // Pass data to the client script
         data.items = items;
         data.modalTitle = "ASSIGNED TO";
-
     }
+
     if (input && input.refer_end_user_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-		data.items = [];
+	    data.itemsEndUserRef = [];
         var gr5 = new GlideRecord('core_company');
+		gr5.addEncodedQuery(input.modalQuery);
         gr5.query();
         while (gr5.next()) {
-            data.items.push({
-                column1: gr5.getValue('name'),
-                column2: gr5.getValue('sys_id'),
-                column3: gr5.getValue('u_company_code'),
-                column4: gr5.getValue('city')
-            });
-        }
+            data.itemsEndUserRef.push({
+                name: gr5.getValue('name'),
+                sys_id: gr5.getValue('sys_id'),
+                code: gr5.getValue('u_company_code')
+                });
+            }
 
         // Pass data to the client script
         //data.items = items;
@@ -2419,41 +2551,46 @@ border: 2px solid red;
     }
 
     if (input && input.refer_contract_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-		data.items = [];
+	    	data.itemsContractRef = [];
         var gr6 = new GlideRecord('core_company');
+		  	gr6.addEncodedQuery(input.modalQuery);
         gr6.query();
         while (gr6.next()) {
-            data.items.push({
-                column1: gr6.getValue('name'),
-                column2: gr6.getValue('sys_id'),
-                column3: gr6.getValue('u_company_code'),
-                column4: gr6.getValue('city')
-
+            data.itemsContractRef.push({
+                name: gr6.getValue('name'),
+                sys_id: gr6.getValue('sys_id'),
+                code: gr6.getValue('u_company_code')
             });
         }
-
-        // Pass data to the client script
-        //data.items = items;
-        data.modalTitle = "CONTRACT COMPANY";
-
     }
 
-    if (input && input.refer_contract_country_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-		data.items = [];
+	if (input && input.refer_contract_country_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
+      data.itemsCountry = [];
         var gr7 = new GlideRecord('core_country');
+           gr7.addEncodedQuery(input.modalQuery);
         gr7.query();
         while (gr7.next()) {
-            data.items.push({
-                column1: gr7.getValue('name'),
-                column2: gr7.getValue('sys_id'),
-                column3: gr7.getValue('sys_id')
+            data.itemsCountry.push({
+                name: gr7.getValue('name'),
+                iso3166_2: gr7.getValue('iso3166_2'),
+                sys_id: gr7.getValue('sys_id')
             });
         }
+    }
 
-        // Pass data to the client script
-        //data.items = items;
-        data.modalTitle = "COUNTRY";
 
+    if (input && input.refer_contract_country) { // 없으면 오류 뜸, 둘다 있어야 함.
+      data.itemsContractRef = [];
+        var gr8 = new GlideRecord('core_country');
+           gr8.addEncodedQuery(input.modalQuery);
+        gr8.query();
+        while (gr8.next()) {
+            data.itemsContractRef.push({
+                name: gr8.getValue('name'),
+                iso3166_2: gr8.getValue('iso3166_2'),
+                sys_id: gr8.getValue('sys_id')
+            });
+        }
     }
 
 
@@ -2478,23 +2615,19 @@ border: 2px solid red;
     }
 
 	if (input && input.refer_copy_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-		items = [];
+          data.itemsCopy = [];
         var gr9 = new GlideRecord('x_yergb_bpm_rfq_entry');
         gr9.addQuery('active', true);
+          gr9.addEncodedQuery(input.modalQuery);
         gr9.query();
         while (gr9.next()) {
-            items.push({
-                column1: gr9.getValue('number'),
-                column2: gr9.getValue('sys_id'),
-                column3: gr9.getValue('quotation_type'),
-                column4: gr9.getValue('project_title')
+            data.itemsCopy.push({
+                number: gr9.number.toString(),
+                sys_id: gr9.sys_id.toString(),
+                requestor: gr9.requestor.user_name.toString(),
+                project_title: gr9.getValue('project_title')
             });
         }
-
-        // Pass data to the client script
-        data.items = items;
-        data.modalTitle = "COPY";
-
     }
 	
     function getValueOrEmptyString(value) {
@@ -2514,10 +2647,7 @@ border: 2px solid red;
             return 'none';
         }
     }
-
-
-
-
+	
     var gra = new GlideRecord("x_yergb_bpm_quotation");
         gra.orderBy("version");
         gra.addEncodedQuery('rfq_entry=' + urlSysId);
@@ -2539,22 +2669,20 @@ border: 2px solid red;
 				data.gridDetailData = gridDetailData;
         }
 
-
-
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>381</sys_mod_count>
+        <sys_mod_count>471</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-30 00:27:51</sys_updated_on>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-07-01 04:39:25</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2589,29 +2717,29 @@ border: 2px solid red;
 
                             <div class="yoko-form-group">
                                 <label for="request_no" class="yoko-short">{{data.labelNumber}}</label>
-                                <input type="text" name="request_no" value="" placeholder="" ng-model="c.data.number" disabled>
+                                <input type="text" name="number" value="" placeholder="" ng-model="c.data.number" disabled>
                             </div>
 
                             <div class="yoko-form-group">
                                 <label for="requester_no" class="yoko-short">{{data.labelRequestor}}</label>
                                 <div class="yoko-form-inline">
-                                    <input type="text" name="requester_no" ng-model="c.data.requestor" disabled>
-                                    <input type="text" name="requestor_no_sys_id" value="" disabled ng-model="c.data.requestor_sys_id" ng-style="{'display': 'none'}">
+                                    <input type="text" name="requestor" ng-model="c.data.requestor" disabled>
+                                    <input type="text" name="requestor_sys_id" value="" disabled ng-model="c.data.requestor_sys_id" ng-style="{'display': 'none'}">
                                     <button id="button2" type="button" class="yoko-btn yoko-btn-info" ng-click="c.togglePopover($event, 2)"></button>
                                 </div>
                             </div>
 
                             <div class="yoko-form-group">
                                 <label for="sales_manager" class="yoko-short">{{data.labelSalesManager}}</label>
-                                <input type="text" name="request_no" value="" placeholder="" ng-model="c.data.sales_manager" readonly>
-                                <input type="text" name="requestor_no_sys_id" value="" ng-model="c.data.sales_manager_sys_id" ng-style="{'display': 'none'}" readonly>
+                                <input type="text" name="sales_manager" value="" placeholder="" ng-model="c.data.sales_manager" readonly>
+                                <input type="text" name="sales_manager_sys_id" value="" ng-model="c.data.sales_manager_sys_id" ng-style="{'display': 'none'}" readonly>
                                 <button id="button1" type="button" class="yoko-btn yoko-btn-info" ng-click="c.togglePopover($event, 1)" ng-style="{'display': 'none'}"></button>
                                 <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefSalesManager()" ng-disabled="isCancelledDisabled"></button>
                             </div>
 
                             <div class="yoko-form-group">
                                 <label for="customer_rfq" class="yoko-short">{{data.labelCustomerRFQ}}</label>
-                                <input type="text" name="request_no" value="" placeholder="" ng-model="c.data.customer_rfq" ng-disabled="isCancelledDisabled">
+                                <input type="text" name="customer_rfq" placeholder="" ng-model="c.data.customer_rfq" ng-disabled="isCancelledDisabled">
                             </div>
 
                             
@@ -2622,22 +2750,22 @@ border: 2px solid red;
 
                             <div class="yoko-form-group">
                                 <label for="req_date" class="yoko-short-120">{{data.labelRequestDate}}</label>
-                                <input type="date" value={{data.request_date}} name="req_date" ng-model="c.data.request_date" disabled>
+                                <input type="date" value={{data.request_date}} name="req_date" ng-model="c.data.request_date" >
                             </div>
 
                             <div class="yoko-form-group">
-                                <label for="orderdate" class="yoko-short-120">{{data.labelEstimatedOrderDate}}</label>
-                                <input type="date" name="orderdate" id="orderdate" value={{data.estimated_order_date}} ng-model="c.data.estimated_order_date" ng-disabled="isCancelledDisabled">
+                                <label for="estimated_order_date" class="yoko-short-120">{{data.labelEstimatedOrderDate}}</label>
+                                <input type="date" name="estimated_order_date" id="estimated_order_date" value={{data.estimated_order_date}} ng-model="c.data.estimated_order_date" ng-disabled="isCancelledDisabled">
                             </div>
 
                             <div class="yoko-form-group">
-                                <label for="deliverydate" class="yoko-short-120">{{data.labelEstimatedDeliveryDate}}</label>
-                                <input type="date" name="deliverydate" id="deliverydate" value={{data.estimated_delivery_date}} placeholder="" ng-model="c.data.estimated_delivery_date" ng-disabled="isCancelledDisabled">
+                                <label for="estimated_delivery_date" class="yoko-short-120">{{data.labelEstimatedDeliveryDate}}</label>
+                                <input type="date" name="deliverydate" id="estimated_delivery_date" value={{data.estimated_delivery_date}} placeholder="" ng-model="c.data.estimated_delivery_date" ng-disabled="isCancelledDisabled">
                             </div>
 
                             <div class="yoko-form-group">
-                                <label for="quotationdate" class="yoko-short-120">{{data.labelQuotationDueDate}}</label>
-                                <input type="date" name="quotationdate" id="quotationdate" value={{data.quotation_due_date}} ng-model="c.data.quotation_due_date" ng-disabled="isCancelledDisabled">
+                                <label for="quotation_due_date" class="yoko-short-120">{{data.labelQuotationDueDate}}</label>
+                                <input type="date" name="quotationdate" id="quotation_due_date" value={{data.quotation_due_date}} ng-model="c.data.quotation_due_date" ng-disabled="isCancelledDisabled">
                             </div>
 
                             <div class="yoko-form-group">
@@ -2780,14 +2908,14 @@ border: 2px solid red;
                     <div class="yoko-search-form yoko-padding24">
                         <div class="yoko-form-col">
                             <div class="yoko-form-group-heading-wrap">
-                                <div class="yoko-form-group-heading">{{data.labelContract}}</div>
+                                <div class="yoko-form-group-heading">{{data.labelContractor}}</div>
                                 <div class="yoko-form-group-line"></div>
                             </div>
                             <div class="yoko-form-group">
-                                <label for="contract" class="yoko-short">{{data.labelContract}}</label>
+                                <label for="contractor" class="yoko-short">{{data.labelContractor}}</label>
                                 <div class="yoko-form-inline yoko-wid127">
-                                    <input type="text" name="contract" value={{data.contract}} ng-model="c.data.contract" ng-disabled="isCancelledDisabled || isContractDisabled" readonly>
-                                    <input type="text" name="contract_sys_id" value={{data.contract_sys_id}} ng-model="c.data.contract_sys_id" ng-style="{'display': 'none'}" ng-disabled="isCancelledDisabled || isContractDisabled">
+                                    <input type="text" name="contractor" value={{data.contractor}} ng-model="c.data.contractor" ng-disabled="isCancelledDisabled || isContractDisabled" readonly>
+                                    <input type="text" name="contractor_sys_id" value={{data.contractor_sys_id}} ng-model="c.data.contractor_sys_id" ng-style="{'display': 'none'}" ng-disabled="isCancelledDisabled || isContractDisabled">
                                     <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefContract()" ng-disabled="isCancelledDisabled || isContractDisabled"></button>
                                 </div>
                             </div>
@@ -2802,18 +2930,18 @@ border: 2px solid red;
                                 <div class="yoko-form-group-line"></div>
                             </div>
                             <div class="yoko-form-group">
-                                <label for="contract_name" class="yoko-short">{{data.labelContractName}}</label>
-                                <input type="text" name="contract_name" value="" placeholder="" class="yoko-col100" ng-model="c.data.contract_name" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
+                                <label for="contractor_name" class="yoko-short">{{data.labelContractorName}}</label>
+                                <input type="text" name="contractor_name" value="" placeholder="" class="yoko-col100" ng-model="c.data.contractor_name" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
                             </div>
                             <div class="yoko-form-group">
-                                <label for="contract_address" class="yoko-short">{{data.labelContractAddress}}</label>
-                                <input type="text" name="contract_address" value="" placeholder="" class="yoko-col100" ng-model="c.data.contract_address" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
+                                <label for="contractor_address" class="yoko-short">{{data.labelContractorAddress}}</label>
+                                <input type="text" name="contractor_address" value="" placeholder="" class="yoko-col100" ng-model="c.data.contractor_address" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
                             </div>
                             <div class="yoko-form-group">
-                                <label for="contract_country" class="yoko-short">{{data.labelContractCountry}}</label>
+                                <label for="contractor_country" class="yoko-short">{{data.labelContractorCountry}}</label>
                                 <div class="yoko-form-inline yoko-col100">
-                                    <input type="text" name="contract_country" value={{data.contract_country}} placeholder="" ng-model="c.data.contract_country" disabled>
-                                    <input type="text" name="contract_country_sys_id" value="" placeholder="" ng-model="c.data.contract_country_sys_id" ng-style="{'display': 'none'}">
+                                    <input type="text" name="contractor_country" value={{data.contractor_country}} placeholder="" ng-model="c.data.contractor_country" disabled>
+                                    <input type="text" name="contractor_country_sys_id" value="" placeholder="" ng-model="c.data.contractor_country_sys_id" ng-style="{'display': 'none'}">
                                     <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefContractCountry()" ng-disabled="isCancelledDisabled || isContractDummyDisabled"></button>
                                 </div>
                             </div>
@@ -2842,19 +2970,19 @@ border: 2px solid red;
                                 <div class="yoko-form-group-line"></div>
                             </div>
                             <div class="yoko-form-group">
-                                <label for="enduser_name" class="yoko-short">{{data.labelEndUserName}}</label>
+                                <label for="end_user_name" class="yoko-short">{{data.labelEndUserName}}</label>
                                 <input type="text" name="end_user_name" value="" placeholder="" class="yoko-col100" ng-model="c.data.end_user_name" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
                             </div>
                             <div class="yoko-form-group">
-                                <label for="enduser_address" class="yoko-short">{{data.labelEndUserAddress}}</label>
+                                <label for="end_user_address" class="yoko-short">{{data.labelEndUserAddress}}</label>
                                 <input type="text" name="end_user_address" value="" placeholder="" class="yoko-col100" ng-model="c.data.end_user_address" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
                             </div>
                             <div class="yoko-form-group">
-                                <label for="enduser_country" class="yoko-short">{{data.labelEndUserCountry}}</label>
+                                <label for="end_user_country" class="yoko-short">{{data.labelEndUserCountry}}</label>
                                 <div class="yoko-form-inline yoko-col100">
-                                    <input type="text" name="end_user_country" value={{data.contract_country}} placeholder="" ng-model="c.data.end_user_country" disabled>
-                                    <input type="text" name="end_user_country_sys_id" value="" placeholder="" ng-model="c.data.contract_country_sys_id" ng-style="{'display': 'none'}">
-                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefContractCountry()" ng-disabled="isCancelledDisabled || isContractDummyDisabled"></button>
+                                    <input type="text" name="end_user_country" placeholder="" ng-model="c.data.end_user_country" disabled>
+                                    <input type="text" name="end_user_country_sys_id" value="" placeholder="" ng-model="c.data.end_user_country_sys_id" ng-style="{'display': 'none'}">
+                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefEndUserCountry()" ng-disabled="isCancelledDisabled || isContractDummyDisabled"></button>
                                 </div>
                             </div>
                         </div>
@@ -2894,7 +3022,6 @@ border: 2px solid red;
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -2932,7 +3059,7 @@ border: 2px solid red;
                             </div>
                             <div class="yoko-form-group">
                                 <label for="request_due_date" class="yoko-short-120">
-                                    <h5 name="mandatory" style="display: inline; margin: 0; color: red" ng-if="c.data.reasonCodeRequestDueDateMandatory">✻ </h5>{{data.labelRequestDate}}
+                                    <h5 name="mandatory" style="display: inline; margin: 0; color: red" ng-if="c.data.RequestDueDateMandatory">✻ </h5>{{data.labelRequestDue}}
                                 </label>
                                 <input type="date" name="request_due_date" value={{data.request_due_date}} ng-model="c.data.request_due_date" id="request_due_date" class="yoko-wid140" ng-class="{'highlight-form': !c.data.reason_code || !c.data.request_due_date || !c.data.remark}" ng-disabled="isCancelledDisabled">
                             </div>
@@ -3084,6 +3211,192 @@ border: 2px solid red;
               <tr ng-repeat="item in c.data.items">
                 <td id="clicktd" ng-click="c.clickCurrency($index)">{{ item.code }}</td>
                 <td>{{ item.name }}</td>
+                <td style="display: none;">{{ item.sys_id }}</td>
+              </tr>
+            </tbody>
+        </table>   
+    </div>
+</dialog>
+
+<dialog class="modal-dialog" id="enduserRefModal">
+    <div class="modal-form-content">
+        <div class="modal-search-form">
+            <button class="modal-close-button" ng-click="closeUserRefModal()">×</button>
+            <div class="modal-form-inline">
+                <label class="modal-label" >Company</label>
+                <select class="modal-select-user-ref"  id="modal-select">
+                <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                </select>
+                <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickUserRef()"></button>
+            </div>
+       </div>
+    </div>
+    <div class="yoko-table-container">
+        <table class="yoko-search-table">
+            <colgroup>
+              <col style="width: 51px">
+              <col style="width: 137px">
+              <col style="width: auto">
+            </colgroup>
+            <thead>
+              <tr>
+                <th ng-repeat="item in c.data.modalItems">{{ item.fieldLabel }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in c.data.itemsEndUserRef">
+                <td id="clicktd" ng-click="c.clickUserR($index)">{{ item.name }}</td>
+                <td>{{ item.code }}</td>
+                <td style="display: none;">{{ item.sys_id }}</td>
+              </tr>
+            </tbody>
+        </table>   
+    </div>
+</dialog>
+
+<dialog class="modal-dialog" id="contractRefModal">
+    <div class="modal-form-content">
+        <div class="modal-search-form">
+            <button class="modal-close-button" ng-click="closeContractRefModal()">×</button>
+            <div class="modal-form-inline">
+                <label class="modal-label" >Company</label>
+                <select class="modal-select-contract-ref"  id="modal-select">
+                <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                </select>
+                <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickRefContract()"></button>
+            </div>
+       </div>
+    </div>
+    <div class="yoko-table-container">
+        <table class="yoko-search-table">
+            <colgroup>
+              <col style="width: 51px">
+              <col style="width: 137px">
+              <col style="width: auto">
+            </colgroup>
+            <thead>
+              <tr>
+                <th ng-repeat="item in c.data.modalItems">{{ item.fieldLabel }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in c.data.itemsContractRef">
+                <td id="clicktd" ng-click="c.clickContractR($index)">{{ item.name }}</td>
+                <td>{{ item.code }}</td>
+                <td style="display: none;">{{ item.sys_id }}</td>
+              </tr>
+            </tbody>
+        </table>   
+    </div>
+</dialog>
+
+<dialog class="modal-dialog" id="contractCountryModal">
+    <div class="modal-form-content">
+        <div class="modal-search-form">
+            <button class="modal-close-button" ng-click="closeContranctCountryModal()">×</button>
+            <div class="modal-form-inline">
+                <label class="modal-label" >Country</label>
+                <select class="modal-select-c-countryy"  id="modal-select">
+                <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                </select>
+                <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickModalCountry()"></button>
+            </div>
+       </div>
+    </div>
+    <div class="yoko-table-container">
+        <table class="yoko-search-table">
+            <colgroup>
+              <col style="width: 51px">
+              <col style="width: 137px">
+              <col style="width: auto">
+            </colgroup>
+            <thead>
+              <tr>
+                <th ng-repeat="item in c.data.modalItems">{{ item.fieldLabel }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in c.data.itemsCountry">
+                <td id="clicktd" ng-click="c.clickContractCountry($index)">{{ item.name }}</td>
+                <td>{{ item.iso3166_2 }}</td>
+                <td style="display: none;">{{ item.sys_id }}</td>
+              </tr>
+            </tbody>
+        </table>   
+    </div>
+</dialog>
+
+<dialog class="modal-dialog" id="countryModal">
+    <div class="modal-form-content">
+        <div class="modal-search-form">
+            <button class="modal-close-button" ng-click="closeCountryModal()">×</button>
+            <div class="modal-form-inline">
+                <label class="modal-label" >Country</label>
+                <select class="modal-select-country"  id="modal-select">
+                <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                </select>
+                <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnClickModalCountry()"></button>
+            </div>
+       </div>
+    </div>
+    <div class="yoko-table-container">
+        <table class="yoko-search-table">
+            <colgroup>
+              <col style="width: 51px">
+              <col style="width: 137px">
+              <col style="width: auto">
+            </colgroup>
+            <thead>
+              <tr>
+                <th ng-repeat="item in c.data.modalItems">{{ item.fieldLabel }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in c.data.itemsCountry">
+                <td id="clicktd" ng-click="c.clickCountry($index)">{{ item.name }}</td>
+                <td>{{ item.iso3166_2 }}</td>
+                <td style="display: none;">{{ item.sys_id }}</td>
+              </tr>
+            </tbody>
+        </table>   
+    </div>
+</dialog>
+
+<dialog class="modal-dialog" id="btnCopyModal">
+    <div class="modal-form-content">
+        <div class="modal-search-form">
+            <button class="modal-close-button" ng-click="closeCopyModal()">×</button>
+            <div class="modal-form-inline">
+                <label class="modal-label" >Copy</label>
+                <select class="modal-select-rfq"  id="modal-select">
+                <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                </select>
+                <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnSearchRFQ()"></button>
+            </div>
+       </div>
+    </div>
+    <div class="yoko-table-container">
+        <table class="yoko-search-table">
+            <colgroup>
+              <col style="width: auto">
+              <col style="width: auto">
+              <col style="width: auto">
+            </colgroup>
+            <thead>
+              <tr>
+                <th ng-repeat="item in c.data.modalItems">{{ item.fieldLabel }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in c.data.itemsCopy">
+                <td id="clicktd" ng-click="c.clickRNumber($index)">{{ item.number }}</td>
+                <td>{{ item.requestor }}</td>
+                <td>{{ item.project_title }}</td>
                 <td style="display: none;">{{ item.sys_id }}</td>
               </tr>
             </tbody>
