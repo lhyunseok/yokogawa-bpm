@@ -46,7 +46,16 @@
 	data.page_id = pageGR.getValue("id");
 	data.newUrl = ''
 	
-	console.log(data.page_id)
+	  console.log(data.page_id)
+	
+	  if (data.page_id == 'rfqentry') {
+			  data.newUrl = '/ybpm?id=rfqentry';
+        data.showNewBtn = true;
+    } else{
+        data.showNewBtn = false;
+    }
+	
+	/*
 	if(data.page_id == 'rfqentry'){
 		data.newUrl = '/ybpm?id=rfqentry';
 	}else if(data.page_id == 'quotation'){
@@ -54,6 +63,7 @@
 	}else if(data.page_id == 'orderintakereport'){
 		data.newUrl = '/ybpm?id=orderintakereport';
 	}
+	*/
 	
 	$sp.getValues(data);
 	if (data.field_list) {
@@ -110,19 +120,19 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-16 11:47:08</sys_created_on>
         <sys_id>6bef314e47ba4a502b397d7ba26d4379</sys_id>
-        <sys_mod_count>39</sys_mod_count>
+        <sys_mod_count>40</sys_mod_count>
         <sys_name>Data Table from Instance Definit BPM</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_6bef314e47ba4a502b397d7ba26d4379</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-26 05:01:01</sys_updated_on>
+        <sys_updated_on>2024-07-01 04:44:01</sys_updated_on>
         <template><![CDATA[<div>
   <div class="alert alert-danger" ng-if="data.invalid_table">
     ${Table not defined} '{{data.table_label}}'
   </div>
-  <button class="yoko-btn-fill" ng-click="handleButtonClick()">
+  <button class="yoko-btn-fill" ng-if="data.showNewBtn" ng-click="handleButtonClick()">
     New
   </button>
   <sp-widget ng-if="data.dataTableWidget" widget="data.dataTableWidget"></sp-widget>
