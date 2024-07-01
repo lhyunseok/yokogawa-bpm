@@ -1425,33 +1425,6 @@ a {text-decoration: none;}&#13;
 &#13;
 &#13;
 &#13;
-/*리얼그리드 수정*/&#13;
-&#13;
-.rg-header {background: #FBFCFF  !important; color:#8B99A6 !important; font-weight: 600 !important; font-weight: 500 !important;}&#13;
-.rg-header .rg-table tr td {border-right: 1px solid #EAEEF3 !important; border-bottom: 1px solid #EAEEF3 !important; font-weight: 500 !important;} &#13;
-.rg-head {background: #FBFCFF  !important; color:#8B99A6 !important; font-weight: 600 !important; font-weight: 500 !important;}&#13;
-.rg-head .rg-table tr td { border-right: 1px solid #EAEEF3 !important;  border-bottom: 1px solid #EAEEF3 !important; font-weight: 500 !important;}&#13;
-&#13;
-.rg-body,&#13;
-.rg-fixed-body {color: #4B5966 !important;}&#13;
-.rg-body .rg-table tr td, &#13;
-.rg-fixed-body .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-bottom: 1px solid #EAEEF3 !important;}&#13;
-.rg-rowbarcontainer .rg-table tr td {background-color: transparent !important;    border-right: 1px solid #EAEEF3 !important;    border-bottom: 1px solid #EAEEF3 !important;}&#13;
-.rg-alternate-row {background: #fff !important;}&#13;
-.rg-footer {color: #606060 !important; background: #FBFCFF  !important;}&#13;
-.rg-footer .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-top: 1px solid #EAEEF3 !important;}&#13;
-.rg-foot {color: #606060 !important; background: #FBFCFF  !important;}&#13;
-.rg-foot .rg-table tr td {border-right: 1px solid #EAEEF3 !important;  border-top: 1px solid #EAEEF3 !important;}&#13;
-.rg-focus {border:  2px solid #68B3FC !important;}&#13;
-.rg-header-focus {background: #E5F2FF !important; color: #6F7479 !important;}&#13;
-.rg-header .rg-table tr td:hover {background: #68B3FC !important; color: #fff !important;}&#13;
-.rg-header-select {background: rgb(232 248 240 / 50%) !important;}&#13;
-.rg-selection { background: rgb(232 248 240 / 35%) !important; border: 1px solid #15BD66!important;}&#13;
-.rg-editor-container { border: 2px solid #27C382 !important; }&#13;
-&#13;
-&#13;
-&#13;
-&#13;
 .modal {&#13;
   display: none;&#13;
   position: fixed;&#13;
@@ -2426,14 +2399,14 @@ border: 2px solid red;&#13;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>567</sys_mod_count>
+        <sys_mod_count>570</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-07-01 18:28:15</sys_updated_on>
+        <sys_updated_on>2024-07-01 18:41:23</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2558,27 +2531,27 @@ border: 2px solid red;&#13;
 
                         <div class="yoko-form-group">
                             <label for="exchange_rate" class="yoko-short-200">{{data.labelExchangeRate}}</label>
-                            <input type="text" name="exchange_rate" value="" placeholder="" class="yoko-wid158" ng-model="c.data.exchange_rate" class="yoko-text-right" disabled>
+                            <input type="text" name="exchange_rate" value="" placeholder="" class="yoko-wid158 yoko-text-right" ng-model="c.data.exchange_rate"  disabled>
                         </div>
 
                         <div class="yoko-form-group">
                             <label for="est_oi_amount" class="yoko-short-200">{{data.labelEstimatedOIAmount}}</label>
-                            <input type="text" name="est_oi_amount" value="" placeholder="" class="yoko-wid158" ng-model="c.data.estimated_oi_amount" class="yoko-text-right" ng-disabled="isCancelledDisabled">
+                            <input type="text" name="est_oi_amount" value="" placeholder="" class="yoko-wid158 yoko-text-right" ng-model="c.data.estimated_oi_amount"  ng-disabled="isCancelledDisabled">
                         </div>
 
                         <div class="yoko-form-group">
                             <label for="est_oi_amount_lc" class="yoko-short-200">{{data.labelEstimatedOIAmountLC}}</label>
-                            <input type="text" name="est_oi_amount_lc" value="" placeholder="" class="yoko-wid158" ng-model="c.data.estimated_oi_amount_lc" class="yoko-text-right" disabled>
+                            <input type="text" name="est_oi_amount_lc" value="" placeholder="" class="yoko-wid158 yoko-text-right"  ng-model="c.data.estimated_oi_amount_lc"  disabled>
                         </div>
 
                         <div class="yoko-form-group">
                             <label for="total_quote_price_tc" class="yoko-short-200">{{data.labelTotalQuotePrice}}</label>
-                            <input type="text" name="total_quote_price_tc" value="" placeholder="" class="yoko-wid158" ng-model="c.data.total_quote_price" class="yoko-text-right" disabled>
+                            <input type="text" name="total_quote_price_tc" value="" placeholder="" class="yoko-wid158 yoko-text-right"  ng-model="c.data.total_quote_price"  disabled>
                         </div>
 
                         <div class="yoko-form-group">
                             <label for="total_quote_price_lc" class="yoko-short-200">{{data.labelTotalQuotePriceLC}}</label>
-                            <input type="text" name="total_quote_price_lc" value="" placeholder="" class="yoko-wid158" ng-model="c.data.total_quote_price_lc" class="yoko-text-right" disabled>
+                            <input type="text" name="total_quote_price_lc" value="" placeholder="" class="yoko-wid158 yoko-text-right"  ng-model="c.data.total_quote_price_lc"  disabled>
                         </div>
                     </div>
                   
