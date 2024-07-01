@@ -611,9 +611,9 @@
 			value: "",
 			fieldLabel: "End User"
 		}, {
-			text: "country",
+			text: "code",
 			value: "",
-			fieldLabel: "Country"
+			fieldLabel: "Company code"
 		}];
 		
 		c.server.update().then(function(response) {
@@ -637,7 +637,7 @@
 	
 	$scope.clickModalEndUser = function(item) {
 		c.data.endUserNm = item.name;
-		c.data.endUserCountry = item.country;
+		c.data.endUserCountry = item.code;
 		c.data.endUserSysid = item.sys_id;
 			
 		modalEndUser.style.display = 'none';
@@ -661,7 +661,7 @@
 		}, {
 			text: "country",
 			value: "",
-			fieldLabel: "Country"
+			fieldLabel: "Company Code"
 		}];
 		
 		c.server.update().then(function(response) {
@@ -685,7 +685,7 @@
 	
 	$scope.clickModalContractor = function(item) {
 		c.data.contractorNm = item.name;
-		c.data.contractorCountry = item.country;
+		c.data.contractorCountry = item.code;
 		c.data.contractorSysid = item.sys_id;
 		
 		modalContractor.style.display = 'none';
@@ -2188,6 +2188,8 @@ border: 2px solid red;
 			data.profitCompany = rfqEntryData.profit_company.name.toString();
 			data.profitCompanyCode = rfqEntryData.profit_company.u_company_code.toString();
 			data.custRFQNo = rfqEntryData.customer_rfq.toString();
+			data.contractorDummy = rfqEntryData.contract_name.toString();
+			data.enduserDummy = rfqEntryData.end_user_name.toString();
 		}
 		
 		var rStp = new GlideRecord('sys_process_flow');
@@ -2233,7 +2235,7 @@ border: 2px solid red;
 
 		while(quotData.next()) {
 			data.quotNum = quotData.number.toString();
-			data.essNo = quotData.ess_sqms_no.toString();
+			data.essNo = quotData.ess_sqms_no.getDisplayValue().toString();
 			data.currency = quotData.currency_lc.toString();
 			data.quotGpAmt = quotData.gp_amount.getDisplayValue().toString();
 			data.quotMpAmt = quotData.mp_amount.getDisplayValue().toString();
@@ -2627,7 +2629,7 @@ border: 2px solid red;
 		while(grEuser.next()) {
 			data.itemsEndUser.push({
 				name : grEuser.name.toString(),
-				country : grEuser.country.toString(),
+				code : grEuser.u_company_code.toString(),
 				sys_id : grEuser.sys_id.toString()
 			});
 		}
@@ -2638,11 +2640,14 @@ border: 2px solid red;
 		data.itemsContractor = [];
 		var grConst = new GlideRecord('core_company');
 		grConst.addEncodedQuery(input.modalQuery);
+		if(!isEmpty(input.profitCompany )) {
+			grConst.addQuery('u_sales_org', input.profitCompanyCode);
+		}
 		grConst.query();
 		while(grConst.next()) {
 			data.itemsContractor.push({
 				name : grConst.name.toString(),
-				country : grConst.country.toString(),
+				code : grConst.u_company_code.toString(),
 				sys_id : grConst.sys_id.toString()
 			});
 		}
@@ -2653,14 +2658,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>1223</sys_mod_count>
+        <sys_mod_count>1240</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-07-01 14:44:06</sys_updated_on>
+        <sys_updated_on>2024-07-01 15:17:08</sys_updated_on>
         <template><![CDATA[<!--<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2816,20 +2821,22 @@ border: 2px solid red;
                                 <label for="lbProjectName" class="yoko-short-90">Project Name</label>
                                 <input type="text" name="inputProjectName" value="" ng-model="c.data.ProjectNm" placeholder="" disabled class="yoko-col100">
                             </div>
-                        </div>
-                        <div class="yoko-form-col">
-                            <div class="yoko-form-group">
-                              <label for="end_user" class="yoko-short-110">End User</label>
+                          	<div class="yoko-form-group">
+                              <label for="sales_office" class="yoko-short-90">Sales Office</label>
                               <div class="yoko-form-inline yoko-wid308">
                                   <div class="yoko-form-inline">
-                                      <input type="text" name="inputEndUserNm" value="" ng-model="c.data.endUserNm" ng-disabled='c.data.disEndUser' placeholder="" class="yoko-wid100"
-                                             ng-keypress="onKeyPressed($event, 'EndUser')"> 
-                                      <button type="button" class="yoko-btn yoko-btn-search"  ng-click="btnClickEndUserSearch()" ng-disabled='c.data.disEndUserNm'></button>
+                                      <input type="text" name="inputSalesOffice" value="" ng-model="c.data.SONm" ng-disabled='c.data.disSONm' placeholder="" 
+                                             class="yoko-wid180" ng-keypress="onKeyPressed($event, 'SO')">
+                                      <button type="button" class="yoko-btn yoko-btn-search"  ng-click="btnClickSOSearch()" ng-disabled='c.data.disSONmSearch'></button>
+                                      <button type="button" class="yoko-btn yoko-btn-info-fill" hidden ng-click="btnClickSOInfo()" ng-disabled='c.data.disSONmInfo'></button>
                                   </div>
-                                  <input type="text" name="inputEndUserCountry" value="" ng-model='c.data.endUserCountry' placeholder="" disabled class="">
-                                	<input type='hidden' value='' ng-model='c.data.endUserSysid' >
-                              </div>
-                          	</div>
+                                  <input type="text" name="inputSONum" value="" ng-model='c.data.MUCode' placeholder="" disabled class="">
+                                  <input type='hidden' value='' ng-model='c.data.soSysid'>
+                                  <input type='hidden' value='' ng-model='c.data.soMuCodeSysid'>
+                            	</div>
+                       		  </div>
+                        </div>
+                        <div class="yoko-form-col">
                           	<div class="yoko-form-group">
                               <label for="constructor" class="yoko-short-110">Contractor</label>
                               <div class="yoko-form-inline yoko-wid308">
@@ -2843,23 +2850,26 @@ border: 2px solid red;
                               </div>
                           	</div>   
                             <div class="yoko-form-group">
-                                <label for="lbDummyAccount" class="yoko-short-110">Dummy Account</label>
-                                <input type="text" name="inputDummyAccount" value="" ng-model="c.data.dummyAccount" placeholder="" disabled class="yoko-col100">
-                            </div>
-                            <div class="yoko-form-group">
-                              <label for="sales_office" class="yoko-short-110">Sales Office</label>
+                              <label for="end_user" class="yoko-short-110">End User</label>
                               <div class="yoko-form-inline yoko-wid308">
                                   <div class="yoko-form-inline">
-                                      <input type="text" name="inputSalesOffice" value="" ng-model="c.data.SONm" ng-disabled='c.data.disSONm' placeholder="" 
-                                             class="yoko-wid100" ng-keypress="onKeyPressed($event, 'SO')">
-                                      <button type="button" class="yoko-btn yoko-btn-search"  ng-click="btnClickSOSearch()" ng-disabled='c.data.disSONmSearch'></button>
-                                      <button type="button" class="yoko-btn yoko-btn-info-fill" hidden ng-click="btnClickSOInfo()" ng-disabled='c.data.disSONmInfo'></button>
+                                      <input type="text" name="inputEndUserNm" value="" ng-model="c.data.endUserNm" ng-disabled='c.data.disEndUser' placeholder="" class="yoko-wid100"
+                                             ng-keypress="onKeyPressed($event, 'EndUser')"> 
+                                      <button type="button" class="yoko-btn yoko-btn-search"  ng-click="btnClickEndUserSearch()" ng-disabled='c.data.disEndUserNm'></button>
                                   </div>
-                                  <input type="text" name="inputSONum" value="" ng-model='c.data.MUCode' placeholder="" disabled class="">
-                                  <input type='hidden' value='' ng-model='c.data.soSysid'>
-                                  <input type='hidden' value='' ng-model='c.data.soMuCodeSysid'>
+                                  <input type="text" name="inputEndUserCountry" value="" ng-model='c.data.endUserCountry' placeholder="" disabled class="">
+                                	<input type='hidden' value='' ng-model='c.data.endUserSysid' >
+                              </div>
+                          	</div>	
+                            <div class="yoko-form-group">
+                                <label for="lbDummyAccount" class="yoko-short-110">Contractor Dummy</label>
+                                <input type="text" name="inputDummyAccount" value="" ng-model="c.data.contractorDummy" placeholder="" disabled class="yoko-col100">
                             </div>
-                        </div>
+                          	<div class="yoko-form-group">
+                                <label for="lbDummyAccount" class="yoko-short-110">End User Dummy</label>
+                                <input type="text" name="inputDummyAccount" value="" ng-model="c.data.enduserDummy" placeholder="" disabled class="yoko-col100">
+                            </div>
+                            
                         </div>
                         <div class="yoko-form-col">
                             <div class="yoko-form-group">
@@ -3473,7 +3483,7 @@ border: 2px solid red;
               <tbody>
                 <tr ng-repeat="item in c.data.itemsEndUser">
                   <td id="clicktd" ng-click="clickModalEndUser(item)">{{ item.name }}</td>
-                  <td>{{ item.country }}</td>
+                  <td>{{ item.code }}</td>
                   <td style="display: none;">{{ item.sys_id }}</td>
                 </tr>
               </tbody>
@@ -3487,7 +3497,7 @@ border: 2px solid red;
           <div class="modal-search-form">
               <button class="modal-close-button" ng-click="closeModalContractor()">×</button>
               <div class="modal-form-inline">
-                  <label class="modal-label" >Constructor</label>
+                  <label class="modal-label" >Contractor</label>
                   <!--<select class="modal-select">
                   <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                   </select>-->
@@ -3513,7 +3523,7 @@ border: 2px solid red;
               <tbody>
                 <tr ng-repeat="item in c.data.itemsContractor">
                   <td id="clicktd" ng-click="clickModalContractor(item)">{{ item.name }}</td>
-                  <td>{{ item.country }}</td>
+                  <td>{{ item.code }}</td>
                   <td style="display: none;">{{ item.sys_id }}</td>
                 </tr>
               </tbody>
