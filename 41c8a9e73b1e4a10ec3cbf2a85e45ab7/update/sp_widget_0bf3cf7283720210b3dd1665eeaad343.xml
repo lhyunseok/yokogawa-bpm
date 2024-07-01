@@ -2271,7 +2271,7 @@ border: 2px solid red;
 		oiRptTr.setValue('tax_classification', getValueOrEmptyString(input.taxClassCode));
 		oiRptTr.setValue('payment_terms', getValueOrEmptyString(input.payTermsCode));	
 		oiRptTr.setValue('industry', getValueOrEmptyString(input.industrySysId));
-		oiRptTr.setValue('salse_office', getValueOrEmptyString(input.soSysid));
+		oiRptTr.setValue('sales_office', getValueOrEmptyString(input.soSysid));
 		
 		oiRptTr.setValue('end_user_name', getValueOrEmptyString(input.endUserNm));
 		oiRptTr.setValue('end_user_country', getValueOrEmptyString(input.endUserCountry));
@@ -2663,14 +2663,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>1242</sys_mod_count>
+        <sys_mod_count>1243</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-07-01 16:21:25</sys_updated_on>
+        <sys_updated_on>2024-07-01 16:39:06</sys_updated_on>
         <template><![CDATA[<!--<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
