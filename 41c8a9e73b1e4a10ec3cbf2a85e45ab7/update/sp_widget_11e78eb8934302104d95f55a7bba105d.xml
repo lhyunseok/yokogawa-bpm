@@ -11,7 +11,7 @@
     c.data.reasonRemarkMandatory = false;
     c.data.quotationTypeSelectMandatory = false;
     c.data.refer_contract_modal = false;
-	  c.data.searchQuery = '';
+	c.data.searchQuery = '';
     //c.data.copy_sys_id = false	
     ///팝오버
     c.popovers = [{
@@ -816,13 +816,27 @@
         if (newVal != 'CNY' && $scope.c.data.currency_lc == 'CNY') {
             $scope.c.data.profit_company = 'YCN-SP';
 			$scope.c.data.profit_company_code = '6E00';
+
         }
 		else if(newVal == 'CNY' && $scope.c.data.currency_lc == 'CNY') {
 			$scope.c.data.profit_company = 'YCN';
 			$scope.c.data.profit_company_code = '6900';
+
 		}
     });
 
+	$scope.$watch('c.data.profit_company', function(newVal, oldVal) {
+		if(oldVal != null && newVal != null) {
+			$scope.c.data.end_user = '';
+			$scope.c.data.end_user_sys_id = '';
+			$scope.c.data.end_user_code = '';
+			$scope.c.data.contractor = '';
+			$scope.c.data.contractor_sys_id = '';
+			$scope.c.data.contractor_code = '';
+
+		}
+	
+	});
 
     // Initiate RFQ Entry
     c.server.update().then(function(response) {
@@ -2421,14 +2435,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>525</sys_mod_count>
+        <sys_mod_count>530</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
-        <sys_updated_by>hahyun@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-07-01 16:30:05</sys_updated_on>
+        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-07-01 16:51:33</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
