@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_email">
+    <sys_script_email action="INSERT_OR_UPDATE">
+        <name>budget_plan_approval</name>
+        <new_lines_to_html>false</new_lines_to_html>
+        <script><![CDATA[(function runMailScript( /* GlideRecord */ current, /* TemplatePrinter */ template,
+    /* Optional EmailOutbound */
+    email, /* Optional GlideRecord */ email_action,
+    /* Optional GlideRecord */
+    event) {
+
+    var instance_url = gs.getProperty('glide.servlet.uri');
+    template.print("<p>Dear" + current.approver.name + "</p>");
+    template.print("<p>&nbsp;</p>");
+    template.print("<p>${document_id} is submitted for your approval.</p>");
+    template.print("<p>Please Click <a href='" + instance_url + "nav_to.do?uri=sysapproval_approver.do?sys_id="+current.sys_id+"'>here</a>");
+    template.print(" to open Approval Request information in details.</p>");
+    template.print("<p>&nbsp;</p>");
+    template.print("<p>Thank you.</p>");
+
+})(current, template, email, email_action, event);]]></script>
+        <sys_class_name>sys_script_email</sys_class_name>
+        <sys_created_by>kms@sorin.co.kr</sys_created_by>
+        <sys_created_on>2024-07-01 03:45:58</sys_created_on>
+        <sys_id>2f91697283070210856ceec0deaad3a3</sys_id>
+        <sys_mod_count>18</sys_mod_count>
+        <sys_name>budget_plan_approval</sys_name>
+        <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
+        <sys_update_name>sys_script_email_2f91697283070210856ceec0deaad3a3</sys_update_name>
+        <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-07-01 04:18:37</sys_updated_on>
+    </sys_script_email>
+</record_update>
