@@ -1948,6 +1948,7 @@ border: 2px solid red;
             data.profit_company = grI.profit_company.name.toString();
 			data.state = grI.state.getDisplayValue();
 			data.state_value = grI.state.toString();
+			data.submitted_date = grI.submitted_date.toString();
 			//hh 추가
 			//data.contract_country = grI.contract_country.name.toString();
             //data.end_user_country_name = grI.end_user_country.name.toString();
@@ -2158,7 +2159,7 @@ border: 2px solid red;
         data.redirect_sys_id = grr.getUniqueValue();
 
     } else if (input && input.isUpdate) {
-        gs.addErrorMessage(input.estimated_order_date);
+        //gs.addErrorMessage(input.estimated_order_date);
         var grUp = new GlideRecord('x_yergb_bpm_rfq_entry');
         grUp.get(input.urlSysId);
         grUp.setValue('sales_manager', input.sales_manager_sys_id);
@@ -2401,14 +2402,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>511</sys_mod_count>
+        <sys_mod_count>512</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-07-01 13:36:23</sys_updated_on>
+        <sys_updated_on>2024-07-01 14:28:12</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
