@@ -71,11 +71,57 @@
 		}
 	}
 	
-	$scope.btnClickSOSearch = function() {
+	$scope.onKeyPressed = function($event, type) {
+		if(type=='SO') {
+			if($event.keyCode == 13) {
+				c.data.MUCode = '';
+				$scope.btnClickSOSearch(/*c.data.SONm*/);
+			}
+		} else if (type=='EndUser') {
+			if($event.keyCode == 13) {
+				c.data.endUserCountry = '';
+				c.data.endUserSysid = '';
+				$scope.btnClickEndUserSearch();	
+			}
+		}  else if (type=='Contractor') {
+			if($event.keyCode == 13) {
+				c.data.contractorCountry = '';
+				c.data.contractorSysid = '';
+				$scope.btnClickContractorSearch();
+			}
+		} else if (type == 'OrderType') {
+			if($event.keyCode == 13) {
+				c.data.orderTypeCode = '';
+				$scope.btnClickOrdTypeSearch(1);
+			}
+		} else if(type == 'TaxClass') {
+			if($event.keyCode == 13) {
+				c.data.taxClassCode = '';
+				$scope.btnClickOrdTypeSearch(2);
+			}
+		} else if(type == 'Industry') {
+			if($event.keyCode == 13) {
+				c.data.industryCode = '';
+				$scope.btnClickOrdTypeSearch(3);
+			}
+		} else if(type == 'PayTerm') {
+			if($event.keyCode == 13) {
+				c.data.payTermsCode = '';
+				$scope.btnClickOrdTypeSearch(4);
+			}
+		} else if(type == 'JobType') {
+			if($event.keyCode == 13) {
+				c.data.jobTypeSysId = '';
+				$scope.btnClickDMRSearch(1);
+			}
+		}
+	}
+ 	
+	$scope.btnClickSOSearch = function(/*str*/) {
 		modalSalesOffice.style.display = 'block';
 		c.data.modalSalesOffice = true;
-		c.data.searchQuery = '';
-		c.data.modalQuery = '';
+		c.data.searchQuery = c.data.SONm;
+		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 		
 		c.data.modalSOHeader = [{
 			text: "name",
@@ -203,8 +249,8 @@
 		c.data.itemsOrdertype = [];
 		modalOrderType.style.display = 'block';
 		c.data.modalOrderType = true;
-		c.data.searchQuery = '';
-		c.data.modalQuery = '';
+		//c.data.searchQuery = '';
+		//c.data.modalQuery = '';
 		
 		c.data.modalOrderTypeHeader = [{
 			text: "name",
@@ -219,15 +265,23 @@
 		if(idx == 1) {
 			c.data.modalOrderTypeTitle = 'Order Type';
 			c.data.modalTypeOrderType = true;
+			c.data.searchQuery = c.data.orderTypeNm;
+			c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 		} else if(idx == 2) {
 			c.data.modalOrderTypeTitle = 'TAX Class';
 			c.data.modalTypeTaxClass = true;
+			c.data.searchQuery = c.data.taxClassNm;
+			c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 		} else if(idx == 3) {
 			c.data.modalOrderTypeTitle = 'Industry';
 			c.data.modalTypeIndustry = true;
+			c.data.searchQuery = c.data.industryNm;
+			c.data.modalQuery = 'industry_name' + 'LIKE' + c.data.searchQuery;
 		} else if(idx == 4) {
 			c.data.modalOrderTypeTitle = 'Payment Terms';
 			c.data.modalTypePayTerms = true;
+			c.data.searchQuery = c.data.payTermsNm;
+			c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 		}
 		
 		c.server.update().then(function(response) {
@@ -244,9 +298,8 @@
 	}*/
 	
 	$scope.btnClickDMRSearch = function(idx) {
-		console.log("BTN : DMR Search--" + idx);
-		c.data.searchQuery = '';
-		c.data.modalQuery = '';
+		c.data.searchQuery = c.data.jobTypeNm;
+		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 
 		if(idx == 1) {
 			modalJobType.style.display = 'block';
@@ -470,11 +523,10 @@
 		});
 	} 
 	
-	
 	/* End user */
 	$scope.btnClickEndUserSearch = function() {
-		c.data.searchQuery = '';
-		c.data.modalQuery = '';
+		c.data.searchQuery = c.data.endUserNm;
+		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 
 		modalEndUser.style.display = 'block';
 		c.data.modalEndUser = true;
@@ -521,8 +573,8 @@
 	
 	/* modalContractor */ 
 	$scope.btnClickContractorSearch = function() {
-		c.data.searchQuery = '';
-		c.data.modalQuery = '';
+		c.data.searchQuery = c.data.contractorNm;
+		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 
 		modalContractor.style.display = 'block';
 		c.data.modalContractor = true;
@@ -1713,8 +1765,8 @@ border: 2px solid red;
 }
  .modal-search-form {
      display: flex;
-     gap: 30px;
-     padding: 16px 20px;
+     gap: 320px;
+     padding: 10px 10px;
      max-width: 1600px;
      background-color: #F7F7F7;
      border: 1px #EDEDED;
@@ -2467,14 +2519,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>1094</sys_mod_count>
+        <sys_mod_count>1154</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-30 11:52:08</sys_updated_on>
+        <sys_updated_on>2024-07-01 05:28:00</sys_updated_on>
         <template><![CDATA[<!--<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2528,7 +2580,8 @@ border: 2px solid red;
                             <label for="sales_office" class="yoko-short-110">Sales Office</label>
                             <div class="yoko-form-inline yoko-wid308">
                                 <div class="yoko-form-inline">
-                                    <input type="text" name="inputSalesOffice" value="" ng-model="c.data.SONm" ng-disabled='c.data.disSONm' placeholder="" class="yoko-wid100">
+                                    <input type="text" name="inputSalesOffice" value="" ng-model="c.data.SONm" ng-disabled='c.data.disSONm' placeholder="" 
+                                           class="yoko-wid100" ng-keypress="onKeyPressed($event, 'SO')">
                                     <button type="button" class="yoko-btn yoko-btn-search"  ng-click="btnClickSOSearch()" ng-disabled='c.data.disSONmSearch'></button>
                                     <button type="button" class="yoko-btn yoko-btn-info-fill" hidden ng-click="btnClickSOInfo()" ng-disabled='c.data.disSONmInfo'></button>
                                 </div>
@@ -2692,7 +2745,8 @@ border: 2px solid red;
                               <label for="end_user" class="yoko-short-110">End User</label>
                               <div class="yoko-form-inline yoko-wid308">
                                   <div class="yoko-form-inline">
-                                      <input type="text" name="inputEndUserNm" value="" ng-model="c.data.endUserNm" ng-disabled='c.data.disEndUser' placeholder="" class="yoko-wid100">
+                                      <input type="text" name="inputEndUserNm" value="" ng-model="c.data.endUserNm" ng-disabled='c.data.disEndUser' placeholder="" class="yoko-wid100"
+                                             ng-keypress="onKeyPressed($event, 'EndUser')"> 
                                       <button type="button" class="yoko-btn yoko-btn-search"  ng-click="btnClickEndUserSearch()" ng-disabled='c.data.disEndUserNm'></button>
                                   </div>
                                   <input type="text" name="inputEndUserCountry" value="" ng-model='c.data.endUserCountry' placeholder="" disabled class="">
@@ -2703,7 +2757,8 @@ border: 2px solid red;
                               <label for="constructor" class="yoko-short-110">Contractor</label>
                               <div class="yoko-form-inline yoko-wid308">
                                   <div class="yoko-form-inline">
-                                      <input type="text" name="inputConstructorNm" value="" ng-model="c.data.contractorNm" ng-disabled='c.data.disConstrucNm' placeholder="" class="yoko-wid100">
+                                      <input type="text" name="inputConstructorNm" value="" ng-model="c.data.contractorNm" ng-disabled='c.data.disConstrucNm' placeholder="" class="yoko-wid100"
+                                             ng-keypress="onKeyPressed($event, 'Contractor')">
                                       <button type="button" class="yoko-btn yoko-btn-search"  ng-click="btnClickContractorSearch()" ng-disabled='c.data.disConstrucNm'></button>
                                   </div>
                                   <input type="text" name="inputConstructorCountry" value="" ng-model='c.data.contractorCountry' placeholder="" disabled class="">
@@ -2753,7 +2808,8 @@ border: 2px solid red;
                                 <label for="lbOrderType" class="yoko-short-100">Order Type</label>
                                 <div class="yoko-form-inline">
                                     <div class="yoko-form-inline">
-                                        <input type="text" name="inputOrderType" value="" ng-model="c.data.orderTypeNm" ng-disabled='c.data.disOrdType' placeholder="" class="yoko-wid100">
+                                        <input type="text" name="inputOrderType" value="" ng-model="c.data.orderTypeNm" ng-disabled='c.data.disOrdType' placeholder="" class="yoko-wid100"
+                                               ng-keypress="onKeyPressed($event, 'OrderType')">
                                         <button type="button" class="yoko-btn yoko-btn-search" ng-disabled='c.data.disOrdType' ng-click="btnClickOrdTypeSearch(1)"></button>
                                         <button type="button" class="yoko-btn yoko-btn-info-fill" ng-disabled='c.data.disOrdType' ng-click="btnClickOrdTypeInfo(1)"></button>
                                     </div>
@@ -2764,7 +2820,8 @@ border: 2px solid red;
                                 <label for="lbTaxClass" class="yoko-short-100">TAX Class</label>
                                 <div class="yoko-form-inline">
                                     <div class="yoko-form-inline">
-                                        <input type="text" name="inputTaxClassNm" value="" ng-model="c.data.taxClassNm" ng-disabled='c.data.disTaxClass' placeholder="" class="yoko-wid100">
+                                        <input type="text" name="inputTaxClassNm" value="" ng-model="c.data.taxClassNm" ng-disabled='c.data.disTaxClass' placeholder="" class="yoko-wid100"
+                                               ng-keypress="onKeyPressed($event, 'TaxClass')">
                                         <button type="button" class="yoko-btn yoko-btn-search" ng-disabled='c.data.disTaxClass' ng-click="btnClickOrdTypeSearch(2)"></button>
                                         <button type="button" class="yoko-btn yoko-btn-info-fill" ng-disabled='c.data.disTaxClass' ng-click="btnClickOrdTypeInfo(2)"></button>
                                     </div>
@@ -2775,7 +2832,8 @@ border: 2px solid red;
                                 <label for="lbIndustry" class="yoko-short-100">Industry</label>
                                 <div class="yoko-form-inline">
                                     <div class="yoko-form-inline">
-                                        <input type="text" name="inputIndustryNm" value="" ng-model="c.data.industryNm" ng-disabled='c.data.disIndustry' placeholder="" class="yoko-wid100">
+                                        <input type="text" name="inputIndustryNm" value="" ng-model="c.data.industryNm" ng-disabled='c.data.disIndustry' placeholder="" class="yoko-wid100"
+                                               ng-keypress="onKeyPressed($event, 'Industry')">
                                         <button type="button" class="yoko-btn yoko-btn-search" ng-disabled='c.data.disIndustry' ng-click="btnClickOrdTypeSearch(3)"></button>
                                         <button type="button" class="yoko-btn yoko-btn-info-fill" ng-disabled='c.data.disIndustry' ng-click="btnClickOrdTypeInfo(3)"></button>
                                     </div>
@@ -2787,7 +2845,8 @@ border: 2px solid red;
                                 <label for="lbPaymentTerms" class="yoko-short-100">Payment Terms</label>
                                 <div class="yoko-form-inline">
                                     <div class="yoko-form-inline">
-                                        <input type="text" name="inputPaymentTermsNm" value="" ng-model="c.data.payTermsNm" ng-disabled='c.data.disPayTerm' placeholder="" class="yoko-wid100">
+                                        <input type="text" name="inputPaymentTermsNm" value="" ng-model="c.data.payTermsNm" ng-disabled='c.data.disPayTerm' placeholder="" class="yoko-wid100"
+                                               ng-keypress="onKeyPressed($event, 'PayTerm')">
                                         <button type="button" class="yoko-btn yoko-btn-search" ng-disabled='c.data.disPayTerm' ng-click="btnClickOrdTypeSearch(4)"></button>
                                         <button type="button" class="yoko-btn yoko-btn-info-fill" ng-disabled='c.data.disPayTerm' ng-click="btnClickOrdTypeInfo(4)"></button>
                                     </div>
@@ -2808,7 +2867,8 @@ border: 2px solid red;
                                 <label for="lbJobType" class="yoko-short">Job Type</label>
                                 <div class="yoko-form-inline">
                                     <div class="yoko-form-inline">
-                                        <input type="text" name="inputJobType" value="" ng-model='c.data.jobTypeNm' ng-disabled='c.data.disJobType' placeholder="" class="yoko-wid100">
+                                        <input type="text" name="inputJobType" value="" ng-model='c.data.jobTypeNm' ng-disabled='c.data.disJobType' placeholder="" class="yoko-wid100"
+                                               ng-keypress="onKeyPressed($event, 'JobType')">
                                         <button type="button" class="yoko-btn yoko-btn-search" ng-disabled='c.data.disJobType' ng-click="btnClickDMRSearch(1)"></button>
                                         <button type="button" class="yoko-btn yoko-btn-info-fill" ng-disabled='c.data.disJobType' ng-click="btnClickDMRInfo(1)"></button>
                                       	<input type='hidden' value='' ng-model='c.data.jobTypeSysId'>
