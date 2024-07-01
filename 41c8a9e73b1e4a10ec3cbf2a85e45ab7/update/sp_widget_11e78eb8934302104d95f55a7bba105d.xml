@@ -161,7 +161,7 @@
 
     };
 
-    /////////////////////////////////   Assess 버튼 클릭
+    // Assess 버튼 클릭
     $scope.btnAssess = function() {
         //alert("ASSESS?")
         // Call the server script to update the state
@@ -190,9 +190,6 @@
         var reasonCode = document.getElementsByName('reason_code')[0];
         var requestDueDate = document.getElementsByName('request_due_date')[0];
         var remark = document.getElementsByName('remark')[0];
-        //var asterik = document.getElementsByName('mandatory')[0];
-        //var asterik1 = document.getElementsByName('mandatory')[1];
-        //var asterik2 = document.getElementsByName('mandatory')[2];
 
         // Reset previous highlights
         reasonCode.classList.remove('highlight-form');
@@ -794,8 +791,8 @@ $scope.btnUpdate = function() {
     };
 
     c.clickContractCountry = function(index) {
-        c.data.contract_country_sys_id = c.data.itemsCountry[index].sys_id;
-        c.data.contract_country = c.data.itemsCountry[index].name;
+        c.data.contractor_country_sys_id = c.data.itemsCountry[index].sys_id;
+        c.data.contractor_country = c.data.itemsCountry[index].name;
         document.getElementById("contractCountryModal").style.display = 'none';
 		  	console.log(c.data.contract_country_sys_id);
     };
@@ -847,7 +844,7 @@ $scope.btnUpdate = function() {
 
     c.clickCountry = function(index) {
         c.data.end_user_country_sys_id = c.data.itemsCountry[index].sys_id;
-        c.data.end_user_country_name = c.data.itemsCountry[index].name;
+        c.data.end_user_country = c.data.itemsCountry[index].name;
         document.getElementById("countryModal").style.display = 'none';
 		  	console.log(c.data.end_user_country_sys_id);
     };
@@ -2008,7 +2005,7 @@ border: 2px solid red;
     grLabel.addQuery('language', userLanguage);
     grLabel.query();
     while(grLabel.next()) {
-        if(grLabel.element == 'number') {		
+        if(grLabel.element == 'number') {
             data.labelNumber = grLabel.label.toString(); // assuming 'value' contains the needed data
         } else if(grLabel.element == 'requestor') {
             data.labelRequestor  = grLabel.label.toString(); // assuming 'value' contains the needed data
@@ -2105,10 +2102,6 @@ border: 2px solid red;
         }
     }
 
-    /* populate the 'data' object */
-    /* e.g., data.table = $sp.getValue('table'); */
-        //gs.addErrorMessage("야 정신차려봐")
-
     // 현재 접속한 유저의 sysid 를 가져옴
     var userName = gs.getUser().getDisplayName();
     var userNameSysId = gs.getUser().getID();
@@ -2130,10 +2123,8 @@ border: 2px solid red;
 		data.sales_manager_sys_id = userNameSysId;
 	}
 
-
 	var urlSysId = $sp.getParameter('sys_id');
 
-		
     // 버튼, 요소 노출
     data.showUpdate = false;
     data.showSave = true;
@@ -2216,7 +2207,6 @@ border: 2px solid red;
 			data.quotation_state = grI.quotation.state.getDisplayValue();
 			data.quotation_state_value = grI.quotation.state.toString();
 
-			//gs.addErrorMessage(data.state);
         }
 
         // Quotation 을 가져오기 위해 , 현재 sys id 를 quotation 테이블에 넣어서 가져옴
@@ -2225,7 +2215,6 @@ border: 2px solid red;
         var quotation_sys_id;
         var quotation_state;
 
-        var exchange_rate;
         var total_quote_price;
         var total_quote_price_lc;
         grQ.addQuery('rfq_entry', data.sys_id);
@@ -2244,7 +2233,7 @@ border: 2px solid red;
         data.total_quote_price = total_quote_price;
         data.total_quote_price_lc = total_quote_price_lc;
 
-    } else if (input && input.isCopy) { //기존 레코드를 읽어와서 업데이트 할거임
+    } else if (input && input.isCopy) { 
         grI.addQuery('sys_id', input.copy_sys_id);
 		grI.query();
         if (grI.next()) {
@@ -2309,6 +2298,7 @@ border: 2px solid red;
 		data.showQuotationTypeSelect = false;
 		data.showQuotationType = false;
         data.showCopy = false;
+
         // 현재 STATE 에 따라서, 버튼들의 노출도를 전부 조절한다 여기서
         if (data.state == "New" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
             data.showAssess = true;
@@ -2367,6 +2357,8 @@ border: 2px solid red;
         }else {
             data.showQuotationType = true;
         }
+
+
         /////////// 버튼을 누르면 STATE가 바뀐다. 
         // if (input.isButton) {
         //     var grA = new GlideRecord('x_yergb_bpm_rfq_entry');
@@ -2409,8 +2401,6 @@ border: 2px solid red;
         
         grr.insert();
         data.redirect_sys_id = grr.getUniqueValue();
-       // gs.addErrorMessage("quotation_type")
-       // gs.addErrorMessage(quotation_type)
 
     } else if (input && input.isUpdate) {
         gs.addErrorMessage(input.estimated_order_date);
@@ -2447,19 +2437,16 @@ border: 2px solid red;
     }
 
     if (input && input.isOIReport) {
-        //gs.addErrorMessage("야 정신차려봐 isUpdate")
-        gs.addInfoMessage("원하는 곳에 옴");
-        gs.addInfoMessage(input.number.toString());
         var inputRawNumber = input.number.toString();
-				inputRawNumber = inputRawNumber.substring(3);
+		inputRawNumber = inputRawNumber.substring(3);
         var oi = new GlideRecord('x_yergb_bpm_oi_report');
         oi.addQuery('number', 'OI' + inputRawNumber );
 				oi.query();
         while(oi.next()) {
 			data.io_sys_id = oi.sys_id.toString();
-				gs.addInfoMessage(oi.sys_id);
-				gs.addInfoMessage(data.io_sys_id);
-			}
+			//gs.addInfoMessage(oi.sys_id);
+			//gs.addInfoMessage(data.io_sys_id);
+		}
        }
 
 	/* Sales Manager Modal */
@@ -2489,9 +2476,6 @@ border: 2px solid red;
                 column3: gr2.getValue('sys_id')
             });
         }
-
-        // Pass data to the client script
-        //data.items = items;
         data.modalTitle = "QUOTATION";
 
     }
@@ -2507,11 +2491,8 @@ border: 2px solid red;
                 column3: gr3.getValue('description')
             });
         }
-
-        // Pass data to the client script
         data.items = items;
         data.modalTitle = "ASSIGNMENT GROUP";
-
     }
 
     if (input && input.refer_assigned_to_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
@@ -2526,14 +2507,12 @@ border: 2px solid red;
                 column3: gr4.getValue('email')
             });
         }
-
-        // Pass data to the client script
         data.items = items;
         data.modalTitle = "ASSIGNED TO";
     }
 
     if (input && input.refer_end_user_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-	    data.itemsEndUserRef = [];
+		data.itemsEndUserRef = [];
         var gr5 = new GlideRecord('core_company');
 		gr5.addEncodedQuery(input.modalQuery);
         gr5.query();
@@ -2543,17 +2522,14 @@ border: 2px solid red;
                 sys_id: gr5.getValue('sys_id'),
                 code: gr5.getValue('u_company_code')
                 });
-            }
-
-        // Pass data to the client script
-        //data.items = items;
+        }
         data.modalTitle = "END USER";
     }
 
-    if (input && input.refer_contract_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-	    	data.itemsContractRef = [];
+    if (input && input.refer_contract_modal) { 
+		data.itemsContractRef = [];
         var gr6 = new GlideRecord('core_company');
-		  	gr6.addEncodedQuery(input.modalQuery);
+		gr6.addEncodedQuery(input.modalQuery);
         gr6.query();
         while (gr6.next()) {
             data.itemsContractRef.push({
@@ -2564,10 +2540,10 @@ border: 2px solid red;
         }
     }
 
-	if (input && input.refer_contract_country_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-      data.itemsCountry = [];
+	if (input && input.refer_contract_country_modal) { 
+		data.itemsCountry = [];
         var gr7 = new GlideRecord('core_country');
-           gr7.addEncodedQuery(input.modalQuery);
+		gr7.addEncodedQuery(input.modalQuery);
         gr7.query();
         while (gr7.next()) {
             data.itemsCountry.push({
@@ -2578,11 +2554,10 @@ border: 2px solid red;
         }
     }
 
-
-    if (input && input.refer_contract_country) { // 없으면 오류 뜸, 둘다 있어야 함.
-      data.itemsContractRef = [];
+    if (input && input.refer_contract_country) { 
+		data.itemsContractRef = [];
         var gr8 = new GlideRecord('core_country');
-           gr8.addEncodedQuery(input.modalQuery);
+		gr8.addEncodedQuery(input.modalQuery);
         gr8.query();
         while (gr8.next()) {
             data.itemsContractRef.push({
@@ -2593,12 +2568,11 @@ border: 2px solid red;
         }
     }
 
-
-    if (input && input.refer_currency_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
+    if (input && input.refer_currency_modal) { 
 		data.items = [];
         var gr8 = new GlideRecord('fx_currency');
         gr8.addQuery('active', true);
-			  gr8.addEncodedQuery(input.modalQuery);
+		gr8.addEncodedQuery(input.modalQuery);
         gr8.query();
         while (gr8.next()) {
             data.items.push({
@@ -2607,15 +2581,12 @@ border: 2px solid red;
                 name: gr8.getValue('name')
             });
         }
-
-        // Pass data to the client script
-        //data.items = items;
         data.modalTitle = "CURRENCY";
 
     }
 
-	if (input && input.refer_copy_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
-          data.itemsCopy = [];
+	if (input && input.refer_copy_modal) { 
+		data.itemsCopy = [];
         var gr9 = new GlideRecord('x_yergb_bpm_rfq_entry');
         gr9.addQuery('active', true);
           gr9.addEncodedQuery(input.modalQuery);
@@ -2649,25 +2620,25 @@ border: 2px solid red;
     }
 	
     var gra = new GlideRecord("x_yergb_bpm_quotation");
-        gra.orderBy("version");
-        gra.addEncodedQuery('rfq_entry=' + urlSysId);
-        gra.query();
-        var gridDetailData = [];
-        while (gra.next()) {
-            gridDetailData.push({
-                'sys_id': gra.sys_id.getDisplayValue(),
-                'number': gra.number.getDisplayValue(),
-                'version': gra.version.getDisplayValue(),
-                'currency_lc': gra.currency_lc.getDisplayValue(),
-                'total_quote_price': gra.total_quote_price.getDisplayValue(),
-                'total_quote_cost': gra.total_quote_cost.getDisplayValue(),
-                'gp_percent': gra.gp_percent.getDisplayValue(),
-                'mp_amount': gra.mp_amount.getDisplayValue(),
-                'mp_gap_percent': gra.mp_gap_percent.getDisplayValue()
-    
-            });
-				data.gridDetailData = gridDetailData;
-        }
+	gra.orderBy("version");
+	gra.addEncodedQuery('rfq_entry=' + urlSysId);
+	gra.query();
+	var gridDetailData = [];
+	while (gra.next()) {
+		gridDetailData.push({
+			'sys_id': gra.sys_id.getDisplayValue(),
+			'number': gra.number.getDisplayValue(),
+			'version': gra.version.getDisplayValue(),
+			'currency_lc': gra.currency_lc.getDisplayValue(),
+			'total_quote_price': gra.total_quote_price.getDisplayValue(),
+			'total_quote_cost': gra.total_quote_cost.getDisplayValue(),
+			'gp_percent': gra.gp_percent.getDisplayValue(),
+			'mp_amount': gra.mp_amount.getDisplayValue(),
+			'mp_gap_percent': gra.mp_gap_percent.getDisplayValue()
+
+		});
+			data.gridDetailData = gridDetailData;
+	}
 
 })();]]></script>
         <servicenow>false</servicenow>
@@ -2675,14 +2646,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>471</sys_mod_count>
+        <sys_mod_count>478</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-07-01 04:39:25</sys_updated_on>
+        <sys_updated_on>2024-07-01 06:52:38</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2741,13 +2712,9 @@ border: 2px solid red;
                                 <label for="customer_rfq" class="yoko-short">{{data.labelCustomerRFQ}}</label>
                                 <input type="text" name="customer_rfq" placeholder="" ng-model="c.data.customer_rfq" ng-disabled="isCancelledDisabled">
                             </div>
-
-                            
-
                         </div>
-
+                      
                         <div class="yoko-form-col">
-
                             <div class="yoko-form-group">
                                 <label for="req_date" class="yoko-short-120">{{data.labelRequestDate}}</label>
                                 <input type="date" value={{data.request_date}} name="req_date" ng-model="c.data.request_date" >
@@ -2781,9 +2748,7 @@ border: 2px solid red;
                         </div>
                     </div>
 
-
                     <div class="yoko-form-col">
-
                         <div class="yoko-form-group">
                             <label for="type" class="yoko-short-140">
                                 <h5 name="mandatoryCurrency" style="display: inline; margin: 0;  color: red" ng-if="c.data.currencyMandatory">✻</h5> {{data.labelCurrency}}
@@ -2824,9 +2789,8 @@ border: 2px solid red;
                             <label for="total_quote_price_lc" class="yoko-short-140">{{data.labelTotalQuotePriceLC}}</label>
                             <input type="text" name="total_quote_price_lc" value="" placeholder="" ng-model="c.data.total_quote_price_lc" class="yoko-text-right" disabled>
                         </div>
-
-
                     </div>
+                  
                     <div class="yoko-form-col">
 
                         <div class="yoko-form-group">
@@ -2860,12 +2824,9 @@ border: 2px solid red;
                             <label for="profit_company">{{data.labelProfitCompany}}</label>
                             <input type="text" name="profit_company" class="yoko-wid140" ng-model="c.data.profit_company" disabled>
                         </div>
-
-                        
-
                     </div>
+                  
                     <div class="yoko-form-col">
-
                         <div class="yoko-form-group">
                             <label for="status" class="yoko-short-110">{{data.labelState}}</label>
                             <input type="text" name="status" value={{data.state}} placeholder="New" class="yoko-wid172" disabled>
