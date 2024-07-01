@@ -26,6 +26,7 @@
         <element label="End User Address" max_length="100" name="end_user_address" type="string"/>
         <element attributes="edge_encryption_enabled=true" label="OI Amount (TC)" max_length="40" name="oi_amount_tc" type="decimal"/>
         <element label="End User Country" max_length="32" name="end_user_country" reference="core_country" type="reference"/>
+        <element label="Sales Office" max_length="32" name="sales_office" reference="x_yergb_bpm_sales_office" type="reference"/>
         <element label="E-Draft Maturity Days" max_length="40" name="e_draft_maturity_days" type="integer"/>
         <element attributes="Scale=11" label="Exchange Rate" max_length="26" name="exchange_rate" type="decimal"/>
         <element label="Currency (LC)" max_length="32" name="currency_lc" reference="fx_currency" type="reference"/>
@@ -81,34 +82,37 @@
             <element name="tax_classification"/>
         </index>
         <index name="index13">
-            <element name="contractor_country"/>
+            <element name="payment_terms"/>
         </index>
         <index name="index14">
-            <element name="rfq_entry"/>
+            <element name="contractor_country"/>
         </index>
         <index name="index15">
-            <element name="end_user_country"/>
+            <element name="rfq_entry"/>
         </index>
         <index name="index16">
-            <element name="contractor"/>
+            <element name="sales_office"/>
         </index>
         <index name="index17">
-            <element name="end_user"/>
+            <element name="end_user_country"/>
         </index>
         <index name="index18">
-            <element name="job_type"/>
+            <element name="contractor"/>
         </index>
         <index name="index19">
-            <element name="industry"/>
+            <element name="end_user"/>
         </index>
         <index name="index20">
-            <element name="salse_office"/>
+            <element name="job_type"/>
         </index>
         <index name="index21">
-            <element name="currency_lc"/>
+            <element name="industry"/>
         </index>
         <index name="index22">
-            <element name="payment_terms"/>
+            <element name="salse_office"/>
+        </index>
+        <index name="index23">
+            <element name="currency_lc"/>
         </index>
     </element>
 </database>
