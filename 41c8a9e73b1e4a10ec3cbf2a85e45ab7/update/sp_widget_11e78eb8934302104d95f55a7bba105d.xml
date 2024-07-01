@@ -747,6 +747,12 @@
     });
     // Initialize the variable when the controller is first loaded.
     $scope.isContractDummyDisabled = !!$scope.c.data.contractor;
+
+	$scope.$watch('c.data.end_user', function(newVal, oldVal) {
+        $scope.isEndUserDummyDisabled = !!newVal; // Set to true if contract has a value, otherwise false
+    });
+    // Initialize the variable when the controller is first loaded.
+    $scope.isEndUserDummyDisabled = !!$scope.c.data.end_user;
     // In your controller
     $scope.$watch('c.data.end_user', function(newVal, oldVal) {
         if (!newVal) {
@@ -2367,14 +2373,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>502</sys_mod_count>
+        <sys_mod_count>506</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-07-01 11:49:06</sys_updated_on>
+        <sys_updated_on>2024-07-01 12:10:38</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2602,7 +2608,7 @@ border: 2px solid red;
                             </div>
                             <div class="yoko-form-group">
                                 <label for="code" class="yoko-short">{{data.labelCode}}</label>
-                                <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.contractor_code" ng-disabled="isCancelledDisabled || isContractDisabled" readonly>
+                                <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.contractor_code"  disabled>
                             </div>
                         </div>
                         <div class="yoko-form-col">
@@ -2621,7 +2627,7 @@ border: 2px solid red;
                             <div class="yoko-form-group">
                                 <label for="contractor_country" class="yoko-short">{{data.labelContractorCountry}}</label>
                                 <div class="yoko-form-inline yoko-col100">
-                                    <input type="text" name="contractor_country" value={{data.contractor_country}} placeholder="" ng-model="c.data.contractor_country" disabled>
+                                    <input type="text" name="contractor_country" value={{data.contractor_country}} placeholder="" ng-model="c.data.contractor_country" ng-disabled="isCancelledDisabled || isContractDummyDisabled" readonly>
                                     <input type="text" name="contractor_country_sys_id" value="" placeholder="" ng-model="c.data.contractor_country_sys_id" ng-style="{'display': 'none'}">
                                     <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefContractCountry()" ng-disabled="isCancelledDisabled || isContractDummyDisabled"></button>
                                 </div>
@@ -2642,7 +2648,7 @@ border: 2px solid red;
                             </div>
                             <div class="yoko-form-group">
                                 <label for="code" class="yoko-short">{{data.labelCode}}</label>
-                                <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.end_user_code" ng-disabled="isCancelledDisabled" readonly>
+                                <input type="text" name="code" value="" placeholder="" disabled class="yoko-wid140" ng-model="c.data.end_user_code" disabled>
                             </div>
                         </div>
                       	<div class="yoko-form-col">
@@ -2652,18 +2658,18 @@ border: 2px solid red;
                             </div>
                             <div class="yoko-form-group">
                                 <label for="end_user_name" class="yoko-short">{{data.labelEndUserName}}</label>
-                                <input type="text" name="end_user_name" value="" placeholder="" class="yoko-col100" ng-model="c.data.end_user_name" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
+                                <input type="text" name="end_user_name" value="" placeholder="" class="yoko-col100" ng-model="c.data.end_user_name" ng-disabled="isCancelledDisabled || isEndUserDummyDisabled">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="end_user_address" class="yoko-short">{{data.labelEndUserAddress}}</label>
-                                <input type="text" name="end_user_address" value="" placeholder="" class="yoko-col100" ng-model="c.data.end_user_address" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
+                                <input type="text" name="end_user_address" value="" placeholder="" class="yoko-col100" ng-model="c.data.end_user_address" ng-disabled="isCancelledDisabled || isEndUserDummyDisabled">
                             </div>
                             <div class="yoko-form-group">
                                 <label for="end_user_country" class="yoko-short">{{data.labelEndUserCountry}}</label>
                                 <div class="yoko-form-inline yoko-col100">
-                                    <input type="text" name="end_user_country" placeholder="" ng-model="c.data.end_user_country" disabled>
+                                    <input type="text" name="end_user_country" placeholder="" ng-model="c.data.end_user_country" ng-disabled="isCancelledDisabled || isEndUserDummyDisabled" readonly>
                                     <input type="text" name="end_user_country_sys_id" value="" placeholder="" ng-model="c.data.end_user_country_sys_id" ng-style="{'display': 'none'}">
-                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefEndUserCountry()" ng-disabled="isCancelledDisabled || isContractDummyDisabled"></button>
+                                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefEndUserCountry()" ng-disabled="isCancelledDisabled || isEndUserDummyDisabled"></button>
                                 </div>
                             </div>
                         </div>
