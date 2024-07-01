@@ -601,8 +601,7 @@
 	/* End user */
 	$scope.btnClickEndUserSearch = function() {
 		c.data.searchQuery = getValueOrEmptyString(c.data.endUserNm);
-		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
-
+		c.data.modalQuery = 'u_sold_to=true^u_ship_to=true^nameLIKE' + c.data.searchQuery;
 		modalEndUser.style.display = 'block';
 		c.data.modalEndUser = true;
 
@@ -613,7 +612,7 @@
 		}, {
 			text: "code",
 			value: "",
-			fieldLabel: "Company code"
+			fieldLabel: "Customer code"
 		}];
 		
 		c.server.update().then(function(response) {
@@ -628,8 +627,7 @@
 	
 	$scope.clickEndUserModalSearch = function() {
 		c.data.modalEndUser = true;
-		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
-
+		c.data.modalQuery = 'u_sold_to=true^u_ship_to=true^nameLIKE' + c.data.searchQuery;
 		c.server.update().then(function(response) {
 			c.data.modalEndUser = false;
 		});
@@ -649,8 +647,8 @@
 	/* modalContractor */ 
 	$scope.btnClickContractorSearch = function() {
 		c.data.searchQuery = getValueOrEmptyString(c.data.contractorNm);
-		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
-
+		c.data.modalQuery = 'u_sold_to=true^name' + 'LIKE' + c.data.searchQuery;
+    
 		modalContractor.style.display = 'block';
 		c.data.modalContractor = true;
 		
@@ -661,7 +659,7 @@
 		}, {
 			text: "country",
 			value: "",
-			fieldLabel: "Company Code"
+			fieldLabel: "Customer Code"
 		}];
 		
 		c.server.update().then(function(response) {
@@ -676,7 +674,7 @@
 	
 	$scope.clickContractorModalSearch = function() {
 		c.data.modalContractor = true;
-		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
+		c.data.modalQuery = 'u_sold_to=true^name' + 'LIKE' + c.data.searchQuery;
 
 		c.server.update().then(function(response) {
 			c.data.modalContractor = false;
@@ -2639,8 +2637,9 @@ border: 2px solid red;
 		while(grEuser.next()) {
 			data.itemsEndUser.push({
 				name : grEuser.name.toString(),
-				code : grEuser.u_company_code.toString(),
-				sys_id : grEuser.sys_id.toString()
+				code : grEuser.u_customer_code.toString(),
+				sys_id : grEuser.sys_id.toString(),
+				u_sales_org: grEuser.u_sales_org.toString()
 			});
 		}
 	}
@@ -2657,8 +2656,9 @@ border: 2px solid red;
 		while(grConst.next()) {
 			data.itemsContractor.push({
 				name : grConst.name.toString(),
-				code : grConst.u_company_code.toString(),
-				sys_id : grConst.sys_id.toString()
+				code : grConst.u_customer_code.toString(),
+				sys_id : grConst.sys_id.toString(),
+				u_sales_org: grConst.u_sales_org.toString()
 			});
 		}
 	}
@@ -2668,14 +2668,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>1251</sys_mod_count>
+        <sys_mod_count>1255</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-07-01 17:45:32</sys_updated_on>
+        <sys_updated_by>hahyun@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-07-01 18:14:57</sys_updated_on>
         <template><![CDATA[<!--<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -3481,19 +3481,22 @@ border: 2px solid red;
       <div class="yoko-table-container">
           <table class="yoko-search-table">
               <colgroup>
-                <col style="width: 81px">
-                <col style="width: 107px">
+                <col style="width: auto">
+                <col style="width: auto">
+                <col style="width: auto">
                 <col style="width: auto">
               </colgroup>
               <thead>
                 <tr>
                   <th ng-repeat="item in c.data.modalEndUserHeader">{{ item.fieldLabel }}</th>
+                  <th>Sales Org</th>
                 </tr>
               </thead>
               <tbody>
                 <tr ng-repeat="item in c.data.itemsEndUser">
                   <td id="clicktd" ng-click="clickModalEndUser(item)">{{ item.name }}</td>
                   <td>{{ item.code }}</td>
+                  <td>{{ item.u_sales_org }}</td>
                   <td style="display: none;">{{ item.sys_id }}</td>
                 </tr>
               </tbody>
@@ -3521,19 +3524,22 @@ border: 2px solid red;
       <div class="yoko-table-container">
           <table class="yoko-search-table">
               <colgroup>
-                <col style="width: 81px">
-                <col style="width: 107px">
+                <col style="width: auto">
+                <col style="width: auto">
+                <col style="width: auto">
                 <col style="width: auto">
               </colgroup>
               <thead>
                 <tr>
                   <th ng-repeat="item in c.data.modalContractorHeader">{{ item.fieldLabel }}</th>
+                  <th>Sales Org</th>
                 </tr>
               </thead>
               <tbody>
                 <tr ng-repeat="item in c.data.itemsContractor">
                   <td id="clicktd" ng-click="clickModalContractor(item)">{{ item.name }}</td>
                   <td>{{ item.code }}</td>
+                  <td>{{ item.u_sales_org }}</td>
                   <td style="display: none;">{{ item.sys_id }}</td>
                 </tr>
               </tbody>
