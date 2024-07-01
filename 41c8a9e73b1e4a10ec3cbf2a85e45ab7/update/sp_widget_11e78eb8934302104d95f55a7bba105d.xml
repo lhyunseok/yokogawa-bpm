@@ -458,19 +458,24 @@
         var modal = document.getElementById("modalTest");
         modal.style.display = "block";
     };
-
+	 //EndUser EndUser 돋보기 버튼 클릭 시
     $scope.btnRefEndUser = function(sys_id) {
         document.getElementById("enduserRefModal").style.display = 'block';
         c.data.itemsEndUserRef = [];
         c.data.refer_end_user_modal = true;
         c.data.isRead = false;
+			  if (c.data.profit_company_code == undefined) {
+            c.data.profit_company_code = '';
+        }		
+			  c.data.modalQuery = 'u_sold_to=true^u_sales_orgLIKE' + c.data.profit_company_code;
+			  //console.log('c.data.profit_company_code'+c.data.profit_company_code);
         c.data.modalItems = [{
             text: "name",
             value: "name",
             fieldLabel: "Name"
         }, {
             text: "code",
-            value: "u_company_code",
+            value: "u_customer_code",
             fieldLabel: "Code"
         }];
         c.server.update().then(function(response) {
@@ -485,9 +490,8 @@
         //셀렉트 박스에서 선택한 value 값 가져오기 (필드)
         var selectElement = document.querySelector('.modal-select-user-ref');
         var selectedValue = selectElement.value;
-        c.data.modalQuery = selectedValue + 'LIKE' + c.data.searchQuery;
+        c.data.modalQuery = 'u_sold_to=true^u_sales_orgLIKE' + c.data.profit_company_code+ '^' + selectedValue + 'LIKE' + c.data.searchQuery;
         console.log(c.data.modalQuery);
-        c.data.refer_currency_modal = true;
         c.server.update().then(function(response) {
             console.log('Server response:', response);
             c.data.modalQuery = '';
@@ -503,18 +507,23 @@
         document.getElementById("enduserRefModal").style.display = 'none';
     };
 
+		//contractor Contractor 돋보기 버튼 클릭 시
     $scope.btnRefContract = function(sys_id) {
         document.getElementById("contractRefModal").style.display = 'block';
         c.data.itemsContractRef = [];
         c.data.refer_contract_modal = true;
         c.data.isRead = false;
+			  if (c.data.profit_company_code == undefined) {
+            c.data.profit_company_code = '';
+        }		
+			  c.data.modalQuery = 'u_sold_to=true^u_ship_to=true^u_sales_orgLIKE' + c.data.profit_company_code;
         c.data.modalItems = [{
             text: "name",
             value: "name",
             fieldLabel: "Name"
         }, {
             text: "code",
-            value: "u_company_code",
+            value: "u_customer_code",
             fieldLabel: "Code"
         }];
         c.server.update().then(function(response) {
@@ -526,12 +535,12 @@
         if (c.data.searchQuery == undefined) {
             c.data.searchQuery = '';
         }
+		
+			//c.data.profit_company_code
         //셀렉트 박스에서 선택한 value 값 가져오기 (필드)
         var selectElement = document.querySelector('.modal-select-contract-ref');
         var selectedValue = selectElement.value;
-        c.data.modalQuery = selectedValue + 'LIKE' + c.data.searchQuery;
-        console.log(c.data.modalQuery);
-        c.data.refer_currency_modal = true;
+        c.data.modalQuery = 'u_sold_to=true^u_ship_to=true^u_sales_orgLIKE' + c.data.profit_company_code+ '^' + selectedValue + 'LIKE' + c.data.searchQuery;
         c.server.update().then(function(response) {
             console.log('Server response:', response);
             c.data.modalQuery = '';
@@ -2267,31 +2276,30 @@ border: 2px solid red;
         data.modalTitle = "ASSIGNED TO";
     }
 
-    if (input && input.refer_end_user_modal) { // 없으면 오류 뜸, 둘다 있어야 함.
+    if (input && input.refer_end_user_modal) {
 		data.itemsEndUserRef = [];
         var gr5 = new GlideRecord('core_company');
-		gr5.addEncodedQuery(input.modalQuery);
+		    gr5.addEncodedQuery(input.modalQuery);
         gr5.query();
         while (gr5.next()) {
             data.itemsEndUserRef.push({
                 name: gr5.getValue('name'),
                 sys_id: gr5.getValue('sys_id'),
-                code: gr5.getValue('u_company_code')
-                });
+                code: gr5.getValue('u_customer_code')
+						});
         }
-        data.modalTitle = "END USER";
     }
 
     if (input && input.refer_contract_modal) { 
-		data.itemsContractRef = [];
+				data.itemsContractRef = [];
         var gr6 = new GlideRecord('core_company');
-		gr6.addEncodedQuery(input.modalQuery);
+				gr6.addEncodedQuery(input.modalQuery);
         gr6.query();
         while (gr6.next()) {
             data.itemsContractRef.push({
                 name: gr6.getValue('name'),
                 sys_id: gr6.getValue('sys_id'),
-                code: gr6.getValue('u_company_code')
+                code: gr6.getValue('u_customer_code')
             });
         }
     }
@@ -2402,14 +2410,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>513</sys_mod_count>
+        <sys_mod_count>515</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-07-01 14:34:25</sys_updated_on>
+        <sys_updated_by>hahyun@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-07-01 14:57:29</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2939,7 +2947,7 @@ border: 2px solid red;
         <div class="modal-search-form">
             <button class="modal-close-button" ng-click="closeUserRefModal()">×</button>
             <div class="modal-form-inline">
-                <label class="modal-label" >Company</label>
+                <label class="modal-label" >Contractor</label>
                 <select class="modal-select-user-ref"  id="modal-select">
                 <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                 </select>
@@ -2951,8 +2959,8 @@ border: 2px solid red;
     <div class="yoko-table-container">
         <table class="yoko-search-table">
             <colgroup>
-              <col style="width: 51px">
-              <col style="width: 137px">
+              <col style="width: auto">
+              <col style="width: auto; text-align: center;">
               <col style="width: auto">
             </colgroup>
             <thead>
@@ -2976,7 +2984,7 @@ border: 2px solid red;
         <div class="modal-search-form">
             <button class="modal-close-button" ng-click="closeContractRefModal()">×</button>
             <div class="modal-form-inline">
-                <label class="modal-label" >Company</label>
+                <label class="modal-label" >Contractor</label>
                 <select class="modal-select-contract-ref"  id="modal-select">
                 <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                 </select>
@@ -2988,8 +2996,8 @@ border: 2px solid red;
     <div class="yoko-table-container">
         <table class="yoko-search-table">
             <colgroup>
-              <col style="width: 51px">
-              <col style="width: 137px">
+              <col style="width: auto">
+              <col style="width: auto; text-align: center;">
               <col style="width: auto">
             </colgroup>
             <thead>
