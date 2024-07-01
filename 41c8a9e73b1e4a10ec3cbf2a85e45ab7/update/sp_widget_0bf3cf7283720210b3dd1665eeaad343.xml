@@ -66,6 +66,13 @@
 		return typeof value === 'undefined' ? '' : value;
 	}
 	
+	function isEmpty(str){
+		if(typeof str == "undefined" || str == null || str == "")
+			return true;
+		else
+			return false ;
+	}
+	
 	$scope.displayScreen = function(idx) {
 		if(idx == 1) {
 			c.data.showAddInfo = !c.data.showAddInfo;
@@ -80,6 +87,8 @@
 		if(type=='SO') {
 			if($event.keyCode == 13) {
 				c.data.MUCode = '';
+				c.data.soSysid = '';
+				c.data.soMuCodeSysid = '';
 				$scope.btnClickSOSearch();
 			}
 		} else if (type=='EndUser') {
@@ -129,7 +138,6 @@
 		c.data.modalSalesOffice = true;
 		c.data.searchQuery =  getValueOrEmptyString(c.data.SONm);
 		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
-		console.log('SO QRY : ' + c.data.modalQuery);
 		
 		c.data.modalSOHeader = [{
 			text: "name",
@@ -155,6 +163,8 @@
 	$scope.clickModalSO = function(item) {
 		c.data.SONm = item.name;
 		c.data.MUCode = item.muCode;
+		c.data.soSysid = item.sysid;
+		c.data.soMuCodeSysid = item.muSysid;
 		
 		c.data.modalSalesOffice = false;
 		modalSalesOffice.style.display = 'none';
@@ -169,6 +179,12 @@
 	}
 	
 	function validation() {
+		if(isEmpty(c.data.MUCode)) {
+			alert("MU code is not selected");
+			return false;
+		}
+		
+		
 		var jpt = dpPrjType.getJsonRows();
 		var tot = 0;
 		for(var tt in jpt) {
@@ -2013,19 +2029,24 @@ border: 2px solid red;
 			data.oiState = oiReportData.state.getDisplayValue().toString();
 			data.oiStateCode = oiReportData.state.toString(); 
 			data.opener = oiReportData.requestor.user_name.toString();
-			data.ExRate = oiReportData.exchange_rate.toString(); 
+			data.ExRate = oiReportData.exchange_rate.getDisplayValue().toString(); 
 			data.jobTypeSysId = oiReportData.job_type.toString();
 			data.dmrClassNm = oiReportData.dmr_class.toString();
 			data.dmrAmt = oiReportData.dmr_amount_level.toString();
-			data.dmrMP = oiReportData.dmr_mp_level.toString();
-			data.dmrGP = oiReportData.dmr_gp_level.toString();
-			data.oiAmtLC = oiReportData.oi_amount_lc.toString();
-			data.oiAmtTC = oiReportData.oi_amount_tc.toString();
-			data.gpAmt = oiReportData.gp_amount_lc.toString();
-			data.mpAmt = oiReportData.mp_amount_lc.toString();
-			data.gpPerc = oiReportData.gp_percent.toString();
-			data.mpPerc = oiReportData.mp_gap_percent.toString();
-			data.totEstCost = oiReportData.total_extended_cost_tc.toString();
+			data.dmrMP = oiReportData.dmr_mp_level.getDisplayValue().toString();
+			data.dmrGP = oiReportData.dmr_gp_level.getDisplayValue().toString();
+			data.oiAmtLC = oiReportData.oi_amount_lc.getDisplayValue().toString();
+			data.oiAmtTC = oiReportData.oi_amount_tc.getDisplayValue().toString();
+			data.gpAmt = oiReportData.gp_amount_lc.getDisplayValue().toString();
+			data.mpAmt = oiReportData.mp_amount_lc.getDisplayValue().toString();
+			data.gpPerc = oiReportData.gp_percent.getDisplayValue().toString();
+			data.mpPerc = oiReportData.mp_gap_percent.getDisplayValue().toString();
+			data.totEstCost = oiReportData.total_extended_cost_tc.getDisplayValue().toString();
+			data.SONm = oiReportData.salse_office.getDisplayValue().toString();
+			data.MUCode = oiReportData.salse_office.mu_code.getDisplayValue().toString();
+			data.soMuCodeSysid = oiReportData.salse_office.mu_code.toString();
+			data.soSysid = oiReportData.salse_office.toString();
+			
 			data.oiVer = oiReportData.version.toString();
 			
 			data.endUserNm = oiReportData.end_user_name.toString();
@@ -2209,11 +2230,11 @@ border: 2px solid red;
 			data.quotNum = quotData.number.toString();
 			data.essNo = quotData.ess_sqms_no.toString();
 			data.currency = quotData.currency_lc.toString();
-			data.quotGpAmt = quotData.gp_amount.toString();
-			data.quotMpAmt = quotData.mp_amount.toString();
-			data.quotTotEstCost = quotData.total_quote_price.toString();
-			data.quotMpGapPerc = quotData.mp_gap_percent.toString();
-			data.quotGpPerc = quotData.gp_percent.toString();
+			data.quotGpAmt = quotData.gp_amount.getDisplayValue().toString();
+			data.quotMpAmt = quotData.mp_amount.getDisplayValue().toString();
+			data.quotTotEstCost = quotData.total_quote_price.getDisplayValue().toString();
+			data.quotMpGapPerc = quotData.mp_gap_percent.getDisplayValue().toString();
+			data.quotGpPerc = quotData.gp_percent.getDisplayValue().toString();
 		}
 	}
 	
@@ -2238,6 +2259,7 @@ border: 2px solid red;
 		oiRptTr.setValue('tax_classification', getValueOrEmptyString(input.taxClassCode));
 		oiRptTr.setValue('payment_terms', getValueOrEmptyString(input.payTermsCode));	
 		oiRptTr.setValue('industry', getValueOrEmptyString(input.industrySysId));
+		oiRptTr.setValue('salse_office', getValueOrEmptyString(input.soSysid));
 		
 		oiRptTr.setValue('end_user_name', getValueOrEmptyString(input.endUserNm));
 		oiRptTr.setValue('end_user_country', getValueOrEmptyString(input.endUserCountry));
@@ -2315,6 +2337,7 @@ border: 2px solid red;
 			oiRptTr.setValue('mp_gap_percent', getValueOrEmptyString(input.mpPerc));
 			oiRptTr.setValue('total_extended_cost_tc', getValueOrEmptyString(input.totEstCost));
 			oiRptTr.setValue('customer_po_no', getValueOrEmptyString(input.PONo));
+			oiRptTr.setValue('sales_office', getValueOrEmptyString(input.soSysid));
 			//oiRptTr.setValue('version', String(Number(input.oiVer) + 1));
 			oiRptTr.insert();
 			data.redirect_sys_id = oiRptTr.getUniqueValue();
@@ -2442,10 +2465,10 @@ border: 2px solid red;
 			grOrdType.addEncodedQuery(input.modalQuery);
 		} else if(input && input.modalTypeIndustry) {
 			grOrdType = new GlideRecord('x_yergb_bpm_industry_master');
-			grOrdType.addEncodedQuery(input.modalQuery);
 			if(!isEmpty(input.MUCode)) {
-				grOrdType.addQuery('mu_code', input.MUCode);
+				grOrdType.addQuery('mu_code', input.soMuCodeSysid);
 			}
+			grOrdType.addEncodedQuery(input.modalQuery);
 		} else if(input && input.modalTypePayTerms) {
 			grOrdType = new GlideRecord('x_yergb_bpm_common_code');
 			grOrdType.addQuery('category', 'PAYMENT TERMS');
@@ -2491,9 +2514,9 @@ border: 2px solid red;
 		var grPjtType = new GlideRecord('x_yergb_bpm_common_code');
 		grPjtType.addQuery('category', 'PJT TYPE');	
 		grPjtType.addEncodedQuery(input.modalQuery);
-		if(!isEmpty(input.MUCode)) {
-			grPjtType.addQuery('mu_code', input.MUCode);
-		}
+		/*if(!isEmpty(input.MUCode)) {
+			grPjtType.addQuery('mu_code', input.soMuCodeSysid);
+		}*/
 		grPjtType.query();
 		while(grPjtType.next()) {
 			data.itemsProjecttype.push({
@@ -2510,7 +2533,8 @@ border: 2px solid red;
 		var grAnsoff = new GlideRecord('x_yergb_bpm_ansoff_master');
 		grAnsoff.addEncodedQuery(input.modalQuery);
 		if(!isEmpty(input.MUCode)) {
-			grAnsoff.addQuery('mu_code', input.MUCode);
+			grAnsoff.addQuery('mu_code', input.soMuCodeSysid);
+			
 		}
 		grAnsoff.query();
 		while(grAnsoff.next()) {
@@ -2580,7 +2604,9 @@ border: 2px solid red;
 			data.itemsSalesOffice.push({
 				name : grSO.name.toString(),
 				muCode : grSO.mu.mu_code.toString(),
-				sys_id : grSO.sys_id.toString()
+				sysid : grSO.sys_id.toString(),
+				muSysid : grSO.mu.toString()
+				//soMuCodeSysid
 			});
 		}
 	}
@@ -2620,14 +2646,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>1178</sys_mod_count>
+        <sys_mod_count>1211</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-07-01 09:18:40</sys_updated_on>
+        <sys_updated_on>2024-07-01 12:22:42</sys_updated_on>
         <template><![CDATA[<!--<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2687,6 +2713,8 @@ border: 2px solid red;
                                     <button type="button" class="yoko-btn yoko-btn-info-fill" hidden ng-click="btnClickSOInfo()" ng-disabled='c.data.disSONmInfo'></button>
                                 </div>
                                 <input type="text" name="inputSONum" value="" ng-model='c.data.MUCode' placeholder="" disabled class="">
+                              	<input type='hidden' value='' ng-model='c.data.soSysid'>
+                              	<input type='hidden' value='' ng-model='c.data.soMuCodeSysid'>
                             </div>
                         </div>
                         <div class="yoko-form-group">
@@ -2752,7 +2780,7 @@ border: 2px solid red;
                                 </div>
                                 <div class="yoko-form-group">
                                     <label for="lbEssSqmsNo" class="yoko-short-110">ESS/SQMS No.</label>
-                                    <input type="text" name="inputEssSqmsNo" value="" ng-model="c.dataEssNo" placeholder="" disabled class="yoko-wid140">
+                                    <input type="text" name="inputEssSqmsNo" value="" ng-model="c.data.essNo" placeholder="" disabled class="yoko-wid140">
                                 </div>
                                 <div class="yoko-form-group">
                                     <label for="lbCurrency" class="yoko-short-110">Currency</label>
@@ -3432,6 +3460,7 @@ border: 2px solid red;
                 <col style="width: 51px">
                 <col style="width: 137px">
                 <col style="width: auto">
+                <col style="width: auto">
               </colgroup>
               <thead>
                 <tr>
@@ -3443,6 +3472,7 @@ border: 2px solid red;
                   <td id="clicktd" ng-click="clickModalSO(item)">{{ item.name }}</td>
                   <td>{{ item.muCode }}</td>
                   <td style="display: none;">{{ item.sys_id }}</td>
+                  <td style="display: none;">{{ item.muSysid }}</td>
                 </tr>
               </tbody>
           </table>   
