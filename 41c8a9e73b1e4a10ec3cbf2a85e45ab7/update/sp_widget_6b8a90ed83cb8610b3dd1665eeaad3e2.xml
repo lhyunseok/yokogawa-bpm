@@ -545,8 +545,8 @@ border: 2px solid red;
 		//console.log('OI SYS ID : ' + data.oiSysId);
 		
 		// TEST 
-		data.oiSysId = '049440b63b3e4210ec3cbf2a85e45afd';
-		console.log('OI SYS ID : ' + data.oiSysId);
+		//data.oiSysId = '049440b63b3e4210ec3cbf2a85e45afd';
+		//console.log('OI SYS ID : ' + data.oiSysId);
 		
 		var oiReportData = new GlideRecord('x_yergb_bpm_oi_report');
 		oiReportData.addQuery('sys_id', data.oiSysId);
@@ -641,14 +641,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-27 01:26:09</sys_created_on>
         <sys_id>6b8a90ed83cb8610b3dd1665eeaad3e2</sys_id>
-        <sys_mod_count>152</sys_mod_count>
+        <sys_mod_count>153</sys_mod_count>
         <sys_name>orderIntakeReportApprovalWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_6b8a90ed83cb8610b3dd1665eeaad3e2</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-07-01 17:10:02</sys_updated_on>
+        <sys_updated_on>2024-07-01 17:15:47</sys_updated_on>
         <template><![CDATA[<div>
 	<div class="yoko-container">
         <!--<div class="yoko-breadcrumb">Home >  Approval - OI Cancel Report</div>-->
