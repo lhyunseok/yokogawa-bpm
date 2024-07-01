@@ -6,8 +6,8 @@
         <css/>
         <display_field/>
         <field_list>document_id,approver,state,sys_created_on</field_list>
-        <filter table="sysapproval_approver">document_id!=NULL^sysapproval=NULL<item endquery="false" field="document_id" goto="false" newquery="false" operator="!=" or="false" value="NULL"/>
-            <item endquery="false" field="sysapproval" goto="false" newquery="false" operator="=" or="false" value="NULL"/>
+        <filter table="sysapproval_approver">document_id!=NULL^sysapproval!=NULL<item endquery="false" field="document_id" goto="false" newquery="false" operator="!=" or="false" value="NULL"/>
+            <item endquery="false" field="sysapproval" goto="false" newquery="false" operator="!=" or="false" value="NULL"/>
         </filter>
         <glyph/>
         <id/>
@@ -19,20 +19,20 @@
         <short_description/>
         <size>md</size>
         <sp_column display_value="1">65ced6aa3bc30e10ec3cbf2a85e45a9c</sp_column>
-        <sp_page/>
+        <sp_page display_value="orderintakereportapproval">bcab986d83cb8610b3dd1665eeaad308</sp_page>
         <sp_widget display_value="Data Table from Instance Definit BPM">6bef314e47ba4a502b397d7ba26d4379</sp_widget>
         <sys_class_name>sp_instance_table</sys_class_name>
         <sys_created_by>sungsoo@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-30 13:59:55</sys_created_on>
         <sys_id>c594a2ae3bc30e10ec3cbf2a85e45ac4</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_name>Approval List</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_instance_table_c594a2ae3bc30e10ec3cbf2a85e45ac4</sys_update_name>
-        <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-30 14:02:41</sys_updated_on>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-07-01 04:48:16</sys_updated_on>
         <table>sysapproval_approver</table>
         <title>Approval List</title>
         <url/>
