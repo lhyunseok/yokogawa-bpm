@@ -3,14 +3,10 @@
         <element display="true" label="Industry Name" max_length="100" name="industry_name" type="string"/>
         <element label="MU" max_length="32" name="mu" reference="x_yergb_bpm_management_unit" type="reference"/>
         <element attributes="edge_encryption_enabled=true" label="Active" max_length="40" name="active" type="boolean"/>
-        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="MU Code" max_length="32" name="mu_code" reference="x_yergb_bpm_management_unit" type="reference"/>
         <element label="Industry Code" max_length="40" name="industry_code" type="string"/>
         <element label="Sort Sequence" max_length="40" name="sort_sequence" type="string"/>
         <index name="index">
             <element name="mu"/>
-        </index>
-        <index name="index2">
-            <element name="mu_code"/>
         </index>
     </element>
 </database>
