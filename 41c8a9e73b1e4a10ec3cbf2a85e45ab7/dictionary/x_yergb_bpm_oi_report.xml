@@ -43,6 +43,7 @@
         <element attributes="edge_encryption_enabled=true" label="MP Amount (TC)" max_length="40" name="mp_amount_tc" type="decimal"/>
         <element label="Contractor" max_length="32" name="contractor" reference="core_company" type="reference"/>
         <element attributes="edge_encryption_enabled=true" label="MP Gap (TC)" max_length="40" name="mp_gap_tc" type="decimal"/>
+        <element label="Salse Office" max_length="32" name="salse_office" reference="x_yergb_bpm_sales_office" type="reference"/>
         <index name="index">
             <element name="oi_amount_tc"/>
         </index>
@@ -80,31 +81,34 @@
             <element name="tax_classification"/>
         </index>
         <index name="index13">
-            <element name="rfq_entry"/>
+            <element name="contractor_country"/>
         </index>
         <index name="index14">
-            <element name="end_user_country"/>
+            <element name="rfq_entry"/>
         </index>
         <index name="index15">
-            <element name="contractor"/>
+            <element name="end_user_country"/>
         </index>
         <index name="index16">
-            <element name="end_user"/>
+            <element name="contractor"/>
         </index>
         <index name="index17">
-            <element name="job_type"/>
+            <element name="end_user"/>
         </index>
         <index name="index18">
-            <element name="industry"/>
+            <element name="job_type"/>
         </index>
         <index name="index19">
-            <element name="currency_lc"/>
+            <element name="industry"/>
         </index>
         <index name="index20">
-            <element name="payment_terms"/>
+            <element name="salse_office"/>
         </index>
         <index name="index21">
-            <element name="contractor_country"/>
+            <element name="currency_lc"/>
+        </index>
+        <index name="index22">
+            <element name="payment_terms"/>
         </index>
     </element>
 </database>
