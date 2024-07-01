@@ -480,6 +480,7 @@
         }];
         c.server.update().then(function(response) {
             console.log('Server response:', response);
+					  c.data.modalQuery = '';
         });
     };
     //모달창 검색 버튼 클릭
@@ -499,12 +500,14 @@
     };
     $scope.closeUserRefModal = function() {
         document.getElementById("enduserRefModal").style.display = 'none';
+			  c.data.refer_end_user_modal = false;
     };
     c.clickUserR = function(index) {
         c.data.end_user = c.data.itemsEndUserRef[index].name;
         c.data.end_user_sys_id = c.data.itemsEndUserRef[index].sys_id;
         c.data.end_user_code = c.data.itemsEndUserRef[index].code;
         document.getElementById("enduserRefModal").style.display = 'none';
+			  c.data.refer_end_user_modal = false;
     };
 
 		//contractor Contractor 돋보기 버튼 클릭 시
@@ -529,6 +532,7 @@
         }];
         c.server.update().then(function(response) {
             console.log('Server response:', response);
+					  c.data.modalQuery = '';
         });
     };
     //모달창 검색 버튼 클릭
@@ -536,9 +540,6 @@
         if (c.data.searchQuery == undefined) {
             c.data.searchQuery = '';
         }
-		
-			//c.data.profit_company_code
-        //셀렉트 박스에서 선택한 value 값 가져오기 (필드)
         var selectElement = document.querySelector('.modal-select-contract-ref');
         var selectedValue = selectElement.value;
         c.data.modalQuery = 'u_sold_to=true^u_sales_orgLIKE' + c.data.profit_company_code+ '^' + selectedValue + 'LIKE' + c.data.searchQuery;
@@ -550,12 +551,14 @@
     };
     $scope.closeContractRefModal = function() {
         document.getElementById("contractRefModal").style.display = 'none';
+			  c.data.refer_contract_modal = false;
     };
     c.clickContractR = function(index) {
         c.data.contractor = c.data.itemsContractRef[index].name;
         c.data.contractor_sys_id = c.data.itemsContractRef[index].sys_id;
         c.data.contractor_code = c.data.itemsContractRef[index].code;
         document.getElementById("contractRefModal").style.display = 'none';
+			  c.data.refer_contract_modal = false;
     };
     $scope.btnRefContractCountry = function(sys_id) {
         document.getElementById("contractCountryModal").style.display = 'block';
@@ -584,7 +587,6 @@
         var selectedValue = selectElement.value;
         c.data.modalQuery = selectedValue + 'LIKE' + c.data.searchQuery;
         console.log(c.data.modalQuery);
-        c.data.refer_currency_modal = true;
         c.server.update().then(function(response) {
             console.log('Server response:', response);
             c.data.modalQuery = '';
@@ -592,12 +594,14 @@
     };
     $scope.closeContranctCountryModal = function() {
         document.getElementById("contractCountryModal").style.display = 'none';
+			  c.data.refer_contract_country_modal = false;
     };
     c.clickContractCountry = function(index) {
         c.data.contractor_country_sys_id = c.data.itemsCountry[index].sys_id;
         c.data.contractor_country = c.data.itemsCountry[index].name;
         document.getElementById("contractCountryModal").style.display = 'none';
         console.log(c.data.contractor_country_sys_id);
+			  c.data.refer_contract_country_modal = false;
     };
     $scope.btnRefEndUserCountry = function(sys_id) {
         document.getElementById("countryModal").style.display = 'block';
@@ -627,7 +631,6 @@
         var selectedValue = selectElement.value;
         c.data.modalQuery = selectedValue + 'LIKE' + c.data.searchQuery;
         console.log(c.data.modalQuery);
-        c.data.refer_currency_modal = true;
         c.server.update().then(function(response) {
             console.log('Server response:', response);
             c.data.modalQuery = '';
@@ -635,12 +638,14 @@
     };
     $scope.closeCountryModal = function() {
         document.getElementById("countryModal").style.display = 'none';
+			  c.data.refer_contract_country_modal = false;
     };
     c.clickCountry = function(index) {
         c.data.end_user_country_sys_id = c.data.itemsCountry[index].sys_id;
         c.data.end_user_country = c.data.itemsCountry[index].name;
         document.getElementById("countryModal").style.display = 'none';
         console.log(c.data.end_user_country_sys_id);
+			  c.data.refer_contract_country_modal = false;
     };
 
     $scope.btnRefCurrency = function(sys_id) {
@@ -671,7 +676,6 @@
         var selectedValue = selectElement.value;
         c.data.modalQuery = selectedValue + 'LIKE' + c.data.searchQuery;
         console.log(c.data.modalQuery);
-        c.data.refer_currency_modal = true;
         c.server.update().then(function(response) {
             console.log('Server response:', response);
             c.data.modalQuery = '';
@@ -679,11 +683,13 @@
     };
     $scope.closeCurrencyModal = function() {
         document.getElementById("currencyModal").style.display = 'none';
+			  c.data.refer_currency_modal = false;
     };
     c.clickCurrency = function(index) {
         c.data.currency_sys_id = c.data.items[index].sys_id;
         c.data.currency = c.data.items[index].code;
         document.getElementById("currencyModal").style.display = 'none';
+			  c.data.refer_currency_modal = false;
     };
     $scope.btnCopy = function(sys_id) {
         document.getElementById("btnCopyModal").style.display = 'block';
@@ -2412,14 +2418,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>517</sys_mod_count>
+        <sys_mod_count>519</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>hahyun@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-07-01 15:13:43</sys_updated_on>
+        <sys_updated_on>2024-07-01 15:41:59</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
