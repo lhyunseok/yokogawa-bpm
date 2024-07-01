@@ -3,399 +3,700 @@
         <category>custom</category>
         <client_script><![CDATA[api.controller = function($scope, $rootScope, $window, $location, $window) {
 
-  var c = this;
-  c.data.gridBtnType = '';
-		  c.data.isRead = true
+    var c = this;
+    c.data.gridBtnType = '';
+    c.data.isRead = true
 
-  c.getUrlParameter = function(param) {
-      return $location.search()[param];
-  };
+    c.getUrlParameter = function(param) {
+        return $location.search()[param];
+    };
 
-  var paramValue = c.getUrlParameter('sys_id');
-  c.data.paramValue = paramValue;
+    var paramValue = c.getUrlParameter('sys_id');
+    c.data.paramValue = paramValue;
 
-  $scope.btnClickComplete = function() {
-      c.data.operation = 'updateState';
-      c.server.update().then(function(response) {
-          console.log('Server response:', response);
-          location.reload();
-      }).catch(function(error) {
-          console.error('Error updating state:', error);
-          alert('Error updating state');
-      });
-  };
+    $scope.btnClickComplete = function() {
+        c.data.operation = 'updateState';
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+            location.reload();
+        }).catch(function(error) {
+            console.error('Error updating state:', error);
+            alert('Error updating state');
+        });
+    };
 
-  // Function to save a single field
-  $scope.saveField = function(fieldName, fieldValue) {
-      if (!fieldValue) {
-          alert('Field value cannot be empty');
-          return;
-      }
-      c.data.operation = 'saveField';
+    // Function to save a single field
+    $scope.saveField = function(fieldName, fieldValue) {
+        if (!fieldValue) {
+            alert('Field value cannot be empty');
+            return;
+        }
+        c.data.operation = 'saveField';
 
-    
-         c.data.gridBtnTransact = 'T';
-          c.data.gridDetailData = dpDetail.getJsonRows();
-          for (var x = 0; x < c.data.gridDetailData.length; x++) {
-              console.log(c.data.gridDetailData[x])
-              c.data.gridDetailData[x].rowStat = dpDetail.getRowState(x);
-          }
-    
-    
-      c.server.update().then(function(response) {
-          location.reload();
-      }).catch(function(error) {
-          console.error('Error saving field:', error);
-          alert('Error saving field');
-      });
-    
-    
-    
-    
-    
-  };
 
-  $window.addEventListener('message', function(event) {
-      if (event.data.type === 'updateIframeSrc') {
-          location.reload();
-          //var iframe = document.getElementById('myIframe');
-          // iframe.src = event.data.newSrc;
-          // console.log('Iframe src updated to:', event.data.newSrc);
-      }
-  });
+        c.data.gridBtnTransact = 'T';
+        c.data.gridDetailData = dpDetail.getJsonRows();
+        for (var x = 0; x < c.data.gridDetailData.length; x++) {
+            console.log(c.data.gridDetailData[x])
+            c.data.gridDetailData[x].rowStat = dpDetail.getRowState(x);
+        }
 
-  // Function to handle click event
-  $scope.handleClick = function() {
-      if (c.data.rfq_entry_id) {
-          window.location.href = "/ybpm?id=rfqentry&table=x_yergb_bpm_rfq_entry&sys_id=" + c.data.rfq_entry_id; // Redirect to the URL
-      } else {
-          alert('no rfq record')
-      }
-  };
 
-  // Function to dynamically adjust iframe height
-  function resizeIframe() {
-      var iframe = document.getElementById('myIframe');
-      if (iframe) {
-          var windowHeight = window.innerHeight;
-          iframe.style.height = Math.max(windowHeight * 0.45, 200) + 'px';
-      }
-  }
-
-  // Add event listener to resize iframe when content loads
-  $window.onload = function() {
-      resizeIframe();
-      //initGrid();
-  };
-
-  // Add event listener to window resize event
-  $window.addEventListener('resize', function() {
-      resizeIframe();
-  });
-
-  // Call resizeIframe on initial load to set the initial height
-  resizeIframe();
-
-  function checkRealGrid() {
-      if (RealGrid) {
-          return true;
-      }
-
-      return false;
-  }
-
-  function drawRealGrid() {
-      containerDetail = document.getElementById('gridContainer');
-      dpDetail = new RealGrid.LocalDataProvider(false);
-      gvDetail = new RealGrid.GridView(containerDetail);
-      gvDetail.setDataSource(dpDetail);
-
-      dpDetail.setFields([
-          {fieldName: 'sys_id',  dataType:  'text'},
-          {fieldName: 'number',  dataType:  'text'},
-          {fieldName: 'wbs_6',  dataType:  'text'},
-          {fieldName: 'ms_code',  dataType:  'text'},
-          {fieldName: 'description',  dataType:  'text'},
-          {fieldName: 'quantity',  dataType:  'text'},
-          {fieldName: 'unit_price',  dataType:  'text'},
-          {fieldName: 'extended_price',  dataType:  'text'},
-          {fieldName: 'unit_cost',  dataType:  'text'},
-          {fieldName: 'extended_cost',  dataType:  'text'},
-          {fieldName: 'unit_mp',  dataType:  'text'},
-          {fieldName: 'mp_amount',  dataType:  'text'},
-          {fieldName: 'vendor',  dataType:  'text'},
-          {fieldName: 'quotation',  dataType:  'text'}
-      ]);
-
-      gvDetail.setColumns([{
-              "name": "sys_id",
-              "fieldName": "sys_id",
-              "type": "data",
-              "width": 0,
-              "header": {
-                  "text": "sysid",
-              },
-              "visible" : false,
-				"styleName" : "left-column"
-
-          },
-          {
-              "name": "number",
-              "fieldName": "number",
-              "type": "data",
-              "width": 100,
-              "header": {
-                  "text": "Number"
-              },
-            "visible" : false,
-				"styleName" : "left-column"
-
-          },
-          {
-              "name": "wbs_6",
-              "fieldName": "wbs_6",
-              "type": "data",
-              "width": 100,
-              "header": {
-                  "text": "WBS 6"
-              },
-						"styleName" : "left-column"
-          },
-          {
-              "name": "ms_code",
-              "fieldName": "ms_code",
-              "type": "data",
-              "width": 100,
-              "header": {
-                  "text": "MS Code"
-              },
-						"styleName" : "left-column"
-          },
-          {
-              "name": "description",
-              "fieldName": "description",
-              "type": "data",
-              "width": 120,
-              "header": {
-                  "text": "Description"
-              },
-						"styleName" : "left-column"
-          },
-          {
-              "name": "quantity",
-              "fieldName": "quantity",
-              "type": "data",
-              "width": 120,
-              "header": {
-                  "text": "Quantity"
-              },
-						"styleName" : "right-column"
-          },
-          {
-              "name": "unit_price",
-              "fieldName": "unit_price",
-              "type": "data",
-              "width": 120,
-              "header": {
-                  "text": "Unit Price"
-              },
-						"styleName" : "right-column"
-          },
-          {
-              "name": "extended_price",
-              "fieldName": "extended_price",
-              "type": "data",
-              "width": 120,
-						"editable": false,
-              "header": {
-                  "text": "Extended Price"
-              },
-						"styleName" : "right-column non-editable"
-          },
-          {
-              "name": "unit_cost",
-              "fieldName": "unit_cost",
-              "type": "data",
-              "width": 120,
-              "header": {
-                  "text": "Unit Cost"
-              },
-						"styleName" : "right-column"
-          },
-          {
-              "name": "extended_cost",
-              "fieldName": "extended_cost",
-              "type": "data",
-              "width": 120,
-						"editable": false,
-              "header": {
-                  "text": "Extended Cost"
-              },
-						"styleName" : "right-column non-editable"
-          },
-          {
-              "name": "unit_mp",
-              "fieldName": "unit_mp",
-              "type": "data",
-              "width": 120,
-              "header": {
-                  "text": "Unit MP"
-              },
-						"styleName" : "right-column"
-          },
-          {
-              "name": "mp_amount",
-              "fieldName": "mp_amount",
-              "type": "data",
-              "width": 120,
-						"editable": false,
-              "header": {
-                  "text": "MP Price"
-              },
-						"styleName" : "right-column non-editable"
-          },
-          {
-              "name": "vendor",
-              "fieldName": "vendor",
-              "type": "data",
-              "width": 120,
-              "header": {
-                  "text": "Vendor"
-              },
-						"styleName" : "left-column"
-          },
-          {
-              "name": "quotation",
-              "fieldName": "quotation",
-              "type": "data",
-              "width": 120,
-              "header": {
-                  "text": "quotation"
-              },
-              "visible" : false
-          }
-      ]);
-
-      gvDetail.setColumnLayout([
-          'sys_id',
-          'number',
-          'wbs_6',
-          'ms_code',
-          'description',
-          'quantity',
-          'unit_price',
-          'extended_price',
-          'unit_cost',
-          'extended_cost',
-          'unit_mp',
-          'mp_amount',
-          'vendor',
-          'quotation'
-      ]);
-
-      gvDetail.footers.visible = false;
-      gvDetail.commitEditor();
-      gvDetail.undoable = true;
-      gvDetail.editOptions.commitByCell = true;		
-      gvDetail.editOptions.insertable = true;
-      dpDetail.softDeleting = true;
-      gvDetail.displayOptions.fitStyle = "evenFill";
-      gvDetail.setPasteOptions({enabled: true , enableAppend:true, eventEachRow	:true, commitEdit	:true});
-			gvDetail.header.height = 40;
-			gvDetail.displayOptions.rowHeight = 30;
-		
-			gvDetail.displayOptions.columnMovable = false;
- 
-
-      //gvDetail.checkBar.visible = false;
-      //gvDetail.stateBar.visible = false;
-
-      dpDetail.setRows(c.data.gridDetailData);
-  }
-	c.data.isRead=true;
-  $scope.gridDetailBtnClick = function(idx) {
-		  c.data.isRead = false
-       var v = {
-          'rowStat': '',
-          'sys_id': '',
-          'number': '',
-          'wbs_6': '',
-          'ms_code': '',
-          'description': '',
-          'quantity': '',
-          'unit_price': '',
-          'extended_price': '',
-          'unit_cost': '',
-          'extended_cost': '',
-          'unit_mp': '',
-          'mp_amount': '',
-          'vendor': '',
-          'quotation': paramValue
-      }
-
-      c.data.gridBtnType = '';
-      if (idx == 1) {
-          c.data.gridBtnType = 'add';
-          //alert("1")
-          dpDetail.addRow(v);
-      } else if (idx == 2) {
-         var curr = gvDetail.getCurrent();
-        dpDetail.removeRow(curr.dataRow);
-        
-
-      } else if (idx == 3) {
-          alert("3")
-
-          c.data.gridBtnTransact = 'T';
-          c.data.gridDetailData = dpDetail.getJsonRows();
-          for (var x = 0; x < c.data.gridDetailData.length; x++) {
-              c.data.gridDetailData[x].rowStat = dpDetail.getRowState(x);
-          }
-      }
+        c.server.update().then(function(response) {
+            location.reload();
+        }).catch(function(error) {
+            console.error('Error saving field:', error);
+            alert('Error saving field');
+        });
 
 
 
-      console.log(dpDetail.getRowCount());
 
 
-      c.server.update().then(function(response) {
-          console.log('Server response:', response);
-      });
-  }
+    };
 
-     // Create New
-  $scope.btnClickNew = function(fieldName, fieldValue) {
+    $window.addEventListener('message', function(event) {
+        if (event.data.type === 'updateIframeSrc') {
+            location.reload();
+            //var iframe = document.getElementById('myIframe');
+            // iframe.src = event.data.newSrc;
+            // console.log('Iframe src updated to:', event.data.newSrc);
+        }
+    });
 
-      c.data.operation = 'createNew';
-      c.server.update().then(function(response) {
+    // Function to handle click event
+    $scope.handleClick = function() {
+        if (c.data.rfq_entry_id) {
+            window.location.href = "/ybpm?id=rfqentry&table=x_yergb_bpm_rfq_entry&sys_id=" + c.data.rfq_entry_id; // Redirect to the URL
+        } else {
+            alert('no rfq record')
+        }
+    };
+
+    // Function to dynamically adjust iframe height
+    function resizeIframe() {
+        var iframe = document.getElementById('myIframe');
+        if (iframe) {
+            var windowHeight = window.innerHeight;
+            iframe.style.height = Math.max(windowHeight * 0.45, 200) + 'px';
+        }
+    }
+
+    // Add event listener to resize iframe when content loads
+    $window.onload = function() {
+        resizeIframe();
+        //initGrid();
+    };
+
+    // Add event listener to window resize event
+    $window.addEventListener('resize', function() {
+        resizeIframe();
+    });
+
+    // Call resizeIframe on initial load to set the initial height
+    resizeIframe();
+
+    function checkRealGrid() {
+        if (RealGrid) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function drawRealGrid() {
+        containerDetail = document.getElementById('gridContainer'); //*1
+        dpDetail = new RealGrid.LocalDataProvider(false); //*2
+        gvDetail = new RealGrid.GridView(containerDetail); //*3
+        gvDetail.setDataSource(dpDetail); // *4
+
+        dpDetail.setFields([ //*5
+
+
+            {
+                fieldName: 'sys_id',
+                dataType: 'text'
+            },
+            {
+                fieldName: 'number',
+                dataType: 'text'
+            },
+            {
+                fieldName: 'wbs_6',
+                dataType: 'text'
+            },
+            {
+                fieldName: 'wbs_6_sys_id',
+                dataType: 'text'
+            },
+
+            {
+                fieldName: 'ms_code',
+                dataType: 'text'
+            },
+            {
+                fieldName: 'description',
+                dataType: 'text'
+            },
+            {
+                fieldName: 'quantity',
+                dataType: 'text'
+            },
+            {
+                fieldName: 'unit_price',
+                dataType: 'text'
+            },
+            {
+                fieldName: 'extended_price',
+                dataType: 'text'
+            },
+            {
+                fieldName: 'unit_cost',
+                dataType: 'text'
+            },
+            {
+                fieldName: 'extended_cost',
+                dataType: 'text'
+            },
+            {
+                fieldName: 'unit_mp',
+                dataType: 'text'
+            },
+            {
+                fieldName: 'mp_amount',
+                dataType: 'text'
+            },
+            {
+                fieldName: 'vendor',
+                dataType: 'text'
+            },
+            {
+                fieldName: 'vendor_sys_id',
+                dataType: 'text'
+            },
+
+            {
+                fieldName: 'quotation',
+                dataType: 'text'
+            }
+        ]);
+
+        gvDetail.setColumns([{ //*6
+                "name": "sys_id",
+                "fieldName": "sys_id",
+                "type": "data",
+                "width": 0,
+                "header": {
+                    "text": "sysid",
+                },
+                "visible": false,
+                "styleName": "left-column"
+
+            },
+            {
+                "name": "number",
+                "fieldName": "number",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "Number"
+                },
+                "visible": false,
+                "styleName": "left-column"
+
+            },
+            {
+                "name": "wbs_6",
+                "fieldName": "wbs_6",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "WBS 6"
+                },
+                "styleName": "left-column"
+            },
+            {
+                "name": "wbs_6_sys_id",
+                "fieldName": "wbs_6_sys_id",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "WBS 6 sysid"
+                },
+                "visible": false,
+                "styleName": "left-column"
+            },
+            {
+                "name": "ms_code",
+                "fieldName": "ms_code",
+                "type": "data",
+                "width": 100,
+                "header": {
+                    "text": "MS Code"
+                },
+                "styleName": "left-column"
+            },
+            {
+                "name": "description",
+                "fieldName": "description",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Description"
+                },
+                "styleName": "left-column"
+            },
+            {
+                "name": "quantity",
+                "fieldName": "quantity",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Quantity"
+                },
+                "styleName": "right-column"
+            },
+            {
+                "name": "unit_price",
+                "fieldName": "unit_price",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Unit Price"
+                },
+                "styleName": "right-column"
+            },
+            {
+                "name": "extended_price",
+                "fieldName": "extended_price",
+                "type": "data",
+                "width": 120,
+                "editable": false,
+                "header": {
+                    "text": "Extended Price"
+                },
+                "styleName": "right-column non-editable"
+            },
+            {
+                "name": "unit_cost",
+                "fieldName": "unit_cost",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Unit Cost"
+                },
+                "styleName": "right-column"
+            },
+            {
+                "name": "extended_cost",
+                "fieldName": "extended_cost",
+                "type": "data",
+                "width": 120,
+                "editable": false,
+                "header": {
+                    "text": "Extended Cost"
+                },
+                "styleName": "right-column non-editable"
+            },
+            {
+                "name": "unit_mp",
+                "fieldName": "unit_mp",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Unit MP"
+                },
+                "styleName": "right-column"
+            },
+            {
+                "name": "mp_amount",
+                "fieldName": "mp_amount",
+                "type": "data",
+                "width": 120,
+                "editable": false,
+                "header": {
+                    "text": "MP Price"
+                },
+                "styleName": "right-column non-editable"
+            },
+            {
+                "name": "vendor",
+                "fieldName": "vendor",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "Vendor"
+                },
+                "styleName": "left-column"
+            },
+            {
+                "name": "vendor_sys_id",
+                "fieldName": "vendor_sys_id",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "vendor_sys_id"
+                },
+                "visible": false,
+
+                "styleName": "left-column"
+            },
+            {
+                "name": "quotation",
+                "fieldName": "quotation",
+                "type": "data",
+                "width": 120,
+                "header": {
+                    "text": "quotation"
+                },
+                "visible": false
+            }
+        ]);
+
+        gvDetail.setColumnLayout([ //*7
+            'sys_id',
+            'number',
+            'wbs_6',
+            'wbs_6_sys_id',
+            'ms_code',
+            'description',
+            'quantity',
+            'unit_price',
+            'extended_price',
+            'unit_cost',
+            'extended_cost',
+            'unit_mp',
+            'mp_amount',
+            'vendor',
+            'vendor_sys_id',
+            'quotation'
+        ]);
+
+var wbs6Codes = [];
+var vendorCodes = [];
+var isPasting = false; // 붙여넣기 상태를 나타내는 플래그
+var pasteRowCount = 0; // 붙여넣기 중인 row의 개수
+var isFirstPaste = true; // 첫 번째 붙여넣기인지 여부
+
+gvDetail.onCellEdited = function(grid, itemIndex, row, field) {
+    if (isPasting) {
+        return; // 붙여넣기 중일 때는 onCellEdited 이벤트를 무시
+    }
+
+    //alert("여기는 single");
+
+    if (field == 2) {
+        gvDetail.commit();
+        var myWbs6 = dpDetail.getValue(row, "wbs_6");
+        c.data.validate_wbs_6 = true;
+        c.data.myWbs6 = myWbs6;
+
+        c.server.update().then(function(response) {
+            if (response.wbsData.length == 0) {
+                alert('Please check the single WBS code.');
+                dpDetail.setValue(row, "wbs_6", '');
+            } else {
+                dpDetail.setValue(row, "wbs_6_sys_id", response.wbsData[0].sys_id);
+            }
+            console.log('Server response:', response);
+        });
+    }
+
+    if (field == 13) {
+        gvDetail.commit();
+        var myVendor = dpDetail.getValue(row, "vendor");
+        c.data.validate_vendor = true;
+        c.data.myVendor = myVendor;
+
+        c.server.update().then(function(response) {
+            if (response.vendorData.length == 0) {
+                alert('Please check the Vendor.+++');
+                dpDetail.setValue(row, "vendor", '');
+            } else {
+                dpDetail.setValue(row, "vendor_sys_id", response.vendorData[0].sys_id);
+            }
+            console.log('Server response:', response);
+        });
+    }
+};
+
+gvDetail.pasteOptions.eventEachRow = true;
+
+gvDetail.onEditRowPasted = function(grid, itemIndex, row, fields, oldValues, newValues) {
+    //alert("multiple");
+    console.log("Row pasted");
+    console.log("fields", fields);
+    console.log("row", row);
+    console.log("grid", grid);
+    console.log("itemIndex", itemIndex);
+
+    isPasting = true; // 붙여넣기 상태 시작
+    pasteRowCount++;
+
+    var hasWbs6Field = fields.includes(2);
+    var hasVendorField = fields.includes(13);
+
+    if (hasWbs6Field) {
+        var myWbs6 = dpDetail.getValue(row, "wbs_6");
+        wbs6Codes.push({ row: row, code: myWbs6 });
+    }
+
+    if (hasVendorField) {
+        var myVendor = dpDetail.getValue(row, "vendor");
+        vendorCodes.push({ row: row, code: myVendor });
+    }
+
+    // 모든 row에 대한 처리가 완료된 후 서버 업데이트를 수행
+    setTimeout(function() {
+        if (pasteRowCount === 1) { // 첫 번째 row에 대해서만 서버 업데이트
+            if (wbs6Codes.length > 0) {
+                c.data.validate_wbs6Codes = true;
+                c.data.wbs6Codes = wbs6Codes;
+                c.server.update().then(function(response) {
+                    var wbsInfo = response.wbsInfo;
+                    wbsInfo.forEach(function(item) {
+                        if (item.sys_id == '') {
+                            alert('Please check the WBS6 code.');
+                            dpDetail.setValue(item.row, "wbs_6", '');
+                        } else {
+                            dpDetail.setValue(item.row, "wbs_6_sys_id", item.sys_id);
+                        }
+                    });
+                    wbs6Codes = [];
+                    c.data.wbs6Codes = wbs6Codes;
+                    c.data.validate_wbs6Codes = false;
+                    isPasting = false; // 붙여넣기 상태 종료
+                });
+            }
+
+            if (vendorCodes.length > 0) {
+                c.data.validate_vendorCodes = true;
+                c.data.vendorCodes = vendorCodes;
+                c.server.update().then(function(response) {
+                    var vendorInfo = response.vendorInfo;
+                    vendorInfo.forEach(function(item) {
+                        if (item.sys_id == '') {
+                            alert('Please check the vendor code ');
+                            dpDetail.setValue(item.row, "vendor", '');
+                        } else {
+                            dpDetail.setValue(item.row, "vendor_sys_id", item.sys_id);
+                        }
+                    });
+                    vendorCodes = [];
+                    c.data.vendorCodes = vendorCodes;
+                    c.data.validate_vendorCodes = false;
+                    isPasting = false; // 붙여넣기 상태 종료
+                });
+            }
+            isFirstPaste = false;
+        }
+        pasteRowCount--; // 붙여넣기 중인 row의 개수 감소
+        if (pasteRowCount === 0) {
+            isPasting = false; // 모든 row의 처리가 완료된 경우 붙여넣기 상태 종료
+            isFirstPaste = true; // 다음 번 붙여넣기를 위해 초기화
+        }
+    }, 0);
+};
+
+
+        /*
+        gvDetail.onEditRowPasted = function(grid, itemIndex, row, fields, oldValues, newValues) {
+            console.log("Row pasted");
+            console.log("fields", fields);
+
+            // 필드별로 분기 처리
+            fields.forEach(function(field) {
+                if (field != 2 && field != 13) {
+                    return;
+                }
+
+                if (field == 2) {
+                    var myWbs6 = dpDetail.getValue(row, "wbs_6");
+                    console.log("myWbs6", myWbs6);
+                    wbs6Codes.push({
+                        row: row,
+                        code: myWbs6
+                    });
+                    console.log("wbs6Codes", wbs6Codes);
+
+                    c.data.validate_wbs6Codes = true;
+                    c.data.wbs6Codes = wbs6Codes;
+
+                }
+
+
+                if (field == 13) {
+                    var myVendor = dpDetail.getValue(row, "vendor");
+                    //console.log("myVendor", myVendor);
+                    vendorCodes.push({
+                        row: row,
+                        code: myVendor
+                    });
+                    //console.log("vendorCodes", vendorCodes);
+
+                    c.data.validate_vendorCodes = true;
+                    c.data.vendorCodes = vendorCodes;
+
+                }
+
+
+
+                c.server.update().then(function(response) {
+                    //console.log("response");
+                    //console.log(response);
+                    //console.log("response.wbsInfo");
+                    //console.log(response.wbsInfo);
+                    if (response.wbsInfo.length == 0) {
+                        console.log("이게 왜 씹혀?111")
+                        alert('Please check the WBS code.');
+                        dpDetail.setValue(row, "wbs_6", '');
+                        return;
+                    } else {
+                        var wbsInfo = response.wbsInfo;
+                        console.log("wbsInfo", wbsInfo);
+                        wbsInfo.forEach(function(item) {
+                            dpDetail.setValue(item.row, "wbs_6_sys_id", item.sys_id);
+                        });
+                    }
+                    console.log("response");
+                    console.log(response);
+                    console.log("response.vendorInfo");
+                    console.log(response.vendorInfo);
+                    if (response.vendorInfo.length == 0) {
+                        //console.log("이게 왜 씹혀?222")
+
+                        alert('Please check the vendor name.');
+                        dpDetail.setValue(row, "vendor", '');
+                        return;
+                    } else {
+                        var vendorInfo = response.vendorInfo;
+                        //console.log("vendorInfo", vendorInfo);
+                        vendorInfo.forEach(function(item) {
+                            dpDetail.setValue(item.row, "vendor_sys_id", item.sys_id);
+                        });
+                    }
+                    console.log('Server response:', response);
+                    vendorCodes = [];
+                    c.data.vendorCodes = vendorCodes;
+                    c.data.validate_vendorCodes = false;
+
+
+
+
+                    console.log('Server response:', response);
+                    wbs6Codes = [];
+                    c.data.wbs6Codes = wbs6Codes;
+                    c.data.validate_wbs6Codes = false;
+                });
+
+
+
+            });
+        };
+*/
+        gvDetail.footers.visible = false; // *8
+        gvDetail.commitEditor(); //*9
+        gvDetail.undoable = true;
+        gvDetail.editOptions.commitByCell = true;
+        gvDetail.editOptions.insertable = true;
+        dpDetail.softDeleting = true;
+        gvDetail.displayOptions.fitStyle = "evenFill";
+        // gvDetail.setPasteOptions({enabled: true , enableAppend:true, eventEachRow	:true, commitEdit	:true});
+        gvDetail.header.height = 40;
+        gvDetail.displayOptions.rowHeight = 30;
+
+        gvDetail.displayOptions.columnMovable = false;
+
+
+        //gvDetail.checkBar.visible = false;
+        //gvDetail.stateBar.visible = false;
+
+        dpDetail.setRows(c.data.gridDetailData);
+    }
+    c.data.isRead = true;
+    $scope.gridDetailBtnClick = function(idx) {
+        c.data.isRead = false
+        var v = {
+            'rowStat': '',
+            'sys_id': '',
+            'number': '',
+            'wbs_6': '',
+            'ms_code': '',
+            'description': '',
+            'quantity': '',
+            'unit_price': '',
+            'extended_price': '',
+            'unit_cost': '',
+            'extended_cost': '',
+            'unit_mp': '',
+            'mp_amount': '',
+            'vendor': '',
+            'quotation': paramValue
+        }
+
+        c.data.gridBtnType = '';
+        if (idx == 1) {
+            c.data.gridBtnType = 'add';
+            //alert("1")
+            dpDetail.addRow(v);
+        } else if (idx == 2) {
+            var curr = gvDetail.getCurrent();
+            dpDetail.removeRow(curr.dataRow);
+
+
+        } else if (idx == 3) {
+            alert("3")
+
+            c.data.gridBtnTransact = 'T';
+            c.data.gridDetailData = dpDetail.getJsonRows();
+            for (var x = 0; x < c.data.gridDetailData.length; x++) {
+                c.data.gridDetailData[x].rowStat = dpDetail.getRowState(x);
+            }
+        }
+
+
+
+        console.log(dpDetail.getRowCount());
+
+
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+        });
+    }
+
+    // Create New
+    $scope.btnClickNew = function(fieldName, fieldValue) {
+
+        c.data.operation = 'createNew';
+        c.server.update().then(function(response) {
             window.location.href = "/ybpm?id=quotation&table=x_yergb_bpm_quotation&sys_id=" + c.data.redirect_sys_id;
-      }).catch(function(error) {
-          console.error('Error saving field:', error);
-          alert('Error saving field');
-      });
-  };
+        }).catch(function(error) {
+            console.error('Error saving field:', error);
+            alert('Error saving field');
+        });
+    };
 
 
-  c.server.update().then(function(response) {
+    c.server.update().then(function(response) {
 
 
-      var loopCnt = 0;
-      var timerid = setInterval(function() {
-          loopCnt = loopCnt + 1;
-          if (loopCnt > 30) {
-              clearTimeout(timerid);
-              alert('Can not load REALGRID');
-          }
+        var loopCnt = 0;
+        var timerid = setInterval(function() {
+            loopCnt = loopCnt + 1;
+            if (loopCnt > 30) {
+                clearTimeout(timerid);
+                alert('Can not load REALGRID');
+            }
 
-          if (checkRealGrid()) {
-              clearTimeout(timerid);
-              drawRealGrid();
-          }
-      }, 100);
+            if (checkRealGrid()) {
+                clearTimeout(timerid);
+                drawRealGrid();
+            }
+        }, 100);
 
-      //$scope.serviceCall = testService.showResult();
-      //console.log("$scope.serviceCall: "+$scope.serviceCall);
-  });
+        //$scope.serviceCall = testService.showResult();
+        //console.log("$scope.serviceCall: "+$scope.serviceCall);
+    });
 
 
 
@@ -836,103 +1137,210 @@ a {text-decoration: none;}
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
-	var qSysId = $sp.getParameter('sys_id');
-	//gs.addInfoMessage(qSysId)
-	
-			// 현재 접속한 유저의 sysid 를 가져옴
-            var userName = gs.getUser().getDisplayName()
-            var userNameSysId = gs.getUser().getID();
+    var qSysId = $sp.getParameter('sys_id');
+    //gs.addInfoMessage(qSysId)
 
-           // gs.addErrorMessage("userNameSysId")
-           // gs.addErrorMessage(userNameSysId)
+    // 현재 접속한 유저의 sysid 를 가져옴
+    var userName = gs.getUser().getDisplayName()
+    var userNameSysId = gs.getUser().getID();
 
-        var gRfq = new GlideRecord("x_yergb_bpm_rfq_entry");
-        var salesManager
-        gRfq.addQuery('quotation', qSysId)
-        gRfq.query()
-        while(gRfq.next()){
-            salesManager = gRfq.sales_manager
-            //gs.addInfoMessage("salesManager")
-            //gs.addInfoMessage(salesManager)
-        }
+    // gs.addErrorMessage("userNameSysId")
+    // gs.addErrorMessage(userNameSysId)
 
-       
+    var gRfq = new GlideRecord("x_yergb_bpm_rfq_entry");
+    var salesManager
+    gRfq.addQuery('quotation', qSysId)
+    gRfq.query()
+    while (gRfq.next()) {
+        salesManager = gRfq.sales_manager
+        //gs.addInfoMessage("salesManager")
+        //gs.addInfoMessage(salesManager)
+    }
 
-	      var gr = new GlideRecord("x_yergb_bpm_quote_item");
-        gr.orderBy("number");
-        gr.addEncodedQuery('quotation=' + qSysId);
-        gr.query();
-        var gridDetailData = [];
-        while (gr.next()) {
-            gridDetailData.push({
-                'sys_id': gr.sys_id.getDisplayValue(),
-                'number': gr.number.getDisplayValue(),
-                'wbs_6': gr.wbs_6.getDisplayValue(),
-                'ms_code': gr.ms_code.getDisplayValue(),
-                'description': gr.description.getDisplayValue(),
-                'quantity': gr.quantity.getDisplayValue(),
-                'unit_price': gr.unit_price.getDisplayValue(),
-                'extended_price': gr.extended_price.getDisplayValue(),
-                'unit_cost': gr.unit_cost.getDisplayValue(),
-                'extended_cost': gr.extended_cost.getDisplayValue(),
-                'unit_mp': gr.unit_mp.getDisplayValue(),
-                'mp_amount': gr.mp_amount.getDisplayValue(),
-                'vendor': gr.vendor.getDisplayValue(),
-                'quotation': qSysId
-            });
-				data.gridDetailData = gridDetailData;
-        }
 
-	
-        if(input && input.gridBtnTransact) {
-					//gs.addErrorMessage("hihi")
-					//gs.addErrorMessage(input.gridBtnTransact)
-            if(input.gridBtnTransact == 'T') {
-                console.log('SERVER GRID SAVE : ' + input.gridDetailData);
-                var gData = input.gridDetailData;
-                for(var x=0; x<gData.length; x++) {
-                    console.log('ROW STAT:' + gData[x].rowStat); 
-                    //gs.addErrorMessage('ROW STAT:' + gData[x].rowStat); 
-                    var ordItem = new GlideRecord('x_yergb_bpm_quote_item');
-                    ordItem.initialize();
-                    var rStat = gData[x].rowStat;
-                    if(rStat == 'deleted') {
-                        ordItem.get(gData[x].sys_id);
-                        ordItem.deleteRecord();
-                    } else if(rStat == 'updated') {
-                        ordItem.get(gData[x].sys_id);
-                        ordItem.setValue('wbs_6', gData[x].wbs_6);
-                        ordItem.setValue('ms_code', gData[x].ms_code);
-                        ordItem.setValue('description', gData[x].description);
-                        ordItem.setValue('quantity', gData[x].quantity);
-                        ordItem.setValue('unit_price', gData[x].unit_price);
-                        ordItem.setValue('extended_price', gData[x].extended_price);
-                        ordItem.setValue('unit_cost', gData[x].unit_cost);
-                        ordItem.setValue('extended_cost', gData[x].extended_cost);
-                        ordItem.setValue('unit_mp', gData[x].unit_mp);
-                        ordItem.setValue('mp_amount', gData[x].mp_amount);
-                        ordItem.setValue('vendor', gData[x].vendor);
-                        ordItem.setValue('quotation',qSysId);
-                        ordItem.update();
-                    } else if(rStat == 'created') {
-                        ordItem.setValue('wbs_6', gData[x].wbs_6);
-                        ordItem.setValue('ms_code', gData[x].ms_code);
-                        ordItem.setValue('description', gData[x].description);
-                        ordItem.setValue('quantity', gData[x].quantity);
-                        ordItem.setValue('unit_price', gData[x].unit_price);
-                        ordItem.setValue('extended_price', gData[x].extended_price);
-                        ordItem.setValue('unit_cost', gData[x].unit_cost);
-                        ordItem.setValue('extended_cost', gData[x].extended_cost);
-                        ordItem.setValue('unit_mp', gData[x].unit_mp);
-                        ordItem.setValue('mp_amount', gData[x].mp_amount);
-                        ordItem.setValue('vendor', gData[x].vendor);
-                        ordItem.setValue('quotation', qSysId);
-                        ordItem.insert();
-                    }
+
+    var gr = new GlideRecord("x_yergb_bpm_quote_item");
+    gr.orderBy("number");
+    gr.addEncodedQuery('quotation=' + qSysId);
+    gr.query();
+    var gridDetailData = [];
+    while (gr.next()) {
+        gridDetailData.push({
+            'sys_id': gr.sys_id.getDisplayValue(),
+            'number': gr.number.getDisplayValue(),
+            'wbs_6': gr.wbs_6.getDisplayValue(),
+            'ms_code': gr.ms_code.getDisplayValue(),
+            'description': gr.description.getDisplayValue(),
+            'quantity': gr.quantity.getDisplayValue(),
+            'unit_price': gr.unit_price.getDisplayValue(),
+            'extended_price': gr.extended_price.getDisplayValue(),
+            'unit_cost': gr.unit_cost.getDisplayValue(),
+            'extended_cost': gr.extended_cost.getDisplayValue(),
+            'unit_mp': gr.unit_mp.getDisplayValue(),
+            'mp_amount': gr.mp_amount.getDisplayValue(),
+            'vendor': gr.vendor.getDisplayValue(),
+            'quotation': qSysId
+        });
+        data.gridDetailData = gridDetailData;
+    }
+
+
+    if (input && input.gridBtnTransact) {
+        //gs.addErrorMessage("hihi")
+        //gs.addErrorMessage(input.gridBtnTransact)
+        if (input.gridBtnTransact == 'T') {
+            console.log('SERVER GRID SAVE : ' + input.gridDetailData);
+            var gData = input.gridDetailData;
+            for (var x = 0; x < gData.length; x++) {
+                console.log('ROW STAT:' + gData[x].rowStat);
+                //gs.addErrorMessage('ROW STAT:' + gData[x].rowStat); 
+                var ordItem = new GlideRecord('x_yergb_bpm_quote_item');
+                ordItem.initialize();
+                var rStat = gData[x].rowStat;
+                if (rStat == 'deleted') {
+                    ordItem.get(gData[x].sys_id);
+                    ordItem.deleteRecord();
+                } else if (rStat == 'updated') {
+                    ordItem.get(gData[x].sys_id);
+                    ordItem.setValue('wbs_6', gData[x].wbs_6_sys_id);
+                    ordItem.setValue('ms_code', gData[x].ms_code);
+                    ordItem.setValue('description', gData[x].description);
+                    ordItem.setValue('quantity', gData[x].quantity);
+                    ordItem.setValue('unit_price', gData[x].unit_price);
+                    ordItem.setValue('extended_price', gData[x].extended_price);
+                    ordItem.setValue('unit_cost', gData[x].unit_cost);
+                    ordItem.setValue('extended_cost', gData[x].extended_cost);
+                    ordItem.setValue('unit_mp', gData[x].unit_mp);
+                    ordItem.setValue('mp_amount', gData[x].mp_amount);
+                    ordItem.setValue('vendor', gData[x].vendor_sys_id);
+                    ordItem.setValue('quotation', qSysId);
+                    ordItem.update();
+                } else if (rStat == 'created') {
+                    ordItem.setValue('wbs_6', gData[x].wbs_6_sys_id);
+                    ordItem.setValue('ms_code', gData[x].ms_code);
+                    ordItem.setValue('description', gData[x].description);
+                    ordItem.setValue('quantity', gData[x].quantity);
+                    ordItem.setValue('unit_price', gData[x].unit_price);
+                    ordItem.setValue('extended_price', gData[x].extended_price);
+                    ordItem.setValue('unit_cost', gData[x].unit_cost);
+                    ordItem.setValue('extended_cost', gData[x].extended_cost);
+                    ordItem.setValue('unit_mp', gData[x].unit_mp);
+                    ordItem.setValue('mp_amount', gData[x].mp_amount);
+                    ordItem.setValue('vendor', gData[x].vendor_sys_id);
+                    ordItem.setValue('quotation', qSysId);
+                    ordItem.insert();
                 }
             }
         }
-        
+    }
+
+    if (input && input.validate_wbs_6) { // 없으면 오류 뜸, 둘다 있어야 함.
+        var wbsData = [];
+        var gr = new GlideRecord('x_yergb_bpm_wbs_master');
+        gr.query('code', input.myWbs6);
+        if (gr.next()) {
+            wbsData.push({
+                sys_id: gr.getValue('sys_id'),
+                code: gr.getValue('code'),
+                description: gr.getValue('description'),
+            });
+        }
+
+        data.wbsData = wbsData;
+    }
+   
+
+    if (input && input.validate_wbs6Codes) {
+        var wbs6Codes = input.wbs6Codes;
+        var wbsInfo = [];
+        //gs.addInfoMessage("sever")
+        //gs.addInfoMessage(wbs6Codes)
+        var gr = new GlideRecord('x_yergb_bpm_wbs_master');
+
+        for (var i = 0; i < wbs6Codes.length; i++) {
+            gr.initialize(); // 새로운 쿼리를 위해 초기화
+            gr.addQuery('code', wbs6Codes[i].code); // code 값으로 쿼리
+            gr.query();
+
+            if (gr.next()) {
+                wbsInfo.push({
+                    row: wbs6Codes[i].row, // 기존 row 값
+                    sys_id: gr.getValue('sys_id'),
+                    code: gr.getValue('code'),
+                    description: gr.getValue('description'),
+                });
+            }else{
+                wbsInfo.push({
+                    row: wbs6Codes[i].row, // 기존 row 값
+                    sys_id: "",
+                    code: "",
+                    description: "",
+                });
+            }
+        }
+
+        data.wbsInfo = wbsInfo;
+    }
+
+////////////////////////////
+
+    if (input && input.validate_vendor) { // 없으면 오류 뜸, 둘다 있어야 함.
+        var vendorData = [];
+        var gr = new GlideRecord('core_company');
+        gr.query('name', input.myVendor);
+        if (gr.next()) {
+            vendorData.push({
+                sys_id: gr.getValue('sys_id'),
+                name: gr.getValue('name'),
+                u_currency: gr.getValue('u_currency'),
+            });
+        }
+
+        data.vendorData = vendorData;
+    }
+   
+
+    if (input && input.validate_vendorCodes) {
+        var vendorCodes = input.vendorCodes;
+        var vendorInfo = [];
+        //gs.addInfoMessage("sever")
+       //gs.addInfoMessage(vendorCodes[0].code)
+       //gs.addInfoMessage(vendorCodes[1].code)
+        var gr = new GlideRecord('core_company');
+
+        for (var i = 0; i < vendorCodes.length; i++) {
+            gr.initialize(); // 새로운 쿼리를 위해 초기화
+            gr.addQuery('name', vendorCodes[i].code); // code 값으로 쿼리
+            gr.query();
+            //gs.addInfoMessage(vendorCodes[i].code)
+
+            if (gr.next()) {
+            
+                //gs.addInfoMessage("inside+  " + gr.getValue('name'),)
+                vendorInfo.push({
+                    row: vendorCodes[i].row, // 기존 row 값
+                    sys_id: gr.getValue('sys_id'),
+                    name: gr.getValue('name'),
+                    u_currency: gr.getValue('u_currency'),
+                });
+            }
+            else{
+                vendorInfo.push({
+                    row: vendorCodes[i].row, // 기존 row 값
+                    sys_id: "",
+                    name: "",
+                    u_currency: "",
+                });
+            }
+        }
+
+        data.vendorInfo = vendorInfo;
+        //gs.addInfoMessage(data.vendorInfo.length)
+    }
+
+/////////////////////////////////////////
+
+
     var userName = gs.getUser().getName();
     data.userName = userName;
     data.sys_id = $sp.getParameter("sys_id"); //rfq_entry sys_id ? //quotation sys_id?
@@ -941,7 +1349,7 @@ a {text-decoration: none;}
     var quotationState
     var quotationType
     // Retrieve data for rendering
-    if (data.sys_id &&input && input.isRead) {
+    if (data.sys_id && input && input.isRead) {
         var grI = new GlideRecord('x_yergb_bpm_quotation');
         if (grI.get(data.sys_id)) {
             // Populate data object with field values
@@ -957,20 +1365,20 @@ a {text-decoration: none;}
             data.rfq_entry_id = grI.getValue('rfq_entry');
             data.ess_sqms_no = grI.getValue('ess_sqms_no');
             data.state = grI.getDisplayValue('state');
-            quotationState =  data.state
+            quotationState = data.state
             data.state_value = grI.getValue('state');
             data.total_quote_cost = grI.getDisplayValue('total_quote_cost');
             data.total_quote_price = grI.getDisplayValue('total_quote_price');
             data.version = grI.getValue('version');
             data.ess = grI.getDisplayValue('ess');
-			data.assignment_group_value = grI.getValue('assignment_group');
+            data.assignment_group_value = grI.getValue('assignment_group');
             data.assigned_to_value = grI.getValue('assigned_to');
         }
     }
     // Retrieve RFQ entry details if rfq_entry_id is provided
-    if (data.rfq_entry_id &&input && input.isRead) {
-				//gs.addErrorMessage("from inside")
-				//gs.addErrorMessage(input.isRead)
+    if (data.rfq_entry_id && input && input.isRead) {
+        //gs.addErrorMessage("from inside")
+        //gs.addErrorMessage(input.isRead)
         var grRfq = new GlideRecord('x_yergb_bpm_rfq_entry');
         if (grRfq.get(data.rfq_entry_id)) {
             data.contract = grRfq.contract.name.toString();
@@ -988,26 +1396,26 @@ a {text-decoration: none;}
     //gs.addErrorMessage("data.state_value")
     //gs.addErrorMessage(data.state_value)
     if (input && input.isRead) {
-     // Determine visibility based on state_value
-     if (data.state_value == 1) {
-        data.showNew = false;
-        data.showComplete = false;
-        data.showUpdate = false;
-        data.showSave = true;
-    } else if (data.state_value == 4) {
-        data.showNew = false;
-        data.showComplete = true;
-        data.showUpdate = false;
-        data.showSave = true;
-    } else {
-        data.showNew = true;
-        data.showComplete = false;
-        data.showUpdate = false;
-        data.showSave = false;
+        // Determine visibility based on state_value
+        if (data.state_value == 1) {
+            data.showNew = false;
+            data.showComplete = false;
+            data.showUpdate = false;
+            data.showSave = true;
+        } else if (data.state_value == 4) {
+            data.showNew = false;
+            data.showComplete = true;
+            data.showUpdate = false;
+            data.showSave = true;
+        } else {
+            data.showNew = true;
+            data.showComplete = false;
+            data.showUpdate = false;
+            data.showSave = false;
+        }
+
     }
-	
-    }
-   
+
 
     // update - button clicked
     if (input) {
@@ -1025,44 +1433,43 @@ a {text-decoration: none;}
                 }
                 gr.update();
             }
-        }else if(operation === 'createNew'){
-                  var gr2 = new GlideRecord('x_yergb_bpm_quotation');
-                 gr2.initialize();
-                 gr2.setValue('number', input.number);
-                 gr2.setValue('rfq_entry', input.rfq_entry_id);
-                 gr2.setValue('version', parseInt(input.version) + 1);
-                 gr2.setValue('state', 1);
-                  gr2.setValue('assignment_group', input.assignment_group_value);
-                  gr2.setValue('assigned_to', input.assigned_to_value);
-                  gr2.insert();
-                  data.redirect_sys_id = gr2.getUniqueValue();
-               
-                 var grRfq2 = new GlideRecord('x_yergb_bpm_rfq_entry');
-              if (grRfq2.get(input.rfq_entry_id)) {
-                        grRfq2.setValue('quotation', gr2.getUniqueValue());            
-                        grRfq2.update();
-              }            
+        } else if (operation === 'createNew') {
+            var gr2 = new GlideRecord('x_yergb_bpm_quotation');
+            gr2.initialize();
+            gr2.setValue('number', input.number);
+            gr2.setValue('rfq_entry', input.rfq_entry_id);
+            gr2.setValue('version', parseInt(input.version) + 1);
+            gr2.setValue('state', 1);
+            gr2.setValue('assignment_group', input.assignment_group_value);
+            gr2.setValue('assigned_to', input.assigned_to_value);
+            gr2.insert();
+            data.redirect_sys_id = gr2.getUniqueValue();
+
+            var grRfq2 = new GlideRecord('x_yergb_bpm_rfq_entry');
+            if (grRfq2.get(input.rfq_entry_id)) {
+                grRfq2.setValue('quotation', gr2.getUniqueValue());
+                grRfq2.update();
             }
+        }
     }
 
 
     //gs.addInfoMessage("123135")
     //gs.addInfoMessage(quotationType)
     //gs.addInfoMessage(quotationState)
-	 if(  (   gs.getUser().isMemberOf('YCN Sales Group') ||  gs.getUser().isMemberOf('YKO Sales Group')   )   && quotationState == "Completed" && quotationType == "budgetary"){
-		
-           // gs.addErrorMessage("겨우 도달했도다")
-           // gs.addErrorMessage(salesManager)
-           // gs.addErrorMessage(userNameSysId)
-            data.showNew = true;
-        }
-        else{
-           // gs.addErrorMessage("같아")
-            data.showNew = false;
-        }
+    if ((gs.getUser().isMemberOf('YCN Sales Group') || gs.getUser().isMemberOf('YKO Sales Group')) && quotationState == "Completed" && quotationType == "budgetary") {
+
+        // gs.addErrorMessage("겨우 도달했도다")
+        // gs.addErrorMessage(salesManager)
+        // gs.addErrorMessage(userNameSysId)
+        data.showNew = true;
+    } else {
+        // gs.addErrorMessage("같아")
+        data.showNew = false;
+    }
 
 
-	
+
 
 })();]]></script>
         <servicenow>false</servicenow>
@@ -1070,14 +1477,14 @@ a {text-decoration: none;}
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 04:53:32</sys_created_on>
         <sys_id>38973e74934702104d95f55a7bba1056</sys_id>
-        <sys_mod_count>187</sys_mod_count>
+        <sys_mod_count>309</sys_mod_count>
         <sys_name>quotationWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_38973e74934702104d95f55a7bba1056</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-06-30 02:02:05</sys_updated_on>
+        <sys_updated_on>2024-07-01 05:02:49</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet" />
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
