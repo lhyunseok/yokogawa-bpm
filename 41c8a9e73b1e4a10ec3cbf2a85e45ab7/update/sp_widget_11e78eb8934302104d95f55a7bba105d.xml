@@ -1836,13 +1836,15 @@ border: 2px solid red;
 	// else {
 	// 	gs.addErrorMessage("1");
 	// }
-	//gs.addErrorMessage(urlSysId);
+	// gs.addErrorMessage(data.state);
 
     // 버튼, 요소 노출
-    //data.showUpdate = false;
-    //data.showSave = true;
-    //data.showCopy = true;
-    //data.showQuotationTypeSelect = true;
+	if(!input) {
+		data.showUpdate = false;
+		data.showSave = true;
+		data.showCopy = true;
+		data.showQuotationTypeSelect = true;
+	}
 
     // server단에서 파라미터로 sys_id를 가져오기
     data.sys_id = $sp.getParameter("sys_id");
@@ -1913,7 +1915,7 @@ border: 2px solid red;
 			data.state = grI.state.getDisplayValue();
 			data.state_value = grI.state.toString();
 			//hh 추가
-			      //data.contract_country = grI.contract_country.name.toString();
+			//data.contract_country = grI.contract_country.name.toString();
             //data.end_user_country_name = grI.end_user_country.name.toString();
             data.quotation_type_label = grI.quotation_type.getDisplayValue();
 
@@ -1996,6 +1998,7 @@ border: 2px solid red;
 		}
     }
 
+	//if(data.state && input.initRFQ) {
 	if(data.state && input.initRFQ) {
 
 		data.showAssess = false;
@@ -2013,10 +2016,11 @@ border: 2px solid red;
         data.showCopy = false;
 
         // 현재 STATE 에 따라서, 버튼들의 노출도를 전부 조절한다 여기서
-		if (urlSysId == null && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
+		if (data.sys_id == null && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
             data.showAssess = true;
             data.showSave = true;
             data.showQuotationTypeSelect = true;
+			
         } else if (data.state == "New" && (gs.getUserID() == data.requestor_sys_id ||  gs.getUserID() == data.sales_manager_sys_id)) {
             data.showAssess = true;
             data.showSave = true;
@@ -2363,14 +2367,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>495</sys_mod_count>
+        <sys_mod_count>502</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-07-01 11:30:59</sys_updated_on>
+        <sys_updated_on>2024-07-01 11:49:06</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
