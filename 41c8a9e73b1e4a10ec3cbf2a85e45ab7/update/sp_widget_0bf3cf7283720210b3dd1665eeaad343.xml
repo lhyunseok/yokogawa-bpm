@@ -13,6 +13,7 @@
 	var modalAnsoff = document.getElementById("modalAnsoff");
 	var modalJobType = document.getElementById('modalJobType');
 	var modalVendor = document.getElementById('modalVendor');
+	var modalWbs = document.getElementById('modalWbs');
 	var modalEndUser = document.getElementById('modalEndUser');
 	var modalContractor = document.getElementById('modalContractor');
 	
@@ -61,6 +62,10 @@
 	c.data.modalTypeAnsoff2 = false;
 	c.data.modalTypeAnsoff3 = false;
 	
+	function getValueOrEmptyString(value) {
+		return typeof value === 'undefined' ? '' : value;
+	}
+	
 	$scope.displayScreen = function(idx) {
 		if(idx == 1) {
 			c.data.showAddInfo = !c.data.showAddInfo;
@@ -75,7 +80,7 @@
 		if(type=='SO') {
 			if($event.keyCode == 13) {
 				c.data.MUCode = '';
-				$scope.btnClickSOSearch(/*c.data.SONm*/);
+				$scope.btnClickSOSearch();
 			}
 		} else if (type=='EndUser') {
 			if($event.keyCode == 13) {
@@ -116,12 +121,15 @@
 			}
 		}
 	}
+	
+
  	
 	$scope.btnClickSOSearch = function(/*str*/) {
 		modalSalesOffice.style.display = 'block';
 		c.data.modalSalesOffice = true;
-		c.data.searchQuery = c.data.SONm;
+		c.data.searchQuery =  getValueOrEmptyString(c.data.SONm);
 		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
+		console.log('SO QRY : ' + c.data.modalQuery);
 		
 		c.data.modalSOHeader = [{
 			text: "name",
@@ -236,7 +244,7 @@
 				console.log('Server response:', response);
 
 				if( c.data.redirect_sys_id != '' ) {
-					window.location.href = "/sp?id=orderintakereport&sys_id=" + c.data.redirect_sys_id;
+					window.location.href = "/ybpm?id=orderintakereport&sys_id=" + c.data.redirect_sys_id;
 				}
 
 				c.data.btnHeaderType = '';
@@ -262,25 +270,26 @@
 			fieldLabel: "Code"
 		}];
 		
+		//debugger;
 		if(idx == 1) {
 			c.data.modalOrderTypeTitle = 'Order Type';
 			c.data.modalTypeOrderType = true;
-			c.data.searchQuery = c.data.orderTypeNm;
+			c.data.searchQuery = getValueOrEmptyString(c.data.orderTypeNm);
 			c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 		} else if(idx == 2) {
 			c.data.modalOrderTypeTitle = 'TAX Class';
 			c.data.modalTypeTaxClass = true;
-			c.data.searchQuery = c.data.taxClassNm;
+			c.data.searchQuery = getValueOrEmptyString(c.data.taxClassNm);
 			c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 		} else if(idx == 3) {
 			c.data.modalOrderTypeTitle = 'Industry';
 			c.data.modalTypeIndustry = true;
-			c.data.searchQuery = c.data.industryNm;
+			c.data.searchQuery = getValueOrEmptyString(c.data.industryNm);
 			c.data.modalQuery = 'industry_name' + 'LIKE' + c.data.searchQuery;
 		} else if(idx == 4) {
 			c.data.modalOrderTypeTitle = 'Payment Terms';
 			c.data.modalTypePayTerms = true;
-			c.data.searchQuery = c.data.payTermsNm;
+			c.data.searchQuery = getValueOrEmptyString(c.data.payTermsNm);
 			c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 		}
 		
@@ -298,7 +307,7 @@
 	}*/
 	
 	$scope.btnClickDMRSearch = function(idx) {
-		c.data.searchQuery = c.data.jobTypeNm;
+		c.data.searchQuery = getValueOrEmptyString(c.data.jobTypeNm);
 		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 
 		if(idx == 1) {
@@ -367,6 +376,28 @@
 	
 	
 	/* Modal Close button */
+  $scope.onModalKeyPressed = function($event, type) {
+		if(type == 'OrderType') {
+			$scope.clickOrderTypeModalSearch();
+		} else if (type == 'ProjectType') {
+			$scope.clickProjectTypeSearch();
+		} else if (type == 'Ansoff') {
+			$scope.clickAnsoffModalSearch();
+		} else if (type == 'Vendor') {
+			$scope.clickVendorModalSearch();
+		} else if (type == 'WBS') {
+			$scope.clickWbsModalSearch();
+		} else if (type == 'JobType') {
+			$scope.clickJobModalSearch(1);
+		} else if (type == 'SO') {
+			$scope.clickSOModalSearch();
+		} else if (type == 'EndUser') {
+			$scope.clickEndUserModalSearch();
+		} else if (type == 'Contractor') {
+			$scope.clickContractorModalSearch();
+		}
+	}
+	
 	$scope.closeModalOrderType = function() {
 		c.data.modalOrderType = false;
 		c.data.modalTypeOrderType = false;
@@ -508,7 +539,35 @@
 		modalVendor.style.display = 'none';
 		c.data.modalVendor = false;
 	}
+	
+	
 
+	$scope.closeModalWbs = function() {
+		modalWbs.style.display = 'none';
+		c.data.modalWbs = false;
+	}
+	
+	$scope.clickWbsModalSearch = function() {
+		modalWbs.style.display = 'block';
+		c.data.modalWbs = true;
+		c.data.modalQuery = 'description' + 'LIKE' + c.data.searchQuery;
+
+		c.server.update().then(function(response) {
+			console.log('Server response:', response);
+		});
+	}
+	
+	
+	$scope.clickWbs = function(item) {
+		var rowIdx = gvDetail.getCurrent().dataRow;
+		dpDetail.setValue(rowIdx, 'wbs_6', item.code);
+		dpDetail.setValue(rowIdx, 'wbs_6_sysid', item.sysid);
+		
+		modalWbs.style.display = 'none';
+		c.data.modalWbs = false;
+	}
+	
+	
 	
 	$scope.clickOrderTypeModalSearch = function() {
 		c.data.modalOrderType = true;
@@ -525,7 +584,7 @@
 	
 	/* End user */
 	$scope.btnClickEndUserSearch = function() {
-		c.data.searchQuery = c.data.endUserNm;
+		c.data.searchQuery = getValueOrEmptyString(c.data.endUserNm);
 		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 
 		modalEndUser.style.display = 'block';
@@ -573,7 +632,7 @@
 	
 	/* modalContractor */ 
 	$scope.btnClickContractorSearch = function() {
-		c.data.searchQuery = c.data.contractorNm;
+		c.data.searchQuery = getValueOrEmptyString(c.data.contractorNm);
 		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 
 		modalContractor.style.display = 'block';
@@ -920,6 +979,10 @@
 				dataType: 'text',
 			},
 			{
+				fieldName: 'wbs_6_sysid',
+				dataType: 'text',
+			},
+			{
 				fieldName: 'ms_code',
 				dataType: 'text',
 			},
@@ -993,6 +1056,8 @@
 				"header": {
 					"text": "WBS 6"
 				},
+				"button":"action",
+      	"buttonVisibility": "always"
 			},
 			{
 				"name": "ms_code",
@@ -1149,21 +1214,39 @@
 		dpDetail.softDeleting = true;
 		
 		gvDetail.onCellButtonClicked = function(grid, index, column) {
-			c.data.itemsVendor = [];
-			modalVendor.style.display = 'block';
-			c.data.modalVendor = true;
-			c.data.searchQuery = '';
-			c.data.modalQuery = '';
-			
-			c.data.modalVendorHeader = [{
-				text: "name",
-				value: "",
-				fieldLabel: "Name"
-			}, {
-				text: "country",
-				value: "",
-				fieldLabel: "Country"
-			}];
+			if(column.name == 'wbs_6') {
+				c.data.itemsWbs = [];
+				modalWbs.style.display = 'block';
+				c.data.modalWbs = true;
+				c.data.searchQuery = '';
+				c.data.modalQuery = '';
+
+				c.data.modalWbsHeader = [{
+					text: "desc",
+					value: "",
+					fieldLabel: "Description"
+				}, {
+					text: "code",
+					value: "",
+					fieldLabel: "Code"
+				}];
+			} else if(column.name == 'vendor'){
+				c.data.itemsVendor = [];
+				modalVendor.style.display = 'block';
+				c.data.modalVendor = true;
+				c.data.searchQuery = '';
+				c.data.modalQuery = '';
+
+				c.data.modalVendorHeader = [{
+					text: "name",
+					value: "",
+					fieldLabel: "Name"
+				}, {
+					text: "code",
+					value: "",
+					fieldLabel: "Code"
+				}];
+			}
 
 			c.server.update().then(function(response) {
 				console.log('Server response:', response);
@@ -2286,7 +2369,7 @@ border: 2px solid red;
 				'rowStat' : '',
 				'sys_id' : oiDetail.sys_id.toString(), 
 				'number' : oiDetail.number.toString(), 
-				'wbs_6' : oiDetail.wbs_6.toString(), 
+				'wbs_6' : oiDetail.wbs_6.getDisplayValue(),
 				'ms_code' : oiDetail.ms_code.toString(), 
 				'description' : oiDetail.description.toString(), 
 				'quantity' :oiDetail.quantity.toString(), 
@@ -2296,7 +2379,7 @@ border: 2px solid red;
 				'extended_cost' : oiDetail.extended_cost.toString(),
 				'unit_mp' : oiDetail.unit_mp.toString(), 
 				'mp_amount' : oiDetail.mp_amount.toString(), 
-				'vendor' : oiDetail.vendor.toString(), 
+				'vendor' : oiDetail.vendor.getDisplayValue(),
 				'oi_report_num' : oiDetail.oi_report.number.toString(),
 				'oi_report_sys_Id' : oiDetail.oi_report.toString()
 			});
@@ -2318,22 +2401,24 @@ border: 2px solid red;
 					ordItem.deleteRecord();
 				} else if(rStat == 'updated') {
 					ordItem.get(gData[x].sys_id);
+					ordItem.setValue('wbs_6', gData[x].wbs_6_sysid);
 					ordItem.setValue('ms_code', gData[x].ms_code);
 					ordItem.setValue('description', gData[x].description);
 					ordItem.setValue('quantity', gData[x].quantity);
 					ordItem.setValue('unit_price', gData[x].unit_price);
 					ordItem.setValue('unit_cost', gData[x].unit_cost);
 					ordItem.setValue('unit_mp', gData[x].unit_mp);
-					ordItem.setValue('vendor', gData[x].vendor);
+					ordItem.setValue('vendor', gData[x].vendor_sysid);
 					ordItem.update();
 				} else if(rStat == 'created') {
+					ordItem.setValue('wbs_6', gData[x].wbs_6_sysid);
 					ordItem.setValue('ms_code', gData[x].ms_code);
 					ordItem.setValue('description', gData[x].description);
 					ordItem.setValue('quantity', gData[x].quantity);
 					ordItem.setValue('unit_price', gData[x].unit_price);
 					ordItem.setValue('unit_cost', gData[x].unit_cost);
 					ordItem.setValue('unit_mp', gData[x].unit_mp);
-					ordItem.setValue('vendor', gData[x].vendor);
+					ordItem.setValue('vendor', gData[x].vendor_sysid);
 					ordItem.setValue('oi_report', input.oiSysId);
 					ordItem.insert();
 				} 
@@ -2452,6 +2537,22 @@ border: 2px solid red;
 		}
 	}
 	
+	/* WBS Modal */
+	if(input && input.modalWbs) {
+		data.itemsWbs = [];
+		var grWbs = new GlideRecord('x_yergb_bpm_wbs_master');
+		grWbs.addEncodedQuery(input.modalQuery);
+		console.log('SERV WBS MODAL:' + input.modalQuery);
+		grWbs.query();
+		while(grWbs.next()) {
+				data.itemsWbs.push({
+					desc : grWbs.description.toString(),
+					code : grWbs.code.toString(),
+					sysid : grWbs.sys_id.toString()
+				});
+		}
+	}
+	
 	/* Job type Modal */
 	if(input && input.modalDmrType=='JOB') {
 		data.itemsJobType = [];
@@ -2519,14 +2620,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>1154</sys_mod_count>
+        <sys_mod_count>1178</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-07-01 05:28:00</sys_updated_on>
+        <sys_updated_on>2024-07-01 09:18:40</sys_updated_on>
         <template><![CDATA[<!--<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -3084,7 +3185,8 @@ border: 2px solid red;
                   <!--<select class="modal-select">
                   <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                   </select>-->
-                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204" 
+                         ng-keypress="onModalKeyPressed($event, 'OrderType')">
                   <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickOrderTypeModalSearch()"></button>
               </div>
          </div>
@@ -3122,7 +3224,8 @@ border: 2px solid red;
                   <!--<select class="modal-select">
                   <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                   </select>-->
-                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204" 
+                         ng-keypress="onModalKeyPressed($event, 'ProjectType')">
                   <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickProjectTypeSearch()"></button>
               </div>
          </div>
@@ -3160,7 +3263,8 @@ border: 2px solid red;
                   <!--<select class="modal-select">
                   <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                   </select>-->
-                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204" 
+                         ng-keypress="onModalKeyPressed($event, 'Ansoff')">
                   <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickAnsoffModalSearch()"></button>
               </div>
          </div>
@@ -3198,7 +3302,8 @@ border: 2px solid red;
                   <!--<select class="modal-select">
                   <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                   </select>-->
-                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204"
+                         ng-keypress="onModalKeyPressed($event, 'Vendor')">
                   <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickVendorModalSearch()"></button>
               </div>
          </div>
@@ -3226,6 +3331,45 @@ border: 2px solid red;
       </div>
     </dialog>
   
+  	<!-- Modal WBS Structure -->
+  	<dialog class="modal-dialog" id="modalWbs">
+      <div class="modal-form-content">
+          <div class="modal-search-form">
+              <button class="modal-close-button" ng-click="closeModalWbs()">×</button>
+              <div class="modal-form-inline">
+                  <label class="modal-label" >WBS 6</label>
+                  <!--<select class="modal-select">
+                  <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                  </select>-->
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204" 
+                         ng-keypress="onModalKeyPressed($event, 'WBS')">
+                  <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickWbsModalSearch()"></button>
+              </div>
+         </div>
+      </div>
+      <div class="yoko-table-container">
+          <table class="yoko-search-table">
+              <colgroup>
+                <col style="width: 137px">
+                <col style="width: 51px">
+                <col style="width: auto">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th ng-repeat="item in c.data.modalWbsHeader">{{ item.fieldLabel }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in c.data.itemsWbs">
+                  <td id="clicktd" ng-click="clickWbs(item)">{{ item.desc }}</td>
+                  <td>{{ item.code }}</td>
+                  <td style="display: none;">{{ item.sysid }}</td>
+                </tr>
+              </tbody>
+          </table>   
+      </div>
+    </dialog>
+  
   	<!-- Modal JOB TYPE -->
     <dialog class="modal-dialog" id="modalJobType">
       <div class="modal-form-content">
@@ -3236,7 +3380,8 @@ border: 2px solid red;
                   <!--<select class="modal-select">
                   <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                   </select>-->
-                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204" 
+                         ng-keypress="onModalKeyPressed($event, 'JobType')">
                   <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickJobModalSearch(1)"></button>
               </div>
          </div>
@@ -3274,7 +3419,8 @@ border: 2px solid red;
                   <!--<select class="modal-select">
                   <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                   </select>-->
-                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204"
+                         ng-keypress="onModalKeyPressed($event, 'SO')">
                   <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickSOModalSearch()"></button>
 
               </div>
@@ -3313,7 +3459,8 @@ border: 2px solid red;
                   <!--<select class="modal-select">
                   <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                   </select>-->
-                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204" 
+                         ng-keypress="onModalKeyPressed($event, 'EndUser')">
                   <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickEndUserModalSearch()"></button>
 
               </div>
@@ -3352,7 +3499,8 @@ border: 2px solid red;
                   <!--<select class="modal-select">
                   <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                   </select>-->
-                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204" 
+                         ng-keypress="onModalKeyPressed($event, 'Contractor')">
                   <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickContractorModalSearch()"></button>
 
               </div>
