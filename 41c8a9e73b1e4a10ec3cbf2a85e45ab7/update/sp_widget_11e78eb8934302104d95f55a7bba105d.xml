@@ -2254,11 +2254,17 @@ border: 2px solid red;
             data.end_user = grI.end_user.name.toString();
             data.end_user_sys_id = grI.end_user.toString();
             data.end_user_code = grI.end_user.u_company_code.toString();
+            data.end_user_name = grI.end_user_name.toString();
+            data.end_user_address = grI.end_user_address.toString();
+            data.end_user_country = grI.end_user_country.name.toString();
+            data.end_user_country_sys_id = grI.end_user_country.toString();
             data.contractor = grI.contractor.name.toString();
             data.contractor_sys_id = grI.contractor.toString();
             data.contractor_code = grI.contractor.u_company_code.toString();
             data.contractor_name = grI.contractor_name.toString();
             data.contractor_address = grI.contractor_address.toString();
+            data.contractor_country = grI.contractor_country.name.toString();
+            data.contractor_country_sys_id = grI.contractor_country.toString();
             data.project_title = grI.project_title.toString();
             data.project_detail = grI.project_detail.toString();
             data.caution = grI.caution.toString();
@@ -2739,14 +2745,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>447</sys_mod_count>
+        <sys_mod_count>448</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-07-01 01:25:27</sys_updated_on>
+        <sys_updated_on>2024-07-01 02:07:09</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -3034,18 +3040,18 @@ border: 2px solid red;
                                 <div class="yoko-form-group-line"></div>
                             </div>
                             <div class="yoko-form-group">
-                                <label for="enduser_name" class="yoko-short">{{data.labelEndUserName}}</label>
+                                <label for="end_user_name" class="yoko-short">{{data.labelEndUserName}}</label>
                                 <input type="text" name="end_user_name" value="" placeholder="" class="yoko-col100" ng-model="c.data.end_user_name" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
                             </div>
                             <div class="yoko-form-group">
-                                <label for="enduser_address" class="yoko-short">{{data.labelEndUserAddress}}</label>
+                                <label for="end_user_address" class="yoko-short">{{data.labelEndUserAddress}}</label>
                                 <input type="text" name="end_user_address" value="" placeholder="" class="yoko-col100" ng-model="c.data.end_user_address" ng-disabled="isCancelledDisabled || isContractDummyDisabled">
                             </div>
                             <div class="yoko-form-group">
-                                <label for="enduser_country" class="yoko-short">{{data.labelEndUserCountry}}</label>
+                                <label for="end_user_country" class="yoko-short">{{data.labelEndUserCountry}}</label>
                                 <div class="yoko-form-inline yoko-col100">
-                                    <input type="text" name="end_user_country_name" placeholder="" ng-model="c.data.end_user_country_name" disabled>
-                                    <input type="text" name="end_user_country" value="" placeholder="" ng-model="c.data.end_user_country" ng-style="{'display': 'none'}">
+                                    <input type="text" name="end_user_country" placeholder="" ng-model="c.data.end_user_country" disabled>
+                                    <input type="text" name="end_user_country_sys_id" value="" placeholder="" ng-model="c.data.end_user_country_sys_id" ng-style="{'display': 'none'}">
                                     <button type="button" class="yoko-btn yoko-btn-search" ng-click="btnRefEndUserCountry()" ng-disabled="isCancelledDisabled || isContractDummyDisabled"></button>
                                 </div>
                             </div>
@@ -3086,7 +3092,6 @@ border: 2px solid red;
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
