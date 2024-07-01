@@ -11,6 +11,7 @@
     c.data.reasonRemarkMandatory = false;
     c.data.quotationTypeSelectMandatory = false;
     c.data.refer_contract_modal = false;
+	  c.data.searchQuery = '';
     //c.data.copy_sys_id = false	
     ///팝오버
     c.popovers = [{
@@ -2293,7 +2294,8 @@ border: 2px solid red;
             data.itemsEndUserRef.push({
                 name: gr5.getValue('name'),
                 sys_id: gr5.getValue('sys_id'),
-                code: gr5.getValue('u_customer_code')
+                code: gr5.getValue('u_customer_code'),
+							  u_sales_org: gr5.getValue('u_sales_org')
 						});
         }
     }
@@ -2307,7 +2309,8 @@ border: 2px solid red;
             data.itemsContractRef.push({
                 name: gr6.getValue('name'),
                 sys_id: gr6.getValue('sys_id'),
-                code: gr6.getValue('u_customer_code')
+                code: gr6.getValue('u_customer_code'),
+							  u_sales_org: gr6.getValue('u_sales_org')
             });
         }
     }
@@ -2418,14 +2421,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>519</sys_mod_count>
+        <sys_mod_count>525</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>hahyun@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-07-01 15:41:59</sys_updated_on>
+        <sys_updated_on>2024-07-01 16:30:05</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2969,17 +2972,20 @@ border: 2px solid red;
             <colgroup>
               <col style="width: auto">
               <col style="width: auto; text-align: center;">
-              <col style="width: auto">
+              <col style="width: auto; text-align: center;">
+              <col style="width: auto; text-align: center;">
             </colgroup>
             <thead>
               <tr>
                 <th ng-repeat="item in c.data.modalItems">{{ item.fieldLabel }}</th>
+                <th>Sales Org</th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="item in c.data.itemsEndUserRef">
                 <td id="clicktd" ng-click="c.clickUserR($index)">{{ item.name }}</td>
                 <td>{{ item.code }}</td>
+                <td>{{ item.u_sales_org }}</td>
                 <td style="display: none;">{{ item.sys_id }}</td>
               </tr>
             </tbody>
@@ -3006,17 +3012,20 @@ border: 2px solid red;
             <colgroup>
               <col style="width: auto">
               <col style="width: auto; text-align: center;">
-              <col style="width: auto">
+              <col style="width: auto; text-align: center;">
+              <col style="width: auto; text-align: center;">
             </colgroup>
             <thead>
               <tr>
                 <th ng-repeat="item in c.data.modalItems">{{ item.fieldLabel }}</th>
+                <th>Sales Org</th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="item in c.data.itemsContractRef">
-                <td id="clicktd" ng-click="c.clickContractR($index)">{{ item.name }}</td>
+                <td id="clicktd" ng-click="c.clickUserR($index)">{{ item.name }}</td>
                 <td>{{ item.code }}</td>
+                <td>{{ item.u_sales_org }}</td>
                 <td style="display: none;">{{ item.sys_id }}</td>
               </tr>
             </tbody>
