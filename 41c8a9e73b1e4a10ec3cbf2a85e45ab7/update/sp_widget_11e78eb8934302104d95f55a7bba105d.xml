@@ -793,6 +793,19 @@
             $scope.c.data.end_user_code = '';
         }
     });
+
+	$scope.$watch('c.data.currency', function(newVal, oldVal) {
+        if (newVal != 'CNY' && $scope.c.data.currency_lc == 'CNY') {
+            $scope.c.data.profit_company = 'YCN-SP';
+			$scope.c.data.profit_company_code = '6E00';
+        }
+		else if(newVal == 'CNY' && $scope.c.data.currency_lc == 'CNY') {
+			$scope.c.data.profit_company = 'YCN';
+			$scope.c.data.profit_company_code = '6900';
+		}
+    });
+
+
     // Initiate RFQ Entry
     c.server.update().then(function(response) {
         c.data.initRFQ = false;
@@ -1835,12 +1848,18 @@ border: 2px solid red;
 		if (grC.get(grUCompany)) {
 			data.currency = grC.u_currency.code.toString();
 			data.currency_sys_id = grC.u_currency.toString();
+			data.currency_lc = grC.u_currency.code.toString();
+			data.currency_lc_sys_id = grC.u_currency.toString();
+			data.profit_company = grC.name.toString();
+			data.profit_company_sys_id = grC.sys_id.toString();
+			data.profit_company_code = grC.u_company_code.toString();
 		}
 
 		data.requestor = userName;
 		data.requestor_sys_id = userNameSysId;
 		data.sales_manager = userName;
 		data.sales_manager_sys_id = userNameSysId;
+		
 	}
 
 	var urlSysId = $sp.getParameter('sys_id');
@@ -2382,14 +2401,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 01:25:13</sys_created_on>
         <sys_id>11e78eb8934302104d95f55a7bba105d</sys_id>
-        <sys_mod_count>510</sys_mod_count>
+        <sys_mod_count>511</sys_mod_count>
         <sys_name>rfqEntryWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_11e78eb8934302104d95f55a7bba105d</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-07-01 12:25:46</sys_updated_on>
+        <sys_updated_on>2024-07-01 13:36:23</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
