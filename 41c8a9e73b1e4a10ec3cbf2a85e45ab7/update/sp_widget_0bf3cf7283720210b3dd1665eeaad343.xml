@@ -637,7 +637,7 @@
 	
 	$scope.clickModalEndUser = function(item) {
 		c.data.endUserNm = item.name;
-		c.data.endUserCountry = item.code;
+		c.data.endUserCode = item.code;
 		c.data.endUserSysid = item.sys_id;
 			
 		modalEndUser.style.display = 'none';
@@ -685,7 +685,7 @@
 	
 	$scope.clickModalContractor = function(item) {
 		c.data.contractorNm = item.name;
-		c.data.contractorCountry = item.code;
+		c.data.contractorCode = item.code;
 		c.data.contractorSysid = item.sys_id;
 		
 		modalContractor.style.display = 'none';
@@ -2051,10 +2051,15 @@ border: 2px solid red;
 			
 			data.oiVer = oiReportData.version.toString();
 			
-/*data.endUserNm = oiReportData.end_user_name.toString();
-			data.endUserCountry = oiReportData.end_user_country.toString();
-			data.contractorNm = oiReportData.contractor_name.toString();
-			data.contractorCountry = oiReportData.contractor_country.toString();*/
+			data.endUserNm = oiReportData.end_user.getDisplayValue().toString();
+			data.enduserDummy = oiReportData.end_user_name.toString();
+			data.contractorNm = oiReportData.contractor.getDisplayValue().toString();
+			data.contractorDummy = oiReportData.contractor_name.toString();
+			
+			data.endUserCode = oiReportData.end_user.u_company_code.toString();
+			data.endUserSysid = oiReportData.end_user.toString();
+			data.contractorCode = oiReportData.contractor.u_company_code.toString();
+			data.contractorSysid = oiReportData.contractor.toString();
 			
 			data.PONo = oiReportData.customer_po_no.toString();
 			
@@ -2191,10 +2196,10 @@ border: 2px solid red;
 			data.contractorDummy = rfqEntryData.contract_name.toString();
 			data.enduserDummy = rfqEntryData.end_user_name.toString();
 			
-			data.endUserNm = rfqEntryData.end_user.getDisplayValue().toString();
+			/*data.endUserNm = rfqEntryData.end_user.getDisplayValue().toString();
 			data.enduserDummy = rfqEntryData.end_user_name.toString();
 			data.contractorNm = rfqEntryData.contractor.getDisplayValue().toString();
-			data.contractorDummy = rfqEntryData.contractor_name.toString();
+			data.contractorDummy = rfqEntryData.contractor_name.toString();*/
 		}
 		
 		var rStp = new GlideRecord('sys_process_flow');
@@ -2274,9 +2279,9 @@ border: 2px solid red;
 		oiRptTr.setValue('sales_office', getValueOrEmptyString(input.soSysid));
 		
 		oiRptTr.setValue('end_user_name', getValueOrEmptyString(input.endUserNm));
-		oiRptTr.setValue('end_user_country', getValueOrEmptyString(input.endUserCountry));
+		oiRptTr.setValue('end_user', getValueOrEmptyString(input.endUserSysid));
 		oiRptTr.setValue('contractor_name', getValueOrEmptyString(input.contractorNm));
-		oiRptTr.setValue('contractor_country', getValueOrEmptyString(input.contractorCountry));
+		oiRptTr.setValue('contractor', getValueOrEmptyString(input.contractorSysid));
 		
 		//oiRptTr.setValue('version', /*String(Number(input.oiVer) + 1)*/ '1');
 		oiRptTr.update();
@@ -2663,14 +2668,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>1243</sys_mod_count>
+        <sys_mod_count>1251</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-07-01 16:39:06</sys_updated_on>
+        <sys_updated_on>2024-07-01 17:45:32</sys_updated_on>
         <template><![CDATA[<!--<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2850,7 +2855,7 @@ border: 2px solid red;
                                              ng-keypress="onKeyPressed($event, 'Contractor')">
                                       <button type="button" class="yoko-btn yoko-btn-search"  ng-click="btnClickContractorSearch()" ng-disabled='c.data.disConstrucNm'></button>
                                   </div>
-                                  <input type="text" name="inputConstructorCountry" value="" ng-model='c.data.contractorCountry' placeholder="" disabled class="">
+                                  <input type="text" name="inputConstructorCountry" value="" ng-model='c.data.contractorCode' placeholder="" disabled class="">
                                 	<input type='hidden' value='' ng-model='c.data.contractorSysid' >
                               </div>
                           	</div>   
@@ -2862,7 +2867,7 @@ border: 2px solid red;
                                              ng-keypress="onKeyPressed($event, 'EndUser')"> 
                                       <button type="button" class="yoko-btn yoko-btn-search"  ng-click="btnClickEndUserSearch()" ng-disabled='c.data.disEndUserNm'></button>
                                   </div>
-                                  <input type="text" name="inputEndUserCountry" value="" ng-model='c.data.endUserCountry' placeholder="" disabled class="">
+                                  <input type="text" name="inputEndUserCountry" value="" ng-model='c.data.endUserCode' placeholder="" disabled class="">
                                 	<input type='hidden' value='' ng-model='c.data.endUserSysid' >
                               </div>
                           	</div>	
