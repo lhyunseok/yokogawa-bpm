@@ -1372,7 +1372,7 @@ th {&#13;
         var myarr = ['month1', 'month2', 'month3', 'month4', 'month5', 'month6', 'month7', 'month8', 'month9', 'month10', 'month11', 'month12', 'month13', 'month14', 'month15', 'month16', 'month17', 'month18'];
 
         var updatedResult = replaceYearMonthKeys(myresult, yearmonths, myarr);
-
+        gs.info("kms base_month=" + input.base_month +", mymont="+mymonth);
         var grUpdateBudgetPlan = new GlideRecord("x_yergb_bpm_budget_plan");
         grUpdateBudgetPlan.get(input.budget_key); //Budget Plan sys_id
 
@@ -1444,6 +1444,7 @@ th {&#13;
                 forecastPTC = calforecastPTC + dataBeyond18;
                 grWBSBudget.setValue("project", input.project_key);
                 grWBSBudget.setValue("beyond18", dataBeyond18);
+				grWBSBudget.setValue("base_month", input.base_month);
                 grWBSBudget.setValue("forecast_ptc", forecastPTC);
                 grWBSBudget.update();
 
@@ -1457,8 +1458,9 @@ th {&#13;
                     insertWBSBudget.setValue(inMonth, monthData[inMonth]);
                     calforecastPTC += parseInt(monthData[inMonth]);
                 }
-				forecastPTC = calforecastPTC + dataBeyond18;
+                forecastPTC = calforecastPTC + dataBeyond18;
                 insertWBSBudget.setValue("beyond18", dataBeyond18);
+				insertWBSBudget.setValue("base_month", input.base_month);
                 insertWBSBudget.setValue("forecast_ptc", forecastPTC);
                 insertWBSBudget.insert();
             }
@@ -1533,14 +1535,14 @@ function sf1(a, b) {
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-06-19 01:58:09</sys_created_on>
         <sys_id>95e5d3f283b20210856ceec0deaad3dc</sys_id>
-        <sys_mod_count>233</sys_mod_count>
+        <sys_mod_count>235</sys_mod_count>
         <sys_name>initPlanMngtWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_95e5d3f283b20210856ceec0deaad3dc</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-27 10:37:47</sys_updated_on>
+        <sys_updated_on>2024-07-01 07:40:53</sys_updated_on>
         <template><![CDATA[  <link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 

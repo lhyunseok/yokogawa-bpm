@@ -9,10 +9,15 @@
     event) {
 
     var instance_url = gs.getProperty('glide.servlet.uri');
+    var dataType = "epic_03_ui_init";
+
     template.print("<p>Dear" + current.project.pm.name + "</p>");
     template.print("<p>&nbsp;</p>");
     template.print("<p>Your request has been rejected.</p>");
-    template.print("<p>Please Click <a href='" + instance_url + "ybpm?id=epic_03_ui_init&number="+current.project.number+"&table=x_yergb_bpm_budget_plan&sys_id="+current.sys_id+"'>here</a>");
+	if(current.project.u_data_type == 'wbs-6'){
+		dataType = dataType+'_wbs';
+	}
+    template.print("<p>Please Click <a href='" + instance_url + "ybpm?id="+dataType+"&number=" + current.project.number + "&table=x_yergb_bpm_budget_plan&sys_id=" + current.sys_id + "'>here</a>");
     template.print(" to open Request information in details.</p>");
     template.print("<p>&nbsp;</p>");
     template.print("<p>Thank you.</p>");
@@ -22,13 +27,13 @@
         <sys_created_by>kms@sorin.co.kr</sys_created_by>
         <sys_created_on>2024-07-01 04:28:55</sys_created_on>
         <sys_id>aa7be1fe83070210856ceec0deaad32b</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_name>budget_plan_rejected</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_email_aa7be1fe83070210856ceec0deaad32b</sys_update_name>
         <sys_updated_by>kms@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-07-01 04:28:55</sys_updated_on>
+        <sys_updated_on>2024-07-01 06:12:09</sys_updated_on>
     </sys_script_email>
 </record_update>
