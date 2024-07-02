@@ -2,7 +2,7 @@
     <element db_object_id="f7145ac73bcb8a1046a3934a85e45a36" label="Activity Type Master" max_length="40" name="x_yergb_bpm_activity_type_master" type="collection">
         <element label="Region" max_length="32" name="region" reference="x_yergb_bpm_region_master" type="reference"/>
         <element label="Activity Type Name" max_length="40" name="activity_type_name" type="string"/>
-        <element default="40" label="Activity Type" max_length="40" name="activity_type" type="string"/>
+        <element label="Activity Type" max_length="40" name="activity_type" type="string"/>
         <element label="Currency" max_length="32" name="currency" reference="fx_currency" type="reference"/>
         <element label="Activity Rate" max_length="32" name="activity_rate" type="decimal"/>
         <index name="index">
