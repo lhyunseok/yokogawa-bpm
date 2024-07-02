@@ -3,14 +3,10 @@
         <element label="End Date" max_length="40" name="end_date" type="glide_date"/>
         <element label="MU" max_length="32" name="mu" reference="x_yergb_bpm_management_unit" type="reference"/>
         <element label="Code" max_length="40" name="code" type="string"/>
-        <element label="MU Code" max_length="32" name="mu_code" reference="x_yergb_bpm_management_unit" type="reference"/>
         <element label="Start Date" max_length="40" name="start_date" type="glide_date"/>
         <element label="Name" max_length="100" name="name" type="string"/>
         <index name="index">
             <element name="mu"/>
-        </index>
-        <index name="index2">
-            <element name="mu_code"/>
         </index>
     </element>
 </database>

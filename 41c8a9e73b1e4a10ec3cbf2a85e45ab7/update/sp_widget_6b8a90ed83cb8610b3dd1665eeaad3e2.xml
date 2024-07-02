@@ -545,7 +545,7 @@ border: 2px solid red;
 		//console.log('OI SYS ID : ' + data.oiSysId);
 		
 		// TEST 
-		//data.oiSysId = '049440b63b3e4210ec3cbf2a85e45afd0';
+		//data.oiSysId = '049440b63b3e4210ec3cbf2a85e45afd';
 		//console.log('OI SYS ID : ' + data.oiSysId);
 		
 		var oiReportData = new GlideRecord('x_yergb_bpm_oi_report');
@@ -557,15 +557,20 @@ border: 2px solid red;
 			data.approveFor = oiReportData.number.toString();
 			
 			data.customerPONo = oiReportData.customer_po_no.toString();
-			data.exRate = oiReportData.exchange_rate.toString();
-			data.mpAmount = oiReportData.mp_amount_lc.toString();
-			data.mpGap = oiReportData.mp_gap_lc.toString();
-			data.oiAmtTC = oiReportData.oi_amount_tc.toString();
-			data.mpGapPerc = oiReportData.mp_gap_percent.toString();
-			data.oiAmtLC = oiReportData.oi_amount_lc.toString();
-			data.gpAmt = oiReportData.gp_amount_lc.toString();
-			data.totEstimCost = oiReportData.total_extended_cost_tc.toString();
-			data.gpPer = oiReportData.gp_percent.toString();
+			data.exRate = oiReportData.exchange_rate.getDisplayValue().toString();
+			data.mpAmount = oiReportData.mp_amount_tc.getDisplayValue().toString();
+			data.mpGap = oiReportData.mp_gap_lc.getDisplayValue().toString();
+			data.oiAmtTC = oiReportData.oi_amount_tc.getDisplayValue().toString();
+			data.mpGapPerc = oiReportData.mp_gap_percent.getDisplayValue().toString();
+			data.oiAmtLC = oiReportData.oi_amount_lc.getDisplayValue().toString();
+			data.gpAmt = oiReportData.gp_amount_lc.getDisplayValue().toString();
+			data.totEstimCost = oiReportData.total_extended_cost_tc.getDisplayValue().toString();
+			data.gpPer = oiReportData.gp_percent.getDisplayValue().toString();
+			
+			data.contractorNm = oiReportData.contractor_name.toString();
+			data.contractorCode = oiReportData.contractor.getDisplayValue().toString();
+			data.endUserNm = oiReportData.end_user_name.toString();
+			data.endUserCode = oiReportData.end_user.getDisplayValue().toString();
 			
 			data.rfqSysId = oiReportData.rfq_entry.toString();
 		}
@@ -636,14 +641,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-27 01:26:09</sys_created_on>
         <sys_id>6b8a90ed83cb8610b3dd1665eeaad3e2</sys_id>
-        <sys_mod_count>143</sys_mod_count>
+        <sys_mod_count>154</sys_mod_count>
         <sys_name>orderIntakeReportApprovalWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_6b8a90ed83cb8610b3dd1665eeaad3e2</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-07-01 03:51:38</sys_updated_on>
+        <sys_updated_on>2024-07-01 18:41:09</sys_updated_on>
         <template><![CDATA[<div>
 	<div class="yoko-container">
         <!--<div class="yoko-breadcrumb">Home >  Approval - OI Cancel Report</div>-->
@@ -774,8 +779,8 @@ border: 2px solid red;
                                     <input type="text" name="currency" value="" ng-model='c.data.currency' placeholder="" disabled class="yoko-col100">
                                 </div>
                                 <div class="yoko-form-group">
-                                    <label for="mp_amount" class="yoko-short-120">MP Amount</label>
-                                    <input type="text" name="mp_amount" value="" mg-model='c.data.mpAmount' placeholder="" disabled class="yoko-col100 yoko-text-right">
+                                    <label for="mp_amount" class="yoko-short-120">MP Price</label>
+                                    <input type="text" name="mp_amount" value="" ng-model='c.data.mpAmount' placeholder="" disabled class="yoko-col100 yoko-text-right">
                                 </div>
                             </div>
                             <div class="yoko-form-col">
