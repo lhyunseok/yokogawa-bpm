@@ -13,6 +13,7 @@
 	var modalAnsoff = document.getElementById("modalAnsoff");
 	var modalJobType = document.getElementById('modalJobType');
 	var modalVendor = document.getElementById('modalVendor');
+	var modalWbs = document.getElementById('modalWbs');
 	var modalEndUser = document.getElementById('modalEndUser');
 	var modalContractor = document.getElementById('modalContractor');
 	
@@ -61,6 +62,17 @@
 	c.data.modalTypeAnsoff2 = false;
 	c.data.modalTypeAnsoff3 = false;
 	
+	function getValueOrEmptyString(value) {
+		return typeof value === 'undefined' ? '' : value;
+	}
+	
+	function isEmpty(str){
+		if(typeof str == "undefined" || str == null || str == "")
+			return true;
+		else
+			return false ;
+	}
+	
 	$scope.displayScreen = function(idx) {
 		if(idx == 1) {
 			c.data.showAddInfo = !c.data.showAddInfo;
@@ -75,7 +87,9 @@
 		if(type=='SO') {
 			if($event.keyCode == 13) {
 				c.data.MUCode = '';
-				$scope.btnClickSOSearch(/*c.data.SONm*/);
+				c.data.soSysid = '';
+				c.data.soMuCodeSysid = '';
+				$scope.btnClickSOSearch();
 			}
 		} else if (type=='EndUser') {
 			if($event.keyCode == 13) {
@@ -116,11 +130,13 @@
 			}
 		}
 	}
+	
+
  	
 	$scope.btnClickSOSearch = function(/*str*/) {
 		modalSalesOffice.style.display = 'block';
 		c.data.modalSalesOffice = true;
-		c.data.searchQuery = c.data.SONm;
+		c.data.searchQuery =  getValueOrEmptyString(c.data.SONm);
 		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 		
 		c.data.modalSOHeader = [{
@@ -147,6 +163,8 @@
 	$scope.clickModalSO = function(item) {
 		c.data.SONm = item.name;
 		c.data.MUCode = item.muCode;
+		c.data.soSysid = item.sysid;
+		c.data.soMuCodeSysid = item.muSysid;
 		
 		c.data.modalSalesOffice = false;
 		modalSalesOffice.style.display = 'none';
@@ -161,6 +179,12 @@
 	}
 	
 	function validation() {
+		if(isEmpty(c.data.MUCode)) {
+			alert("MU code is not selected");
+			return false;
+		}
+		
+		
 		var jpt = dpPrjType.getJsonRows();
 		var tot = 0;
 		for(var tt in jpt) {
@@ -236,7 +260,7 @@
 				console.log('Server response:', response);
 
 				if( c.data.redirect_sys_id != '' ) {
-					window.location.href = "/sp?id=orderintakereport&sys_id=" + c.data.redirect_sys_id;
+					window.location.href = "/ybpm?id=orderintakereport&sys_id=" + c.data.redirect_sys_id;
 				}
 
 				c.data.btnHeaderType = '';
@@ -262,25 +286,26 @@
 			fieldLabel: "Code"
 		}];
 		
+		//debugger;
 		if(idx == 1) {
 			c.data.modalOrderTypeTitle = 'Order Type';
 			c.data.modalTypeOrderType = true;
-			c.data.searchQuery = c.data.orderTypeNm;
+			c.data.searchQuery = getValueOrEmptyString(c.data.orderTypeNm);
 			c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 		} else if(idx == 2) {
 			c.data.modalOrderTypeTitle = 'TAX Class';
 			c.data.modalTypeTaxClass = true;
-			c.data.searchQuery = c.data.taxClassNm;
+			c.data.searchQuery = getValueOrEmptyString(c.data.taxClassNm);
 			c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 		} else if(idx == 3) {
 			c.data.modalOrderTypeTitle = 'Industry';
 			c.data.modalTypeIndustry = true;
-			c.data.searchQuery = c.data.industryNm;
+			c.data.searchQuery = getValueOrEmptyString(c.data.industryNm);
 			c.data.modalQuery = 'industry_name' + 'LIKE' + c.data.searchQuery;
 		} else if(idx == 4) {
 			c.data.modalOrderTypeTitle = 'Payment Terms';
 			c.data.modalTypePayTerms = true;
-			c.data.searchQuery = c.data.payTermsNm;
+			c.data.searchQuery = getValueOrEmptyString(c.data.payTermsNm);
 			c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 		}
 		
@@ -298,7 +323,7 @@
 	}*/
 	
 	$scope.btnClickDMRSearch = function(idx) {
-		c.data.searchQuery = c.data.jobTypeNm;
+		c.data.searchQuery = getValueOrEmptyString(c.data.jobTypeNm);
 		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 
 		if(idx == 1) {
@@ -367,6 +392,28 @@
 	
 	
 	/* Modal Close button */
+  $scope.onModalKeyPressed = function($event, type) {
+		if(type == 'OrderType') {
+			$scope.clickOrderTypeModalSearch();
+		} else if (type == 'ProjectType') {
+			$scope.clickProjectTypeSearch();
+		} else if (type == 'Ansoff') {
+			$scope.clickAnsoffModalSearch();
+		} else if (type == 'Vendor') {
+			$scope.clickVendorModalSearch();
+		} else if (type == 'WBS') {
+			$scope.clickWbsModalSearch();
+		} else if (type == 'JobType') {
+			$scope.clickJobModalSearch(1);
+		} else if (type == 'SO') {
+			$scope.clickSOModalSearch();
+		} else if (type == 'EndUser') {
+			$scope.clickEndUserModalSearch();
+		} else if (type == 'Contractor') {
+			$scope.clickContractorModalSearch();
+		}
+	}
+	
 	$scope.closeModalOrderType = function() {
 		c.data.modalOrderType = false;
 		c.data.modalTypeOrderType = false;
@@ -508,7 +555,35 @@
 		modalVendor.style.display = 'none';
 		c.data.modalVendor = false;
 	}
+	
+	
 
+	$scope.closeModalWbs = function() {
+		modalWbs.style.display = 'none';
+		c.data.modalWbs = false;
+	}
+	
+	$scope.clickWbsModalSearch = function() {
+		modalWbs.style.display = 'block';
+		c.data.modalWbs = true;
+		c.data.modalQuery = 'description' + 'LIKE' + c.data.searchQuery;
+
+		c.server.update().then(function(response) {
+			console.log('Server response:', response);
+		});
+	}
+	
+	
+	$scope.clickWbs = function(item) {
+		var rowIdx = gvDetail.getCurrent().dataRow;
+		dpDetail.setValue(rowIdx, 'wbs_6', item.code);
+		dpDetail.setValue(rowIdx, 'wbs_6_sysid', item.sysid);
+		
+		modalWbs.style.display = 'none';
+		c.data.modalWbs = false;
+	}
+	
+	
 	
 	$scope.clickOrderTypeModalSearch = function() {
 		c.data.modalOrderType = true;
@@ -525,9 +600,8 @@
 	
 	/* End user */
 	$scope.btnClickEndUserSearch = function() {
-		c.data.searchQuery = c.data.endUserNm;
-		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
-
+		c.data.searchQuery = getValueOrEmptyString(c.data.endUserNm);
+		c.data.modalQuery = 'u_sold_to=true^u_ship_to=true^nameLIKE' + c.data.searchQuery;
 		modalEndUser.style.display = 'block';
 		c.data.modalEndUser = true;
 
@@ -536,9 +610,9 @@
 			value: "",
 			fieldLabel: "End User"
 		}, {
-			text: "country",
+			text: "code",
 			value: "",
-			fieldLabel: "Country"
+			fieldLabel: "Customer code"
 		}];
 		
 		c.server.update().then(function(response) {
@@ -553,8 +627,7 @@
 	
 	$scope.clickEndUserModalSearch = function() {
 		c.data.modalEndUser = true;
-		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
-
+		c.data.modalQuery = 'u_sold_to=true^u_ship_to=true^nameLIKE' + c.data.searchQuery;
 		c.server.update().then(function(response) {
 			c.data.modalEndUser = false;
 		});
@@ -562,7 +635,7 @@
 	
 	$scope.clickModalEndUser = function(item) {
 		c.data.endUserNm = item.name;
-		c.data.endUserCountry = item.country;
+		c.data.endUserCode = item.code;
 		c.data.endUserSysid = item.sys_id;
 			
 		modalEndUser.style.display = 'none';
@@ -573,9 +646,9 @@
 	
 	/* modalContractor */ 
 	$scope.btnClickContractorSearch = function() {
-		c.data.searchQuery = c.data.contractorNm;
-		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
-
+		c.data.searchQuery = getValueOrEmptyString(c.data.contractorNm);
+		c.data.modalQuery = 'u_sold_to=true^name' + 'LIKE' + c.data.searchQuery;
+    
 		modalContractor.style.display = 'block';
 		c.data.modalContractor = true;
 		
@@ -586,7 +659,7 @@
 		}, {
 			text: "country",
 			value: "",
-			fieldLabel: "Country"
+			fieldLabel: "Customer Code"
 		}];
 		
 		c.server.update().then(function(response) {
@@ -601,7 +674,7 @@
 	
 	$scope.clickContractorModalSearch = function() {
 		c.data.modalContractor = true;
-		c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
+		c.data.modalQuery = 'u_sold_to=true^name' + 'LIKE' + c.data.searchQuery;
 
 		c.server.update().then(function(response) {
 			c.data.modalContractor = false;
@@ -610,7 +683,7 @@
 	
 	$scope.clickModalContractor = function(item) {
 		c.data.contractorNm = item.name;
-		c.data.contractorCountry = item.country;
+		c.data.contractorCode = item.code;
 		c.data.contractorSysid = item.sys_id;
 		
 		modalContractor.style.display = 'none';
@@ -920,6 +993,10 @@
 				dataType: 'text',
 			},
 			{
+				fieldName: 'wbs_6_sysid',
+				dataType: 'text',
+			},
+			{
 				fieldName: 'ms_code',
 				dataType: 'text',
 			},
@@ -993,6 +1070,8 @@
 				"header": {
 					"text": "WBS 6"
 				},
+				"button":"action",
+      	"buttonVisibility": "always"
 			},
 			{
 				"name": "ms_code",
@@ -1149,21 +1228,39 @@
 		dpDetail.softDeleting = true;
 		
 		gvDetail.onCellButtonClicked = function(grid, index, column) {
-			c.data.itemsVendor = [];
-			modalVendor.style.display = 'block';
-			c.data.modalVendor = true;
-			c.data.searchQuery = '';
-			c.data.modalQuery = '';
-			
-			c.data.modalVendorHeader = [{
-				text: "name",
-				value: "",
-				fieldLabel: "Name"
-			}, {
-				text: "country",
-				value: "",
-				fieldLabel: "Country"
-			}];
+			if(column.name == 'wbs_6') {
+				c.data.itemsWbs = [];
+				modalWbs.style.display = 'block';
+				c.data.modalWbs = true;
+				c.data.searchQuery = '';
+				c.data.modalQuery = '';
+
+				c.data.modalWbsHeader = [{
+					text: "desc",
+					value: "",
+					fieldLabel: "Description"
+				}, {
+					text: "code",
+					value: "",
+					fieldLabel: "Code"
+				}];
+			} else if(column.name == 'vendor'){
+				c.data.itemsVendor = [];
+				modalVendor.style.display = 'block';
+				c.data.modalVendor = true;
+				c.data.searchQuery = '';
+				c.data.modalQuery = '';
+
+				c.data.modalVendorHeader = [{
+					text: "name",
+					value: "",
+					fieldLabel: "Name"
+				}, {
+					text: "code",
+					value: "",
+					fieldLabel: "Code"
+				}];
+			}
 
 			c.server.update().then(function(response) {
 				console.log('Server response:', response);
@@ -1248,6 +1345,7 @@
 		c.data.disMpPerc = true;
 		c.data.disEndUserNm = true;
 		c.data.disConstrucNm = true;
+		c.data.disCustPONo = true;
 
 		console.log("STATE:" + c.data.oiState);
 		if(Number(c.data.oiStateCode) == "1") {			
@@ -1272,6 +1370,7 @@
 			c.data.disPerc = false;
 			c.data.disEndUserNm = false;
 			c.data.disConstrucNm = false;
+			c.data.disCustPONo  = false;
 			
 			c.data.disSONm = false;
 			c.data.disSONmSearch = false;
@@ -1930,25 +2029,35 @@ border: 2px solid red;
 			data.oiState = oiReportData.state.getDisplayValue().toString();
 			data.oiStateCode = oiReportData.state.toString(); 
 			data.opener = oiReportData.requestor.user_name.toString();
-			data.ExRate = oiReportData.exchange_rate.toString(); 
+			data.ExRate = oiReportData.exchange_rate.getDisplayValue().toString(); 
 			data.jobTypeSysId = oiReportData.job_type.toString();
 			data.dmrClassNm = oiReportData.dmr_class.toString();
 			data.dmrAmt = oiReportData.dmr_amount_level.toString();
-			data.dmrMP = oiReportData.dmr_mp_level.toString();
-			data.dmrGP = oiReportData.dmr_gp_level.toString();
-			data.oiAmtLC = oiReportData.oi_amount_lc.toString();
-			data.oiAmtTC = oiReportData.oi_amount_tc.toString();
-			data.gpAmt = oiReportData.gp_amount_lc.toString();
-			data.mpAmt = oiReportData.mp_amount_lc.toString();
-			data.gpPerc = oiReportData.gp_percent.toString();
-			data.mpPerc = oiReportData.mp_gap_percent.toString();
-			data.totEstCost = oiReportData.total_extended_cost_tc.toString();
+			data.dmrMP = oiReportData.dmr_mp_level.getDisplayValue().toString();
+			data.dmrGP = oiReportData.dmr_gp_level.getDisplayValue().toString();
+			data.oiAmtLC = oiReportData.oi_amount_lc.getDisplayValue().toString();
+			data.oiAmtTC = oiReportData.oi_amount_tc.getDisplayValue().toString();
+			data.gpAmt = oiReportData.gp_amount_lc.getDisplayValue().toString();
+			data.mpAmt = oiReportData.mp_amount_lc.getDisplayValue().toString();
+			data.gpPerc = oiReportData.gp_percent.getDisplayValue().toString();
+			data.mpPerc = oiReportData.mp_gap_percent.getDisplayValue().toString();
+			data.totEstCost = oiReportData.total_extended_cost_tc.getDisplayValue().toString();
+			data.SONm = oiReportData.sales_office.getDisplayValue().toString();
+			data.MUCode = oiReportData.sales_office.mu.getDisplayValue().toString();
+			data.soMuCodeSysid = oiReportData.sales_office.mu.toString();
+			data.soSysid = oiReportData.sales_office.toString();
+			
 			data.oiVer = oiReportData.version.toString();
 			
-			data.endUserNm = oiReportData.end_user_name.toString();
-			data.endUserCountry = oiReportData.end_user_country.toString();
-			data.contractorNm = oiReportData.contractor_name.toString();
-			data.contractorCountry = oiReportData.contractor_country.toString();
+			data.endUserNm = oiReportData.end_user.getDisplayValue().toString();
+			data.enduserDummy = oiReportData.end_user_name.toString();
+			data.contractorNm = oiReportData.contractor.getDisplayValue().toString();
+			data.contractorDummy = oiReportData.contractor_name.toString();
+			
+			data.endUserCode = oiReportData.end_user.u_company_code.toString();
+			data.endUserSysid = oiReportData.end_user.toString();
+			data.contractorCode = oiReportData.contractor.u_company_code.toString();
+			data.contractorSysid = oiReportData.contractor.toString();
 			
 			data.PONo = oiReportData.customer_po_no.toString();
 			
@@ -2073,12 +2182,22 @@ border: 2px solid red;
 		rfqEntryData.query();
 		while(rfqEntryData.next()) {
 			data.rfqNumber = rfqEntryData.number.toString();
-			data.endUser = rfqEntryData.end_user.name.toString();
+			//data.endUser = rfqEntryData.end_user.name.toString();
 			data.ProjectNm = rfqEntryData.project_title.toString();
 			data.yodaOpportNo = rfqEntryData.yoda_opportunity_no.toString();
 			data.quotSysId = rfqEntryData.quotation.toString();
 			data.salesMngNm = rfqEntryData.sales_manager.user_name.toString();
 			data.salesCompanyNm = rfqEntryData.sales_manager.company.name.toString();
+			data.profitCompany = rfqEntryData.profit_company.name.toString();
+			data.profitCompanyCode = rfqEntryData.profit_company.u_company_code.toString();
+			data.custRFQNo = rfqEntryData.customer_rfq.toString();
+			data.contractorDummy = rfqEntryData.contract_name.toString();
+			data.enduserDummy = rfqEntryData.end_user_name.toString();
+			
+			/*data.endUserNm = rfqEntryData.end_user.getDisplayValue().toString();
+			data.enduserDummy = rfqEntryData.end_user_name.toString();
+			data.contractorNm = rfqEntryData.contractor.getDisplayValue().toString();
+			data.contractorDummy = rfqEntryData.contractor_name.toString();*/
 		}
 		
 		var rStp = new GlideRecord('sys_process_flow');
@@ -2124,13 +2243,13 @@ border: 2px solid red;
 
 		while(quotData.next()) {
 			data.quotNum = quotData.number.toString();
-			data.essNo = quotData.ess_sqms_no.toString();
+			data.essNo = quotData.ess_sqms_no.getDisplayValue().toString();
 			data.currency = quotData.currency_lc.toString();
-			data.quotGpAmt = quotData.gp_amount.toString();
-			data.quotMpAmt = quotData.mp_amount.toString();
-			data.quotTotEstCost = quotData.total_quote_price.toString();
-			data.quotMpGapPerc = quotData.mp_gap_percent.toString();
-			data.quotGpPerc = quotData.gp_percent.toString();
+			data.quotGpAmt = quotData.gp_amount.getDisplayValue().toString();
+			data.quotMpAmt = quotData.mp_amount.getDisplayValue().toString();
+			data.quotTotEstCost = quotData.total_quote_price.getDisplayValue().toString();
+			data.quotMpGapPerc = quotData.mp_gap_percent.getDisplayValue().toString();
+			data.quotGpPerc = quotData.gp_percent.getDisplayValue().toString();
 		}
 	}
 	
@@ -2155,11 +2274,12 @@ border: 2px solid red;
 		oiRptTr.setValue('tax_classification', getValueOrEmptyString(input.taxClassCode));
 		oiRptTr.setValue('payment_terms', getValueOrEmptyString(input.payTermsCode));	
 		oiRptTr.setValue('industry', getValueOrEmptyString(input.industrySysId));
+		oiRptTr.setValue('sales_office', getValueOrEmptyString(input.soSysid));
 		
 		oiRptTr.setValue('end_user_name', getValueOrEmptyString(input.endUserNm));
-		oiRptTr.setValue('end_user_country', getValueOrEmptyString(input.endUserCountry));
+		oiRptTr.setValue('end_user', getValueOrEmptyString(input.endUserSysid));
 		oiRptTr.setValue('contractor_name', getValueOrEmptyString(input.contractorNm));
-		oiRptTr.setValue('contractor_country', getValueOrEmptyString(input.contractorCountry));
+		oiRptTr.setValue('contractor', getValueOrEmptyString(input.contractorSysid));
 		
 		//oiRptTr.setValue('version', /*String(Number(input.oiVer) + 1)*/ '1');
 		oiRptTr.update();
@@ -2232,6 +2352,7 @@ border: 2px solid red;
 			oiRptTr.setValue('mp_gap_percent', getValueOrEmptyString(input.mpPerc));
 			oiRptTr.setValue('total_extended_cost_tc', getValueOrEmptyString(input.totEstCost));
 			oiRptTr.setValue('customer_po_no', getValueOrEmptyString(input.PONo));
+			oiRptTr.setValue('sales_office', getValueOrEmptyString(input.soSysid));
 			//oiRptTr.setValue('version', String(Number(input.oiVer) + 1));
 			oiRptTr.insert();
 			data.redirect_sys_id = oiRptTr.getUniqueValue();
@@ -2286,7 +2407,7 @@ border: 2px solid red;
 				'rowStat' : '',
 				'sys_id' : oiDetail.sys_id.toString(), 
 				'number' : oiDetail.number.toString(), 
-				'wbs_6' : oiDetail.wbs_6.toString(), 
+				'wbs_6' : oiDetail.wbs_6.getDisplayValue(),
 				'ms_code' : oiDetail.ms_code.toString(), 
 				'description' : oiDetail.description.toString(), 
 				'quantity' :oiDetail.quantity.toString(), 
@@ -2296,7 +2417,7 @@ border: 2px solid red;
 				'extended_cost' : oiDetail.extended_cost.toString(),
 				'unit_mp' : oiDetail.unit_mp.toString(), 
 				'mp_amount' : oiDetail.mp_amount.toString(), 
-				'vendor' : oiDetail.vendor.toString(), 
+				'vendor' : oiDetail.vendor.getDisplayValue(),
 				'oi_report_num' : oiDetail.oi_report.number.toString(),
 				'oi_report_sys_Id' : oiDetail.oi_report.toString()
 			});
@@ -2318,22 +2439,24 @@ border: 2px solid red;
 					ordItem.deleteRecord();
 				} else if(rStat == 'updated') {
 					ordItem.get(gData[x].sys_id);
+					ordItem.setValue('wbs_6', gData[x].wbs_6_sysid);
 					ordItem.setValue('ms_code', gData[x].ms_code);
 					ordItem.setValue('description', gData[x].description);
 					ordItem.setValue('quantity', gData[x].quantity);
 					ordItem.setValue('unit_price', gData[x].unit_price);
 					ordItem.setValue('unit_cost', gData[x].unit_cost);
 					ordItem.setValue('unit_mp', gData[x].unit_mp);
-					ordItem.setValue('vendor', gData[x].vendor);
+					ordItem.setValue('vendor', gData[x].vendor_sysid);
 					ordItem.update();
 				} else if(rStat == 'created') {
+					ordItem.setValue('wbs_6', gData[x].wbs_6_sysid);
 					ordItem.setValue('ms_code', gData[x].ms_code);
 					ordItem.setValue('description', gData[x].description);
 					ordItem.setValue('quantity', gData[x].quantity);
 					ordItem.setValue('unit_price', gData[x].unit_price);
 					ordItem.setValue('unit_cost', gData[x].unit_cost);
 					ordItem.setValue('unit_mp', gData[x].unit_mp);
-					ordItem.setValue('vendor', gData[x].vendor);
+					ordItem.setValue('vendor', gData[x].vendor_sysid);
 					ordItem.setValue('oi_report', input.oiSysId);
 					ordItem.insert();
 				} 
@@ -2357,10 +2480,11 @@ border: 2px solid red;
 			grOrdType.addEncodedQuery(input.modalQuery);
 		} else if(input && input.modalTypeIndustry) {
 			grOrdType = new GlideRecord('x_yergb_bpm_industry_master');
-			grOrdType.addEncodedQuery(input.modalQuery);
 			if(!isEmpty(input.MUCode)) {
-				grOrdType.addQuery('mu_code', input.MUCode);
+				grOrdType.addQuery('mu', input.soMuCodeSysid);
+				console.log('SERV INDUSTRY MU : ' + input.soMuCodeSysid);
 			}
+			grOrdType.addEncodedQuery(input.modalQuery);
 		} else if(input && input.modalTypePayTerms) {
 			grOrdType = new GlideRecord('x_yergb_bpm_common_code');
 			grOrdType.addQuery('category', 'PAYMENT TERMS');
@@ -2406,9 +2530,9 @@ border: 2px solid red;
 		var grPjtType = new GlideRecord('x_yergb_bpm_common_code');
 		grPjtType.addQuery('category', 'PJT TYPE');	
 		grPjtType.addEncodedQuery(input.modalQuery);
-		if(!isEmpty(input.MUCode)) {
-			grPjtType.addQuery('mu_code', input.MUCode);
-		}
+		/*if(!isEmpty(input.MUCode)) {
+			grPjtType.addQuery('mu_code', input.soMuCodeSysid);
+		}*/
 		grPjtType.query();
 		while(grPjtType.next()) {
 			data.itemsProjecttype.push({
@@ -2425,7 +2549,7 @@ border: 2px solid red;
 		var grAnsoff = new GlideRecord('x_yergb_bpm_ansoff_master');
 		grAnsoff.addEncodedQuery(input.modalQuery);
 		if(!isEmpty(input.MUCode)) {
-			grAnsoff.addQuery('mu_code', input.MUCode);
+			grAnsoff.addQuery('mu', input.soMuCodeSysid);
 		}
 		grAnsoff.query();
 		while(grAnsoff.next()) {
@@ -2448,6 +2572,21 @@ border: 2px solid red;
 					desc : grVendor.country.toString(),
 					name : grVendor.name.toString(),
 					sysid : grVendor.sys_id.toString()
+				});
+		}
+	}
+	
+	/* WBS Modal */
+	if(input && input.modalWbs) {
+		data.itemsWbs = [];
+		var grWbs = new GlideRecord('x_yergb_bpm_wbs_master');
+		grWbs.addEncodedQuery(input.modalQuery);
+		grWbs.query();
+		while(grWbs.next()) {
+				data.itemsWbs.push({
+					desc : grWbs.description.toString(),
+					code : grWbs.code.toString(),
+					sysid : grWbs.sys_id.toString()
 				});
 		}
 	}
@@ -2478,8 +2617,10 @@ border: 2px solid red;
 		while(grSO.next()) {
 			data.itemsSalesOffice.push({
 				name : grSO.name.toString(),
-				muCode : grSO.mu.mu_code.toString(),
-				sys_id : grSO.sys_id.toString()
+				muCode : grSO.mu.getDisplayValue().toString(),
+				sysid : grSO.sys_id.toString(),
+				muSysid : grSO.mu.toString()
+				//soMuCodeSysid
 			});
 		}
 	}
@@ -2489,12 +2630,16 @@ border: 2px solid red;
 		data.itemsEndUser = [];
 		var grEuser = new GlideRecord('core_company');
 		grEuser.addEncodedQuery(input.modalQuery);
+		if(!isEmpty(input.profitCompany )) {
+			grEuser.addQuery('u_sales_org', input.profitCompanyCode);
+		}
 		grEuser.query();
 		while(grEuser.next()) {
 			data.itemsEndUser.push({
 				name : grEuser.name.toString(),
-				country : grEuser.country.toString(),
-				sys_id : grEuser.sys_id.toString()
+				code : grEuser.u_customer_code.toString(),
+				sys_id : grEuser.sys_id.toString(),
+				u_sales_org: grEuser.u_sales_org.toString()
 			});
 		}
 	}
@@ -2504,12 +2649,16 @@ border: 2px solid red;
 		data.itemsContractor = [];
 		var grConst = new GlideRecord('core_company');
 		grConst.addEncodedQuery(input.modalQuery);
+		if(!isEmpty(input.profitCompany )) {
+			grConst.addQuery('u_sales_org', input.profitCompanyCode);
+		}
 		grConst.query();
 		while(grConst.next()) {
 			data.itemsContractor.push({
 				name : grConst.name.toString(),
-				country : grConst.country.toString(),
-				sys_id : grConst.sys_id.toString()
+				code : grConst.u_customer_code.toString(),
+				sys_id : grConst.sys_id.toString(),
+				u_sales_org: grConst.u_sales_org.toString()
 			});
 		}
 	}
@@ -2519,14 +2668,14 @@ border: 2px solid red;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 00:41:05</sys_created_on>
         <sys_id>0bf3cf7283720210b3dd1665eeaad343</sys_id>
-        <sys_mod_count>1154</sys_mod_count>
+        <sys_mod_count>1256</sys_mod_count>
         <sys_name>orderIntakeReportWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_0bf3cf7283720210b3dd1665eeaad343</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-07-01 05:28:00</sys_updated_on>
+        <sys_updated_by>hahyun@sorin.co.kr</sys_updated_by>
+        <sys_updated_on>2024-07-01 18:23:29</sys_updated_on>
         <template><![CDATA[<!--<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet"/>
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -2560,6 +2709,17 @@ border: 2px solid red;
                             <label for="opened_by" class="yoko-short">opened by</label>
                             <input type="text" name="inputOpener" value="" ng-model="c.data.opener" placeholder="" disabled class="yoko-wid140">
                         </div>
+                      	<div class="yoko-form-group">
+                        <div class="yoko-form-group">
+                            <label for="lbQuotationNo" class="yoko-short">Quotation No</label>
+                            <input type="text" name="inputQuotationNo" value="" ng-model="c.data.quotNum" placeholder="" disabled class="yoko-wid140">
+                          </div>
+                      	</div>
+                        <div class="yoko-form-group">
+                            <label for="lbQuotationNo" class="yoko-short">Profit company</label>
+                            <input type="text" name="inputProfitCompany" value="" ng-model="c.data.profitCompany" placeholder="" disabled class="yoko-wid140">
+                          	<input type='hidden' value='' ng-model='c.data.profitCompanyCode'>
+                      	</div>
                     </div>
                     
                     <div class="yoko-form-col">
@@ -2576,7 +2736,7 @@ border: 2px solid red;
                               	<input type='hidden' value='' ng-model='c.data.salesCompanyNm' > 
                             </div>
                         </div>
-                        <div class="yoko-form-group">
+                        <!--<div class="yoko-form-group">
                             <label for="sales_office" class="yoko-short-110">Sales Office</label>
                             <div class="yoko-form-inline yoko-wid308">
                                 <div class="yoko-form-inline">
@@ -2586,15 +2746,25 @@ border: 2px solid red;
                                     <button type="button" class="yoko-btn yoko-btn-info-fill" hidden ng-click="btnClickSOInfo()" ng-disabled='c.data.disSONmInfo'></button>
                                 </div>
                                 <input type="text" name="inputSONum" value="" ng-model='c.data.MUCode' placeholder="" disabled class="">
+                              	<input type='hidden' value='' ng-model='c.data.soSysid'>
+                              	<input type='hidden' value='' ng-model='c.data.soMuCodeSysid'>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="yoko-form-group">
                             <label for="lbCustPONo" class="yoko-short-110">Customer PO No</label>
-                            <input type="text" name="inputCustPONo" value="" ng-model="c.data.PONo" placeholder="" class="yoko-wid308" disabled>
+                            <input type="text" name="inputCustPONo" value="" ng-model="c.data.PONo" placeholder="" class="yoko-wid308" ng-disabled='c.data.disCustPONo'>
                         </div>
+                      	<div class="yoko-form-group">
+                          <label for="lbEssSqmsNo" class="yoko-short-110">ESS/SQMS No.</label>
+                          <input type="text" name="inputEssSqmsNo" value="" ng-model="c.data.essNo" placeholder="" disabled class="yoko-wid308">
+                      	</div>
                     </div>
 
                     <div class="yoko-form-col">
+                      	<div class="yoko-form-group">
+                          <label for="lbCurrency" class="yoko-short-100">Currency</label>
+                          <input type="text" name="inputCurrency" value="" ng-model="c.data.currency" placeholder="" disabled class="yoko-wid140">
+                      	</div>
                         <div class="yoko-form-group">
                             <label for="lbExRate" class="yoko-short-100">Ex. Rate</label>
                             <input type="text" name="inputExRate" value="" ng-model="c.data.ExRate" laceholder="" disabled class="yoko-wid140 yoko-text-right">
@@ -2618,7 +2788,7 @@ border: 2px solid red;
                             <input type="text" name="inputGpAmount" value="" ng-model="c.data.gpAmt" ng-disabled='c.data.disGpAmt' placeholder="" class="yoko-wid140 yoko-text-right">
                         </div>
                         <div class="yoko-form-group">
-                            <label for="lbMpAmount" class="yoko-short">MP Amount</label>
+                            <label for="lbMpAmount" class="yoko-short">MP Price</label>
                             <input type="text" name="inputMpAmount" value="" ng-model="c.data.mpAmt" ng-disabled='c.data.disMpAmt' placeholder="" class="yoko-wid140 yoko-text-right">
                         </div>
                         <div class="yoko-form-group">
@@ -2631,86 +2801,8 @@ border: 2px solid red;
                         </div>
                     </div>
                 </div>
-            </div>
-
-            
-          	<div class="yoko-search-form-wrap">
-                <div class="yoko-search-form-heading yoko-fold-btn-wrap">
-                    <button type="button" data-target="Quotation" class="yoko-btn yoko-btn-fold"></button>
-                  	Quotation
-                </div>
-                <div class="quotation_wrap" id="Quotation">
-                    <div class="yoko-search-form yoko-padding24">
-                        <div class="yoko-flex-responsive quotation-responsive">
-                            <div class="yoko-form-col">
-                                <div class="yoko-form-group">
-                                    <div class="yoko-form-group">
-                                        <label for="lbQuotationNo" class="yoko-short-110">Quotation No</label>
-                                        <input type="text" name="inputQuotationNo" value="" ng-model="c.data.quotNum" placeholder="" disabled class="yoko-wid140">
-                                    </div>
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="lbEssSqmsNo" class="yoko-short-110">ESS/SQMS No.</label>
-                                    <input type="text" name="inputEssSqmsNo" value="" ng-model="c.dataEssNo" placeholder="" disabled class="yoko-wid140">
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="lbCurrency" class="yoko-short-110">Currency</label>
-                                    <input type="text" name="inputCurrency" value="" ng-model="c.data.currency" placeholder="" disabled class="yoko-wid140">
-                                </div>
-                            </div>
-                            <div class="yoko-form-col">
-                                <div class="yoko-form-group">
-                                    <label for="industry_security_fee" class="yoko-short-142 ">Industry Security Fee</label>
-                                    <input type="text" name="industry_security_fee" value="" ng-model="c.data.industrySec" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                                </div>
-                                <div class="yoko-form-group">
-                                    <label for="lbIndustrySecurityFee" class="yoko-short-142">Liability Insurance Fee</label>
-                                    <input type="text" name="inputIndustrySecurityFee" value="" ng-model="c.data.liabilityInsu" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="yoko-form-col">
-                            <div class="yoko-form-group">
-                                <label for="lbOiAmountTc" class="yoko-short-110">OI Amount(TC)</label>
-                                <input type="text" name="inputOiAmountTc" value="" ng-model="c.data.oiAmtTC" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="lbOiAmountLc" class="yoko-short-110">OI Amount(LC)</label>
-                                <input type="text" name="inputOiAmountLc" value="" ng-model="c.data.oiAmtLC" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                            </div>
-                        </div>
-                        <div class="yoko-form-col">
-                            <div class="yoko-form-group">
-                                <label for="lbQuotMpAmt" class="yoko-short">MP Amount</label>
-                                <input type="text" name="inputQuotMpAmt" value="" ng-model="c.data.quotMpAmt" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="lbQuotMpGap" class="yoko-short">MP GAP</label>
-                                <input type="text" name="inputQuotMpGap" value="" ng-model="c.data.quotMpGap" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="lbQuotMpGapPerc" class="yoko-short">MP Gap %</label>
-                                <input type="text" name="inputQuotMpGapPerc" value="" ng-model="c.data.quotMpGapPerc" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                            </div>
-                        </div>
-                        <div class="yoko-form-col">
-                            <div class="yoko-form-group">
-                                <label for="lbQuotTotEstCost" class="yoko-short-135">Total Estimated Cost</label>
-                                <input type="text" name="inputQuotTotEstCost" value="" ng-model="c.data.quotTotEstCost" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="lbQuotGpAmt" class="yoko-short-135">GP Amount</label>
-                                <input type="text" name="inputQuotGpAmt" value="" ng-model="c.data.quotGpAmt" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                            </div>
-                            <div class="yoko-form-group">
-                                <label for="lbQuotGpPerc" class="yoko-short-135">GP %</label>
-                                <input type="text" name="inputQuotGpPerc" value="" ng-model="c.data.quotGpPerc" placeholder="" disabled class="yoko-wid140 yoko-text-right">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          
+            </div>           
+          	
             <div class="yoko-search-form-wrap">
                 <div class="yoko-search-form-heading yoko-fold-btn-wrap">
                     <button type="button" data-target="RFQEntry" class="yoko-btn yoko-btn-fold"></button> 
@@ -2726,8 +2818,8 @@ border: 2px solid red;
                                         <input type="text" name="inputRfqNo" value="" ng-model="c.data.rfqNumber" placeholder="" disabled class="yoko-wid140">
                                     </div>
                                     <div class="yoko-form-group">
-                                        <label for="lbCustomerPoNo" class="yoko-short-120">Customer PO No.</label>
-                                        <input type="text" name="inputCustomerPoNo" value="" ng-model="c.data.custPONo" placeholder="" disabled class="yoko-wid140">
+                                        <label for="lbCustomerPoNo" class="yoko-short-120">Customer RFQ No.</label>
+                                        <input type="text" name="inputCustomerPoNo" value="" ng-model="c.data.custRFQNo" placeholder="" disabled class="yoko-wid140">
                                     </div>
                                 </div>
                             </div>
@@ -2739,20 +2831,22 @@ border: 2px solid red;
                                 <label for="lbProjectName" class="yoko-short-90">Project Name</label>
                                 <input type="text" name="inputProjectName" value="" ng-model="c.data.ProjectNm" placeholder="" disabled class="yoko-col100">
                             </div>
-                        </div>
-                        <div class="yoko-form-col">
-                            <div class="yoko-form-group">
-                              <label for="end_user" class="yoko-short-110">End User</label>
+                          	<div class="yoko-form-group">
+                              <label for="sales_office" class="yoko-short-90">Sales Office</label>
                               <div class="yoko-form-inline yoko-wid308">
                                   <div class="yoko-form-inline">
-                                      <input type="text" name="inputEndUserNm" value="" ng-model="c.data.endUserNm" ng-disabled='c.data.disEndUser' placeholder="" class="yoko-wid100"
-                                             ng-keypress="onKeyPressed($event, 'EndUser')"> 
-                                      <button type="button" class="yoko-btn yoko-btn-search"  ng-click="btnClickEndUserSearch()" ng-disabled='c.data.disEndUserNm'></button>
+                                      <input type="text" name="inputSalesOffice" value="" ng-model="c.data.SONm" ng-disabled='c.data.disSONm' placeholder="" 
+                                             class="yoko-wid180" ng-keypress="onKeyPressed($event, 'SO')">
+                                      <button type="button" class="yoko-btn yoko-btn-search"  ng-click="btnClickSOSearch()" ng-disabled='c.data.disSONmSearch'></button>
+                                      <button type="button" class="yoko-btn yoko-btn-info-fill" hidden ng-click="btnClickSOInfo()" ng-disabled='c.data.disSONmInfo'></button>
                                   </div>
-                                  <input type="text" name="inputEndUserCountry" value="" ng-model='c.data.endUserCountry' placeholder="" disabled class="">
-                                	<input type='hidden' value='' ng-model='c.data.endUserSysid' >
-                              </div>
-                          	</div>
+                                  <input type="text" name="inputSONum" value="" ng-model='c.data.MUCode' placeholder="" disabled class="">
+                                  <input type='hidden' value='' ng-model='c.data.soSysid'>
+                                  <input type='hidden' value='' ng-model='c.data.soMuCodeSysid'>
+                            	</div>
+                       		  </div>
+                        </div>
+                        <div class="yoko-form-col">
                           	<div class="yoko-form-group">
                               <label for="constructor" class="yoko-short-110">Contractor</label>
                               <div class="yoko-form-inline yoko-wid308">
@@ -2761,14 +2855,31 @@ border: 2px solid red;
                                              ng-keypress="onKeyPressed($event, 'Contractor')">
                                       <button type="button" class="yoko-btn yoko-btn-search"  ng-click="btnClickContractorSearch()" ng-disabled='c.data.disConstrucNm'></button>
                                   </div>
-                                  <input type="text" name="inputConstructorCountry" value="" ng-model='c.data.contractorCountry' placeholder="" disabled class="">
+                                  <input type="text" name="inputConstructorCountry" value="" ng-model='c.data.contractorCode' placeholder="" disabled class="">
                                 	<input type='hidden' value='' ng-model='c.data.contractorSysid' >
                               </div>
                           	</div>   
                             <div class="yoko-form-group">
-                                <label for="lbDummyAccount" class="yoko-short-100">Dummy Account</label>
-                                <input type="text" name="inputDummyAccount" value="" ng-model="c.data.dummyAccount" placeholder="" disabled class="yoko-col100">
+                              <label for="end_user" class="yoko-short-110">End User</label>
+                              <div class="yoko-form-inline yoko-wid308">
+                                  <div class="yoko-form-inline">
+                                      <input type="text" name="inputEndUserNm" value="" ng-model="c.data.endUserNm" ng-disabled='c.data.disEndUser' placeholder="" class="yoko-wid100"
+                                             ng-keypress="onKeyPressed($event, 'EndUser')"> 
+                                      <button type="button" class="yoko-btn yoko-btn-search"  ng-click="btnClickEndUserSearch()" ng-disabled='c.data.disEndUserNm'></button>
+                                  </div>
+                                  <input type="text" name="inputEndUserCountry" value="" ng-model='c.data.endUserCode' placeholder="" disabled class="">
+                                	<input type='hidden' value='' ng-model='c.data.endUserSysid' >
+                              </div>
+                          	</div>	
+                            <div class="yoko-form-group">
+                                <label for="lbDummyAccount" class="yoko-short-110">Contractor Dummy</label>
+                                <input type="text" name="inputDummyAccount" value="" ng-model="c.data.contractorDummy" placeholder="" disabled class="yoko-col100">
                             </div>
+                          	<div class="yoko-form-group">
+                                <label for="lbDummyAccount" class="yoko-short-110">End User Dummy</label>
+                                <input type="text" name="inputDummyAccount" value="" ng-model="c.data.enduserDummy" placeholder="" disabled class="yoko-col100">
+                            </div>
+                            
                         </div>
                         <div class="yoko-form-col">
                             <div class="yoko-form-group">
@@ -3084,7 +3195,8 @@ border: 2px solid red;
                   <!--<select class="modal-select">
                   <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                   </select>-->
-                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204" 
+                         ng-keypress="onModalKeyPressed($event, 'OrderType')">
                   <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickOrderTypeModalSearch()"></button>
               </div>
          </div>
@@ -3122,7 +3234,8 @@ border: 2px solid red;
                   <!--<select class="modal-select">
                   <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                   </select>-->
-                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204" 
+                         ng-keypress="onModalKeyPressed($event, 'ProjectType')">
                   <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickProjectTypeSearch()"></button>
               </div>
          </div>
@@ -3160,7 +3273,8 @@ border: 2px solid red;
                   <!--<select class="modal-select">
                   <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                   </select>-->
-                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204" 
+                         ng-keypress="onModalKeyPressed($event, 'Ansoff')">
                   <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickAnsoffModalSearch()"></button>
               </div>
          </div>
@@ -3198,7 +3312,8 @@ border: 2px solid red;
                   <!--<select class="modal-select">
                   <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                   </select>-->
-                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204"
+                         ng-keypress="onModalKeyPressed($event, 'Vendor')">
                   <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickVendorModalSearch()"></button>
               </div>
          </div>
@@ -3226,6 +3341,45 @@ border: 2px solid red;
       </div>
     </dialog>
   
+  	<!-- Modal WBS Structure -->
+  	<dialog class="modal-dialog" id="modalWbs">
+      <div class="modal-form-content">
+          <div class="modal-search-form">
+              <button class="modal-close-button" ng-click="closeModalWbs()">×</button>
+              <div class="modal-form-inline">
+                  <label class="modal-label" >WBS 6</label>
+                  <!--<select class="modal-select">
+                  <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                  </select>-->
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204" 
+                         ng-keypress="onModalKeyPressed($event, 'WBS')">
+                  <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickWbsModalSearch()"></button>
+              </div>
+         </div>
+      </div>
+      <div class="yoko-table-container">
+          <table class="yoko-search-table">
+              <colgroup>
+                <col style="width: 137px">
+                <col style="width: 51px">
+                <col style="width: auto">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th ng-repeat="item in c.data.modalWbsHeader">{{ item.fieldLabel }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in c.data.itemsWbs">
+                  <td id="clicktd" ng-click="clickWbs(item)">{{ item.desc }}</td>
+                  <td>{{ item.code }}</td>
+                  <td style="display: none;">{{ item.sysid }}</td>
+                </tr>
+              </tbody>
+          </table>   
+      </div>
+    </dialog>
+  
   	<!-- Modal JOB TYPE -->
     <dialog class="modal-dialog" id="modalJobType">
       <div class="modal-form-content">
@@ -3236,7 +3390,8 @@ border: 2px solid red;
                   <!--<select class="modal-select">
                   <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                   </select>-->
-                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204" 
+                         ng-keypress="onModalKeyPressed($event, 'JobType')">
                   <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickJobModalSearch(1)"></button>
               </div>
          </div>
@@ -3274,7 +3429,8 @@ border: 2px solid red;
                   <!--<select class="modal-select">
                   <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                   </select>-->
-                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204"
+                         ng-keypress="onModalKeyPressed($event, 'SO')">
                   <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickSOModalSearch()"></button>
 
               </div>
@@ -3285,6 +3441,7 @@ border: 2px solid red;
               <colgroup>
                 <col style="width: 51px">
                 <col style="width: 137px">
+                <col style="width: auto">
                 <col style="width: auto">
               </colgroup>
               <thead>
@@ -3297,6 +3454,7 @@ border: 2px solid red;
                   <td id="clicktd" ng-click="clickModalSO(item)">{{ item.name }}</td>
                   <td>{{ item.muCode }}</td>
                   <td style="display: none;">{{ item.sys_id }}</td>
+                  <td style="display: none;">{{ item.muSysid }}</td>
                 </tr>
               </tbody>
           </table>   
@@ -3313,7 +3471,8 @@ border: 2px solid red;
                   <!--<select class="modal-select">
                   <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                   </select>-->
-                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204" 
+                         ng-keypress="onModalKeyPressed($event, 'EndUser')">
                   <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickEndUserModalSearch()"></button>
 
               </div>
@@ -3322,19 +3481,22 @@ border: 2px solid red;
       <div class="yoko-table-container">
           <table class="yoko-search-table">
               <colgroup>
-                <col style="width: 81px">
-                <col style="width: 107px">
                 <col style="width: auto">
+                <col style="width: auto; text-align:center">
+                <col style="width: auto; text-align:center">
+                <col style="width: auto; text-align:center">
               </colgroup>
               <thead>
                 <tr>
                   <th ng-repeat="item in c.data.modalEndUserHeader">{{ item.fieldLabel }}</th>
+                  <th>Sales Org</th>
                 </tr>
               </thead>
               <tbody>
                 <tr ng-repeat="item in c.data.itemsEndUser">
                   <td id="clicktd" ng-click="clickModalEndUser(item)">{{ item.name }}</td>
-                  <td>{{ item.country }}</td>
+                  <td style="text-align:center">{{ item.code }}</td>
+                  <td style="text-align:center">{{ item.u_sales_org }}</td>
                   <td style="display: none;">{{ item.sys_id }}</td>
                 </tr>
               </tbody>
@@ -3348,11 +3510,12 @@ border: 2px solid red;
           <div class="modal-search-form">
               <button class="modal-close-button" ng-click="closeModalContractor()">×</button>
               <div class="modal-form-inline">
-                  <label class="modal-label" >Constructor</label>
+                  <label class="modal-label" >Contractor</label>
                   <!--<select class="modal-select">
                   <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
                   </select>-->
-                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204">
+                  <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204" 
+                         ng-keypress="onModalKeyPressed($event, 'Contractor')">
                   <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickContractorModalSearch()"></button>
 
               </div>
@@ -3361,19 +3524,22 @@ border: 2px solid red;
       <div class="yoko-table-container">
           <table class="yoko-search-table">
               <colgroup>
-                <col style="width: 81px">
-                <col style="width: 107px">
                 <col style="width: auto">
+                <col style="width: auto; text-align:center">
+                <col style="width: auto; text-align:center">
+                <col style="width: auto; text-align:center">
               </colgroup>
               <thead>
                 <tr>
                   <th ng-repeat="item in c.data.modalContractorHeader">{{ item.fieldLabel }}</th>
+                  <th >Sales Org</th>
                 </tr>
               </thead>
               <tbody>
                 <tr ng-repeat="item in c.data.itemsContractor">
                   <td id="clicktd" ng-click="clickModalContractor(item)">{{ item.name }}</td>
-                  <td>{{ item.country }}</td>
+                  <td style="text-align:center">{{ item.code }}</td>
+                  <td style="text-align:center">{{ item.u_sales_org }}</td>
                   <td style="display: none;">{{ item.sys_id }}</td>
                 </tr>
               </tbody>

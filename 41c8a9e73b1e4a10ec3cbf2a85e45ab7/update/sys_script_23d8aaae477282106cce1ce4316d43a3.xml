@@ -32,6 +32,8 @@
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
 
+	current.complete_date = (new GlideDateTime().getDisplayValue());
+
 	var oi_no = "OI"+ current.number.substring(3,10);
 	var version = 0;
 	var mp_amount = 0;
@@ -105,10 +107,10 @@
 	gr.end_user_address = current.end_user_address;
 	gr.end_user_country = current.end_user_country;
 	gr.end_user_name = current.end_user_name;
-	gr.contractor_user = current.contractor_user;
-	gr.contractor_user_address = current.contractor_user_address;
-	gr.contractor_user_country = current.contractor_user_country;
-	gr.contractor_user_name = current.contractor_user_name;
+	gr.contractor = current.contractor;
+	gr.contractor_address = current.contractor_address;
+	gr.contractor_country = current.contractor_country;
+	gr.contractor_name = current.contractor_name;
 
 	gr.insert();
 
@@ -145,6 +147,7 @@
 		groii.mp_amount_lc = grqi.mp_amount * exchange_rate;
 		groii.gp_amount_lc = grqi.gp_amount * exchange_rate;
 		groii.oi_report = gr.sys_id;
+		groii.vendor = grqi.vendor;
 		groii.insert();
 	}
 
@@ -157,7 +160,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>23d8aaae477282106cce1ce4316d43a3</sys_id>
-        <sys_mod_count>29</sys_mod_count>
+        <sys_mod_count>34</sys_mod_count>
         <sys_name>RFQ Entry Completed</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
@@ -165,7 +168,7 @@
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_23d8aaae477282106cce1ce4316d43a3</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-07-01 02:18:23</sys_updated_on>
+        <sys_updated_on>2024-07-01 16:21:01</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

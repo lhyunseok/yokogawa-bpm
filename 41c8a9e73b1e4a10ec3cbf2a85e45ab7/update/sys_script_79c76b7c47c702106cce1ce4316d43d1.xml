@@ -15,11 +15,13 @@
         <condition/>
         <description/>
         <execute_function>false</execute_function>
-        <filter_condition table="x_yergb_bpm_oi_report">job_typeISNOTEMPTY^job_typeVALCHANGES^ORoi_amount_lcVALCHANGES^ORmp_gap_lcVALCHANGES^ORgp_percentVALCHANGES^EQ<item endquery="false" field="job_type" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/>
+        <filter_condition table="x_yergb_bpm_oi_report">job_typeISNOTEMPTY^job_typeVALCHANGES^ORoi_amount_lcVALCHANGES^ORmp_gap_lcVALCHANGES^ORgp_percentVALCHANGES^ORsales_officeVALCHANGES^sales_officeISNOTEMPTY^EQ<item endquery="false" field="job_type" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/>
             <item endquery="false" field="job_type" goto="false" newquery="false" operator="VALCHANGES" or="false" value=""/>
             <item endquery="false" field="oi_amount_lc" goto="false" newquery="false" operator="VALCHANGES" or="true" value=""/>
             <item endquery="false" field="mp_gap_lc" goto="false" newquery="false" operator="VALCHANGES" or="true" value=""/>
             <item endquery="false" field="gp_percent" goto="false" newquery="false" operator="VALCHANGES" or="true" value=""/>
+            <item endquery="false" field="sales_office" goto="false" newquery="false" operator="VALCHANGES" or="true" value=""/>
+            <item endquery="false" field="sales_office" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/>
             <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
         </filter_condition>
         <is_rest>false</is_rest>
@@ -41,9 +43,9 @@
 
 	// Amount Level
 	var gra = new GlideRecord('x_yergb_bpm_dmr_master');
-	gra.addQuery('company', current.rfq_entry.sales_manager.company);
+	gra.addQuery('company', current.requestor.company);
 	gra.addQuery('job_type',current.job_type);
-	gra.addQuery('mu',current.rfq_entry.sales_manager.department.u_mu);
+	gra.addQuery('mu',current.sales_office.mu);
 	gra.addQuery('type','Amount');
 	gra.addQuery('max_value','>=', current.oi_amount_lc);
 	gra.orderBy('level');
@@ -56,9 +58,9 @@
 
 	// GP Level
 	var grg = new GlideRecord('x_yergb_bpm_dmr_master');
-	grg.addQuery('company', current.rfq_entry.sales_manager.company);
+	grg.addQuery('company', current.requestor.company);
 	grg.addQuery('job_type',current.job_type);
-	grg.addQuery('mu',current.rfq_entry.sales_manager.department.u_mu);
+	grg.addQuery('mu',current.sales_office.mu);
 	grg.addQuery('type','GP');
 	grg.addQuery('max_value','>=', current.gp_percent);
 	grg.orderByDesc('level');
@@ -71,9 +73,9 @@
 
 	// MP Level
 	var grm = new GlideRecord('x_yergb_bpm_dmr_master');
-	grm.addQuery('company', current.rfq_entry.sales_manager.company);
+	grm.addQuery('company', current.requestor.company);
 	grm.addQuery('job_type',current.job_type);
-	grm.addQuery('mu',current.rfq_entry.sales_manager.department.u_mu);
+	grm.addQuery('mu',current.sales_office.mu);
 	grm.addQuery('type','MP');
 	grm.addQuery('max_value','>=', current.mp_gap_percent);
 	grm.orderByDesc('level');
@@ -103,7 +105,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>79c76b7c47c702106cce1ce4316d43d1</sys_id>
-        <sys_mod_count>9</sys_mod_count>
+        <sys_mod_count>11</sys_mod_count>
         <sys_name>Set DMR Class</sys_name>
         <sys_overrides/>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
@@ -111,7 +113,7 @@
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sys_script_79c76b7c47c702106cce1ce4316d43d1</sys_update_name>
         <sys_updated_by>sungsoo@sorin.co.kr</sys_updated_by>
-        <sys_updated_on>2024-06-25 10:36:33</sys_updated_on>
+        <sys_updated_on>2024-07-01 15:32:56</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

@@ -210,10 +210,13 @@
                 "fieldName": "wbs_6",
                 "type": "data",
                 "width": 100,
+							"editable": false,
                 "header": {
                     "text": "WBS 6"
                 },
-                "styleName": "left-column"
+                "styleName": "left-column",
+                "button":"action",
+          "buttonVisibility": "always"
             },
             {
                 "name": "wbs_6_sys_id",
@@ -324,10 +327,13 @@
                 "fieldName": "vendor",
                 "type": "data",
                 "width": 120,
+								"editable": false,
                 "header": {
                     "text": "Vendor"
                 },
-                "styleName": "left-column"
+                "styleName": "left-column",
+                "button":"action",
+          "buttonVisibility": "always"
             },
             {
                 "name": "vendor_sys_id",
@@ -374,15 +380,56 @@
 
 var wbs6Codes = [];
 var vendorCodes = [];
-var isPasting = false; // 붙여넣기 상태를 나타내는 플래그
+//var isPasting = false; // 붙여넣기 상태를 나타내는 플래그
 var pasteRowCount = 0; // 붙여넣기 중인 row의 개수
 var isFirstPaste = true; // 첫 번째 붙여넣기인지 여부
 
-gvDetail.onCellEdited = function(grid, itemIndex, row, field) {
-    if (isPasting) {
-        return; // 붙여넣기 중일 때는 onCellEdited 이벤트를 무시
+gvDetail.onCellButtonClicked = function(grid, index, column) {
+    if(column.name == 'wbs_6') {
+        c.data.itemsWbs = [];
+        modalWbs.style.display = 'block';
+        c.data.modalWbs = true;
+        c.data.searchQuery = '';
+        c.data.modalQuery = '';
+
+        c.data.modalWbsHeader = [{
+            text: "desc",
+            value: "",
+            fieldLabel: "Description"
+        }, {
+            text: "code",
+            value: "",
+            fieldLabel: "Code"
+        }];
+    } else if(column.name == 'vendor'){
+        c.data.itemsVendor = [];
+        modalVendor.style.display = 'block';
+        c.data.modalVendor = true;
+        c.data.searchQuery = '';
+        c.data.modalQuery = '';
+
+        c.data.modalVendorHeader = [{
+            text: "name",
+            value: "",
+            fieldLabel: "Name"
+        }, {
+            text: "code",
+            value: "",
+            fieldLabel: "Code"
+        }];
     }
 
+    c.server.update().then(function(response) {
+        console.log('Server response:', response);
+    });
+};
+			/*
+gvDetail.onCellEdited = function(grid, itemIndex, row, field) {
+		console.log("Row single pasted");
+    console.log("field", field);
+    console.log("row", row);
+    console.log("grid", grid);
+    console.log("itemIndex", itemIndex);
     //alert("여기는 single");
 
     if (field == 2) {
@@ -392,6 +439,9 @@ gvDetail.onCellEdited = function(grid, itemIndex, row, field) {
         c.data.myWbs6 = myWbs6;
 
         c.server.update().then(function(response) {
+						alert(response.wbsData.length)
+						console.log("========++++++=========")
+					  console.log(response)
             if (response.wbsData.length == 0) {
                 alert('Please check the single WBS code.');
                 dpDetail.setValue(row, "wbs_6", '');
@@ -403,7 +453,7 @@ gvDetail.onCellEdited = function(grid, itemIndex, row, field) {
     }
 
     if (field == 13) {
-        gvDetail.commit();
+        //gvDetail.commit();
         var myVendor = dpDetail.getValue(row, "vendor");
         c.data.validate_vendor = true;
         c.data.myVendor = myVendor;
@@ -419,6 +469,7 @@ gvDetail.onCellEdited = function(grid, itemIndex, row, field) {
         });
     }
 };
+			*/
 
 gvDetail.pasteOptions.eventEachRow = true;
 
@@ -458,6 +509,7 @@ gvDetail.onEditRowPasted = function(grid, itemIndex, row, fields, oldValues, new
                         if (item.sys_id == '') {
                             alert('Please check the WBS6 code.');
                             dpDetail.setValue(item.row, "wbs_6", '');
+                            dpDetail.setValue(item.row, "wbs_6_sys_id", '');
                         } else {
                             dpDetail.setValue(item.row, "wbs_6_sys_id", item.sys_id);
                         }
@@ -478,6 +530,7 @@ gvDetail.onEditRowPasted = function(grid, itemIndex, row, fields, oldValues, new
                         if (item.sys_id == '') {
                             alert('Please check the vendor code ');
                             dpDetail.setValue(item.row, "vendor", '');
+                            dpDetail.setValue(item.row, "vendor_sys_id", '');
                         } else {
                             dpDetail.setValue(item.row, "vendor_sys_id", item.sys_id);
                         }
@@ -698,7 +751,58 @@ gvDetail.onEditRowPasted = function(grid, itemIndex, row, fields, oldValues, new
         //console.log("$scope.serviceCall: "+$scope.serviceCall);
     });
 
+    $scope.clickVendorModalSearch = function() {
+        modalVendor.style.display = 'block';
+        c.data.modalVendor = true;
+        c.data.modalQuery = 'name' + 'LIKE' + c.data.searchQuery;
 
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+        });
+    }
+    
+    $scope.clickVendor = function(item) {
+        var rowIdx = gvDetail.getCurrent().dataRow;
+        dpDetail.setValue(rowIdx, 'vendor', item.name);
+        dpDetail.setValue(rowIdx, 'vendor_sys_id', item.sysid);
+        
+        modalVendor.style.display = 'none';
+        c.data.modalVendor = false;
+    }
+    
+    $scope.closeModalVendor = function() {
+        modalVendor.style.display = 'none';
+        c.data.modalVendor = false;
+    }
+    
+    
+
+    $scope.closeModalWbs = function() {
+        modalWbs.style.display = 'none';
+        c.data.modalWbs = false;
+    }
+    
+    $scope.clickWbsModalSearch = function() {
+        modalWbs.style.display = 'block';
+        c.data.modalWbs = true;
+        c.data.modalQuery = 'description' + 'LIKE' + c.data.searchQuery;
+
+        c.server.update().then(function(response) {
+            console.log('Server response:', response);
+        });
+    }
+    
+    
+    $scope.clickWbs = function(item) {
+        var rowIdx = gvDetail.getCurrent().dataRow;
+        dpDetail.setValue(rowIdx, 'wbs_6', item.code);
+        dpDetail.setValue(rowIdx, 'wbs_6_sys_id', item.sysid);
+        
+        modalWbs.style.display = 'none';
+        c.data.modalWbs = false;
+    }
+    
+    
 
 };]]></client_script>
         <controller_as>c</controller_as>
@@ -1120,7 +1224,135 @@ a {text-decoration: none;}
 
 .yoko-project-title-input {
     width: 300px; /* 원하는 길이로 설정 */
-}</css>
+}
+
+
+ .modal-dialog{
+     border: #ddd 1px solid !important;
+     position: fixed;
+     top: 50%; /* Adjust the vertical position */
+     left: 50%; /* Adjust the horizontal position */
+     transform: translate(-50%, -50%);
+     width: 80%;
+     min-width: 500px;
+     max-width: 600px;
+     padding: 20px;
+     background-color: white;
+     border-radius: 2px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+ .modal-form-content {
+     position: relative;
+     width: 100%;
+     height: 100%;
+}
+ .modal-search-form {
+     display: flex;
+     gap: 320px;
+     padding: 10px 10px;
+     max-width: 1600px;
+     background-color: #F7F7F7;
+     border: 1px #EDEDED;
+     border-radius: 4px;
+     margin-bottom: 10px;
+}
+ .modal-close-button {
+     position: absolute;
+     top: 1px;
+     right: 1px;
+     background: transparent;
+     border: none;
+     font-size: 25px;
+     cursor: pointer;
+}
+ .modal-form-inline {
+     display: flex;
+     align-items: left;
+}
+ .modal-label {
+     font-size: 15px !important;
+     font-weight: bold !important;
+     width: 100px !important;
+     min-width: 50px !important;
+     margin-right: 50px;
+     text-align: left;
+     color: #4B5E70;
+     font-family: 'Pretendard';
+     font-size: 13px;
+     font-style: normal;
+     font-weight: 500;
+     line-height: normal;
+}
+ .modal-select {
+     font-family: "Pretendard";
+     font-size: 13px;
+     padding: 6px 10px 5px 10px;
+     max-height: 28px;
+     width: calc(100%);
+     border-radius: 4px;
+     border: 1px solid #E1E8F0;
+     color: #7A8692;
+     margin-right: 10px;
+     max-width: 150px !important;
+     min-width: 150px !important;
+     -moz-appearance:none;
+     -webkit-appearance:none;
+     appearance:none;
+     background-image: url(icon_arrow_down.png);
+     background-repeat: no-repeat;
+     background-position-x: 100%;
+     background-position-y: 1px;
+     line-height: 15px;
+     padding: 6px 30px 5px 10px;
+}
+ .yoko-wid204 {
+     font-family: "Pretendard";
+     font-size: 13px;
+     padding: 6px 10px 5px 10px;
+     max-height: 28px;
+     border-radius: 4px;
+     border: 1px solid #E1E8F0;
+     color: #7A8692;
+     margin-right: 10px;
+     min-width: 150px !important;     
+     max-width: 150px !important;
+}
+ .yoko-table-container {
+     border: #ddd 1px solid !important;
+     min-height: 200px;
+     max-height: 400px;
+     overflow-y: auto;
+     overflow-x: hidden;
+}
+ .yoko-search-table {
+     width: 100%;
+     border-collapse: collapse;
+}
+ .yoko-search-table tr th {
+     color: #4B5E70;
+     padding: 3px;
+     text-align: center;
+     background-color: #f2f2f2;
+}
+ .yoko-search-table tr td {
+     padding: 3px;
+     text-align: left;
+     border-bottom: 1px solid #ddd;
+}
+
+#clicktd {
+     color: #1c88f4;
+     cursor: pointer;
+     text-align: left;
+}
+ #clicktd:hover {
+     font-weight: bold;
+     text-decoration: underline;
+}
+
+
+
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -1169,6 +1401,7 @@ a {text-decoration: none;}
             'sys_id': gr.sys_id.getDisplayValue(),
             'number': gr.number.getDisplayValue(),
             'wbs_6': gr.wbs_6.getDisplayValue(),
+            'wbs_6_sys_id': gr.wbs_6.sys_id.toString(),
             'ms_code': gr.ms_code.getDisplayValue(),
             'description': gr.description.getDisplayValue(),
             'quantity': gr.quantity.getDisplayValue(),
@@ -1179,6 +1412,7 @@ a {text-decoration: none;}
             'unit_mp': gr.unit_mp.getDisplayValue(),
             'mp_amount': gr.mp_amount.getDisplayValue(),
             'vendor': gr.vendor.getDisplayValue(),
+            'vendor_sys_id': gr.vendor.sys_id.toString(),
             'quotation': qSysId
         });
         data.gridDetailData = gridDetailData;
@@ -1469,7 +1703,36 @@ a {text-decoration: none;}
     }
 
 
+/* Vendor Modal */
+if(input && input.modalVendor) {
+    data.itemsVendor = [];
+    var grVendor = new GlideRecord('core_company');
+    grVendor.addEncodedQuery(input.modalQuery);
+    grVendor.query();
+    while(grVendor.next()) {
+            data.itemsVendor.push({
+                name : grVendor.name.toString(),
+                desc : grVendor.country.toString(),
+                sysid : grVendor.sys_id.toString()
+            });
+    }
+}
 
+/* WBS Modal */
+if(input && input.modalWbs) {
+    data.itemsWbs = [];
+    var grWbs = new GlideRecord('x_yergb_bpm_wbs_master');
+    grWbs.addEncodedQuery(input.modalQuery);
+    console.log('SERV WBS MODAL:' + input.modalQuery);
+    grWbs.query();
+    while(grWbs.next()) {
+            data.itemsWbs.push({
+                desc : grWbs.description.toString(),
+                code : grWbs.code.toString(),
+                sysid : grWbs.sys_id.toString()
+            });
+    }
+}
 
 })();]]></script>
         <servicenow>false</servicenow>
@@ -1477,14 +1740,14 @@ a {text-decoration: none;}
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 04:53:32</sys_created_on>
         <sys_id>38973e74934702104d95f55a7bba1056</sys_id>
-        <sys_mod_count>309</sys_mod_count>
+        <sys_mod_count>336</sys_mod_count>
         <sys_name>quotationWd</sys_name>
         <sys_package display_value="BPM" source="x_yergb_bpm">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_package>
         <sys_policy/>
         <sys_scope display_value="BPM">41c8a9e73b1e4a10ec3cbf2a85e45ab7</sys_scope>
         <sys_update_name>sp_widget_38973e74934702104d95f55a7bba1056</sys_update_name>
         <sys_updated_by>lhyunseok</sys_updated_by>
-        <sys_updated_on>2024-07-01 05:02:49</sys_updated_on>
+        <sys_updated_on>2024-07-01 10:06:00</sys_updated_on>
         <template><![CDATA[<link id="style-link" href="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid-style.css" rel="stylesheet" />
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/flowmt/sample/dist/realgrid.2.7.2.min.js"> </script>
 <script defer>
@@ -1576,7 +1839,7 @@ a {text-decoration: none;}
                         </div>
                         <div class="yoko-form-group">
                             <label for="caution" class="yoko-short-135">Project Title</label>
-                            <input id="caution" name="caution" value={{data.project_title}}   disabled>
+                            <input type="text" name="project_title" value={{data.project_title}} placeholder="" disabled class="yoko-wid140 yoko-text-left">
                         </div>
                     </div>
 
@@ -1636,6 +1899,86 @@ a {text-decoration: none;}
         <div class="out" id='gridContainer' style="width:100%; height: 200px;"></div>
 
     </div>
+
+    <!-- Modal Vendor Structure -->
+    <dialog class="modal-dialog" id="modalVendor">
+        <div class="modal-form-content">
+            <div class="modal-search-form">
+                <button class="modal-close-button" ng-click="closeModalVendor()">×</button>
+                <div class="modal-form-inline">
+                    <label class="modal-label" >Vendor</label>
+                    <!--<select class="modal-select">
+                    <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                    </select>-->
+                    <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204"
+                           ng-keypress="onModalKeyPressed($event, 'Vendor')">
+                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickVendorModalSearch()"></button>
+                </div>
+           </div>
+        </div>
+        <div class="yoko-table-container">
+            <table class="yoko-search-table">
+                <colgroup>
+                  <col style="width: 137px">
+                  <col style="width: 51px">
+                  <col style="width: auto">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th ng-repeat="item in c.data.modalVendorHeader">{{ item.fieldLabel }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="item in c.data.itemsVendor">
+                    <td id="clicktd" ng-click="clickVendor(item)">{{ item.name }}</td>
+                    <td>{{ item.country }}</td>
+                    <td style="display: none;">{{ item.sysid }}</td>
+                  </tr>
+                </tbody>
+            </table>   
+        </div>
+      </dialog>
+    
+        <!-- Modal WBS Structure -->
+        <dialog class="modal-dialog" id="modalWbs">
+        <div class="modal-form-content">
+            <div class="modal-search-form">
+                <button class="modal-close-button" ng-click="closeModalWbs()">×</button>
+                <div class="modal-form-inline">
+                    <label class="modal-label" >WBS 6</label>
+                    <!--<select class="modal-select">
+                    <option ng-repeat="item in c.data.modalItems" value ="{{ item.value }}">{{item.text }}</option>
+                    </select>-->
+                    <input type="text" name="" ng-model="c.data.searchQuery" placeholder="" class="yoko-wid204" 
+                           ng-keypress="onModalKeyPressed($event, 'WBS')">
+                    <button type="button" class="yoko-btn yoko-btn-search" ng-click="clickWbsModalSearch()"></button>
+                </div>
+           </div>
+        </div>
+        <div class="yoko-table-container">
+            <table class="yoko-search-table">
+                <colgroup>
+                  <col style="width: 137px">
+                  <col style="width: 51px">
+                  <col style="width: auto">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th ng-repeat="item in c.data.modalWbsHeader">{{ item.fieldLabel }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="item in c.data.itemsWbs">
+                    <td id="clicktd" ng-click="clickWbs(item)">{{ item.code }}</td>
+                    <td>{{ item.desc }}</td>
+                    <td style="display: none;">{{ item.sysid }}</td>
+                  </tr>
+                </tbody>
+            </table>   
+        </div>
+      </dialog>
+
+
 </div>]]></template>
     </sp_widget>
 </record_update>
